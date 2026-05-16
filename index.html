@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title id="pageTitle">免费在线工具箱 - PDF / TTS / 图片工具</title>
+
+<meta name="description" content="提供免费的在线PDF工具、文字转语音、图片处理、在线学习工具，支持手机与电脑。">
+
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --border:#1f2937;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --blue:#2563eb;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,"Noto Sans SC",sans-serif;
+  line-height:1.7;
+}
+
+a{text-decoration:none;color:inherit}
+
+header{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  background:#0f172af0;
+  backdrop-filter:blur(10px);
+  z-index:999;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+}
+
+.menu{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.menu a{
+  color:var(--muted);
+}
+
+.lang-select{
+  background:#111827;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px 10px;
+}
+
+.hero{
+  max-width:1200px;
+  margin:auto;
+  padding:80px 20px;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:52px;
+  font-weight:900;
+  margin-bottom:20px;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:20px;
+  max-width:800px;
+  margin:auto;
+}
+
+.hero-btn{
+  margin-top:35px;
+  display:inline-block;
+  background:var(--blue);
+  color:white;
+  padding:16px 34px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.section{
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.section-title{
+  font-size:36px;
+  margin-bottom:30px;
+  font-weight:900;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px;
+}
+
+.card h3{
+  margin-bottom:12px;
+  font-size:22px;
+}
+
+.card p{
+  color:var(--muted);
+}
+
+.ad-box{
+  margin:50px auto;
+  max-width:1200px;
+  height:120px;
+  border-radius:18px;
+  border:2px dashed #334155;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+  font-size:18px;
+}
+
+.faq{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.faq-item{
+  background:var(--card);
+  padding:25px;
+  border-radius:16px;
+  border:1px solid var(--border);
+}
+
+footer{
+  margin-top:80px;
+  border-top:1px solid var(--border);
+  padding:40px 20px;
+}
+
+.footer-wrap{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:20px;
+}
+
+.footer-links{
+  display:flex;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.footer-links a{
+  color:var(--muted);
+}
+
+.copy{
+  margin-top:25px;
+  text-align:center;
+  color:var(--muted);
+}
+
+@media(max-width:768px){
+  .nav{
+    flex-direction:column;
+  }
+
+  .hero h1{
+    font-size:36px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+  .section-title{
+    font-size:28px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">ToolBox</div>
+
+    <div class="menu">
+      <a href="#" data-i18n="navHome">首页</a>
+      <a href="#" data-i18n="navTools">工具</a>
+      <a href="about.html" data-i18n="navAbout">关于</a>
+      <a href="contact.html" data-i18n="navContact">联系</a>
+
+      <select class="lang-select" id="languageSelect">
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+      </select>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 data-i18n="heroTitle">免费在线工具箱</h1>
+
+  <p data-i18n="heroText">
+    提供免费的文字转语音、PDF处理、图片工具、在线学习工具，支持手机与电脑访问。
+  </p>
+
+  <a class="hero-btn" href="#" data-i18n="startBtn">开始使用</a>
+</section>
+
+<div class="ad-box" data-i18n="adText">
+  广告位（Google AdSense）
+</div>
+
+<section class="section">
+  <h2 class="section-title" data-i18n="popularTools">热门工具</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3 data-i18n="tool1Title">文字转语音</h3>
+      <p data-i18n="tool1Text">在线TTS语音合成工具，支持多语言与语速调节。</p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="tool2Title">PDF工具</h3>
+      <p data-i18n="tool2Text">支持PDF转图片、图片转PDF等功能。</p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="tool3Title">图片压缩</h3>
+      <p data-i18n="tool3Text">在线压缩图片，保持高清质量。</p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="tool4Title">在线考试</h3>
+      <p data-i18n="tool4Text">支持模拟考试、自动评分与错题复习。</p>
+    </div>
+  </div>
+</section>
+
+<div class="ad-box" data-i18n="adBanner">
+  横幅广告位
+</div>
+
+<section class="section">
+  <h2 class="section-title" data-i18n="aboutTitle">关于本站</h2>
+
+  <p style="color:var(--muted);font-size:18px;" data-i18n="aboutText">
+    本站专注于提供免费的在线工具与学习资源，包括文字转语音、PDF工具、图片处理、在线学习与模拟考试系统。
+  </p>
+</section>
+
+<section class="section">
+  <h2 class="section-title" data-i18n="faqTitle">常见问题 FAQ</h2>
+
+  <div class="faq">
+    <div class="faq-item">
+      <h4 data-i18n="faq1Q">是否免费？</h4>
+      <p data-i18n="faq1A">本站工具目前全部免费使用。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4 data-i18n="faq2Q">支持手机吗？</h4>
+      <p data-i18n="faq2A">支持 Android 与 iPhone 浏览器。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4 data-i18n="faq3Q">需要安装软件吗？</h4>
+      <p data-i18n="faq3A">无需安装，在线即可使用。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-wrap">
+    <div>
+      <h3>ToolBox</h3>
+      <p style="color:var(--muted);margin-top:10px;" data-i18n="footerDesc">
+        免费在线工具与学习平台
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <div class="copy">
+    © 2026 ToolBox. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+const translations = {
+  zh: {
+    title:"免费在线工具箱 - PDF / TTS / 图片工具",
+    navHome:"首页",
+    navTools:"工具",
+    navAbout:"关于",
+    navContact:"联系",
+    heroTitle:"免费在线工具箱",
+    heroText:"提供免费的文字转语音、PDF处理、图片工具、在线学习工具，支持手机与电脑访问。",
+    startBtn:"开始使用",
+    adText:"广告位（Google AdSense）",
+    popularTools:"热门工具",
+    tool1Title:"文字转语音",
+    tool1Text:"在线TTS语音合成工具，支持多语言与语速调节。",
+    tool2Title:"PDF工具",
+    tool2Text:"支持PDF转图片、图片转PDF等功能。",
+    tool3Title:"图片压缩",
+    tool3Text:"在线压缩图片，保持高清质量。",
+    tool4Title:"在线考试",
+    tool4Text:"支持模拟考试、自动评分与错题复习。",
+    adBanner:"横幅广告位",
+    aboutTitle:"关于本站",
+    aboutText:"本站专注于提供免费的在线工具与学习资源，包括文字转语音、PDF工具、图片处理、在线学习与模拟考试系统。",
+    faqTitle:"常见问题 FAQ",
+    faq1Q:"是否免费？",
+    faq1A:"本站工具目前全部免费使用。",
+    faq2Q:"支持手机吗？",
+    faq2A:"支持 Android 与 iPhone 浏览器。",
+    faq3Q:"需要安装软件吗？",
+    faq3A:"无需安装，在线即可使用。",
+    footerDesc:"免费在线工具与学习平台"
+  },
+
+  ja: {
+    title:"無料オンラインツール - PDF / TTS / 画像ツール",
+    navHome:"ホーム",
+    navTools:"ツール",
+    navAbout:"サイトについて",
+    navContact:"お問い合わせ",
+    heroTitle:"無料オンラインツール",
+    heroText:"文字読み上げ、PDF処理、画像ツール、学習ツールを無料で提供しています。スマホとPCに対応しています。",
+    startBtn:"今すぐ使う",
+    adText:"広告スペース（Google AdSense）",
+    popularTools:"人気ツール",
+    tool1Title:"文字読み上げ",
+    tool1Text:"多言語と読み上げ速度調整に対応したTTSツールです。",
+    tool2Title:"PDFツール",
+    tool2Text:"PDFから画像、画像からPDFへの変換に対応しています。",
+    tool3Title:"画像圧縮",
+    tool3Text:"画質を保ちながら画像をオンラインで圧縮できます。",
+    tool4Title:"オンライン試験",
+    tool4Text:"模擬試験、自動採点、間違い復習に対応しています。",
+    adBanner:"バナー広告スペース",
+    aboutTitle:"サイトについて",
+    aboutText:"当サイトは、文字読み上げ、PDFツール、画像処理、オンライン学習、模擬試験などの無料ツールを提供しています。",
+    faqTitle:"よくある質問 FAQ",
+    faq1Q:"無料で使えますか？",
+    faq1A:"現在、すべてのツールを無料で利用できます。",
+    faq2Q:"スマホに対応していますか？",
+    faq2A:"Android と iPhone のブラウザに対応しています。",
+    faq3Q:"ソフトのインストールは必要ですか？",
+    faq3A:"不要です。ブラウザでそのまま利用できます。",
+    footerDesc:"無料オンラインツールと学習プラットフォーム"
+  },
+
+  en: {
+    title:"Free Online Tools - PDF / TTS / Image Tools",
+    navHome:"Home",
+    navTools:"Tools",
+    navAbout:"About",
+    navContact:"Contact",
+    heroTitle:"Free Online Tools",
+    heroText:"Free text-to-speech, PDF tools, image tools, and learning tools for mobile and desktop users.",
+    startBtn:"Get Started",
+    adText:"Ad Space（Google AdSense）",
+    popularTools:"Popular Tools",
+    tool1Title:"Text to Speech",
+    tool1Text:"Online TTS tool with multilingual support and speed control.",
+    tool2Title:"PDF Tools",
+    tool2Text:"Convert PDF to images and images to PDF.",
+    tool3Title:"Image Compression",
+    tool3Text:"Compress images online while keeping good quality.",
+    tool4Title:"Online Exam",
+    tool4Text:"Practice tests with auto scoring and mistake review.",
+    adBanner:"Banner Ad Space",
+    aboutTitle:"About This Site",
+    aboutText:"This website provides free online tools and learning resources, including text-to-speech, PDF tools, image processing, and online exam systems.",
+    faqTitle:"FAQ",
+    faq1Q:"Is it free?",
+    faq1A:"All tools are currently free to use.",
+    faq2Q:"Does it support mobile?",
+    faq2A:"Yes, it supports Android and iPhone browsers.",
+    faq3Q:"Do I need to install software?",
+    faq3A:"No installation is required. You can use it directly in your browser.",
+    footerDesc:"Free online tools and learning platform"
+  },
+
+  vi: {
+    title:"Công cụ trực tuyến miễn phí - PDF / TTS / Hình ảnh",
+    navHome:"Trang chủ",
+    navTools:"Công cụ",
+    navAbout:"Giới thiệu",
+    navContact:"Liên hệ",
+    heroTitle:"Công cụ trực tuyến miễn phí",
+    heroText:"Cung cấp công cụ đọc văn bản, xử lý PDF, công cụ hình ảnh và học tập trực tuyến miễn phí, hỗ trợ điện thoại và máy tính.",
+    startBtn:"Bắt đầu sử dụng",
+    adText:"Vị trí quảng cáo（Google AdSense）",
+    popularTools:"Công cụ phổ biến",
+    tool1Title:"Chuyển văn bản thành giọng nói",
+    tool1Text:"Công cụ TTS trực tuyến, hỗ trợ nhiều ngôn ngữ và điều chỉnh tốc độ.",
+    tool2Title:"Công cụ PDF",
+    tool2Text:"Hỗ trợ chuyển PDF sang ảnh và ảnh sang PDF.",
+    tool3Title:"Nén ảnh",
+    tool3Text:"Nén ảnh trực tuyến nhưng vẫn giữ chất lượng tốt.",
+    tool4Title:"Thi trực tuyến",
+    tool4Text:"Hỗ trợ thi thử, chấm điểm tự động và ôn tập lỗi sai.",
+    adBanner:"Vị trí quảng cáo banner",
+    aboutTitle:"Giới thiệu trang web",
+    aboutText:"Trang web cung cấp các công cụ trực tuyến và tài nguyên học tập miễn phí như TTS, công cụ PDF, xử lý ảnh và hệ thống thi thử.",
+    faqTitle:"Câu hỏi thường gặp FAQ",
+    faq1Q:"Có miễn phí không?",
+    faq1A:"Hiện tại tất cả công cụ đều miễn phí.",
+    faq2Q:"Có hỗ trợ điện thoại không?",
+    faq2A:"Có, hỗ trợ trình duyệt Android và iPhone.",
+    faq3Q:"Có cần cài đặt phần mềm không?",
+    faq3A:"Không cần cài đặt, có thể dùng trực tiếp trên trình duyệt.",
+    footerDesc:"Nền tảng công cụ trực tuyến và học tập miễn phí"
+  }
+};
+
+const languageSelect = document.getElementById("languageSelect");
+
+function setLanguage(lang){
+  const data = translations[lang];
+
+  document.documentElement.lang = lang;
+  document.title = data.title;
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(data[key]){
+      el.textContent = data[key];
+    }
+  });
+
+  localStorage.setItem("siteLanguage", lang);
+}
+
+languageSelect.addEventListener("change", function(){
+  setLanguage(this.value);
+});
+
+const savedLang = localStorage.getItem("siteLanguage") || "zh";
+languageSelect.value = savedLang;
+setLanguage(savedLang);
+</script>
+
+</body>
+</html>
