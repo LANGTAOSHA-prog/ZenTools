@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title id="pageTitle">免费在线工具箱 - PDF / TTS / 图片工具</title>
+<title>ZenTools - Free Online Tools</title>
 
-<meta name="description" content="提供免费的在线PDF工具、文字转语音、图片处理、在线学习工具，支持手机与电脑。">
+<meta name="description" content="ZenTools 提供免费的在线工具，包括 PDF 工具、文字转语音、图片处理、在线学习工具等，支持手机与电脑。">
+<meta name="keywords" content="ZenTools,在线工具,PDF工具,TTS,文字转语音,图片处理,在线考试,免费工具">
 
 <style>
 :root{
@@ -16,19 +17,16 @@
   --text:#f3f4f6;
   --muted:#9ca3af;
   --blue:#2563eb;
+  --green:#10b981;
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
-
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:Arial,"Noto Sans SC",sans-serif;
+  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
   line-height:1.7;
 }
-
 a{text-decoration:none;color:inherit}
-
 header{
   padding:18px 20px;
   border-bottom:1px solid var(--border);
@@ -38,7 +36,6 @@ header{
   backdrop-filter:blur(10px);
   z-index:999;
 }
-
 .nav{
   max-width:1200px;
   margin:auto;
@@ -47,23 +44,21 @@ header{
   align-items:center;
   gap:15px;
 }
-
 .logo{
   font-size:24px;
   font-weight:900;
 }
-
 .menu{
   display:flex;
   gap:18px;
   align-items:center;
   flex-wrap:wrap;
 }
-
 .menu a{
   color:var(--muted);
+  transition:.3s;
 }
-
+.menu a:hover{color:white}
 .lang-select{
   background:#111827;
   color:white;
@@ -71,27 +66,23 @@ header{
   border-radius:8px;
   padding:8px 10px;
 }
-
 .hero{
   max-width:1200px;
   margin:auto;
   padding:80px 20px;
   text-align:center;
 }
-
 .hero h1{
   font-size:52px;
   font-weight:900;
   margin-bottom:20px;
 }
-
 .hero p{
   color:var(--muted);
   font-size:20px;
-  max-width:800px;
+  max-width:850px;
   margin:auto;
 }
-
 .hero-btn{
   margin-top:35px;
   display:inline-block;
@@ -100,42 +91,45 @@ header{
   padding:16px 34px;
   border-radius:12px;
   font-weight:700;
+  transition:.3s;
 }
-
+.hero-btn:hover{
+  background:#1d4ed8;
+  transform:translateY(-2px);
+}
 .section{
   max-width:1200px;
   margin:auto;
   padding:60px 20px;
 }
-
 .section-title{
   font-size:36px;
   margin-bottom:30px;
   font-weight:900;
 }
-
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
   gap:20px;
 }
-
 .card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:18px;
   padding:25px;
+  transition:.3s;
 }
-
+.card:hover{
+  transform:translateY(-5px);
+  border-color:var(--blue);
+}
 .card h3{
   margin-bottom:12px;
   font-size:22px;
 }
-
 .card p{
   color:var(--muted);
 }
-
 .ad-box{
   margin:50px auto;
   max-width:1200px;
@@ -148,26 +142,28 @@ header{
   color:#64748b;
   font-size:18px;
 }
-
+.about-text{
+  color:var(--muted);
+  font-size:18px;
+}
 .faq{
   display:flex;
   flex-direction:column;
   gap:20px;
 }
-
 .faq-item{
   background:var(--card);
   padding:25px;
   border-radius:16px;
   border:1px solid var(--border);
 }
-
+.faq-item h4{margin-bottom:10px}
+.faq-item p{color:var(--muted)}
 footer{
   margin-top:80px;
   border-top:1px solid var(--border);
   padding:40px 20px;
 }
-
 .footer-wrap{
   max-width:1200px;
   margin:auto;
@@ -176,39 +172,26 @@ footer{
   justify-content:space-between;
   gap:20px;
 }
-
 .footer-links{
   display:flex;
   gap:20px;
   flex-wrap:wrap;
 }
-
 .footer-links a{
   color:var(--muted);
 }
-
+.footer-links a:hover{color:white}
 .copy{
   margin-top:25px;
   text-align:center;
   color:var(--muted);
 }
-
 @media(max-width:768px){
-  .nav{
-    flex-direction:column;
-  }
-
-  .hero h1{
-    font-size:36px;
-  }
-
-  .hero p{
-    font-size:16px;
-  }
-
-  .section-title{
-    font-size:28px;
-  }
+  .nav{flex-direction:column}
+  .hero{padding:60px 20px}
+  .hero h1{font-size:36px}
+  .hero p{font-size:16px}
+  .section-title{font-size:28px}
 }
 </style>
 </head>
@@ -217,11 +200,11 @@ footer{
 
 <header>
   <div class="nav">
-    <div class="logo">ToolBox</div>
+    <div class="logo">ZenTools</div>
 
     <div class="menu">
-      <a href="#" data-i18n="navHome">首页</a>
-      <a href="#" data-i18n="navTools">工具</a>
+      <a href="index.html" data-i18n="navHome">首页</a>
+      <a href="#tools" data-i18n="navTools">工具</a>
       <a href="about.html" data-i18n="navAbout">关于</a>
       <a href="contact.html" data-i18n="navContact">联系</a>
 
@@ -236,20 +219,20 @@ footer{
 </header>
 
 <section class="hero">
-  <h1 data-i18n="heroTitle">免费在线工具箱</h1>
+  <h1 data-i18n="heroTitle">ZenTools 免费在线工具箱</h1>
 
   <p data-i18n="heroText">
-    提供免费的文字转语音、PDF处理、图片工具、在线学习工具，支持手机与电脑访问。
+    ZenTools 提供免费的文字转语音、PDF处理、图片工具、在线学习工具，支持手机与电脑访问。
   </p>
 
-  <a class="hero-btn" href="#" data-i18n="startBtn">开始使用</a>
+  <a class="hero-btn" href="#tools" data-i18n="startBtn">开始使用</a>
 </section>
 
 <div class="ad-box" data-i18n="adText">
   广告位（Google AdSense）
 </div>
 
-<section class="section">
+<section class="section" id="tools">
   <h2 class="section-title" data-i18n="popularTools">热门工具</h2>
 
   <div class="grid">
@@ -280,11 +263,32 @@ footer{
 </div>
 
 <section class="section">
-  <h2 class="section-title" data-i18n="aboutTitle">关于本站</h2>
+  <h2 class="section-title" data-i18n="aboutTitle">关于 ZenTools</h2>
 
-  <p style="color:var(--muted);font-size:18px;" data-i18n="aboutText">
-    本站专注于提供免费的在线工具与学习资源，包括文字转语音、PDF工具、图片处理、在线学习与模拟考试系统。
+  <p class="about-text" data-i18n="aboutText">
+    ZenTools 专注于提供免费的在线工具与学习资源，包括文字转语音、PDF工具、图片处理、在线学习与模拟考试系统。我们希望让用户无需安装软件，也能快速完成日常工作、学习和文件处理任务。
   </p>
+</section>
+
+<section class="section">
+  <h2 class="section-title" data-i18n="whyTitle">为什么选择 ZenTools？</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3 data-i18n="why1Title">免费使用</h3>
+      <p data-i18n="why1Text">大部分工具可以直接免费使用，无需复杂设置。</p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="why2Title">手机友好</h3>
+      <p data-i18n="why2Text">页面适配手机、平板和电脑，随时随地都能使用。</p>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="why3Title">多语言支持</h3>
+      <p data-i18n="why3Text">支持中文、日语、英语和越南语，适合不同用户使用。</p>
+    </div>
+  </div>
 </section>
 
 <section class="section">
@@ -293,7 +297,7 @@ footer{
   <div class="faq">
     <div class="faq-item">
       <h4 data-i18n="faq1Q">是否免费？</h4>
-      <p data-i18n="faq1A">本站工具目前全部免费使用。</p>
+      <p data-i18n="faq1A">ZenTools 的工具目前全部免费使用。</p>
     </div>
 
     <div class="faq-item">
@@ -303,7 +307,12 @@ footer{
 
     <div class="faq-item">
       <h4 data-i18n="faq3Q">需要安装软件吗？</h4>
-      <p data-i18n="faq3A">无需安装，在线即可使用。</p>
+      <p data-i18n="faq3A">无需安装，打开网页即可使用。</p>
+    </div>
+
+    <div class="faq-item">
+      <h4 data-i18n="faq4Q">以后会增加更多工具吗？</h4>
+      <p data-i18n="faq4A">会。ZenTools 将继续增加 PDF、图片、语音、学习类工具。</p>
     </div>
   </div>
 </section>
@@ -311,7 +320,7 @@ footer{
 <footer>
   <div class="footer-wrap">
     <div>
-      <h3>ToolBox</h3>
+      <h3>ZenTools</h3>
       <p style="color:var(--muted);margin-top:10px;" data-i18n="footerDesc">
         免费在线工具与学习平台
       </p>
@@ -326,20 +335,20 @@ footer{
   </div>
 
   <div class="copy">
-    © 2026 ToolBox. All Rights Reserved.
+    © 2026 ZenTools. All Rights Reserved.
   </div>
 </footer>
 
 <script>
 const translations = {
   zh: {
-    title:"免费在线工具箱 - PDF / TTS / 图片工具",
+    title:"ZenTools - 免费在线工具箱",
     navHome:"首页",
     navTools:"工具",
     navAbout:"关于",
     navContact:"联系",
-    heroTitle:"免费在线工具箱",
-    heroText:"提供免费的文字转语音、PDF处理、图片工具、在线学习工具，支持手机与电脑访问。",
+    heroTitle:"ZenTools 免费在线工具箱",
+    heroText:"ZenTools 提供免费的文字转语音、PDF处理、图片工具、在线学习工具，支持手机与电脑访问。",
     startBtn:"开始使用",
     adText:"广告位（Google AdSense）",
     popularTools:"热门工具",
@@ -352,26 +361,35 @@ const translations = {
     tool4Title:"在线考试",
     tool4Text:"支持模拟考试、自动评分与错题复习。",
     adBanner:"横幅广告位",
-    aboutTitle:"关于本站",
-    aboutText:"本站专注于提供免费的在线工具与学习资源，包括文字转语音、PDF工具、图片处理、在线学习与模拟考试系统。",
+    aboutTitle:"关于 ZenTools",
+    aboutText:"ZenTools 专注于提供免费的在线工具与学习资源，包括文字转语音、PDF工具、图片处理、在线学习与模拟考试系统。我们希望让用户无需安装软件，也能快速完成日常工作、学习和文件处理任务。",
+    whyTitle:"为什么选择 ZenTools？",
+    why1Title:"免费使用",
+    why1Text:"大部分工具可以直接免费使用，无需复杂设置。",
+    why2Title:"手机友好",
+    why2Text:"页面适配手机、平板和电脑，随时随地都能使用。",
+    why3Title:"多语言支持",
+    why3Text:"支持中文、日语、英语和越南语，适合不同用户使用。",
     faqTitle:"常见问题 FAQ",
     faq1Q:"是否免费？",
-    faq1A:"本站工具目前全部免费使用。",
+    faq1A:"ZenTools 的工具目前全部免费使用。",
     faq2Q:"支持手机吗？",
     faq2A:"支持 Android 与 iPhone 浏览器。",
     faq3Q:"需要安装软件吗？",
-    faq3A:"无需安装，在线即可使用。",
+    faq3A:"无需安装，打开网页即可使用。",
+    faq4Q:"以后会增加更多工具吗？",
+    faq4A:"会。ZenTools 将继续增加 PDF、图片、语音、学习类工具。",
     footerDesc:"免费在线工具与学习平台"
   },
 
   ja: {
-    title:"無料オンラインツール - PDF / TTS / 画像ツール",
+    title:"ZenTools - 無料オンラインツール",
     navHome:"ホーム",
     navTools:"ツール",
     navAbout:"サイトについて",
     navContact:"お問い合わせ",
-    heroTitle:"無料オンラインツール",
-    heroText:"文字読み上げ、PDF処理、画像ツール、学習ツールを無料で提供しています。スマホとPCに対応しています。",
+    heroTitle:"ZenTools 無料オンラインツール",
+    heroText:"ZenTools は、文字読み上げ、PDF処理、画像ツール、学習ツールを無料で提供しています。スマホとPCに対応しています。",
     startBtn:"今すぐ使う",
     adText:"広告スペース（Google AdSense）",
     popularTools:"人気ツール",
@@ -384,26 +402,35 @@ const translations = {
     tool4Title:"オンライン試験",
     tool4Text:"模擬試験、自動採点、間違い復習に対応しています。",
     adBanner:"バナー広告スペース",
-    aboutTitle:"サイトについて",
-    aboutText:"当サイトは、文字読み上げ、PDFツール、画像処理、オンライン学習、模擬試験などの無料ツールを提供しています。",
+    aboutTitle:"ZenTools について",
+    aboutText:"ZenTools は、文字読み上げ、PDFツール、画像処理、オンライン学習、模擬試験などの無料ツールを提供しています。ソフトをインストールせず、ブラウザだけで簡単に利用できます。",
+    whyTitle:"ZenTools を選ぶ理由",
+    why1Title:"無料で利用可能",
+    why1Text:"多くのツールを無料で利用でき、複雑な設定は不要です。",
+    why2Title:"スマホ対応",
+    why2Text:"スマートフォン、タブレット、PCに対応しています。",
+    why3Title:"多言語対応",
+    why3Text:"中国語、日本語、英語、ベトナム語に対応しています。",
     faqTitle:"よくある質問 FAQ",
     faq1Q:"無料で使えますか？",
-    faq1A:"現在、すべてのツールを無料で利用できます。",
+    faq1A:"現在、ZenTools のツールは無料で利用できます。",
     faq2Q:"スマホに対応していますか？",
     faq2A:"Android と iPhone のブラウザに対応しています。",
     faq3Q:"ソフトのインストールは必要ですか？",
     faq3A:"不要です。ブラウザでそのまま利用できます。",
+    faq4Q:"今後ツールは増えますか？",
+    faq4A:"はい。PDF、画像、音声、学習系ツールを追加予定です。",
     footerDesc:"無料オンラインツールと学習プラットフォーム"
   },
 
   en: {
-    title:"Free Online Tools - PDF / TTS / Image Tools",
+    title:"ZenTools - Free Online Tools",
     navHome:"Home",
     navTools:"Tools",
     navAbout:"About",
     navContact:"Contact",
-    heroTitle:"Free Online Tools",
-    heroText:"Free text-to-speech, PDF tools, image tools, and learning tools for mobile and desktop users.",
+    heroTitle:"ZenTools Free Online Tools",
+    heroText:"ZenTools provides free text-to-speech, PDF tools, image tools, and learning tools for mobile and desktop users.",
     startBtn:"Get Started",
     adText:"Ad Space（Google AdSense）",
     popularTools:"Popular Tools",
@@ -416,26 +443,35 @@ const translations = {
     tool4Title:"Online Exam",
     tool4Text:"Practice tests with auto scoring and mistake review.",
     adBanner:"Banner Ad Space",
-    aboutTitle:"About This Site",
-    aboutText:"This website provides free online tools and learning resources, including text-to-speech, PDF tools, image processing, and online exam systems.",
+    aboutTitle:"About ZenTools",
+    aboutText:"ZenTools provides free online tools and learning resources, including text-to-speech, PDF tools, image processing, online learning, and practice exam systems. Our goal is to help users complete daily tasks directly in the browser without installing software.",
+    whyTitle:"Why Choose ZenTools?",
+    why1Title:"Free to Use",
+    why1Text:"Most tools are free to use without complicated setup.",
+    why2Title:"Mobile Friendly",
+    why2Text:"The website works on phones, tablets, and desktop computers.",
+    why3Title:"Multilingual Support",
+    why3Text:"Supports Chinese, Japanese, English, and Vietnamese.",
     faqTitle:"FAQ",
     faq1Q:"Is it free?",
-    faq1A:"All tools are currently free to use.",
+    faq1A:"ZenTools tools are currently free to use.",
     faq2Q:"Does it support mobile?",
     faq2A:"Yes, it supports Android and iPhone browsers.",
     faq3Q:"Do I need to install software?",
     faq3A:"No installation is required. You can use it directly in your browser.",
+    faq4Q:"Will more tools be added?",
+    faq4A:"Yes. ZenTools will continue adding PDF, image, audio, and learning tools.",
     footerDesc:"Free online tools and learning platform"
   },
 
   vi: {
-    title:"Công cụ trực tuyến miễn phí - PDF / TTS / Hình ảnh",
+    title:"ZenTools - Công cụ trực tuyến miễn phí",
     navHome:"Trang chủ",
     navTools:"Công cụ",
     navAbout:"Giới thiệu",
     navContact:"Liên hệ",
-    heroTitle:"Công cụ trực tuyến miễn phí",
-    heroText:"Cung cấp công cụ đọc văn bản, xử lý PDF, công cụ hình ảnh và học tập trực tuyến miễn phí, hỗ trợ điện thoại và máy tính.",
+    heroTitle:"ZenTools Công cụ trực tuyến miễn phí",
+    heroText:"ZenTools cung cấp công cụ đọc văn bản, xử lý PDF, công cụ hình ảnh và học tập trực tuyến miễn phí, hỗ trợ điện thoại và máy tính.",
     startBtn:"Bắt đầu sử dụng",
     adText:"Vị trí quảng cáo（Google AdSense）",
     popularTools:"Công cụ phổ biến",
@@ -448,15 +484,24 @@ const translations = {
     tool4Title:"Thi trực tuyến",
     tool4Text:"Hỗ trợ thi thử, chấm điểm tự động và ôn tập lỗi sai.",
     adBanner:"Vị trí quảng cáo banner",
-    aboutTitle:"Giới thiệu trang web",
-    aboutText:"Trang web cung cấp các công cụ trực tuyến và tài nguyên học tập miễn phí như TTS, công cụ PDF, xử lý ảnh và hệ thống thi thử.",
+    aboutTitle:"Giới thiệu ZenTools",
+    aboutText:"ZenTools cung cấp các công cụ trực tuyến và tài nguyên học tập miễn phí như TTS, công cụ PDF, xử lý ảnh, học trực tuyến và hệ thống thi thử. Người dùng có thể sử dụng trực tiếp trên trình duyệt mà không cần cài đặt phần mềm.",
+    whyTitle:"Vì sao chọn ZenTools?",
+    why1Title:"Miễn phí sử dụng",
+    why1Text:"Hầu hết công cụ có thể sử dụng miễn phí và không cần cài đặt phức tạp.",
+    why2Title:"Thân thiện với điện thoại",
+    why2Text:"Trang web hỗ trợ điện thoại, máy tính bảng và máy tính.",
+    why3Title:"Hỗ trợ nhiều ngôn ngữ",
+    why3Text:"Hỗ trợ tiếng Trung, tiếng Nhật, tiếng Anh và tiếng Việt.",
     faqTitle:"Câu hỏi thường gặp FAQ",
     faq1Q:"Có miễn phí không?",
-    faq1A:"Hiện tại tất cả công cụ đều miễn phí.",
+    faq1A:"Hiện tại các công cụ của ZenTools đều miễn phí.",
     faq2Q:"Có hỗ trợ điện thoại không?",
     faq2A:"Có, hỗ trợ trình duyệt Android và iPhone.",
     faq3Q:"Có cần cài đặt phần mềm không?",
     faq3A:"Không cần cài đặt, có thể dùng trực tiếp trên trình duyệt.",
+    faq4Q:"Sau này có thêm công cụ không?",
+    faq4A:"Có. ZenTools sẽ tiếp tục thêm công cụ PDF, hình ảnh, âm thanh và học tập.",
     footerDesc:"Nền tảng công cụ trực tuyến và học tập miễn phí"
   }
 };
@@ -464,7 +509,7 @@ const translations = {
 const languageSelect = document.getElementById("languageSelect");
 
 function setLanguage(lang){
-  const data = translations[lang];
+  const data = translations[lang] || translations.zh;
 
   document.documentElement.lang = lang;
   document.title = data.title;
