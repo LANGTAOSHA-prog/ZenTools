@@ -9,7 +9,6 @@
 <meta name="description" content="ZenTools 免费在线图片压缩工具，支持 JPG、PNG、WEBP 图片压缩，支持手机与电脑。">
 
 <style>
-
 :root{
   --bg:#0f172a;
   --card:#111827;
@@ -49,6 +48,23 @@ body{
 a{
   color:#60a5fa;
   text-decoration:none;
+}
+
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+  flex-wrap:wrap;
+}
+
+.lang-select{
+  background:#0f172a;
+  color:white;
+  border:1px solid #334155;
+  border-radius:10px;
+  padding:10px 12px;
 }
 
 h1{
@@ -129,6 +145,7 @@ button:hover{
 
 .info p{
   color:#cbd5e1;
+  white-space:pre-line;
 }
 
 .download-btn{
@@ -147,6 +164,9 @@ footer{
 }
 
 @media(max-width:768px){
+  .container{
+    padding:25px 15px;
+  }
 
   h1{
     font-size:30px;
@@ -156,8 +176,10 @@ footer{
     width:100%;
   }
 
+  .lang-select{
+    width:100%;
+  }
 }
-
 </style>
 </head>
 
@@ -165,21 +187,26 @@ footer{
 
 <div class="container">
 
-  <p>
-    <a href="index.html">← Back to Home</a>
-  </p>
+  <div class="top-bar">
+    <a href="index.html" data-i18n="back">← 返回首页</a>
+
+    <select id="languageSelect" class="lang-select">
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+      <option value="vi">Tiếng Việt</option>
+    </select>
+  </div>
 
   <div class="card">
 
-    <h1>图片压缩工具</h1>
+    <h1 data-i18n="title">图片压缩工具</h1>
 
-    <p class="desc">
-      免费在线图片压缩工具。
-      支持 JPG、PNG、WEBP 图片压缩，
-      支持手机与电脑浏览器。
+    <p class="desc" data-i18n="desc">
+      免费在线图片压缩工具。支持 JPG、PNG、WEBP 图片压缩，支持手机与电脑浏览器。
     </p>
 
-    <div class="ad-box">
+    <div class="ad-box" data-i18n="ad">
       广告位（Google AdSense）
     </div>
 
@@ -188,9 +215,8 @@ footer{
       <input type="file" id="imageInput" accept="image/*">
 
       <div class="range-box">
-
         <p>
-          压缩质量：
+          <span data-i18n="quality">压缩质量：</span>
           <span id="qualityValue">0.7</span>
         </p>
 
@@ -202,10 +228,9 @@ footer{
           step="0.1"
           value="0.7"
         >
-
       </div>
 
-      <button onclick="compressImage()">
+      <button onclick="compressImage()" data-i18n="start">
         开始压缩
       </button>
 
@@ -215,21 +240,20 @@ footer{
 
     <div class="info">
 
-      <h2>使用说明</h2>
+      <h2 data-i18n="guideTitle">使用说明</h2>
 
-      <p>
-        1. 上传图片。<br>
-        2. 调节压缩质量。<br>
-        3. 点击“开始压缩”。<br>
-        4. 下载压缩后的图片。
-      </p>
+      <p data-i18n="guideText">1. 上传图片。
+2. 调节压缩质量。
+3. 点击开始压缩。
+4. 下载压缩后的图片。</p>
 
-      <h2>兼容性</h2>
+      <h2 data-i18n="compatTitle">兼容性</h2>
 
-      <p>
-        本工具支持 Chrome、Safari、Edge 等现代浏览器。
-        所有处理均在浏览器本地完成。
-      </p>
+      <p data-i18n="compatText">本工具支持 Chrome、Safari、Edge 等现代浏览器。所有处理均在浏览器本地完成。</p>
+
+      <h2 data-i18n="privacyTitle">隐私说明</h2>
+
+      <p data-i18n="privacyText">图片处理在浏览器本地完成，正常情况下不会上传到服务器。</p>
 
     </div>
 
@@ -242,105 +266,180 @@ footer{
 </div>
 
 <script>
-
 const qualityRange = document.getElementById("qualityRange");
-
 const qualityValue = document.getElementById("qualityValue");
+const languageSelect = document.getElementById("languageSelect");
+
+let currentLang = "zh";
+
+const translations = {
+  zh:{
+    pageTitle:"图片压缩工具 - ZenTools",
+    back:"← 返回首页",
+    title:"图片压缩工具",
+    desc:"免费在线图片压缩工具。支持 JPG、PNG、WEBP 图片压缩，支持手机与电脑浏览器。",
+    ad:"广告位（Google AdSense）",
+    quality:"压缩质量：",
+    start:"开始压缩",
+    original:"原图",
+    compressed:"压缩后",
+    download:"下载图片",
+    alertNoFile:"请选择图片",
+    guideTitle:"使用说明",
+    guideText:"1. 上传图片。\n2. 调节压缩质量。\n3. 点击开始压缩。\n4. 下载压缩后的图片。",
+    compatTitle:"兼容性",
+    compatText:"本工具支持 Chrome、Safari、Edge 等现代浏览器。所有处理均在浏览器本地完成。",
+    privacyTitle:"隐私说明",
+    privacyText:"图片处理在浏览器本地完成，正常情况下不会上传到服务器。"
+  },
+
+  ja:{
+    pageTitle:"画像圧縮ツール - ZenTools",
+    back:"← ホームに戻る",
+    title:"画像圧縮ツール",
+    desc:"無料オンライン画像圧縮ツールです。JPG、PNG、WEBP に対応し、スマホとPCで利用できます。",
+    ad:"広告スペース（Google AdSense）",
+    quality:"圧縮品質：",
+    start:"圧縮開始",
+    original:"元画像",
+    compressed:"圧縮後",
+    download:"画像をダウンロード",
+    alertNoFile:"画像を選択してください",
+    guideTitle:"使い方",
+    guideText:"1. 画像をアップロードします。\n2. 圧縮品質を調整します。\n3. 圧縮開始をクリックします。\n4. 圧縮後の画像を保存します。",
+    compatTitle:"互換性",
+    compatText:"Chrome、Safari、Edge などの最新ブラウザに対応しています。処理はブラウザ内で行われます。",
+    privacyTitle:"プライバシーについて",
+    privacyText:"画像処理は通常ブラウザ内で行われ、サーバーへアップロードされません。"
+  },
+
+  en:{
+    pageTitle:"Image Compression Tool - ZenTools",
+    back:"← Back to Home",
+    title:"Image Compression Tool",
+    desc:"Free online image compression tool. Supports JPG, PNG, and WEBP images on mobile and desktop browsers.",
+    ad:"Ad Space（Google AdSense）",
+    quality:"Compression Quality:",
+    start:"Start Compression",
+    original:"Original Image",
+    compressed:"Compressed Image",
+    download:"Download Image",
+    alertNoFile:"Please select an image",
+    guideTitle:"How to Use",
+    guideText:"1. Upload an image.\n2. Adjust the compression quality.\n3. Click start compression.\n4. Download the compressed image.",
+    compatTitle:"Compatibility",
+    compatText:"This tool supports modern browsers such as Chrome, Safari, and Edge. All processing is done locally in your browser.",
+    privacyTitle:"Privacy Notice",
+    privacyText:"Image processing is normally completed locally in your browser and is not uploaded to a server."
+  },
+
+  vi:{
+    pageTitle:"Công cụ nén ảnh - ZenTools",
+    back:"← Quay lại trang chủ",
+    title:"Công cụ nén ảnh",
+    desc:"Công cụ nén ảnh trực tuyến miễn phí, hỗ trợ JPG, PNG, WEBP trên điện thoại và máy tính.",
+    ad:"Vị trí quảng cáo（Google AdSense）",
+    quality:"Chất lượng nén:",
+    start:"Bắt đầu nén",
+    original:"Ảnh gốc",
+    compressed:"Ảnh sau khi nén",
+    download:"Tải ảnh xuống",
+    alertNoFile:"Vui lòng chọn ảnh",
+    guideTitle:"Hướng dẫn sử dụng",
+    guideText:"1. Tải ảnh lên.\n2. Điều chỉnh chất lượng nén.\n3. Nhấn bắt đầu nén.\n4. Tải ảnh đã nén xuống.",
+    compatTitle:"Khả năng tương thích",
+    compatText:"Công cụ hỗ trợ Chrome, Safari, Edge và các trình duyệt hiện đại. Tất cả xử lý được thực hiện trong trình duyệt.",
+    privacyTitle:"Thông tin quyền riêng tư",
+    privacyText:"Hình ảnh thường được xử lý trực tiếp trong trình duyệt và không được tải lên máy chủ."
+  }
+};
 
 qualityRange.addEventListener("input", function(){
-
   qualityValue.textContent = this.value;
-
 });
 
-function compressImage(){
+function setLanguage(lang){
+  currentLang = lang;
+  const data = translations[lang] || translations.zh;
 
+  document.documentElement.lang = lang;
+  document.title = data.pageTitle;
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(data[key]){
+      el.innerText = data[key];
+    }
+  });
+
+  localStorage.setItem("siteLanguage", lang);
+}
+
+languageSelect.addEventListener("change", function(){
+  setLanguage(this.value);
+});
+
+const savedLang = localStorage.getItem("siteLanguage") || "zh";
+languageSelect.value = savedLang;
+setLanguage(savedLang);
+
+function compressImage(){
   const file = document.getElementById("imageInput").files[0];
 
   if(!file){
-
-    alert("请选择图片");
-
+    alert(translations[currentLang].alertNoFile);
     return;
-
   }
 
   const quality = parseFloat(qualityRange.value);
-
   const reader = new FileReader();
 
   reader.onload = function(e){
-
     const img = new Image();
-
     img.src = e.target.result;
 
     img.onload = function(){
-
       const canvas = document.createElement("canvas");
-
       const ctx = canvas.getContext("2d");
 
       canvas.width = img.width;
-
       canvas.height = img.height;
 
       ctx.drawImage(img, 0, 0);
 
-      const compressedData = canvas.toDataURL(
-        "image/jpeg",
-        quality
-      );
+      const compressedData = canvas.toDataURL("image/jpeg", quality);
 
-      showPreview(
-        e.target.result,
-        compressedData
-      );
-
+      showPreview(e.target.result, compressedData);
     };
-
   };
 
   reader.readAsDataURL(file);
-
 }
 
 function showPreview(original, compressed){
-
+  const data = translations[currentLang] || translations.zh;
   const preview = document.getElementById("preview");
 
   preview.innerHTML = `
-
     <div>
-
-      <h3>原图</h3>
-
+      <h3>${data.original}</h3>
       <img src="${original}">
-
     </div>
 
     <div>
-
-      <h3>压缩后</h3>
-
+      <h3>${data.compressed}</h3>
       <img src="${compressed}">
-
       <br>
-
       <a
         class="download-btn"
         href="${compressed}"
         download="compressed.jpg"
       >
-        下载图片
+        ${data.download}
       </a>
-
     </div>
-
   `;
-
 }
-
 </script>
 
 </body>
