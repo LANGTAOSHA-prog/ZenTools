@@ -5,133 +5,157 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ZenTools - Free Online Tools</title>
-
-<meta name="description" content="ZenTools 提供免费的在线工具，包括 PDF 工具、文字转语音、图片处理等。">
+<meta name="description" content="ZenTools 提供免费的在线工具，包括 PDF 工具、图片工具、二维码生成器、文字转语音、JSON工具等。">
 
 <style>
-
 :root{
   --bg:#0f172a;
   --card:#111827;
+  --card2:#0b1220;
   --border:#1f2937;
   --text:#f3f4f6;
-  --muted:#9ca3af;
+  --muted:#94a3b8;
   --blue:#2563eb;
+  --green:#10b981;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
+*{margin:0;padding:0;box-sizing:border-box}
 
 body{
   background:var(--bg);
   color:var(--text);
-  font-family:Arial,sans-serif;
+  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
   line-height:1.7;
 }
 
 a{
-  text-decoration:none;
   color:inherit;
+  text-decoration:none;
 }
 
 header{
-  padding:18px 20px;
-  border-bottom:1px solid var(--border);
   position:sticky;
   top:0;
-  background:#0f172af0;
-  backdrop-filter:blur(10px);
   z-index:999;
+  background:#0f172af2;
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
 }
 
 .nav{
   max-width:1200px;
   margin:auto;
+  padding:16px 20px;
   display:flex;
-  justify-content:space-between;
   align-items:center;
-  gap:15px;
+  justify-content:space-between;
+  gap:18px;
 }
 
 .logo{
-  font-size:24px;
+  font-size:26px;
   font-weight:900;
 }
 
 .menu{
   display:flex;
-  gap:18px;
   align-items:center;
+  gap:16px;
   flex-wrap:wrap;
 }
 
 .menu a{
   color:var(--muted);
+  font-weight:600;
+}
+
+.menu a:hover{
+  color:white;
 }
 
 .lang-select{
   background:#111827;
   color:white;
-  border:1px solid var(--border);
-  border-radius:8px;
-  padding:8px 10px;
+  border:1px solid #334155;
+  border-radius:10px;
+  padding:9px 12px;
+  font-size:15px;
 }
 
 .hero{
   max-width:1200px;
   margin:auto;
-  padding:80px 20px;
+  padding:80px 20px 50px;
   text-align:center;
 }
 
 .hero h1{
   font-size:52px;
-  margin-bottom:20px;
+  font-weight:900;
+  margin-bottom:18px;
 }
 
 .hero p{
   color:var(--muted);
   font-size:20px;
-  max-width:800px;
+  max-width:850px;
   margin:auto;
 }
 
-.hero-btn{
-  margin-top:35px;
+.hero-actions{
+  margin-top:34px;
+}
+
+.btn{
   display:inline-block;
   background:var(--blue);
   color:white;
-  padding:16px 34px;
-  border-radius:12px;
-  font-weight:700;
+  padding:15px 30px;
+  border-radius:14px;
+  font-weight:800;
+}
+
+.btn:hover{
+  background:#1d4ed8;
+}
+
+.ad-box{
+  max-width:1200px;
+  height:110px;
+  margin:30px auto;
+  border:2px dashed #334155;
+  border-radius:18px;
+  color:#64748b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .section{
   max-width:1200px;
   margin:auto;
-  padding:60px 20px;
+  padding:50px 20px;
 }
 
 .section-title{
-  font-size:36px;
-  margin-bottom:30px;
+  font-size:34px;
+  font-weight:900;
+  margin-bottom:28px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:20px;
 }
 
 .card{
+  display:block;
   background:var(--card);
   border:1px solid var(--border);
-  border-radius:18px;
-  padding:25px;
-  transition:.3s;
+  border-radius:20px;
+  padding:24px;
+  transition:.25s;
 }
 
 .card:hover{
@@ -140,37 +164,63 @@ header{
 }
 
 .card h3{
-  margin-bottom:12px;
+  font-size:22px;
+  margin-bottom:10px;
 }
 
 .card p{
   color:var(--muted);
 }
 
-.ad-box{
-  margin:50px auto;
-  max-width:1200px;
-  height:120px;
-  border-radius:18px;
-  border:2px dashed #334155;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#64748b;
+.info-card{
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:25px;
 }
 
-footer{
-  margin-top:60px;
-  border-top:1px solid var(--border);
-  padding:30px;
-  text-align:center;
+.info-card p{
   color:var(--muted);
 }
 
-@media(max-width:768px){
+.footer{
+  margin-top:60px;
+  border-top:1px solid var(--border);
+  padding:40px 20px;
+}
 
+.footer-inner{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+.footer-links{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+.footer-links a{
+  color:var(--muted);
+}
+
+.copy{
+  margin-top:25px;
+  color:var(--muted);
+  text-align:center;
+}
+
+@media(max-width:768px){
   .nav{
     flex-direction:column;
+  }
+
+  .hero{
+    padding:55px 20px 30px;
   }
 
   .hero h1{
@@ -181,58 +231,48 @@ footer{
     font-size:16px;
   }
 
-}
+  .section-title{
+    font-size:28px;
+  }
 
+  .lang-select{
+    width:100%;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-
   <div class="nav">
-
-    <div class="logo">
-      ZenTools
-    </div>
+    <div class="logo">ZenTools</div>
 
     <div class="menu">
+      <a href="index.html" data-i18n="navHome">首页</a>
+      <a href="#tools" data-i18n="navTools">工具</a>
+      <a href="about.html" data-i18n="navAbout">关于</a>
+      <a href="contact.html" data-i18n="navContact">联系</a>
 
-      <a href="index.html" data-i18n="navHome">
-        首页
-      </a>
-
-      <a href="#tools" data-i18n="navTools">
-        工具
-      </a>
-
-      <select class="lang-select" id="languageSelect">
+      <select id="languageSelect" class="lang-select">
         <option value="zh">中文</option>
         <option value="ja">日本語</option>
         <option value="en">English</option>
         <option value="vi">Tiếng Việt</option>
       </select>
-
     </div>
-
   </div>
-
 </header>
 
 <section class="hero">
-
-  <h1 data-i18n="heroTitle">
-    ZenTools 免费在线工具箱
-  </h1>
-
+  <h1 data-i18n="heroTitle">ZenTools 免费在线工具箱</h1>
   <p data-i18n="heroText">
-    提供 PDF、图片、二维码、文字转语音等免费在线工具。
+    提供 PDF、图片、二维码、文字转语音、JSON、密码生成等免费在线工具，支持手机与电脑。
   </p>
 
-  <a class="hero-btn" href="#tools" data-i18n="startBtn">
-    开始使用
-  </a>
-
+  <div class="hero-actions">
+    <a href="#tools" class="btn" data-i18n="startBtn">开始使用</a>
+  </div>
 </section>
 
 <div class="ad-box" data-i18n="adText">
@@ -240,251 +280,348 @@ footer{
 </div>
 
 <section class="section" id="tools">
-
-  <h2 class="section-title" data-i18n="popularTools">
-    热门工具
-  </h2>
+  <h2 class="section-title" data-i18n="popularTools">热门工具</h2>
 
   <div class="grid">
 
     <a href="tts.html" class="card">
-      <h3 data-i18n="tool1Title">文字转语音</h3>
-      <p data-i18n="tool1Text">在线TTS语音合成工具。</p>
+      <h3 data-i18n="toolTtsTitle">文字转语音</h3>
+      <p data-i18n="toolTtsText">在线 TTS 语音合成工具。</p>
     </a>
 
     <a href="pdf.html" class="card">
-      <h3 data-i18n="tool2Title">PDF工具</h3>
-      <p data-i18n="tool2Text">PDF转换与处理工具。</p>
+      <h3 data-i18n="toolPdfTitle">PDF 工具</h3>
+      <p data-i18n="toolPdfText">PDF 转图片、图片转 PDF。</p>
     </a>
 
     <a href="compress.html" class="card">
-      <h3 data-i18n="tool3Title">图片压缩</h3>
-      <p data-i18n="tool3Text">在线压缩图片。</p>
+      <h3 data-i18n="toolCompressTitle">图片压缩</h3>
+      <p data-i18n="toolCompressText">在线压缩 JPG、PNG、WEBP 图片。</p>
     </a>
 
     <a href="qr.html" class="card">
-      <h3 data-i18n="tool4Title">二维码生成器</h3>
-      <p data-i18n="tool4Text">生成可下载二维码。</p>
+      <h3 data-i18n="toolQrTitle">二维码生成器</h3>
+      <p data-i18n="toolQrText">输入文字或网址生成二维码。</p>
     </a>
 
     <a href="convert.html" class="card">
-      <h3 data-i18n="tool5Title">图片格式转换</h3>
-      <p data-i18n="tool5Text">JPG、PNG、WEBP互转。</p>
+      <h3 data-i18n="toolConvertTitle">图片格式转换</h3>
+      <p data-i18n="toolConvertText">JPG、PNG、WEBP 图片互转。</p>
     </a>
 
     <a href="resize.html" class="card">
-      <h3 data-i18n="tool6Title">图片尺寸修改</h3>
-      <p data-i18n="tool6Text">在线修改图片大小。</p>
+      <h3 data-i18n="toolResizeTitle">图片尺寸修改</h3>
+      <p data-i18n="toolResizeText">在线修改图片宽度和高度。</p>
     </a>
 
     <a href="mergepdf.html" class="card">
-      <h3 data-i18n="tool7Title">PDF 合并</h3>
-      <p data-i18n="tool7Text">在线合并多个 PDF。</p>
+      <h3 data-i18n="toolMergeTitle">PDF 合并</h3>
+      <p data-i18n="toolMergeText">合并多个 PDF 文件。</p>
     </a>
-    <a href="watermark.html" class="card">
-  <h3>图片加水印</h3>
-  <p>在线给图片添加文字水印。</p>
-      <a href="crop.html" class="card">
-  <h3>图片裁剪</h3>
-  <p>在线裁剪 JPG PNG WEBP 图片。</p>
-        <a href="password.html" class="card">
-  <h3>密码生成器</h3>
-  <p>在线生成安全随机密码。</p>
-          <a href="json.html" class="card">
-  <h3>JSON 格式化</h3>
-  <p>在线格式化、压缩和校验 JSON。</p>
 
-</a>
+    <a href="splitpdf.html" class="card">
+      <h3 data-i18n="toolSplitTitle">PDF 拆分</h3>
+      <p data-i18n="toolSplitText">提取 PDF 指定页面。</p>
+    </a>
+
+    <a href="watermark.html" class="card">
+      <h3 data-i18n="toolWatermarkTitle">图片加水印</h3>
+      <p data-i18n="toolWatermarkText">给图片添加文字水印。</p>
+    </a>
+
+    <a href="crop.html" class="card">
+      <h3 data-i18n="toolCropTitle">图片裁剪</h3>
+      <p data-i18n="toolCropText">在线裁剪图片。</p>
+    </a>
+
+    <a href="password.html" class="card">
+      <h3 data-i18n="toolPasswordTitle">密码生成器</h3>
+      <p data-i18n="toolPasswordText">生成安全随机密码。</p>
+    </a>
+
+    <a href="json.html" class="card">
+      <h3 data-i18n="toolJsonTitle">JSON 格式化</h3>
+      <p data-i18n="toolJsonText">格式化、压缩和校验 JSON。</p>
+    </a>
 
   </div>
-
 </section>
 
-<footer>
+<section class="section">
+  <h2 class="section-title" data-i18n="aboutTitle">关于 ZenTools</h2>
 
-  © 2026 ZenTools
+  <div class="info-card">
+    <p data-i18n="aboutText">
+      ZenTools 是一个免费的在线工具平台，帮助用户在浏览器中完成 PDF、图片、文本和开发相关任务，无需安装软件。
+    </p>
+  </div>
+</section>
 
+<section class="section">
+  <h2 class="section-title" data-i18n="faqTitle">常见问题</h2>
+
+  <div class="grid">
+    <div class="info-card">
+      <h3 data-i18n="faq1Q">是否免费？</h3>
+      <p data-i18n="faq1A">目前所有工具均可免费使用。</p>
+    </div>
+
+    <div class="info-card">
+      <h3 data-i18n="faq2Q">是否支持手机？</h3>
+      <p data-i18n="faq2A">支持 iPhone、Android、平板和电脑浏览器。</p>
+    </div>
+
+    <div class="info-card">
+      <h3 data-i18n="faq3Q">文件会上传服务器吗？</h3>
+      <p data-i18n="faq3A">大多数工具在浏览器本地处理，正常情况下不会上传到服务器。</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div>
+      <h3>ZenTools</h3>
+      <p style="color:var(--muted);" data-i18n="footerDesc">免费在线工具平台</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="about.html">About</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+
+  <div class="copy">
+    © 2026 ZenTools. All Rights Reserved.
+  </div>
 </footer>
 
 <script>
-
 const translations = {
-
   zh:{
+    title:"ZenTools - 免费在线工具箱",
     navHome:"首页",
     navTools:"工具",
-
+    navAbout:"关于",
+    navContact:"联系",
     heroTitle:"ZenTools 免费在线工具箱",
-    heroText:"提供 PDF、图片、二维码、文字转语音等免费在线工具。",
+    heroText:"提供 PDF、图片、二维码、文字转语音、JSON、密码生成等免费在线工具，支持手机与电脑。",
     startBtn:"开始使用",
-
     adText:"广告位（Google AdSense）",
-
     popularTools:"热门工具",
 
-    tool1Title:"文字转语音",
-    tool1Text:"在线TTS语音合成工具。",
+    toolTtsTitle:"文字转语音",
+    toolTtsText:"在线 TTS 语音合成工具。",
+    toolPdfTitle:"PDF 工具",
+    toolPdfText:"PDF 转图片、图片转 PDF。",
+    toolCompressTitle:"图片压缩",
+    toolCompressText:"在线压缩 JPG、PNG、WEBP 图片。",
+    toolQrTitle:"二维码生成器",
+    toolQrText:"输入文字或网址生成二维码。",
+    toolConvertTitle:"图片格式转换",
+    toolConvertText:"JPG、PNG、WEBP 图片互转。",
+    toolResizeTitle:"图片尺寸修改",
+    toolResizeText:"在线修改图片宽度和高度。",
+    toolMergeTitle:"PDF 合并",
+    toolMergeText:"合并多个 PDF 文件。",
+    toolSplitTitle:"PDF 拆分",
+    toolSplitText:"提取 PDF 指定页面。",
+    toolWatermarkTitle:"图片加水印",
+    toolWatermarkText:"给图片添加文字水印。",
+    toolCropTitle:"图片裁剪",
+    toolCropText:"在线裁剪图片。",
+    toolPasswordTitle:"密码生成器",
+    toolPasswordText:"生成安全随机密码。",
+    toolJsonTitle:"JSON 格式化",
+    toolJsonText:"格式化、压缩和校验 JSON。",
 
-    tool2Title:"PDF工具",
-    tool2Text:"PDF转换与处理工具。",
-
-    tool3Title:"图片压缩",
-    tool3Text:"在线压缩图片。",
-
-    tool4Title:"二维码生成器",
-    tool4Text:"生成可下载二维码。",
-
-    tool5Title:"图片格式转换",
-    tool5Text:"JPG、PNG、WEBP互转。",
-
-    tool6Title:"图片尺寸修改",
-    tool6Text:"在线修改图片大小。",
-
-    tool7Title:"PDF 合并",
-    tool7Text:"在线合并多个 PDF。"
+    aboutTitle:"关于 ZenTools",
+    aboutText:"ZenTools 是一个免费的在线工具平台，帮助用户在浏览器中完成 PDF、图片、文本和开发相关任务，无需安装软件。",
+    faqTitle:"常见问题",
+    faq1Q:"是否免费？",
+    faq1A:"目前所有工具均可免费使用。",
+    faq2Q:"是否支持手机？",
+    faq2A:"支持 iPhone、Android、平板和电脑浏览器。",
+    faq3Q:"文件会上传服务器吗？",
+    faq3A:"大多数工具在浏览器本地处理，正常情况下不会上传到服务器。",
+    footerDesc:"免费在线工具平台"
   },
 
   ja:{
+    title:"ZenTools - 無料オンラインツール",
     navHome:"ホーム",
     navTools:"ツール",
-
+    navAbout:"サイトについて",
+    navContact:"お問い合わせ",
     heroTitle:"ZenTools 無料オンラインツール",
-    heroText:"PDF、画像、QRコード、音声読み上げなどの無料ツール。",
-
+    heroText:"PDF、画像、QRコード、文字読み上げ、JSON、パスワード生成などの無料オンラインツール。",
     startBtn:"使い始める",
-
-    adText:"広告スペース",
-
+    adText:"広告スペース（Google AdSense）",
     popularTools:"人気ツール",
 
-    tool1Title:"文字読み上げ",
-    tool1Text:"オンラインTTSツール。",
+    toolTtsTitle:"文字読み上げ",
+    toolTtsText:"オンライン TTS ツール。",
+    toolPdfTitle:"PDF ツール",
+    toolPdfText:"PDFを画像へ、画像をPDFへ変換。",
+    toolCompressTitle:"画像圧縮",
+    toolCompressText:"JPG、PNG、WEBP画像を圧縮。",
+    toolQrTitle:"QRコード生成",
+    toolQrText:"テキストやURLからQRコードを生成。",
+    toolConvertTitle:"画像形式変換",
+    toolConvertText:"JPG、PNG、WEBPを相互変換。",
+    toolResizeTitle:"画像サイズ変更",
+    toolResizeText:"画像の幅と高さを変更。",
+    toolMergeTitle:"PDF 結合",
+    toolMergeText:"複数のPDFを結合。",
+    toolSplitTitle:"PDF 分割",
+    toolSplitText:"PDFの指定ページを抽出。",
+    toolWatermarkTitle:"画像ウォーターマーク",
+    toolWatermarkText:"画像に文字透かしを追加。",
+    toolCropTitle:"画像切り抜き",
+    toolCropText:"画像をオンラインで切り抜き。",
+    toolPasswordTitle:"パスワード生成",
+    toolPasswordText:"安全なランダムパスワードを生成。",
+    toolJsonTitle:"JSON 整形",
+    toolJsonText:"JSONを整形、圧縮、検証。",
 
-    tool2Title:"PDFツール",
-    tool2Text:"PDF変換と処理。",
-
-    tool3Title:"画像圧縮",
-    tool3Text:"画像をオンライン圧縮。",
-
-    tool4Title:"QRコード生成",
-    tool4Text:"QRコードを生成。",
-
-    tool5Title:"画像形式変換",
-    tool5Text:"JPG・PNG・WEBP変換。",
-
-    tool6Title:"画像サイズ変更",
-    tool6Text:"画像サイズを変更。",
-
-    tool7Title:"PDF結合",
-    tool7Text:"複数PDFを結合。"
+    aboutTitle:"ZenTools について",
+    aboutText:"ZenTools は、PDF、画像、テキスト、開発関連作業をブラウザで行える無料オンラインツール平台です。",
+    faqTitle:"よくある質問",
+    faq1Q:"無料ですか？",
+    faq1A:"現在、すべてのツールを無料で利用できます。",
+    faq2Q:"スマホ対応ですか？",
+    faq2A:"iPhone、Android、タブレット、PCブラウザに対応しています。",
+    faq3Q:"ファイルはサーバーにアップロードされますか？",
+    faq3A:"多くのツールはブラウザ内で処理され、通常サーバーへアップロードされません。",
+    footerDesc:"無料オンラインツール平台"
   },
 
   en:{
+    title:"ZenTools - Free Online Tools",
     navHome:"Home",
     navTools:"Tools",
-
+    navAbout:"About",
+    navContact:"Contact",
     heroTitle:"ZenTools Free Online Tools",
-    heroText:"Free online tools for PDF, images, QR codes, and text-to-speech.",
-
+    heroText:"Free online tools for PDF, images, QR codes, text-to-speech, JSON, and password generation.",
     startBtn:"Get Started",
-
-    adText:"Ad Space",
-
+    adText:"Ad Space（Google AdSense）",
     popularTools:"Popular Tools",
 
-    tool1Title:"Text to Speech",
-    tool1Text:"Online TTS tool.",
+    toolTtsTitle:"Text to Speech",
+    toolTtsText:"Online TTS speech tool.",
+    toolPdfTitle:"PDF Tools",
+    toolPdfText:"PDF to images and images to PDF.",
+    toolCompressTitle:"Image Compression",
+    toolCompressText:"Compress JPG, PNG, and WEBP images.",
+    toolQrTitle:"QR Code Generator",
+    toolQrText:"Generate QR codes from text or URLs.",
+    toolConvertTitle:"Image Converter",
+    toolConvertText:"Convert JPG, PNG, and WEBP images.",
+    toolResizeTitle:"Image Resizer",
+    toolResizeText:"Resize image width and height.",
+    toolMergeTitle:"PDF Merger",
+    toolMergeText:"Merge multiple PDF files.",
+    toolSplitTitle:"PDF Splitter",
+    toolSplitText:"Extract specific PDF pages.",
+    toolWatermarkTitle:"Image Watermark",
+    toolWatermarkText:"Add text watermark to images.",
+    toolCropTitle:"Image Crop",
+    toolCropText:"Crop images online.",
+    toolPasswordTitle:"Password Generator",
+    toolPasswordText:"Generate secure random passwords.",
+    toolJsonTitle:"JSON Formatter",
+    toolJsonText:"Format, minify, and validate JSON.",
 
-    tool2Title:"PDF Tools",
-    tool2Text:"PDF conversion and tools.",
-
-    tool3Title:"Image Compression",
-    tool3Text:"Compress images online.",
-
-    tool4Title:"QR Code Generator",
-    tool4Text:"Generate downloadable QR codes.",
-
-    tool5Title:"Image Converter",
-    tool5Text:"Convert JPG PNG WEBP.",
-
-    tool6Title:"Image Resizer",
-    tool6Text:"Resize images online.",
-
-    tool7Title:"PDF Merger",
-    tool7Text:"Merge multiple PDFs."
+    aboutTitle:"About ZenTools",
+    aboutText:"ZenTools is a free online tools platform that helps users process PDF, image, text, and developer tasks directly in the browser.",
+    faqTitle:"FAQ",
+    faq1Q:"Is it free?",
+    faq1A:"All tools are currently free to use.",
+    faq2Q:"Does it support mobile?",
+    faq2A:"It supports iPhone, Android, tablets, and desktop browsers.",
+    faq3Q:"Are files uploaded to a server?",
+    faq3A:"Most tools process files locally in the browser and normally do not upload them to a server.",
+    footerDesc:"Free online tools platform"
   },
 
   vi:{
+    title:"ZenTools - Công cụ trực tuyến miễn phí",
     navHome:"Trang chủ",
     navTools:"Công cụ",
-
+    navAbout:"Giới thiệu",
+    navContact:"Liên hệ",
     heroTitle:"ZenTools Công cụ trực tuyến miễn phí",
-    heroText:"Công cụ miễn phí cho PDF, hình ảnh, QR và TTS.",
-
+    heroText:"Công cụ miễn phí cho PDF, hình ảnh, mã QR, TTS, JSON và tạo mật khẩu.",
     startBtn:"Bắt đầu",
-
-    adText:"Vị trí quảng cáo",
-
+    adText:"Vị trí quảng cáo（Google AdSense）",
     popularTools:"Công cụ phổ biến",
 
-    tool1Title:"Chuyển văn bản thành giọng nói",
-    tool1Text:"Công cụ TTS trực tuyến.",
+    toolTtsTitle:"Chuyển văn bản thành giọng nói",
+    toolTtsText:"Công cụ TTS trực tuyến.",
+    toolPdfTitle:"Công cụ PDF",
+    toolPdfText:"Chuyển PDF sang ảnh và ảnh sang PDF.",
+    toolCompressTitle:"Nén ảnh",
+    toolCompressText:"Nén ảnh JPG, PNG và WEBP.",
+    toolQrTitle:"Tạo mã QR",
+    toolQrText:"Tạo mã QR từ văn bản hoặc liên kết.",
+    toolConvertTitle:"Chuyển đổi ảnh",
+    toolConvertText:"Chuyển đổi JPG, PNG và WEBP.",
+    toolResizeTitle:"Thay đổi kích thước ảnh",
+    toolResizeText:"Đổi chiều rộng và chiều cao ảnh.",
+    toolMergeTitle:"Gộp PDF",
+    toolMergeText:"Gộp nhiều file PDF.",
+    toolSplitTitle:"Tách PDF",
+    toolSplitText:"Trích xuất trang PDF chỉ định.",
+    toolWatermarkTitle:"Thêm watermark ảnh",
+    toolWatermarkText:"Thêm watermark chữ vào ảnh.",
+    toolCropTitle:"Cắt ảnh",
+    toolCropText:"Cắt ảnh trực tuyến.",
+    toolPasswordTitle:"Tạo mật khẩu",
+    toolPasswordText:"Tạo mật khẩu ngẫu nhiên an toàn.",
+    toolJsonTitle:"Định dạng JSON",
+    toolJsonText:"Định dạng, nén và kiểm tra JSON.",
 
-    tool2Title:"Công cụ PDF",
-    tool2Text:"Chuyển đổi và xử lý PDF.",
-
-    tool3Title:"Nén ảnh",
-    tool3Text:"Nén ảnh trực tuyến.",
-
-    tool4Title:"Tạo mã QR",
-    tool4Text:"Tạo mã QR có thể tải.",
-
-    tool5Title:"Chuyển đổi ảnh",
-    tool5Text:"Chuyển JPG PNG WEBP.",
-
-    tool6Title:"Thay đổi kích thước ảnh",
-    tool6Text:"Đổi kích thước ảnh trực tuyến.",
-
-    tool7Title:"Gộp PDF",
-    tool7Text:"Gộp nhiều file PDF."
+    aboutTitle:"Giới thiệu ZenTools",
+    aboutText:"ZenTools là nền tảng công cụ trực tuyến miễn phí giúp xử lý PDF, hình ảnh, văn bản và công việc lập trình ngay trong trình duyệt.",
+    faqTitle:"Câu hỏi thường gặp",
+    faq1Q:"Có miễn phí không?",
+    faq1A:"Hiện tại tất cả công cụ đều miễn phí.",
+    faq2Q:"Có hỗ trợ điện thoại không?",
+    faq2A:"Hỗ trợ iPhone, Android, máy tính bảng và trình duyệt máy tính.",
+    faq3Q:"File có được tải lên máy chủ không?",
+    faq3A:"Hầu hết công cụ xử lý trực tiếp trong trình duyệt và thường không tải lên máy chủ.",
+    footerDesc:"Nền tảng công cụ trực tuyến miễn phí"
   }
-
 };
 
 const languageSelect = document.getElementById("languageSelect");
 
 function setLanguage(lang){
-
   const data = translations[lang] || translations.zh;
 
   document.documentElement.lang = lang;
+  document.title = data.title;
 
   document.querySelectorAll("[data-i18n]").forEach(el=>{
-
     const key = el.getAttribute("data-i18n");
-
     if(data[key]){
       el.textContent = data[key];
     }
-
   });
 
   localStorage.setItem("siteLanguage", lang);
-
 }
 
 languageSelect.addEventListener("change", function(){
-
   setLanguage(this.value);
-
 });
 
 const savedLang = localStorage.getItem("siteLanguage") || "zh";
-
 languageSelect.value = savedLang;
-
 setLanguage(savedLang);
-
 </script>
 
 </body>
