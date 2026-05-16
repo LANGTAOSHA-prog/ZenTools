@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PDF Tools - ZenTools</title>
+
+<meta name="description" content="ZenTools 免费 PDF 工具，支持 PDF 转图片、图片转 PDF，支持手机与电脑。">
+
+<style>
+
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --border:#1f2937;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --blue:#2563eb;
+  --green:#10b981;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
+  line-height:1.7;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+a{
+  color:#60a5fa;
+  text-decoration:none;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px;
+}
+
+h1{
+  margin-bottom:15px;
+}
+
+.desc{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.ad-box{
+  margin:25px 0;
+  height:110px;
+  border:2px dashed #334155;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+}
+
+.tool-box{
+  margin-top:35px;
+  padding:25px;
+  border-radius:18px;
+  background:#0f172a;
+  border:1px solid #334155;
+}
+
+input[type="file"]{
+  margin-top:15px;
+  margin-bottom:15px;
+  width:100%;
+}
+
+button{
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:14px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+  transition:.3s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+}
+
+.preview{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:15px;
+}
+
+.preview img{
+  width:100%;
+  border-radius:12px;
+  border:1px solid #334155;
+}
+
+.info{
+  margin-top:40px;
+}
+
+.info h2{
+  margin-top:30px;
+  margin-bottom:10px;
+}
+
+.info p{
+  color:#cbd5e1;
+}
+
+footer{
+  margin-top:50px;
+  text-align:center;
+  color:#94a3b8;
+}
+
+@media(max-width:768px){
+
+  .container{
+    padding:20px 15px;
+  }
+
+  h1{
+    font-size:30px;
+  }
+
+  button{
+    width:100%;
+  }
+
+}
+
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <p>
+    <a href="index.html">← Back to Home</a>
+  </p>
+
+  <div class="card">
+
+    <h1>PDF 工具</h1>
+
+    <p class="desc">
+      免费在线 PDF 工具。
+      支持 PDF 转图片、图片转 PDF。
+      无需安装软件，支持手机与电脑。
+    </p>
+
+    <div class="ad-box">
+      广告位（Google AdSense）
+    </div>
+
+    <!-- PDF 转图片 -->
+
+    <div class="tool-box">
+
+      <h2>PDF 转图片</h2>
+
+      <input type="file" id="pdfFile" accept=".pdf">
+
+      <button onclick="convertPDF()">
+        开始转换
+      </button>
+
+      <div class="preview" id="pdfPreview"></div>
+
+    </div>
+
+    <!-- 图片转PDF -->
+
+    <div class="tool-box">
+
+      <h2>图片转 PDF</h2>
+
+      <input type="file" id="imageFiles" accept="image/*" multiple>
+
+      <button onclick="convertImagesToPDF()">
+        生成 PDF
+      </button>
+
+    </div>
+
+    <div class="info">
+
+      <h2>使用说明</h2>
+
+      <p>
+        1. 选择 PDF 文件可转换为图片。<br>
+        2. 选择多张图片可生成 PDF。<br>
+        3. 所有处理均在浏览器本地完成。<br>
+        4. 不需要安装软件。
+      </p>
+
+      <h2>兼容性</h2>
+
+      <p>
+        支持 Chrome、Safari、Edge 等现代浏览器。
+        支持 Android 与 iPhone。
+      </p>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 ZenTools. All Rights Reserved.
+  </footer>
+
+</div>
+
+<script>
+
+async function convertPDF(){
+
+  const file = document.getElementById("pdfFile").files[0];
+
+  if(!file){
+    alert("请选择 PDF 文件");
+    return;
+  }
+
+  const preview = document.getElementById("pdfPreview");
+
+  preview.innerHTML = "";
+
+  const fileReader = new FileReader();
+
+  fileReader.onload = async function(){
+
+    const typedarray = new Uint8Array(this.result);
+
+    const pdf = await pdfjsLib.getDocument(typedarray).promise;
+
+    for(let pageNum = 1; pageNum <= pdf.numPages; pageNum++){
+
+      const page = await pdf.getPage(pageNum);
+
+      const viewport = page.getViewport({scale:1.5});
+
+      const canvas = document.createElement("canvas");
+
+      const context = canvas.getContext("2d");
+
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+
+      await page.render({
+        canvasContext:context,
+        viewport:viewport
+      }).promise;
+
+      const img = document.createElement("img");
+
+      img.src = canvas.toDataURL();
+
+      preview.appendChild(img);
+
+    }
+
+  };
+
+  fileReader.readAsArrayBuffer(file);
+
+}
+
+async function convertImagesToPDF(){
+
+  const files = document.getElementById("imageFiles").files;
+
+  if(files.length === 0){
+    alert("请选择图片");
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+
+  const pdf = new jsPDF();
+
+  for(let i = 0; i < files.length; i++){
+
+    const file = files[i];
+
+    const imgData = await readFileAsDataURL(file);
+
+    const img = new Image();
+
+    img.src = imgData;
+
+    await new Promise(resolve => {
+      img.onload = resolve;
+    });
+
+    const width = pdf.internal.pageSize.getWidth();
+
+    const height = (img.height * width) / img.width;
+
+    if(i > 0){
+      pdf.addPage();
+    }
+
+    pdf.addImage(imgData, "JPEG", 0, 0, width, height);
+
+  }
+
+  pdf.save("ZenTools.pdf");
+
+}
+
+function readFileAsDataURL(file){
+
+  return new Promise(resolve => {
+
+    const reader = new FileReader();
+
+    reader.onload = e => resolve(e.target.result);
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
