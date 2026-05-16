@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>图片加水印工具 - ZenTools</title>
+
+<meta name="description" content="ZenTools 免费在线图片加水印工具，支持图片文字水印。">
+
+<style>
+
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --border:#1f2937;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --blue:#2563eb;
+  --green:#10b981;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px;
+}
+
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.lang-select{
+  background:#0f172a;
+  color:white;
+  border:1px solid #334155;
+  border-radius:10px;
+  padding:10px 12px;
+}
+
+h1{
+  margin-bottom:15px;
+}
+
+.desc{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+input[type="file"],
+input[type="text"]{
+  width:100%;
+  margin:15px 0;
+  padding:14px;
+  border-radius:12px;
+  border:1px solid #334155;
+  background:#0f172a;
+  color:white;
+}
+
+button{
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:14px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.preview{
+  margin-top:30px;
+}
+
+.preview img{
+  width:100%;
+  border-radius:15px;
+  border:1px solid #334155;
+}
+
+.download-btn{
+  display:inline-block;
+  margin-top:20px;
+  background:var(--green);
+  color:white;
+  padding:12px 18px;
+  border-radius:12px;
+}
+
+.ad-box{
+  margin:25px 0;
+  height:110px;
+  border:2px dashed #334155;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+}
+
+footer{
+  margin-top:50px;
+  text-align:center;
+  color:#94a3b8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="top-bar">
+
+    <a href="index.html">
+      ← Home
+    </a>
+
+    <select id="languageSelect" class="lang-select">
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+      <option value="vi">Tiếng Việt</option>
+    </select>
+
+  </div>
+
+  <div class="card">
+
+    <h1 id="title">
+      图片加水印工具
+    </h1>
+
+    <p class="desc" id="desc">
+      免费在线图片加文字水印工具。
+    </p>
+
+    <div class="ad-box">
+      Google AdSense
+    </div>
+
+    <input type="file" id="imageInput" accept="image/*">
+
+    <input
+      type="text"
+      id="watermarkText"
+      placeholder="输入水印文字"
+    >
+
+    <button onclick="addWatermark()" id="btnText">
+      添加水印
+    </button>
+
+    <div class="preview" id="preview"></div>
+
+  </div>
+
+  <footer>
+    © 2026 ZenTools
+  </footer>
+
+</div>
+
+<script>
+
+const translations = {
+
+  zh:{
+    title:"图片加水印工具",
+    desc:"免费在线图片加文字水印工具。",
+    button:"添加水印",
+    placeholder:"输入水印文字",
+    download:"下载图片"
+  },
+
+  ja:{
+    title:"画像ウォーターマークツール",
+    desc:"無料オンライン画像ウォーターマークツール。",
+    button:"ウォーターマーク追加",
+    placeholder:"文字を入力",
+    download:"画像をダウンロード"
+  },
+
+  en:{
+    title:"Image Watermark Tool",
+    desc:"Free online image watermark tool.",
+    button:"Add Watermark",
+    placeholder:"Enter watermark text",
+    download:"Download Image"
+  },
+
+  vi:{
+    title:"Công cụ chèn watermark",
+    desc:"Công cụ thêm watermark miễn phí.",
+    button:"Thêm watermark",
+    placeholder:"Nhập nội dung watermark",
+    download:"Tải ảnh"
+  }
+
+};
+
+const languageSelect = document.getElementById("languageSelect");
+
+function setLanguage(lang){
+
+  const data = translations[lang];
+
+  document.getElementById("title").textContent = data.title;
+
+  document.getElementById("desc").textContent = data.desc;
+
+  document.getElementById("btnText").textContent = data.button;
+
+  document.getElementById("watermarkText").placeholder = data.placeholder;
+
+  localStorage.setItem("siteLanguage", lang);
+
+}
+
+languageSelect.addEventListener("change", e=>{
+
+  setLanguage(e.target.value);
+
+});
+
+const savedLang = localStorage.getItem("siteLanguage") || "zh";
+
+languageSelect.value = savedLang;
+
+setLanguage(savedLang);
+
+function addWatermark(){
+
+  const file = document.getElementById("imageInput").files[0];
+
+  if(!file) return;
+
+  const text = document.getElementById("watermarkText").value;
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const img = new Image();
+
+    img.src = e.target.result;
+
+    img.onload = function(){
+
+      const canvas = document.createElement("canvas");
+
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = img.width;
+
+      canvas.height = img.height;
+
+      ctx.drawImage(img,0,0);
+
+      ctx.font = "40px Arial";
+
+      ctx.fillStyle = "rgba(255,255,255,0.5)";
+
+      ctx.fillText(text,50,80);
+
+      const result = canvas.toDataURL("image/png");
+
+      showPreview(result);
+
+    };
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+function showPreview(url){
+
+  const lang = localStorage.getItem("siteLanguage") || "zh";
+
+  const data = translations[lang];
+
+  document.getElementById("preview").innerHTML = `
+
+    <img src="${url}">
+
+    <br>
+
+    <a
+      class="download-btn"
+      href="${url}"
+      download="watermark.png"
+    >
+      ${data.download}
+    </a>
+
+  `;
+
+}
+
+</script>
+
+</body>
+</html>
