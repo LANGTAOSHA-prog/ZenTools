@@ -5,29 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ZenTools - Free Online Tools</title>
-<meta name="description" content="ZenTools 免费在线工具箱，提供 PDF、图片、文字、生活、开发、营销工具。">
+<meta name="description" content="ZenTools 免费在线工具箱，提供 PDF、图片、文字、生活、开发、营销等免费工具。">
 
 <style>
 :root{
   --bg:#0f172a;
   --card:#111827;
+  --card2:#0b1220;
   --border:#1f2937;
   --text:#f3f4f6;
   --muted:#94a3b8;
   --blue:#2563eb;
+  --green:#10b981;
+  --gold:#f59e0b;
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
-
 body{
   background:var(--bg);
   color:var(--text);
   font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
   line-height:1.7;
 }
-
 a{text-decoration:none;color:inherit}
-
 header{
   position:sticky;
   top:0;
@@ -36,7 +35,6 @@ header{
   border-bottom:1px solid var(--border);
   backdrop-filter:blur(10px);
 }
-
 .nav{
   max-width:1200px;
   margin:auto;
@@ -46,24 +44,9 @@ header{
   align-items:center;
   gap:16px;
 }
-
-.logo{
-  font-size:26px;
-  font-weight:900;
-}
-
-.menu{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  flex-wrap:wrap;
-}
-
-.menu a{
-  color:var(--muted);
-  font-weight:600;
-}
-
+.logo{font-size:26px;font-weight:900}
+.menu{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.menu a{color:var(--muted);font-weight:600}
 .lang-select{
   background:#111827;
   color:white;
@@ -71,36 +54,43 @@ header{
   border-radius:10px;
   padding:9px 12px;
 }
-
 .hero{
   max-width:1200px;
   margin:auto;
-  padding:70px 20px 40px;
+  padding:70px 20px 35px;
   text-align:center;
 }
-
-.hero h1{
-  font-size:50px;
-  margin-bottom:18px;
-}
-
+.hero h1{font-size:50px;margin-bottom:18px}
 .hero p{
   color:var(--muted);
   font-size:20px;
   max-width:850px;
   margin:auto;
 }
-
+.search-wrap{
+  max-width:760px;
+  margin:32px auto 0;
+}
+.search-input{
+  width:100%;
+  padding:18px 20px;
+  border-radius:18px;
+  border:1px solid #334155;
+  background:#111827;
+  color:white;
+  font-size:18px;
+  outline:none;
+}
+.search-input:focus{border-color:var(--blue)}
 .btn{
   display:inline-block;
-  margin-top:32px;
+  margin-top:24px;
   background:var(--blue);
   color:white;
   padding:14px 30px;
   border-radius:14px;
   font-weight:800;
 }
-
 .ad-box{
   max-width:1200px;
   height:110px;
@@ -112,63 +102,90 @@ header{
   align-items:center;
   justify-content:center;
 }
-
 .section{
   max-width:1200px;
   margin:auto;
-  padding:42px 20px;
+  padding:38px 20px;
 }
-
 .section-title{
   font-size:32px;
   margin-bottom:24px;
 }
-
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:18px;
 }
-
 .card{
+  position:relative;
   background:var(--card);
   border:1px solid var(--border);
   border-radius:18px;
   padding:22px;
   transition:.25s;
+  min-height:132px;
 }
-
 .card:hover{
   transform:translateY(-4px);
   border-color:var(--blue);
 }
-
 .card h3{
   font-size:21px;
   margin-bottom:10px;
+  padding-right:34px;
 }
-
-.card p{
+.card p{color:var(--muted)}
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  font-size:12px;
+  padding:3px 8px;
+  border-radius:999px;
+  background:#172554;
+  color:#bfdbfe;
+}
+.badge.new{
+  background:#064e3b;
+  color:#a7f3d0;
+}
+.badge.hot{
+  background:#451a03;
+  color:#fde68a;
+}
+.fav-btn{
+  position:absolute;
+  right:16px;
+  top:14px;
+  border:none;
+  background:transparent;
+  color:#64748b;
+  font-size:22px;
+  cursor:pointer;
+}
+.fav-btn.active{color:var(--gold)}
+.empty{
   color:var(--muted);
-}
-
-.info-card{
-  background:#0b1220;
+  background:var(--card2);
   border:1px solid var(--border);
   border-radius:18px;
   padding:22px;
 }
-
-.info-card p{
-  color:var(--muted);
+.info-card{
+  background:var(--card2);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:22px;
 }
-
+.info-card p{color:var(--muted)}
 .footer{
   margin-top:50px;
   border-top:1px solid var(--border);
   padding:35px 20px;
 }
-
 .footer-inner{
   max-width:1200px;
   margin:auto;
@@ -177,39 +194,22 @@ header{
   gap:20px;
   flex-wrap:wrap;
 }
-
 .footer-links{
   display:flex;
   gap:16px;
   flex-wrap:wrap;
 }
-
-.footer-links a{
-  color:var(--muted);
-}
-
+.footer-links a{color:var(--muted)}
 .copy{
   text-align:center;
   margin-top:24px;
   color:var(--muted);
 }
-
 @media(max-width:768px){
-  .nav{
-    flex-direction:column;
-  }
-
-  .hero h1{
-    font-size:36px;
-  }
-
-  .hero p{
-    font-size:16px;
-  }
-
-  .lang-select{
-    width:100%;
-  }
+  .nav{flex-direction:column}
+  .hero h1{font-size:36px}
+  .hero p{font-size:16px}
+  .lang-select{width:100%}
 }
 </style>
 </head>
@@ -222,7 +222,7 @@ header{
 
     <div class="menu">
       <a href="index.html" data-i18n="navHome">首页</a>
-      <a href="#tools" data-i18n="navTools">工具</a>
+      <a href="#all-tools" data-i18n="navTools">工具</a>
       <a href="about.html" data-i18n="navAbout">关于</a>
       <a href="contact.html" data-i18n="navContact">联系</a>
 
@@ -239,12 +239,42 @@ header{
 <section class="hero">
   <h1 data-i18n="heroTitle">ZenTools 免费在线工具箱</h1>
   <p data-i18n="heroText">提供 PDF、图片、文字、生活、开发和营销类免费在线工具，支持手机与电脑。</p>
-  <a href="#tools" class="btn" data-i18n="startBtn">开始使用</a>
+
+  <div class="search-wrap">
+    <input id="searchInput" class="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="搜索工具，例如 PDF、图片、Base64、时间戳...">
+  </div>
+
+  <a href="#all-tools" class="btn" data-i18n="startBtn">开始使用</a>
 </section>
 
 <div class="ad-box" data-i18n="adText">广告位（Google AdSense）</div>
 
-<main id="tools"></main>
+<section class="section" id="search-section" style="display:none;">
+  <h2 class="section-title" data-i18n="searchResults">搜索结果</h2>
+  <div class="grid" id="searchResultsBox"></div>
+</section>
+
+<section class="section" id="favorite-section">
+  <h2 class="section-title" data-i18n="favoriteTools">收藏工具</h2>
+  <div id="favoriteBox"></div>
+</section>
+
+<section class="section" id="history-section">
+  <h2 class="section-title" data-i18n="historyTools">最近使用</h2>
+  <div id="historyBox"></div>
+</section>
+
+<section class="section" id="hot-section">
+  <h2 class="section-title" data-i18n="hotTools">热门工具</h2>
+  <div class="grid" id="hotBox"></div>
+</section>
+
+<section class="section" id="new-section">
+  <h2 class="section-title" data-i18n="newTools">最新工具</h2>
+  <div class="grid" id="newBox"></div>
+</section>
+
+<main id="all-tools"></main>
 
 <section class="section">
   <h2 class="section-title" data-i18n="aboutTitle">关于 ZenTools</h2>
@@ -295,83 +325,83 @@ header{
 <script>
 const i18n = {
   zh:{
-    navHome:"首页",
-    navTools:"工具",
-    navAbout:"关于",
-    navContact:"联系",
+    navHome:"首页", navTools:"工具", navAbout:"关于", navContact:"联系",
     heroTitle:"ZenTools 免费在线工具箱",
     heroText:"提供 PDF、图片、文字、生活、开发和营销类免费在线工具，支持手机与电脑。",
-    startBtn:"开始使用",
-    adText:"广告位（Google AdSense）",
+    searchPlaceholder:"搜索工具，例如 PDF、图片、Base64、时间戳...",
+    startBtn:"开始使用", adText:"广告位（Google AdSense）",
+    searchResults:"搜索结果", favoriteTools:"收藏工具", historyTools:"最近使用",
+    hotTools:"热门工具", newTools:"最新工具",
+    noFavorites:"暂无收藏工具。点击工具卡片右上角的 ☆ 可以收藏。",
+    noHistory:"暂无使用记录。点击工具后会自动记录。",
+    noSearch:"没有找到相关工具。",
+    hot:"热门", new:"最新",
     aboutTitle:"关于 ZenTools",
     aboutText:"ZenTools 是一个免费的在线工具平台，帮助用户在浏览器中完成 PDF、图片、文字、生活计算和开发相关任务，无需安装软件。",
     faqTitle:"常见问题",
-    faq1Q:"是否免费？",
-    faq1A:"目前所有工具均可免费使用。",
-    faq2Q:"是否支持手机？",
-    faq2A:"支持 iPhone、Android、平板和电脑浏览器。",
-    faq3Q:"文件会上传服务器吗？",
-    faq3A:"大多数工具在浏览器本地处理，正常情况下不会上传到服务器。",
+    faq1Q:"是否免费？", faq1A:"目前所有工具均可免费使用。",
+    faq2Q:"是否支持手机？", faq2A:"支持 iPhone、Android、平板和电脑浏览器。",
+    faq3Q:"文件会上传服务器吗？", faq3A:"大多数工具在浏览器本地处理，正常情况下不会上传到服务器。",
     footerDesc:"免费在线工具平台"
   },
   ja:{
-    navHome:"ホーム",
-    navTools:"ツール",
-    navAbout:"サイトについて",
-    navContact:"お問い合わせ",
+    navHome:"ホーム", navTools:"ツール", navAbout:"サイトについて", navContact:"お問い合わせ",
     heroTitle:"ZenTools 無料オンラインツール",
     heroText:"PDF、画像、テキスト、生活、開発、マーケティング向けの無料オンラインツール。",
-    startBtn:"使い始める",
-    adText:"広告スペース（Google AdSense）",
+    searchPlaceholder:"ツールを検索：PDF、画像、Base64、タイムスタンプ...",
+    startBtn:"使い始める", adText:"広告スペース（Google AdSense）",
+    searchResults:"検索結果", favoriteTools:"お気に入り", historyTools:"最近使用",
+    hotTools:"人気ツール", newTools:"新着ツール",
+    noFavorites:"お気に入りはありません。☆ をクリックして追加できます。",
+    noHistory:"使用履歴はありません。ツールを開くと自動で記録されます。",
+    noSearch:"関連ツールが見つかりません。",
+    hot:"人気", new:"新着",
     aboutTitle:"ZenTools について",
     aboutText:"ZenTools は、PDF、画像、テキスト、生活計算、開発関連作業をブラウザで行える無料オンラインツール平台です。",
     faqTitle:"よくある質問",
-    faq1Q:"無料ですか？",
-    faq1A:"現在、すべてのツールを無料で利用できます。",
-    faq2Q:"スマホ対応ですか？",
-    faq2A:"iPhone、Android、タブレット、PCブラウザに対応しています。",
-    faq3Q:"ファイルはサーバーにアップロードされますか？",
-    faq3A:"多くのツールはブラウザ内で処理され、通常サーバーへアップロードされません。",
+    faq1Q:"無料ですか？", faq1A:"現在、すべてのツールを無料で利用できます。",
+    faq2Q:"スマホ対応ですか？", faq2A:"iPhone、Android、タブレット、PCブラウザに対応しています。",
+    faq3Q:"ファイルはサーバーにアップロードされますか？", faq3A:"多くのツールはブラウザ内で処理され、通常サーバーへアップロードされません。",
     footerDesc:"無料オンラインツール平台"
   },
   en:{
-    navHome:"Home",
-    navTools:"Tools",
-    navAbout:"About",
-    navContact:"Contact",
+    navHome:"Home", navTools:"Tools", navAbout:"About", navContact:"Contact",
     heroTitle:"ZenTools Free Online Tools",
     heroText:"Free online tools for PDF, images, text, life, developer, and marketing tasks.",
-    startBtn:"Get Started",
-    adText:"Ad Space（Google AdSense）",
+    searchPlaceholder:"Search tools, e.g. PDF, image, Base64, timestamp...",
+    startBtn:"Get Started", adText:"Ad Space（Google AdSense）",
+    searchResults:"Search Results", favoriteTools:"Favorite Tools", historyTools:"Recently Used",
+    hotTools:"Popular Tools", newTools:"New Tools",
+    noFavorites:"No favorite tools yet. Click ☆ on a tool card to save it.",
+    noHistory:"No recent history yet. Tools are recorded when opened.",
+    noSearch:"No matching tools found.",
+    hot:"Hot", new:"New",
     aboutTitle:"About ZenTools",
     aboutText:"ZenTools is a free online tools platform that helps users process PDF, image, text, life calculation, and developer tasks directly in the browser.",
     faqTitle:"FAQ",
-    faq1Q:"Is it free?",
-    faq1A:"All tools are currently free to use.",
-    faq2Q:"Does it support mobile?",
-    faq2A:"It supports iPhone, Android, tablets, and desktop browsers.",
-    faq3Q:"Are files uploaded to a server?",
-    faq3A:"Most tools process files locally in the browser and normally do not upload them to a server.",
+    faq1Q:"Is it free?", faq1A:"All tools are currently free to use.",
+    faq2Q:"Does it support mobile?", faq2A:"It supports iPhone, Android, tablets, and desktop browsers.",
+    faq3Q:"Are files uploaded to a server?", faq3A:"Most tools process files locally in the browser and normally do not upload them to a server.",
     footerDesc:"Free online tools platform"
   },
   vi:{
-    navHome:"Trang chủ",
-    navTools:"Công cụ",
-    navAbout:"Giới thiệu",
-    navContact:"Liên hệ",
+    navHome:"Trang chủ", navTools:"Công cụ", navAbout:"Giới thiệu", navContact:"Liên hệ",
     heroTitle:"ZenTools Công cụ trực tuyến miễn phí",
     heroText:"Công cụ miễn phí cho PDF, hình ảnh, văn bản, đời sống, lập trình và marketing.",
-    startBtn:"Bắt đầu",
-    adText:"Vị trí quảng cáo（Google AdSense）",
+    searchPlaceholder:"Tìm công cụ, ví dụ PDF, ảnh, Base64, timestamp...",
+    startBtn:"Bắt đầu", adText:"Vị trí quảng cáo（Google AdSense）",
+    searchResults:"Kết quả tìm kiếm", favoriteTools:"Công cụ yêu thích", historyTools:"Đã dùng gần đây",
+    hotTools:"Công cụ phổ biến", newTools:"Công cụ mới",
+    noFavorites:"Chưa có công cụ yêu thích. Nhấn ☆ trên thẻ công cụ để lưu.",
+    noHistory:"Chưa có lịch sử sử dụng. Công cụ sẽ được ghi lại khi mở.",
+    noSearch:"Không tìm thấy công cụ phù hợp.",
+    hot:"Hot", new:"Mới",
     aboutTitle:"Giới thiệu ZenTools",
     aboutText:"ZenTools là nền tảng công cụ trực tuyến miễn phí giúp xử lý PDF, hình ảnh, văn bản, tính toán đời sống và công việc lập trình ngay trong trình duyệt.",
     faqTitle:"Câu hỏi thường gặp",
-    faq1Q:"Có miễn phí không?",
-    faq1A:"Hiện tại tất cả công cụ đều miễn phí.",
-    faq2Q:"Có hỗ trợ điện thoại không?",
-    faq2A:"Hỗ trợ iPhone, Android, máy tính bảng và trình duyệt máy tính.",
-    faq3Q:"File có được tải lên máy chủ không?",
-    faq3A:"Hầu hết công cụ xử lý trực tiếp trong trình duyệt và thường không tải lên máy chủ.",
+    faq1Q:"Có miễn phí không?", faq1A:"Hiện tại tất cả công cụ đều miễn phí.",
+    faq2Q:"Có hỗ trợ điện thoại không?", faq2A:"Hỗ trợ iPhone, Android, máy tính bảng và trình duyệt máy tính.",
+    faq3Q:"File có được tải lên máy chủ không?", faq3A:"Hầu hết công cụ xử lý trực tiếp trong trình duyệt và thường không tải lên máy chủ.",
     footerDesc:"Nền tảng công cụ trực tuyến miễn phí"
   }
 };
@@ -386,45 +416,142 @@ const categoryNames = {
 };
 
 const tools = [
-  ["pdf","pdf.html","PDF 工具","PDF ツール","PDF Tools","Công cụ PDF","PDF 转图片、图片转 PDF。","PDFを画像へ、画像をPDFへ変換。","PDF to images and images to PDF.","Chuyển PDF sang ảnh và ảnh sang PDF."],
-  ["pdf","splitpdf.html","PDF 拆分","PDF 分割","PDF Splitter","Tách PDF","提取 PDF 指定页面。","PDFの指定ページを抽出。","Extract specific PDF pages.","Trích xuất trang PDF chỉ định."],
-  ["pdf","mergepdf.html","PDF 合并","PDF 結合","PDF Merger","Gộp PDF","合并多个 PDF 文件。","複数のPDFを結合。","Merge multiple PDF files.","Gộp nhiều file PDF."],
-  ["pdf","imgtopdf.html","图片转 PDF","画像をPDFに変換","Image to PDF","Ảnh sang PDF","将 JPG、PNG 图片转换为 PDF。","JPG、PNG画像をPDFに変換。","Convert JPG and PNG images to PDF.","Chuyển JPG, PNG thành PDF."],
-  ["pdf","compresspdf.html","PDF 压缩","PDF 圧縮","PDF Compressor","Nén PDF","在线压缩 PDF 文件。","PDFファイルをオンライン圧縮。","Compress PDF files online.","Nén file PDF trực tuyến."],
+  ["pdf","pdf.html","PDF 工具","PDF ツール","PDF Tools","Công cụ PDF","PDF 转图片、图片转 PDF。","PDFを画像へ、画像をPDFへ変換。","PDF to images and images to PDF.","Chuyển PDF sang ảnh và ảnh sang PDF.",true,false],
+  ["pdf","splitpdf.html","PDF 拆分","PDF 分割","PDF Splitter","Tách PDF","提取 PDF 指定页面。","PDFの指定ページを抽出。","Extract specific PDF pages.","Trích xuất trang PDF chỉ định.",true,false],
+  ["pdf","mergepdf.html","PDF 合并","PDF 結合","PDF Merger","Gộp PDF","合并多个 PDF 文件。","複数のPDFを結合。","Merge multiple PDF files.","Gộp nhiều file PDF.",true,false],
+  ["pdf","imgtopdf.html","图片转 PDF","画像をPDFに変換","Image to PDF","Ảnh sang PDF","将 JPG、PNG 图片转换为 PDF。","JPG、PNG画像をPDFに変換。","Convert JPG and PNG images to PDF.","Chuyển JPG, PNG thành PDF.",false,true],
+  ["pdf","compresspdf.html","PDF 压缩","PDF 圧縮","PDF Compressor","Nén PDF","在线压缩 PDF 文件。","PDFファイルをオンライン圧縮。","Compress PDF files online.","Nén file PDF trực tuyến.",false,true],
 
-  ["image","compress.html","图片压缩","画像圧縮","Image Compression","Nén ảnh","在线压缩 JPG、PNG、WEBP 图片。","JPG、PNG、WEBP画像を圧縮。","Compress JPG, PNG, and WEBP images.","Nén ảnh JPG, PNG và WEBP."],
-  ["image","convert.html","图片格式转换","画像形式変換","Image Converter","Chuyển đổi ảnh","JPG、PNG、WEBP 图片互转。","JPG、PNG、WEBPを相互変換。","Convert JPG, PNG, and WEBP images.","Chuyển đổi JPG, PNG và WEBP."],
-  ["image","resize.html","图片尺寸修改","画像サイズ変更","Image Resizer","Thay đổi kích thước ảnh","在线修改图片宽度和高度。","画像の幅と高さを変更。","Resize image width and height.","Đổi chiều rộng và chiều cao ảnh."],
-  ["image","crop.html","图片裁剪","画像切り抜き","Image Crop","Cắt ảnh","在线裁剪图片。","画像をオンラインで切り抜き。","Crop images online.","Cắt ảnh trực tuyến."],
-  ["image","watermark.html","图片加水印","画像ウォーターマーク","Image Watermark","Thêm watermark ảnh","给图片添加文字水印。","画像に文字透かしを追加。","Add text watermark to images.","Thêm watermark chữ vào ảnh."],
+  ["image","compress.html","图片压缩","画像圧縮","Image Compression","Nén ảnh","在线压缩 JPG、PNG、WEBP 图片。","JPG、PNG、WEBP画像を圧縮。","Compress JPG, PNG, and WEBP images.","Nén ảnh JPG, PNG và WEBP.",true,false],
+  ["image","convert.html","图片格式转换","画像形式変換","Image Converter","Chuyển đổi ảnh","JPG、PNG、WEBP 图片互转。","JPG、PNG、WEBPを相互変換。","Convert JPG, PNG, and WEBP images.","Chuyển đổi JPG, PNG và WEBP.",true,false],
+  ["image","resize.html","图片尺寸修改","画像サイズ変更","Image Resizer","Thay đổi kích thước ảnh","在线修改图片宽度和高度。","画像の幅と高さを変更。","Resize image width and height.","Đổi chiều rộng và chiều cao ảnh.",true,false],
+  ["image","crop.html","图片裁剪","画像切り抜き","Image Crop","Cắt ảnh","在线裁剪图片。","画像をオンラインで切り抜き。","Crop images online.","Cắt ảnh trực tuyến.",false,false],
+  ["image","watermark.html","图片加水印","画像ウォーターマーク","Image Watermark","Thêm watermark ảnh","给图片添加文字水印。","画像に文字透かしを追加。","Add text watermark to images.","Thêm watermark chữ vào ảnh.",false,false],
 
-  ["text","tts.html","文字转语音","文字読み上げ","Text to Speech","Chuyển văn bản thành giọng nói","在线 TTS 语音合成工具。","オンライン TTS ツール。","Online TTS speech tool.","Công cụ TTS trực tuyến."],
-  ["text","wordcount.html","字数统计","文字数カウント","Word Counter","Đếm từ","统计字符、单词和段落数量。","文字、単語、段落数をカウント。","Count characters, words, and paragraphs.","Đếm ký tự, từ và đoạn văn."],
-  ["text","caseconvert.html","大小写转换","大文字小文字変換","Case Converter","Chuyển hoa thường","文本大小写快速转换。","テキストの大文字小文字を変換。","Convert text uppercase and lowercase.","Chuyển đổi chữ hoa và chữ thường."],
-  ["text","dedupe.html","文本去重","テキスト重複削除","Text Deduplicator","Xóa trùng văn bản","自动删除重复文本行。","重複した行を自動削除。","Remove duplicate text lines.","Xóa các dòng văn bản trùng lặp."],
-  ["text","urlencode.html","URL 编码解码","URL エンコード/デコード","URL Encoder Decoder","Mã hóa URL","URL Encode / Decode。","URL Encode / Decode。","URL Encode and Decode.","Mã hóa và giải mã URL."],
+  ["text","tts.html","文字转语音","文字読み上げ","Text to Speech","Chuyển văn bản thành giọng nói","在线 TTS 语音合成工具。","オンライン TTS ツール。","Online TTS speech tool.","Công cụ TTS trực tuyến.",true,false],
+  ["text","wordcount.html","字数统计","文字数カウント","Word Counter","Đếm từ","统计字符、单词和段落数量。","文字、単語、段落数をカウント。","Count characters, words, and paragraphs.","Đếm ký tự, từ và đoạn văn.",true,true],
+  ["text","caseconvert.html","大小写转换","大文字小文字変換","Case Converter","Chuyển hoa thường","文本大小写快速转换。","テキストの大文字小文字を変換。","Convert text uppercase and lowercase.","Chuyển đổi chữ hoa và chữ thường.",false,true],
+  ["text","dedupe.html","文本去重","テキスト重複削除","Text Deduplicator","Xóa trùng văn bản","自动删除重复文本行。","重複した行を自動削除。","Remove duplicate text lines.","Xóa các dòng văn bản trùng lặp.",false,true],
+  ["text","urlencode.html","URL 编码解码","URL エンコード/デコード","URL Encoder Decoder","Mã hóa URL","URL Encode / Decode。","URL Encode / Decode。","URL Encode and Decode.","Mã hóa và giải mã URL.",false,true],
 
-  ["life","currency.html","汇率换算","為替換算","Currency Converter","Chuyển đổi tiền tệ","实时货币换算。","通貨を換算。","Convert currencies.","Chuyển đổi tiền tệ."],
-  ["life","unit.html","单位换算","単位換算","Unit Converter","Chuyển đổi đơn vị","长度、重量、面积等单位换算。","長さ、重さ、面積などを換算。","Convert length, weight, area, and more.","Chuyển đổi độ dài, trọng lượng, diện tích."],
-  ["life","bmi.html","BMI 计算器","BMI 計算機","BMI Calculator","Máy tính BMI","计算身体质量指数。","BMIを計算。","Calculate body mass index.","Tính chỉ số BMI."],
-  ["life","age.html","年龄计算器","年齢計算機","Age Calculator","Máy tính tuổi","计算精确年龄。","正確な年齢を計算。","Calculate exact age.","Tính tuổi chính xác."],
+  ["life","currency.html","汇率换算","為替換算","Currency Converter","Chuyển đổi tiền tệ","实时货币换算。","通貨を換算。","Convert currencies.","Chuyển đổi tiền tệ.",false,true],
+  ["life","unit.html","单位换算","単位換算","Unit Converter","Chuyển đổi đơn vị","长度、重量、面积等单位换算。","長さ、重さ、面積などを換算。","Convert length, weight, area, and more.","Chuyển đổi độ dài, trọng lượng, diện tích.",false,true],
+  ["life","bmi.html","BMI 计算器","BMI 計算機","BMI Calculator","Máy tính BMI","计算身体质量指数。","BMIを計算。","Calculate body mass index.","Tính chỉ số BMI.",true,true],
+  ["life","age.html","年龄计算器","年齢計算機","Age Calculator","Máy tính tuổi","计算精确年龄。","正確な年齢を計算。","Calculate exact age.","Tính tuổi chính xác.",false,true],
 
-  ["dev","base64.html","Base64 编码解码","Base64 エンコード/デコード","Base64 Encoder Decoder","Base64 mã hóa giải mã","Base64 Encode / Decode。","Base64 Encode / Decode。","Encode and decode Base64.","Mã hóa và giải mã Base64."],
-  ["dev","timestamp.html","时间戳转换","タイムスタンプ変換","Timestamp Converter","Chuyển đổi timestamp","Unix 时间戳转换。","Unix タイムスタンプ変換。","Convert Unix timestamps.","Chuyển đổi Unix timestamp."],
-  ["dev","password.html","随机密码生成器","パスワード生成","Password Generator","Tạo mật khẩu","生成安全随机密码。","安全なランダムパスワードを生成。","Generate secure random passwords.","Tạo mật khẩu ngẫu nhiên an toàn."],
-  ["dev","colorpicker.html","颜色取色器","カラーピッカー","Color Picker","Bộ chọn màu","选择并复制颜色代码。","色コードを選択してコピー。","Pick and copy color codes.","Chọn và sao chép mã màu."],
-  ["dev","json.html","JSON 格式化","JSON 整形","JSON Formatter","Định dạng JSON","格式化、压缩和校验 JSON。","JSONを整形、圧縮、検証。","Format, minify, and validate JSON.","Định dạng, nén và kiểm tra JSON."],
+  ["dev","base64.html","Base64 编码解码","Base64 エンコード/デコード","Base64 Encoder Decoder","Base64 mã hóa giải mã","Base64 Encode / Decode。","Base64 Encode / Decode。","Encode and decode Base64.","Mã hóa và giải mã Base64.",true,true],
+  ["dev","timestamp.html","时间戳转换","タイムスタンプ変換","Timestamp Converter","Chuyển đổi timestamp","Unix 时间戳转换。","Unix タイムスタンプ変換。","Convert Unix timestamps.","Chuyển đổi Unix timestamp.",true,true],
+  ["dev","password.html","随机密码生成器","パスワード生成","Password Generator","Tạo mật khẩu","生成安全随机密码。","安全なランダムパスワードを生成。","Generate secure random passwords.","Tạo mật khẩu ngẫu nhiên an toàn.",true,false],
+  ["dev","colorpicker.html","颜色取色器","カラーピッカー","Color Picker","Bộ chọn màu","选择并复制颜色代码。","色コードを選択してコピー。","Pick and copy color codes.","Chọn và sao chép mã màu.",false,true],
+  ["dev","screencheck.html","屏幕检测","画面チェック","Screen Test","Kiểm tra màn hình","检测屏幕颜色、亮点和显示效果。","画面の色、ドット、表示を確認。","Test screen colors, pixels, and display.","Kiểm tra màu màn hình và điểm ảnh.",false,true],
+  ["dev","json.html","JSON 格式化","JSON 整形","JSON Formatter","Định dạng JSON","格式化、压缩和校验 JSON。","JSONを整形、圧縮、検証。","Format, minify, and validate JSON.","Định dạng, nén và kiểm tra JSON.",true,false],
 
-  ["marketing","qr.html","二维码生成器","QRコード生成","QR Code Generator","Tạo mã QR","输入文字或网址生成二维码。","テキストやURLからQRコードを生成。","Generate QR codes from text or URLs.","Tạo mã QR từ văn bản hoặc liên kết."],
-  ["marketing","shorturl.html","短链接生成器","短縮URL生成","Short URL Generator","Tạo link rút gọn","生成短网址。","短縮URLを生成。","Generate short links.","Tạo liên kết rút gọn."]
+  ["marketing","qr.html","二维码生成器","QRコード生成","QR Code Generator","Tạo mã QR","输入文字或网址生成二维码。","テキストやURLからQRコードを生成。","Generate QR codes from text or URLs.","Tạo mã QR từ văn bản hoặc liên kết.",true,false],
+  ["marketing","shorturl.html","短链接生成器","短縮URL生成","Short URL Generator","Tạo link rút gọn","生成短网址。","短縮URLを生成。","Generate short links.","Tạo liên kết rút gọn.",false,true]
 ];
 
 const langIndex = {zh:2, ja:3, en:4, vi:5};
 const descIndex = {zh:6, ja:7, en:8, vi:9};
 const order = ["pdf","image","text","life","dev","marketing"];
 
-function renderTools(lang){
-  const box = document.getElementById("tools");
+function getFavs(){
+  return JSON.parse(localStorage.getItem("favoriteTools") || "[]");
+}
+function setFavs(list){
+  localStorage.setItem("favoriteTools", JSON.stringify(list));
+}
+function getHistory(){
+  return JSON.parse(localStorage.getItem("toolHistory") || "[]");
+}
+function setHistory(list){
+  localStorage.setItem("toolHistory", JSON.stringify(list.slice(0,8)));
+}
+function toolId(t){
+  return t[1];
+}
+
+function createCard(t, lang){
+  const favs = getFavs();
+  const id = toolId(t);
+
+  const card = document.createElement("a");
+  card.className = "card";
+  card.href = t[1];
+
+  card.addEventListener("click", function(){
+    const history = getHistory().filter(x=>x !== id);
+    history.unshift(id);
+    setHistory(history);
+  });
+
+  const favBtn = document.createElement("button");
+  favBtn.className = "fav-btn" + (favs.includes(id) ? " active" : "");
+  favBtn.type = "button";
+  favBtn.textContent = favs.includes(id) ? "★" : "☆";
+  favBtn.onclick = function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    let newFavs = getFavs();
+    if(newFavs.includes(id)){
+      newFavs = newFavs.filter(x=>x !== id);
+    }else{
+      newFavs.push(id);
+    }
+    setFavs(newFavs);
+    renderAll(lang);
+  };
+
+  const h3 = document.createElement("h3");
+  h3.textContent = t[langIndex[lang]] || t[2];
+
+  const p = document.createElement("p");
+  p.textContent = t[descIndex[lang]] || t[6];
+
+  const badges = document.createElement("div");
+  badges.className = "badges";
+
+  if(t[10]){
+    const b = document.createElement("span");
+    b.className = "badge hot";
+    b.textContent = i18n[lang].hot;
+    badges.appendChild(b);
+  }
+
+  if(t[11]){
+    const b = document.createElement("span");
+    b.className = "badge new";
+    b.textContent = i18n[lang].new;
+    badges.appendChild(b);
+  }
+
+  card.appendChild(favBtn);
+  card.appendChild(h3);
+  card.appendChild(p);
+  card.appendChild(badges);
+
+  return card;
+}
+
+function renderToolList(targetId, list, lang, emptyText){
+  const box = document.getElementById(targetId);
+  box.innerHTML = "";
+
+  if(list.length === 0){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = emptyText;
+    box.appendChild(empty);
+    return;
+  }
+
+  const grid = document.createElement("div");
+  grid.className = "grid";
+  list.forEach(t=>grid.appendChild(createCard(t, lang)));
+  box.appendChild(grid);
+}
+
+function renderCategories(lang){
+  const box = document.getElementById("all-tools");
   box.innerHTML = "";
 
   order.forEach(cat=>{
@@ -441,26 +568,59 @@ function renderTools(lang){
     const grid = document.createElement("div");
     grid.className = "grid";
 
-    list.forEach(t=>{
-      const card = document.createElement("a");
-      card.className = "card";
-      card.href = t[1];
-
-      const h3 = document.createElement("h3");
-      h3.textContent = t[langIndex[lang]] || t[2];
-
-      const p = document.createElement("p");
-      p.textContent = t[descIndex[lang]] || t[6];
-
-      card.appendChild(h3);
-      card.appendChild(p);
-      grid.appendChild(card);
-    });
+    list.forEach(t=>grid.appendChild(createCard(t, lang)));
 
     section.appendChild(title);
     section.appendChild(grid);
     box.appendChild(section);
   });
+}
+
+function renderAll(lang){
+  const hot = tools.filter(t=>t[10]).slice(0,8);
+  const latest = tools.filter(t=>t[11]).slice(0,8);
+  const favList = tools.filter(t=>getFavs().includes(toolId(t)));
+  const historyIds = getHistory();
+  const historyList = historyIds.map(id=>tools.find(t=>toolId(t) === id)).filter(Boolean);
+
+  renderToolList("hotBox", hot, lang, "");
+  renderToolList("newBox", latest, lang, "");
+  renderToolList("favoriteBox", favList, lang, i18n[lang].noFavorites);
+  renderToolList("historyBox", historyList, lang, i18n[lang].noHistory);
+  renderCategories(lang);
+  runSearch(lang);
+}
+
+function runSearch(lang){
+  const q = document.getElementById("searchInput").value.trim().toLowerCase();
+  const section = document.getElementById("search-section");
+  const box = document.getElementById("searchResultsBox");
+
+  if(!q){
+    section.style.display = "none";
+    box.innerHTML = "";
+    return;
+  }
+
+  section.style.display = "block";
+  box.innerHTML = "";
+
+  const result = tools.filter(t=>{
+    const text = [
+      t[2],t[3],t[4],t[5],t[6],t[7],t[8],t[9],t[1],t[0]
+    ].join(" ").toLowerCase();
+    return text.includes(q);
+  });
+
+  if(result.length === 0){
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = i18n[lang].noSearch;
+    box.appendChild(empty);
+    return;
+  }
+
+  result.forEach(t=>box.appendChild(createCard(t, lang)));
 }
 
 function setLanguage(lang){
@@ -471,19 +631,28 @@ function setLanguage(lang){
 
   document.querySelectorAll("[data-i18n]").forEach(el=>{
     const key = el.getAttribute("data-i18n");
-    if(data[key]){
-      el.textContent = data[key];
-    }
+    if(data[key]) el.textContent = data[key];
   });
 
-  renderTools(lang);
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    const key = el.getAttribute("data-i18n-placeholder");
+    if(data[key]) el.placeholder = data[key];
+  });
+
   localStorage.setItem("siteLanguage", lang);
+  renderAll(lang);
 }
 
 const languageSelect = document.getElementById("languageSelect");
+const searchInput = document.getElementById("searchInput");
 
 languageSelect.addEventListener("change", function(){
   setLanguage(this.value);
+});
+
+searchInput.addEventListener("input", function(){
+  const lang = localStorage.getItem("siteLanguage") || "zh";
+  runSearch(lang);
 });
 
 const savedLang = localStorage.getItem("siteLanguage") || "zh";
