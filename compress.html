@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>图片压缩工具 - ZenTools</title>
+
+<meta name="description" content="ZenTools 免费在线图片压缩工具，支持 JPG、PNG、WEBP 图片压缩，支持手机与电脑。">
+
+<style>
+
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --border:#1f2937;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --blue:#2563eb;
+  --green:#10b981;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
+  line-height:1.7;
+}
+
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:40px 20px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px;
+}
+
+a{
+  color:#60a5fa;
+  text-decoration:none;
+}
+
+h1{
+  margin-bottom:15px;
+}
+
+.desc{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.ad-box{
+  margin:25px 0;
+  height:110px;
+  border:2px dashed #334155;
+  border-radius:18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+}
+
+.upload-box{
+  margin-top:25px;
+}
+
+input[type="file"]{
+  width:100%;
+  margin:20px 0;
+}
+
+.range-box{
+  margin-top:20px;
+}
+
+input[type="range"]{
+  width:100%;
+}
+
+button{
+  margin-top:20px;
+  background:var(--blue);
+  color:white;
+  border:none;
+  padding:14px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:16px;
+  font-weight:bold;
+  transition:.3s;
+}
+
+button:hover{
+  transform:translateY(-2px);
+}
+
+.preview{
+  margin-top:35px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.preview img{
+  width:100%;
+  border-radius:14px;
+  border:1px solid #334155;
+}
+
+.info{
+  margin-top:40px;
+}
+
+.info h2{
+  margin-top:30px;
+  margin-bottom:10px;
+}
+
+.info p{
+  color:#cbd5e1;
+}
+
+.download-btn{
+  display:inline-block;
+  margin-top:12px;
+  background:var(--green);
+  color:white;
+  padding:10px 15px;
+  border-radius:10px;
+}
+
+footer{
+  margin-top:50px;
+  text-align:center;
+  color:#94a3b8;
+}
+
+@media(max-width:768px){
+
+  h1{
+    font-size:30px;
+  }
+
+  button{
+    width:100%;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <p>
+    <a href="index.html">← Back to Home</a>
+  </p>
+
+  <div class="card">
+
+    <h1>图片压缩工具</h1>
+
+    <p class="desc">
+      免费在线图片压缩工具。
+      支持 JPG、PNG、WEBP 图片压缩，
+      支持手机与电脑浏览器。
+    </p>
+
+    <div class="ad-box">
+      广告位（Google AdSense）
+    </div>
+
+    <div class="upload-box">
+
+      <input type="file" id="imageInput" accept="image/*">
+
+      <div class="range-box">
+
+        <p>
+          压缩质量：
+          <span id="qualityValue">0.7</span>
+        </p>
+
+        <input
+          type="range"
+          id="qualityRange"
+          min="0.1"
+          max="1"
+          step="0.1"
+          value="0.7"
+        >
+
+      </div>
+
+      <button onclick="compressImage()">
+        开始压缩
+      </button>
+
+    </div>
+
+    <div class="preview" id="preview"></div>
+
+    <div class="info">
+
+      <h2>使用说明</h2>
+
+      <p>
+        1. 上传图片。<br>
+        2. 调节压缩质量。<br>
+        3. 点击“开始压缩”。<br>
+        4. 下载压缩后的图片。
+      </p>
+
+      <h2>兼容性</h2>
+
+      <p>
+        本工具支持 Chrome、Safari、Edge 等现代浏览器。
+        所有处理均在浏览器本地完成。
+      </p>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2026 ZenTools. All Rights Reserved.
+  </footer>
+
+</div>
+
+<script>
+
+const qualityRange = document.getElementById("qualityRange");
+
+const qualityValue = document.getElementById("qualityValue");
+
+qualityRange.addEventListener("input", function(){
+
+  qualityValue.textContent = this.value;
+
+});
+
+function compressImage(){
+
+  const file = document.getElementById("imageInput").files[0];
+
+  if(!file){
+
+    alert("请选择图片");
+
+    return;
+
+  }
+
+  const quality = parseFloat(qualityRange.value);
+
+  const reader = new FileReader();
+
+  reader.onload = function(e){
+
+    const img = new Image();
+
+    img.src = e.target.result;
+
+    img.onload = function(){
+
+      const canvas = document.createElement("canvas");
+
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = img.width;
+
+      canvas.height = img.height;
+
+      ctx.drawImage(img, 0, 0);
+
+      const compressedData = canvas.toDataURL(
+        "image/jpeg",
+        quality
+      );
+
+      showPreview(
+        e.target.result,
+        compressedData
+      );
+
+    };
+
+  };
+
+  reader.readAsDataURL(file);
+
+}
+
+function showPreview(original, compressed){
+
+  const preview = document.getElementById("preview");
+
+  preview.innerHTML = `
+
+    <div>
+
+      <h3>原图</h3>
+
+      <img src="${original}">
+
+    </div>
+
+    <div>
+
+      <h3>压缩后</h3>
+
+      <img src="${compressed}">
+
+      <br>
+
+      <a
+        class="download-btn"
+        href="${compressed}"
+        download="compressed.jpg"
+      >
+        下载图片
+      </a>
+
+    </div>
+
+  `;
+
+}
+
+</script>
+
+</body>
+</html>
