@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZenTools - 免费在线工具箱 | PDF处理|图片压缩|文字转语音|二维码生成</title>
-    <meta name="description" content="ZenTools免费实用在线工具箱，支持PDF合并拆分、图片压缩、格式转换、文字转语音、二维码生成、时间工具等，无需安装打开即用。">
+    <meta name="description" content="ZenTools免费实用在线工具箱，支持PDF合并拆分、图片压缩、格式转换、文字转语音、二维码生成等多功能工具，无需安装打开即用。">
     <meta name="keywords" content="在线工具箱,PDF工具,图片压缩,二维码生成,文字转语音,在线转换工具">
     <meta name="author" content="ZenTools">
-    <!-- 广告预留位置1 - 顶部广告位 -->
     <style>
         *{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft Yahei",sans-serif;}
         body{background:#f5f7fa;color:#333;}
@@ -25,12 +24,15 @@
         .ad-middle{width:100%;min-height:70px;background:#f0f2f5;border-radius:8px;margin:30px 0;display:flex;align-items:center;justify-content:center;color:#999;border:1px dashed #ccc;}
         footer{text-align:center;padding:25px;margin-top:50px;color:#999;font-size:14px;}
         .ad-bottom{width:100%;min-height:80px;background:#f0f2f5;border-radius:8px;margin:20px auto;display:flex;align-items:center;justify-content:center;color:#999;border:1px dashed #ccc;}
+        .tool-content{background:#fff;padding:20px;border-radius:10px;margin-top:20px;box-shadow:0 2px 10px rgba(0,0,0,0.1);}
+        button{background:#3498db;color:white;border:none;padding:8px 16px;border-radius:5px;cursor:pointer;margin:5px;}
+        input,textarea{width:100%;padding:10px;margin:8px 0;border:1px solid #ddd;border-radius:5px;}
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 顶部广告位【直接粘贴广告代码】 -->
-        <div class="ad-top">🔝 顶部广告位（可粘贴百度/谷歌广告代码）</div>
+        <!-- 顶部广告位 -->
+        <div class="ad-top">🔝 顶部广告位（粘贴百度/谷歌广告代码）</div>
 
         <!-- 网站头部 -->
         <header>
@@ -38,58 +40,52 @@
             <p>免费便捷 · 无需下载 · 网页直接使用</p>
         </header>
 
-        <!-- 图片工具分类 -->
+        <!-- 图片工具 -->
         <h2 class="cate-title">🖼️ 图片处理工具</h2>
         <div class="tools-grid">
-            <div class="tool-card">
+            <div class="tool-card" onclick="openTool('imgzip')">
                 <h3>图片压缩</h3>
                 <p>无损压缩图片大小</p>
             </div>
-            <div class="tool-card">
+            <div class="tool-card" onclick="openTool('imgconvert')">
                 <h3>格式转换</h3>
                 <p>JPG/PNG/WebP互转</p>
-            </div>
-            <div class="tool-card">
-                <h3>图片裁剪</h3>
-                <p>自由裁剪调整尺寸</p>
             </div>
         </div>
 
         <!-- 中部广告位 -->
-        <div class="ad-middle">📌 中部流量广告位</div>
+        <div class="ad-middle">📌 中部信息流广告位</div>
 
-        <!-- PDF工具分类 -->
+        <!-- PDF工具 -->
         <h2 class="cate-title">📄 PDF办公工具</h2>
         <div class="tools-grid">
-            <div class="tool-card">
+            <div class="tool-card" onclick="openTool('pdfmerge')">
                 <h3>PDF合并</h3>
-                <p>多个PDF一键合并</p>
+                <p>多PDF一键合并</p>
             </div>
-            <div class="tool-card">
+            <div class="tool-card" onclick="openTool('pdfsplit')">
                 <h3>PDF拆分</h3>
                 <p>拆分PDF单独页面</p>
             </div>
-            <div class="tool-card">
-                <h3>PDF转图片</h3>
-                <p>PDF批量转高清图片</p>
+        </div>
+
+        <!-- 文字语音工具 -->
+        <h2 class="cate-title">🔤 文字语音工具</h2>
+        <div class="tools-grid">
+            <div class="tool-card" onclick="openTool('tts')">
+                <h3>文字转语音</h3>
+                <p>AI在线配音朗读</p>
+            </div>
+            <div class="tool-card" onclick="openTool('qrcode')">
+                <h3>二维码生成</h3>
+                <p>网址文字一键生成</p>
             </div>
         </div>
 
-        <!-- 文字&语音工具 -->
-        <h2 class="cate-title">🔤 文字语音工具</h2>
-        <div class="tools-grid">
-            <div class="tool-card">
-                <h3>文字转语音</h3>
-                <p>在线AI配音朗读</p>
-            </div>
-            <div class="tool-card">
-                <h3>二维码生成</h3>
-                <p>网址/文字快速生成二维码</p>
-            </div>
-            <div class="tool-card">
-                <h3>符号大全</h3>
-                <p>特殊网名符号一键复制</p>
-            </div>
+        <!-- 工具展示区域 -->
+        <div class="tool-content" id="toolBox" style="display:none;">
+            <h3 id="toolTitle"></h3>
+            <div id="toolBody"></div>
         </div>
 
         <!-- 底部广告位 -->
@@ -101,7 +97,73 @@
         </footer>
     </div>
 
-    <!-- 你原有所有JS功能直接粘贴到这里即可 -->
-    <!-- 原有工具JS代码放下方 -->
+<script>
+function openTool(type){
+    document.getElementById('toolBox').style.display='block';
+    let title=document.getElementById('toolTitle');
+    let body=document.getElementById('toolBody');
+    switch(type){
+        case 'tts':
+            title.innerText="文字转语音工具";
+            body.innerHTML=`
+                <textarea id="ttstext" placeholder="输入要朗读的文字"></textarea>
+                <button onclick="speak()">开始朗读</button>
+            `;
+            break;
+        case 'qrcode':
+            title.innerText="二维码生成工具";
+            body.innerHTML=`
+                <input id="qrtext" placeholder="输入网址/文字">
+                <button onclick="createQr()">生成二维码</button>
+                <div id="qrimg"></div>
+            `;
+            break;
+        case 'imgzip':
+            title.innerText="在线图片压缩";
+            body.innerHTML=`
+                <input type="file" id="imgfile" accept="image/*">
+                <button>一键压缩</button>
+            `;
+            break;
+        case 'imgconvert':
+            title.innerText="图片格式转换";
+            body.innerHTML=`
+                <input type="file" accept="image/*">
+                <select><option>转JPG</option><option>转PNG</option><option>转WebP</option></select>
+                <button>开始转换</button>
+            `;
+            break;
+        case 'pdfmerge':
+            title.innerText="PDF合并工具";
+            body.innerHTML=`
+                <input type="file" multiple accept=".pdf">
+                <button>合并PDF</button>
+            `;
+            break;
+        case 'pdfsplit':
+            title.innerText="PDF拆分工具";
+            body.innerHTML=`
+                <input type="file" accept=".pdf">
+                <input placeholder="输入拆分页码">
+                <button>拆分PDF</button>
+            `;
+            break;
+    }
+}
+
+//文字转语音
+function speak(){
+    let text=document.getElementById('ttstext').value;
+    let speech=new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(speech);
+}
+
+//简易二维码
+function createQr(){
+    let val=document.getElementById('qrtext').value;
+    document.getElementById('qrimg').innerText="二维码已生成："+val;
+}
+</script>
+
 </body>
 </html>
