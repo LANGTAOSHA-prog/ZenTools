@@ -6,12 +6,9 @@
 
 <title>文字转语音工具 - ZenTools</title>
 
-<meta name="description" content="ZenTools 免费在线文字转语音工具，支持中文、日语、英语、越南语朗读，支持语速调节与移动端。">
-
-<meta name="keywords" content="TTS,文字转语音,在线朗读,免费TTS,语音合成,ZenTools">
+<meta name="description" content="ZenTools 免费在线文字转语音工具，支持中文、日语、英语、越南语朗读，支持语速调节。">
 
 <style>
-
 :root{
   --bg:#0f172a;
   --card:#111827;
@@ -22,52 +19,38 @@
   --green:#10b981;
   --red:#dc2626;
 }
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
+*{margin:0;padding:0;box-sizing:border-box}
 body{
   background:var(--bg);
   color:var(--text);
   font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
   line-height:1.7;
 }
-
-a{
-  color:#60a5fa;
-  text-decoration:none;
-}
-
-.container{
-  max-width:950px;
-  margin:auto;
-  padding:40px 20px;
-}
-
+a{color:#60a5fa;text-decoration:none}
+.container{max-width:950px;margin:auto;padding:40px 20px}
 .card{
   background:var(--card);
   border:1px solid var(--border);
   border-radius:20px;
   padding:28px;
 }
-
-.back{
+.top-bar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
   margin-bottom:20px;
+  flex-wrap:wrap;
 }
-
-h1{
-  font-size:38px;
-  margin-bottom:15px;
+.lang-select{
+  background:#0f172a;
+  color:white;
+  border:1px solid #334155;
+  border-radius:10px;
+  padding:10px 12px;
 }
-
-.desc{
-  color:var(--muted);
-  margin-bottom:25px;
-}
-
+h1{font-size:38px;margin-bottom:15px}
+.desc{color:var(--muted);margin-bottom:25px}
 .ad-box{
   margin:25px 0;
   height:110px;
@@ -77,9 +60,7 @@ h1{
   align-items:center;
   justify-content:center;
   color:#64748b;
-  font-size:18px;
 }
-
 textarea{
   width:100%;
   min-height:240px;
@@ -92,132 +73,64 @@ textarea{
   resize:vertical;
   outline:none;
 }
-
-textarea:focus{
-  border-color:var(--blue);
-}
-
+textarea:focus{border-color:var(--blue)}
 .controls{
   display:flex;
   flex-wrap:wrap;
   gap:15px;
   margin-top:22px;
 }
-
-button{
+button,select{
   border:none;
   border-radius:12px;
   padding:14px 20px;
   font-size:16px;
+}
+button{
   font-weight:bold;
   cursor:pointer;
-  transition:0.25s;
+  transition:.25s;
 }
-
-button:hover{
-  transform:translateY(-2px);
-}
-
-.btn-play{
-  background:var(--green);
-  color:white;
-}
-
-.btn-pause{
-  background:#f59e0b;
-  color:white;
-}
-
-.btn-resume{
-  background:var(--blue);
-  color:white;
-}
-
-.btn-stop{
-  background:var(--red);
-  color:white;
-}
-
-select{
-  padding:14px;
-  border-radius:12px;
+button:hover{transform:translateY(-2px)}
+.btn-play{background:var(--green);color:white}
+.btn-pause{background:#f59e0b;color:white}
+.btn-resume{background:var(--blue);color:white}
+.btn-stop{background:var(--red);color:white}
+.voice-select{
   background:#0f172a;
   color:white;
   border:1px solid #334155;
-  font-size:16px;
 }
-
-.range-box{
-  margin-top:28px;
-}
-
-.range-box p{
-  margin-bottom:10px;
-}
-
-input[type="range"]{
-  width:100%;
-}
-
-.info{
-  margin-top:40px;
-}
-
-.info h2{
-  margin-bottom:12px;
-  margin-top:28px;
-}
-
-.info p{
-  color:#cbd5e1;
-}
-
+.range-box{margin-top:28px}
+input[type="range"]{width:100%}
+.info{margin-top:40px}
+.info h2{margin-bottom:12px;margin-top:28px}
+.info p{color:#cbd5e1;white-space:pre-line}
 .faq{
   margin-top:35px;
   display:flex;
   flex-direction:column;
   gap:18px;
 }
-
 .faq-item{
   background:#0f172a;
   border:1px solid #334155;
   border-radius:14px;
   padding:18px;
 }
-
-.faq-item h3{
-  margin-bottom:10px;
-}
-
 footer{
   margin-top:50px;
   text-align:center;
   color:#94a3b8;
   font-size:14px;
 }
-
 @media(max-width:768px){
-
-  h1{
-    font-size:30px;
-  }
-
-  textarea{
-    font-size:16px;
-  }
-
-  .controls{
-    flex-direction:column;
-  }
-
-  button,
-  select{
-    width:100%;
-  }
-
+  h1{font-size:30px}
+  textarea{font-size:16px}
+  .controls{flex-direction:column}
+  button,select{width:100%}
+  .lang-select{width:100%}
 }
-
 </style>
 </head>
 
@@ -225,116 +138,77 @@ footer{
 
 <div class="container">
 
-  <div class="back">
-    <a href="index.html">← Back to Home</a>
+  <div class="top-bar">
+    <a href="index.html" data-i18n="back">← 返回首页</a>
+
+    <select id="languageSelect" class="lang-select">
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+      <option value="vi">Tiếng Việt</option>
+    </select>
   </div>
 
   <div class="card">
 
-    <h1>文字转语音工具</h1>
+    <h1 data-i18n="title">文字转语音工具</h1>
 
-    <p class="desc">
-      免费在线 TTS 文字转语音工具。
-      支持中文、日本語、English、Tiếng Việt，
-      可调节语速，支持手机与电脑浏览器。
+    <p class="desc" data-i18n="desc">
+      免费在线 TTS 文字转语音工具。支持中文、日语、英语、越南语，可调节语速。
     </p>
 
-    <div class="ad-box">
-      广告位（Google AdSense）
-    </div>
+    <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
 
     <textarea id="textInput">欢迎使用 ZenTools 免费文字转语音工具。</textarea>
 
     <div class="controls">
 
-      <select id="langSelect">
+      <select id="ttsLang" class="voice-select">
         <option value="zh-CN">中文</option>
         <option value="ja-JP">日本語</option>
         <option value="en-US">English</option>
         <option value="vi-VN">Tiếng Việt</option>
       </select>
 
-      <button class="btn-play" onclick="speakText()">
-        开始朗读
-      </button>
-
-      <button class="btn-pause" onclick="pauseSpeech()">
-        暂停
-      </button>
-
-      <button class="btn-resume" onclick="resumeSpeech()">
-        继续
-      </button>
-
-      <button class="btn-stop" onclick="stopSpeech()">
-        停止
-      </button>
+      <button class="btn-play" onclick="speakText()" data-i18n="play">开始朗读</button>
+      <button class="btn-pause" onclick="pauseSpeech()" data-i18n="pause">暂停</button>
+      <button class="btn-resume" onclick="resumeSpeech()" data-i18n="resume">继续</button>
+      <button class="btn-stop" onclick="stopSpeech()" data-i18n="stop">停止</button>
 
     </div>
 
     <div class="range-box">
-
       <p>
-        语速：
+        <span data-i18n="rate">语速：</span>
         <span id="rateValue">1.0</span>x
       </p>
 
-      <input
-        type="range"
-        id="rateRange"
-        min="0.5"
-        max="2"
-        step="0.1"
-        value="1"
-      >
-
+      <input type="range" id="rateRange" min="0.5" max="2" step="0.1" value="1">
     </div>
 
     <div class="info">
 
-      <h2>使用说明</h2>
+      <h2 data-i18n="guideTitle">使用说明</h2>
+      <p data-i18n="guideText">1. 输入需要朗读的文字。
+2. 选择语言。
+3. 调节语速。
+4. 点击开始朗读。</p>
 
-      <p>
-        1. 输入需要朗读的文字。<br>
-        2. 选择语言。<br>
-        3. 调节语速。<br>
-        4. 点击“开始朗读”。<br>
-        5. 可暂停、继续或停止播放。
-      </p>
+      <h2 data-i18n="compatTitle">兼容性</h2>
+      <p data-i18n="compatText">本工具使用浏览器自带语音功能，支持 Chrome、Safari、Edge 等现代浏览器。</p>
 
-      <h2>兼容性</h2>
-
-      <p>
-        本工具使用浏览器自带 SpeechSynthesis API。
-        支持 Chrome、Safari、Edge 等现代浏览器。
-        iPhone 与 Android 均可使用。
-      </p>
-
-      <h2>FAQ</h2>
+      <h2 data-i18n="faqTitle">FAQ</h2>
 
       <div class="faq">
 
         <div class="faq-item">
-          <h3>为什么没有声音？</h3>
-          <p>
-            请确认手机音量已打开，并点击“开始朗读”按钮。
-            部分浏览器禁止自动播放语音。
-          </p>
+          <h3 data-i18n="faq1Q">为什么没有声音？</h3>
+          <p data-i18n="faq1A">请确认手机音量已打开，并点击开始朗读。部分浏览器禁止自动播放语音。</p>
         </div>
 
         <div class="faq-item">
-          <h3>支持哪些语言？</h3>
-          <p>
-            当前支持中文、日语、英语、越南语，
-            实际声音取决于浏览器与系统。
-          </p>
-        </div>
-
-        <div class="faq-item">
-          <h3>需要安装软件吗？</h3>
-          <p>
-            不需要。ZenTools TTS 工具完全在线运行。
-          </p>
+          <h3 data-i18n="faq2Q">需要安装软件吗？</h3>
+          <p data-i18n="faq2A">不需要，直接在浏览器中使用。</p>
         </div>
 
       </div>
@@ -343,51 +217,168 @@ footer{
 
   </div>
 
-  <footer>
-    © 2026 ZenTools. All Rights Reserved.
-  </footer>
+  <footer>© 2026 ZenTools. All Rights Reserved.</footer>
 
 </div>
 
 <script>
-
+const languageSelect = document.getElementById("languageSelect");
 const rateRange = document.getElementById("rateRange");
 const rateValue = document.getElementById("rateValue");
+
+let currentLang = "zh";
+
+const translations = {
+  zh:{
+    pageTitle:"文字转语音工具 - ZenTools",
+    back:"← 返回首页",
+    title:"文字转语音工具",
+    desc:"免费在线 TTS 文字转语音工具。支持中文、日语、英语、越南语，可调节语速。",
+    ad:"广告位（Google AdSense）",
+    play:"开始朗读",
+    pause:"暂停",
+    resume:"继续",
+    stop:"停止",
+    rate:"语速：",
+    guideTitle:"使用说明",
+    guideText:"1. 输入需要朗读的文字。\n2. 选择语言。\n3. 调节语速。\n4. 点击开始朗读。",
+    compatTitle:"兼容性",
+    compatText:"本工具使用浏览器自带语音功能，支持 Chrome、Safari、Edge 等现代浏览器。",
+    faqTitle:"FAQ",
+    faq1Q:"为什么没有声音？",
+    faq1A:"请确认手机音量已打开，并点击开始朗读。部分浏览器禁止自动播放语音。",
+    faq2Q:"需要安装软件吗？",
+    faq2A:"不需要，直接在浏览器中使用。",
+    placeholder:"欢迎使用 ZenTools 免费文字转语音工具。",
+    alertNoText:"请输入文字"
+  },
+  ja:{
+    pageTitle:"文字読み上げツール - ZenTools",
+    back:"← ホームに戻る",
+    title:"文字読み上げツール",
+    desc:"無料オンライン TTS ツールです。中国語、日本語、英語、ベトナム語に対応し、読み上げ速度を調整できます。",
+    ad:"広告スペース（Google AdSense）",
+    play:"読み上げ開始",
+    pause:"一時停止",
+    resume:"再開",
+    stop:"停止",
+    rate:"速度：",
+    guideTitle:"使い方",
+    guideText:"1. 読み上げたい文章を入力します。\n2. 言語を選択します。\n3. 速度を調整します。\n4. 読み上げ開始をクリックします。",
+    compatTitle:"互換性",
+    compatText:"このツールはブラウザ標準の音声機能を使用します。Chrome、Safari、Edge などに対応しています。",
+    faqTitle:"FAQ",
+    faq1Q:"音が出ないのはなぜですか？",
+    faq1A:"スマホの音量を確認し、読み上げ開始をタップしてください。一部ブラウザでは自動再生が制限されています。",
+    faq2Q:"ソフトのインストールは必要ですか？",
+    faq2A:"不要です。ブラウザでそのまま使えます。",
+    placeholder:"ZenTools 文字読み上げツールへようこそ。",
+    alertNoText:"文章を入力してください"
+  },
+  en:{
+    pageTitle:"Text to Speech Tool - ZenTools",
+    back:"← Back to Home",
+    title:"Text to Speech Tool",
+    desc:"Free online TTS tool. Supports Chinese, Japanese, English, and Vietnamese with speed control.",
+    ad:"Ad Space（Google AdSense）",
+    play:"Start Reading",
+    pause:"Pause",
+    resume:"Resume",
+    stop:"Stop",
+    rate:"Speed:",
+    guideTitle:"How to Use",
+    guideText:"1. Enter the text you want to read.\n2. Select a language.\n3. Adjust the speed.\n4. Click Start Reading.",
+    compatTitle:"Compatibility",
+    compatText:"This tool uses the browser's built-in speech feature and supports modern browsers such as Chrome, Safari, and Edge.",
+    faqTitle:"FAQ",
+    faq1Q:"Why is there no sound?",
+    faq1A:"Please check your device volume and tap Start Reading. Some browsers block automatic audio playback.",
+    faq2Q:"Do I need to install software?",
+    faq2A:"No. You can use it directly in your browser.",
+    placeholder:"Welcome to ZenTools Text to Speech Tool.",
+    alertNoText:"Please enter text"
+  },
+  vi:{
+    pageTitle:"Công cụ chuyển văn bản thành giọng nói - ZenTools",
+    back:"← Quay lại trang chủ",
+    title:"Công cụ chuyển văn bản thành giọng nói",
+    desc:"Công cụ TTS trực tuyến miễn phí, hỗ trợ tiếng Trung, tiếng Nhật, tiếng Anh và tiếng Việt, có thể điều chỉnh tốc độ.",
+    ad:"Vị trí quảng cáo（Google AdSense）",
+    play:"Bắt đầu đọc",
+    pause:"Tạm dừng",
+    resume:"Tiếp tục",
+    stop:"Dừng",
+    rate:"Tốc độ:",
+    guideTitle:"Hướng dẫn sử dụng",
+    guideText:"1. Nhập văn bản cần đọc.\n2. Chọn ngôn ngữ.\n3. Điều chỉnh tốc độ.\n4. Nhấn bắt đầu đọc.",
+    compatTitle:"Khả năng tương thích",
+    compatText:"Công cụ sử dụng chức năng giọng nói có sẵn trong trình duyệt, hỗ trợ Chrome, Safari, Edge và các trình duyệt hiện đại.",
+    faqTitle:"FAQ",
+    faq1Q:"Tại sao không có âm thanh?",
+    faq1A:"Vui lòng kiểm tra âm lượng điện thoại và nhấn Bắt đầu đọc. Một số trình duyệt chặn tự động phát âm thanh.",
+    faq2Q:"Có cần cài đặt phần mềm không?",
+    faq2A:"Không cần, có thể dùng trực tiếp trên trình duyệt.",
+    placeholder:"Chào mừng bạn đến với công cụ TTS của ZenTools.",
+    alertNoText:"Vui lòng nhập văn bản"
+  }
+};
 
 rateRange.addEventListener("input", function(){
   rateValue.textContent = this.value;
 });
 
+function setLanguage(lang){
+  currentLang = lang;
+  const data = translations[lang] || translations.zh;
+
+  document.documentElement.lang = lang;
+  document.title = data.pageTitle;
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key = el.getAttribute("data-i18n");
+    if(data[key]) el.innerText = data[key];
+  });
+
+  document.getElementById("textInput").placeholder = data.placeholder;
+
+  if(!localStorage.getItem("ttsTextEdited")){
+    document.getElementById("textInput").value = data.placeholder;
+  }
+
+  localStorage.setItem("siteLanguage", lang);
+}
+
+document.getElementById("textInput").addEventListener("input", function(){
+  localStorage.setItem("ttsTextEdited", "1");
+});
+
+languageSelect.addEventListener("change", function(){
+  setLanguage(this.value);
+});
+
+const savedLang = localStorage.getItem("siteLanguage") || "zh";
+languageSelect.value = savedLang;
+setLanguage(savedLang);
+
 function speakText(){
-
   const text = document.getElementById("textInput").value.trim();
-
-  const lang = document.getElementById("langSelect").value;
-
-  const rate = parseFloat(
-    document.getElementById("rateRange").value
-  );
+  const lang = document.getElementById("ttsLang").value;
+  const rate = parseFloat(rateRange.value);
 
   if(!text){
-    alert("请输入文字");
+    alert(translations[currentLang].alertNoText);
     return;
   }
 
-  // 防止重复播放
   window.speechSynthesis.cancel();
 
   const utterance = new SpeechSynthesisUtterance(text);
-
   utterance.lang = lang;
-
   utterance.rate = rate;
-
   utterance.pitch = 1;
-
   utterance.volume = 1;
 
   window.speechSynthesis.speak(utterance);
-
 }
 
 function pauseSpeech(){
@@ -401,7 +392,6 @@ function resumeSpeech(){
 function stopSpeech(){
   window.speechSynthesis.cancel();
 }
-
 </script>
 
 </body>
