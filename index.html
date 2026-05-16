@@ -1,16 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ZenTools - Free Online Tools</title>
+
+<meta name="description" content="ZenTools 提供免费的在线工具，包括 PDF 工具、文字转语音、图片处理等。">
+
+<style>
+
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --border:#1f2937;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --blue:#2563eb;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  line-height:1.7;
+}
+
+a{
+  text-decoration:none;
+  color:inherit;
+}
+
+header{
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  background:#0f172af0;
+  backdrop-filter:blur(10px);
+  z-index:999;
+}
+
+.nav{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+}
+
+.menu{
+  display:flex;
+  gap:18px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.menu a{
+  color:var(--muted);
+}
+
+.lang-select{
+  background:#111827;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px 10px;
+}
+
+.hero{
+  max-width:1200px;
+  margin:auto;
+  padding:80px 20px;
+  text-align:center;
+}
+
+.hero h1{
+  font-size:52px;
+  margin-bottom:20px;
+}
+
+.hero p{
+  color:var(--muted);
+  font-size:20px;
+  max-width:800px;
+  margin:auto;
+}
+
+.hero-btn{
+  margin-top:35px;
+  display:inline-block;
+  background:var(--blue);
+  color:white;
+  padding:16px 34px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.section{
+  max-width:1200px;
+  margin:auto;
+  padding:60px 20px;
+}
+
+.section-title{
+  font-size:36px;
+  margin-bottom:30px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:25px;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  border-color:var(--blue);
+}
+
+.card h3{
+  margin-bottom:12px;
+}
+
+.card p{
+  color:var(--muted);
+}
+
+.ad-box{
+  margin:50px auto;
+  max-width:1200px;
+  height:120px;
+  border-radius:18px;
+  border:2px dashed #334155;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+}
+
+footer{
+  margin-top:60px;
+  border-top:1px solid var(--border);
+  padding:30px;
+  text-align:center;
+  color:var(--muted);
+}
+
+@media(max-width:768px){
+
+  .nav{
+    flex-direction:column;
+  }
+
+  .hero h1{
+    font-size:36px;
+  }
+
+  .hero p{
+    font-size:16px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="nav">
+
+    <div class="logo">
+      ZenTools
+    </div>
+
+    <div class="menu">
+
+      <a href="index.html" data-i18n="navHome">
+        首页
+      </a>
+
+      <a href="#tools" data-i18n="navTools">
+        工具
+      </a>
+
+      <select class="lang-select" id="languageSelect">
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+        <option value="en">English</option>
+        <option value="vi">Tiếng Việt</option>
+      </select>
+
+    </div>
+
+  </div>
+
+</header>
+
+<section class="hero">
+
+  <h1 data-i18n="heroTitle">
+    ZenTools 免费在线工具箱
+  </h1>
+
+  <p data-i18n="heroText">
+    提供 PDF、图片、二维码、文字转语音等免费在线工具。
+  </p>
+
+  <a class="hero-btn" href="#tools" data-i18n="startBtn">
+    开始使用
+  </a>
+
+</section>
+
+<div class="ad-box" data-i18n="adText">
+  广告位（Google AdSense）
+</div>
+
+<section class="section" id="tools">
+
+  <h2 class="section-title" data-i18n="popularTools">
+    热门工具
+  </h2>
+
+  <div class="grid">
+
+    <a href="tts.html" class="card">
+      <h3 data-i18n="tool1Title">文字转语音</h3>
+      <p data-i18n="tool1Text">在线TTS语音合成工具。</p>
+    </a>
+
+    <a href="pdf.html" class="card">
+      <h3 data-i18n="tool2Title">PDF工具</h3>
+      <p data-i18n="tool2Text">PDF转换与处理工具。</p>
+    </a>
+
+    <a href="compress.html" class="card">
+      <h3 data-i18n="tool3Title">图片压缩</h3>
+      <p data-i18n="tool3Text">在线压缩图片。</p>
+    </a>
+
+    <a href="qr.html" class="card">
+      <h3 data-i18n="tool4Title">二维码生成器</h3>
+      <p data-i18n="tool4Text">生成可下载二维码。</p>
+    </a>
+
+    <a href="convert.html" class="card">
+      <h3 data-i18n="tool5Title">图片格式转换</h3>
+      <p data-i18n="tool5Text">JPG、PNG、WEBP互转。</p>
+    </a>
+
+    <a href="resize.html" class="card">
+      <h3 data-i18n="tool6Title">图片尺寸修改</h3>
+      <p data-i18n="tool6Text">在线修改图片大小。</p>
+    </a>
+
+    <a href="mergepdf.html" class="card">
+      <h3 data-i18n="tool7Title">PDF 合并</h3>
+      <p data-i18n="tool7Text">在线合并多个 PDF。</p>
+    </a>
+
+  </div>
+
+</section>
+
+<footer>
+
+  © 2026 ZenTools
+
+</footer>
+
 <script>
+
 const translations = {
 
-  zh: {
-    title:"ZenTools - 免费在线工具箱",
+  zh:{
     navHome:"首页",
     navTools:"工具",
-    navAbout:"关于",
-    navContact:"联系",
 
     heroTitle:"ZenTools 免费在线工具箱",
-    heroText:"ZenTools 提供免费的文字转语音、PDF处理、图片工具、在线学习工具，支持手机与电脑访问。",
-
+    heroText:"提供 PDF、图片、二维码、文字转语音等免费在线工具。",
     startBtn:"开始使用",
 
     adText:"广告位（Google AdSense）",
@@ -18,252 +309,130 @@ const translations = {
     popularTools:"热门工具",
 
     tool1Title:"文字转语音",
-    tool1Text:"在线TTS语音合成工具，支持多语言与语速调节。",
+    tool1Text:"在线TTS语音合成工具。",
 
     tool2Title:"PDF工具",
-    tool2Text:"支持 PDF 转图片、图片转 PDF 等功能。",
+    tool2Text:"PDF转换与处理工具。",
 
     tool3Title:"图片压缩",
-    tool3Text:"在线压缩图片，保持高清质量。",
+    tool3Text:"在线压缩图片。",
 
     tool4Title:"二维码生成器",
-    tool4Text:"输入文字或网址，快速生成可下载二维码。",
+    tool4Text:"生成可下载二维码。",
 
     tool5Title:"图片格式转换",
-    tool5Text:"支持 JPG、PNG、WEBP 图片互转。",
+    tool5Text:"JPG、PNG、WEBP互转。",
 
-    adBanner:"横幅广告位",
+    tool6Title:"图片尺寸修改",
+    tool6Text:"在线修改图片大小。",
 
-    aboutTitle:"关于 ZenTools",
-    aboutText:"ZenTools 专注于提供免费的在线工具与学习资源，包括文字转语音、PDF工具、图片处理、在线学习与模拟考试系统。我们希望让用户无需安装软件，也能快速完成日常工作、学习和文件处理任务。",
-
-    whyTitle:"为什么选择 ZenTools？",
-
-    why1Title:"免费使用",
-    why1Text:"大部分工具可以直接免费使用，无需复杂设置。",
-
-    why2Title:"手机友好",
-    why2Text:"页面适配手机、平板和电脑，随时随地都能使用。",
-
-    why3Title:"多语言支持",
-    why3Text:"支持中文、日语、英语和越南语，适合不同用户使用。",
-
-    faqTitle:"常见问题 FAQ",
-
-    faq1Q:"是否免费？",
-    faq1A:"ZenTools 的工具目前全部免费使用。",
-
-    faq2Q:"支持手机吗？",
-    faq2A:"支持 Android 与 iPhone 浏览器。",
-
-    faq3Q:"需要安装软件吗？",
-    faq3A:"无需安装，打开网页即可使用。",
-
-    faq4Q:"以后会增加更多工具吗？",
-    faq4A:"会。ZenTools 将继续增加 PDF、图片、语音、学习类工具。",
-
-    footerDesc:"免费在线工具与学习平台"
+    tool7Title:"PDF 合并",
+    tool7Text:"在线合并多个 PDF。"
   },
 
-  ja: {
-    title:"ZenTools - 無料オンラインツール",
-
+  ja:{
     navHome:"ホーム",
     navTools:"ツール",
-    navAbout:"サイトについて",
-    navContact:"お問い合わせ",
 
     heroTitle:"ZenTools 無料オンラインツール",
+    heroText:"PDF、画像、QRコード、音声読み上げなどの無料ツール。",
 
-    heroText:"ZenTools は、文字読み上げ、PDF処理、画像ツール、学習ツールを無料で提供しています。スマホとPCに対応しています。",
+    startBtn:"使い始める",
 
-    startBtn:"今すぐ使う",
-
-    adText:"広告スペース（Google AdSense）",
+    adText:"広告スペース",
 
     popularTools:"人気ツール",
 
     tool1Title:"文字読み上げ",
-    tool1Text:"多言語と読み上げ速度調整に対応したTTSツールです。",
+    tool1Text:"オンラインTTSツール。",
 
     tool2Title:"PDFツール",
-    tool2Text:"PDFから画像、画像からPDFへの変換に対応しています。",
+    tool2Text:"PDF変換と処理。",
 
     tool3Title:"画像圧縮",
-    tool3Text:"画質を保ちながら画像をオンラインで圧縮できます。",
+    tool3Text:"画像をオンライン圧縮。",
 
     tool4Title:"QRコード生成",
-    tool4Text:"URL やテキストから QRコードを生成して保存できます。",
+    tool4Text:"QRコードを生成。",
 
     tool5Title:"画像形式変換",
-    tool5Text:"JPG、PNG、WEBP の相互変換に対応。",
+    tool5Text:"JPG・PNG・WEBP変換。",
 
-    adBanner:"バナー広告スペース",
+    tool6Title:"画像サイズ変更",
+    tool6Text:"画像サイズを変更。",
 
-    aboutTitle:"ZenTools について",
-
-    aboutText:"ZenTools は、文字読み上げ、PDFツール、画像処理、オンライン学習、模擬試験などの無料ツールを提供しています。ソフトをインストールせず、ブラウザだけで簡単に利用できます。",
-
-    whyTitle:"ZenTools を選ぶ理由",
-
-    why1Title:"無料で利用可能",
-    why1Text:"多くのツールを無料で利用でき、複雑な設定は不要です。",
-
-    why2Title:"スマホ対応",
-    why2Text:"スマートフォン、タブレット、PCに対応しています。",
-
-    why3Title:"多言語対応",
-    why3Text:"中国語、日本語、英語、ベトナム語に対応しています。",
-
-    faqTitle:"よくある質問 FAQ",
-
-    faq1Q:"無料で使えますか？",
-    faq1A:"現在、ZenTools のツールは無料で利用できます。",
-
-    faq2Q:"スマホに対応していますか？",
-    faq2A:"Android と iPhone のブラウザに対応しています。",
-
-    faq3Q:"ソフトのインストールは必要ですか？",
-    faq3A:"不要です。ブラウザでそのまま利用できます。",
-
-    faq4Q:"今後ツールは増えますか？",
-    faq4A:"はい。PDF、画像、音声、学習系ツールを追加予定です。",
-
-    footerDesc:"無料オンラインツールと学習プラットフォーム"
+    tool7Title:"PDF結合",
+    tool7Text:"複数PDFを結合。"
   },
 
-  en: {
-    title:"ZenTools - Free Online Tools",
-
+  en:{
     navHome:"Home",
     navTools:"Tools",
-    navAbout:"About",
-    navContact:"Contact",
 
     heroTitle:"ZenTools Free Online Tools",
-
-    heroText:"ZenTools provides free text-to-speech, PDF tools, image tools, and learning tools for mobile and desktop users.",
+    heroText:"Free online tools for PDF, images, QR codes, and text-to-speech.",
 
     startBtn:"Get Started",
 
-    adText:"Ad Space（Google AdSense）",
+    adText:"Ad Space",
 
     popularTools:"Popular Tools",
 
     tool1Title:"Text to Speech",
-    tool1Text:"Online TTS tool with multilingual support and speed control.",
+    tool1Text:"Online TTS tool.",
 
     tool2Title:"PDF Tools",
-    tool2Text:"Convert PDF to images and images to PDF.",
+    tool2Text:"PDF conversion and tools.",
 
     tool3Title:"Image Compression",
-    tool3Text:"Compress images online while keeping good quality.",
+    tool3Text:"Compress images online.",
 
     tool4Title:"QR Code Generator",
-    tool4Text:"Generate downloadable QR codes from text or URLs.",
+    tool4Text:"Generate downloadable QR codes.",
 
     tool5Title:"Image Converter",
-    tool5Text:"Convert JPG, PNG, and WEBP images online.",
+    tool5Text:"Convert JPG PNG WEBP.",
 
-    adBanner:"Banner Ad Space",
+    tool6Title:"Image Resizer",
+    tool6Text:"Resize images online.",
 
-    aboutTitle:"About ZenTools",
-
-    aboutText:"ZenTools provides free online tools and learning resources, including text-to-speech, PDF tools, image processing, online learning, and practice exam systems. Our goal is to help users complete daily tasks directly in the browser without installing software.",
-
-    whyTitle:"Why Choose ZenTools?",
-
-    why1Title:"Free to Use",
-    why1Text:"Most tools are free to use without complicated setup.",
-
-    why2Title:"Mobile Friendly",
-    why2Text:"The website works on phones, tablets, and desktop computers.",
-
-    why3Title:"Multilingual Support",
-    why3Text:"Supports Chinese, Japanese, English, and Vietnamese.",
-
-    faqTitle:"FAQ",
-
-    faq1Q:"Is it free?",
-    faq1A:"ZenTools tools are currently free to use.",
-
-    faq2Q:"Does it support mobile?",
-    faq2A:"Yes, it supports Android and iPhone browsers.",
-
-    faq3Q:"Do I need to install software?",
-    faq3A:"No installation is required. You can use it directly in your browser.",
-
-    faq4Q:"Will more tools be added?",
-    faq4A:"Yes. ZenTools will continue adding PDF, image, audio, and learning tools.",
-
-    footerDesc:"Free online tools and learning platform"
+    tool7Title:"PDF Merger",
+    tool7Text:"Merge multiple PDFs."
   },
 
-  vi: {
-    title:"ZenTools - Công cụ trực tuyến miễn phí",
-
+  vi:{
     navHome:"Trang chủ",
     navTools:"Công cụ",
-    navAbout:"Giới thiệu",
-    navContact:"Liên hệ",
 
     heroTitle:"ZenTools Công cụ trực tuyến miễn phí",
+    heroText:"Công cụ miễn phí cho PDF, hình ảnh, QR và TTS.",
 
-    heroText:"ZenTools cung cấp công cụ đọc văn bản, xử lý PDF, công cụ hình ảnh và học tập trực tuyến miễn phí, hỗ trợ điện thoại và máy tính.",
+    startBtn:"Bắt đầu",
 
-    startBtn:"Bắt đầu sử dụng",
-
-    adText:"Vị trí quảng cáo（Google AdSense）",
+    adText:"Vị trí quảng cáo",
 
     popularTools:"Công cụ phổ biến",
 
     tool1Title:"Chuyển văn bản thành giọng nói",
-    tool1Text:"Công cụ TTS trực tuyến, hỗ trợ nhiều ngôn ngữ và điều chỉnh tốc độ.",
+    tool1Text:"Công cụ TTS trực tuyến.",
 
     tool2Title:"Công cụ PDF",
-    tool2Text:"Hỗ trợ chuyển PDF sang ảnh và ảnh sang PDF.",
+    tool2Text:"Chuyển đổi và xử lý PDF.",
 
     tool3Title:"Nén ảnh",
-    tool3Text:"Nén ảnh trực tuyến nhưng vẫn giữ chất lượng tốt.",
+    tool3Text:"Nén ảnh trực tuyến.",
 
     tool4Title:"Tạo mã QR",
-    tool4Text:"Tạo và tải mã QR từ văn bản hoặc liên kết.",
+    tool4Text:"Tạo mã QR có thể tải.",
 
     tool5Title:"Chuyển đổi ảnh",
-    tool5Text:"Hỗ trợ chuyển đổi JPG, PNG và WEBP.",
+    tool5Text:"Chuyển JPG PNG WEBP.",
 
-    adBanner:"Vị trí quảng cáo banner",
+    tool6Title:"Thay đổi kích thước ảnh",
+    tool6Text:"Đổi kích thước ảnh trực tuyến.",
 
-    aboutTitle:"Giới thiệu ZenTools",
-
-    aboutText:"ZenTools cung cấp các công cụ trực tuyến và tài nguyên học tập miễn phí như TTS, công cụ PDF, xử lý ảnh, học trực tuyến và hệ thống thi thử. Người dùng có thể sử dụng trực tiếp trên trình duyệt mà không cần cài đặt phần mềm.",
-
-    whyTitle:"Vì sao chọn ZenTools?",
-
-    why1Title:"Miễn phí sử dụng",
-    why1Text:"Hầu hết công cụ có thể sử dụng miễn phí và không cần cài đặt phức tạp.",
-
-    why2Title:"Thân thiện với điện thoại",
-    why2Text:"Trang web hỗ trợ điện thoại, máy tính bảng và máy tính.",
-
-    why3Title:"Hỗ trợ nhiều ngôn ngữ",
-    why3Text:"Hỗ trợ tiếng Trung, tiếng Nhật, tiếng Anh và tiếng Việt.",
-
-    faqTitle:"Câu hỏi thường gặp FAQ",
-
-    faq1Q:"Có miễn phí không?",
-    faq1A:"Hiện tại các công cụ của ZenTools đều miễn phí.",
-
-    faq2Q:"Có hỗ trợ điện thoại không?",
-    faq2A:"Có, hỗ trợ trình duyệt Android và iPhone.",
-
-    faq3Q:"Có cần cài đặt phần mềm không?",
-    faq3A:"Không cần cài đặt, có thể dùng trực tiếp trên trình duyệt.",
-
-    faq4Q:"Sau này có thêm công cụ không?",
-    faq4A:"Có. ZenTools sẽ tiếp tục thêm công cụ PDF, hình ảnh, âm thanh và học tập.",
-
-    footerDesc:"Nền tảng công cụ trực tuyến và học tập miễn phí"
+    tool7Title:"Gộp PDF",
+    tool7Text:"Gộp nhiều file PDF."
   }
 
 };
@@ -275,8 +444,6 @@ function setLanguage(lang){
   const data = translations[lang] || translations.zh;
 
   document.documentElement.lang = lang;
-
-  document.title = data.title;
 
   document.querySelectorAll("[data-i18n]").forEach(el=>{
 
@@ -303,4 +470,8 @@ const savedLang = localStorage.getItem("siteLanguage") || "zh";
 languageSelect.value = savedLang;
 
 setLanguage(savedLang);
+
 </script>
+
+</body>
+</html>
