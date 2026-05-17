@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TikTok Downloader - Download TikTok Videos Without Watermark</title>
+
+<meta name="description"
+content="Free TikTok video downloader without watermark. Download TikTok videos online instantly.">
+
+<meta name="keywords"
+content="TikTok Downloader,TikTok No Watermark,TikTok Video Download">
+
+<link rel="icon" href="https://www.tiktok.com/favicon.ico">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,sans-serif;
+  background:#0f0f0f;
+  color:white;
+  min-height:100vh;
+  padding:20px;
+}
+
+.container{
+  max-width:700px;
+  margin:auto;
+}
+
+.title{
+  text-align:center;
+  font-size:38px;
+  font-weight:bold;
+  margin-top:30px;
+  margin-bottom:10px;
+}
+
+.sub{
+  text-align:center;
+  color:#aaa;
+  margin-bottom:35px;
+}
+
+.box{
+  background:#1b1b1b;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 0 20px rgba(0,0,0,.3);
+}
+
+.input-box{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+input{
+  flex:1;
+  padding:16px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+  background:#2a2a2a;
+  color:white;
+  outline:none;
+}
+
+button{
+  padding:16px 24px;
+  border:none;
+  border-radius:12px;
+  background:#00c853;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  transform:scale(1.03);
+}
+
+#result{
+  margin-top:30px;
+}
+
+video{
+  width:100%;
+  border-radius:16px;
+  margin-top:10px;
+}
+
+.card{
+  background:#222;
+  padding:18px;
+  border-radius:18px;
+}
+
+.cover{
+  width:120px;
+  border-radius:14px;
+  margin-bottom:15px;
+}
+
+.info{
+  margin-top:10px;
+  line-height:1.7;
+  color:#ddd;
+}
+
+.download-btn{
+  display:inline-block;
+  margin-top:20px;
+  text-decoration:none;
+}
+
+.ad-box{
+  margin-top:40px;
+  background:#1f1f1f;
+  border:2px dashed #444;
+  padding:30px;
+  text-align:center;
+  border-radius:16px;
+  color:#777;
+}
+
+.footer{
+  margin-top:40px;
+  text-align:center;
+  color:#777;
+  font-size:14px;
+}
+
+.loading{
+  text-align:center;
+  color:#00e676;
+  font-size:18px;
+}
+
+.error{
+  text-align:center;
+  color:#ff5252;
+}
+
+@media(max-width:600px){
+
+  .title{
+    font-size:28px;
+  }
+
+  .input-box{
+    flex-direction:column;
+  }
+
+  button{
+    width:100%;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1 class="title">
+    TikTok Downloader
+  </h1>
+
+  <p class="sub">
+    Download TikTok Videos Without Watermark
+  </p>
+
+  <div class="box">
+
+    <div class="input-box">
+
+      <input
+        type="text"
+        id="url"
+        placeholder="Paste TikTok video link here..."
+      >
+
+      <button onclick="downloadTikTok()">
+        Download
+      </button>
+
+    </div>
+
+    <div id="result"></div>
+
+  </div>
+
+  <div class="ad-box">
+    Google AdSense / Advertisement Area
+  </div>
+
+  <div class="footer">
+    © 2026 TikTok Downloader Tool
+  </div>
+
+</div>
+
+<script>
+
+async function downloadTikTok(){
+
+  const inputUrl = document.getElementById("url").value.trim();
+
+  if(!inputUrl){
+
+    alert("Please paste TikTok link");
+
+    return;
+  }
+
+  document.getElementById("result").innerHTML = `
+    <div class="loading">
+      Parsing TikTok Video...
+    </div>
+  `;
+
+  const apiUrl =
+  "https://tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com/rich_response/index?url="
+  + encodeURIComponent(inputUrl);
+
+  const options = {
+    method: "GET",
+    headers: {
+
+      /*
+      IMPORTANT:
+      Replace with your NEW RapidAPI KEY
+      */
+
+      "x-rapidapi-key": "YOUR_NEW_RAPIDAPI_KEY",
+
+      "x-rapidapi-host":
+      "tiktok-downloader-download-tiktok-videos-without-watermark.p.rapidapi.com",
+
+      "Content-Type": "application/json"
+    }
+  };
+
+  try{
+
+    const response = await fetch(apiUrl, options);
+
+    const result = await response.json();
+
+    console.log(result);
+
+    const videoUrl = result.video?.[0];
+    const cover = result.cover?.[0];
+    const author = result.author?.[0];
+    const desc = result.description?.[0];
+
+    if(!videoUrl){
+
+      document.getElementById("result").innerHTML = `
+        <div class="error">
+          Failed to parse video
+        </div>
+      `;
+
+      return;
+    }
+
+    document.getElementById("result").innerHTML = `
+
+      <div class="card">
+
+        <img src="${cover}" class="cover">
+
+        <div class="info">
+          <strong>@${author}</strong>
+          <br><br>
+          ${desc || ""}
+        </div>
+
+        <video
+          controls
+          playsinline
+          src="${videoUrl}">
+        </video>
+
+        <a
+          class="download-btn"
+          href="${videoUrl}"
+          target="_blank"
+        >
+          <button>
+            Download Without Watermark
+          </button>
+        </a>
+
+      </div>
+
+    `;
+
+  }catch(error){
+
+    console.error(error);
+
+    document.getElementById("result").innerHTML = `
+      <div class="error">
+        Request Failed
+      </div>
+    `;
+
+  }
+
+}
+
+<script>
+const seoData = {
+  title: "TikTok无水印下载 - 免费在线视频下载工具 | ZenTools",
+  description: "免费TikTok无水印下载工具，粘贴TikTok视频链接即可在线解析并下载无水印视频，支持手机和电脑使用。",
+  keywords: "TikTok无水印下载,TikTok Downloader,TikTok视频下载,无水印下载,在线工具,ZenTools",
+  url: "https://www.zentools.xyz/tiktok-downloader.html",
+  image: "https://www.zentools.xyz/logo.png"
+};
+
+function setMeta(name, content){
+  let meta = document.querySelector(`meta[name="${name}"]`);
+  if(!meta){
+    meta = document.createElement("meta");
+    meta.setAttribute("name", name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", content);
+}
+
+function setProperty(property, content){
+  let meta = document.querySelector(`meta[property="${property}"]`);
+  if(!meta){
+    meta = document.createElement("meta");
+    meta.setAttribute("property", property);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", content);
+}
+
+function setCanonical(url){
+  let link = document.querySelector('link[rel="canonical"]');
+  if(!link){
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+  link.setAttribute("href", url);
+}
+
+function applySEO(){
+  document.title = seoData.title;
+
+  setMeta("description", seoData.description);
+  setMeta("keywords", seoData.keywords);
+  setMeta("author", "ZenTools");
+
+  setCanonical(seoData.url);
+
+  setProperty("og:title", seoData.title);
+  setProperty("og:description", seoData.description);
+  setProperty("og:type", "website");
+  setProperty("og:url", seoData.url);
+  setProperty("og:image", seoData.image);
+
+  setMeta("twitter:card", "summary_large_image");
+  setMeta("twitter:title", seoData.title);
+  setMeta("twitter:description", seoData.description);
+}
+
+applySEO();
+</script>
+
+</body>
+</html>
