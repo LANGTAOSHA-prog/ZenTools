@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>汇率换算 - ZenTools</title>
-<meta name="description" content="ZenTools 免费在线汇率换算工具。">
+<title>单位换算 - ZenTools</title>
+<meta name="description" content="ZenTools 免费在线单位换算工具。">
 <style>
 :root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -43,24 +43,23 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
   </div>
   <div class="card">
     
-<h1 data-i18n="title">汇率换算</h1><p class="desc" data-i18n="desc">常用货币快速换算。</p>
+<h1 data-i18n="title">单位换算</h1><p class="desc" data-i18n="desc">长度、重量、面积常用单位换算。</p>
 <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
-<input type="number" id="amount" value="100">
-<select id="from"><option>USD</option><option>JPY</option><option>CNY</option><option>EUR</option><option>GBP</option><option>KRW</option><option>VND</option></select>
-<select id="to"><option>JPY</option><option>USD</option><option>CNY</option><option>EUR</option><option>GBP</option><option>KRW</option><option>VND</option></select>
-<button onclick="convert()" data-i18n="convert">换算</button>
+<select id="type" onchange="loadUnits()"><option value="length" data-i18n="length">长度</option><option value="weight" data-i18n="weight">重量</option><option value="area" data-i18n="area">面积</option></select>
+<input type="number" id="amount" value="1">
+<select id="from"></select><select id="to"></select>
+<button onclick="convertUnit()" data-i18n="convert">换算</button>
 <div class="result" id="result"></div>
-<div class="info"><h2 data-i18n="noteTitle">说明</h2><p data-i18n="noteText">此工具为前端静态参考汇率，实际交易请以银行或官方实时汇率为准。</p></div>
 
   </div>
   <footer>© 2026 ZenTools</footer>
 </div>
 <script>
 const translations={
- zh:{pageTitle:"汇率换算 - ZenTools",back:"← 返回首页",title:"汇率换算",desc:"常用货币快速换算。",ad:"广告位（Google AdSense）",convert:"换算",noteTitle:"说明",noteText:"此工具为前端静态参考汇率，实际交易请以银行或官方实时汇率为准。"},
- ja:{pageTitle:"為替換算 - ZenTools",back:"← ホームに戻る",title:"為替換算",desc:"主要通貨を簡単に換算。",ad:"広告スペース",convert:"換算",noteTitle:"説明",noteText:"このツールは静的な参考レートです。実際の取引は銀行または公式レートをご確認ください。"},
- en:{pageTitle:"Currency Converter - ZenTools",back:"← Back to Home",title:"Currency Converter",desc:"Quickly convert common currencies.",ad:"Ad Space",convert:"Convert",noteTitle:"Notice",noteText:"This tool uses static reference rates. For real transactions, check bank or official live rates."},
- vi:{pageTitle:"Chuyển đổi tiền tệ - ZenTools",back:"← Quay lại trang chủ",title:"Chuyển đổi tiền tệ",desc:"Chuyển đổi nhanh các loại tiền phổ biến.",ad:"Vị trí quảng cáo",convert:"Chuyển đổi",noteTitle:"Lưu ý",noteText:"Công cụ dùng tỷ giá tham khảo tĩnh. Giao dịch thực tế hãy kiểm tra tỷ giá ngân hàng hoặc chính thức."}
+ zh:{pageTitle:"单位换算 - ZenTools",back:"← 返回首页",title:"单位换算",desc:"长度、重量、面积常用单位换算。",ad:"广告位（Google AdSense）",length:"长度",weight:"重量",area:"面积",convert:"换算"},
+ ja:{pageTitle:"単位換算 - ZenTools",back:"← ホームに戻る",title:"単位換算",desc:"長さ、重さ、面積を換算。",ad:"広告スペース",length:"長さ",weight:"重さ",area:"面積",convert:"換算"},
+ en:{pageTitle:"Unit Converter - ZenTools",back:"← Back to Home",title:"Unit Converter",desc:"Convert length, weight, and area units.",ad:"Ad Space",length:"Length",weight:"Weight",area:"Area",convert:"Convert"},
+ vi:{pageTitle:"Chuyển đổi đơn vị - ZenTools",back:"← Quay lại trang chủ",title:"Chuyển đổi đơn vị",desc:"Chuyển đổi đơn vị độ dài, trọng lượng, diện tích.",ad:"Vị trí quảng cáo",length:"Độ dài",weight:"Trọng lượng",area:"Diện tích",convert:"Chuyển đổi"}
 };
 
 const languageSelect=document.getElementById("languageSelect");
@@ -75,15 +74,11 @@ function setLanguage(lang){currentLang=lang; applyI18n(translations[lang]||trans
 languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
 const savedLang=localStorage.getItem("siteLanguage")||"zh"; languageSelect.value=savedLang;
 
-setLanguage(savedLang);
-const usdRates={USD:1,JPY:155,CNY:7.25,EUR:0.92,GBP:0.79,KRW:1360,VND:25400};
-function convert(){
- const amount=parseFloat(document.getElementById("amount").value)||0;
- const from=document.getElementById("from").value,to=document.getElementById("to").value;
- const usd=amount/usdRates[from]; const res=usd*usdRates[to];
- document.getElementById("result").textContent=amount+" "+from+" ≈ "+res.toFixed(2)+" "+to;
-}
-convert();
+const units={length:{m:1,km:1000,cm:0.01,mm:0.001,inch:0.0254,ft:0.3048,mile:1609.344},weight:{kg:1,g:0.001,mg:0.000001,lb:0.45359237,oz:0.0283495},area:{sqm:1,sqkm:1000000,sqcm:0.0001,ha:10000,acre:4046.856}};
+function loadUnits(){const type=document.getElementById("type").value;["from","to"].forEach(id=>{const s=document.getElementById(id);s.innerHTML="";Object.keys(units[type]).forEach(u=>s.add(new Option(u,u)));});convertUnit();}
+function convertUnit(){const type=document.getElementById("type").value, amount=parseFloat(document.getElementById("amount").value)||0, from=document.getElementById("from").value, to=document.getElementById("to").value;const res=amount*units[type][from]/units[type][to];document.getElementById("result").textContent=amount+" "+from+" = "+res.toFixed(6)+" "+to;}
+document.getElementById("amount").addEventListener("input",convertUnit); document.getElementById("from").addEventListener("change",convertUnit); document.getElementById("to").addEventListener("change",convertUnit);
+setLanguage(savedLang);loadUnits();
 </script>
 </body>
 </html>

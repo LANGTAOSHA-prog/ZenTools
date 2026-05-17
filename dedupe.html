@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>汇率换算 - ZenTools</title>
-<meta name="description" content="ZenTools 免费在线汇率换算工具。">
+<title>文本去重 - ZenTools</title>
+<meta name="description" content="ZenTools 免费在线文本去重工具。">
 <style>
 :root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -43,24 +43,22 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
   </div>
   <div class="card">
     
-<h1 data-i18n="title">汇率换算</h1><p class="desc" data-i18n="desc">常用货币快速换算。</p>
+<h1 data-i18n="title">文本去重</h1><p class="desc" data-i18n="desc">自动删除重复文本行。</p>
 <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
-<input type="number" id="amount" value="100">
-<select id="from"><option>USD</option><option>JPY</option><option>CNY</option><option>EUR</option><option>GBP</option><option>KRW</option><option>VND</option></select>
-<select id="to"><option>JPY</option><option>USD</option><option>CNY</option><option>EUR</option><option>GBP</option><option>KRW</option><option>VND</option></select>
-<button onclick="convert()" data-i18n="convert">换算</button>
+<textarea id="input" data-i18n-placeholder="placeholder" placeholder="每行输入一条文本..."></textarea>
+<button onclick="dedupe()" data-i18n="dedupe">开始去重</button><button onclick="copyText()" class="copy-btn" data-i18n="copy">复制结果</button><button onclick="clearText()" class="clear-btn" data-i18n="clear">清空</button>
 <div class="result" id="result"></div>
-<div class="info"><h2 data-i18n="noteTitle">说明</h2><p data-i18n="noteText">此工具为前端静态参考汇率，实际交易请以银行或官方实时汇率为准。</p></div>
+<div class="info"><h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">每行一条文本，点击去重后会保留首次出现的内容。</p></div>
 
   </div>
   <footer>© 2026 ZenTools</footer>
 </div>
 <script>
 const translations={
- zh:{pageTitle:"汇率换算 - ZenTools",back:"← 返回首页",title:"汇率换算",desc:"常用货币快速换算。",ad:"广告位（Google AdSense）",convert:"换算",noteTitle:"说明",noteText:"此工具为前端静态参考汇率，实际交易请以银行或官方实时汇率为准。"},
- ja:{pageTitle:"為替換算 - ZenTools",back:"← ホームに戻る",title:"為替換算",desc:"主要通貨を簡単に換算。",ad:"広告スペース",convert:"換算",noteTitle:"説明",noteText:"このツールは静的な参考レートです。実際の取引は銀行または公式レートをご確認ください。"},
- en:{pageTitle:"Currency Converter - ZenTools",back:"← Back to Home",title:"Currency Converter",desc:"Quickly convert common currencies.",ad:"Ad Space",convert:"Convert",noteTitle:"Notice",noteText:"This tool uses static reference rates. For real transactions, check bank or official live rates."},
- vi:{pageTitle:"Chuyển đổi tiền tệ - ZenTools",back:"← Quay lại trang chủ",title:"Chuyển đổi tiền tệ",desc:"Chuyển đổi nhanh các loại tiền phổ biến.",ad:"Vị trí quảng cáo",convert:"Chuyển đổi",noteTitle:"Lưu ý",noteText:"Công cụ dùng tỷ giá tham khảo tĩnh. Giao dịch thực tế hãy kiểm tra tỷ giá ngân hàng hoặc chính thức."}
+ zh:{pageTitle:"文本去重 - ZenTools",back:"← 返回首页",title:"文本去重",desc:"自动删除重复文本行。",ad:"广告位（Google AdSense）",placeholder:"每行输入一条文本...",dedupe:"开始去重",copy:"复制结果",clear:"清空",done:"已去重：",guideTitle:"使用说明",guideText:"每行一条文本，点击去重后会保留首次出现的内容。"},
+ ja:{pageTitle:"テキスト重複削除 - ZenTools",back:"← ホームに戻る",title:"テキスト重複削除",desc:"重複した行を自動削除。",ad:"広告スペース",placeholder:"1行ずつ入力...",dedupe:"重複削除",copy:"結果をコピー",clear:"クリア",done:"完了：",guideTitle:"使い方",guideText:"1行ずつ入力すると、最初に出現した行だけを残します。"},
+ en:{pageTitle:"Text Deduplicator - ZenTools",back:"← Back to Home",title:"Text Deduplicator",desc:"Remove duplicate text lines.",ad:"Ad Space",placeholder:"Enter one item per line...",dedupe:"Remove Duplicates",copy:"Copy Result",clear:"Clear",done:"Done: ",guideTitle:"How to Use",guideText:"Enter one item per line. The first occurrence will be kept."},
+ vi:{pageTitle:"Xóa trùng văn bản - ZenTools",back:"← Quay lại trang chủ",title:"Xóa trùng văn bản",desc:"Xóa các dòng văn bản trùng lặp.",ad:"Vị trí quảng cáo",placeholder:"Nhập mỗi dòng một nội dung...",dedupe:"Xóa trùng",copy:"Sao chép kết quả",clear:"Xóa",done:"Hoàn tất: ",guideTitle:"Hướng dẫn",guideText:"Nhập mỗi dòng một nội dung. Dòng xuất hiện đầu tiên sẽ được giữ lại."}
 };
 
 const languageSelect=document.getElementById("languageSelect");
@@ -76,14 +74,14 @@ languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
 const savedLang=localStorage.getItem("siteLanguage")||"zh"; languageSelect.value=savedLang;
 
 setLanguage(savedLang);
-const usdRates={USD:1,JPY:155,CNY:7.25,EUR:0.92,GBP:0.79,KRW:1360,VND:25400};
-function convert(){
- const amount=parseFloat(document.getElementById("amount").value)||0;
- const from=document.getElementById("from").value,to=document.getElementById("to").value;
- const usd=amount/usdRates[from]; const res=usd*usdRates[to];
- document.getElementById("result").textContent=amount+" "+from+" ≈ "+res.toFixed(2)+" "+to;
+const el=document.getElementById("input");
+function dedupe(){
+ const lines=el.value.split(/\r?\n/); const seen=new Set(); const out=[];
+ lines.forEach(l=>{const k=l.trim(); if(k && !seen.has(k)){seen.add(k); out.push(l);}});
+ el.value=out.join("\n"); document.getElementById("result").textContent=(translations[currentLang]||translations.zh).done+out.length;
 }
-convert();
+function copyText(){el.select();document.execCommand("copy");}
+function clearText(){el.value="";document.getElementById("result").textContent="";}
 </script>
 </body>
 </html>
