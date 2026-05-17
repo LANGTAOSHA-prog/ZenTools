@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>随机数生成器 - ZenTools</title>
+<meta name="description" content="ZenTools 免费在线随机数生成器。">
+
+<style>
+:root{--bg:#0f172a;--card:#111827;--card2:#0b1220;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444;--gold:#f59e0b}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
+.container{max-width:1000px;margin:auto;padding:40px 20px}
+a{color:#60a5fa;text-decoration:none}
+.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.lang-select{background:#111827;color:white;border:1px solid #334155;border-radius:10px;padding:10px 12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px}
+h1{margin-bottom:15px}.desc{color:var(--muted);margin-bottom:25px}
+.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
+input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px}
+textarea{min-height:190px;resize:vertical}
+button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
+.copy-btn,.download-btn{background:var(--green)}.clear-btn{background:var(--red)}
+.result,.info{margin-top:28px}.info h2{margin-top:25px}.info p,.result{color:#cbd5e1;white-space:pre-line}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.box{background:#0b1220;border:1px solid #334155;border-radius:16px;padding:18px;margin-top:15px}
+.big{font-size:28px;font-weight:900}
+.preview img,.preview video{max-width:100%;border-radius:14px;border:1px solid #334155;margin-top:15px}
+.download-link{display:inline-block;margin-top:15px;background:var(--green);color:white;padding:12px 18px;border-radius:12px}
+footer{margin-top:50px;text-align:center;color:#94a3b8}
+@media(max-width:768px){button,.lang-select{width:100%}.top-bar{align-items:stretch}}
+</style>
+
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <a href="index.html" data-i18n="back">← 返回首页</a>
+    <select id="languageSelect" class="lang-select">
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+      <option value="vi">Tiếng Việt</option>
+    </select>
+  </div>
+  <div class="card">
+
+<h1 data-i18n="title">随机数生成器</h1>
+<p class="desc" data-i18n="desc">生成指定范围内的随机数。</p>
+<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+<input type="number" id="min" value="1">
+<input type="number" id="max" value="100">
+<input type="number" id="count" value="1" min="1" max="100">
+<button onclick="generate()" data-i18n="run">生成随机数</button>
+<button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
+<div class="box"><div class="big" id="output">-</div></div>
+
+  </div>
+  <footer>© 2026 ZenTools</footer>
+</div>
+<script>
+
+const translations={
+ zh:{pageTitle:"随机数生成器 - ZenTools",back:"← 返回首页",title:"随机数生成器",desc:"生成指定范围内的随机数。",ad:"广告位（Google AdSense）",run:"生成随机数",copy:"复制结果"},
+ ja:{pageTitle:"乱数生成 - ZenTools",back:"← ホームに戻る",title:"乱数生成",desc:"指定範囲内の乱数を生成。",ad:"広告スペース",run:"乱数生成",copy:"結果をコピー"},
+ en:{pageTitle:"Random Number Generator - ZenTools",back:"← Back to Home",title:"Random Number Generator",desc:"Generate random numbers within a range.",ad:"Ad Space",run:"Generate",copy:"Copy Result"},
+ vi:{pageTitle:"Tạo số ngẫu nhiên - ZenTools",back:"← Quay lại trang chủ",title:"Tạo số ngẫu nhiên",desc:"Tạo số ngẫu nhiên trong phạm vi.",ad:"Vị trí quảng cáo",run:"Tạo số",copy:"Sao chép"}
+};
+
+const languageSelect=document.getElementById("languageSelect");
+let currentLang="zh";
+function setLanguage(lang){
+ currentLang=lang;
+ const data=translations[lang]||translations.zh;
+ document.documentElement.lang=lang;
+ document.title=data.pageTitle||document.title;
+ document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
+ localStorage.setItem("siteLanguage",lang);
+}
+languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
+const savedLang=localStorage.getItem("siteLanguage")||"zh";
+languageSelect.value=savedLang;
+
+setLanguage(savedLang);
+function generate(){let min=parseInt(document.getElementById("min").value)||0,max=parseInt(document.getElementById("max").value)||100,c=parseInt(document.getElementById("count").value)||1;if(min>max){[min,max]=[max,min];}let arr=[];for(let i=0;i<c;i++){arr.push(Math.floor(Math.random()*(max-min+1))+min);}document.getElementById("output").textContent=arr.join(", ");}
+function copyResult(){const t=document.getElementById("output").textContent;navigator.clipboard&&navigator.clipboard.writeText(t);}
+
+</script>
+</body>
+</html>
