@@ -98,6 +98,66 @@ function moneyToCN(n){
 function convertMoney(){const data=translations[currentLang]||translations.zh;const v=parseFloat(document.getElementById("amount").value);if(isNaN(v)){alert(data.empty);return;}document.getElementById("output").textContent=moneyToCN(v);}
 function copyResult(){navigator.clipboard&&navigator.clipboard.writeText(document.getElementById("output").textContent);}
 
+<script>
+const seoData = {
+  title: "工具名称 - 免费在线工具 | ZenTools",
+  description: "免费在线工具名称，支持手机与电脑，无需安装软件。",
+  keywords: "工具名称,在线工具,免费工具,ZenTools",
+  url: "https://www.zentools.xyz/tool.html",
+  image: "https://www.zentools.xyz/logo.png"
+};
+
+function setMeta(name, content){
+  let meta = document.querySelector(`meta[name="${name}"]`);
+  if(!meta){
+    meta = document.createElement("meta");
+    meta.setAttribute("name", name);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", content);
+}
+
+function setProperty(property, content){
+  let meta = document.querySelector(`meta[property="${property}"]`);
+  if(!meta){
+    meta = document.createElement("meta");
+    meta.setAttribute("property", property);
+    document.head.appendChild(meta);
+  }
+  meta.setAttribute("content", content);
+}
+
+function setCanonical(url){
+  let link = document.querySelector('link[rel="canonical"]');
+  if(!link){
+    link = document.createElement("link");
+    link.setAttribute("rel", "canonical");
+    document.head.appendChild(link);
+  }
+  link.setAttribute("href", url);
+}
+
+function applySEO(){
+  document.title = seoData.title;
+
+  setMeta("description", seoData.description);
+  setMeta("keywords", seoData.keywords);
+  setMeta("author", "ZenTools");
+
+  setCanonical(seoData.url);
+
+  setProperty("og:title", seoData.title);
+  setProperty("og:description", seoData.description);
+  setProperty("og:type", "website");
+  setProperty("og:url", seoData.url);
+  setProperty("og:image", seoData.image);
+
+  setMeta("twitter:card", "summary_large_image");
+  setMeta("twitter:title", seoData.title);
+  setMeta("twitter:description", seoData.description);
+}
+
+applySEO();
 </script>
 </body>
 </html>
