@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>颜色取色器 - ZenTools</title>
+<meta name="description" content="ZenTools 免费在线颜色取色器，支持 HEX、RGB 颜色代码复制。">
+
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
+.container{max-width:900px;margin:auto;padding:40px 20px}
+a{color:#60a5fa;text-decoration:none}
+.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.lang-select{background:#111827;color:white;border:1px solid #334155;border-radius:10px;padding:10px 12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px}
+h1{margin-bottom:15px}.desc{color:var(--muted);margin-bottom:25px}
+.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
+.color-box{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
+.color-preview{height:180px;border-radius:18px;border:1px solid #334155;background:#2563eb}
+input[type="color"]{width:100%;height:70px;border:none;background:transparent;cursor:pointer}
+.output{margin-top:20px;display:grid;gap:12px}
+.code-row{display:flex;gap:10px;align-items:center}
+.code-row input{flex:1;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px}
+button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold}
+.copy-btn{background:var(--green)}
+.info{margin-top:35px}.info h2{margin-top:25px}.info p{color:#cbd5e1;white-space:pre-line}
+footer{margin-top:50px;text-align:center;color:#94a3b8}
+@media(max-width:768px){.color-box{grid-template-columns:1fr}button,.lang-select{width:100%}.code-row{flex-direction:column;align-items:stretch}}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a href="index.html" data-i18n="back">← 返回首页</a>
+    <select id="languageSelect" class="lang-select">
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+      <option value="vi">Tiếng Việt</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h1 data-i18n="title">颜色取色器</h1>
+    <p class="desc" data-i18n="desc">选择颜色并复制 HEX、RGB 颜色代码。</p>
+
+    <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+
+    <div class="color-box">
+      <div>
+        <input type="color" id="colorPicker" value="#2563eb">
+      </div>
+      <div class="color-preview" id="colorPreview"></div>
+    </div>
+
+    <div class="output">
+      <div class="code-row">
+        <input id="hexOutput" readonly>
+        <button class="copy-btn" onclick="copyValue('hexOutput')" data-i18n="copyHex">复制 HEX</button>
+      </div>
+
+      <div class="code-row">
+        <input id="rgbOutput" readonly>
+        <button class="copy-btn" onclick="copyValue('rgbOutput')" data-i18n="copyRgb">复制 RGB</button>
+      </div>
+
+      <div class="code-row">
+        <input id="cssOutput" readonly>
+        <button class="copy-btn" onclick="copyValue('cssOutput')" data-i18n="copyCss">复制 CSS</button>
+      </div>
+    </div>
+
+    <div class="info">
+      <h2 data-i18n="guideTitle">使用说明</h2>
+      <p data-i18n="guideText">1. 点击颜色选择器选择颜色。
+2. 自动生成 HEX、RGB 和 CSS 颜色代码。
+3. 点击复制按钮即可复制。</p>
+
+      <h2 data-i18n="privacyTitle">隐私说明</h2>
+      <p data-i18n="privacyText">颜色选择在浏览器本地完成，不会上传到服务器。</p>
+    </div>
+  </div>
+
+  <footer>© 2026 ZenTools</footer>
+</div>
+
+<script>
+const languageSelect=document.getElementById("languageSelect");
+let currentLang="zh";
+
+const translations={
+  zh:{
+    pageTitle:"颜色取色器 - ZenTools",
+    back:"← 返回首页",title:"颜色取色器",desc:"选择颜色并复制 HEX、RGB 颜色代码。",
+    ad:"广告位（Google AdSense）",copyHex:"复制 HEX",copyRgb:"复制 RGB",copyCss:"复制 CSS",
+    copied:"已复制",
+    guideTitle:"使用说明",guideText:"1. 点击颜色选择器选择颜色。\n2. 自动生成 HEX、RGB 和 CSS 颜色代码。\n3. 点击复制按钮即可复制。",
+    privacyTitle:"隐私说明",privacyText:"颜色选择在浏览器本地完成，不会上传到服务器。"
+  },
+  ja:{
+    pageTitle:"カラーピッカー - ZenTools",
+    back:"← ホームに戻る",title:"カラーピッカー",desc:"色を選択して HEX、RGB カラーコードをコピーできます。",
+    ad:"広告スペース",copyHex:"HEX をコピー",copyRgb:"RGB をコピー",copyCss:"CSS をコピー",
+    copied:"コピーしました",
+    guideTitle:"使い方",guideText:"1. カラーピッカーで色を選択します。\n2. HEX、RGB、CSS カラーコードが自動生成されます。\n3. コピー按钮をクリックします。",
+    privacyTitle:"プライバシーについて",privacyText:"色の選択はブラウザ内で行われ、サーバーへ送信されません。"
+  },
+  en:{
+    pageTitle:"Color Picker - ZenTools",
+    back:"← Back to Home",title:"Color Picker",desc:"Pick a color and copy HEX, RGB, and CSS color codes.",
+    ad:"Ad Space",copyHex:"Copy HEX",copyRgb:"Copy RGB",copyCss:"Copy CSS",
+    copied:"Copied",
+    guideTitle:"How to Use",guideText:"1. Click the color picker to choose a color.\n2. HEX, RGB, and CSS color codes are generated automatically.\n3. Click a copy button to copy the code.",
+    privacyTitle:"Privacy Notice",privacyText:"Color picking is completed locally in your browser and is not uploaded to a server."
+  },
+  vi:{
+    pageTitle:"Bộ chọn màu - ZenTools",
+    back:"← Quay lại trang chủ",title:"Bộ chọn màu",desc:"Chọn màu và sao chép mã HEX, RGB, CSS.",
+    ad:"Vị trí quảng cáo",copyHex:"Sao chép HEX",copyRgb:"Sao chép RGB",copyCss:"Sao chép CSS",
+    copied:"Đã sao chép",
+    guideTitle:"Hướng dẫn sử dụng",guideText:"1. Nhấn vào bộ chọn màu để chọn màu.\n2. Mã HEX, RGB và CSS sẽ tự động tạo.\n3. Nhấn nút sao chép để sao chép.",
+    privacyTitle:"Thông tin quyền riêng tư",privacyText:"Việc chọn màu được xử lý trong trình duyệt và không tải lên máy chủ."
+  }
+};
+
+function setLanguage(lang){
+  currentLang=lang;
+  const data=translations[lang]||translations.zh;
+  document.documentElement.lang=lang;
+  document.title=data.pageTitle;
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(data[key]) el.textContent=data[key];
+  });
+
+  localStorage.setItem("siteLanguage",lang);
+}
+
+languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
+const savedLang=localStorage.getItem("siteLanguage")||"zh";
+languageSelect.value=savedLang;
+setLanguage(savedLang);
+
+const colorPicker=document.getElementById("colorPicker");
+
+function hexToRgb(hex){
+  const r=parseInt(hex.slice(1,3),16);
+  const g=parseInt(hex.slice(3,5),16);
+  const b=parseInt(hex.slice(5,7),16);
+  return {r,g,b};
+}
+
+function updateColor(){
+  const hex=colorPicker.value;
+  const rgb=hexToRgb(hex);
+
+  document.getElementById("colorPreview").style.background=hex;
+  document.getElementById("hexOutput").value=hex.toUpperCase();
+  document.getElementById("rgbOutput").value=`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+  document.getElementById("cssOutput").value=`color: ${hex.toUpperCase()};`;
+}
+
+colorPicker.addEventListener("input",updateColor);
+updateColor();
+
+function copyValue(id){
+  const input=document.getElementById(id);
+  input.select();
+  document.execCommand("copy");
+  alert(translations[currentLang].copied);
+}
+</script>
+
+</body>
+</html>
