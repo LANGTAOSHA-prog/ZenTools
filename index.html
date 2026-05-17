@@ -1,801 +1,172 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ZenTools - Free Online Tools</title>
-<meta name="description" content="ZenTools 免费在线工具箱，提供 PDF、图片、文字、生活、开发、营销等免费工具。">
-
+<!doctype html><html lang="ja"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>特定技能2号 建設分野 学習システム</title>
 <style>
-:root{
-  --bg:#0f172a;
-  --card:#111827;
-  --card2:#0b1220;
-  --border:#1f2937;
-  --text:#f3f4f6;
-  --muted:#94a3b8;
-  --blue:#2563eb;
-  --green:#10b981;
-  --gold:#f59e0b;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
-  line-height:1.7;
-}
-a{text-decoration:none;color:inherit}
-header{
-  position:sticky;
-  top:0;
-  z-index:999;
-  background:#0f172af2;
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(10px);
-}
-.nav{
-  max-width:1200px;
-  margin:auto;
-  padding:16px 20px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:16px;
-}
-.logo{font-size:26px;font-weight:900}
-.menu{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.menu a{color:var(--muted);font-weight:600}
-.lang-select{
-  background:#111827;
-  color:white;
-  border:1px solid #334155;
-  border-radius:10px;
-  padding:9px 12px;
-}
-.hero{
-  max-width:1200px;
-  margin:auto;
-  padding:70px 20px 35px;
-  text-align:center;
-}
-.hero h1{font-size:50px;margin-bottom:18px}
-.hero p{
-  color:var(--muted);
-  font-size:20px;
-  max-width:850px;
-  margin:auto;
-}
-.search-wrap{
-  max-width:760px;
-  margin:32px auto 0;
-}
-.search-input{
-  width:100%;
-  padding:18px 20px;
-  border-radius:18px;
-  border:1px solid #334155;
-  background:#111827;
-  color:white;
-  font-size:18px;
-  outline:none;
-}
-.search-input:focus{border-color:var(--blue)}
-.btn{
-  display:inline-block;
-  margin-top:24px;
-  background:var(--blue);
-  color:white;
-  padding:14px 30px;
-  border-radius:14px;
-  font-weight:800;
-}
-.ad-box{
-  max-width:1200px;
-  height:110px;
-  margin:25px auto;
-  border:2px dashed #334155;
-  border-radius:18px;
-  color:#64748b;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.section{
-  max-width:1200px;
-  margin:auto;
-  padding:38px 20px;
-}
-.section-title{
-  font-size:32px;
-  margin-bottom:24px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:18px;
-}
-.card{
-  position:relative;
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-  transition:.25s;
-  min-height:132px;
-}
-.card:hover{
-  transform:translateY(-4px);
-  border-color:var(--blue);
-}
-.card h3{
-  font-size:21px;
-  margin-bottom:10px;
-  padding-right:34px;
-}
-.card p{color:var(--muted)}
-.badges{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:12px;
-}
-.badge{
-  font-size:12px;
-  padding:3px 8px;
-  border-radius:999px;
-  background:#172554;
-  color:#bfdbfe;
-}
-.badge.new{
-  background:#064e3b;
-  color:#a7f3d0;
-}
-.badge.hot{
-  background:#451a03;
-  color:#fde68a;
-}
-.fav-btn{
-  position:absolute;
-  right:16px;
-  top:14px;
-  border:none;
-  background:transparent;
-  color:#64748b;
-  font-size:22px;
-  cursor:pointer;
-}
-.fav-btn.active{color:var(--gold)}
-.empty{
-  color:var(--muted);
-  background:var(--card2);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-}
-.info-card{
-  background:var(--card2);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:22px;
-}
-.info-card p{color:var(--muted)}
-.footer{
-  margin-top:50px;
-  border-top:1px solid var(--border);
-  padding:35px 20px;
-}
-.footer-inner{
-  max-width:1200px;
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  flex-wrap:wrap;
-}
-.footer-links{
-  display:flex;
-  gap:16px;
-  flex-wrap:wrap;
-}
-.footer-links a{color:var(--muted)}
-.copy{
-  text-align:center;
-  margin-top:24px;
-  color:var(--muted);
-}
-@media(max-width:768px){
-  .nav{flex-direction:column}
-  .hero h1{font-size:36px}
-  .hero p{font-size:16px}
-  .lang-select{width:100%}
-}
-.search-engine-section {
-  max-width: 900px;
-  margin: 30px auto;
-  padding: 24px;
-  background: #ffffff;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  text-align: center;
-}
-
-.search-engine-section h2 {
-  margin-bottom: 8px;
-  font-size: 26px;
-  color: #222;
-}
-
-.search-desc {
-  margin-bottom: 20px;
-  color: #666;
-  font-size: 15px;
-}
-
-.search-engine-box {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.search-engine-box select,
-.search-engine-box input {
-  height: 46px;
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 0 14px;
-  font-size: 15px;
-}
-
-.search-engine-box select {
-  min-width: 140px;
-  background: #f8f9fb;
-}
-
-.search-engine-box input {
-  flex: 1;
-  min-width: 220px;
-  max-width: 480px;
-}
-
-.search-engine-box button {
-  height: 46px;
-  padding: 0 24px;
-  border: none;
-  border-radius: 12px;
-  background: #2563eb;
-  color: white;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.search-engine-box button:hover {
-  background: #1d4ed8;
-}
-
-@media (max-width: 600px) {
-  .search-engine-section {
-    margin: 20px 12px;
-    padding: 20px;
-  }
-
-  .search-engine-box {
-    flex-direction: column;
-  }
-
-  .search-engine-box select,
-  .search-engine-box input,
-  .search-engine-box button {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="nav">
-    <div class="logo">ZenTools</div>
-
-    <div class="menu">
-      <a href="index.html" data-i18n="navHome">首页</a>
-      <a href="#all-tools" data-i18n="navTools">工具</a>
-      <a href="about.html" data-i18n="navAbout">关于</a>
-      <a href="contact.html" data-i18n="navContact">联系</a>
-
-      <select id="languageSelect" class="lang-select">
-        <option value="zh">中文</option>
-        <option value="ja">日本語</option>
-        <option value="en">English</option>
-        <option value="vi">Tiếng Việt</option>
-      </select>
-    </div>
-  </div>
-</header>
-
-<section class="hero">
-  <h1 data-i18n="heroTitle">ZenTools 免费在线工具箱</h1>
-  <p data-i18n="heroText">提供 PDF、图片、文字、生活、开发和营销类免费在线工具，支持手机与电脑。</p>
-
-  <div class="search-wrap">
-    <input id="searchInput" class="search-input" data-i18n-placeholder="searchPlaceholder" placeholder="搜索工具，例如 PDF、图片、Base64、时间戳...">
-  </div>
-
-  <a href="#all-tools" class="btn" data-i18n="startBtn">开始使用</a>
+:root{--g:#7fb069;--g2:#16a34a;--d:#111827;--b:#d1d5db;--bg:#f3f4f6;--r:#dc2626;--bl:#2563eb;--y:#facc15;--m:#64748b;--sh:0 14px 34px rgba(15,23,42,.09)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;padding:0;width:100%;min-height:100%;font-family:Arial,"Noto Sans JP","Microsoft YaHei",sans-serif;background:var(--bg);color:#111827}button,select,input{font-family:inherit}button{cursor:pointer}
+.header{background:linear-gradient(90deg,#1f2937,#111827);color:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:80;box-shadow:0 6px 18px #0003}.header h1{font-size:16px;margin:0;font-weight:900;line-height:1.35}.timer{font-size:18px;color:#ffdd00;font-weight:900}.btn{border:0;border-radius:10px;padding:10px 13px;font-weight:900;background:var(--g);color:#fff}.btn.gray{background:#64748b}.btn.red{background:#dc2626}.btn.blue{background:#2563eb}.btn.purple{background:#7c3aed}
+.status{background:var(--g);color:#fff;padding:7px 12px;font-size:13px;display:flex;justify-content:space-between;gap:10px;position:sticky;top:56px;z-index:70}
+#authLoading{position:fixed;inset:0;background:linear-gradient(135deg,#020617,#0f172a);color:#fff;display:flex;align-items:center;justify-content:center;z-index:999999}.authBox{text-align:center;background:rgba(15,23,42,.94);border:1px solid rgba(148,163,184,.35);border-radius:22px;padding:28px;width:min(90%,380px);box-shadow:0 28px 70px #0007}.authSpin{width:46px;height:46px;border:4px solid rgba(255,255,255,.25);border-top-color:#60a5fa;border-radius:50%;margin:0 auto 16px;animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}.logout-mini{border:0;border-radius:10px;background:#dc2626;color:#fff;font-weight:900;padding:9px 10px}
+.home{max-width:1180px;margin:0 auto;padding:18px 14px 36px;width:100%}.hero{position:relative;overflow:hidden;border-radius:26px;padding:34px 26px;color:#fff;background:radial-gradient(circle at top right,rgba(96,165,250,.45),transparent 32%),radial-gradient(circle at bottom left,rgba(34,197,94,.28),transparent 36%),linear-gradient(135deg,#0f172a 0%,#1e293b 48%,#064e3b 100%);box-shadow:0 20px 50px rgba(15,23,42,.25)}.hero h2{margin:16px 0 10px;font-size:clamp(28px,4vw,46px);line-height:1.14}.hero p{max-width:760px;color:#dbeafe;line-height:1.8;margin:0;font-size:15px}.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid #ffffff47;background:#ffffff1f;border-radius:999px;padding:7px 13px;font-size:13px;font-weight:900}.hero-actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}.hero-btn{border:0;border-radius:15px;padding:14px 18px;font-weight:900;box-shadow:0 8px 22px #0003}.hero-btn.primary{background:#22c55e;color:#fff}.hero-btn.secondary{background:#fff;color:#0f172a}.hero-btn.third{background:#facc15;color:#111827}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}.stat{background:#fff;border:1px solid #e5e7eb;border-radius:18px;padding:16px;box-shadow:var(--sh)}.stat .label{font-size:13px;color:var(--m);font-weight:900}.stat .num{font-size:34px;font-weight:1000;margin:4px 0;color:#0f172a}.stat .sub{font-size:12px;color:var(--m);line-height:1.5}
+.section{background:#fff;border:1px solid #e5e7eb;border-radius:24px;padding:18px;box-shadow:var(--sh);margin-top:16px}.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.section-title{display:flex;align-items:center;gap:12px}.icon{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:26px;flex:0 0 auto}.icon.blue{background:#dbeafe}.icon.green{background:#dcfce7}.icon.red{background:#fee2e2}.section h3{margin:0;font-size:22px}.desc{margin:6px 0 0;color:var(--m);font-size:13px;line-height:1.7}
+.set-grid,.group-wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.random-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.set-card,.group{border:1px solid #e5e7eb;background:#f8fafc;border-radius:18px;padding:14px}.set-card h4,.group h4{margin:0 0 6px;font-size:18px}.set-card p,.group p{margin:0 0 12px;color:var(--m);font-size:12px;line-height:1.6}.set-row,.group-item{display:flex;align-items:center;justify-content:space-between;gap:8px}.group-list{display:grid;gap:8px}.group-item{border:1px solid #e2e8f0;background:#fff;border-radius:13px;padding:9px}.pill{border-radius:999px;padding:5px 9px;font-size:12px;font-weight:900;background:#eef2ff;color:#3730a3}
+.random-card{border-radius:20px;padding:18px;color:#fff;min-height:150px;display:flex;flex-direction:column;justify-content:space-between}.random-card h4{margin:0 0 8px;font-size:20px}.random-card p{margin:0;color:#e5e7eb;font-size:13px;line-height:1.7}.random-card.blue{background:linear-gradient(135deg,#1d4ed8,#2563eb)}.random-card.green{background:linear-gradient(135deg,#047857,#16a34a)}.random-card.red{background:linear-gradient(135deg,#991b1b,#dc2626)}.random-card button{margin-top:16px;background:#fff;color:#111827;border:0;border-radius:13px;padding:12px;font-weight:1000}.log{margin-top:16px;background:#0f172a;color:#bfdbfe;border-radius:18px;padding:14px;white-space:pre-wrap;overflow:auto;max-height:260px;font-size:13px;line-height:1.65}
+.main{display:grid;grid-template-columns:230px 1fr;gap:0;flex:1;min-height:0}.sidebar{background:#fff;border-right:1px solid var(--b);padding:12px;overflow:auto;max-height:calc(100vh - 96px);position:sticky;top:96px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.qnum{height:42px;border:1px solid #9ca3af;border-radius:9px;background:#fff;font-weight:900}.qnum.active{border:3px solid var(--g);background:#fef9c3}.qnum.done{background:var(--g);color:#fff;border-color:var(--g)}.qnum.wrong{background:#fee2e2;color:#991b1b;border-color:#f87171}.qnum.flag{background:var(--y)!important;color:#111827;border-color:#eab308!important}.content{padding:18px;overflow:auto}.card{background:#fff;border:1px solid var(--b);border-radius:18px;box-shadow:var(--sh);padding:18px;max-width:920px;margin:0 auto 16px}.small{font-size:13px;color:var(--m);line-height:1.65}.qtext{background:#f8fafc;border-left:6px solid var(--g);border-radius:14px;padding:16px;line-height:1.8;font-size:18px;white-space:pre-line;margin:10px 0 14px}.qimg{display:block;width:100%;max-height:340px;object-fit:contain;border:1px solid #e5e7eb;border-radius:14px;background:#fff;margin:12px 0}.img-missing{border:1px dashed #cbd5e1;background:#f8fafc;color:#64748b;border-radius:14px;padding:22px;text-align:center;margin:12px 0;display:none}.opt{border:1px solid #cbd5e1;border-radius:14px;background:#fff;padding:14px;margin:10px 0;line-height:1.7;white-space:pre-line}.opt:hover{background:#f8fafc}.opt.selected{border-color:#2563eb;background:#dbeafe;font-weight:900}.opt.correct{border-color:#16a34a;background:#dcfce7;font-weight:900}.opt.incorrect{border-color:#dc2626;background:#fee2e2;font-weight:900}.answer-box{display:none;margin-top:14px;border-radius:14px;padding:14px;background:#f8fafc;border:1px solid #cbd5e1;line-height:1.8}.answer-box.show{display:block}.good{color:#16a34a;font-weight:1000}.bad{color:#dc2626;font-weight:1000}.footer-actions{position:sticky;bottom:0;background:#ffffffee;border-top:1px solid #e5e7eb;padding:10px;margin:18px -18px -18px;display:flex;justify-content:space-between;gap:10px;backdrop-filter:blur(8px);flex-wrap:wrap}.result{display:none;max-width:980px;margin:18px auto;padding:0 14px}.result-card{background:#fff;border:1px solid #e5e7eb;border-radius:22px;padding:18px;box-shadow:var(--sh);margin-bottom:14px}.score-big{text-align:center;font-size:58px;color:#dc2626;font-weight:1000;margin:12px 0}.review-item{border-bottom:1px solid #e5e7eb;padding:14px 0}ruby rt{font-size:10px;color:#555}
+@media(max-width:900px){.stats,.set-grid,.group-wrap,.random-grid{grid-template-columns:1fr}.section-head{display:block}.hero{padding:28px 20px;border-radius:22px}}@media(max-width:800px){.header h1{font-size:14px}.status{top:54px}.main{grid-template-columns:1fr}.sidebar{position:static;max-height:none;border-right:none;border-bottom:1px solid var(--b)}.grid{grid-template-columns:repeat(8,1fr)}.content{padding:12px}.qnum{height:34px;font-size:12px}.qtext{font-size:16px}.footer-actions .btn{padding:9px 10px}}
+</style></head><body>
+<div id="authLoading"><div class="authBox"><div class="authSpin"></div><h2>ログイン確認中</h2><p>权限を確認しています。</p></div></div>
+<script type="module">
+import { auth, db } from "./firebase.js";
+import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+function expired(x){return x?new Date()>new Date(x+"T23:59:59"):false}
+async function deny(m){alert(m);await signOut(auth);location.href="login.html"}
+onAuthStateChanged(auth,async u=>{if(!u){location.href="login.html";return}try{const s=await getDoc(doc(db,"users",u.uid));if(!s.exists()){await deny("账号未授权，请联系管理员。");return}const d=s.data(),a=d.role==="admin";if(!(d.isPremium===true||a)){await deny("账号未开通权限，请联系管理员。");return}if(!a&&expired(d.expireAt)){await deny("账号权限已过期，请联系管理员。");return}document.getElementById("authLoading").style.display="none";const h=document.querySelector(".header");if(h&&!document.getElementById("logoutBtn")){const b=document.createElement("button");b.id="logoutBtn";b.className="logout-mini";b.textContent="退出";b.onclick=async()=>{await signOut(auth);location.href="login.html"};h.appendChild(b)}}catch(e){console.error(e);await deny("权限检查失败，请重新登录。")}})
+</script>
+<div class="app"><header class="header"><button class="btn gray" onclick="showMenu()">メニュー</button><h1>特定技能2号 建設分野 学習システム</h1><div class="timer" id="timer">--:--</div></header>
+<div class="status" id="statusBar" style="display:none"><div id="statusTitle">質問: 1 / 1</div><div id="statusScore">已答: 0 / 0</div></div>
+<section class="home" id="home">
+<div class="hero"><div class="badge">🏗️ 特定技能2号 建設分野</div><h2>模擬試験・学習システム</h2><p>学科、実技、画像問題をスマホでもパソコンでも練習できます。答えた直後に正解と中文解析を確認でき、試験前の総仕上げに使えます。</p><div class="hero-actions"><button class="hero-btn primary" onclick="startFullMock()">総合模擬 40＋25</button><button class="hero-btn secondary" onclick="startRandomTheory()">学科40問ランダム</button><button class="hero-btn third" onclick="startRandomPractice()">実技25問ランダム</button></div></div>
+<div class="stats"><div class="stat"><div class="label">学科題庫</div><div class="num" id="homeTheoryCount">--</div><div class="sub">questions.js ～ questions9.js</div></div><div class="stat"><div class="label">実技題庫</div><div class="num" id="homePracticeCount">--</div><div class="sub">practice / thn3 系列</div></div><div class="stat"><div class="label">画像問題</div><div class="num" id="homeImageCount">--</div><div class="sub">自动识别 img 字段</div></div><div class="stat"><div class="label">学習模式</div><div class="num">5</div><div class="sub">set / 実技 / 随机 / 综合 / 复习</div></div></div>
+<div class="section"><div class="section-head"><div class="section-title"><div class="icon blue">📘</div><div><h3>学科练习</h3><p class="desc">每个 set 单独排版，适合按套复习。点击按钮即可进入对应题库。</p></div></div><button class="btn blue" onclick="startRandomTheory()">学科随机40题</button></div><div class="set-grid" id="theoryGrid"></div></div>
+<div class="section"><div class="section-head"><div class="section-title"><div class="icon green">🛠️</div><div><h3>実技练习</h3><p class="desc">実技内容按 G1、G2、G3 单独分组排版。内容读取你仓库里的 practice / thn3 题库。</p></div></div><button class="btn" onclick="startRandomPractice()">実技随机25题</button></div><div class="group-wrap" id="practiceGroups"></div></div>
+<div class="section"><div class="section-head"><div class="section-title"><div class="icon red">🎯</div><div><h3>随机强化</h3><p class="desc">随机强化保持不变：学科随机40题、実技随机25题、综合模拟40＋25。做错的题目会自动加入错题集。</p></div></div><button class="btn gray" onclick="reloadAll()">重新读取题库</button></div><div class="random-grid"><div class="random-card blue"><div><h4>学科随机40题</h4><p>从学科题库中随机抽题，适合考前查漏。</p></div><button onclick="startRandomTheory()">开始</button></div><div class="random-card green"><div><h4>実技随机25题</h4><p>从実技题库中随机抽题，强化工具、图片和施工判断。</p></div><button onclick="startRandomPractice()">开始</button></div><div class="random-card red"><div><h4>综合模拟 40＋25</h4><p>学科40题 + 実技25题，接近考前模拟。</p></div><button onclick="startFullMock()">开始</button></div><div class="random-card blue"><div><h4>错题集</h4><p>已保存：<span id="wrongCount">0</span> 题。答错自动加入，复习答对自动移除。</p></div><button onclick="startWrongBook()">开始错题复习</button><button onclick="clearWrongBook()" style="margin-top:8px;background:#fee2e2;color:#991b1b">清空错题</button></div></div><pre class="log" id="loadStatus">正在读取题库...</pre></div>
 </section>
-
-<div class="ad-box" data-i18n="adText">广告位（Google AdSense）</div>
-
-<section class="section" id="search-section" style="display:none;">
-  <h2 class="section-title" data-i18n="searchResults">搜索结果</h2>
-  <div class="grid" id="searchResultsBox"></div>
-</section>
-
-<section class="section" id="favorite-section">
-  <h2 class="section-title" data-i18n="favoriteTools">收藏工具</h2>
-  <div id="favoriteBox"></div>
-</section>
-
-<section class="section" id="history-section">
-  <h2 class="section-title" data-i18n="historyTools">最近使用</h2>
-  <div id="historyBox"></div>
-</section>
-
-<section class="section" id="hot-section">
-  <!-- 搜索引擎模块开始 -->
-<section class="search-engine-section">
-  <h2>搜索引擎</h2>
-  <p class="search-desc">快速使用 Google、Bing、Yahoo、YouTube 搜索内容</p>
-
-  <div class="search-engine-box">
-    <select id="searchEngineSelect">
-      <option value="google">Google</option>
-      <option value="bing">Bing</option>
-      <option value="yahoo">Yahoo Japan</option>
-      <option value="youtube">YouTube</option>
-      <option value="github">GitHub</option>
-    </select>
-
-    <input 
-      type="text" 
-      id="searchKeyword" 
-      placeholder="输入关键词搜索..." 
-      onkeydown="if(event.key==='Enter'){doSearch()}"
-    >
-
-    <button onclick="doSearch()">搜索</button>
-  </div>
-</section>
-<!-- 搜索引擎模块结束 -->
-
-<h2>热门工具</h2>
-  <h2 class="section-title" data-i18n="hotTools">热门工具</h2>
-  <div class="grid" id="hotBox"></div>
-</section>
-
-<section class="section" id="new-section">
-  <h2 class="section-title" data-i18n="newTools">最新工具</h2>
-  <div class="grid" id="newBox"></div>
-</section>
-
-<main id="all-tools"></main>
-
-<section class="section">
-  <h2 class="section-title" data-i18n="aboutTitle">关于 ZenTools</h2>
-  <div class="info-card">
-    <p data-i18n="aboutText">ZenTools 是一个免费的在线工具平台，帮助用户在浏览器中完成 PDF、图片、文字、生活计算和开发相关任务，无需安装软件。</p>
-  </div>
-</section>
-
-<section class="section">
-  <h2 class="section-title" data-i18n="faqTitle">常见问题</h2>
-
-  <div class="grid">
-    <div class="info-card">
-      <h3 data-i18n="faq1Q">是否免费？</h3>
-      <p data-i18n="faq1A">目前所有工具均可免费使用。</p>
-    </div>
-
-    <div class="info-card">
-      <h3 data-i18n="faq2Q">是否支持手机？</h3>
-      <p data-i18n="faq2A">支持 iPhone、Android、平板和电脑浏览器。</p>
-    </div>
-
-    <div class="info-card">
-      <h3 data-i18n="faq3Q">文件会上传服务器吗？</h3>
-      <p data-i18n="faq3A">大多数工具在浏览器本地处理，正常情况下不会上传到服务器。</p>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <h3>ZenTools</h3>
-      <p style="color:var(--muted);" data-i18n="footerDesc">免费在线工具平台</p>
-    </div>
-
-    <div class="footer-links">
-      <a href="about.html">About</a>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
-    </div>
-  </div>
-
-  <div class="copy">© 2026 ZenTools. All Rights Reserved.</div>
-</footer>
-
+<div class="main" id="examArea" style="display:none"><aside class="sidebar"><div class="small" id="modeLabel">练习模式</div><div class="grid" id="qGrid"></div></aside><main class="content"><div class="card"><div id="quiz"></div><div class="answer-box" id="answerBox"></div><div class="footer-actions"><button class="btn gray" onclick="prevQ()">戻る</button><div><button class="btn gray" onclick="toggleFlag()">🚩 标记</button><button class="btn blue" onclick="showAnswer()">显示答案/解析</button></div><button class="btn" onclick="nextQ()">次へ</button></div></div></main></div>
+<section class="result" id="result"><div class="result-card"><h2>考试结果</h2><div class="score-big" id="resultPct">0%</div><div id="resultDetail" style="text-align:center;font-size:18px"></div><div style="text-align:center;margin:12px 0;font-weight:1000" id="resultJudge"></div><button class="btn" onclick="retrySame()">重新随机练习</button><button class="btn gray" onclick="showMenu()">返回首页</button></div><div class="result-card"><h2>错题复习 / 中文解析 / 正确答案</h2><div id="review"></div></div></section></div>
 <script>
-const i18n = {
-  zh:{
-    navHome:"首页", navTools:"工具", navAbout:"关于", navContact:"联系",
-    heroTitle:"ZenTools 免费在线工具箱",
-    heroText:"提供 PDF、图片、文字、生活、开发和营销类免费在线工具，支持手机与电脑。",
-    searchPlaceholder:"搜索工具，例如 PDF、图片、Base64、时间戳...",
-    startBtn:"开始使用", adText:"广告位（Google AdSense）",
-    searchResults:"搜索结果", favoriteTools:"收藏工具", historyTools:"最近使用",
-    hotTools:"热门工具", newTools:"最新工具",
-    noFavorites:"暂无收藏工具。点击工具卡片右上角的 ☆ 可以收藏。",
-    noHistory:"暂无使用记录。点击工具后会自动记录。",
-    noSearch:"没有找到相关工具。",
-    hot:"热门", new:"最新",
-    aboutTitle:"关于 ZenTools",
-    aboutText:"ZenTools 是一个免费的在线工具平台，帮助用户在浏览器中完成 PDF、图片、文字、生活计算和开发相关任务，无需安装软件。",
-    faqTitle:"常见问题",
-    faq1Q:"是否免费？", faq1A:"目前所有工具均可免费使用。",
-    faq2Q:"是否支持手机？", faq2A:"支持 iPhone、Android、平板和电脑浏览器。",
-    faq3Q:"文件会上传服务器吗？", faq3A:"大多数工具在浏览器本地处理，正常情况下不会上传到服务器。",
-    footerDesc:"免费在线工具平台"
-  },
-  ja:{
-    navHome:"ホーム", navTools:"ツール", navAbout:"サイトについて", navContact:"お問い合わせ",
-    heroTitle:"ZenTools 無料オンラインツール",
-    heroText:"PDF、画像、テキスト、生活、開発、マーケティング向けの無料オンラインツール。",
-    searchPlaceholder:"ツールを検索：PDF、画像、Base64、タイムスタンプ...",
-    startBtn:"使い始める", adText:"広告スペース（Google AdSense）",
-    searchResults:"検索結果", favoriteTools:"お気に入り", historyTools:"最近使用",
-    hotTools:"人気ツール", newTools:"新着ツール",
-    noFavorites:"お気に入りはありません。☆ をクリックして追加できます。",
-    noHistory:"使用履歴はありません。ツールを開くと自動で記録されます。",
-    noSearch:"関連ツールが見つかりません。",
-    hot:"人気", new:"新着",
-    aboutTitle:"ZenTools について",
-    aboutText:"ZenTools は、PDF、画像、テキスト、生活計算、開発関連作業をブラウザで行える無料オンラインツール平台です。",
-    faqTitle:"よくある質問",
-    faq1Q:"無料ですか？", faq1A:"現在、すべてのツールを無料で利用できます。",
-    faq2Q:"スマホ対応ですか？", faq2A:"iPhone、Android、タブレット、PCブラウザに対応しています。",
-    faq3Q:"ファイルはサーバーにアップロードされますか？", faq3A:"多くのツールはブラウザ内で処理され、通常サーバーへアップロードされません。",
-    footerDesc:"無料オンラインツール平台"
-  },
-  en:{
-    navHome:"Home", navTools:"Tools", navAbout:"About", navContact:"Contact",
-    heroTitle:"ZenTools Free Online Tools",
-    heroText:"Free online tools for PDF, images, text, life, developer, and marketing tasks.",
-    searchPlaceholder:"Search tools, e.g. PDF, image, Base64, timestamp...",
-    startBtn:"Get Started", adText:"Ad Space（Google AdSense）",
-    searchResults:"Search Results", favoriteTools:"Favorite Tools", historyTools:"Recently Used",
-    hotTools:"Popular Tools", newTools:"New Tools",
-    noFavorites:"No favorite tools yet. Click ☆ on a tool card to save it.",
-    noHistory:"No recent history yet. Tools are recorded when opened.",
-    noSearch:"No matching tools found.",
-    hot:"Hot", new:"New",
-    aboutTitle:"About ZenTools",
-    aboutText:"ZenTools is a free online tools platform that helps users process PDF, image, text, life calculation, and developer tasks directly in the browser.",
-    faqTitle:"FAQ",
-    faq1Q:"Is it free?", faq1A:"All tools are currently free to use.",
-    faq2Q:"Does it support mobile?", faq2A:"It supports iPhone, Android, tablets, and desktop browsers.",
-    faq3Q:"Are files uploaded to a server?", faq3A:"Most tools process files locally in the browser and normally do not upload them to a server.",
-    footerDesc:"Free online tools platform"
-  },
-  vi:{
-    navHome:"Trang chủ", navTools:"Công cụ", navAbout:"Giới thiệu", navContact:"Liên hệ",
-    heroTitle:"ZenTools Công cụ trực tuyến miễn phí",
-    heroText:"Công cụ miễn phí cho PDF, hình ảnh, văn bản, đời sống, lập trình và marketing.",
-    searchPlaceholder:"Tìm công cụ, ví dụ PDF, ảnh, Base64, timestamp...",
-    startBtn:"Bắt đầu", adText:"Vị trí quảng cáo（Google AdSense）",
-    searchResults:"Kết quả tìm kiếm", favoriteTools:"Công cụ yêu thích", historyTools:"Đã dùng gần đây",
-    hotTools:"Công cụ phổ biến", newTools:"Công cụ mới",
-    noFavorites:"Chưa có công cụ yêu thích. Nhấn ☆ trên thẻ công cụ để lưu.",
-    noHistory:"Chưa có lịch sử sử dụng. Công cụ sẽ được ghi lại khi mở.",
-    noSearch:"Không tìm thấy công cụ phù hợp.",
-    hot:"Hot", new:"Mới",
-    aboutTitle:"Giới thiệu ZenTools",
-    aboutText:"ZenTools là nền tảng công cụ trực tuyến miễn phí giúp xử lý PDF, hình ảnh, văn bản, tính toán đời sống và công việc lập trình ngay trong trình duyệt.",
-    faqTitle:"Câu hỏi thường gặp",
-    faq1Q:"Có miễn phí không?", faq1A:"Hiện tại tất cả công cụ đều miễn phí.",
-    faq2Q:"Có hỗ trợ điện thoại không?", faq2A:"Hỗ trợ iPhone, Android, máy tính bảng và trình duyệt máy tính.",
-    faq3Q:"File có được tải lên máy chủ không?", faq3A:"Hầu hết công cụ xử lý trực tiếp trong trình duyệt và thường không tải lên máy chủ.",
-    footerDesc:"Nền tảng công cụ trực tuyến miễn phí"
+const BASE="./",QFILES=["questions.js","questions2.js","questions3.js","questions4.js","questions5.js","questions6.js","questions7.js","questions8.js","questions9.js"],PFILES=["practice1_g1.js","practice2_g1.js","practice3_g1.js","practice4_g1.js","practice1.js","practice2.js","practice3.js","practice4.js","thn3_1.js","thn3_2.js","thn3_3.js","thn3_4.js","thn3_5.js","thn3_6.js","thn3_7.js"];
+const T={1:"Set 1 基础确认",2:"Set 2 施工管理",3:"Set 3 安全・法规",4:"Set 4 材料・工具",5:"Set 5 作业流程",6:"Set 6 现场判断",7:"Set 7 综合复习",8:"Set 8 图片・実技混合",9:"Set 9 高难度强化"};
+const G=[{t:"G1 実技基础",d:"practice1_g1 ～ practice4_g1",k:["g1_1","g1_2","g1_3","g1_4"]},{t:"G2 実技强化",d:"practice1 ～ practice4",k:["g2_1","g2_2","g2_3","g2_4"]},{t:"G3 thn3 系列",d:"thn3_1 ～ thn3_7",k:["g3_1","g3_2","g3_3","g3_4","g3_5","g3_6","g3_7"]}];
+let QS={},PS={},allTheory=[],allPractice=[],current=[],answers=[],flags=[],idx=0,lastMode=null,timer=null,seconds=0;
+function fix(c){return String(c).replace(/\u00A0/g," ").replace(/questions\s*:\s*\[\s*shuffle\s*:\s*true\s*,\s*questions\s*:\s*\[/m,"questions: [").replace(/,\s*,/g,",")}
+async function ft(f){const r=await fetch(BASE+f,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status+" "+f);return await r.text()}
+function runQ(c){const w={QUESTION_SETS:QS,console:{log(){}}};QS=new Function("window","console",fix(c)+"\nreturn window.QUESTION_SETS||{};")(w,w.console)}
+function runP(c){const w={PRACTICE_SETS:PS,console:{log(){}}};PS=new Function("window","console",fix(c)+"\nreturn window.PRACTICE_SETS||{};")(w,w.console)}
+async function reloadAll(){QS={};PS={};let logs=[];for(const f of QFILES){try{runQ(await ft(f));logs.push("✅ 学科 "+f)}catch(e){logs.push("❌ 学科 "+f+" / "+e.message)}}for(const f of PFILES){try{runP(await ft(f));logs.push("✅ 実技 "+f)}catch(e){logs.push("❌ 実技 "+f+" / "+e.message)}}buildBanks();renderHome();document.getElementById("loadStatus").textContent="读取完成\n学科题库："+allTheory.length+"题\n実技题库："+allPractice.length+"题\n图片题："+cntImg([...allTheory,...allPractice])+"题\n\n"+logs.join("\n")}
+function qArr(id){const s=QS[id];return !s?[]:Array.isArray(s)?s:(s.questions||[])}function pArr(k){const s=PS[k];return !s?[]:Array.isArray(s)?s:(s.questions||[])}
+function buildBanks(){allTheory=[];for(let i=1;i<=9;i++)qArr(String(i)).forEach(q=>allTheory.push({...q,_src:"学科 set="+i}));allPractice=[];Object.keys(PS).forEach(k=>pArr(k).forEach(q=>allPractice.push({...q,_src:"実技 "+k})))}
+function cntImg(a){return a.filter(q=>q.img).length}
+function renderHome(){homeTheoryCount.textContent=allTheory.length;homePracticeCount.textContent=allPractice.length;homeImageCount.textContent=cntImg([...allTheory,...allPractice]);theoryGrid.innerHTML=Array.from({length:9},(_,i)=>{const id=String(i+1),n=qArr(id).length;return `<div class=set-card><h4>${T[id]}</h4><p>文件：questions${id==="1"?"":id}.js<br>题数：${n}题</p><div class=set-row><span class=pill>${n}题</span><button class="btn blue" onclick="startQuestionSet('${id}')">开始练习</button></div></div>`}).join("");practiceGroups.innerHTML=G.map(g=>`<div class=group><h4>${g.t}</h4><p>${g.d}</p><div class=group-list>${g.k.map(k=>`<div class=group-item><span>${k}</span><span class=pill>${pArr(k).length}题</span><button class=btn onclick="startPractice('${k}')">练习</button></div>`).join("")}</div></div>`).join("")}
+function sh(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function startQuestionSet(id="1"){startList(qArr(id).map(q=>({...q,_src:"学科 set="+id})),"学科 set="+id)}function startRandomTheory(){startList(sh([...allTheory]).slice(0,Math.min(40,allTheory.length)),"学科随机40题")}function startPractice(k){startList(pArr(k).map(q=>({...q,_src:"実技 "+k})),"実技 "+k)}function startRandomPractice(){startList(sh([...allPractice]).slice(0,Math.min(25,allPractice.length)),"実技随机25题")}function startFullMock(){startList([...sh([...allTheory]).slice(0,Math.min(40,allTheory.length)),...sh([...allPractice]).slice(0,Math.min(25,allPractice.length))],"综合模拟 学科40＋実技25")}
+function startList(a,l){if(!a.length){alert("题库没有读取到，请确认 JS 文件已上传到仓库根目录。");return}current=a;answers=Array(a.length).fill(null);flags=Array(a.length).fill(false);idx=0;lastMode=l;home.style.display="none";result.style.display="none";examArea.style.display="grid";statusBar.style.display="flex";modeLabel.textContent=l;startTimer();render()}
+function startTimer(){if(timer)clearInterval(timer);seconds=0;timer=setInterval(()=>{seconds++;let m=Math.floor(seconds/60),s=seconds%60;document.getElementById("timer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")},1000)}
+function showMenu(){if(timer)clearInterval(timer);home.style.display="block";result.style.display="none";examArea.style.display="none";statusBar.style.display="none";document.getElementById("timer").textContent="--:--"}
+function esc(t){return String(t??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function ruby(t){return esc(t).replace(/([一-龯々〆ヶ]+)\s*[（(]([^）)]+)[）)]/g,(m,k,r)=>`<ruby>${k}<rt>${r}</rt></ruby>`)}
+function imgSrc(s){if(!s)return "";if(/^https?:\/\//.test(s))return s;return BASE+String(s).replace(/^\.\//,"")}
+function fallbackImg(el,raw){const rel=String(raw||"").replace(/^\.\//,"");if(!el.dataset.fallback){el.dataset.fallback="1";el.src="https://donghung94.github.io/1/"+rel;return}el.style.display="none";const b=el.nextElementSibling;if(b&&b.classList.contains("img-missing")){b.style.display="block";b.textContent="图片未找到："+rel+"。请确认仓库 images 文件夹中存在该图片。"}}
+function cn(t){if(!t)return "";let s=String(t).replace(/\*\*/g,"");const d=[["Giải thích","解析"],["Ghi nhớ","记忆"],["Mẹo","技巧"],["Nhớ","记忆"],["là","是"],["thiết bị","设备"],["dùng để","用于"],["được đặt","被设置"],["xung quanh","周围"],["khu vực","区域"],["thi công","施工"],["công trường","工地"],["trên biển","海上"],["báo hiệu","提示/标示"],["tàu thuyền","船只"],["Hình cho thấy","图片显示"],["máy lu","压路机"],["mặt đường","路面"],["lát đường","铺路"],["trải nhựa","沥青铺设"],["công trình","工程"],["sông","河流"],["nước","水"],["bùn","泥"],["trơn trượt","湿滑"],["dễ xảy ra","容易发生"],["té ngã","跌倒"],["giữ khoảng cách","保持间隔"],["cố định","固定"],["ván khuôn","模板"],["siết chặt","紧固"],["ống","管"],["thanh","杆/条"],["đỡ","支撑"],["ngang","横向"],["dầm","梁"],["Phao","浮标"],["nổi","浮起"],["dấu hiệu","标志"]];for(const [a,b]of d)s=s.replace(new RegExp(a,"gi"),b);return ruby(s.replace(/^[:：\s]+/,""))}
+function ex(q){return q.explain?cn(q.explain):q.vi?cn(q.vi):""}
+function render(){const q=current[idx];statusTitle.textContent="質問: "+(idx+1)+" / "+current.length;statusScore.textContent="已答: "+answers.filter(x=>x!==null).length+" / "+current.length;qGrid.innerHTML=current.map((q,i)=>`<button class="qnum ${idx===i?'active':''} ${answers[i]!==null?'done':''} ${answers[i]!==null&&answers[i]!==q.answer?'wrong':''} ${flags[i]?'flag':''}" onclick="goQ(${i})">${i+1}</button>`).join("");const im=q.img?`<img class=qimg src="${imgSrc(q.img)}" onerror="fallbackImg(this,'${esc(String(q.img)).replace(/'/g,"\\'")}')" alt="题目图片"><div class=img-missing></div>`:"";quiz.innerHTML=`<div class=small>${esc(q._src||"")}</div><div class=qtext><b>問題 ${idx+1}</b><br>${ruby(q.q)}</div>${im}${(q.options||[]).map((o,i)=>opt(q,o,i)).join("")}`;answerBox.className="answer-box";answerBox.innerHTML=""}
+function opt(q,o,i){let c="opt";if(answers[idx]===i)c+=" selected";if(answers[idx]!==null){if(i===q.answer)c+=" correct";else if(answers[idx]===i)c+=" incorrect"}return `<div class="${c}" onclick="selectOpt(${i})">${ruby(o)}</div>`}
+function selectOpt(i){
+  answers[idx] = i;
+  const q = current[idx];
+
+  if(i !== q.answer){
+    saveWrongQuestion(q, i);
+  }else{
+    removeWrongQuestion(q);
   }
-};
 
-const categoryNames = {
-  pdf:{zh:"PDF 工具",ja:"PDF ツール",en:"PDF Tools",vi:"Công cụ PDF"},
-  image:{zh:"图片工具",ja:"画像ツール",en:"Image Tools",vi:"Công cụ hình ảnh"},
-  text:{zh:"文字工具",ja:"テキストツール",en:"Text Tools",vi:"Công cụ văn bản"},
-  life:{zh:"生活工具",ja:"生活ツール",en:"Life Tools",vi:"Công cụ đời sống"},
-  dev:{zh:"开发工具",ja:"開発ツール",en:"Developer Tools",vi:"Công cụ lập trình"},
-  marketing:{zh:"营销工具",ja:"マーケティングツール",en:"Marketing Tools",vi:"Công cụ marketing"}
-};
+  render();
+  showAnswer();
+}function showAnswer(){const q=current[idx],r=q.options?.[q.answer]??q.answer,y=answers[idx]!==null&&q.options?.[answers[idx]]!==undefined?q.options[answers[idx]]:"未回答",ok=answers[idx]===q.answer,e=ex(q);answerBox.className="answer-box show";answerBox.innerHTML=`<div class="${ok?'good':'bad'}">${ok?'回答正确':'回答错误'}</div><div><b>你的答案：</b>${ruby(y)}</div><div><b>正确答案：</b>${ruby(r)}</div>${e?`<hr><div><b>中文解析：</b><br>${e}</div>`:""}`}
+function goQ(i){idx=i;render()}function prevQ(){if(idx>0){idx--;render()}}function nextQ(){if(idx<current.length-1){idx++;render()}else finish()}function toggleFlag(){flags[idx]=!flags[idx];render()}
+function finish(){if(timer)clearInterval(timer);let c=0;current.forEach((q,i)=>{if(answers[i]===q.answer)c++});const p=Math.round(c/current.length*100);examArea.style.display="none";statusBar.style.display="none";result.style.display="block";resultPct.textContent=p+"%";resultDetail.textContent="正确: "+c+" / "+current.length;resultJudge.textContent=p>=65?"判定：合格レベル":"判定：需要继续复习";resultJudge.style.color=p>=65?"#16a34a":"#dc2626";review.innerHTML=current.map((q,i)=>reviewHtml(q,i)).join("");scrollTo(0,0)}
+function reviewHtml(q,i){const ok=answers[i]===q.answer,r=q.options?.[q.answer]??q.answer,y=answers[i]!==null&&q.options?.[answers[i]]!==undefined?q.options[answers[i]]:"未回答",e=ex(q),im=q.img?`<img class=qimg src="${imgSrc(q.img)}" onerror="fallbackImg(this,'${esc(String(q.img)).replace(/'/g,"\\'")}')"><div class=img-missing></div>`:"";return `<div class=review-item><div><b>问${i+1}｜${esc(q._src||"")}｜${ok?'<span class=good>正确</span>':'<span class=bad>错误</span>'}</b></div><div>${ruby(q.q)}</div>${im}<div class="${ok?'good':'bad'}">你的答案：${ruby(y)}</div><div class=good>正确答案：${ruby(r)}</div>${e?`<div><b>中文解析：</b><br>${e}</div>`:""}</div>`}
+function retrySame(){if(!lastMode)return showMenu();if(lastMode.startsWith("学科 set="))startQuestionSet(lastMode.replace("学科 set=",""));else if(lastMode==="学科随机40题")startRandomTheory();else if(lastMode.startsWith("実技 ")&&!lastMode.includes("随机"))startPractice(lastMode.replace("実技 ",""));else if(lastMode==="実技随机25题")startRandomPractice();else if(lastMode==="错题集复习")startWrongBook();else startFullMock()}
 
-const tools = [
-  ["pdf","pdf.html","PDF 工具","PDF ツール","PDF Tools","Công cụ PDF","PDF 转图片、图片转 PDF。","PDFを画像へ、画像をPDFへ変換。","PDF to images and images to PDF.","Chuyển PDF sang ảnh và ảnh sang PDF.",true,false],
-  ["pdf","splitpdf.html","PDF 拆分","PDF 分割","PDF Splitter","Tách PDF","提取 PDF 指定页面。","PDFの指定ページを抽出。","Extract specific PDF pages.","Trích xuất trang PDF chỉ định.",true,false],
-  ["pdf","mergepdf.html","PDF 合并","PDF 結合","PDF Merger","Gộp PDF","合并多个 PDF 文件。","複数のPDFを結合。","Merge multiple PDF files.","Gộp nhiều file PDF.",true,false],
-  ["pdf","imgtopdf.html","图片转 PDF","画像をPDFに変換","Image to PDF","Ảnh sang PDF","将 JPG、PNG 图片转换为 PDF。","JPG、PNG画像をPDFに変換。","Convert JPG and PNG images to PDF.","Chuyển JPG, PNG thành PDF.",false,true],
-  ["pdf","compresspdf.html","PDF 压缩","PDF 圧縮","PDF Compressor","Nén PDF","在线压缩 PDF 文件。","PDFファイルをオンライン圧縮。","Compress PDF files online.","Nén file PDF trực tuyến.",false,true],
+const WRONG_KEY = "tokutei_wrong_questions";
 
-  ["image","compress.html","图片压缩","画像圧縮","Image Compression","Nén ảnh","在线压缩 JPG、PNG、WEBP 图片。","JPG、PNG、WEBP画像を圧縮。","Compress JPG, PNG, and WEBP images.","Nén ảnh JPG, PNG và WEBP.",true,false],
-  ["image","convert.html","图片格式转换","画像形式変換","Image Converter","Chuyển đổi ảnh","JPG、PNG、WEBP 图片互转。","JPG、PNG、WEBPを相互変換。","Convert JPG, PNG, and WEBP images.","Chuyển đổi JPG, PNG và WEBP.",true,false],
-  ["image","resize.html","图片尺寸修改","画像サイズ変更","Image Resizer","Thay đổi kích thước ảnh","在线修改图片宽度和高度。","画像の幅と高さを変更。","Resize image width and height.","Đổi chiều rộng và chiều cao ảnh.",true,false],
-  ["image","crop.html","图片裁剪","画像切り抜き","Image Crop","Cắt ảnh","在线裁剪图片。","画像をオンラインで切り抜き。","Crop images online.","Cắt ảnh trực tuyến.",false,false],
-  ["image","watermark.html","图片加水印","画像ウォーターマーク","Image Watermark","Thêm watermark ảnh","给图片添加文字水印。","画像に文字透かしを追加。","Add text watermark to images.","Thêm watermark chữ vào ảnh.",false,false],
-
-  ["text","tts.html","文字转语音","文字読み上げ","Text to Speech","Chuyển văn bản thành giọng nói","在线 TTS 语音合成工具。","オンライン TTS ツール。","Online TTS speech tool.","Công cụ TTS trực tuyến.",true,false],
-  ["text","wordcount.html","字数统计","文字数カウント","Word Counter","Đếm từ","统计字符、单词和段落数量。","文字、単語、段落数をカウント。","Count characters, words, and paragraphs.","Đếm ký tự, từ và đoạn văn.",true,true],
-  ["text","caseconvert.html","大小写转换","大文字小文字変換","Case Converter","Chuyển hoa thường","文本大小写快速转换。","テキストの大文字小文字を変換。","Convert text uppercase and lowercase.","Chuyển đổi chữ hoa và chữ thường.",false,true],
-  ["text","dedupe.html","文本去重","テキスト重複削除","Text Deduplicator","Xóa trùng văn bản","自动删除重复文本行。","重複した行を自動削除。","Remove duplicate text lines.","Xóa các dòng văn bản trùng lặp.",false,true],
-  ["text","urlencode.html","URL 编码解码","URL エンコード/デコード","URL Encoder Decoder","Mã hóa URL","URL Encode / Decode。","URL Encode / Decode。","URL Encode and Decode.","Mã hóa và giải mã URL.",false,true],
-
-  ["life","currency.html","汇率换算","為替換算","Currency Converter","Chuyển đổi tiền tệ","实时货币换算。","通貨を換算。","Convert currencies.","Chuyển đổi tiền tệ.",false,true],
-  ["life","unit.html","单位换算","単位換算","Unit Converter","Chuyển đổi đơn vị","长度、重量、面积等单位换算。","長さ、重さ、面積などを換算。","Convert length, weight, area, and more.","Chuyển đổi độ dài, trọng lượng, diện tích.",false,true],
-  ["life","bmi.html","BMI 计算器","BMI 計算機","BMI Calculator","Máy tính BMI","计算身体质量指数。","BMIを計算。","Calculate body mass index.","Tính chỉ số BMI.",true,true],
-  ["life","age.html","年龄计算器","年齢計算機","Age Calculator","Máy tính tuổi","计算精确年龄。","正確な年齢を計算。","Calculate exact age.","Tính tuổi chính xác.",false,true],
-
-  ["dev","base64.html","Base64 编码解码","Base64 エンコード/デコード","Base64 Encoder Decoder","Base64 mã hóa giải mã","Base64 Encode / Decode。","Base64 Encode / Decode。","Encode and decode Base64.","Mã hóa và giải mã Base64.",true,true],
-  ["dev","timestamp.html","时间戳转换","タイムスタンプ変換","Timestamp Converter","Chuyển đổi timestamp","Unix 时间戳转换。","Unix タイムスタンプ変換。","Convert Unix timestamps.","Chuyển đổi Unix timestamp.",true,true],
-  ["dev","password.html","随机密码生成器","パスワード生成","Password Generator","Tạo mật khẩu","生成安全随机密码。","安全なランダムパスワードを生成。","Generate secure random passwords.","Tạo mật khẩu ngẫu nhiên an toàn.",true,false],
-  ["dev","colorpicker.html","颜色取色器","カラーピッカー","Color Picker","Bộ chọn màu","选择并复制颜色代码。","色コードを選択してコピー。","Pick and copy color codes.","Chọn và sao chép mã màu.",false,true],
-  ["dev","screencheck.html","屏幕检测","画面チェック","Screen Test","Kiểm tra màn hình","检测屏幕颜色、亮点和显示效果。","画面の色、ドット、表示を確認。","Test screen colors, pixels, and display.","Kiểm tra màu màn hình và điểm ảnh.",false,true],
-  ["dev","json.html","JSON 格式化","JSON 整形","JSON Formatter","Định dạng JSON","格式化、压缩和校验 JSON。","JSONを整形、圧縮、検証。","Format, minify, and validate JSON.","Định dạng, nén và kiểm tra JSON.",true,false],
-
-  ["marketing","qr.html","二维码生成器","QRコード生成","QR Code Generator","Tạo mã QR","输入文字或网址生成二维码。","テキストやURLからQRコードを生成。","Generate QR codes from text or URLs.","Tạo mã QR từ văn bản hoặc liên kết.",true,false],
-  ["marketing","shorturl.html","短链接生成器","短縮URL生成","Short URL Generator","Tạo link rút gọn","生成短网址。","短縮URLを生成。","Generate short links.","Tạo liên kết rút gọn.",false,true]
-];
-
-const langIndex = {zh:2, ja:3, en:4, vi:5};
-const descIndex = {zh:6, ja:7, en:8, vi:9};
-const order = ["pdf","image","text","life","dev","marketing"];
-
-function getFavs(){
-  return JSON.parse(localStorage.getItem("favoriteTools") || "[]");
-}
-function setFavs(list){
-  localStorage.setItem("favoriteTools", JSON.stringify(list));
-}
-function getHistory(){
-  return JSON.parse(localStorage.getItem("toolHistory") || "[]");
-}
-function setHistory(list){
-  localStorage.setItem("toolHistory", JSON.stringify(list.slice(0,8)));
-}
-function toolId(t){
-  return t[1];
+function wrongId(q){
+  return (q.src || q._src || "") + "_" + (q.q || "");
 }
 
-function createCard(t, lang){
-  const favs = getFavs();
-  const id = toolId(t);
+function getWrongList(){
+  try{
+    return JSON.parse(localStorage.getItem(WRONG_KEY) || "[]");
+  }catch(e){
+    return [];
+  }
+}
 
-  const card = document.createElement("a");
-  card.className = "card";
-  card.href = t[1];
+function setWrongList(list){
+  localStorage.setItem(WRONG_KEY, JSON.stringify(list));
+  updateWrongCount();
+}
 
-  card.addEventListener("click", function(){
-    const history = getHistory().filter(x=>x !== id);
-    history.unshift(id);
-    setHistory(history);
-  });
+function updateWrongCount(){
+  const el = document.getElementById("wrongCount");
+  if(el) el.textContent = getWrongList().length;
+}
 
-  const favBtn = document.createElement("button");
-  favBtn.className = "fav-btn" + (favs.includes(id) ? " active" : "");
-  favBtn.type = "button";
-  favBtn.textContent = favs.includes(id) ? "★" : "☆";
-  favBtn.onclick = function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    let newFavs = getFavs();
-    if(newFavs.includes(id)){
-      newFavs = newFavs.filter(x=>x !== id);
-    }else{
-      newFavs.push(id);
-    }
-    setFavs(newFavs);
-    renderAll(lang);
+function saveWrongQuestion(q, userAnswer){
+  const list = getWrongList();
+  const id = wrongId(q);
+
+  const item = {
+    id: id,
+    src: q.src || q._src || "",
+    _src: q.src || q._src || "",
+    q: q.q || "",
+    img: q.img || "",
+    options: q.options || [],
+    answer: q.answer,
+    explain: q.explain || "",
+    vi: q.vi || "",
+    userAnswer: userAnswer,
+    savedAt: new Date().toISOString()
   };
 
-  const h3 = document.createElement("h3");
-  h3.textContent = t[langIndex[lang]] || t[2];
-
-  const p = document.createElement("p");
-  p.textContent = t[descIndex[lang]] || t[6];
-
-  const badges = document.createElement("div");
-  badges.className = "badges";
-
-  if(t[10]){
-    const b = document.createElement("span");
-    b.className = "badge hot";
-    b.textContent = i18n[lang].hot;
-    badges.appendChild(b);
+  const old = list.find(x => x.id === id);
+  if(old){
+    Object.assign(old, item);
+  }else{
+    list.unshift(item);
   }
-
-  if(t[11]){
-    const b = document.createElement("span");
-    b.className = "badge new";
-    b.textContent = i18n[lang].new;
-    badges.appendChild(b);
-  }
-
-  card.appendChild(favBtn);
-  card.appendChild(h3);
-  card.appendChild(p);
-  card.appendChild(badges);
-
-  return card;
+  setWrongList(list);
 }
 
-function renderToolList(targetId, list, lang, emptyText){
-  const box = document.getElementById(targetId);
-  box.innerHTML = "";
+function removeWrongQuestion(q){
+  const id = wrongId(q);
+  let list = getWrongList();
+  const before = list.length;
+  list = list.filter(x => x.id !== id);
+  if(list.length !== before){
+    setWrongList(list);
+  }else{
+    updateWrongCount();
+  }
+}
 
-  if(list.length === 0){
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = emptyText;
-    box.appendChild(empty);
+function startWrongBook(){
+  const list = getWrongList();
+  if(!list.length){
+    alert("现在还没有错题。答错题目后会自动加入错题集。");
     return;
   }
 
-  const grid = document.createElement("div");
-  grid.className = "grid";
-  list.forEach(t=>grid.appendChild(createCard(t, lang)));
-  box.appendChild(grid);
+  const arr = list.map(q => ({
+    ...q,
+    _src: "错题集 " + (q.src || q._src || "")
+  }));
+
+  startList(arr, "错题集复习");
 }
 
-function renderCategories(lang){
-  const box = document.getElementById("all-tools");
-  box.innerHTML = "";
-
-  order.forEach(cat=>{
-    const list = tools.filter(t=>t[0] === cat);
-    if(list.length === 0) return;
-
-    const section = document.createElement("section");
-    section.className = "section";
-
-    const title = document.createElement("h2");
-    title.className = "section-title";
-    title.textContent = categoryNames[cat][lang] || categoryNames[cat].zh;
-
-    const grid = document.createElement("div");
-    grid.className = "grid";
-
-    list.forEach(t=>grid.appendChild(createCard(t, lang)));
-
-    section.appendChild(title);
-    section.appendChild(grid);
-    box.appendChild(section);
-  });
-}
-
-function renderAll(lang){
-  const hot = tools.filter(t=>t[10]).slice(0,8);
-  const latest = tools.filter(t=>t[11]).slice(0,8);
-  const favList = tools.filter(t=>getFavs().includes(toolId(t)));
-  const historyIds = getHistory();
-  const historyList = historyIds.map(id=>tools.find(t=>toolId(t) === id)).filter(Boolean);
-
-  renderToolList("hotBox", hot, lang, "");
-  renderToolList("newBox", latest, lang, "");
-  renderToolList("favoriteBox", favList, lang, i18n[lang].noFavorites);
-  renderToolList("historyBox", historyList, lang, i18n[lang].noHistory);
-  renderCategories(lang);
-  runSearch(lang);
-}
-
-function runSearch(lang){
-  const q = document.getElementById("searchInput").value.trim().toLowerCase();
-  const section = document.getElementById("search-section");
-  const box = document.getElementById("searchResultsBox");
-
-  if(!q){
-    section.style.display = "none";
-    box.innerHTML = "";
+function clearWrongBook(){
+  if(!confirm("确定要清空错题集吗？")){
     return;
   }
-
-  section.style.display = "block";
-  box.innerHTML = "";
-
-  const result = tools.filter(t=>{
-    const text = [
-      t[2],t[3],t[4],t[5],t[6],t[7],t[8],t[9],t[1],t[0]
-    ].join(" ").toLowerCase();
-    return text.includes(q);
-  });
-
-  if(result.length === 0){
-    const empty = document.createElement("div");
-    empty.className = "empty";
-    empty.textContent = i18n[lang].noSearch;
-    box.appendChild(empty);
-    return;
-  }
-
-  result.forEach(t=>box.appendChild(createCard(t, lang)));
+  localStorage.removeItem(WRONG_KEY);
+  updateWrongCount();
+  alert("错题集已清空。");
 }
 
-function setLanguage(lang){
-  const data = i18n[lang] || i18n.zh;
-
-  document.documentElement.lang = lang;
-  document.title = "ZenTools - Free Online Tools";
-
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const key = el.getAttribute("data-i18n");
-    if(data[key]) el.textContent = data[key];
-  });
-
-  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
-    const key = el.getAttribute("data-i18n-placeholder");
-    if(data[key]) el.placeholder = data[key];
-  });
-
-  localStorage.setItem("siteLanguage", lang);
-  renderAll(lang);
-}
-
-const languageSelect = document.getElementById("languageSelect");
-const searchInput = document.getElementById("searchInput");
-
-languageSelect.addEventListener("change", function(){
-  setLanguage(this.value);
-});
-
-searchInput.addEventListener("input", function(){
-  const lang = localStorage.getItem("siteLanguage") || "zh";
-  runSearch(lang);
-});
-
-const savedLang = localStorage.getItem("siteLanguage") || "zh";
-languageSelect.value = savedLang;
-setLanguage(savedLang);
-</script>
-
-<script>
-function doSearch() {
-  const engine = document.getElementById("searchEngineSelect").value;
-  const keyword = document.getElementById("searchKeyword").value.trim();
-
-  if (!keyword) {
-    alert("请输入搜索关键词");
-    return;
-  }
-
-  const q = encodeURIComponent(keyword);
-  let url = "";
-
-  if (engine === "google") {
-    url = "https://www.google.com/search?q=" + q;
-  } else if (engine === "bing") {
-    url = "https://www.bing.com/search?q=" + q;
-  } else if (engine === "yahoo") {
-    url = "https://search.yahoo.co.jp/search?p=" + q;
-  } else if (engine === "youtube") {
-    url = "https://www.youtube.com/results?search_query=" + q;
-  } else if (engine === "github") {
-    url = "https://github.com/search?q=" + q;
-  }
-
-  window.open(url, "_blank");
-}
-</script>
-</body>
-</html>
+reloadAll();
+updateWrongCount();
+</script></body></html>
