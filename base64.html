@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Base64 编码解码 - ZenTools</title>
+<meta name="description" content="ZenTools 免费在线 Base64 编码解码工具。">
+
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
+.container{max-width:1000px;margin:auto;padding:40px 20px}
+a{color:#60a5fa;text-decoration:none}
+.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.lang-select{background:#111827;color:white;border:1px solid #334155;border-radius:10px;padding:10px 12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px}
+h1{margin-bottom:15px}
+.desc{color:var(--muted);margin-bottom:25px}
+.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
+textarea{width:100%;min-height:190px;padding:16px;border-radius:14px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px;resize:vertical}
+.controls{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0}
+button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold}
+.copy-btn{background:var(--green)}
+.clear-btn{background:var(--red)}
+.info{margin-top:35px}
+.info h2{margin-top:25px}
+.info p{color:#cbd5e1;white-space:pre-line}
+footer{margin-top:50px;text-align:center;color:#94a3b8}
+@media(max-width:768px){button,.lang-select{width:100%}}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <div class="top-bar">
+    <a href="index.html" data-i18n="back">← 返回首页</a>
+    <select id="languageSelect" class="lang-select">
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+      <option value="en">English</option>
+      <option value="vi">Tiếng Việt</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <h1 data-i18n="title">Base64 编码解码</h1>
+    <p class="desc" data-i18n="desc">免费在线 Base64 编码、解码工具。</p>
+
+    <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+
+    <textarea id="inputText" data-i18n-placeholder="inputPlaceholder" placeholder="请输入文本..."></textarea>
+
+    <div class="controls">
+      <button onclick="encodeBase64()" data-i18n="encode">Base64 编码</button>
+      <button onclick="decodeBase64()" data-i18n="decode">Base64 解码</button>
+      <button class="copy-btn" onclick="copyResult()" data-i18n="copy">复制结果</button>
+      <button class="clear-btn" onclick="clearText()" data-i18n="clear">清空</button>
+    </div>
+
+    <textarea id="outputText" readonly data-i18n-placeholder="outputPlaceholder" placeholder="结果会显示在这里..."></textarea>
+
+    <div class="info">
+      <h2 data-i18n="guideTitle">使用说明</h2>
+      <p data-i18n="guideText">1. 输入需要处理的文本。
+2. 点击 Base64 编码或解码。
+3. 结果会显示在下方。
+4. 可一键复制结果。</p>
+
+      <h2 data-i18n="privacyTitle">隐私说明</h2>
+      <p data-i18n="privacyText">所有内容都在浏览器本地处理，不会上传到服务器。</p>
+    </div>
+  </div>
+
+  <footer>© 2026 ZenTools</footer>
+</div>
+
+<script>
+const languageSelect=document.getElementById("languageSelect");
+let currentLang="zh";
+
+const translations={
+  zh:{
+    pageTitle:"Base64 编码解码 - ZenTools",
+    back:"← 返回首页",title:"Base64 编码解码",desc:"免费在线 Base64 编码、解码工具。",
+    ad:"广告位（Google AdSense）",inputPlaceholder:"请输入文本...",outputPlaceholder:"结果会显示在这里...",
+    encode:"Base64 编码",decode:"Base64 解码",copy:"复制结果",clear:"清空",
+    copied:"已复制",empty:"请输入内容",decodeError:"解码失败，请检查 Base64 内容是否正确。",
+    guideTitle:"使用说明",guideText:"1. 输入需要处理的文本。\n2. 点击 Base64 编码或解码。\n3. 结果会显示在下方。\n4. 可一键复制结果。",
+    privacyTitle:"隐私说明",privacyText:"所有内容都在浏览器本地处理，不会上传到服务器。"
+  },
+  ja:{
+    pageTitle:"Base64 エンコード/デコード - ZenTools",
+    back:"← ホームに戻る",title:"Base64 エンコード/デコード",desc:"無料オンライン Base64 変換ツール。",
+    ad:"広告スペース",inputPlaceholder:"テキストを入力...",outputPlaceholder:"結果がここに表示されます...",
+    encode:"Base64 エンコード",decode:"Base64 デコード",copy:"結果をコピー",clear:"クリア",
+    copied:"コピーしました",empty:"内容を入力してください",decodeError:"デコードに失敗しました。Base64 の内容を確認してください。",
+    guideTitle:"使い方",guideText:"1. 処理したいテキストを入力します。\n2. エンコードまたはデコードをクリックします。\n3. 結果が下に表示されます。\n4. 結果をコピーできます。",
+    privacyTitle:"プライバシーについて",privacyText:"すべての処理はブラウザ内で行われ、サーバーへ送信されません。"
+  },
+  en:{
+    pageTitle:"Base64 Encoder Decoder - ZenTools",
+    back:"← Back to Home",title:"Base64 Encoder Decoder",desc:"Free online Base64 encoding and decoding tool.",
+    ad:"Ad Space",inputPlaceholder:"Enter text...",outputPlaceholder:"Result will appear here...",
+    encode:"Encode Base64",decode:"Decode Base64",copy:"Copy Result",clear:"Clear",
+    copied:"Copied",empty:"Please enter content",decodeError:"Decode failed. Please check whether the Base64 content is valid.",
+    guideTitle:"How to Use",guideText:"1. Enter the text you want to process.\n2. Click encode or decode.\n3. The result will appear below.\n4. Copy the result with one click.",
+    privacyTitle:"Privacy Notice",privacyText:"All content is processed locally in your browser and is not uploaded to a server."
+  },
+  vi:{
+    pageTitle:"Base64 mã hóa giải mã - ZenTools",
+    back:"← Quay lại trang chủ",title:"Base64 mã hóa giải mã",desc:"Công cụ mã hóa và giải mã Base64 trực tuyến miễn phí.",
+    ad:"Vị trí quảng cáo",inputPlaceholder:"Nhập văn bản...",outputPlaceholder:"Kết quả sẽ hiển thị ở đây...",
+    encode:"Mã hóa Base64",decode:"Giải mã Base64",copy:"Sao chép kết quả",clear:"Xóa",
+    copied:"Đã sao chép",empty:"Vui lòng nhập nội dung",decodeError:"Giải mã thất bại. Vui lòng kiểm tra nội dung Base64.",
+    guideTitle:"Hướng dẫn sử dụng",guideText:"1. Nhập văn bản cần xử lý.\n2. Nhấn mã hóa hoặc giải mã.\n3. Kết quả sẽ hiển thị bên dưới.\n4. Có thể sao chép kết quả.",
+    privacyTitle:"Thông tin quyền riêng tư",privacyText:"Tất cả nội dung được xử lý trực tiếp trong trình duyệt và không tải lên máy chủ."
+  }
+};
+
+function setLanguage(lang){
+  currentLang=lang;
+  const data=translations[lang]||translations.zh;
+  document.documentElement.lang=lang;
+  document.title=data.pageTitle;
+
+  document.querySelectorAll("[data-i18n]").forEach(el=>{
+    const key=el.getAttribute("data-i18n");
+    if(data[key]) el.textContent=data[key];
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{
+    const key=el.getAttribute("data-i18n-placeholder");
+    if(data[key]) el.placeholder=data[key];
+  });
+
+  localStorage.setItem("siteLanguage",lang);
+}
+
+languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
+const savedLang=localStorage.getItem("siteLanguage")||"zh";
+languageSelect.value=savedLang;
+setLanguage(savedLang);
+
+function encodeBase64(){
+  const text=document.getElementById("inputText").value;
+  if(!text.trim()){alert(translations[currentLang].empty);return;}
+  const encoded=btoa(unescape(encodeURIComponent(text)));
+  document.getElementById("outputText").value=encoded;
+}
+
+function decodeBase64(){
+  const text=document.getElementById("inputText").value.trim();
+  if(!text){alert(translations[currentLang].empty);return;}
+  try{
+    const decoded=decodeURIComponent(escape(atob(text)));
+    document.getElementById("outputText").value=decoded;
+  }catch(e){
+    alert(translations[currentLang].decodeError);
+  }
+}
+
+function copyResult(){
+  const output=document.getElementById("outputText");
+  if(!output.value.trim()){alert(translations[currentLang].empty);return;}
+  output.select();
+  document.execCommand("copy");
+  alert(translations[currentLang].copied);
+}
+
+function clearText(){
+  document.getElementById("inputText").value="";
+  document.getElementById("outputText").value="";
+}
+</script>
+
+</body>
+</html>
