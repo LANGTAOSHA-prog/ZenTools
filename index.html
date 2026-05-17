@@ -211,6 +211,88 @@ header{
   .hero p{font-size:16px}
   .lang-select{width:100%}
 }
+.search-engine-section {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.search-engine-section h2 {
+  margin-bottom: 8px;
+  font-size: 26px;
+  color: #222;
+}
+
+.search-desc {
+  margin-bottom: 20px;
+  color: #666;
+  font-size: 15px;
+}
+
+.search-engine-box {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-engine-box select,
+.search-engine-box input {
+  height: 46px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 0 14px;
+  font-size: 15px;
+}
+
+.search-engine-box select {
+  min-width: 140px;
+  background: #f8f9fb;
+}
+
+.search-engine-box input {
+  flex: 1;
+  min-width: 220px;
+  max-width: 480px;
+}
+
+.search-engine-box button {
+  height: 46px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 12px;
+  background: #2563eb;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.search-engine-box button:hover {
+  background: #1d4ed8;
+}
+
+@media (max-width: 600px) {
+  .search-engine-section {
+    margin: 20px 12px;
+    padding: 20px;
+  }
+
+  .search-engine-box {
+    flex-direction: column;
+  }
+
+  .search-engine-box select,
+  .search-engine-box input,
+  .search-engine-box button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
 </style>
 </head>
 
@@ -265,6 +347,33 @@ header{
 </section>
 
 <section class="section" id="hot-section">
+  <!-- 搜索引擎模块开始 -->
+<section class="search-engine-section">
+  <h2>搜索引擎</h2>
+  <p class="search-desc">快速使用 Google、Bing、Yahoo、YouTube 搜索内容</p>
+
+  <div class="search-engine-box">
+    <select id="searchEngineSelect">
+      <option value="google">Google</option>
+      <option value="bing">Bing</option>
+      <option value="yahoo">Yahoo Japan</option>
+      <option value="youtube">YouTube</option>
+      <option value="github">GitHub</option>
+    </select>
+
+    <input 
+      type="text" 
+      id="searchKeyword" 
+      placeholder="输入关键词搜索..." 
+      onkeydown="if(event.key==='Enter'){doSearch()}"
+    >
+
+    <button onclick="doSearch()">搜索</button>
+  </div>
+</section>
+<!-- 搜索引擎模块结束 -->
+
+<h2>热门工具</h2>
   <h2 class="section-title" data-i18n="hotTools">热门工具</h2>
   <div class="grid" id="hotBox"></div>
 </section>
@@ -660,5 +769,33 @@ languageSelect.value = savedLang;
 setLanguage(savedLang);
 </script>
 
+<script>
+function doSearch() {
+  const engine = document.getElementById("searchEngineSelect").value;
+  const keyword = document.getElementById("searchKeyword").value.trim();
+
+  if (!keyword) {
+    alert("请输入搜索关键词");
+    return;
+  }
+
+  const q = encodeURIComponent(keyword);
+  let url = "";
+
+  if (engine === "google") {
+    url = "https://www.google.com/search?q=" + q;
+  } else if (engine === "bing") {
+    url = "https://www.bing.com/search?q=" + q;
+  } else if (engine === "yahoo") {
+    url = "https://search.yahoo.co.jp/search?p=" + q;
+  } else if (engine === "youtube") {
+    url = "https://www.youtube.com/results?search_query=" + q;
+  } else if (engine === "github") {
+    url = "https://github.com/search?q=" + q;
+  }
+
+  window.open(url, "_blank");
+}
+</script>
 </body>
 </html>
