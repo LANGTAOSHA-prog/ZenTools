@@ -1,30 +1,33 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ZenTools 2.0 - Free Online Tools & AI Tools Directory</title>
-  <meta name="description" content="ZenTools 2.0 offers free online tools, AI tool navigation, PDF tools, image tools, text tools and practical tutorials for work and daily life." />
-  <meta name="keywords" content="free online tools, AI tools, PDF tools, image tools, ZenTools" />
+  <title>ZenTools 2.0 - 免费在线工具箱与 AI 工具导航</title>
+  <meta name="description" content="ZenTools 2.0 是面向中文用户的免费在线工具网站，提供 PDF 工具、图片工具、文本工具、AI 工具导航、办公效率工具和实用教程，支持手机与电脑使用。" />
+  <meta name="keywords" content="免费在线工具,在线工具箱,PDF工具,图片工具,AI工具导航,办公工具,ZenTools,智汇工具" />
+  <meta name="author" content="ZenTools" />
   <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/" />
-  <meta property="og:title" content="ZenTools 2.0 - Free Online Tools & AI Tools Directory" />
-  <meta property="og:description" content="A multilingual online tools platform with AI tools, PDF tools, image tools, text tools and tutorials." />
+  <meta property="og:title" content="ZenTools 2.0 - 免费在线工具箱与 AI 工具导航" />
+  <meta property="og:description" content="面向中文用户的免费在线工具平台，集合 PDF、图片、文本、AI、办公和生活效率工具。" />
+  <meta property="og:type" content="website" />
   <meta property="og:image" content="https://langtaosha-prog.github.io/ZenTools/assets/images/og-image.png" />
   <meta property="og:url" content="https://langtaosha-prog.github.io/ZenTools/" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <header class="site-header">
-    <a class="logo" href="index.html">ZenTools<span>2.0</span></a>
-    <nav class="nav">
-      <a href="tools.html" data-i18n="navTools">Tools</a>
-      <a href="categories.html" data-i18n="navCategories">Categories</a>
-      <a href="articles.html" data-i18n="navArticles">Articles</a>
-      <a href="about.html" data-i18n="navAbout">About</a>
+    <a class="logo" href="index.html" aria-label="ZenTools 首页">ZenTools<span>2.0</span></a>
+    <nav class="nav" aria-label="主导航">
+      <a href="tools.html" data-i18n="navTools">工具大全</a>
+      <a href="categories.html" data-i18n="navCategories">工具分类</a>
+      <a href="articles.html" data-i18n="navArticles">教程文章</a>
+      <a href="about.html" data-i18n="navAbout">关于我们</a>
     </nav>
-    <select id="langSelect" aria-label="Language selector">
-      <option value="en">English</option>
+    <select id="langSelect" aria-label="语言切换">
       <option value="zh">中文</option>
+      <option value="en">English</option>
       <option value="ja">日本語</option>
       <option value="vi">Tiếng Việt</option>
     </select>
@@ -32,50 +35,79 @@
 
   <main>
     <section class="hero">
-      <p class="badge" data-i18n="badge">Free · Fast · Multilingual</p>
-      <h1 data-i18n="heroTitle">Free Online Tools & AI Tools Directory</h1>
-      <p data-i18n="heroDesc">Find useful tools for images, PDF, text, video, office work, SEO, development and AI productivity.</p>
+      <p class="badge" data-i18n="badge">中文主站 · 免费工具 · 多语言辅助</p>
+      <h1 data-i18n="heroTitle">免费在线工具箱与 AI 工具导航</h1>
+      <p data-i18n="heroDesc">ZenTools 2.0 主要面向中文用户，提供 PDF、图片、文本、办公、AI、SEO、开发和生活效率工具。无需安装软件，打开网页即可使用。</p>
       <div class="search-box">
-        <input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="Search free online tools..." />
+        <input id="searchInput" type="search" data-i18n-placeholder="searchPlaceholder" placeholder="搜索 PDF、图片压缩、文字转语音、AI 工具..." />
       </div>
     </section>
 
-    <div class="ad-box">Advertisement</div>
+    <div class="ad-box" data-i18n="adTop">广告位：可接入 Google AdSense / 百度联盟</div>
 
     <section class="section">
       <div class="section-head">
-        <h2 data-i18n="popularTools">Popular Tools</h2>
-        <a href="tools.html" data-i18n="viewAll">View all</a>
+        <h2 data-i18n="popularTools">热门在线工具</h2>
+        <a href="tools.html" data-i18n="viewAll">查看全部工具</a>
       </div>
       <div id="featuredTools" class="tool-grid"></div>
     </section>
 
     <section class="section alt">
-      <h2 data-i18n="categoriesTitle">Tool Categories</h2>
+      <h2 data-i18n="categoriesTitle">工具分类</h2>
+      <p class="section-desc" data-i18n="categoriesDesc">按照使用场景查找工具，适合办公、学习、自媒体、站长和日常生活。</p>
       <div id="categoryGrid" class="category-grid"></div>
     </section>
 
     <section class="section">
-      <h2 data-i18n="faqTitle">Frequently Asked Questions</h2>
+      <div class="section-head">
+        <h2 data-i18n="latestTitle">最新推荐</h2>
+        <a href="tools/pdf-tools.html" data-i18n="openPdfTool">打开 PDF 工具</a>
+      </div>
+      <div class="highlight-card">
+        <div>
+          <p class="badge small" data-i18n="newBadge">新工具</p>
+          <h3 data-i18n="pdfTitle">PDF 工具：PDF 转图片 / 图片转 PDF</h3>
+          <p data-i18n="pdfDesc">支持在浏览器本地完成 PDF 转图片、图片合成 PDF，适合办公、学习、资料整理和手机临时处理文件。</p>
+        </div>
+        <a class="primary-btn" href="tools/pdf-tools.html" data-i18n="useNow">立即使用</a>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <h2 data-i18n="whyTitle">为什么使用 ZenTools？</h2>
+      <div class="feature-grid">
+        <article><h3 data-i18n="why1t">中文优先</h3><p data-i18n="why1d">页面内容、说明和 SEO 关键词以中文为主，更适合国内用户理解和搜索。</p></article>
+        <article><h3 data-i18n="why2t">无需安装</h3><p data-i18n="why2d">常用工具直接在浏览器运行，手机和电脑都能打开使用。</p></article>
+        <article><h3 data-i18n="why3t">适合长期扩展</h3><p data-i18n="why3d">采用工具数据、分类、教程文章和详情页结构，方便后期批量添加新工具。</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 data-i18n="faqTitle">常见问题</h2>
       <div class="faq">
         <details open>
-          <summary data-i18n="faq1q">Is ZenTools free to use?</summary>
-          <p data-i18n="faq1a">Yes. Most tools are free online tools that work directly in your browser.</p>
+          <summary data-i18n="faq1q">ZenTools 是免费在线工具网站吗？</summary>
+          <p data-i18n="faq1a">是的。ZenTools 主要提供免费在线工具，适合办公、学习、自媒体、站长和日常生活使用。</p>
         </details>
         <details>
-          <summary data-i18n="faq2q">Does ZenTools support mobile devices?</summary>
-          <p data-i18n="faq2a">Yes. The website is designed for both desktop and mobile users.</p>
+          <summary data-i18n="faq2q">网站是否支持手机使用？</summary>
+          <p data-i18n="faq2a">支持。页面采用自适应布局，电脑、平板和手机都可以正常访问。</p>
+        </details>
+        <details>
+          <summary data-i18n="faq3q">其他语言还保留吗？</summary>
+          <p data-i18n="faq3a">保留。新版主页以中文为第一语言，英文、日文和越南语作为辅助语言，方便不同用户切换。</p>
         </details>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <p>© 2026 ZenTools. Free online tools for everyone.</p>
+    <p>© 2026 ZenTools. 中文免费在线工具箱。</p>
     <div>
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
-      <a href="contact.html">Contact</a>
+      <a href="privacy.html">隐私政策</a>
+      <a href="terms.html">使用条款</a>
+      <a href="contact.html">联系我们</a>
     </div>
   </footer>
 
