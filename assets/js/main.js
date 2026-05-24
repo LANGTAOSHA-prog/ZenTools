@@ -14,7 +14,7 @@ function renderTools(list){
 function renderCategories(){
   const box = document.getElementById('categoryGrid');
   if(!box) return;
-  box.innerHTML = categoriesData.map(cat => `<a class="category-card" href="categories.html#${cat.toLowerCase().replaceAll(' ','-')}">${cat}</a>`).join('');
+  box.innerHTML = categoriesData.map(cat => `<a class="category-card" href="categories.html#${encodeURIComponent(cat)}">${cat}</a>`).join('');
 }
 
 function initSearch(){
@@ -22,16 +22,16 @@ function initSearch(){
   if(!input) return;
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
-    const filtered = toolsData.filter(t => `${t.name} ${t.category} ${t.description}`.toLowerCase().includes(q));
+    const filtered = toolsData.filter(t => `${t.name} ${t.category} ${t.description} ${t.keywords || ''}`.toLowerCase().includes(q));
     renderTools(filtered.length ? filtered : toolsData.filter(t=>t.featured));
   });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const lang = localStorage.getItem('zentools_lang') || 'en';
+  const lang = localStorage.getItem('zentools_lang') || 'zh';
   const langSelect = document.getElementById('langSelect');
   if(langSelect){ langSelect.value = lang; langSelect.addEventListener('change', e => applyLanguage(e.target.value)); }
-  applyLanguage(lang);
+  if(typeof applyLanguage === 'function') applyLanguage(lang);
   renderTools(toolsData.filter(t=>t.featured));
   renderCategories();
   initSearch();
