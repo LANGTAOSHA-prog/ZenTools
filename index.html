@@ -1,182 +1,445 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-lang="zh">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>ZenTools - 免费在线工具箱 | PDF、图片、AI、视频、文字、开发工具</title>
-  <meta name="description" content="ZenTools 是一个免费在线工具箱，提供 PDF、图片、AI、视频、音频、文字处理、开发、生活和营销等常用工具。无需安装，打开网页即可免费使用。">
-  <meta name="keywords" content="ZenTools,免费在线工具,在线工具箱,PDF工具,图片工具,AI工具,视频工具,音频工具,文字工具,开发工具,生活工具">
-  <meta name="author" content="ZenTools">
-  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/">
+  <title>江湖小站 - 个人学习记录与经验整理</title>
 
-  <meta property="og:title" content="ZenTools - 免费在线工具箱">
-  <meta property="og:description" content="PDF、图片、AI、视频、文字、开发和生活工具，一个网页全部搞定。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://langtaosha-prog.github.io/ZenTools/">
-  <meta property="og:image" content="https://langtaosha-prog.github.io/ZenTools/assets/images/logo.png">
+  <meta name="description" content="江湖小站是一个个人学习记录页面，主要用于整理日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。" />
+  <meta name="keywords" content="江湖小站,个人学习记录,学习笔记,网页制作记录,文件处理经验,图片整理方法,日常效率技巧" />
 
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "PingFang SC",
+        "Hiragino Sans GB",
+        "Microsoft YaHei",
+        Arial,
+        sans-serif;
+      background: #f6f8fb;
+      color: #1f2937;
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    .nav-links a:hover {
+      color: #111827;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #eef4ff 0%, #ffffff 55%, #f7f8fb 100%);
+      padding: 88px 24px 72px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .hero-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 22px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #4b5563;
+      font-size: 14px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
+    }
+
+    h1 {
+      font-size: 46px;
+      line-height: 1.2;
+      color: #111827;
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      font-size: 21px;
+      color: #374151;
+      margin-bottom: 28px;
+    }
+
+    .intro {
+      max-width: 820px;
+      margin: 0 auto;
+      color: #4b5563;
+      font-size: 17px;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.75);
+      border: 1px solid #e5e7eb;
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.07);
+    }
+
+    .intro p + p {
+      margin-top: 16px;
+    }
+
+    .main {
+      flex: 1;
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 58px 24px;
+    }
+
+    .section {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.04);
+    }
+
+    .section h2 {
+      font-size: 28px;
+      color: #111827;
+      margin-bottom: 18px;
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .section h2::before {
+      content: "";
+      width: 5px;
+      height: 28px;
+      background: #2563eb;
+      border-radius: 99px;
+      position: absolute;
+      left: 0;
+      top: 5px;
+    }
+
+    .section p {
+      color: #4b5563;
+      font-size: 16px;
+      margin-bottom: 14px;
+    }
+
+    .content-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .content-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 22px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .content-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    .content-card .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: #eff6ff;
+      color: #2563eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      margin-bottom: 14px;
+    }
+
+    .content-card h3 {
+      font-size: 18px;
+      color: #111827;
+      margin-bottom: 8px;
+    }
+
+    .content-card p {
+      font-size: 15px;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .notice {
+      background: #f8fafc;
+      border-left: 5px solid #2563eb;
+      padding: 22px 24px;
+      border-radius: 16px;
+      color: #4b5563;
+      margin-top: 22px;
+    }
+
+    .notice strong {
+      color: #111827;
+    }
+
+    .footer {
+      background: #111827;
+      color: #d1d5db;
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 14px;
+    }
+
+    .footer p {
+      margin: 4px 0;
+    }
+
+    .footer .site-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .content-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .subtitle {
+        font-size: 19px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .nav-links {
+        gap: 14px;
+        font-size: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 60px 18px 48px;
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .subtitle {
+        font-size: 18px;
+      }
+
+      .intro {
+        padding: 22px;
+        font-size: 16px;
+      }
+
+      .main {
+        padding: 38px 18px;
+      }
+
+      .section {
+        padding: 26px 22px;
+        border-radius: 20px;
+      }
+
+      .section h2 {
+        font-size: 24px;
+      }
+
+      .content-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <header class="topbar">
-    <a href="./" class="site-logo">
-      <span class="logo-icon">🛠</span>
-      <span>ZenTools</span>
-    </a>
+  <div class="page">
 
-    <nav class="nav">
-      <a href="#tools" data-i18n="navTools">工具</a>
-      <a href="#ai" data-i18n="navAI">AI工具</a>
-      <a href="#guides" data-i18n="navGuides">教程</a>
-      <a href="#faq" data-i18n="navFAQ">常见问题</a>
-    </nav>
+    <header class="header">
+      <nav class="nav">
+        <div class="logo">江湖小站</div>
+        <div class="nav-links">
+          <a href="#about">关于本站</a>
+          <a href="#records">记录内容</a>
+          <a href="#statement">说明</a>
+        </div>
+      </nav>
+    </header>
 
-    <select id="langSelect" class="lang-select">
-      <option value="zh">简体中文</option>
-      <option value="en">English</option>
-      <option value="ja">日本語</option>
-      <option value="vi">Tiếng Việt</option>
-    </select>
-  </header>
-
-  <main>
     <section class="hero">
-      <div class="hero-content">
-        <p class="eyebrow" data-i18n="eyebrow">免费 · 在线 · 即开即用</p>
-        <h1 data-i18n="heroTitle">一个网页解决日常工具需求</h1>
-        <p class="hero-desc" data-i18n="heroDesc">
-          ZenTools 提供 PDF、图片、AI、视频、音频、文字、开发、生活和营销工具，适合办公、学习、创作和网站运营。
+      <div class="hero-inner">
+        <div class="badge">个人学习记录与经验整理页面</div>
+
+        <h1>江湖小站</h1>
+
+        <div class="subtitle">
+          一个记录日常学习、网页制作和实用方法的个人小站
+        </div>
+
+        <div class="intro">
+          <p>
+            江湖小站是一个个人学习记录页面，主要用于整理本人在日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。
+          </p>
+
+          <p>
+            这里的内容以个人笔记、操作步骤、使用心得和简单页面示例为主，方便自己以后查阅，也希望能给有类似需求的朋友提供一些参考。
+          </p>
+
+          <p>
+            本站由个人维护，内容仅用于学习记录和经验分享，不涉及企业经营、商品销售、在线交易、会员服务、论坛社区、新闻发布或教育培训等内容。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <main class="main">
+
+      <section class="section" id="about">
+        <h2>关于本站</h2>
+
+        <p>
+          本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。
         </p>
 
-        <div class="hero-actions">
-          <a href="#tools" class="btn primary" data-i18n="startUse">开始使用</a>
-          <a href="#guides" class="btn ghost" data-i18n="viewGuides">查看教程</a>
+        <p>
+          所有内容均为个人日常整理，仅供学习和参考使用。
+        </p>
+      </section>
+
+      <section class="section" id="records">
+        <h2>记录内容</h2>
+
+        <p>
+          本站内容主要围绕个人学习、网页制作、文件处理、图片整理和日常效率方法展开。
+        </p>
+
+        <div class="content-list">
+          <div class="content-card">
+            <div class="icon">📘</div>
+            <h3>个人学习笔记</h3>
+            <p>记录日常学习过程中遇到的问题、理解过程和整理心得。</p>
+          </div>
+
+          <div class="content-card">
+            <div class="icon">🌐</div>
+            <h3>网页制作记录</h3>
+            <p>整理网页排版、页面结构、样式调整和常见问题处理方法。</p>
+          </div>
+
+          <div class="content-card">
+            <div class="icon">📄</div>
+            <h3>文件处理经验</h3>
+            <p>记录文档整理、文件保存、格式处理等日常操作经验。</p>
+          </div>
+
+          <div class="content-card">
+            <div class="icon">🖼️</div>
+            <h3>图片整理方法</h3>
+            <p>整理图片排版、尺寸调整、简单处理和保存方面的经验。</p>
+          </div>
+
+          <div class="content-card">
+            <div class="icon">⏱️</div>
+            <h3>日常效率技巧</h3>
+            <p>记录一些提升日常学习和资料整理效率的小方法。</p>
+          </div>
+
+          <div class="content-card">
+            <div class="icon">🧩</div>
+            <h3>简单页面示例</h3>
+            <p>保存一些个人制作的小页面示例，方便以后查看和修改。</p>
+          </div>
         </div>
+      </section>
 
-        <div class="search-box">
-          <input id="toolSearch" type="search" placeholder="搜索工具，例如：PDF、图片压缩、AI写作">
+      <section class="section" id="statement">
+        <h2>网站说明</h2>
+
+        <p>
+          本网站为个人学习记录页面，主要用于整理本人在网页制作、文件处理、图片整理和日常效率方法方面的学习笔记、操作步骤和使用心得。
+        </p>
+
+        <p>
+          网站内容仅供个人学习和经验分享使用，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。
+        </p>
+
+        <div class="notice">
+          <strong>说明：</strong>
+          本站内容仅供学习参考，不涉及经营性互联网信息服务。
         </div>
-      </div>
+      </section>
 
-      <div class="hero-card">
-        <div class="browser-top">
-          <span></span><span></span><span></span>
-        </div>
-        <div class="preview-grid" id="categoryPreview"></div>
-      </div>
-    </section>
+    </main>
 
-    <section class="features">
-      <div class="feature-card">
-        <strong>🛡 安全可靠</strong>
-        <p>多数工具支持浏览器本地处理，减少隐私风险。</p>
-      </div>
-      <div class="feature-card">
-        <strong>⚡ 即开即用</strong>
-        <p>无需安装软件，打开网页即可使用。</p>
-      </div>
-      <div class="feature-card">
-        <strong>🌐 多语言支持</strong>
-        <p>中文为主，同时支持英文、日文、越南语。</p>
-      </div>
-      <div class="feature-card">
-        <strong>📈 持续更新</strong>
-        <p>后续会不断增加更多实用工具和教程。</p>
-      </div>
-    </section>
+    <footer class="footer">
+      <p class="site-name">© 2026 江湖小站</p>
+      <p>个人学习记录与经验整理页面</p>
+      <p>本站内容仅供学习参考，不涉及经营性互联网信息服务</p>
+    </footer>
 
-    <div class="ad-box">
-      广告位预留：Google AdSense / 百度联盟
-    </div>
-
-    <section class="section" id="tools">
-      <div class="section-title">
-        <h2 data-i18n="toolsTitle">热门在线工具</h2>
-        <p data-i18n="toolsDesc">常用工具快速入口，适合办公、学习、创作和网站运营。</p>
-      </div>
-      <div class="tool-grid" id="toolsGrid"></div>
-    </section>
-
-    <section class="section" id="ai">
-      <div class="section-title">
-        <h2 data-i18n="aiTitle">AI 工具专区</h2>
-        <p data-i18n="aiDesc">收录 AI 写作、AI PPT、AI 图片、AI 视频和 AI 办公工具。</p>
-      </div>
-      <div class="tool-grid" id="aiGrid"></div>
-    </section>
-
-    <section class="section" id="guides">
-      <div class="section-title">
-        <h2 data-i18n="guidesTitle">工具图文教程</h2>
-        <p data-i18n="guidesDesc">不会用也没关系，跟着教程一步一步操作。</p>
-      </div>
-
-      <div class="guide-grid">
-        <a href="./guides/how-to-compress-image.html" class="guide-card">
-          <span>图片教程</span>
-          <h3>如何压缩图片而不明显变糊？</h3>
-          <p>适合上传网站、公众号、社交平台前处理图片。</p>
-        </a>
-
-        <a href="./guides/how-to-merge-pdf.html" class="guide-card">
-          <span>PDF教程</span>
-          <h3>如何把多个 PDF 合并成一个？</h3>
-          <p>办公、学习、资料整理都能用到。</p>
-        </a>
-
-        <a href="./guides/how-to-use-ai-ppt.html" class="guide-card">
-          <span>AI教程</span>
-          <h3>如何用 AI 快速制作 PPT？</h3>
-          <p>适合做汇报、课程、方案和自媒体内容。</p>
-        </a>
-
-        <a href="./guides/how-to-make-qrcode.html" class="guide-card">
-          <span>营销教程</span>
-          <h3>如何生成自己的二维码？</h3>
-          <p>适合个人主页、店铺链接和活动推广。</p>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="faq">
-      <div class="section-title">
-        <h2 data-i18n="faqTitle">常见问题</h2>
-        <p data-i18n="faqDesc">关于 ZenTools 的使用、安全和功能说明。</p>
-      </div>
-
-      <div class="faq-wrap">
-        <details>
-          <summary>ZenTools 是免费的吗？</summary>
-          <p>是的，ZenTools 提供大量免费在线工具，用户无需安装软件，打开网页即可使用。</p>
-        </details>
-        <details>
-          <summary>使用这些工具需要注册账号吗？</summary>
-          <p>大多数工具不需要注册账号，直接访问页面即可使用。</p>
-        </details>
-        <details>
-          <summary>文件会上传到服务器吗？</summary>
-          <p>部分工具会尽量采用浏览器本地处理方式，涉及服务器处理的工具会在页面中单独说明。</p>
-        </details>
-        <details>
-          <summary>手机可以使用吗？</summary>
-          <p>可以，页面已适配手机、平板和电脑浏览器。</p>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div>
-      <a href="./about.html">关于我们</a>
-      <a href="./contact.html">联系我们</a>
-      <a href="./privacy.html">隐私政策</a>
-      <a href="./terms.html">使用条款</a>
-    </div>
-    <p>© 2026 ZenTools. 免费在线工具箱。</p>
-  </footer>
-
-  <script src="./assets/js/main.js"></script>
+  </div>
 </body>
 </html>
