@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>网页制作记录 - 江湖小站</title>
+  <meta name="description" content="网页制作记录，整理网页排版、页面结构、样式调整和常见问题处理方法，适合个人学习和网页制作参考。" />
+  <meta name="keywords" content="网页制作记录,网页排版,页面结构,HTML学习,CSS样式,个人学习笔记" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      background: #f5f7fb;
+      color: #1f2937;
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .top-bar {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2563eb;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+      color: #4b5563;
+    }
+
+    .nav-links a:hover {
+      color: #2563eb;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      color: #ffffff;
+      padding: 70px 20px;
+      text-align: center;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #e0ecff;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 20px 60px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+      border: 1px solid #eef2f7;
+      margin-bottom: 24px;
+    }
+
+    .card h2 {
+      font-size: 24px;
+      margin-bottom: 16px;
+      color: #111827;
+      border-left: 5px solid #2563eb;
+      padding-left: 12px;
+    }
+
+    .card h3 {
+      font-size: 19px;
+      margin: 22px 0 10px;
+      color: #1f2937;
+    }
+
+    .card p {
+      margin-bottom: 14px;
+      color: #374151;
+    }
+
+    .card ul,
+    .card ol {
+      padding-left: 22px;
+      margin: 12px 0 18px;
+    }
+
+    .card li {
+      margin-bottom: 8px;
+    }
+
+    .note-box {
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 18px 0;
+      color: #1e3a8a;
+    }
+
+    .warning-box {
+      background: #fff7ed;
+      border-left: 5px solid #f97316;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 18px 0;
+      color: #7c2d12;
+    }
+
+    .code-box {
+      background: #111827;
+      color: #e5e7eb;
+      padding: 18px;
+      border-radius: 14px;
+      overflow-x: auto;
+      font-size: 14px;
+      margin: 18px 0;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .tag {
+      background: #eef2ff;
+      color: #3730a3;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    .side-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);
+      border: 1px solid #eef2f7;
+      margin-bottom: 20px;
+    }
+
+    .side-card h3 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #111827;
+    }
+
+    .side-card a {
+      display: block;
+      padding: 9px 0;
+      color: #4b5563;
+      border-bottom: 1px dashed #e5e7eb;
+      font-size: 14px;
+    }
+
+    .side-card a:hover {
+      color: #2563eb;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: #6b7280;
+      font-size: 14px;
+      border-top: 1px solid #e5e7eb;
+      background: #ffffff;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background: #2563eb;
+      color: #ffffff;
+      padding: 10px 18px;
+      border-radius: 999px;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    .back-btn:hover {
+      background: #1d4ed8;
+    }
+
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .card {
+        padding: 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top-bar">
+    <nav class="nav">
+      <div class="logo">江湖小站</div>
+      <div class="nav-links">
+        <a href="../index.html">首页</a>
+        <a href="#content">正文内容</a>
+        <a href="#problems">常见问题</a>
+        <a href="#summary">学习总结</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>网页制作记录</h1>
+      <p>
+        整理网页排版、页面结构、样式调整和常见问题处理方法，用来记录个人在网页制作过程中的学习经验。
+      </p>
+    </div>
+  </section>
+
+  <main class="container">
+    <div class="layout">
+
+      <article>
+
+        <section class="card" id="content">
+          <h2>一、为什么记录网页制作过程</h2>
+          <p>
+            在制作个人网站的过程中，经常会遇到页面排版、颜色搭配、手机适配、链接跳转、文件上传等问题。
+            如果每次遇到问题都重新查找资料，不仅浪费时间，也不利于长期积累。
+          </p>
+          <p>
+            所以我把自己在网页制作中遇到的常见问题和处理方法整理成记录页面，方便以后快速查看，
+            也可以作为个人学习网页制作的笔记。
+          </p>
+
+          <div class="note-box">
+            这个页面主要用于个人学习记录，不涉及商品销售、会员服务、论坛社区或在线交易。
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>二、网页页面结构记录</h2>
+          <p>
+            一个简单清晰的网页，通常可以分为几个部分：顶部导航、主视觉区域、正文内容、侧边栏和底部信息。
+            结构清楚以后，后期修改页面会更方便。
+          </p>
+
+          <h3>常见页面结构</h3>
+          <ul>
+            <li><strong>顶部导航：</strong>放网站名称、首页链接和栏目入口。</li>
+            <li><strong>主视觉区域：</strong>展示页面标题和简单介绍。</li>
+            <li><strong>正文内容：</strong>放主要文章、教程或学习记录。</li>
+            <li><strong>侧边栏：</strong>放目录、相关内容或快捷链接。</li>
+            <li><strong>底部信息：</strong>放版权说明、备案说明或返回首页链接。</li>
+          </ul>
+
+          <div class="code-box">
+&lt;header&gt;顶部导航&lt;/header&gt;<br>
+&lt;section&gt;页面标题区域&lt;/section&gt;<br>
+&lt;main&gt;正文内容&lt;/main&gt;<br>
+&lt;aside&gt;侧边栏内容&lt;/aside&gt;<br>
+&lt;footer&gt;底部信息&lt;/footer&gt;
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>三、网页排版经验</h2>
+          <p>
+            网页排版不一定要复杂，个人网站更适合简洁、清楚、容易阅读的风格。
+            字体、间距、颜色和内容宽度，是影响阅读体验的几个关键因素。
+          </p>
+
+          <h3>排版时需要注意</h3>
+          <ol>
+            <li>正文不要铺满整个屏幕，内容宽度控制在 900px 到 1100px 比较舒服。</li>
+            <li>标题和正文之间要有足够间距，避免页面显得拥挤。</li>
+            <li>颜色不要太多，主色控制在 1 到 2 个即可。</li>
+            <li>手机端要能正常显示，不能只考虑电脑页面。</li>
+            <li>按钮、卡片、列表要保持统一风格。</li>
+          </ol>
+
+          <div class="note-box">
+            我的经验是：先保证内容清楚，再考虑页面美观。网页越简单，后期越容易维护。
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>四、样式调整方法</h2>
+          <p>
+            网页样式主要通过 CSS 控制。比如背景颜色、文字大小、按钮圆角、卡片阴影、手机端适配等，
+            都可以通过 CSS 修改。
+          </p>
+
+          <h3>常用 CSS 记录</h3>
+          <div class="code-box">
+body {<br>
+&nbsp;&nbsp;background: #f5f7fb;<br>
+&nbsp;&nbsp;font-family: "Microsoft YaHei", Arial, sans-serif;<br>
+}<br><br>
+
+.card {<br>
+&nbsp;&nbsp;background: #ffffff;<br>
+&nbsp;&nbsp;border-radius: 18px;<br>
+&nbsp;&nbsp;padding: 28px;<br>
+&nbsp;&nbsp;box-shadow: 0 8px 25px rgba(15, 23, 42, 0.06);<br>
+}
+          </div>
+
+          <p>
+            如果想让页面看起来更现代，可以适当使用圆角、阴影、浅色背景和卡片式布局。
+            但不要过度装饰，否则页面会变得杂乱。
+          </p>
+        </section>
+
+        <section class="card" id="problems">
+          <h2>五、常见问题处理</h2>
+
+          <h3>1. 页面上传后打不开</h3>
+          <p>
+            需要检查文件名是否正确，路径是否正确，GitHub Pages 是否开启。
+            例如文件放在 articles 文件夹里，访问链接也要带上 articles。
+          </p>
+
+          <h3>2. 图片不显示</h3>
+          <p>
+            大多数情况是图片路径写错了。建议图片统一放在 images 文件夹里，
+            然后使用相对路径引用。
+          </p>
+
+          <div class="code-box">
+&lt;img src="../images/example.jpg" alt="网页示例图片"&gt;
+          </div>
+
+          <h3>3. 手机端排版错乱</h3>
+          <p>
+            需要添加响应式代码，让页面在小屏幕下自动变成单列显示。
+          </p>
+
+          <div class="code-box">
+@media (max-width: 768px) {<br>
+&nbsp;&nbsp;.layout {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;grid-template-columns: 1fr;<br>
+&nbsp;&nbsp;}<br>
+}
+          </div>
+
+          <h3>4. 修改后网页没有变化</h3>
+          <p>
+            可能是浏览器缓存问题，可以按 Ctrl + F5 强制刷新。
+            也可以等 GitHub Pages 自动更新完成后再查看。
+          </p>
+
+          <div class="warning-box">
+            修改代码后，建议先在本地打开 HTML 文件检查页面，再上传到 GitHub。
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>六、上传到网站的基本流程</h2>
+          <ol>
+            <li>在电脑上新建一个 HTML 文件，例如 web-design-notes.html。</li>
+            <li>把本页面代码完整复制进去。</li>
+            <li>登录 GitHub，进入自己的网站仓库。</li>
+            <li>进入 articles 文件夹，如果没有就新建一个。</li>
+            <li>点击 Add file，选择 Upload files。</li>
+            <li>上传 web-design-notes.html 文件。</li>
+            <li>点击 Commit changes 保存。</li>
+            <li>等待 1 到 3 分钟后打开网页链接查看。</li>
+          </ol>
+
+          <div class="note-box">
+            建议把学习笔记类页面统一放到 articles 文件夹，工具页面统一放到 tools 文件夹，这样网站结构更清楚。
+          </div>
+        </section>
+
+        <section class="card" id="summary">
+          <h2>七、学习总结</h2>
+          <p>
+            网页制作不是一次完成的事情，而是不断修改、测试和优化的过程。
+            对个人网站来说，最重要的是内容真实、结构清楚、访问方便。
+          </p>
+          <p>
+            以后如果继续学习 HTML、CSS、JavaScript、GitHub Pages、网站备案和 SEO 优化，
+            都可以继续整理成类似的记录页面，慢慢形成自己的学习资料库。
+          </p>
+
+          <div class="tag-list">
+            <span class="tag">网页制作</span>
+            <span class="tag">HTML学习</span>
+            <span class="tag">CSS样式</span>
+            <span class="tag">页面排版</span>
+            <span class="tag">个人笔记</span>
+          </div>
+
+          <a class="back-btn" href="../index.html">返回首页</a>
+        </section>
+
+      </article>
+
+      <aside>
+        <div class="side-card">
+          <h3>页面目录</h3>
+          <a href="#content">为什么记录网页制作</a>
+          <a href="#problems">常见问题处理</a>
+          <a href="#summary">学习总结</a>
+        </div>
+
+        <div class="side-card">
+          <h3>相关记录</h3>
+          <a href="./web-design-notes.html">网页制作记录</a>
+          <a href="./file-processing-notes.html">文件处理经验</a>
+          <a href="./image-organization-notes.html">图片整理方法</a>
+          <a href="./efficiency-notes.html">日常效率技巧</a>
+        </div>
+
+        <div class="side-card">
+          <h3>适合记录的内容</h3>
+          <a href="#">页面结构</a>
+          <a href="#">样式调整</a>
+          <a href="#">上传步骤</a>
+          <a href="#">常见错误</a>
+          <a href="#">SEO 基础</a>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 江湖小站｜个人学习记录页面</p>
+    <p>内容仅用于个人学习、经验整理和网页制作记录。</p>
+  </footer>
+
+</body>
+</html>
