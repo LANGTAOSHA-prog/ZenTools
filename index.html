@@ -1,463 +1,332 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>江湖小站 - 个人学习记录与经验整理</title>
-
   <meta name="description" content="江湖小站是一个个人学习记录页面，主要用于整理日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。" />
   <meta name="keywords" content="江湖小站,个人学习记录,学习笔记,网页制作记录,文件处理经验,图片整理方法,日常效率技巧" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #080c10;
+      --surface: #0d1117;
+      --surface2: #131a22;
+      --border: rgba(255,255,255,0.06);
+      --border-bright: rgba(255,255,255,0.12);
+      --text: #e8edf5;
+      --muted: #7a8499;
+      --accent: #0ea5e9;
+      --accent2: #14b8a6;
+      --accent3: #6366f1;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --radius-pill: 999px;
+      --shadow: 0 24px 56px -12px rgba(0,0,0,0.6);
+    }
+    [data-theme="light"] {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #f5f7fa;
+      --border: rgba(0,0,0,0.07);
+      --border-bright: rgba(0,0,0,0.12);
+      --text: #0d1117;
+      --muted: #556070;
+      --shadow: 0 8px 32px -8px rgba(14,165,233,0.1);
     }
 
-    body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        "PingFang SC",
-        "Hiragino Sans GB",
-        "Microsoft YaHei",
-        Arial,
-        sans-serif;
-      background: #f6f8fb;
-      color: #1f2937;
-      line-height: 1.8;
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 5px; }
+    [data-theme="light"] ::-webkit-scrollbar-thumb { background: #c8d0dc; }
+
+    /* ══ NAV ══ */
+    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 0 24px; }
+    .nav-inner {
+      max-width: 1080px; margin: 14px auto 0;
+      background: rgba(13,17,23,0.8); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-bright); border-radius: 16px;
+      padding: 12px 22px; display: flex; align-items: center; justify-content: space-between; gap: 14px;
     }
+    [data-theme="light"] .nav-inner { background: rgba(255,255,255,0.85); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: .5px; }
+    .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 0 14px rgba(14,165,233,.35); flex-shrink: 0; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-right a { font-size: 13px; font-weight: 500; color: var(--muted); transition: color .2s; white-space: nowrap; }
+    .nav-right a:hover { color: var(--text); }
+    .theme-btn { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: var(--radius-pill); padding: 6px 13px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); transition: all .2s; white-space: nowrap; }
+    .theme-btn:hover { border-color: var(--accent); }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    /* ══ HERO ══ */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 130px 24px 80px; text-align: center; }
+    [data-theme="light"] .hero { background: linear-gradient(160deg, #071220 0%, #0c1e30 100%); }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 65% 55% at 20% 50%, rgba(14,165,233,.13) 0%, transparent 55%), radial-gradient(ellipse 55% 45% at 80% 25%, rgba(20,184,166,.1) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 55% 85%, rgba(99,102,241,.08) 0%, transparent 55%); pointer-events: none; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; animation: float 9s ease-in-out infinite; }
+    .orb-1 { width: 350px; height: 350px; background: var(--accent); opacity: .18; top: 10%; left: 2%; }
+    .orb-2 { width: 260px; height: 260px; background: var(--accent2); opacity: .15; top: 8%; right: 5%; animation-delay: -3s; }
+    .orb-3 { width: 200px; height: 200px; background: var(--accent3); opacity: .13; bottom: 22%; left: 28%; animation-delay: -6s; }
+    @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);} }
 
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+    .hero-inner { max-width: 780px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(14,165,233,.35); background: rgba(14,165,233,.08); color: #7dd3fc; font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: var(--radius-pill); margin-bottom: 30px; letter-spacing: .8px; text-transform: uppercase; }
+    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.35;} }
 
-    .header {
-      background: #ffffff;
-      border-bottom: 1px solid #e5e7eb;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
+    .hero h1 { font-size: clamp(44px, 8vw, 80px); font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 24px; color: #fff; }
+    .hero h1 .hl { background: linear-gradient(100deg, #38bdf8, #2dd4bf, #818cf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,.55); max-width: 480px; margin: 0 auto 44px; line-height: 1.75; }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
 
-    .nav {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
+    .btn-primary { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 13px 28px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 700; box-shadow: 0 0 28px rgba(14,165,233,.3); transition: all .2s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(14,165,233,.45); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: #fff; padding: 12px 26px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
+    .btn-outline:hover { background: rgba(255,255,255,.07); }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 700;
-      color: #111827;
-      letter-spacing: 1px;
-    }
+    /* hero intro card */
+    .hero-card { background: rgba(13,17,23,.65); border: 1px solid rgba(255,255,255,.1); border-radius: 20px; padding: 28px 32px; max-width: 680px; margin: 0 auto; backdrop-filter: blur(12px); text-align: left; }
+    [data-theme="light"] .hero-card { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.2); }
+    .hero-card p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.8; }
+    .hero-card p + p { margin-top: 12px; }
 
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      font-size: 15px;
-      color: #4b5563;
-    }
+    /* ══ SECTION WRAPPER ══ */
+    .section-wrap { max-width: 1080px; margin: 96px auto 0; padding: 0 24px; }
+    .section-head { margin-bottom: 28px; }
+    .s-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .s-chip::before { content:''; display:inline-block; width:18px; height:2px; background:var(--accent); border-radius:2px; }
+    .s-title { font-size: 26px; font-weight: 800; letter-spacing: -.6px; color: var(--text); }
+    .s-sub { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
 
-    .nav-links a:hover {
-      color: #2563eb;
-    }
+    /* ══ ABOUT BLOCK ══ */
+    .about-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; }
+    .about-box::before { content:''; position:absolute; width:280px; height:280px; background:radial-gradient(circle,rgba(14,165,233,.1) 0%,transparent 70%); top:-80px; right:-60px; pointer-events:none; }
+    .about-box p { font-size: 15px; color: var(--muted); line-height: 1.85; position: relative; }
+    .about-box p + p { margin-top: 14px; }
+    .notice-bar { display: flex; align-items: flex-start; gap: 14px; background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.2); border-radius: 14px; padding: 18px 20px; margin-top: 24px; position: relative; }
+    .notice-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .notice-bar p { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
+    .notice-bar strong { color: var(--text); }
 
-    .hero {
-      background: linear-gradient(135deg, #eef4ff 0%, #ffffff 55%, #f7f8fb 100%);
-      padding: 88px 24px 72px;
-      border-bottom: 1px solid #e5e7eb;
-    }
+    /* ══ RECORDS GRID ══ */
+    .records-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 10px; transition: all .22s; position: relative; overflow: hidden; }
+    .rec-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
+    .rec-card:hover { border-color: rgba(14,165,233,.35); transform: translateY(-4px); box-shadow: var(--shadow); }
+    .rec-card:hover::after { opacity: 1; }
+    .rec-icon { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .ic-blue { background: rgba(14,165,233,.12); }
+    .ic-teal { background: rgba(20,184,166,.12); }
+    .ic-indigo { background: rgba(99,102,241,.12); }
+    .ic-amber { background: rgba(245,158,11,.12); }
+    .ic-green { background: rgba(16,185,129,.12); }
+    .ic-rose { background: rgba(244,63,94,.1); }
+    .rec-title { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.2px; }
+    .rec-desc { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
+    .rec-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; transition: gap .18s; }
+    .rec-card:hover .rec-link { gap: 8px; }
 
-    .hero-inner {
-      max-width: 980px;
-      margin: 0 auto;
-      text-align: center;
-    }
+    /* ══ STATEMENT ══ */
+    .stmt-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; }
+    .stmt-box p { font-size: 15px; color: var(--muted); line-height: 1.85; }
+    .stmt-box p + p { margin-top: 14px; }
 
-    .badge {
-      display: inline-block;
-      margin-bottom: 22px;
-      padding: 7px 16px;
-      border-radius: 999px;
-      background: #ffffff;
-      color: #4b5563;
-      font-size: 14px;
-      border: 1px solid #e5e7eb;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-    }
+    /* ══ FOOTER ══ */
+    .footer { max-width: 1080px; margin: 80px auto 0; padding: 24px 24px 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--text); }
+    .footer-right { font-size: 12px; color: var(--muted); text-align: right; line-height: 1.8; }
 
-    h1 {
-      font-size: 46px;
-      line-height: 1.2;
-      color: #111827;
-      margin-bottom: 18px;
-      letter-spacing: 2px;
-    }
+    /* ══ BACK TO TOP ══ */
+    .back-top { position: fixed; bottom: 26px; right: 26px; z-index: 300; width: 42px; height: 42px; border-radius: 12px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+    [data-theme="light"] .back-top { background: rgba(255,255,255,.92); }
+    .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 18px rgba(14,165,233,.4); }
 
-    .subtitle {
-      font-size: 21px;
-      color: #374151;
-      margin-bottom: 28px;
-    }
-
-    .intro {
-      max-width: 820px;
-      margin: 0 auto;
-      color: #4b5563;
-      font-size: 17px;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.75);
-      border: 1px solid #e5e7eb;
-      border-radius: 22px;
-      padding: 28px;
-      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.07);
-    }
-
-    .intro p + p {
-      margin-top: 16px;
-    }
-
-    .main {
-      flex: 1;
-      max-width: 1080px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 58px 24px;
-    }
-
-    .section {
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 24px;
-      padding: 36px;
-      margin-bottom: 28px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.04);
-    }
-
-    .section h2 {
-      font-size: 28px;
-      color: #111827;
-      margin-bottom: 18px;
-      position: relative;
-      padding-left: 16px;
-    }
-
-    .section h2::before {
-      content: "";
-      width: 5px;
-      height: 28px;
-      background: #2563eb;
-      border-radius: 99px;
-      position: absolute;
-      left: 0;
-      top: 5px;
-    }
-
-    .section p {
-      color: #4b5563;
-      font-size: 16px;
-      margin-bottom: 14px;
-    }
-
-    .content-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 24px;
-    }
-
-    .content-card {
-      display: block;
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 18px;
-      padding: 22px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-
-    .content-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
-      border-color: #bfdbfe;
-    }
-
-    .content-card .icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: #eff6ff;
-      color: #2563eb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 21px;
-      margin-bottom: 14px;
-    }
-
-    .content-card h3 {
-      font-size: 18px;
-      color: #111827;
-      margin-bottom: 8px;
-    }
-
-    .content-card p {
-      font-size: 15px;
-      color: #6b7280;
-      margin: 0;
-    }
-
-    .card-link {
-      display: inline-block;
-      margin-top: 14px;
-      color: #2563eb;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .notice {
-      background: #f8fafc;
-      border-left: 5px solid #2563eb;
-      padding: 22px 24px;
-      border-radius: 16px;
-      color: #4b5563;
-      margin-top: 22px;
-    }
-
-    .notice strong {
-      color: #111827;
-    }
-
-    .footer {
-      background: #111827;
-      color: #d1d5db;
-      text-align: center;
-      padding: 32px 20px;
-      font-size: 14px;
-    }
-
-    .footer p {
-      margin: 4px 0;
-    }
-
-    .footer .site-name {
-      font-size: 16px;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 8px;
-    }
-
-    @media (max-width: 900px) {
-      .content-list {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      h1 {
-        font-size: 38px;
-      }
-
-      .subtitle {
-        font-size: 19px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav {
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .nav-links {
-        gap: 14px;
-        font-size: 14px;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .hero {
-        padding: 60px 18px 48px;
-      }
-
-      h1 {
-        font-size: 34px;
-      }
-
-      .subtitle {
-        font-size: 18px;
-      }
-
-      .intro {
-        padding: 22px;
-        font-size: 16px;
-      }
-
-      .main {
-        padding: 38px 18px;
-      }
-
-      .section {
-        padding: 26px 22px;
-        border-radius: 20px;
-      }
-
-      .section h2 {
-        font-size: 24px;
-      }
-
-      .content-list {
-        grid-template-columns: 1fr;
-      }
+    /* ══ RESPONSIVE ══ */
+    @media(max-width: 900px) { .records-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width: 640px) {
+      .nav-right a:not(:last-child):not(.theme-btn) { display: none; }
+      .hero { padding: 110px 16px 56px; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .hero-card { padding: 20px; }
+      .records-grid { grid-template-columns: 1fr; }
+      .section-wrap { margin-top: 64px; }
+      .about-box, .stmt-box { padding: 24px 20px; }
+      .footer { justify-content: center; text-align: center; }
+      .footer-right { text-align: center; }
     }
   </style>
 </head>
-
 <body>
-  <div class="page">
 
-    <header class="header">
-      <nav class="nav">
-        <div class="logo">江湖小站</div>
-        <div class="nav-links">
-          <a href="#about">关于本站</a>
-          <a href="#records">记录内容</a>
-          <a href="#statement">说明</a>
-        </div>
-      </nav>
-    </header>
+<!-- NAV -->
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-mark">⛵</div>
+      江湖小站
+    </div>
+    <div class="nav-right">
+      <a href="#about">关于本站</a>
+      <a href="#records">记录内容</a>
+      <a href="#statement">说明</a>
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️ 亮色</button>
+    </div>
+  </div>
+</nav>
 
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="badge">个人学习记录与经验整理页面</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="badge-dot"></span>个人学习记录与经验整理</div>
+    <h1>江湖<span class="hl">小站</span></h1>
+    <p class="hero-sub">一个记录日常学习、网页制作和实用方法的个人小站</p>
+    <div class="hero-actions">
+      <a href="#records" class="btn-primary">📘 查看记录内容</a>
+      <a href="#about" class="btn-outline">关于本站 →</a>
+    </div>
+    <div class="hero-card">
+      <p>江湖小站是一个个人学习记录页面，主要用于整理本人在日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。</p>
+      <p>这里的内容以个人笔记、操作步骤、使用心得和简单页面示例为主，方便自己以后查阅，也希望能给有类似需求的朋友提供一些参考。</p>
+      <p>本站由个人维护，内容仅用于学习记录和经验分享，不涉及企业经营、商品销售、在线交易、会员服务、论坛社区、新闻发布或教育培训等内容。</p>
+    </div>
+  </div>
+</section>
 
-        <h1>江湖小站</h1>
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <div class="section-head">
+    <div class="s-chip">关于本站</div>
+    <div class="s-title">这里是什么？</div>
+    <div class="s-sub">一个人的学习笔记本，记录遇到的问题和解决方法</div>
+  </div>
+  <div class="about-box">
+    <p>本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。</p>
+    <p>所有内容均为个人日常整理，仅供学习和参考使用。</p>
+    <div class="notice-bar">
+      <span class="notice-icon">💡</span>
+      <p>内容以个人笔记和实践心得为主，不保证完全准确，仅作参考。如有不妥之处欢迎指出。</p>
+    </div>
+  </div>
+</div>
 
-        <div class="subtitle">
-          一个记录日常学习、网页制作和实用方法的个人小站
-        </div>
+<!-- RECORDS -->
+<div class="section-wrap" id="records">
+  <div class="section-head">
+    <div class="s-chip">记录内容</div>
+    <div class="s-title">整理了哪些内容？</div>
+    <div class="s-sub">围绕个人学习、网页制作、文件处理与效率方法展开</div>
+  </div>
+  <div class="records-grid">
 
-        <div class="intro">
-          <p>
-            江湖小站是一个个人学习记录页面，主要用于整理本人在日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。
-          </p>
+    <a class="rec-card" href="notes.html">
+      <div class="rec-icon ic-blue">📘</div>
+      <div class="rec-title">个人学习笔记</div>
+      <div class="rec-desc">记录日常学习过程中遇到的问题、理解过程和整理心得。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
 
-          <p>
-            这里的内容以个人笔记、操作步骤、使用心得和简单页面示例为主，方便自己以后查阅，也希望能给有类似需求的朋友提供一些参考。
-          </p>
+    <a class="rec-card" href="articles/web-design-notes.html">
+      <div class="rec-icon ic-indigo">💻</div>
+      <div class="rec-title">网页制作记录</div>
+      <div class="rec-desc">整理网页排版、页面结构、样式调整和常见问题处理方法。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
 
-          <p>
-            本站由个人维护，内容仅用于学习记录和经验分享，不涉及企业经营、商品销售、在线交易、会员服务、论坛社区、新闻发布或教育培训等内容。
-          </p>
-        </div>
-      </div>
-    </section>
+    <a class="rec-card" href="file-processing.html">
+      <div class="rec-icon ic-teal">📄</div>
+      <div class="rec-title">文件处理经验</div>
+      <div class="rec-desc">记录文档整理、文件保存、格式处理等日常操作经验。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
 
-    <main class="main">
+    <a class="rec-card" href="image-organize.html">
+      <div class="rec-icon ic-amber">🖼️</div>
+      <div class="rec-title">图片整理方法</div>
+      <div class="rec-desc">整理图片排版、尺寸调整、简单处理和保存方面的经验。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
 
-      <section class="section" id="about">
-        <h2>关于本站</h2>
+    <a class="rec-card" href="efficiency.html">
+      <div class="rec-icon ic-green">⏱️</div>
+      <div class="rec-title">日常效率技巧</div>
+      <div class="rec-desc">记录一些提升日常学习和资料整理效率的小方法。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
 
-        <p>
-          本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。
-        </p>
-
-        <p>
-          所有内容均为个人日常整理，仅供学习和参考使用。
-        </p>
-      </section>
-
-      <section class="section" id="records">
-        <h2>记录内容</h2>
-
-        <p>
-          本站内容主要围绕个人学习、网页制作、文件处理、图片整理和日常效率方法展开。
-        </p>
-
-        <div class="content-list">
-
-          <a class="content-card" href="notes.html">
-            <div class="icon">📘</div>
-            <h3>个人学习笔记</h3>
-            <p>记录日常学习过程中遇到的问题、理解过程和整理心得。</p>
-            <span class="card-link">查看内容 →</span>
-          </a>
-
-          <a class="content-card" href="articles/web-design-notes.html">
-            <div class="icon">💻</div>
-            <h3>网页制作记录</h3>
-            <p>整理网页排版、页面结构、样式调整和常见问题处理方法。</p>
-            <span class="card-link">查看内容 →</span>
-          </a>
-
-          <a class="content-card" href="file-processing.html">
-            <div class="icon">📄</div>
-            <h3>文件处理经验</h3>
-            <p>记录文档整理、文件保存、格式处理等日常操作经验。</p>
-            <span class="card-link">查看内容 →</span>
-          </a>
-
-          <a class="content-card" href="image-organize.html">
-            <div class="icon">🖼️</div>
-            <h3>图片整理方法</h3>
-            <p>整理图片排版、尺寸调整、简单处理和保存方面的经验。</p>
-            <span class="card-link">查看内容 →</span>
-          </a>
-
-          <a class="content-card" href="efficiency.html">
-            <div class="icon">⏱️</div>
-            <h3>日常效率技巧</h3>
-            <p>记录一些提升日常学习和资料整理效率的小方法。</p>
-            <span class="card-link">查看内容 →</span>
-          </a>
-
-          <a class="content-card" href="examples.html">
-            <div class="icon">🧩</div>
-            <h3>简单页面示例</h3>
-            <p>保存一些个人制作的小页面示例，方便以后查看和修改。</p>
-            <span class="card-link">查看内容 →</span>
-          </a>
-
-        </div>
-      </section>
-
-      <section class="section" id="statement">
-        <h2>网站说明</h2>
-
-        <p>
-          本网站为个人学习记录页面，主要用于整理本人在网页制作、文件处理、图片整理和日常效率方法方面的学习笔记、操作步骤和使用心得。
-        </p>
-
-        <p>
-          网站内容仅供个人学习和经验分享使用，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。
-        </p>
-
-        <div class="notice">
-          <strong>说明：</strong>
-          本站内容仅供学习参考，不涉及经营性互联网信息服务。
-        </div>
-      </section>
-
-    </main>
-
-    <footer class="footer">
-      <p class="site-name">© 2026 江湖小站</p>
-      <p>个人学习记录与经验整理页面</p>
-      <p>本站内容仅供学习参考，不涉及经营性互联网信息服务</p>
-    </footer>
+    <a class="rec-card" href="examples.html">
+      <div class="rec-icon ic-rose">🧩</div>
+      <div class="rec-title">简单页面示例</div>
+      <div class="rec-desc">保存一些个人制作的小页面示例，方便以后查看和修改。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
 
   </div>
+</div>
+
+<!-- STATEMENT -->
+<div class="section-wrap" id="statement">
+  <div class="section-head">
+    <div class="s-chip">网站说明</div>
+    <div class="s-title">关于本站性质</div>
+    <div class="s-sub">备案相关说明</div>
+  </div>
+  <div class="stmt-box">
+    <p>本网站为个人学习记录页面，主要用于整理本人在网页制作、文件处理、图片整理和日常效率方法方面的学习笔记、操作步骤和使用心得。</p>
+    <p>网站内容仅供个人学习和经验分享使用，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。</p>
+    <div class="notice-bar" style="margin-top:22px;">
+      <span class="notice-icon">📋</span>
+      <p><strong>说明：</strong>本站内容仅供学习参考，不涉及经营性互联网信息服务。</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <div class="logo-mark" style="width:24px;height:24px;font-size:12px;border-radius:7px;">⛵</div>
+    江湖小站
+  </div>
+  <div class="footer-right">
+    <div>© <span id="year"></span> 江湖小站</div>
+    <div>个人学习记录与经验整理页面 · 不涉及经营性互联网信息服务</div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* theme */
+  function initTheme() {
+    const s = localStorage.getItem('zh_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', s);
+    document.getElementById('themeBtn').textContent = s === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+  }
+  function toggleTheme() {
+    const c = document.documentElement.getAttribute('data-theme');
+    const n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('zh_theme', n);
+    document.getElementById('themeBtn').textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+  }
+  initTheme();
+
+  /* back to top */
+  const bt = document.getElementById('backTop');
+  window.addEventListener('scroll', () => bt.classList.toggle('visible', scrollY > 400), { passive: true });
+</script>
 </body>
 </html>
