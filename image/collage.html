@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>拼图工具 - 免费在线拼接图片 | ZenTools</title>
+
+<meta name="description" content="免费在线拼图工具，支持横向拼接、纵向拼接、网格拼图，多语言支持，无需上传服务器。">
+<meta name="keywords" content="拼图工具,图片拼接,在线拼图,图片合并,ZenTools">
+<link rel="canonical" href="https://www.zentools.xyz/collage.html">
+
+<meta property="og:title" content="拼图工具 - ZenTools">
+<meta property="og:description" content="免费在线图片拼接工具">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.zentools.xyz/collage.html">
+<meta property="og:image" content="https://www.zentools.xyz/logo.png">
+
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#111827;
+  --border:#1f2937;
+  --text:#f3f4f6;
+  --muted:#94a3b8;
+  --blue:#2563eb;
+  --green:#10b981;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,sans-serif;
+  padding:20px;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:25px;
+}
+
+h1{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.desc{
+  color:var(--muted);
+  margin-bottom:25px;
+}
+
+.controls{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+  margin-bottom:20px;
+}
+
+input,
+select,
+button{
+  width:100%;
+  padding:14px;
+  border-radius:12px;
+  border:none;
+  font-size:15px;
+}
+
+input,
+select{
+  background:#0f172a;
+  border:1px solid #334155;
+  color:white;
+}
+
+button{
+  background:var(--blue);
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.download-btn{
+  background:var(--green);
+}
+
+canvas{
+  width:100%;
+  margin-top:20px;
+  border-radius:15px;
+  background:white;
+}
+
+.preview-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(120px,1fr));
+  gap:10px;
+  margin-top:20px;
+}
+
+.preview-grid img{
+  width:100%;
+  border-radius:10px;
+  border:1px solid #334155;
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.lang-select{
+  width:auto;
+}
+
+.ad-box{
+  height:90px;
+  border:2px dashed #334155;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#64748b;
+  margin-bottom:25px;
+}
+
+.info{
+  margin-top:35px;
+  color:#cbd5e1;
+  line-height:1.8;
+}
+
+footer{
+  text-align:center;
+  margin-top:40px;
+  color:#94a3b8;
+}
+
+@media(max-width:768px){
+  h1{
+    font-size:26px;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="topbar">
+  <a href="index.html" id="backBtn">← 返回首页</a>
+
+  <select id="languageSelect" class="lang-select">
+    <option value="zh">中文</option>
+    <option value="ja">日本語</option>
+    <option value="en">English</option>
+    <option value="vi">Tiếng Việt</option>
+  </select>
+</div>
+
+<div class="card">
+
+<h1 id="title">拼图工具</h1>
+<p class="desc" id="desc">
+支持横向拼接、纵向拼接、网格拼图。
+</p>
+
+<div class="ad-box" id="adText">
+广告位（Google AdSense）
+</div>
+
+<div class="controls">
+
+<input type="file" id="imageInput" multiple accept="image/*">
+
+<select id="layoutType">
+  <option value="horizontal">横向拼接</option>
+  <option value="vertical">纵向拼接</option>
+  <option value="grid">网格拼图</option>
+</select>
+
+<input type="number" id="gapSize" value="10" min="0">
+
+<input type="color" id="bgColor" value="#ffffff">
+
+<button onclick="createCollage()" id="createBtn">
+开始拼图
+</button>
+
+<button class="download-btn" onclick="downloadImage()" id="downloadBtn">
+下载图片
+</button>
+
+</div>
+
+<div class="preview-grid" id="previewGrid"></div>
+
+<canvas id="canvas"></canvas>
+
+<div class="info">
+<h2 id="guideTitle">使用说明</h2>
+<p id="guideText">
+1. 上传多张图片<br>
+2. 选择拼图方式<br>
+3. 点击开始拼图<br>
+4. 下载生成后的图片
+</p>
+</div>
+
+</div>
+
+<footer>
+© 2026 ZenTools
+</footer>
+
+</div>
+
+<script>
+const translations = {
+zh:{
+title:"拼图工具",
+desc:"支持横向拼接、纵向拼接、网格拼图。",
+create:"开始拼图",
+download:"下载图片",
+guideTitle:"使用说明",
+guideText:"1. 上传多张图片\n2. 选择拼图方式\n3. 点击开始拼图\n4. 下载生成后的图片",
+back:"← 返回首页",
+ad:"广告位（Google AdSense）"
+},
+
+ja:{
+title:"画像コラージュツール",
+desc:"横並び・縦並び・グリッドコラージュ対応。",
+create:"コラージュ開始",
+download:"画像をダウンロード",
+guideTitle:"使い方",
+guideText:"1. 複数画像をアップロード\n2. レイアウトを選択\n3. コラージュ開始をクリック\n4. 完成画像を保存",
+back:"← ホームへ戻る",
+ad:"広告スペース"
+},
+
+en:{
+title:"Collage Tool",
+desc:"Supports horizontal, vertical and grid collage.",
+create:"Create Collage",
+download:"Download Image",
+guideTitle:"How to Use",
+guideText:"1. Upload multiple images\n2. Choose layout\n3. Click create collage\n4. Download result",
+back:"← Back Home",
+ad:"Ad Space"
+},
+
+vi:{
+title:"Công cụ ghép ảnh",
+desc:"Hỗ trợ ghép ngang, dọc và dạng lưới.",
+create:"Bắt đầu ghép",
+download:"Tải ảnh",
+guideTitle:"Hướng dẫn",
+guideText:"1. Tải nhiều ảnh\n2. Chọn kiểu ghép\n3. Nhấn bắt đầu\n4. Tải ảnh kết quả",
+back:"← Quay lại",
+ad:"Vị trí quảng cáo"
+}
+};
+
+const languageSelect = document.getElementById("languageSelect");
+
+function setLanguage(lang){
+
+const t = translations[lang];
+
+document.getElementById("title").innerText = t.title;
+document.getElementById("desc").innerText = t.desc;
+document.getElementById("createBtn").innerText = t.create;
+document.getElementById("downloadBtn").innerText = t.download;
+document.getElementById("guideTitle").innerText = t.guideTitle;
+document.getElementById("guideText").innerText = t.guideText;
+document.getElementById("backBtn").innerText = t.back;
+document.getElementById("adText").innerText = t.ad;
+
+localStorage.setItem("siteLanguage",lang);
+}
+
+languageSelect.addEventListener("change",(e)=>{
+setLanguage(e.target.value);
+});
+
+const savedLang = localStorage.getItem("siteLanguage") || "zh";
+languageSelect.value = savedLang;
+setLanguage(savedLang);
+
+const imageInput = document.getElementById("imageInput");
+const previewGrid = document.getElementById("previewGrid");
+
+let images = [];
+
+imageInput.addEventListener("change", async (e)=>{
+
+images = [];
+previewGrid.innerHTML = "";
+
+const files = [...e.target.files];
+
+for(const file of files){
+
+const img = new Image();
+
+img.src = URL.createObjectURL(file);
+
+await new Promise(resolve=>{
+img.onload = resolve;
+});
+
+images.push(img);
+
+const preview = document.createElement("img");
+preview.src = img.src;
+previewGrid.appendChild(preview);
+
+}
+
+});
+
+function createCollage(){
+
+if(images.length === 0){
+alert("请选择图片");
+return;
+}
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+const layout = document.getElementById("layoutType").value;
+const gap = parseInt(document.getElementById("gapSize").value);
+const bg = document.getElementById("bgColor").value;
+
+if(layout === "horizontal"){
+
+let width = gap;
+let height = 0;
+
+images.forEach(img=>{
+width += img.width + gap;
+height = Math.max(height,img.height);
+});
+
+canvas.width = width;
+canvas.height = height + gap*2;
+
+ctx.fillStyle = bg;
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+let x = gap;
+
+images.forEach(img=>{
+ctx.drawImage(img,x,gap);
+x += img.width + gap;
+});
+
+}
+
+else if(layout === "vertical"){
+
+let width = 0;
+let height = gap;
+
+images.forEach(img=>{
+width = Math.max(width,img.width);
+height += img.height + gap;
+});
+
+canvas.width = width + gap*2;
+canvas.height = height;
+
+ctx.fillStyle = bg;
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+let y = gap;
+
+images.forEach(img=>{
+ctx.drawImage(img,gap,y);
+y += img.height + gap;
+});
+
+}
+
+else{
+
+const cols = Math.ceil(Math.sqrt(images.length));
+
+const size = 300;
+
+const rows = Math.ceil(images.length / cols);
+
+canvas.width = cols * (size + gap) + gap;
+canvas.height = rows * (size + gap) + gap;
+
+ctx.fillStyle = bg;
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+images.forEach((img,index)=>{
+
+const col = index % cols;
+const row = Math.floor(index / cols);
+
+const x = gap + col * (size + gap);
+const y = gap + row * (size + gap);
+
+ctx.drawImage(img,x,y,size,size);
+
+});
+
+}
+
+}
+
+function downloadImage(){
+
+const canvas = document.getElementById("canvas");
+
+const link = document.createElement("a");
+
+link.download = "zentools-collage.png";
+
+link.href = canvas.toDataURL();
+
+link.click();
+
+}
+</script>
+
+</body>
+</html>
