@@ -1,451 +1,467 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF工具 - ZenTools 2.0</title>
+  <meta name="description" content="ZenTools PDF工具集：PDF合并、拆分、压缩、OCR、转文本、旋转、水印、删除页面，全部免费在线使用。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
-<title>PDF 工具 - ZenTools</title>
+  <style>
+    :root {
+      --bg:      #06070d;
+      --glass:   rgba(255,255,255,0.04);
+      --glass-b: rgba(255,255,255,0.08);
+      --cyan:    #00e5ff;
+      --purple:  #a855f7;
+      --pink:    #f43f5e;
+      --text:    #f0f4ff;
+      --muted:   #6b7a9f;
+      --border:  rgba(255,255,255,0.07);
+      --border-h:rgba(0,229,255,0.35);
+      --glow-c:  0 0 40px rgba(0,229,255,0.18);
+      --r:       20px;
+    }
 
-<meta name="description" content="ZenTools 免费 PDF 工具，支持 PDF 转图片、图片转 PDF，支持手机与电脑。">
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#111827;
-  --border:#1f2937;
-  --text:#f3f4f6;
-  --muted:#9ca3af;
-  --blue:#2563eb;
-  --green:#10b981;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
-  line-height:1.7;
-}
-.container{max-width:1000px;margin:auto;padding:40px 20px}
-a{color:#60a5fa;text-decoration:none}
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:28px;
-}
-.top-bar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  margin-bottom:20px;
-  flex-wrap:wrap;
-}
-.lang-select{
-  background:#0f172a;
-  color:white;
-  border:1px solid #334155;
-  border-radius:10px;
-  padding:10px 12px;
-}
-h1{margin-bottom:15px}
-.desc{color:var(--muted);margin-bottom:25px}
-.ad-box{
-  margin:25px 0;
-  height:110px;
-  border:2px dashed #334155;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#64748b;
-}
-.tool-box{
-  margin-top:35px;
-  padding:25px;
-  border-radius:18px;
-  background:#0f172a;
-  border:1px solid #334155;
-}
-input[type="file"]{
-  margin-top:15px;
-  margin-bottom:15px;
-  width:100%;
-}
-button{
-  background:var(--blue);
-  color:white;
-  border:none;
-  padding:14px 20px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:bold;
-  transition:.3s;
-}
-button:hover{transform:translateY(-2px)}
-.preview{
-  margin-top:20px;
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:15px;
-}
-.preview img{
-  width:100%;
-  border-radius:12px;
-  border:1px solid #334155;
-}
-.info{margin-top:40px}
-.info h2{margin-top:30px;margin-bottom:10px}
-.info p{
-  color:#cbd5e1;
-  white-space:pre-line;
-}
-footer{
-  margin-top:50px;
-  text-align:center;
-  color:#94a3b8;
-}
-@media(max-width:768px){
-  .container{padding:20px 15px}
-  h1{font-size:30px}
-  button{width:100%}
-  .lang-select{width:100%}
-}
-</style>
+    body {
+      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    a { color: inherit; text-decoration: none; }
 
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1;
+    }
+
+    /* Blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
+    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
+
+    .z-wrap { position: relative; z-index: 2; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(24px) saturate(180%);
+      background: rgba(6,7,13,0.75);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: auto; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .logo {
+      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a {
+      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
+      color: var(--muted); transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
+    .nav-badge {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000; font-weight: 700; padding: 8px 18px;
+      border-radius: 10px; font-size: 14px; transition: opacity 0.2s;
+    }
+    .nav-badge:hover { opacity: 0.85; color: #000; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      max-width: 1200px; margin: 0 auto;
+      padding: 72px 24px 56px;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted); margin-bottom: 28px;
+    }
+    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--cyan); }
+    .breadcrumb-sep { opacity: 0.3; }
+    .breadcrumb .cur { color: var(--cyan); }
+
+    .page-eyebrow {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 14px;
+    }
+    .page-header h1 {
+      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
+      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
+    }
+    .page-header h1 .grad {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 24px 56px;
+      display: flex; gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+    .stat-cell {
+      flex: 1; padding: 28px 24px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell strong {
+      display: block; font-size: 32px; font-weight: 900; line-height: 1;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 6px;
+    }
+    .stat-cell span { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ── TOOLS GRID ── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
+
+    .section-head { margin-bottom: 40px; }
+    .section-eyebrow {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
+    }
+    .section-head h2 {
+      font-size: clamp(24px, 3vw, 36px); font-weight: 800;
+      letter-spacing: -0.8px; line-height: 1.15;
+    }
+
+    .tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .tool-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 18px;
+      padding: 26px; display: flex; flex-direction: column; gap: 12px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      backdrop-filter: blur(8px); position: relative; overflow: hidden;
+    }
+    .tool-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .tool-card:hover {
+      border-color: rgba(0,229,255,0.3); transform: translateY(-4px);
+      box-shadow: var(--glow-c), 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .tool-card:hover::after { opacity: 1; }
+
+    .tool-icon {
+      width: 48px; height: 48px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+      background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.15);
+      flex-shrink: 0;
+    }
+
+    .tool-card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.2px; }
+
+    .tool-card p { color: var(--muted); font-size: 13px; line-height: 1.65; flex: 1; }
+
+    .tool-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 600; color: var(--cyan);
+      padding: 10px 18px; border-radius: 999px;
+      border: 1px solid rgba(0,229,255,0.2);
+      background: rgba(0,229,255,0.05);
+      transition: background 0.2s, border-color 0.2s, gap 0.2s;
+      width: fit-content; margin-top: 4px;
+    }
+    .tool-link:hover { background: rgba(0,229,255,0.12); border-color: var(--cyan); gap: 11px; }
+    .tool-link svg { width: 13px; height: 13px; transition: transform 0.2s; }
+    .tool-card:hover .tool-link svg { transform: translateX(2px); }
+
+    /* ── TIPS SECTION ── */
+    .tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .tip-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; backdrop-filter: blur(8px);
+    }
+    .tip-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 10px;
+    }
+    .tip-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .tip-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.04s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.10s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.16s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.22s; }
+    .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.28s; }
+    .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.34s; }
+    .reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:translateY(0); transition-delay:0.40s; }
+    .reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:translateY(0); transition-delay:0.46s; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
+    .footer-inner { max-width: 1200px; margin: auto; }
+    .footer-logo {
+      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-links a {
+      color: var(--muted); font-size: 14px; padding: 6px 12px;
+      border-radius: 8px; transition: color 0.2s, background 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
+    .footer-copy { color: var(--muted); font-size: 13px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .tool-grid { grid-template-columns: repeat(2, 1fr); }
+      .tips-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .tool-grid, .tips-grid { grid-template-columns: 1fr; }
+      .stats-row { flex-direction: column; }
+      .stat-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-cell:last-child { border-bottom: none; }
+      .nav-links .nav-badge { display: none; }
+    }
+    @media (max-width: 420px) {
+      .nav-links a { padding: 6px 10px; font-size: 13px; }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-  <div class="top-bar">
-    <a href="index.html" data-i18n="back">← 返回首页</a>
+  <div class="z-wrap">
 
-    <select id="languageSelect" class="lang-select">
-      <option value="zh">中文</option>
-      <option value="ja">日本語</option>
-      <option value="en">English</option>
-      <option value="vi">Tiếng Việt</option>
-    </select>
+    <!-- NAV -->
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/">首页</a>
+          <a href="#tools" class="active">PDF工具</a>
+          <a href="/tutorials/">教程</a>
+          <a class="nav-badge" href="#tools">查看全部工具 →</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur">PDF 工具</span>
+      </div>
+      <span class="page-eyebrow">PDF 工具集</span>
+      <h1><span class="grad">PDF 工具</span><br />全部免费使用</h1>
+      <p>8 款常用 PDF 工具，本地处理、无需上传服务器、保护你的文件隐私，简单快速，永久免费。</p>
+    </div>
+
+    <!-- STATS -->
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px 56px;">
+      <div class="stats-row reveal">
+        <div class="stat-cell"><strong>8</strong><span>PDF 工具</span></div>
+        <div class="stat-cell"><strong>100%</strong><span>本地处理</span></div>
+        <div class="stat-cell"><strong>免费</strong><span>永久可用</span></div>
+        <div class="stat-cell"><strong>无限制</strong><span>文件数量</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TOOLS -->
+    <div class="section" id="tools">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">全部工具</span>
+        <h2>8 款 PDF 工具，立即可用</h2>
+      </div>
+
+      <div class="tool-grid reveal-stagger">
+
+        <div class="tool-card">
+          <div class="tool-icon">🔗</div>
+          <h3>PDF 合并</h3>
+          <p>将多个 PDF 文件合并成一个，整理资料、合同、学习笔记，一步到位。</p>
+          <a class="tool-link" href="/pdf/merge.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">✂️</div>
+          <h3>PDF 拆分</h3>
+          <p>从 PDF 中拆出指定页面，单独保存或分享，精准高效。</p>
+          <a class="tool-link" href="/pdf/split.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">📦</div>
+          <h3>PDF 压缩</h3>
+          <p>压缩 PDF 文件体积，适合上传、邮件附件或节省存储空间。</p>
+          <a class="tool-link" href="/pdf/compress.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">🔍</div>
+          <h3>PDF OCR</h3>
+          <p>识别扫描版 PDF 中的文字，轻松复制、整理与搜索，告别纯图片 PDF。</p>
+          <a class="tool-link" href="/pdf/ocr.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">📝</div>
+          <h3>PDF 转文本</h3>
+          <p>提取原生 PDF 中可复制的文字内容，快速整理资料，无需手动复制。</p>
+          <a class="tool-link" href="/pdf/to-text.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">🔄</div>
+          <h3>PDF 旋转页面</h3>
+          <p>调整 PDF 页面方向，轻松修复扫描文件横竖方向错误的问题。</p>
+          <a class="tool-link" href="/pdf/rotate.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">💧</div>
+          <h3>PDF 添加水印</h3>
+          <p>为 PDF 添加文字或图片水印，资料标记和版权保护更方便。</p>
+          <a class="tool-link" href="/pdf/add-watermark.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">🗑️</div>
+          <h3>PDF 删除页面</h3>
+          <p>删除 PDF 中不需要的页面，保留有效内容，文件更干净整洁。</p>
+          <a class="tool-link" href="/pdf/remove-pages.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TIPS -->
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">使用须知</span>
+        <h2>快速了解这些工具</h2>
+      </div>
+
+      <div class="tips-grid reveal-stagger">
+        <div class="tip-card">
+          <div class="tip-num">01 · 隐私安全</div>
+          <h4>文件本地处理</h4>
+          <p>所有 PDF 操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">02 · 免费使用</div>
+          <h4>永久免费，无需注册</h4>
+          <p>所有工具完全免费，无需注册账号，无文件数量限制，打开即用。</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">03 · 浏览器要求</div>
+          <h4>推荐现代浏览器</h4>
+          <p>建议使用 Chrome、Edge 或 Firefox 最新版以获得最佳兼容性和性能体验。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/pdf/">PDF工具</a>
+          <a href="/tutorials/">教程中心</a>
+          <a href="/privacy.html">隐私政策</a>
+        </div>
+        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+
   </div>
 
-  <div class="card">
+  <script>
+    /* Scroll reveal */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
 
-    <h1 data-i18n="title">PDF 工具</h1>
-
-    <p class="desc" data-i18n="desc">
-      免费在线 PDF 工具。支持 PDF 转图片、图片转 PDF。无需安装软件，支持手机与电脑。
-    </p>
-
-    <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
-
-    <div class="tool-box">
-
-      <h2 data-i18n="pdfToImgTitle">PDF 转图片</h2>
-
-      <input type="file" id="pdfFile" accept=".pdf">
-
-      <button onclick="convertPDF()" data-i18n="pdfToImgBtn">开始转换</button>
-
-      <div class="preview" id="pdfPreview"></div>
-
-    </div>
-
-    <div class="tool-box">
-
-      <h2 data-i18n="imgToPdfTitle">图片转 PDF</h2>
-
-      <input type="file" id="imageFiles" accept="image/*" multiple>
-
-      <button onclick="convertImagesToPDF()" data-i18n="imgToPdfBtn">生成 PDF</button>
-
-    </div>
-
-    <div class="info">
-
-      <h2 data-i18n="guideTitle">使用说明</h2>
-
-      <p data-i18n="guideText">1. 选择 PDF 文件可转换为图片。
-2. 选择多张图片可生成 PDF。
-3. 所有处理均在浏览器本地完成。
-4. 不需要安装软件。</p>
-
-      <h2 data-i18n="compatTitle">兼容性</h2>
-
-      <p data-i18n="compatText">支持 Chrome、Safari、Edge 等现代浏览器。支持 Android 与 iPhone。</p>
-
-      <h2 data-i18n="privacyTitle">隐私说明</h2>
-
-      <p data-i18n="privacyText">PDF 和图片处理在浏览器本地完成，正常情况下不会上传到服务器。</p>
-
-    </div>
-
-  </div>
-
-  <footer>© 2026 ZenTools. All Rights Reserved.</footer>
-
-</div>
-
-<script>
-const languageSelect = document.getElementById("languageSelect");
-let currentLang = "zh";
-
-const translations = {
-  zh:{
-    pageTitle:"PDF 工具 - ZenTools",
-    back:"← 返回首页",
-    title:"PDF 工具",
-    desc:"免费在线 PDF 工具。支持 PDF 转图片、图片转 PDF。无需安装软件，支持手机与电脑。",
-    ad:"广告位（Google AdSense）",
-    pdfToImgTitle:"PDF 转图片",
-    pdfToImgBtn:"开始转换",
-    imgToPdfTitle:"图片转 PDF",
-    imgToPdfBtn:"生成 PDF",
-    guideTitle:"使用说明",
-    guideText:"1. 选择 PDF 文件可转换为图片。\n2. 选择多张图片可生成 PDF。\n3. 所有处理均在浏览器本地完成。\n4. 不需要安装软件。",
-    compatTitle:"兼容性",
-    compatText:"支持 Chrome、Safari、Edge 等现代浏览器。支持 Android 与 iPhone。",
-    privacyTitle:"隐私说明",
-    privacyText:"PDF 和图片处理在浏览器本地完成，正常情况下不会上传到服务器。",
-    alertNoPdf:"请选择 PDF 文件",
-    alertNoImage:"请选择图片"
-  },
-  ja:{
-    pageTitle:"PDF ツール - ZenTools",
-    back:"← ホームに戻る",
-    title:"PDF ツール",
-    desc:"無料オンライン PDF ツールです。PDFを画像に変換、画像をPDFに変換できます。ソフトのインストールは不要です。",
-    ad:"広告スペース（Google AdSense）",
-    pdfToImgTitle:"PDF を画像に変換",
-    pdfToImgBtn:"変換開始",
-    imgToPdfTitle:"画像を PDF に変換",
-    imgToPdfBtn:"PDF を作成",
-    guideTitle:"使い方",
-    guideText:"1. PDF ファイルを選択すると画像に変換できます。\n2. 複数の画像を選択すると PDF を作成できます。\n3. 処理はブラウザ内で行われます。\n4. ソフトのインストールは不要です。",
-    compatTitle:"互換性",
-    compatText:"Chrome、Safari、Edge などの最新ブラウザに対応しています。Android と iPhone でも利用できます。",
-    privacyTitle:"プライバシーについて",
-    privacyText:"PDF と画像の処理は通常ブラウザ内で行われ、サーバーへアップロードされません。",
-    alertNoPdf:"PDF ファイルを選択してください",
-    alertNoImage:"画像を選択してください"
-  },
-  en:{
-    pageTitle:"PDF Tools - ZenTools",
-    back:"← Back to Home",
-    title:"PDF Tools",
-    desc:"Free online PDF tools. Convert PDF to images and images to PDF. No software installation required.",
-    ad:"Ad Space（Google AdSense）",
-    pdfToImgTitle:"PDF to Images",
-    pdfToImgBtn:"Start Conversion",
-    imgToPdfTitle:"Images to PDF",
-    imgToPdfBtn:"Create PDF",
-    guideTitle:"How to Use",
-    guideText:"1. Select a PDF file to convert it into images.\n2. Select multiple images to create a PDF.\n3. All processing is done locally in your browser.\n4. No software installation is required.",
-    compatTitle:"Compatibility",
-    compatText:"Supports modern browsers such as Chrome, Safari, and Edge. Works on Android and iPhone.",
-    privacyTitle:"Privacy Notice",
-    privacyText:"PDF and image processing is normally completed locally in your browser and is not uploaded to a server.",
-    alertNoPdf:"Please select a PDF file",
-    alertNoImage:"Please select images"
-  },
-  vi:{
-    pageTitle:"Công cụ PDF - ZenTools",
-    back:"← Quay lại trang chủ",
-    title:"Công cụ PDF",
-    desc:"Công cụ PDF trực tuyến miễn phí. Hỗ trợ chuyển PDF sang ảnh và ảnh sang PDF. Không cần cài đặt phần mềm.",
-    ad:"Vị trí quảng cáo（Google AdSense）",
-    pdfToImgTitle:"Chuyển PDF sang ảnh",
-    pdfToImgBtn:"Bắt đầu chuyển đổi",
-    imgToPdfTitle:"Chuyển ảnh sang PDF",
-    imgToPdfBtn:"Tạo PDF",
-    guideTitle:"Hướng dẫn sử dụng",
-    guideText:"1. Chọn file PDF để chuyển thành ảnh.\n2. Chọn nhiều ảnh để tạo file PDF.\n3. Tất cả xử lý được thực hiện trong trình duyệt.\n4. Không cần cài đặt phần mềm.",
-    compatTitle:"Khả năng tương thích",
-    compatText:"Hỗ trợ Chrome, Safari, Edge và các trình duyệt hiện đại. Có thể dùng trên Android và iPhone.",
-    privacyTitle:"Thông tin quyền riêng tư",
-    privacyText:"PDF và hình ảnh thường được xử lý trong trình duyệt và không được tải lên máy chủ.",
-    alertNoPdf:"Vui lòng chọn file PDF",
-    alertNoImage:"Vui lòng chọn ảnh"
-  }
-};
-
-function setLanguage(lang){
-  currentLang = lang;
-  const data = translations[lang] || translations.zh;
-
-  document.documentElement.lang = lang;
-  document.title = data.pageTitle;
-
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-    const key = el.getAttribute("data-i18n");
-    if(data[key]) el.innerText = data[key];
-  });
-
-  localStorage.setItem("siteLanguage", lang);
-}
-
-languageSelect.addEventListener("change", function(){
-  setLanguage(this.value);
-});
-
-const savedLang = localStorage.getItem("siteLanguage") || "zh";
-languageSelect.value = savedLang;
-setLanguage(savedLang);
-
-async function convertPDF(){
-  const file = document.getElementById("pdfFile").files[0];
-
-  if(!file){
-    alert(translations[currentLang].alertNoPdf);
-    return;
-  }
-
-  const preview = document.getElementById("pdfPreview");
-  preview.innerHTML = "";
-
-  const fileReader = new FileReader();
-
-  fileReader.onload = async function(){
-    const typedarray = new Uint8Array(this.result);
-    const pdf = await pdfjsLib.getDocument(typedarray).promise;
-
-    for(let pageNum = 1; pageNum <= pdf.numPages; pageNum++){
-      const page = await pdf.getPage(pageNum);
-      const viewport = page.getViewport({scale:1.5});
-
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-
-      await page.render({
-        canvasContext:context,
-        viewport:viewport
-      }).promise;
-
-      const img = document.createElement("img");
-      img.src = canvas.toDataURL("image/png");
-      preview.appendChild(img);
+    /* Blob animation */
+    let t = 0;
+    const b1 = document.querySelector('.blob-1');
+    const b2 = document.querySelector('.blob-2');
+    function anim() {
+      t += 0.003;
+      if (b1) b1.style.transform = `translate(${Math.sin(t)*30}px,${Math.cos(t*0.8)*20}px)`;
+      if (b2) b2.style.transform = `translate(${Math.cos(t*0.9)*25}px,${Math.sin(t)*18}px)`;
+      requestAnimationFrame(anim);
     }
-  };
-
-  fileReader.readAsArrayBuffer(file);
-}
-
-async function convertImagesToPDF(){
-  const files = document.getElementById("imageFiles").files;
-
-  if(files.length === 0){
-    alert(translations[currentLang].alertNoImage);
-    return;
-  }
-
-  const { jsPDF } = window.jspdf;
-  const pdf = new jsPDF();
-
-  for(let i = 0; i < files.length; i++){
-    const file = files[i];
-    const imgData = await readFileAsDataURL(file);
-
-    const img = new Image();
-    img.src = imgData;
-
-    await new Promise(resolve=>{
-      img.onload = resolve;
-    });
-
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
-
-    const ratio = Math.min(pageWidth / img.width, pageHeight / img.height);
-    const width = img.width * ratio;
-    const height = img.height * ratio;
-
-    const x = (pageWidth - width) / 2;
-    const y = (pageHeight - height) / 2;
-
-    if(i > 0) pdf.addPage();
-
-    pdf.addImage(imgData, "JPEG", x, y, width, height);
-  }
-
-  pdf.save("ZenTools.pdf");
-}
-
-function readFileAsDataURL(file){
-  return new Promise(resolve=>{
-    const reader = new FileReader();
-    reader.onload = e=>resolve(e.target.result);
-    reader.readAsDataURL(file);
-  });
-}
-<script>
-const seoData = {
-  title: "工具名称 - 免费在线工具 | ZenTools",
-  description: "免费在线工具名称，支持手机与电脑，无需安装软件。",
-  keywords: "工具名称,在线工具,免费工具,ZenTools",
-  url: "https://www.zentools.xyz/tool.html",
-  image: "https://www.zentools.xyz/logo.png"
-};
-
-function setMeta(name, content){
-  let meta = document.querySelector(`meta[name="${name}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("name", name);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setProperty(property, content){
-  let meta = document.querySelector(`meta[property="${property}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("property", property);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setCanonical(url){
-  let link = document.querySelector('link[rel="canonical"]');
-  if(!link){
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-  link.setAttribute("href", url);
-}
-
-function applySEO(){
-  document.title = seoData.title;
-
-  setMeta("description", seoData.description);
-  setMeta("keywords", seoData.keywords);
-  setMeta("author", "ZenTools");
-
-  setCanonical(seoData.url);
-
-  setProperty("og:title", seoData.title);
-  setProperty("og:description", seoData.description);
-  setProperty("og:type", "website");
-  setProperty("og:url", seoData.url);
-  setProperty("og:image", seoData.image);
-
-  setMeta("twitter:card", "summary_large_image");
-  setMeta("twitter:title", seoData.title);
-  setMeta("twitter:description", seoData.description);
-}
-
-applySEO();
-</script>
+    anim();
+  </script>
 
 </body>
 </html>
