@@ -1,346 +1,332 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>江湖小站 · 个人学习笔记</title>
-    <meta name="description" content="一个记录日常学习、网页制作和实用方法的个人小站，分享问题解决与效率心得。">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>江湖小站 - 个人学习记录与经验整理</title>
+  <meta name="description" content="江湖小站是一个个人学习记录页面，主要用于整理日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。" />
+  <meta name="keywords" content="江湖小站,个人学习记录,学习笔记,网页制作记录,文件处理经验,图片整理方法,日常效率技巧" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
-            background: #f7f5f0;   /* 柔和米灰底，护眼且温暖 */
-            font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', 'Noto Sans', 'Helvetica Neue', sans-serif;
-            color: #1e2a2e;
-            line-height: 1.55;
-            padding: 2rem 1rem;
-        }
+    :root {
+      --bg: #080c10;
+      --surface: #0d1117;
+      --surface2: #131a22;
+      --border: rgba(255,255,255,0.06);
+      --border-bright: rgba(255,255,255,0.12);
+      --text: #e8edf5;
+      --muted: #7a8499;
+      --accent: #0ea5e9;
+      --accent2: #14b8a6;
+      --accent3: #6366f1;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --radius: 20px;
+      --radius-sm: 12px;
+      --radius-pill: 999px;
+      --shadow: 0 24px 56px -12px rgba(0,0,0,0.6);
+    }
+    [data-theme="light"] {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #f5f7fa;
+      --border: rgba(0,0,0,0.07);
+      --border-bright: rgba(0,0,0,0.12);
+      --text: #0d1117;
+      --muted: #556070;
+      --shadow: 0 8px 32px -8px rgba(14,165,233,0.1);
+    }
 
-        /* 主容器：卡片式大窗口，适度留白 */
-        .container {
-            max-width: 1120px;
-            margin: 0 auto;
-            background: #ffffff;
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.02);
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 5px; }
+    [data-theme="light"] ::-webkit-scrollbar-thumb { background: #c8d0dc; }
 
-        /* 页眉区域：诗意留白 + 小标识 */
-        .hero {
-            padding: 3rem 2rem 2rem 2rem;
-            background: linear-gradient(145deg, #ffffff 0%, #fefcf8 100%);
-            border-bottom: 1px solid #ece6df;
-        }
+    /* ══ NAV ══ */
+    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 0 24px; }
+    .nav-inner {
+      max-width: 1080px; margin: 14px auto 0;
+      background: rgba(13,17,23,0.8); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--border-bright); border-radius: 16px;
+      padding: 12px 22px; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+    }
+    [data-theme="light"] .nav-inner { background: rgba(255,255,255,0.85); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: .5px; }
+    .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 0 14px rgba(14,165,233,.35); flex-shrink: 0; }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-right a { font-size: 13px; font-weight: 500; color: var(--muted); transition: color .2s; white-space: nowrap; }
+    .nav-right a:hover { color: var(--text); }
+    .theme-btn { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: var(--radius-pill); padding: 6px 13px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); transition: all .2s; white-space: nowrap; }
+    .theme-btn:hover { border-color: var(--accent); }
 
-        .site-badge {
-            display: inline-block;
-            font-size: 0.8rem;
-            background: #eef2ee;
-            color: #3b5c4a;
-            padding: 0.2rem 0.8rem;
-            border-radius: 30px;
-            letter-spacing: 0.3px;
-            margin-bottom: 1.2rem;
-            font-weight: 450;
-        }
+    /* ══ HERO ══ */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding: 130px 24px 80px; text-align: center; }
+    [data-theme="light"] .hero { background: linear-gradient(160deg, #071220 0%, #0c1e30 100%); }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 65% 55% at 20% 50%, rgba(14,165,233,.13) 0%, transparent 55%), radial-gradient(ellipse 55% 45% at 80% 25%, rgba(20,184,166,.1) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 55% 85%, rgba(99,102,241,.08) 0%, transparent 55%); pointer-events: none; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; animation: float 9s ease-in-out infinite; }
+    .orb-1 { width: 350px; height: 350px; background: var(--accent); opacity: .18; top: 10%; left: 2%; }
+    .orb-2 { width: 260px; height: 260px; background: var(--accent2); opacity: .15; top: 8%; right: 5%; animation-delay: -3s; }
+    .orb-3 { width: 200px; height: 200px; background: var(--accent3); opacity: .13; bottom: 22%; left: 28%; animation-delay: -6s; }
+    @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);} }
 
-        h1 {
-            font-size: 3rem;
-            font-weight: 620;
-            letter-spacing: -0.01em;
-            background: linear-gradient(135deg, #2c4b3e, #5a6e5c);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-        }
+    .hero-inner { max-width: 780px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(14,165,233,.35); background: rgba(14,165,233,.08); color: #7dd3fc; font-size: 12px; font-weight: 600; padding: 6px 16px; border-radius: var(--radius-pill); margin-bottom: 30px; letter-spacing: .8px; text-transform: uppercase; }
+    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.35;} }
 
-        .tagline {
-            font-size: 1.25rem;
-            color: #4a5b52;
-            border-left: 4px solid #c0cfb5;
-            padding-left: 1rem;
-            margin-top: 0.4rem;
-            font-weight: 380;
-        }
+    .hero h1 { font-size: clamp(44px, 8vw, 80px); font-weight: 900; letter-spacing: -2px; line-height: 1.05; margin-bottom: 24px; color: #fff; }
+    .hero h1 .hl { background: linear-gradient(100deg, #38bdf8, #2dd4bf, #818cf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-sub { font-size: 17px; color: rgba(255,255,255,.55); max-width: 480px; margin: 0 auto 44px; line-height: 1.75; }
+    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
 
-        /* 简介引子 */
-        .intro-card {
-            background: #fefaf5;
-            margin: 1.5rem 2rem 0 2rem;
-            padding: 1.5rem 1.8rem;
-            border-radius: 1.5rem;
-            border: 1px solid #efe5db;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
+    .btn-primary { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 13px 28px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 700; box-shadow: 0 0 28px rgba(14,165,233,.3); transition: all .2s; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(14,165,233,.45); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: #fff; padding: 12px 26px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
+    .btn-outline:hover { background: rgba(255,255,255,.07); }
 
-        .intro-text {
-            font-size: 1.08rem;
-            color: #2d3e38;
-            margin-bottom: 1rem;
-        }
+    /* hero intro card */
+    .hero-card { background: rgba(13,17,23,.65); border: 1px solid rgba(255,255,255,.1); border-radius: 20px; padding: 28px 32px; max-width: 680px; margin: 0 auto; backdrop-filter: blur(12px); text-align: left; }
+    [data-theme="light"] .hero-card { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.2); }
+    .hero-card p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.8; }
+    .hero-card p + p { margin-top: 12px; }
 
-        .intro-highlight {
-            background: #eef1e9;
-            border-radius: 60px;
-            padding: 0.3rem 1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            color: #3c5a4b;
-        }
+    /* ══ SECTION WRAPPER ══ */
+    .section-wrap { max-width: 1080px; margin: 96px auto 0; padding: 0 24px; }
+    .section-head { margin-bottom: 28px; }
+    .s-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .s-chip::before { content:''; display:inline-block; width:18px; height:2px; background:var(--accent); border-radius:2px; }
+    .s-title { font-size: 26px; font-weight: 800; letter-spacing: -.6px; color: var(--text); }
+    .s-sub { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
 
-        /* 主体内容卡片网格 */
-        .content-grid {
-            padding: 2rem 2rem 2.5rem 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+    /* ══ ABOUT BLOCK ══ */
+    .about-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; }
+    .about-box::before { content:''; position:absolute; width:280px; height:280px; background:radial-gradient(circle,rgba(14,165,233,.1) 0%,transparent 70%); top:-80px; right:-60px; pointer-events:none; }
+    .about-box p { font-size: 15px; color: var(--muted); line-height: 1.85; position: relative; }
+    .about-box p + p { margin-top: 14px; }
+    .notice-bar { display: flex; align-items: flex-start; gap: 14px; background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.2); border-radius: 14px; padding: 18px 20px; margin-top: 24px; position: relative; }
+    .notice-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .notice-bar p { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
+    .notice-bar strong { color: var(--text); }
 
-        /* 卡片通用样式 */
-        .info-card {
-            background: #ffffff;
-            border-radius: 1.5rem;
-            border: 1px solid #ece2d7;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
-        }
-        .info-card:hover {
-            box-shadow: 0 12px 22px -12px rgba(0, 0, 0, 0.1);
-            border-color: #dfd4c8;
-        }
+    /* ══ RECORDS GRID ══ */
+    .records-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rec-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 10px; transition: all .22s; position: relative; overflow: hidden; }
+    .rec-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
+    .rec-card:hover { border-color: rgba(14,165,233,.35); transform: translateY(-4px); box-shadow: var(--shadow); }
+    .rec-card:hover::after { opacity: 1; }
+    .rec-icon { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .ic-blue { background: rgba(14,165,233,.12); }
+    .ic-teal { background: rgba(20,184,166,.12); }
+    .ic-indigo { background: rgba(99,102,241,.12); }
+    .ic-amber { background: rgba(245,158,11,.12); }
+    .ic-green { background: rgba(16,185,129,.12); }
+    .ic-rose { background: rgba(244,63,94,.1); }
+    .rec-title { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.2px; }
+    .rec-desc { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
+    .rec-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; transition: gap .18s; }
+    .rec-card:hover .rec-link { gap: 8px; }
 
-        .card-header {
-            padding: 1.4rem 1.8rem 0 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
+    /* ══ STATEMENT ══ */
+    .stmt-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; }
+    .stmt-box p { font-size: 15px; color: var(--muted); line-height: 1.85; }
+    .stmt-box p + p { margin-top: 14px; }
 
-        .card-header h2 {
-            font-size: 1.55rem;
-            font-weight: 540;
-            letter-spacing: -0.2px;
-            color: #2c4b3e;
-        }
+    /* ══ FOOTER ══ */
+    .footer { max-width: 1080px; margin: 80px auto 0; padding: 24px 24px 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--text); }
+    .footer-right { font-size: 12px; color: var(--muted); text-align: right; line-height: 1.8; }
 
-        .card-icon {
-            font-size: 1.8rem;
-        }
+    /* ══ BACK TO TOP ══ */
+    .back-top { position: fixed; bottom: 26px; right: 26px; z-index: 300; width: 42px; height: 42px; border-radius: 12px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+    [data-theme="light"] .back-top { background: rgba(255,255,255,.92); }
+    .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 18px rgba(14,165,233,.4); }
 
-        .card-content {
-            padding: 0.8rem 1.8rem 1.8rem 1.8rem;
-            color: #2c3e35;
-        }
-
-        .note-list {
-            list-style: none;
-            margin-top: 0.5rem;
-        }
-
-        .note-list li {
-            margin-bottom: 0.9rem;
-            display: flex;
-            align-items: baseline;
-            gap: 0.6rem;
-        }
-
-        .list-marker {
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .list-text {
-            line-height: 1.45;
-        }
-
-        .insight-meta {
-            font-size: 0.85rem;
-            background: #f6f2ec;
-            display: inline-block;
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            color: #6c5e51;
-            margin-top: 0.25rem;
-        }
-
-        .badge-light {
-            background: #eef2e8;
-            color: #4b6b5a;
-            border-radius: 40px;
-            font-size: 0.75rem;
-            padding: 0.2rem 0.9rem;
-            display: inline-block;
-        }
-
-        hr {
-            margin: 0.8rem 0 1rem;
-            border: none;
-            height: 1px;
-            background: #e7dfd6;
-        }
-
-        .footer-note {
-            background: #f9f7f3;
-            padding: 1.5rem 2rem;
-            border-top: 1px solid #e9e0d6;
-            font-size: 0.85rem;
-            color: #6b6a5e;
-            text-align: center;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .footer-note a {
-            color: #527a66;
-            text-decoration: none;
-            border-bottom: 1px dotted #cbd9cf;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.2rem;
-        }
-
-        @media (max-width: 700px) {
-            body {
-                padding: 1rem 0.75rem;
-            }
-            .hero {
-                padding: 2rem 1.2rem 1rem 1.2rem;
-            }
-            h1 {
-                font-size: 2.2rem;
-            }
-            .content-grid {
-                padding: 1.5rem 1.2rem;
-            }
-            .card-header {
-                padding: 1.2rem 1.2rem 0 1.2rem;
-            }
-            .card-content {
-                padding: 0.8rem 1.2rem 1.4rem 1.2rem;
-            }
-            .intro-card {
-                margin: 1rem 1rem 0 1rem;
-                padding: 1.2rem;
-            }
-            .footer-note {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        /* 提示引用区 */
-        .warning-note {
-            background: #fef7e0;
-            border-left: 4px solid #dbc693;
-            padding: 0.8rem 1.2rem;
-            border-radius: 1rem;
-            font-size: 0.85rem;
-            margin-top: 1rem;
-            color: #7a6a4b;
-        }
-        .inline-icon {
-            font-size: 1rem;
-            vertical-align: middle;
-        }
-    </style>
+    /* ══ RESPONSIVE ══ */
+    @media(max-width: 900px) { .records-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width: 640px) {
+      .nav-right a:not(:last-child):not(.theme-btn) { display: none; }
+      .hero { padding: 110px 16px 56px; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .hero-card { padding: 20px; }
+      .records-grid { grid-template-columns: 1fr; }
+      .section-wrap { margin-top: 64px; }
+      .about-box, .stmt-box { padding: 24px 20px; }
+      .footer { justify-content: center; text-align: center; }
+      .footer-right { text-align: center; }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-    <div class="hero">
-        <div class="site-badge">✍️ 个人学习记录 · 经验整理</div>
-        <h1>江湖小站</h1>
-        <div class="tagline">一个记录日常学习、网页制作和实用方法的个人小站</div>
-        
-        <div class="intro-card">
-            <div class="intro-text">
-                🧩 江湖小站是一个个人学习记录页面，主要用于整理本人在日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。
-            </div>
-            <div class="intro-highlight">
-                📘 这里的内容以个人笔记、操作步骤、使用心得和简单页面示例为主，方便自己以后查阅，也希望能给有类似需求的朋友提供一些参考。
-            </div>
-            <div class="warning-note">
-                💡 <strong>内容须知：</strong> 本站由个人维护，内容仅用于学习记录和经验分享，不涉及企业经营、商品销售、在线交易、会员服务、论坛社区、新闻发布或教育培训等内容。所有整理均为个人日常实践，不保证完全准确，仅作参考。如有不妥之处欢迎友善指出。
-            </div>
-        </div>
+
+<!-- NAV -->
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-mark">⛵</div>
+      江湖小站
     </div>
-
-    <div class="content-grid">
-        <!-- 卡片1：关于这里 -->
-        <div class="info-card">
-            <div class="card-header">
-                <span class="card-icon">📓</span>
-                <h2>关于本站 · 这里是什么？</h2>
-            </div>
-            <div class="card-content">
-                <p style="margin-bottom: 0.75rem; font-weight: 470;">✨ 一个人的学习笔记本，记录遇到的问题和解决方法</p>
-                <p>本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。所有内容均为个人日常整理，仅供学习和参考使用。</p>
-                <div style="margin-top: 1rem;">
-                    <span class="insight-meta">🗂️ 内容方向：网页制作 / 文件处理 / 图片整理 / 效率方法</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 卡片2：网站性质与备案说明 -->
-        <div class="info-card">
-            <div class="card-header">
-                <span class="card-icon">⚖️</span>
-                <h2>网站说明 · 性质与备案</h2>
-            </div>
-            <div class="card-content">
-                <p>本网站为<strong>个人学习记录页面</strong>，主要用于整理本人在网页制作、文件处理、图片整理和日常效率方法方面的学习笔记、操作步骤和使用心得。</p>
-                <hr>
-                <ul class="note-list">
-                    <li><span class="list-marker">📌</span><span class="list-text"><strong>网站内容仅供个人学习和经验分享使用</strong>，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。</span></li>
-                    <li><span class="list-marker">📋</span><span class="list-text"><strong>说明：</strong>本站内容仅供学习参考，不涉及经营性互联网信息服务。备案性质符合非经营性个人记录类站点。</span></li>
-                </ul>
-                <div class="badge-light" style="margin-top: 0.4rem;">
-                    🧾 非商业 · 纯粹学习笔记
-                </div>
-            </div>
-        </div>
-
-        <!-- 卡片3：日常整理内容摘录 (增加温度，延续原意) -->
-        <div class="info-card">
-            <div class="card-header">
-                <span class="card-icon">🛠️</span>
-                <h2>实践心得 · 常用整理</h2>
-            </div>
-            <div class="card-content">
-                <ul class="note-list">
-                    <li><span class="list-marker">🌐</span><span class="list-text"><strong>网页制作</strong> – 简单页面示例、布局小技巧、响应式微调</span></li>
-                    <li><span class="list-marker">📄</span><span class="list-text"><strong>文件处理</strong> – 格式转换、批量重命名、文档管理</span></li>
-                    <li><span class="list-marker">🖼️</span><span class="list-text"><strong>图片整理</strong> – 压缩、尺寸调整、基础批处理</span></li>
-                    <li><span class="list-marker">⚡</span><span class="list-text"><strong>效率方法</strong> – 工具使用、日常脚本、笔记复盘习惯</span></li>
-                </ul>
-                <div class="warning-note" style="background: #f2efe7; border-left-color: #b9aa95; margin-top: 1rem;">
-                    🧠 所有内容均为个人操作笔记，随学习持续更新。若有细节差异请以实际场景为主，欢迎友好交流。
-                </div>
-            </div>
-        </div>
+    <div class="nav-right">
+      <a href="#about">关于本站</a>
+      <a href="#records">记录内容</a>
+      <a href="#statement">说明</a>
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️ 亮色</button>
     </div>
+  </div>
+</nav>
 
-    <div class="footer-note">
-        <div>© 江湖小站 · 个人学习记录</div>
-        <div class="footer-links">
-            <span>📁 持续整理 · 自用查阅</span>
-            <span>✍️ 经验分享 · 温暖共进</span>
-        </div>
-        <div>🕊️ 备案性质：非经营性个人学习站点</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="badge-dot"></span>个人学习记录与经验整理</div>
+    <h1>江湖<span class="hl">小站</span></h1>
+    <p class="hero-sub">一个记录日常学习、网页制作和实用方法的个人小站</p>
+    <div class="hero-actions">
+      <a href="#records" class="btn-primary">📘 查看记录内容</a>
+      <a href="#about" class="btn-outline">关于本站 →</a>
     </div>
+    <div class="hero-card">
+      <p>江湖小站是一个个人学习记录页面，主要用于整理本人在日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。</p>
+      <p>这里的内容以个人笔记、操作步骤、使用心得和简单页面示例为主，方便自己以后查阅，也希望能给有类似需求的朋友提供一些参考。</p>
+      <p>本站由个人维护，内容仅用于学习记录和经验分享，不涉及企业经营、商品销售、在线交易、会员服务、论坛社区、新闻发布或教育培训等内容。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <div class="section-head">
+    <div class="s-chip">关于本站</div>
+    <div class="s-title">这里是什么？</div>
+    <div class="s-sub">一个人的学习笔记本，记录遇到的问题和解决方法</div>
+  </div>
+  <div class="about-box">
+    <p>本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。</p>
+    <p>所有内容均为个人日常整理，仅供学习和参考使用。</p>
+    <div class="notice-bar">
+      <span class="notice-icon">💡</span>
+      <p>内容以个人笔记和实践心得为主，不保证完全准确，仅作参考。如有不妥之处欢迎指出。</p>
+    </div>
+  </div>
 </div>
+
+<!-- RECORDS -->
+<div class="section-wrap" id="records">
+  <div class="section-head">
+    <div class="s-chip">记录内容</div>
+    <div class="s-title">整理了哪些内容？</div>
+    <div class="s-sub">围绕个人学习、网页制作、文件处理与效率方法展开</div>
+  </div>
+  <div class="records-grid">
+
+    <a class="rec-card" href="notes.html">
+      <div class="rec-icon ic-blue">📘</div>
+      <div class="rec-title">个人学习笔记</div>
+      <div class="rec-desc">记录日常学习过程中遇到的问题、理解过程和整理心得。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
+
+    <a class="rec-card" href="articles/web-design-notes.html">
+      <div class="rec-icon ic-indigo">💻</div>
+      <div class="rec-title">网页制作记录</div>
+      <div class="rec-desc">整理网页排版、页面结构、样式调整和常见问题处理方法。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
+
+    <a class="rec-card" href="file-processing.html">
+      <div class="rec-icon ic-teal">📄</div>
+      <div class="rec-title">文件处理经验</div>
+      <div class="rec-desc">记录文档整理、文件保存、格式处理等日常操作经验。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
+
+    <a class="rec-card" href="image-organize.html">
+      <div class="rec-icon ic-amber">🖼️</div>
+      <div class="rec-title">图片整理方法</div>
+      <div class="rec-desc">整理图片排版、尺寸调整、简单处理和保存方面的经验。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
+
+    <a class="rec-card" href="efficiency.html">
+      <div class="rec-icon ic-green">⏱️</div>
+      <div class="rec-title">日常效率技巧</div>
+      <div class="rec-desc">记录一些提升日常学习和资料整理效率的小方法。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
+
+    <a class="rec-card" href="examples.html">
+      <div class="rec-icon ic-rose">🧩</div>
+      <div class="rec-title">简单页面示例</div>
+      <div class="rec-desc">保存一些个人制作的小页面示例，方便以后查看和修改。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
+
+  </div>
+</div>
+
+<!-- STATEMENT -->
+<div class="section-wrap" id="statement">
+  <div class="section-head">
+    <div class="s-chip">网站说明</div>
+    <div class="s-title">关于本站性质</div>
+    <div class="s-sub">备案相关说明</div>
+  </div>
+  <div class="stmt-box">
+    <p>本网站为个人学习记录页面，主要用于整理本人在网页制作、文件处理、图片整理和日常效率方法方面的学习笔记、操作步骤和使用心得。</p>
+    <p>网站内容仅供个人学习和经验分享使用，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。</p>
+    <div class="notice-bar" style="margin-top:22px;">
+      <span class="notice-icon">📋</span>
+      <p><strong>说明：</strong>本站内容仅供学习参考，不涉及经营性互联网信息服务。</p>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-logo">
+    <div class="logo-mark" style="width:24px;height:24px;font-size:12px;border-radius:7px;">⛵</div>
+    江湖小站
+  </div>
+  <div class="footer-right">
+    <div>© <span id="year"></span> 江湖小站</div>
+    <div>个人学习记录与经验整理页面 · 不涉及经营性互联网信息服务</div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* theme */
+  function initTheme() {
+    const s = localStorage.getItem('zh_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', s);
+    document.getElementById('themeBtn').textContent = s === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+  }
+  function toggleTheme() {
+    const c = document.documentElement.getAttribute('data-theme');
+    const n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('zh_theme', n);
+    document.getElementById('themeBtn').textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+  }
+  initTheme();
+
+  /* back to top */
+  const bt = document.getElementById('backTop');
+  window.addEventListener('scroll', () => bt.classList.toggle('visible', scrollY > 400), { passive: true });
+</script>
 </body>
 </html>
