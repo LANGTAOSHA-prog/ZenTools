@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PDF Tools · ZenTools</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<main style="max-width:900px;margin:2rem auto;font-family:Inter,system-ui,sans-serif;padding:1rem;">
+  <h1>PDF Tools（命令行工具包）</h1>
+  <p>本页面为 <code>pdf_tools</code> 命令行工具的入口，工具实现位于仓库 <a href="https://github.com/LANGTAOSHA-prog/ZenTools/tree/feat/pdf-tools/pdf_tools" target="_blank">feat/pdf-tools/pdf_tools</a>。</p>
+
+  <h2>功能</h2>
+  <ul>
+    <li>合并 PDF（merge）</li>
+    <li>拆分 PDF（split）</li>
+    <li>提取页面（extract）</li>
+    <li>批量处理（batch）</li>
+  </ul>
+
+  <h2>快速开始</h2>
+  <pre style="background:#f6f8fa;padding:12px;border-radius:8px;"># 安装依赖
+pip install -r pdf_tools/requirements.txt
+
+# 生成示例 PDF
+python pdf_tools/pdf_tools.py create-samples
+
+# 合并示例
+python pdf_tools/pdf_tools.py merge pdf_tools/samples/sample1.pdf pdf_tools/samples/sample2.pdf -o pdf_tools/out/merged.pdf
+
+# 拆分示例
+python pdf_tools/pdf_tools.py split pdf_tools/samples/sample2.pdf -d pdf_tools/out/split_sample2
+
+# 提取页面示例
+python pdf_tools/pdf_tools.py extract pdf_tools/samples/sample2.pdf 2 3 -o pdf_tools/out/extracted.pdf
+
+# 批量合并 samples 目录下所有 PDF
+python pdf_tools/pdf_tools.py batch --op merge --input pdf_tools/samples --out pdf_tools/out</pre>
+
+  <p>查看实现代码： <a href="https://github.com/LANGTAOSHA-prog/ZenTools/blob/feat/pdf-tools/pdf_tools/pdf_tools.py" target="_blank">pdf_tools/pdf_tools.py</a></p>
+  <p>使用说明： <a href="https://github.com/LANGTAOSHA-prog/ZenTools/blob/feat/pdf-tools/pdf_tools/README.md" target="_blank">pdf_tools/README.md</a></p>
+
+  <p><a href="../tools.html">返回工具页</a></p>
+</main>
+</body>
+</html>
