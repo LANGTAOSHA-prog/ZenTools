@@ -132,6 +132,20 @@
     .rec-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; transition: gap .18s; }
     .rec-card:hover .rec-link { gap: 8px; }
 
+    /* ══ TOOLS GRID ══ */
+    .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; transition: all .22s; position: relative; overflow: hidden; }
+    .tool-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
+    .tool-card:hover { border-color: rgba(14,165,233,.35); transform: translateY(-4px); box-shadow: var(--shadow); }
+    .tool-card:hover::after { opacity: 1; }
+    .tool-emoji { font-size: 32px; }
+    .tool-name { font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: -.2px; }
+    .tool-desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
+    .tool-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--accent); background: rgba(14,165,233,.12); border: 1px solid rgba(14,165,233,.2); border-radius: 6px; padding: 4px 10px; }
+    .tool-card.coming-soon { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
+    .tool-card.coming-soon .tool-tag { color: var(--muted); background: rgba(122,132,153,.12); border-color: rgba(122,132,153,.2); }
+    .tool-card.coming-soon::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 48%, rgba(122,132,153,.3) 50%, transparent 52%); pointer-events: none; }
+
     /* ══ STATEMENT ══ */
     .stmt-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; }
     .stmt-box p { font-size: 15px; color: var(--muted); line-height: 1.85; }
@@ -149,13 +163,17 @@
     .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 18px rgba(14,165,233,.4); }
 
     /* ══ RESPONSIVE ══ */
-    @media(max-width: 900px) { .records-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width: 900px) { 
+      .records-grid { grid-template-columns: repeat(2,1fr); }
+      .tools-grid { grid-template-columns: repeat(2,1fr); }
+    }
     @media(max-width: 640px) {
       .nav-right a:not(:last-child):not(.theme-btn) { display: none; }
       .hero { padding: 110px 16px 56px; }
       .hero h1 { letter-spacing: -1.5px; }
       .hero-card { padding: 20px; }
       .records-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
       .section-wrap { margin-top: 64px; }
       .about-box, .stmt-box { padding: 24px 20px; }
       .footer { justify-content: center; text-align: center; }
@@ -173,6 +191,8 @@
       江湖小站-ZenTools
     </div>
     <div class="nav-right">
+      <a href="#tools">🛠️ 工具大全</a>
+      <a href="plugins-preview.html">✨ 插件预览</a>
       <a href="#about">关于本站</a>
       <a href="#records">记录内容</a>
       <a href="#statement">说明</a>
@@ -279,6 +299,72 @@
       <span class="rec-link">查看内容 →</span>
     </a>
 
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="section-wrap" id="tools">
+  <div class="section-head">
+    <div class="s-chip">免费工具</div>
+    <div class="s-title">ZenTools 工具箱</div>
+    <div class="s-sub">精选免费在线工具，一站式解决日常工作需求</div>
+  </div>
+  <div class="tools-grid">
+    <a class="tool-card" href="pdf/mergepdf.html" title="合并多个PDF文件">
+      <div class="tool-emoji">📄</div>
+      <div class="tool-name">PDF 合并</div>
+      <div class="tool-desc">快速合并多个 PDF 文件</div>
+      <span class="tool-tag">PDF 工具</span>
+    </a>
+
+    <div class="tool-card coming-soon" title="敬请期待">
+      <div class="tool-emoji">🖼️</div>
+      <div class="tool-name">图片压缩</div>
+      <div class="tool-desc">压缩 JPG、PNG、WebP 格式</div>
+      <span class="tool-tag">学习中</span>
+    </div>
+
+    <div class="tool-card coming-soon" title="敬请期待">
+      <div class="tool-emoji">{ }</div>
+      <div class="tool-name">JSON 格式化</div>
+      <div class="tool-desc">格式化和验证 JSON 数据</div>
+      <span class="tool-tag">学习中</span>
+    </div>
+
+    <div class="tool-card coming-soon" title="敬请期待">
+      <div class="tool-emoji">📱</div>
+      <div class="tool-name">二维码生成</div>
+      <div class="tool-desc">快速生成各类二维码</div>
+      <span class="tool-tag">学习中</span>
+    </div>
+
+    <div class="tool-card coming-soon" title="敬请期待">
+      <div class="tool-emoji">📊</div>
+      <div class="tool-name">字数统计</div>
+      <div class="tool-desc">实时统计文字数量</div>
+      <span class="tool-tag">学习中</span>
+    </div>
+
+    <div class="tool-card coming-soon" title="敬请期待">
+      <div class="tool-emoji">🔐</div>
+      <div class="tool-name">Base64 编码</div>
+      <div class="tool-desc">快速编码和解码</div>
+      <span class="tool-tag">学习中</span>
+    </div>
+
+    <div class="tool-card coming-soon" title="敬请期待">
+      <div class="tool-emoji">💱</div>
+      <div class="tool-name">汇率换算</div>
+      <div class="tool-desc">实时汇率转换工具</div>
+      <span class="tool-tag">学习中</span>
+    </div>
+
+    <a class="tool-card" href="plugins-preview.html" title="查看全部工具">
+      <div class="tool-emoji">⭐</div>
+      <div class="tool-name">查看全部</div>
+      <div class="tool-desc">浏览更多工具</div>
+      <span class="tool-tag">工具箱</span>
+    </a>
   </div>
 </div>
 
