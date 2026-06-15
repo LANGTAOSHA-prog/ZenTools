@@ -1,188 +1,478 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>图片工具箱 - ZenTools</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>图片工具箱 - ZenTools 2.0 | 免费在线图片压缩/裁剪/格式转换/水印/抠图</title>
+  <meta name="description" content="ZenTools 图片工具箱：图片压缩、尺寸调整、裁剪、格式转换、加水印、背景移除、图片转PDF、PDF转图片、二维码生成，全部免费本地处理。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
+  <style>
+    :root {
+      --bg:      #06070d;
+      --glass:   rgba(255,255,255,0.04);
+      --glass-b: rgba(255,255,255,0.08);
+      --cyan:    #00e5ff;
+      --purple:  #a855f7;
+      --pink:    #f43f5e;
+      --text:    #f0f4ff;
+      --muted:   #6b7a9f;
+      --border:  rgba(255,255,255,0.07);
+      --border-h:rgba(0,229,255,0.35);
+      --glow-c:  0 0 40px rgba(0,229,255,0.18);
+      --r:       20px;
+    }
 
-<style>
-:root{
-    --bg:#0f172a;
-    --card:#1e293b;
-    --card-hover:#334155;
-    --text:#f8fafc;
-    --muted:#94a3b8;
-    --primary:#3b82f6;
-}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
+    body {
+      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
 
-body{
-    background:var(--bg);
-    color:var(--text);
-    min-height:100vh;
-}
+    a { color: inherit; text-decoration: none; }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:30px 20px;
-}
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1;
+    }
 
-.header{
-    text-align:center;
-    margin-bottom:40px;
-}
+    /* Blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.12; pointer-events: none; z-index: 0; }
+    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
 
-.header h1{
-    font-size:2.5rem;
-    margin-bottom:15px;
-}
+    .z-wrap { position: relative; z-index: 2; }
 
-.header p{
-    color:var(--muted);
-    font-size:1.1rem;
-}
+    /* ── NAV (ZenTools 2.0 统一导航栏) ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(24px) saturate(180%);
+      background: rgba(6,7,13,0.75);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: auto; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .logo {
+      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a {
+      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
+      color: var(--muted); transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
+    .nav-badge {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000; font-weight: 700; padding: 8px 18px;
+      border-radius: 10px; font-size: 14px; transition: opacity 0.2s;
+    }
+    .nav-badge:hover { opacity: 0.85; color: #000; }
 
-.back{
-    display:inline-block;
-    margin-bottom:30px;
-    color:white;
-    text-decoration:none;
-    background:var(--primary);
-    padding:10px 18px;
-    border-radius:10px;
-}
+    /* ── PAGE HEADER (图片工具箱专用) ── */
+    .page-header {
+      max-width: 1200px; margin: 0 auto;
+      padding: 64px 24px 48px;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted); margin-bottom: 28px;
+    }
+    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--cyan); }
+    .breadcrumb-sep { opacity: 0.3; }
+    .breadcrumb .cur { color: var(--cyan); }
 
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-}
+    .page-eyebrow {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 14px;
+    }
+    .page-header h1 {
+      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
+      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
+    }
+    .page-header h1 .grad {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
 
-.card{
-    background:var(--card);
-    border-radius:16px;
-    padding:25px;
-    transition:.3s;
-    text-decoration:none;
-    color:white;
-}
+    /* ── STATS ROW ── */
+    .stats-row {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 24px 56px;
+      display: flex; gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+    .stat-cell {
+      flex: 1; padding: 28px 24px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell strong {
+      display: block; font-size: 32px; font-weight: 900; line-height: 1;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 6px;
+    }
+    .stat-cell span { font-size: 13px; color: var(--muted); font-weight: 500; }
 
-.card:hover{
-    transform:translateY(-5px);
-    background:var(--card-hover);
-}
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 1200px; margin: 0 auto;
+    }
 
-.icon{
-    font-size:40px;
-    margin-bottom:15px;
-}
+    /* ── TOOLS GRID (图片工具箱卡片) ── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
 
-.card h3{
-    margin-bottom:10px;
-}
+    .section-head { margin-bottom: 40px; }
+    .section-eyebrow {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
+    }
+    .section-head h2 {
+      font-size: clamp(24px, 3vw, 36px); font-weight: 800;
+      letter-spacing: -0.8px; line-height: 1.15;
+    }
 
-.card p{
-    color:var(--muted);
-    line-height:1.6;
-}
+    .tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
-.footer{
-    margin-top:50px;
-    text-align:center;
-    color:var(--muted);
-}
+    .tool-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 18px;
+      padding: 26px; display: flex; flex-direction: column; gap: 12px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      backdrop-filter: blur(8px); position: relative; overflow: hidden;
+    }
+    .tool-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .tool-card:hover {
+      border-color: rgba(0,229,255,0.3); transform: translateY(-4px);
+      box-shadow: var(--glow-c), 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .tool-card:hover::after { opacity: 1; }
 
-@media(max-width:768px){
+    .tool-icon {
+      width: 48px; height: 48px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center; font-size: 24px;
+      background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.15);
+      flex-shrink: 0;
+    }
 
-.header h1{
-    font-size:2rem;
-}
+    .tool-card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.2px; }
 
-}
-</style>
+    .tool-card p { color: var(--muted); font-size: 13px; line-height: 1.65; flex: 1; }
+
+    .tool-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 600; color: var(--cyan);
+      padding: 10px 18px; border-radius: 999px;
+      border: 1px solid rgba(0,229,255,0.2);
+      background: rgba(0,229,255,0.05);
+      transition: background 0.2s, border-color 0.2s, gap 0.2s;
+      width: fit-content; margin-top: 4px;
+    }
+    .tool-link:hover { background: rgba(0,229,255,0.12); border-color: var(--cyan); gap: 11px; }
+    .tool-link svg { width: 13px; height: 13px; transition: transform 0.2s; }
+    .tool-card:hover .tool-link svg { transform: translateX(2px); }
+
+    /* ── TIPS SECTION ── */
+    .tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .tip-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; backdrop-filter: blur(8px);
+    }
+    .tip-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 10px;
+    }
+    .tip-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .tip-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.03s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.07s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.11s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.15s; }
+    .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.19s; }
+    .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.23s; }
+    .reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:translateY(0); transition-delay:0.27s; }
+    .reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:translateY(0); transition-delay:0.31s; }
+    .reveal-stagger.visible > *:nth-child(9) { opacity:1; transform:translateY(0); transition-delay:0.35s; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
+    .footer-inner { max-width: 1200px; margin: auto; }
+    .footer-logo {
+      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-links a {
+      color: var(--muted); font-size: 14px; padding: 6px 12px;
+      border-radius: 8px; transition: color 0.2s, background 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
+    .footer-copy { color: var(--muted); font-size: 13px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .tool-grid { grid-template-columns: repeat(2, 1fr); }
+      .tips-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .tool-grid, .tips-grid { grid-template-columns: 1fr; }
+      .stats-row { flex-direction: column; }
+      .stat-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-cell:last-child { border-bottom: none; }
+      .nav-links .nav-badge { display: none; }
+    }
+    @media (max-width: 420px) {
+      .nav-links a { padding: 6px 10px; font-size: 13px; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-<a href="/" class="back">← 返回首页</a>
+  <div class="z-wrap">
 
-<div class="header">
-    <h1>🖼 图片工具箱</h1>
-    <p>在线图片处理工具集合，无需安装软件</p>
-</div>
+    <!-- NAV (ZenTools 2.0 统一风格) -->
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/">首页</a>
+          <a href="/pdf-tools.html">PDF工具</a>
+          <a href="/image-tools.html" class="active">图片工具</a>
+          <a href="/tutorials/">教程</a>
+          <a class="nav-badge" href="#tools">全部图片工具 →</a>
+        </div>
+      </div>
+    </nav>
 
-<div class="grid">
+    <!-- PAGE HEADER 图片工具箱专属 -->
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur">图片工具箱</span>
+      </div>
+      <span class="page-eyebrow">ZenTools 创意工坊</span>
+      <h1><span class="grad">图片工具箱</span><br />一站式图像处理</h1>
+      <p>9 款专业图片处理工具，压缩、裁剪、水印、抠图、格式转换等，完全本地运行，保护隐私，永久免费。</p>
+    </div>
 
-<a href="compress.html" class="card">
-    <div class="icon">📦</div>
-    <h3>图片压缩</h3>
-    <p>压缩 JPG、PNG 图片体积，减少文件大小。</p>
-</a>
+    <!-- STATS 数据栏 -->
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px 56px;">
+      <div class="stats-row reveal">
+        <div class="stat-cell"><strong>9</strong><span>图片工具</span></div>
+        <div class="stat-cell"><strong>本地处理</strong><span>隐私保障</span></div>
+        <div class="stat-cell"><strong>免费</strong><span>无限制</span></div>
+        <div class="stat-cell"><strong>高质量</strong><span>无损输出</span></div>
+      </div>
+    </div>
 
-<a href="resize.html" class="card">
-    <div class="icon">📐</div>
-    <h3>图片尺寸调整</h3>
-    <p>快速修改图片宽度和高度。</p>
-</a>
+    <div class="divider"></div>
 
-<a href="crop.html" class="card">
-    <div class="icon">✂️</div>
-    <h3>图片裁剪</h3>
-    <p>自由裁剪图片区域。</p>
-</a>
+    <!-- 主要工具网格：9款工具完全基于原始需求，全部保留 -->
+    <div class="section" id="tools">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">图像处理套件</span>
+        <h2>9 款专业图片工具，即点即用</h2>
+      </div>
 
-<a href="convert.html" class="card">
-    <div class="icon">🔄</div>
-    <h3>图片格式转换</h3>
-    <p>JPG、PNG、WEBP 等格式互转。</p>
-</a>
+      <div class="tool-grid reveal-stagger">
+        <!-- 1. 图片压缩 -->
+        <div class="tool-card">
+          <div class="tool-icon">📦</div>
+          <h3>图片压缩</h3>
+          <p>智能压缩 JPG、PNG 图片体积，减少文件大小，画质优先可选。</p>
+          <a class="tool-link" href="compress.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-<a href="watermark.html" class="card">
-    <div class="icon">💧</div>
-    <h3>图片加水印</h3>
-    <p>添加文字或图片水印。</p>
-</a>
+        <!-- 2. 尺寸调整 -->
+        <div class="tool-card">
+          <div class="tool-icon">📐</div>
+          <h3>图片尺寸调整</h3>
+          <p>按比例或自定义宽高快速修改图片分辨率，适配各种场景。</p>
+          <a class="tool-link" href="resize.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-<a href="remove-bg.html" class="card">
-    <div class="icon">🎭</div>
-    <h3>背景移除</h3>
-    <p>智能抠图与背景透明化。</p>
-</a>
+        <!-- 3. 图片裁剪 -->
+        <div class="tool-card">
+          <div class="tool-icon">✂️</div>
+          <h3>图片裁剪</h3>
+          <p>自由区域裁剪或预设比例，精准去除多余背景。</p>
+          <a class="tool-link" href="crop.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-<a href="image-to-pdf.html" class="card">
-    <div class="icon">📄</div>
-    <h3>图片转PDF</h3>
-    <p>将图片转换为 PDF 文件。</p>
-</a>
+        <!-- 4. 格式转换 -->
+        <div class="tool-card">
+          <div class="tool-icon">🔄</div>
+          <h3>图片格式转换</h3>
+          <p>JPG、PNG、WEBP、BMP 互转，高质量输出。</p>
+          <a class="tool-link" href="convert.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-<a href="pdf-to-image.html" class="card">
-    <div class="icon">🖼</div>
-    <h3>PDF转图片</h3>
-    <p>将 PDF 页面导出为图片。</p>
-</a>
+        <!-- 5. 加水印 -->
+        <div class="tool-card">
+          <div class="tool-icon">💧</div>
+          <h3>图片加水印</h3>
+          <p>添加文字水印或图片水印，自定义透明度与位置，版权保护。</p>
+          <a class="tool-link" href="watermark.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-<a href="qr-generator.html" class="card">
-    <div class="icon">🔳</div>
-    <h3>二维码生成器</h3>
-    <p>生成文本、网址二维码。</p>
-</a>
+        <!-- 6. 背景移除 -->
+        <div class="tool-card">
+          <div class="tool-icon">🎭</div>
+          <h3>背景移除</h3>
+          <p>智能 AI 抠图，一键去除背景，生成透明 PNG。</p>
+          <a class="tool-link" href="remove-bg.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-</div>
+        <!-- 7. 图片转PDF -->
+        <div class="tool-card">
+          <div class="tool-icon">📄</div>
+          <h3>图片转PDF</h3>
+          <p>多张图片合并为一个 PDF，支持排序、页面尺寸设置。</p>
+          <a class="tool-link" href="image-to-pdf.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-<div class="footer">
-    © 2026 ZenTools 图片工具箱
-</div>
+        <!-- 8. PDF转图片 -->
+        <div class="tool-card">
+          <div class="tool-icon">🖼️</div>
+          <h3>PDF转图片</h3>
+          <p>将 PDF 每一页导出为高清图片，支持 PNG/JPG。</p>
+          <a class="tool-link" href="pdf-to-image.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
 
-</div>
+        <!-- 9. 二维码生成器 -->
+        <div class="tool-card">
+          <div class="tool-icon">🔳</div>
+          <h3>二维码生成器</h3>
+          <p>文本、网址、名片一键生成二维码，支持下载高清 SVG/PNG。</p>
+          <a class="tool-link" href="qr-generator.html">打开工具<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+        </div>
+      </div>
+    </div>
 
+    <div class="divider"></div>
+
+    <!-- TIPS 说明区块 贴合图片工具特色 -->
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">隐私·速度·无限</span>
+        <h2>为什么选择 ZenTools 图片处理</h2>
+      </div>
+
+      <div class="tips-grid reveal-stagger">
+        <div class="tip-card">
+          <div class="tip-num">01 · 完全本地处理</div>
+          <h4>不上传服务器</h4>
+          <p>所有图片处理均在浏览器端完成，无服务器上传风险，敏感图片更安全。</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">02 · 无限制免费</div>
+          <h4>不限次数无水印</h4>
+          <p>无需注册，不限制文件大小或数量，所有工具永久免费，无隐形收费。</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">03 · 极速高效</div>
+          <h4>现代 Web 技术</h4>
+          <p>基于 Canvas、WebAssembly 等前沿技术，处理速度飞快，体验流畅。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER 与 ZenTools 2.0 一致 -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/pdf-tools.html">PDF工具</a>
+          <a href="/image-tools.html">图片工具</a>
+          <a href="/tutorials/">教程中心</a>
+          <a href="/privacy.html">隐私政策</a>
+        </div>
+        <p class="footer-copy">© 2026 ZenTools. 免费在线图片工具箱，持续更新，为创作赋能。</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <script>
+    /* Scroll reveal */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+    /* 动态Blob效果延续 ZenTools 视觉 */
+    let t = 0;
+    const b1 = document.querySelector('.blob-1');
+    const b2 = document.querySelector('.blob-2');
+    function animateBlobs() {
+      t += 0.0028;
+      if (b1) b1.style.transform = `translate(${Math.sin(t) * 28}px, ${Math.cos(t * 0.75) * 18}px)`;
+      if (b2) b2.style.transform = `translate(${Math.cos(t * 0.85) * 22}px, ${Math.sin(t) * 20}px)`;
+      requestAnimationFrame(animateBlobs);
+    }
+    animateBlobs();
+
+    // 优雅跟随光效 (桌面端)
+    const addGlowCursor = () => {
+      const glow = document.createElement('div');
+      glow.style.position = 'fixed';
+      glow.style.width = '220px';
+      glow.style.height = '220px';
+      glow.style.background = 'radial-gradient(circle, rgba(0,229,255,0.07) 0%, rgba(168,85,247,0) 70%)';
+      glow.style.borderRadius = '50%';
+      glow.style.pointerEvents = 'none';
+      glow.style.zIndex = '0';
+      glow.style.transition = 'transform 0.08s linear';
+      document.body.appendChild(glow);
+      document.addEventListener('mousemove', (e) => {
+        glow.style.transform = `translate(${e.clientX - 110}px, ${e.clientY - 110}px)`;
+      });
+    };
+    if (window.matchMedia('(pointer: fine)').matches && window.innerWidth > 768) {
+      addGlowCursor();
+    }
+  </script>
 </body>
 </html>
