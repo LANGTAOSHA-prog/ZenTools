@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>图片工具箱 - ZenTools</title>
-<script src="/assets/js/tools-data.js"></script>
-<!-- 引入统一数据源 -->
-<script src="/assets/js/tools-data.js"></script>
 
 <style>
 :root{
@@ -45,6 +42,10 @@ body{
 .header h1{
     font-size:2.5rem;
     margin-bottom:15px;
+    background: linear-gradient(135deg, #fff, #60a5fa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .header p{
@@ -60,10 +61,12 @@ body{
     background:var(--primary);
     padding:10px 18px;
     border-radius:10px;
+    transition: all 0.2s;
 }
 
 .back:hover{
     background:#2563eb;
+    transform: translateX(-4px);
 }
 
 .grid{
@@ -79,7 +82,6 @@ body{
     transition:.3s;
     text-decoration:none;
     color:white;
-    display:block;
 }
 
 .card:hover{
@@ -99,14 +101,6 @@ body{
 .card p{
     color:var(--muted);
     line-height:1.6;
-}
-
-.empty-msg{
-    text-align:center;
-    padding:60px 20px;
-    background:var(--card);
-    border-radius:16px;
-    color:var(--muted);
 }
 
 .footer{
@@ -129,108 +123,84 @@ body{
 <a href="/" class="back">← 返回首页</a>
 
 <div class="header">
-    <h1>🖼 图片工具箱</h1>
-    <p>在线图片处理工具集合，无需安装软件</p>
+    <h1>🖼️ 图片工具箱</h1>
+    <p>在线图片处理工具集合，无需安装软件，全部本地处理</p>
 </div>
 
-<div class="grid" id="toolsGrid">
-    <!-- 动态加载工具卡片 -->
-    <div class="empty-msg">加载中...</div>
+<div class="grid">
+    <!-- 图片压缩（核心工具，重点突出） -->
+    <a href="compress.html" class="card">
+        <div class="icon">📦</div>
+        <h3>图片压缩</h3>
+        <p>压缩 JPG、PNG、WebP 图片体积，减少文件大小。</p>
+    </a>
+
+    <a href="resize.html" class="card">
+        <div class="icon">📐</div>
+        <h3>图片尺寸调整</h3>
+        <p>快速修改图片宽度和高度。</p>
+    </a>
+
+    <a href="crop.html" class="card">
+        <div class="icon">✂️</div>
+        <h3>图片裁剪</h3>
+        <p>自由裁剪图片区域。</p>
+    </a>
+
+    <a href="convert.html" class="card">
+        <div class="icon">🔄</div>
+        <h3>图片格式转换</h3>
+        <p>JPG、PNG、WEBP 等格式互转。</p>
+    </a>
+
+    <a href="watermark.html" class="card">
+        <div class="icon">💧</div>
+        <h3>图片加水印</h3>
+        <p>添加文字或图片水印。</p>
+    </a>
+
+    <a href="remove-bg.html" class="card">
+        <div class="icon">🎭</div>
+        <h3>背景移除</h3>
+        <p>智能抠图与背景透明化。</p>
+    </a>
+
+    <a href="imgtopdf.html" class="card">
+        <div class="icon">📄</div>
+        <h3>图片转PDF</h3>
+        <p>将图片转换为 PDF 文件。</p>
+    </a>
+
+    <a href="imagebase64.html" class="card">
+        <div class="icon">🔢</div>
+        <h3>图片转Base64</h3>
+        <p>将图片转换为 Base64 编码。</p>
+    </a>
+
+    <a href="colorpicker.html" class="card">
+        <div class="icon">🎨</div>
+        <h3>颜色选择器</h3>
+        <p>屏幕取色，获取颜色代码。</p>
+    </a>
+
+    <a href="collage.html" class="card">
+        <div class="icon">🖼️</div>
+        <h3>图片拼贴</h3>
+        <p>多张图片拼贴成一张。</p>
+    </a>
+
+    <a href="video-thumbnail.html" class="card">
+        <div class="icon">🎬</div>
+        <h3>视频缩略图</h3>
+        <p>从视频中提取缩略图。</p>
+    </a>
 </div>
 
 <div class="footer">
-    © 2026 ZenTools 图片工具箱
+    © 2026 ZenTools 图片工具箱 | 所有处理均在本地完成，不上传服务器
 </div>
 
 </div>
 
-<script>
-  // 年份自动更新
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // 主题切换
-  function initTheme() {
-    const s = localStorage.getItem('zh_theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', s);
-    const btn = document.getElementById('themeBtn');
-    if (btn) btn.textContent = s === 'dark' ? '☀️ 亮色' : '🌙 暗色';
-  }
-  
-  function toggleTheme() {
-    const c = document.documentElement.getAttribute('data-theme');
-    const n = c === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', n);
-    localStorage.setItem('zh_theme', n);
-    const btn = document.getElementById('themeBtn');
-    if (btn) btn.textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
-  }
-  
-  initTheme();
-
-  // 返回顶部按钮
-  const bt = document.getElementById('backTop');
-  if (bt) {
-    window.addEventListener('scroll', () => bt.classList.toggle('visible', scrollY > 400), { passive: true });
-  }
-
-  // ========== 动态渲染工具卡片（从 tools-data.js 读取）==========
-  // 等待 DOM 加载完成
-  document.addEventListener('DOMContentLoaded', function() {
-    const toolsContainer = document.querySelector('.tools-grid');
-    if (!toolsContainer) return;
-    
-    // 检查 toolsData 是否存在（由 assets/js/tools-data.js 定义）
-    if (typeof toolsData === 'undefined') {
-      console.warn('toolsData 未加载，请确保 assets/js/tools-data.js 已引入');
-      return;
-    }
-    
-    // 选取需要展示的工具（featured 为 true 的工具，最多显示 8 个）
-    const featuredTools = toolsData.filter(tool => tool.featured === true).slice(0, 8);
-    
-    // 如果没有 featured 标记，则显示前 8 个
-    const toolsToShow = featuredTools.length > 0 ? featuredTools : toolsData.slice(0, 8);
-    
-    // 生成工具卡片 HTML
-    let toolsHtml = '';
-    for (const tool of toolsToShow) {
-      // 处理 URL：如果已经是完整路径则直接使用，否则补全 / 前缀
-      let toolUrl = tool.url;
-      if (toolUrl && !toolUrl.startsWith('http') && !toolUrl.startsWith('/')) {
-        toolUrl = '/' + toolUrl;
-      }
-      
-      toolsHtml += `
-        <a class="tool-card" href="${toolUrl}" target="_blank" title="${tool.description || tool.name}">
-          <div class="tool-emoji">${tool.icon || '🔧'}</div>
-          <div class="tool-name">${escapeHtml(tool.name)}</div>
-          <div class="tool-desc">${escapeHtml(tool.description || '点击使用工具')}</div>
-          <span class="tool-tag">${escapeHtml(tool.category || '工具')}</span>
-        </a>
-      `;
-    }
-    
-    // 添加"查看全部"卡片
-    toolsHtml += `
-      <a class="tool-card" href="/plugins-preview.html" target="_blank" title="查看全部工具">
-        <div class="tool-emoji">⭐</div>
-        <div class="tool-name">查看全部</div>
-        <div class="tool-desc">浏览更多工具</div>
-        <span class="tool-tag">工具箱</span>
-      </a>
-    `;
-    
-    toolsContainer.innerHTML = toolsHtml;
-  });
-  
-  // 简单的防XSS辅助函数
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
-  }
-</script>
+</body>
+</html>
