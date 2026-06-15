@@ -18,8 +18,8 @@
       --border-bright: rgba(255,255,255,0.08);
       --text: #e6eef8;
       --muted: #93a3b8;
-      --accent: #06b6d4; /* cyan */
-      --accent2: #fb923c; /* warm accent */
+      --accent: #06b6d4;
+      --accent2: #fb923c;
       --accent3: #7c3aed;
       --green: #10b981;
       --yellow: #f59e0b;
@@ -47,7 +47,6 @@
     ::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 5px; }
     [data-theme="light"] ::-webkit-scrollbar-thumb { background: #c8d0dc; }
 
-    /* ══ NAV ══ */
     .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 0 24px; }
     .nav-inner {
       max-width: 1080px; margin: 14px auto 0;
@@ -64,7 +63,6 @@
     .theme-btn { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: var(--radius-pill); padding: 6px 13px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); transition: all .2s; white-space: nowrap; }
     .theme-btn:hover { border-color: var(--accent); }
 
-    /* ══ HERO ══ */
     .hero { min-height: 88vh; position: relative; overflow: hidden; padding: 110px 24px 60px; }
     [data-theme="light"] .hero { background: linear-gradient(160deg, #071220 0%, #0c1e30 100%); }
     .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 65% 55% at 20% 50%, rgba(14,165,233,.13) 0%, transparent 55%), radial-gradient(ellipse 55% 45% at 80% 25%, rgba(20,184,166,.1) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 55% 85%, rgba(99,102,241,.08) 0%, transparent 55%); pointer-events: none; }
@@ -75,7 +73,6 @@
     .orb-3 { width: 200px; height: 200px; background: var(--accent3); opacity: .13; bottom: 22%; left: 28%; animation-delay: -6s; }
     @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);} }
 
-    /* split hero: left text, right card */
     .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 420px; gap: 28px; align-items: center; }
     .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(6,182,212,.14); background: rgba(6,182,212,.06); color: var(--accent); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: var(--radius-pill); margin-bottom: 18px; letter-spacing: .8px; text-transform: uppercase; }
     .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
@@ -91,13 +88,11 @@
     .btn-outline { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: #fff; padding: 12px 26px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
     .btn-outline:hover { background: rgba(255,255,255,.07); }
 
-    /* hero intro card */
     .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; max-width: 420px; justify-self: end; box-shadow: 0 18px 40px rgba(2,6,23,0.45); text-align: left; }
     [data-theme="light"] .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.88)); border-color: rgba(0,0,0,0.06); }
     .hero-card p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.8; }
     .hero-card p + p { margin-top: 12px; }
 
-    /* ══ SECTION WRAPPER ══ */
     .section-wrap { max-width: 1080px; margin: 96px auto 0; padding: 0 24px; }
     .section-head { margin-bottom: 28px; }
     .s-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
@@ -105,7 +100,6 @@
     .s-title { font-size: 26px; font-weight: 800; letter-spacing: -.6px; color: var(--text); }
     .s-sub { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
 
-    /* ══ ABOUT BLOCK ══ */
     .about-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; }
     .about-box::before { content:''; position:absolute; width:280px; height:280px; background:radial-gradient(circle,rgba(14,165,233,.1) 0%,transparent 70%); top:-80px; right:-60px; pointer-events:none; }
     .about-box p { font-size: 15px; color: var(--muted); line-height: 1.85; position: relative; }
@@ -115,7 +109,6 @@
     .notice-bar p { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
     .notice-bar strong { color: var(--text); }
 
-    /* ══ RECORDS GRID ══ */
     .records-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .rec-card { background: linear-gradient(180deg, var(--surface), var(--surface2)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; }
     .rec-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
@@ -133,9 +126,8 @@
     .rec-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; transition: gap .18s; }
     .rec-card:hover .rec-link { gap: 8px; }
 
-    /* ══ TOOLS GRID ══ */
     .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .tool-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; }
+    .tool-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; text-decoration: none; }
     .tool-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
     .tool-card:hover { transform: translateY(-8px); box-shadow: 0 28px 60px rgba(2,6,23,0.5); }
     .tool-card:hover::after { opacity: 1; }
@@ -145,25 +137,20 @@
     .tool-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.08); border-radius: 8px; padding: 6px 12px; }
     .tool-card.coming-soon { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
     .tool-card.coming-soon .tool-tag { color: var(--muted); background: rgba(122,132,153,.12); border-color: rgba(122,132,153,.2); }
-    .tool-card.coming-soon::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 48%, rgba(122,132,153,.3) 50%, transparent 52%); pointer-events: none; }
 
-    /* ══ STATEMENT ══ */
     .stmt-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; }
     .stmt-box p { font-size: 15px; color: var(--muted); line-height: 1.85; }
     .stmt-box p + p { margin-top: 14px; }
 
-    /* ══ FOOTER ══ */
     .footer { max-width: 1080px; margin: 80px auto 0; padding: 24px 24px 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--text); }
     .footer-right { font-size: 12px; color: var(--muted); text-align: right; line-height: 1.8; }
 
-    /* ══ BACK TO TOP ══ */
     .back-top { position: fixed; bottom: 26px; right: 26px; z-index: 300; width: 42px; height: 42px; border-radius: 12px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
     [data-theme="light"] .back-top { background: rgba(255,255,255,.92); }
     .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
     .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 18px rgba(14,165,233,.4); }
 
-    /* ══ RESPONSIVE ══ */
     @media(max-width: 900px) { 
       .records-grid { grid-template-columns: repeat(2,1fr); }
       .tools-grid { grid-template-columns: repeat(2,1fr); }
@@ -171,7 +158,6 @@
     @media(max-width: 640px) {
       .nav-right a:not(:last-child):not(.theme-btn) { display: none; }
       .hero { padding: 110px 16px 56px; }
-      .hero h1 { letter-spacing: -1.5px; }
       .hero-card { padding: 20px; }
       .records-grid { grid-template-columns: 1fr; }
       .tools-grid { grid-template-columns: 1fr; }
@@ -184,7 +170,6 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="nav-wrap">
   <div class="nav-inner">
     <div class="nav-logo">
@@ -202,7 +187,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-dots"></div>
@@ -225,7 +209,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <div class="section-wrap" id="about">
   <div class="section-head">
     <div class="s-chip">关于本站</div>
@@ -242,7 +225,6 @@
   </div>
 </div>
 
-<!-- RECORDS -->
 <div class="section-wrap" id="records">
   <div class="section-head">
     <div class="s-chip">记录内容</div>
@@ -250,60 +232,52 @@
     <div class="s-sub">围绕个人学习、网页制作、文件处理与效率方法展开</div>
   </div>
   <div class="records-grid">
-<a class="rec-card" href="articles/my-first-pdf-tool.html">
-  <div class="rec-icon ic-green">📄</div>
-  <div class="rec-title">我的第一个 PDF 工具</div>
-  <div class="rec-desc">
-    记录从零开始使用 VS Code 编写第一个 PDF 工具的过程、遇到的问题以及解决方法。
-  </div>
-  <span class="rec-link">查看内容 →</span>
-</a>
+    <a class="rec-card" href="articles/my-first-pdf-tool.html">
+      <div class="rec-icon ic-green">📄</div>
+      <div class="rec-title">我的第一个 PDF 工具</div>
+      <div class="rec-desc">记录从零开始使用 VS Code 编写第一个 PDF 工具的过程、遇到的问题以及解决方法。</div>
+      <span class="rec-link">查看内容 →</span>
+    </a>
     <a class="rec-card" href="notes.html">
       <div class="rec-icon ic-blue">📘</div>
       <div class="rec-title">个人学习笔记</div>
       <div class="rec-desc">记录日常学习过程中遇到的问题、理解过程和整理心得。</div>
       <span class="rec-link">查看内容 →</span>
     </a>
-
     <a class="rec-card" href="articles/web-design-notes.html">
       <div class="rec-icon ic-indigo">💻</div>
       <div class="rec-title">网页制作记录</div>
       <div class="rec-desc">整理网页排版、页面结构、样式调整和常见问题处理方法。</div>
       <span class="rec-link">查看内容 →</span>
     </a>
-
     <a class="rec-card" href="file-processing.html">
       <div class="rec-icon ic-teal">📄</div>
       <div class="rec-title">文件处理经验</div>
       <div class="rec-desc">记录文档整理、文件保存、格式处理等日常操作经验。</div>
       <span class="rec-link">查看内容 →</span>
     </a>
-
     <a class="rec-card" href="image-organize.html">
       <div class="rec-icon ic-amber">🖼️</div>
       <div class="rec-title">图片整理方法</div>
       <div class="rec-desc">整理图片排版、尺寸调整、简单处理和保存方面的经验。</div>
       <span class="rec-link">查看内容 →</span>
     </a>
-
     <a class="rec-card" href="efficiency.html">
       <div class="rec-icon ic-green">⏱️</div>
       <div class="rec-title">日常效率技巧</div>
       <div class="rec-desc">记录一些提升日常学习和资料整理效率的小方法。</div>
       <span class="rec-link">查看内容 →</span>
     </a>
-
     <a class="rec-card" href="examples.html">
       <div class="rec-icon ic-rose">🧩</div>
       <div class="rec-title">简单页面示例</div>
       <div class="rec-desc">保存一些个人制作的小页面示例，方便以后查看和修改。</div>
       <span class="rec-link">查看内容 →</span>
     </a>
-
   </div>
 </div>
 
-<!-- TOOLS -->
+<!-- ZenTools 工具箱 - 修正后的完整代码 -->
 <div class="section-wrap" id="tools">
   <div class="section-head">
     <div class="s-chip">免费工具</div>
@@ -311,41 +285,31 @@
     <div class="s-sub">精选免费在线工具，一站式解决日常工作需求</div>
   </div>
   <div class="tools-grid">
-    <a class="tool-card" href="pdf/index.html" title="合并多个PDF文件">
+    <!-- PDF 合并 - 链接到 /zentools/pdf/merge.html -->
+    <a class="tool-card" href="/zentools/pdf/merge.html" target="_blank" title="合并多个PDF文件">
       <div class="tool-emoji">📄</div>
       <div class="tool-name">PDF 合并</div>
       <div class="tool-desc">快速合并多个 PDF 文件</div>
       <span class="tool-tag">PDF 工具</span>
     </a>
 
-     <a class="tool-card" href="<div class="s-sub">精选免费在线工具，一站式解决日常工作需求</div>
-  </div>
-  <div class="tools-grid">
-    <a class="tool-card" href="pdf/index.html" title="合并多个PDF文件">
-      <div class="tool-emoji">📄</div>
-      <div class="tool-name">PDF 合并</div>
-      <div class="tool-desc">快速合并多个 PDF 文件</div>
-      <span class="tool-tag">PDF 工具</span>
+    <!-- 图片压缩 - 链接到 /zentools/image/compress.html -->
+    <a class="tool-card" href="/zentools/image/compress.html" target="_blank" title="图片工具">
+      <div class="tool-emoji">🖼️</div>
+      <div class="tool-name">图片压缩</div>
+      <div class="tool-desc">压缩 JPG、PNG、WebP 格式</div>
+      <span class="tool-tag">NEW</span>
     </a>
 
-     <a class="tool-card" href="image/index.html" title="图片工具">
-  <div class="tool-emoji">🖼️</div>
-  <div class="tool-name">图片压缩</div>
-  <div class="tool-desc">压缩 JPG、PNG、WebP 格式</div>
-  <span class="tool-tag">NEW</span>
-</a>" title="图片工具">
-  <div class="tool-emoji">🖼️</div>
-  <div class="tool-name">图片压缩</div>
-  <div class="tool-desc">压缩 JPG、PNG、WebP 格式</div>
-  <span class="tool-tag">NEW</span>
-</a>
-    <div class="tool-card "  href="dev/index.html” title="dev工具">
+    <!-- JSON 格式化 - 链接到 /zentools/dev/json/index.html -->
+    <a class="tool-card" href="/zentools/dev/json/index.html" target="_blank" title="JSON工具">
       <div class="tool-emoji">{ }</div>
       <div class="tool-name">JSON 格式化</div>
       <div class="tool-desc">格式化和验证 JSON 数据</div>
       <span class="tool-tag">NEW</span>
-    </div>
+    </a>
 
+    <!-- 二维码生成 - 学习中，不可点击 -->
     <div class="tool-card coming-soon" title="敬请期待">
       <div class="tool-emoji">📱</div>
       <div class="tool-name">二维码生成</div>
@@ -353,6 +317,7 @@
       <span class="tool-tag">学习中</span>
     </div>
 
+    <!-- 字数统计 - 学习中，不可点击 -->
     <div class="tool-card coming-soon" title="敬请期待">
       <div class="tool-emoji">📊</div>
       <div class="tool-name">字数统计</div>
@@ -360,6 +325,7 @@
       <span class="tool-tag">学习中</span>
     </div>
 
+    <!-- Base64 编码 - 学习中，不可点击 -->
     <div class="tool-card coming-soon" title="敬请期待">
       <div class="tool-emoji">🔐</div>
       <div class="tool-name">Base64 编码</div>
@@ -367,6 +333,7 @@
       <span class="tool-tag">学习中</span>
     </div>
 
+    <!-- 汇率换算 - 学习中，不可点击 -->
     <div class="tool-card coming-soon" title="敬请期待">
       <div class="tool-emoji">💱</div>
       <div class="tool-name">汇率换算</div>
@@ -374,7 +341,8 @@
       <span class="tool-tag">学习中</span>
     </div>
 
-    <a class="tool-card" href="plugins-preview.html" title="查看全部工具">
+    <!-- 查看全部 - 链接到 /zentools/index.html 工具集总览页 -->
+    <a class="tool-card" href="/zentools/index.html" target="_blank" title="查看全部工具">
       <div class="tool-emoji">⭐</div>
       <div class="tool-name">查看全部</div>
       <div class="tool-desc">浏览更多工具</div>
@@ -383,7 +351,6 @@
   </div>
 </div>
 
-<!-- STATEMENT -->
 <div class="section-wrap" id="statement">
   <div class="section-head">
     <div class="s-chip">网站说明</div>
@@ -399,26 +366,17 @@
     </div>
   </div>
 </div>
-<!-- FOOTER -->
+
 <footer class="footer">
   <div class="footer-logo">
     <div class="logo-mark" style="width:24px;height:24px;font-size:12px;border-radius:7px;">⛵</div>
     江湖小站-Zentools
   </div>
-
   <div class="footer-right">
     <div>© <span id="year"></span> 江湖小站-ZenTools</div>
-
+    <div>个人学习记录与经验整理页面 · 不涉及经营性互联网信息服务</div>
     <div>
-      个人学习记录与经验整理页面 · 不涉及经营性互联网信息服务
-    </div>
-
-    <div>
-      <a
-        href="https://beian.miit.gov.cn/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
         鲁ICP备2026030242号-1
       </a>
     </div>
@@ -430,22 +388,24 @@
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
-  /* theme */
   function initTheme() {
     const s = localStorage.getItem('zh_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', s);
-    document.getElementById('themeBtn').textContent = s === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = s === 'dark' ? '☀️ 亮色' : '🌙 暗色';
   }
+  
   function toggleTheme() {
     const c = document.documentElement.getAttribute('data-theme');
     const n = c === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', n);
     localStorage.setItem('zh_theme', n);
-    document.getElementById('themeBtn').textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
   }
+  
   initTheme();
 
-  /* back to top */
   const bt = document.getElementById('backTop');
   window.addEventListener('scroll', () => bt.classList.toggle('visible', scrollY > 400), { passive: true });
 </script>
