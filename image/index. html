@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>图片工具箱 - ZenTools</title>
 
+<!-- 引入统一数据源 -->
+<script src="/assets/js/tools-data.js"></script>
+
 <style>
 :root{
     --bg:#0f172a;
@@ -59,6 +62,10 @@ body{
     border-radius:10px;
 }
 
+.back:hover{
+    background:#2563eb;
+}
+
 .grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -72,6 +79,7 @@ body{
     transition:.3s;
     text-decoration:none;
     color:white;
+    display:block;
 }
 
 .card:hover{
@@ -93,6 +101,14 @@ body{
     line-height:1.6;
 }
 
+.empty-msg{
+    text-align:center;
+    padding:60px 20px;
+    background:var(--card);
+    border-radius:16px;
+    color:var(--muted);
+}
+
 .footer{
     margin-top:50px;
     text-align:center;
@@ -100,11 +116,9 @@ body{
 }
 
 @media(max-width:768px){
-
-.header h1{
-    font-size:2rem;
-}
-
+    .header h1{
+        font-size:2rem;
+    }
 }
 </style>
 </head>
@@ -119,62 +133,9 @@ body{
     <p>在线图片处理工具集合，无需安装软件</p>
 </div>
 
-<div class="grid">
-
-<a href="compress.html" class="card">
-    <div class="icon">📦</div>
-    <h3>图片压缩</h3>
-    <p>压缩 JPG、PNG 图片体积，减少文件大小。</p>
-</a>
-
-<a href="resize.html" class="card">
-    <div class="icon">📐</div>
-    <h3>图片尺寸调整</h3>
-    <p>快速修改图片宽度和高度。</p>
-</a>
-
-<a href="crop.html" class="card">
-    <div class="icon">✂️</div>
-    <h3>图片裁剪</h3>
-    <p>自由裁剪图片区域。</p>
-</a>
-
-<a href="convert.html" class="card">
-    <div class="icon">🔄</div>
-    <h3>图片格式转换</h3>
-    <p>JPG、PNG、WEBP 等格式互转。</p>
-</a>
-
-<a href="watermark.html" class="card">
-    <div class="icon">💧</div>
-    <h3>图片加水印</h3>
-    <p>添加文字或图片水印。</p>
-</a>
-
-<a href="remove-bg.html" class="card">
-    <div class="icon">🎭</div>
-    <h3>背景移除</h3>
-    <p>智能抠图与背景透明化。</p>
-</a>
-
-<a href="image-to-pdf.html" class="card">
-    <div class="icon">📄</div>
-    <h3>图片转PDF</h3>
-    <p>将图片转换为 PDF 文件。</p>
-</a>
-
-<a href="pdf-to-image.html" class="card">
-    <div class="icon">🖼</div>
-    <h3>PDF转图片</h3>
-    <p>将 PDF 页面导出为图片。</p>
-</a>
-
-<a href="qr-generator.html" class="card">
-    <div class="icon">🔳</div>
-    <h3>二维码生成器</h3>
-    <p>生成文本、网址二维码。</p>
-</a>
-
+<div class="grid" id="toolsGrid">
+    <!-- 动态加载工具卡片 -->
+    <div class="empty-msg">加载中...</div>
 </div>
 
 <div class="footer">
@@ -182,6 +143,63 @@ body{
 </div>
 
 </div>
+
+<script>
+// 动态渲染图片工具卡片
+function renderImageTools() {
+    const container = document.getElementById('toolsGrid');
+    if (!container) return;
+    
+    // 检查 toolsData 是否存在
+    if (typeof toolsData === 'undefined') {
+        container.innerHTML = '<div class="empty-msg">❌ 数据加载失败，请检查 assets/js/tools-data.js 是否存在</div>';
+        return;
+    }
+    
+    // 筛选分类为 "图片工具" 的工具
+    const imageTools = toolsData.filter(tool => tool.category === '图片工具');
+    
+    if (imageTools.length === 0) {
+        container.innerHTML = '<div class="empty-msg">📭 暂无图片工具，敬请期待</div>';
+        return;
+    }
+    
+    // 生成工具卡片 HTML
+    let toolsHtml = '';
+    for (const tool of imageTools) {
+        // 处理 URL：如果是相对路径，基于当前页面位置补全
+        let toolUrl = tool.url;
+        if (toolUrl && !toolUrl.startsWith('http') && !toolUrl.startsWith('/')) {
+            // 图片工具箱页面在 /image/ 目录下，所以相对路径直接使用
+            toolUrl = tool.url;
+        }
+        
+        toolsHtml += `
+            <a href="${toolUrl}" class="card">
+                <div class="icon">${tool.icon || '🖼️'}</div>
+                <h3>${escapeHtml(tool.name)}</h3>
+                <p>${escapeHtml(tool.description || '点击使用工具')}</p>
+            </a>
+        `;
+    }
+    
+    container.innerHTML = toolsHtml;
+}
+
+// 简单的防XSS辅助函数
+function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+// 页面加载完成后渲染
+document.addEventListener('DOMContentLoaded', renderImageTools);
+</script>
 
 </body>
 </html>
