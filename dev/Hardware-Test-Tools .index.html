@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>硬件测试工具箱 - ZenTools | 摄像头/键盘/麦克风/鼠标/屏幕检测</title>
+  <meta name="description" content="ZenTools 硬件测试工具箱：在线摄像头测试、键盘测试、麦克风测试、鼠标测试、屏幕检测，全部免费本地运行，无需安装。" />
+  <meta name="keywords" content="硬件测试,摄像头测试,键盘测试,麦克风测试,鼠标测试,屏幕检测,在线工具" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #071026;
+      --surface: #0c1320;
+      --surface2: #0f1a2a;
+      --border: rgba(255,255,255,0.04);
+      --border-bright: rgba(255,255,255,0.08);
+      --text: #e6eef8;
+      --muted: #93a3b8;
+      --accent: #06b6d4;
+      --accent2: #fb923c;
+      --accent3: #7c3aed;
+      --green: #10b981;
+      --yellow: #f59e0b;
+      --radius: 12px;
+      --radius-sm: 10px;
+      --radius-pill: 999px;
+      --shadow: 0 18px 40px -14px rgba(2,6,23,0.6);
+    }
+    [data-theme="light"] {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #f5f7fa;
+      --border: rgba(0,0,0,0.07);
+      --border-bright: rgba(0,0,0,0.12);
+      --text: #0d1117;
+      --muted: #556070;
+      --shadow: 0 8px 32px -8px rgba(14,165,233,0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 5px; }
+    [data-theme="light"] ::-webkit-scrollbar-thumb { background: #c8d0dc; }
+
+    /* 导航响应式 */
+    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 0 16px; }
+    @media (min-width: 768px) { .nav-wrap { padding: 0 24px; } }
+    .nav-inner {
+      max-width: 1080px; margin: 14px auto 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; box-shadow: var(--shadow);
+    }
+    @media (min-width: 768px) { .nav-inner { padding: 10px 20px; } }
+    [data-theme="light"] .nav-inner { background: rgba(255,255,255,0.85); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; color: var(--text); letter-spacing: .5px; }
+    @media (min-width: 480px) { .nav-logo { font-size: 17px; } }
+    .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 0 14px rgba(14,165,233,.35); flex-shrink: 0; }
+    .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+    @media (min-width: 640px) { .nav-right { gap: 20px; } }
+    .nav-right a { font-size: 12px; font-weight: 500; color: var(--muted); transition: color .2s; white-space: nowrap; }
+    @media (min-width: 640px) { .nav-right a { font-size: 13px; } }
+    .nav-right a:hover { color: var(--text); }
+    .theme-btn { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: var(--radius-pill); padding: 5px 12px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text); transition: all .2s; white-space: nowrap; }
+    @media (min-width: 640px) { .theme-btn { padding: 6px 13px; font-size: 13px; } }
+    .theme-btn:hover { border-color: var(--accent); }
+
+    /* Hero 区域 */
+    .hero { min-height: 70vh; position: relative; overflow: hidden; padding: 100px 16px 48px; }
+    @media (min-width: 768px) { .hero { padding: 110px 24px 60px; min-height: 85vh; } }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 65% 55% at 20% 50%, rgba(14,165,233,.13) 0%, transparent 55%), radial-gradient(ellipse 55% 45% at 80% 25%, rgba(20,184,166,.1) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 55% 85%, rgba(99,102,241,.08) 0%, transparent 55%); pointer-events: none; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; animation: float 9s ease-in-out infinite; }
+    .orb-1 { width: 350px; height: 350px; background: var(--accent); opacity: .18; top: 10%; left: 2%; }
+    .orb-2 { width: 260px; height: 260px; background: var(--accent2); opacity: .15; top: 8%; right: 5%; animation-delay: -3s; }
+    .orb-3 { width: 200px; height: 200px; background: var(--accent3); opacity: .13; bottom: 22%; left: 28%; animation-delay: -6s; }
+    @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);} }
+
+    .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+    @media (min-width: 900px) { .hero-inner { grid-template-columns: 1fr 380px; gap: 28px; } }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(6,182,212,.14); background: rgba(6,182,212,.06); color: var(--accent); font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: var(--radius-pill); margin-bottom: 18px; letter-spacing: .8px; text-transform: uppercase; width: fit-content; }
+    .hero h1 { font-size: clamp(32px, 6vw, 56px); font-weight: 900; letter-spacing: -1px; line-height: 1.08; margin-bottom: 12px; color: var(--text); text-align: left; }
+    .hero h1 .hl { background: linear-gradient(100deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-sub { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 0 20px 0; line-height: 1.65; }
+    @media (min-width: 768px) { .hero-sub { font-size: 16px; line-height: 1.7; } }
+    .hero-actions { display: flex; gap: 12px; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 18px; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 11px 22px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; box-shadow: 0 0 28px rgba(14,165,233,.3); transition: all .2s; }
+    @media (min-width: 768px) { .btn-primary { padding: 13px 28px; font-size: 14px; } }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(14,165,233,.45); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: #fff; padding: 10px 22px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
+    @media (min-width: 768px) { .btn-outline { padding: 12px 26px; font-size: 14px; } }
+    .btn-outline:hover { background: rgba(255,255,255,.07); }
+    .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; max-width: 100%; box-shadow: 0 18px 40px rgba(2,6,23,0.45); }
+    @media (min-width: 768px) { .hero-card { padding: 22px; justify-self: end; } }
+    .hero-card p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.7; margin-bottom: 8px; }
+    .hero-card p:last-child { margin-bottom: 0; }
+    @media (min-width: 768px) { .hero-card p { font-size: 14px; line-height: 1.8; } }
+
+    /* 内容区块 */
+    .section-wrap { max-width: 1080px; margin: 64px auto 0; padding: 0 16px; }
+    @media (min-width: 768px) { .section-wrap { margin: 96px auto 0; padding: 0 24px; } }
+    .section-head { margin-bottom: 24px; }
+    .s-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+    .s-chip::before { content:''; display:inline-block; width:18px; height:2px; background:var(--accent); border-radius:2px; }
+    .s-title { font-size: 24px; font-weight: 800; letter-spacing: -.5px; color: var(--text); }
+    @media (min-width: 768px) { .s-title { font-size: 28px; } }
+    .s-sub { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+
+    /* 工具网格: 硬件测试卡片 */
+    .tools-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media (min-width: 560px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px) { .tools-grid { grid-template-columns: repeat(3, 1fr); } }
+    .tool-card {
+      background: linear-gradient(180deg, var(--surface), var(--surface2));
+      border: 1px solid rgba(255,255,255,0.03);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+    .tool-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .tool-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 50px rgba(2,6,23,0.5);
+    }
+    .tool-card:hover::after { opacity: 1; }
+    .tool-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.2);
+    }
+    .tool-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .tool-card p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+      flex: 1;
+    }
+    .tool-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(6,182,212,0.08);
+      border: 1px solid rgba(6,182,212,0.12);
+      border-radius: 999px;
+      padding: 6px 14px;
+      width: fit-content;
+      margin-top: 4px;
+      transition: gap 0.2s;
+    }
+    .tool-card:hover .tool-tag { gap: 10px; background: rgba(6,182,212,0.15); }
+
+    /* 说明区域 */
+    .info-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 20px; padding: 28px; margin-top: 48px; }
+    @media (min-width: 768px) { .info-box { padding: 36px; } }
+    .info-box p { font-size: 14px; color: var(--muted); line-height: 1.75; margin-bottom: 12px; }
+    .info-box p:last-child { margin-bottom: 0; }
+    .info-box strong { color: var(--accent); }
+
+    /* 页脚 */
+    .footer { max-width: 1080px; margin: 64px auto 0; padding: 20px 16px 32px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+    @media (min-width: 768px) { .footer { margin: 80px auto 0; padding: 24px 24px 40px; flex-direction: row; justify-content: space-between; text-align: left; } }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--text); }
+    .footer-right { font-size: 11px; color: var(--muted); line-height: 1.6; text-align: center; }
+    @media (min-width: 768px) { .footer-right { text-align: right; font-size: 12px; } }
+    .footer-right a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+
+    .back-top { position: fixed; bottom: 20px; right: 20px; z-index: 300; width: 40px; height: 40px; border-radius: 10px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
+    @media (min-width: 768px) { .back-top { width: 44px; height: 44px; border-radius: 12px; } }
+    [data-theme="light"] .back-top { background: rgba(255,255,255,.92); }
+    .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+    .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav class="nav-wrap">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-mark">🔧</div>
+      ZenTools·硬件测试
+    </div>
+    <div class="nav-right">
+      <a href="#tools">🛠️ 硬件工具</a>
+      <a href="#about">关于测试</a>
+      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️ 亮色</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-dots"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge"><span class="badge-dot"></span>完全本地 · 无需安装</div>
+      <h1>硬件<span class="hl">测试工具箱</span></h1>
+      <p class="hero-sub">摄像头、键盘、麦克风、鼠标、屏幕 — 一站式硬件检测工具，全部在浏览器本地运行，保护隐私，即开即用。</p>
+      <div class="hero-actions">
+        <a href="#tools" class="btn-primary">🎮 开始测试 →</a>
+        <a href="#about" class="btn-outline">了解更多</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <p>🔍 本工具集提供5款专业硬件检测工具：摄像头测试、键盘按键检测、麦克风收音测试、鼠标响应测试、屏幕坏点与色彩检测。</p>
+      <p>⚡ 所有测试均在浏览器端完成，无需下载安装，不收集任何个人数据，请放心使用。</p>
+      <p>💡 点击任意工具卡片即可开始检测您的设备状态。</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-wrap" id="tools">
+  <div class="section-head">
+    <div class="s-chip">硬件检测工具</div>
+    <div class="s-title">5 款专业硬件测试工具</div>
+    <div class="s-sub">全面检测您的摄像头、键盘、麦克风、鼠标与屏幕</div>
+  </div>
+
+  <div class="tools-grid">
+    <!-- 摄像头测试 - cameratest.html -->
+    <a href="cameratest.html" class="tool-card" target="_blank">
+      <div class="tool-icon">📹</div>
+      <h3>摄像头测试</h3>
+      <p>检测摄像头是否正常工作，实时预览画面，测试拍照功能与视频流清晰度。</p>
+      <span class="tool-tag">立即检测 →</span>
+    </a>
+
+    <!-- 键盘测试 - keyboardtest.html -->
+    <a href="keyboardtest.html" class="tool-card" target="_blank">
+      <div class="tool-icon">⌨️</div>
+      <h3>键盘测试</h3>
+      <p>按下任意按键，实时显示按键名称与状态，检测键盘所有按键是否响应。</p>
+      <span class="tool-tag">按下按键 →</span>
+    </a>
+
+    <!-- 麦克风测试 - mictest.html -->
+    <a href="mictest.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🎙️</div>
+      <h3>麦克风测试</h3>
+      <p>测试麦克风输入音量，实时音频波形反馈，检测录音设备是否正常。</p>
+      <span class="tool-tag">开始测试 →</span>
+    </a>
+
+    <!-- 鼠标测试 - mousetest.html -->
+    <a href="mousetest.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🖱️</div>
+      <h3>鼠标测试</h3>
+      <p>检测鼠标左右键、滚轮和移动轨迹，确认鼠标各项功能完好。</p>
+      <span class="tool-tag">进入测试 →</span>
+    </a>
+
+    <!-- 屏幕检测 - screencheck.html -->
+    <a href="screencheck.html" class="tool-card" target="_blank">
+      <div class="tool-icon">🖥️</div>
+      <h3>屏幕检测</h3>
+      <p>全屏测试坏点、亮点、色彩过渡和漏光情况，检测显示器健康状况。</p>
+      <span class="tool-tag">全屏检测 →</span>
+    </a>
+  </div>
+
+  <!-- 额外说明区块 -->
+  <div class="info-box" id="about">
+    <p><strong>📌 使用说明：</strong>所有硬件测试工具均基于浏览器原生API开发，完全在本地运行，无需上传任何数据。摄像头和麦克风测试需要您授予浏览器权限，权限仅用于实时检测，不会保存任何音视频内容。</p>
+    <p><strong>🔒 隐私保护：</strong>本站所有工具不收集任何个人信息，测试过程中产生的数据仅存于您的设备本地，关闭页面即自动清除。</p>
+    <p><strong>💻 兼容提示：</strong>建议使用 Chrome、Edge、Firefox 或 Safari 最新版本以获得最佳体验。部分功能在移动端浏览器可能存在限制，推荐在电脑端使用完整功能。</p>
+    <p><strong>📂 文件索引：</strong>您正在访问的硬件测试工具集包含 cameratest.html、keyboardtest.html、mictest.html、mousetest.html、screencheck.html 五个独立页面，每个工具均可独立使用。</p>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-logo">
+    <div class="logo-mark" style="width:24px;height:24px;font-size:12px;border-radius:7px;">🔧</div>
+    ZenTools · 硬件测试工具箱
+  </div>
+  <div class="footer-right">
+    <div>© <span id="year"></span> ZenTools | 硬件检测工具集</div>
+    <div>本地运行 · 隐私安全 · 永久免费</div>
+    <div><a href="#">关于本站</a> | <a href="#">隐私说明</a></div>
+  </div>
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function initTheme() {
+    const stored = localStorage.getItem('zt_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', stored);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = stored === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+  }
+  
+  function toggleTheme() {
+    const current = document.documentElement.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('zt_theme', next);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = next === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+  }
+  
+  initTheme();
+  window.themeBtn = toggleTheme;
+
+  const backTopBtn = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) backTopBtn.classList.add('visible');
+    else backTopBtn.classList.remove('visible');
+  }, { passive: true });
+
+  // 动态漂浮动画
+  let t = 0;
+  const orb1 = document.querySelector('.orb-1');
+  const orb2 = document.querySelector('.orb-2');
+  const orb3 = document.querySelector('.orb-3');
+  function animateOrbs() {
+    t += 0.003;
+    if (orb1) orb1.style.transform = `translate(${Math.sin(t)*12}px, ${Math.cos(t*0.7)*8}px)`;
+    if (orb2) orb2.style.transform = `translate(${Math.cos(t*0.9)*10}px, ${Math.sin(t)*12}px)`;
+    if (orb3) orb3.style.transform = `translate(${Math.sin(t*0.8)*8}px, ${Math.cos(t)*6}px)`;
+    requestAnimationFrame(animateOrbs);
+  }
+  animateOrbs();
+</script>
+</body>
+</html>
