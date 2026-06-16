@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>开发者工具 - ZenTools</title>
+  <meta name="description" content="ZenTools 开发者工具集合：JSON格式化、差异对比、树形视图、摄像头测试、键盘测试、麦克风测试、鼠标测试、屏幕检测等。" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #071026;
+      --surface: #0c1320;
+      --surface2: #0f1a2a;
+      --border: rgba(255,255,255,0.05);
+      --border-bright: rgba(255,255,255,0.1);
+      --text: #eef2ff;
+      --text-secondary: #9ca3cf;
+      --muted: #6c7a9e;
+      --accent: #06b6d4;
+      --accent-glow: rgba(6,182,212,0.25);
+      --purple: #a855f7;
+      --orange: #fb923c;
+      --green: #10b981;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+    }
+    [data-theme="light"] {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface2: #f8fafc;
+      --border: rgba(0,0,0,0.06);
+      --border-bright: rgba(0,0,0,0.12);
+      --text: #0f172a;
+      --text-secondary: #334155;
+      --muted: #64748b;
+      --accent: #0891b2;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.2s, color 0.2s;
+      padding: 40px 24px;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* 头部样式 */
+    .section-head {
+      margin-bottom: 36px;
+      text-align: center;
+    }
+    .s-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(6,182,212,0.1);
+      backdrop-filter: blur(4px);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--accent);
+      border: 1px solid rgba(6,182,212,0.2);
+      margin-bottom: 16px;
+    }
+    .s-chip::before {
+      content: "✦";
+      font-size: 10px;
+    }
+    .s-title {
+      font-size: 2.4rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 8px;
+    }
+    .s-sub {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* 分类标签 */
+    .category-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .category-btn {
+      background: transparent;
+      border: 1px solid var(--border-bright);
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .category-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--accent-glow);
+    }
+    .category-btn:hover:not(.active) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* 网格布局 */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 12px;
+    }
+
+    /* 卡片样式 */
+    .tool-card {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--purple), var(--orange));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .tool-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4), 0 0 0 1px rgba(6,182,212,0.1);
+    }
+    .tool-card:hover::before {
+      opacity: 1;
+    }
+    .tool-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(6,182,212,0.08);
+      border-radius: 14px;
+      border: 1px solid rgba(6,182,212,0.15);
+    }
+    .tool-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+    .tool-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      flex: 1;
+    }
+    .tool-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 40px;
+      width: fit-content;
+      background: rgba(6,182,212,0.12);
+      color: var(--accent);
+      border: 1px solid rgba(6,182,212,0.2);
+      transition: all 0.2s;
+    }
+    .tool-card:hover .tool-tag {
+      background: rgba(6,182,212,0.2);
+      gap: 8px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      body { padding: 24px 16px; }
+      .s-title { font-size: 1.8rem; }
+      .tools-grid { gap: 16px; }
+      .tool-card { padding: 1.2rem; }
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="section-head">
+    <div class="s-chip">开发者工具集</div>
+    <div class="s-title">/dev 工具箱</div>
+    <div class="s-sub">JSON 工具 · 硬件测试 · 开发辅助</div>
+  </div>
+
+  <div class="category-tabs">
+    <button class="category-btn active" data-cat="all">📁 全部工具</button>
+    <button class="category-btn" data-cat="json">📄 JSON 工具</button>
+    <button class="category-btn" data-cat="hardware">🖥️ 硬件测试</button>
+  </div>
+
+  <div class="tools-grid" id="toolsGrid">
+    <!-- ========= JSON 工具组 (根据图片中的 diff.html, formatter.html, viewer.html) ========= -->
+    <a class="tool-card" href="formatter.html" data-category="json">
+      <div class="tool-icon">{ }</div>
+      <div class="tool-name">JSON 格式化</div>
+      <div class="tool-desc">格式化、压缩、验证 JSON 数据，支持语法高亮和错误提示</div>
+      <span class="tool-tag">JSON 工具</span>
+    </a>
+
+    <a class="tool-card" href="diff.html" data-category="json">
+      <div class="tool-icon">🔍</div>
+      <div class="tool-name">JSON 对比</div>
+      <div class="tool-desc">对比两个 JSON 结构差异，高亮新增、删除和修改的字段</div>
+      <span class="tool-tag">JSON 工具</span>
+    </a>
+
+    <a class="tool-card" href="viewer.html" data-category="json">
+      <div class="tool-icon">🌳</div>
+      <div class="tool-name">JSON 树形视图</div>
+      <div class="tool-desc">交互式树形结构，支持展开/折叠节点，语法高亮</div>
+      <span class="tool-tag">JSON 工具</span>
+    </a>
+
+    <!-- ========= 硬件测试工具 (根据图片中的 cameratest, keyboardtest, mictest, mousetest, screencheck) ========= -->
+    <a class="tool-card" href="cameratest.html" data-category="hardware">
+      <div class="tool-icon">📹</div>
+      <div class="tool-name">摄像头测试</div>
+      <div class="tool-desc">检测摄像头是否正常工作，实时预览画面，测试拍照功能</div>
+      <span class="tool-tag">硬件测试</span>
+    </a>
+
+    <a class="tool-card" href="keyboardtest.html" data-category="hardware">
+      <div class="tool-icon">⌨️</div>
+      <div class="tool-name">键盘测试</div>
+      <div class="tool-desc">按下任意按键，实时显示按键名称与状态，检测键盘响应</div>
+      <span class="tool-tag">硬件测试</span>
+    </a>
+
+    <a class="tool-card" href="mictest.html" data-category="hardware">
+      <div class="tool-icon">🎙️</div>
+      <div class="tool-name">麦克风测试</div>
+      <div class="tool-desc">测试麦克风输入音量，实时音频波形反馈</div>
+      <span class="tool-tag">硬件测试</span>
+    </a>
+
+    <a class="tool-card" href="mousetest.html" data-category="hardware">
+      <div class="tool-icon">🖱️</div>
+      <div class="tool-name">鼠标测试</div>
+      <div class="tool-desc">检测鼠标左右键、滚轮和移动轨迹，确认各项功能</div>
+      <span class="tool-tag">硬件测试</span>
+    </a>
+
+    <a class="tool-card" href="screencheck.html" data-category="hardware">
+      <div class="tool-icon">🖥️</div>
+      <div class="tool-name">屏幕检测</div>
+      <div class="tool-desc">全屏测试坏点、亮点、色彩过渡和漏光情况</div>
+      <span class="tool-tag">硬件测试</span>
+    </a>
+  </div>
+
+  <div class="footer-note">
+    <p>⚡ 所有工具均在浏览器本地运行，无需上传数据，保护隐私</p>
+    <p style="margin-top: 8px;">📁 当前目录: /dev/ | 共 8 个工具</p>
+  </div>
+</div>
+
+<script>
+  // 分类过滤功能
+  const filterButtons = document.querySelectorAll('.category-btn');
+  const cards = document.querySelectorAll('.tool-card');
+
+  function filterTools(category) {
+    let visibleCount = 0;
+    cards.forEach(card => {
+      const cardCat = card.getAttribute('data-category');
+      if (category === 'all' || cardCat === category) {
+        card.style.display = 'flex';
+        visibleCount++;
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const category = btn.getAttribute('data-cat');
+      filterTools(category);
+    });
+  });
+
+  // 初始显示全部
+  filterTools('all');
+
+  // 主题切换支持（与全局一致）
+  function initTheme() {
+    const stored = localStorage.getItem('zt_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', stored);
+  }
+  initTheme();
+</script>
+</body>
+</html>
