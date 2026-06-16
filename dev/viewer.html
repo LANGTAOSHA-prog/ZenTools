@@ -1,0 +1,119 @@
+<!-- JSON 格式化工具 2: 高级版（语法高亮 + 树形视图） -->
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>JSON 可视化工具 - 树形视图 | ZenTools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #071026;
+      --surface: #0c1320;
+      --surface2: #0f1a2a;
+      --border: rgba(255,255,255,0.04);
+      --border-bright: rgba(255,255,255,0.08);
+      --text: #e6eef8;
+      --muted: #93a3b8;
+      --accent: #06b6d4;
+      --accent2: #fb923c;
+      --radius: 12px;
+      --radius-pill: 999px;
+      --key-color: #7e9eff;
+      --string-color: #c3e88d;
+      --number-color: #f78c6c;
+      --bool-color: #ffcb6b;
+    }
+    [data-theme="light"] {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #f5f7fa;
+      --border: rgba(0,0,0,0.07);
+      --border-bright: rgba(0,0,0,0.12);
+      --text: #0d1117;
+      --muted: #556070;
+      --key-color: #0969da;
+      --string-color: #0a7e3c;
+      --number-color: #b35900;
+      --bool-color: #b35900;
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); transition: background .3s; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 80px 24px 40px; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); margin-bottom: 20px; text-decoration: none; font-size: 14px; }
+    h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .sub { color: var(--muted); margin-bottom: 24px; }
+    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    button { background: var(--surface2); border: 1px solid var(--border-bright); color: var(--text); padding: 8px 20px; border-radius: var(--radius-pill); cursor: pointer; font-weight: 600; transition: all .2s; }
+    button:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    textarea { width: 100%; height: 240px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; color: var(--text); font-family: monospace; font-size: 13px; resize: vertical; }
+    .tree-view { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 20px; min-height: 280px; overflow: auto; font-family: monospace; font-size: 13px; line-height: 1.6; }
+    .tree-node { margin-left: 20px; }
+    .tree-toggle { cursor: pointer; user-select: none; display: inline-block; width: 18px; color: var(--accent); }
+    .tree-key { color: var(--key-color); font-weight: 600; }
+    .tree-string { color: var(--string-color); }
+    .tree-number { color: var(--number-color); }
+    .tree-boolean { color: var(--bool-color); }
+    .tree-null { color: var(--muted); font-style: italic; }
+    .collapsed > .tree-children { display: none; }
+    .error { color: #f87171; background: rgba(248,113,113,0.1); padding: 12px; border-radius: 10px; margin-top: 12px; }
+    .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+    @media (max-width: 640px) { .container { padding: 70px 16px 30px; } .tree-node { margin-left: 12px; } }
+  </style>
+</head>
+<body>
+<div class="container">
+  <a href="/dev/json/index.html" class="back-link">← 返回工具箱</a>
+  <div class="header">
+    <h1>🌳 JSON 可视化工具 · 树形视图</h1>
+    <div class="sub">交互式树形结构，支持展开/折叠节点，语法高亮</div>
+  </div>
+  <div class="toolbar">
+    <button onclick="renderTree()">🌲 生成树形视图</button>
+    <button onclick="clearAll()">🗑️ 清空</button>
+    <button onclick="expandAll()">📂 全部展开</button>
+    <button onclick="collapseAll()">📁 全部折叠</button>
+  </div>
+  <textarea id="jsonInput" placeholder='{"tool":"ZenTools","features":["格式化","树形视图","高亮"],"info":{"version":"2.0","free":true}}'></textarea>
+  <div id="treeContainer" class="tree-view"><span style="color:var(--muted);">等待输入 JSON...</span></div>
+  <div id="errorMsg" class="error" style="display:none;"></div>
+</div>
+<div class="footer">© ZenTools · 本地解析，数据不上传</div>
+<script>
+  function renderTree() {
+    const input = document.getElementById('jsonInput').value.trim();
+    if (!input) { showError('请输入 JSON 数据'); return; }
+    try { const obj = JSON.parse(input); const html = buildTree(obj); document.getElementById('treeContainer').innerHTML = html; hideError(); attachToggleEvents(); }
+    catch(e) { showError('JSON 解析错误: ' + e.message); }
+  }
+  function buildTree(data, key = null, isLast = true) {
+    let type = typeof data;
+    if (data === null) return `<span class="tree-null">null</span>`;
+    if (type === 'string') return `<span class="tree-string">"${escapeHtml(data)}"</span>`;
+    if (type === 'number') return `<span class="tree-number">${data}</span>`;
+    if (type === 'boolean') return `<span class="tree-boolean">${data}</span>`;
+    if (Array.isArray(data)) {
+      if (data.length === 0) return `<span class="tree-null">[]</span>`;
+      let children = '';
+      data.forEach((item, idx) => { children += `<div class="tree-node">${buildTree(item, idx, idx === data.length-1)}${idx !== data.length-1 ? ',' : ''}</div>`; });
+      return `<span class="tree-toggle">▼</span><span class="tree-key">[${key !== null ? key : ''}]</span><div class="tree-children">${children}</div>`;
+    }
+    if (type === 'object') {
+      const keys = Object.keys(data);
+      if (keys.length === 0) return `<span class="tree-null">{}</span>`;
+      let children = '';
+      keys.forEach((k, idx) => { children += `<div class="tree-node"><span class="tree-toggle">▼</span><span class="tree-key">"${escapeHtml(k)}"</span>: ${buildTree(data[k], k, idx === keys.length-1)}${idx !== keys.length-1 ? ',' : ''}</div>`; });
+      return `<div class="tree-children">${children}</div>`;
+    }
+    return String(data);
+  }
+  function attachToggleEvents() { document.querySelectorAll('.tree-toggle').forEach(toggle => { toggle.onclick = function(e) { e.stopPropagation(); const parent = this.parentElement; parent.classList.toggle('collapsed'); this.textContent = parent.classList.contains('collapsed') ? '▶' : '▼'; }; }); }
+  function expandAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(p.classList.contains('collapsed')){ p.classList.remove('collapsed'); t.textContent='▼'; } }); }
+  function collapseAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(!p.classList.contains('collapsed')){ p.classList.add('collapsed'); t.textContent='▶'; } }); }
+  function clearAll() { document.getElementById('jsonInput').value = ''; document.getElementById('treeContainer').innerHTML = '<span style="color:var(--muted);">等待输入 JSON...</span>'; hideError(); }
+  function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
+  function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;}); }
+</script>
+</body>
+</html>
