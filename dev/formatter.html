@@ -1,0 +1,86 @@
+<!-- JSON 格式化工具 1: 基础格式化与压缩 -->
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>JSON 格式化工具 - 基础版 | ZenTools</title>
+  <meta name="description" content="在线JSON格式化、压缩、验证工具，支持语法高亮和错误提示，完全本地运行。" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #071026;
+      --surface: #0c1320;
+      --surface2: #0f1a2a;
+      --border: rgba(255,255,255,0.04);
+      --border-bright: rgba(255,255,255,0.08);
+      --text: #e6eef8;
+      --muted: #93a3b8;
+      --accent: #06b6d4;
+      --accent2: #fb923c;
+      --radius: 12px;
+      --radius-pill: 999px;
+      --shadow: 0 18px 40px -14px rgba(2,6,23,0.6);
+    }
+    [data-theme="light"] {
+      --bg: #f0f4f8;
+      --surface: #ffffff;
+      --surface2: #f5f7fa;
+      --border: rgba(0,0,0,0.07);
+      --border-bright: rgba(0,0,0,0.12);
+      --text: #0d1117;
+      --muted: #556070;
+    }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); transition: background .3s; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 80px 24px 40px; }
+    .header { margin-bottom: 32px; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); margin-bottom: 20px; text-decoration: none; font-size: 14px; }
+    h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .sub { color: var(--muted); margin-bottom: 24px; }
+    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    button { background: var(--surface2); border: 1px solid var(--border-bright); color: var(--text); padding: 8px 20px; border-radius: var(--radius-pill); cursor: pointer; font-weight: 600; transition: all .2s; }
+    button:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+    textarea { width: 100%; height: 300px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; color: var(--text); font-family: 'Monaco', 'Menlo', monospace; font-size: 13px; resize: vertical; }
+    .output-area { margin-top: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-height: 200px; font-family: monospace; font-size: 13px; white-space: pre-wrap; overflow-x: auto; }
+    .error { color: #f87171; background: rgba(248,113,113,0.1); padding: 12px; border-radius: 10px; margin-top: 12px; }
+    .success { color: #4ade80; }
+    .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
+    @media (max-width: 640px) { .container { padding: 70px 16px 30px; } textarea { height: 220px; } }
+  </style>
+</head>
+<body>
+<div class="container">
+  <a href="/dev/json/index.html" class="back-link">← 返回工具箱</a>
+  <div class="header">
+    <h1>📝 JSON 格式化工具 · 基础版</h1>
+    <div class="sub">格式化、压缩、验证 JSON 数据</div>
+  </div>
+  <div class="toolbar">
+    <button onclick="formatJSON()">✨ 格式化</button>
+    <button onclick="minifyJSON()">📦 压缩</button>
+    <button onclick="clearAll()">🗑️ 清空</button>
+    <button onclick="copyOutput()">📋 复制结果</button>
+  </div>
+  <textarea id="inputJSON" placeholder='{"name": "ZenTools","version": "2.0"}'></textarea>
+  <div id="outputArea" class="output-area"></div>
+  <div id="message" class="error" style="display:none;"></div>
+</div>
+<div class="footer">© ZenTools · 本地处理，数据不上传</div>
+<script>
+  function formatJSON() { process((obj) => JSON.stringify(obj, null, 2)); }
+  function minifyJSON() { process((obj) => JSON.stringify(obj)); }
+  function process(transform) {
+    const input = document.getElementById('inputJSON').value.trim();
+    if (!input) { showMsg('请输入 JSON 数据', 'error'); return; }
+    try { const obj = JSON.parse(input); document.getElementById('outputArea').innerHTML = `<pre style="margin:0;font-family:monospace;">${escapeHtml(transform(obj))}</pre>`; hideMsg(); }
+    catch(e) { showMsg('JSON 解析错误: ' + e.message, 'error'); }
+  }
+  function clearAll() { document.getElementById('inputJSON').value = ''; document.getElementById('outputArea').innerHTML = '<span style="color:var(--muted);">等待输入...</span>'; hideMsg(); }
+  function copyOutput() { const out = document.getElementById('outputArea').innerText; if(out && out !== '等待输入...') { navigator.clipboard.writeText(out); showMsg('已复制到剪贴板', 'success'); setTimeout(hideMsg, 1500); } else showMsg('无内容可复制', 'error'); }
+  function showMsg(msg, type) { const el = document.getElementById('message'); el.textContent = msg; el.className = type === 'error' ? 'error' : 'success'; el.style.display = 'block'; }
+  function hideMsg() { document.getElementById('message').style.display = 'none'; }
+  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;}); }
+</script>
+</body>
+</html>
