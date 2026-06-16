@@ -17,48 +17,50 @@
   <meta property="og:image" content="https://langtaosha-prog.github.io/ZenTools/assets/images/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
 
+  <!-- ZenTools 2.0 深色科技风 UI -->
   <style>
     :root {
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --card-soft: #f8fafc;
-      --border: #e5e7eb;
-      --text: #111827;
-      --muted: #64748b;
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --secondary: #10b981;
-      --warning: #f59e0b;
-      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-      --radius: 20px;
+      --bg:      #06070d;
+      --glass:   rgba(255,255,255,0.04);
+      --glass-b: rgba(255,255,255,0.08);
+      --cyan:    #00e5ff;
+      --purple:  #a855f7;
+      --pink:    #f43f5e;
+      --text:    #f0f4ff;
+      --muted:   #6b7a9f;
+      --border:  rgba(255,255,255,0.07);
+      --border-h:rgba(0,229,255,0.35);
+      --glow-c:  0 0 40px rgba(0,229,255,0.18);
+      --r:       20px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
     body {
-      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 260px);
+      font-family: 'Inter', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Arial, sans-serif;
-      line-height: 1.75;
+      overflow-x: hidden;
+      line-height: 1.6;
     }
 
-    a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: color 0.2s;
+    a { color: inherit; text-decoration: none; }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1;
     }
 
-    a:hover {
-      color: var(--primary-dark);
-    }
+    /* Blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
+    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
+
+    .z-wrap { position: relative; z-index: 2; }
 
     .container {
       max-width: 1200px;
@@ -66,7 +68,7 @@
       padding: 22px 18px 50px;
     }
 
-    /* ═══ Header ═══ */
+    /* ── Header ── */
     .site-header {
       display: flex;
       align-items: center;
@@ -74,27 +76,33 @@
       gap: 16px;
       flex-wrap: wrap;
       padding: 14px 0 22px;
+      border-bottom: 1px solid var(--border);
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
-      color: var(--text);
       font-weight: 800;
       font-size: 22px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .logo {
       width: 38px;
       height: 38px;
       border-radius: 12px;
-      background: linear-gradient(135deg, #2563eb, #22c55e);
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff;
+      color: #000;
       font-weight: 900;
+      font-size: 18px;
+      -webkit-text-fill-color: #000;
     }
 
     .nav {
@@ -102,24 +110,37 @@
       align-items: center;
       gap: 14px;
       flex-wrap: wrap;
-      color: var(--muted);
       font-size: 15px;
     }
 
     .nav a {
-      color: #334155;
+      color: var(--muted);
       font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
     }
 
-    /* ═══ Hero ═══ */
+    .nav a:hover {
+      color: var(--text);
+      background: var(--glass-b);
+    }
+
+    .nav a.active {
+      color: var(--cyan);
+      background: rgba(0,229,255,0.08);
+    }
+
+    /* ── Hero ── */
     .hero {
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(226, 232, 240, 0.9);
+      background: var(--glass);
+      border: 1px solid var(--border);
       border-radius: 28px;
       padding: 38px;
-      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
       position: relative;
       overflow: hidden;
+      margin-top: 16px;
     }
 
     .hero::after {
@@ -130,16 +151,16 @@
       width: 220px;
       height: 220px;
       border-radius: 50%;
-      background: rgba(37, 99, 235, 0.12);
+      background: rgba(0,229,255,0.06);
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
+      background: rgba(0,229,255,0.12);
+      color: var(--cyan);
+      border: 1px solid rgba(0,229,255,0.2);
       border-radius: 999px;
       padding: 6px 12px;
       font-size: 14px;
@@ -152,11 +173,19 @@
       line-height: 1.18;
       margin-bottom: 14px;
       letter-spacing: -0.04em;
+      font-weight: 900;
+    }
+
+    h1 .grad {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .hero-desc {
       font-size: 18px;
-      color: #475569;
+      color: var(--muted);
       margin-bottom: 24px;
       max-width: 700px;
     }
@@ -183,27 +212,61 @@
     }
 
     .btn-primary {
-      background: var(--primary);
-      color: #fff;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000;
     }
 
     .btn-primary:hover {
-      background: var(--primary-dark);
       transform: translateY(-1px);
+      box-shadow: var(--glow-c);
     }
 
     .btn-light {
-      background: #fff;
-      color: #1e293b;
+      background: var(--glass);
+      color: var(--text);
       border: 1px solid var(--border);
     }
 
     .btn-light:hover {
       transform: translateY(-1px);
-      background: #f8fafc;
+      background: var(--glass-b);
+      border-color: var(--cyan);
     }
 
-    /* ═══ Filters ═══ */
+    /* ── Stats ── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 30px 0;
+    }
+
+    .stat-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ── Filters ── */
     .filters {
       margin: 30px 0 20px;
       display: flex;
@@ -212,11 +275,17 @@
       align-items: center;
     }
 
+    .filters .filter-label {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
     .filter-btn {
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--card);
+      background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 8px 16px;
@@ -224,17 +293,21 @@
       font-weight: 600;
       cursor: pointer;
       transition: 0.2s;
-      color: #334155;
+      color: var(--muted);
     }
 
-    .filter-btn:hover,
+    .filter-btn:hover {
+      border-color: var(--cyan);
+      color: var(--text);
+    }
+
     .filter-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
+      background: rgba(0,229,255,0.12);
+      border-color: var(--cyan);
+      color: var(--cyan);
     }
 
-    /* ═══ Plugins Grid ═══ */
+    /* ── Plugins Grid ── */
     .plugins-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -243,25 +316,42 @@
     }
 
     .plugin-card {
-      background: var(--card);
+      background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
       transition: 0.3s;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      backdrop-filter: blur(8px);
+      position: relative;
+    }
+
+    .plugin-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
     }
 
     .plugin-card:hover {
       transform: translateY(-4px);
-      box-shadow: var(--shadow);
-      border-color: var(--primary);
+      border-color: rgba(0,229,255,0.3);
+      box-shadow: var(--glow-c), 0 20px 50px rgba(0,0,0,0.4);
+    }
+
+    .plugin-card:hover::after {
+      opacity: 1;
     }
 
     .plugin-header {
       padding: 20px;
-      background: linear-gradient(135deg, #f0f4f8 0%, #e8ecf3 100%);
+      background: rgba(0,0,0,0.2);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -276,7 +366,8 @@
       align-items: center;
       justify-content: center;
       font-size: 24px;
-      background: var(--card);
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.12);
       flex-shrink: 0;
     }
 
@@ -289,9 +380,9 @@
     .plugin-category {
       display: inline-flex;
       align-items: center;
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
+      background: rgba(0,229,255,0.10);
+      color: var(--cyan);
+      border: 1px solid rgba(0,229,255,0.15);
       border-radius: 6px;
       padding: 2px 8px;
       font-size: 12px;
@@ -314,7 +405,7 @@
 
     .plugin-features {
       font-size: 13px;
-      color: #475569;
+      color: #8b9bb5;
       margin: 8px 0;
       display: flex;
       flex-direction: column;
@@ -329,7 +420,7 @@
 
     .plugin-feature::before {
       content: "✓";
-      color: var(--secondary);
+      color: var(--cyan);
       font-weight: bold;
       flex-shrink: 0;
     }
@@ -351,54 +442,26 @@
       font-size: 14px;
       font-weight: 700;
       text-align: center;
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
+      background: rgba(0,229,255,0.08);
+      color: var(--cyan);
+      border: 1px solid rgba(0,229,255,0.15);
       transition: 0.2s;
     }
 
     .plugin-footer a:hover {
-      background: #dbeafe;
-      border-color: #60a5fa;
+      background: rgba(0,229,255,0.16);
+      border-color: var(--cyan);
       text-decoration: none;
     }
 
-    /* ═══ Stats ═══ */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin: 30px 0;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    /* ═══ Info Section ═══ */
+    /* ── Info Section ── */
     .info-section {
-      background: var(--card);
+      background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 16px;
       padding: 26px;
       margin-top: 30px;
+      backdrop-filter: blur(8px);
     }
 
     .info-section h2 {
@@ -408,7 +471,7 @@
     }
 
     .info-section p {
-      color: #475569;
+      color: var(--muted);
       margin-bottom: 12px;
       line-height: 1.8;
     }
@@ -421,7 +484,7 @@
     }
 
     .info-item {
-      background: var(--card-soft);
+      background: rgba(255,255,255,0.03);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px;
@@ -439,7 +502,7 @@
       line-height: 1.6;
     }
 
-    /* ═══ Footer ═══ */
+    /* ── Footer ── */
     footer {
       text-align: center;
       color: var(--muted);
@@ -457,7 +520,19 @@
       margin-bottom: 10px;
     }
 
-    /* ═══ Responsive ═══ */
+    .footer-links a {
+      color: var(--muted);
+      transition: color 0.2s;
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+      background: var(--glass-b);
+    }
+
+    /* ── Responsive ── */
     @media (max-width: 768px) {
       .hero {
         padding: 24px;
@@ -495,6 +570,11 @@
       .plugin-footer a {
         width: 100%;
       }
+
+      .site-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     .hidden {
@@ -515,107 +595,113 @@
   </script>
 </head>
 <body>
-  <div class="container">
-    <header class="site-header">
-      <a class="brand" href="./index.html" aria-label="ZenTools 首页">
-        <span class="logo">Z</span><span>ZenTools</span>
-      </a>
-      <nav class="nav" aria-label="主导航">
-        <a href="./index.html">首页</a>
-        <a href="./tools.html">全部工具</a>
-        <a href="./categories.html">工具分类</a>
-        <a href="./articles.html">教程文章</a>
-      </nav>
-    </header>
+  <!-- 背景光晕 -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-    <section class="hero">
-      <span class="badge">工具预览 · 一站式浏览</span>
-      <h1>ZenTools 插件预览</h1>
-      <p class="hero-desc">浏览所有 ZenTools 提供的免费在线工具和插件。快速查看功能介绍、使用场景和直接访问链接。</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#plugins">浏览全部工具</a>
-        <a class="btn btn-light" href="./tools.html">工具大全</a>
-      </div>
-    </section>
+  <div class="z-wrap">
+    <div class="container">
+      <header class="site-header">
+        <a class="brand" href="./index.html" aria-label="ZenTools 首页">
+          <span class="logo">Z</span><span>ZenTools</span>
+        </a>
+        <nav class="nav" aria-label="主导航">
+          <a href="./index.html">首页</a>
+          <a href="./tools.html">全部工具</a>
+          <a href="./categories.html" class="active">工具分类</a>
+          <a href="./articles.html">教程文章</a>
+        </nav>
+      </header>
 
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-number">40+</div>
-        <div class="stat-label">在线工具</div>
+      <section class="hero">
+        <span class="badge">🔮 工具预览 · 一站式浏览</span>
+        <h1><span class="grad">ZenTools</span> 插件预览</h1>
+        <p class="hero-desc">浏览所有 ZenTools 提供的免费在线工具和插件。快速查看功能介绍、使用场景和直接访问链接。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#plugins">浏览全部工具</a>
+          <a class="btn btn-light" href="./tools.html">工具大全</a>
+        </div>
+      </section>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-number">40+</div>
+          <div class="stat-label">在线工具</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">10+</div>
+          <div class="stat-label">工具分类</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">免费使用</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">全时可用</div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">10+</div>
-        <div class="stat-label">工具分类</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">免费使用</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">全时可用</div>
-      </div>
+
+      <section id="plugins">
+        <div class="filters">
+          <span class="filter-label">🔍 分类筛选：</span>
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="pdf">PDF 工具</button>
+          <button class="filter-btn" data-filter="image">图片工具</button>
+          <button class="filter-btn" data-filter="video">视频工具</button>
+          <button class="filter-btn" data-filter="ai">AI 工具</button>
+          <button class="filter-btn" data-filter="text">文字工具</button>
+          <button class="filter-btn" data-filter="dev">开发工具</button>
+        </div>
+
+        <div class="plugins-grid" id="pluginsContainer"></div>
+      </section>
+
+      <section class="info-section">
+        <h2>为什么选择 ZenTools？</h2>
+        <p>ZenTools 是一个完全免费的在线工具集合，为中文用户优化，无需安装任何软件，打开网页即可使用。所有工具都支持本地处理，保护您的隐私安全。</p>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>✨ 功能全面</strong>
+            <span>PDF、图片、视频、文字、AI 等多种工具，满足日常办公和生活需求。</span>
+          </div>
+          <div class="info-item">
+            <strong>🔒 隐私保护</strong>
+            <span>文件处理主要在浏览器本地完成，不会上传到服务器，确保数据安全。</span>
+          </div>
+          <div class="info-item">
+            <strong>💻 无需安装</strong>
+            <span>所有工具都在线使用，无需下载和安装，支持 Windows、Mac、Linux、iOS、Android。</span>
+          </div>
+          <div class="info-item">
+            <strong>⚡ 快速高效</strong>
+            <span>优化的处理引擎和界面设计，让您快速完成工作。</span>
+          </div>
+          <div class="info-item">
+            <strong>🌍 多语言支持</strong>
+            <span>支持中文、英文、日文、越南文等多种语言，便捷的语言切换。</span>
+          </div>
+          <div class="info-item">
+            <strong>📱 响应式设计</strong>
+            <span>完美适配各种屏幕尺寸，在手机、平板和电脑上都能流畅使用。</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-links">
+          <a href="./about.html">关于我们</a>
+          <a href="./privacy.html">隐私政策</a>
+          <a href="./terms.html">使用条款</a>
+          <a href="./contact.html">联系我们</a>
+        </div>
+        <p>© 2026 ZenTools. 中文免费在线工具箱。保留所有权利。</p>
+      </footer>
     </div>
-
-    <section id="plugins">
-      <div class="filters">
-        <span style="color: var(--muted); font-weight: 600;">分类筛选：</span>
-        <button class="filter-btn active" data-filter="all">全部</button>
-        <button class="filter-btn" data-filter="pdf">PDF 工具</button>
-        <button class="filter-btn" data-filter="image">图片工具</button>
-        <button class="filter-btn" data-filter="video">视频工具</button>
-        <button class="filter-btn" data-filter="ai">AI 工具</button>
-        <button class="filter-btn" data-filter="text">文字工具</button>
-        <button class="filter-btn" data-filter="dev">开发工具</button>
-      </div>
-
-      <div class="plugins-grid" id="pluginsContainer"></div>
-    </section>
-
-    <section class="info-section">
-      <h2>为什么选择 ZenTools？</h2>
-      <p>ZenTools 是一个完全免费的在线工具集合，为中文用户优化，无需安装任何软件，打开网页即可使用。所有工具都支持本地处理，保护您的隐私安全。</p>
-      <div class="info-grid">
-        <div class="info-item">
-          <strong>✨ 功能全面</strong>
-          <span>PDF、图片、视频、文字、AI 等多种工具，满足日常办公和生活需求。</span>
-        </div>
-        <div class="info-item">
-          <strong>🔒 隐私保护</strong>
-          <span>文件处理主要在浏览器本地完成，不会上传到服务器，确保数据安全。</span>
-        </div>
-        <div class="info-item">
-          <strong>💻 无需安装</strong>
-          <span>所有工具都在线使用，无需下载和安装，支持 Windows、Mac、Linux、iOS、Android。</span>
-        </div>
-        <div class="info-item">
-          <strong>⚡ 快速高效</strong>
-          <span>优化的处理引擎和界面设计，让您快速完成工作。</span>
-        </div>
-        <div class="info-item">
-          <strong>🌍 多语言支持</strong>
-          <span>支持中文、英文、日文、越南文等多种语言，便捷的语言切换。</span>
-        </div>
-        <div class="info-item">
-          <strong>📱 响应式设计</strong>
-          <span>完美适配各种屏幕尺寸，在手机、平板和电脑上都能流畅使用。</span>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="footer-links">
-        <a href="./about.html">关于我们</a>
-        <a href="./privacy.html">隐私政策</a>
-        <a href="./terms.html">使用条款</a>
-        <a href="./contact.html">联系我们</a>
-      </div>
-      <p>© 2026 ZenTools. 中文免费在线工具箱。保留所有权利。</p>
-    </footer>
   </div>
 
   <script>
-    // 插件数据
+    // 插件数据（保持不变）
     const pluginsData = [
       {
         name: "PDF 合并工具",
