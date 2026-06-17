@@ -1,66 +1,264 @@
-<!-- ========== ZT-DCA 主加载 ========== -->
-<script>
-(function() {
-    fetch('/data/tools-data.json')
-        .then(response => {
-            if (!response.ok) throw new Error('JSON 文件未找到');
-            return response.json();
-        })
-        .then(data => {
-            if (!data.tools || data.tools.length === 0) throw new Error('工具数据为空');
-            console.log('✅ ZT-DCA: 成功加载 tools-data.json，共 ' + data.tools.length + ' 个工具');
-            
-            const featuredTools = data.tools.filter(t => t.featured === true).slice(0, 7);
-            const toolsToShow = featuredTools.length > 0 ? featuredTools : data.tools.slice(0, 7);
-            const container = document.querySelector('.tools-grid');
-            if (!container) {
-                console.warn('⚠️ ZT-DCA: 未找到 .tools-grid 容器');
-                return;
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ZenTools 2.0 · 科技风测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: #060b18;
+            color: #f0f4ff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00d4ff, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .logo span {
+            font-size: 12px;
+            background: rgba(0, 180, 255, 0.15);
+            color: #00d4ff;
+            padding: 2px 10px;
+            border-radius: 999px;
+            margin-left: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #8899bb;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: #f0f4ff;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .nav-links a.active {
+            color: #00d4ff;
+            background: rgba(0, 180, 255, 0.08);
+        }
+
+        .btn {
+            padding: 8px 20px;
+            border-radius: 999px;
+            border: none;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: linear-gradient(135deg, #00d4ff, #3b82f6);
+            color: #fff;
+        }
+
+        .hero {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 50px;
+            padding: 40px 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 .hl {
+            background: linear-gradient(135deg, #00d4ff, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            color: #8899bb;
+            font-size: 18px;
+            margin: 16px 0 28px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 24px 18px 20px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(0, 180, 255, 0.2);
+        }
+
+        .tool-card .emoji {
+            font-size: 36px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .tool-card .name {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .tool-card .desc {
+            font-size: 12px;
+            color: #8899bb;
+            margin-top: 4px;
+        }
+
+        .tool-card .tag {
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            color: #00d4ff;
+            background: rgba(0, 180, 255, 0.08);
+            padding: 4px 14px;
+            border-radius: 999px;
+        }
+
+        .footer {
+            max-width: 1200px;
+            margin: 50px auto 0;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: #4a5a7a;
+            font-size: 13px;
+        }
+
+        @media (max-width: 640px) {
+            .navbar {
+                flex-direction: column;
+                align-items: stretch;
+                text-align: center;
             }
-            
-            // 清空容器
-            container.innerHTML = '';
-            
-            // 生成工具卡片
-            let html = '';
-            for (const tool of toolsToShow) {
-                const tagText = tool.category || '工具';
-                const isNew = tool.new === true ? 'NEW' : tagText;
-                html += `
-                    <a class="tool-card" href="${tool.url}" target="_blank" title="${tool.description || tool.name}">
-                        <div class="tool-emoji">${tool.icon || '🔧'}</div>
-                        <div class="tool-name">${tool.name}</div>
-                        <div class="tool-desc">${tool.description || '点击使用工具'}</div>
-                        <span class="tool-tag">${isNew}</span>
-                    </a>
-                `;
+            .nav-links {
+                justify-content: center;
             }
-            
-            // 添加"查看全部"卡片
-            html += `
-                <a class="tool-card" href="/plugins-preview.html" target="_blank" title="查看全部工具">
-                    <div class="tool-emoji">⭐</div>
-                    <div class="tool-name">查看全部</div>
-                    <div class="tool-desc">浏览更多工具</div>
-                    <span class="tool-tag">工具箱</span>
-                </a>
-            `;
-            
-            container.innerHTML = html;
-            console.log('✅ ZT-DCA: 成功渲染 ' + toolsToShow.length + ' 个工具卡片 + 查看全部');
-        })
-        .catch(error => {
-            console.warn('⚠️ ZT-DCA: 加载失败，显示备用内容', error);
-            // 可选：显示一个友好的提示
-            const container = document.querySelector('.tools-grid');
-            if (container && container.innerHTML.trim() === '') {
-                container.innerHTML = `
-                    <div style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8;">
-                        ⏳ 工具加载中，请稍后刷新...
-                    </div>
-                `;
+            .hero h1 {
+                font-size: 32px;
             }
-        });
-})();
-</script>
-<!-- ========== ZT-DCA 主加载结束 ========== -->
+            .tools-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">ZenTools <span>2.0</span></div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">首页</a></li>
+            <li><a href="#tools">工具</a></li>
+            <li><a href="#">分类</a></li>
+            <li><a href="#">关于</a></li>
+        </ul>
+        <button class="btn">开始使用</button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <h1>精简 · 高效 · <span class="hl">ZenTools</span></h1>
+        <p>基于 ZT-DCA 规范构建的在线工具集，所有工具本地运行，隐私安全。</p>
+    </section>
+
+    <!-- 工具网格 -->
+    <div class="tools-grid">
+        <a class="tool-card" href="/pdf/index.html">
+            <span class="emoji">📄</span>
+            <div class="name">PDF 工具</div>
+            <div class="desc">PDF 转图片、图片转 PDF</div>
+            <span class="tag">PDF</span>
+        </a>
+        <a class="tool-card" href="/image/compress.html">
+            <span class="emoji">🖼️</span>
+            <div class="name">图片压缩</div>
+            <div class="desc">压缩 JPG、PNG 图片体积</div>
+            <span class="tag">NEW</span>
+        </a>
+        <a class="tool-card" href="#">
+            <span class="emoji">🔊</span>
+            <div class="name">文字转语音</div>
+            <div class="desc">输入文字即可朗读</div>
+            <span class="tag">音频</span>
+        </a>
+        <a class="tool-card" href="#">
+            <span class="emoji">🌍</span>
+            <div class="name">世界时间</div>
+            <div class="desc">查看不同时区时间</div>
+            <span class="tag">生活</span>
+        </a>
+        <a class="tool-card" href="#">
+            <span class="emoji">💱</span>
+            <div class="name">汇率换算</div>
+            <div class="desc">常见货币兑换估算</div>
+            <span class="tag">金融</span>
+        </a>
+        <a class="tool-card" href="#">
+            <span class="emoji">🤖</span>
+            <div class="name">AI 工具导航</div>
+            <div class="desc">AI 写作、绘图工具入口</div>
+            <span class="tag">AI</span>
+        </a>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        © 2026 ZenTools · 数据驱动分类架构
+    </footer>
+
+</body>
+</html>
