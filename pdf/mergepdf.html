@@ -453,6 +453,49 @@ function applySEO(){
 
 applySEO();
 </script>
+<!-- ===== 你可能还需要 ===== -->
+<div class="recommend-section" style="max-width:1200px;margin:40px auto 0;padding:0 24px;">
+  <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">💡 你可能还需要</h3>
+  <div id="recommendList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;">
+    <div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:20px;">加载推荐...</div>
+  </div>
+</div>
 
+<script>
+(function() {
+  // 当前工具的分类 (从页面路径推断或手动设置)
+  const currentCategory = 'PDF工具'; // 根据页面修改: PDF工具 / 图片工具 / 音频工具 等
+  const currentUrl = window.location.pathname;
+
+  fetch('/data/tools-data.json')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+      if (!data?.tools) return;
+      // 筛选同分类下、且不是当前页面的工具
+      const recs = data.tools.filter(t =>
+        t.category === currentCategory &&
+        t.url &&
+        t.url !== currentUrl &&
+        t.url !== '#'
+      ).slice(0, 4);
+
+      const container = document.getElementById('recommendList');
+      if (!recs.length) {
+        container.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:12px;">暂无更多工具</div>';
+        return;
+      }
+      container.innerHTML = recs.map(t =>
+        `<a href="${t.url}" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;text-decoration:none;color:inherit;transition:all .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='var(--border-hover)';" onmouseout="this.style.transform='';this.style.borderColor='';">
+          <div style="font-size:28px;">${t.icon || '🔧'}</div>
+          <div style="font-weight:600;font-size:14px;margin-top:6px;">${t.name}</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">${t.description || ''}</div>
+        </a>`
+      ).join('');
+    })
+    .catch(() => {
+      document.getElementById('recommendList').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:12px;">推荐加载失败</div>';
+    });
+})();
+</script>
 </body>
 </html>
