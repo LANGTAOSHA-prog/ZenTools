@@ -11,29 +11,35 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --bg: #070b18;
-      --surface: #0e1629;
-      --surface2: #141f37;
+      --surface: rgba(14, 22, 41, 0.8);
+      --surface2: rgba(20, 31, 55, 0.9);
       --border: rgba(255,255,255,0.06);
       --border-hover: rgba(255,255,255,0.12);
       --text: #f0f4ff;
       --muted: #8899bb;
       --muted-light: #5a6a8a;
       --accent: #3b82f6;
+      --accent2: #8b5cf6;
       --accent-glow: rgba(59, 130, 246, 0.2);
-      --radius: 12px;
+      --purple-glow: rgba(139, 92, 246, 0.15);
+      --radius: 14px;
       --radius-pill: 999px;
       --shadow: 0 8px 24px rgba(0,0,0,0.4);
+      --glass-border: rgba(255,255,255,0.08);
     }
     [data-theme="light"] {
       --bg: #f2f5f9;
-      --surface: #ffffff;
-      --surface2: #f0f4fe;
+      --surface: rgba(255,255,255,0.85);
+      --surface2: rgba(240, 244, 254, 0.9);
       --border: rgba(0,0,0,0.06);
       --border-hover: rgba(0,0,0,0.14);
       --text: #0b111e;
       --muted: #4a5a7a;
       --muted-light: #7a8aaa;
+      --accent-glow: rgba(59, 130, 246, 0.1);
+      --purple-glow: rgba(139, 92, 246, 0.08);
       --shadow: 0 8px 24px rgba(0,0,0,0.06);
+      --glass-border: rgba(0,0,0,0.06);
     }
     html { scroll-behavior: smooth; }
     body {
@@ -142,10 +148,24 @@
 
     /* ===== Hero ===== */
     .hero {
-      padding: 40px 0 30px;
+      padding: 50px 0 36px;
       text-align: center;
       border-bottom: 1px solid var(--border);
       margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0.6;
     }
     .hero h1 {
       font-size: clamp(28px, 4vw, 44px);
@@ -153,18 +173,32 @@
       letter-spacing: -1px;
       line-height: 1.1;
       margin-bottom: 12px;
+      position: relative;
     }
     .hero h1 .hl {
       background: linear-gradient(135deg, var(--accent), #8b5cf6);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      position: relative;
+    }
+    .hero h1 .hl::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+      border-radius: 2px;
+      opacity: 0.4;
     }
     .hero p {
       font-size: 16px;
       color: var(--muted);
       max-width: 500px;
       margin: 0 auto 20px;
+      position: relative;
     }
 
     /* ===== 分类快捷入口 (新增) ===== */
@@ -177,22 +211,24 @@
     }
     .category-ribbon a {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius-pill);
       padding: 8px 20px;
       font-size: 14px;
       font-weight: 600;
       color: var(--muted);
-      transition: all .2s;
+      transition: all .25s cubic-bezier(.4,0,.2,1);
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      backdrop-filter: blur(4px);
     }
     .category-ribbon a:hover {
       background: var(--surface2);
-      border-color: var(--border-hover);
+      border-color: var(--accent-glow);
       color: var(--text);
       transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(59,130,246,0.08);
     }
     .category-ribbon a .cat-icon { font-size: 16px; }
 
@@ -225,20 +261,21 @@
     .hot-item {
       flex: 0 0 160px;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius);
       padding: 16px 14px;
       text-align: center;
       scroll-snap-align: start;
-      transition: all .2s;
+      transition: all .25s cubic-bezier(.4,0,.2,1);
       text-decoration: none;
       color: inherit;
       min-width: 140px;
+      backdrop-filter: blur(4px);
     }
     .hot-item:hover {
       transform: translateY(-4px);
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow);
+      border-color: var(--accent-glow);
+      box-shadow: 0 8px 24px rgba(59,130,246,0.1);
     }
     .hot-item .emoji { font-size: 28px; display: block; margin-bottom: 6px; }
     .hot-item .name { font-size: 14px; font-weight: 600; }
@@ -284,18 +321,35 @@
     }
     .tool-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius);
       padding: 18px 14px 16px;
       text-align: center;
-      transition: all .2s;
+      transition: all .3s cubic-bezier(.4,0,.2,1);
       text-decoration: none;
       color: inherit;
+      backdrop-filter: blur(4px);
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity .3s;
     }
     .tool-card:hover {
       transform: translateY(-4px);
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow);
+      border-color: var(--accent-glow);
+      box-shadow: 0 8px 32px rgba(59,130,246,0.12);
+    }
+    .tool-card:hover::before {
+      opacity: 1;
     }
     .tool-card .emoji { font-size: 28px; display: block; margin-bottom: 8px; }
     .tool-card .name { font-weight: 600; font-size: 14px; }
@@ -319,20 +373,21 @@
     }
     .learning-card {
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius);
       padding: 18px 18px 16px;
-      transition: all .2s;
+      transition: all .25s cubic-bezier(.4,0,.2,1);
       text-decoration: none;
       color: inherit;
       display: flex;
       flex-direction: column;
       gap: 6px;
+      backdrop-filter: blur(4px);
     }
     .learning-card:hover {
       transform: translateY(-4px);
-      border-color: var(--border-hover);
-      box-shadow: var(--shadow);
+      border-color: var(--accent-glow);
+      box-shadow: 0 8px 24px rgba(59,130,246,0.1);
     }
     .learning-card .lc-icon {
       width: 40px;
