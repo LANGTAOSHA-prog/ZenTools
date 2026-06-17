@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>文本工具�?- ����Сվ-ZenTools</title>
-  <meta name="description" content="在线文本处理工具集合，支持字数统计、大小写转换、去重等操作�? />
+  <title>鏂囨湰宸ュ叿绠?- 江湖小站-ZenTools</title>
+  <meta name="description" content="鍦ㄧ嚎鏂囨湰澶勭悊宸ュ叿闆嗗悎锛屾敮鎸佸瓧鏁扮粺璁°€佸ぇ灏忓啓杞崲銆佸幓閲嶇瓑鎿嶄綔銆? />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -79,53 +79,53 @@
 <body>
 <div class="container">
   <nav class="nav-bar">
-    <div class="logo"><span class="mark">�?/span>����Сվ-ZenTools</div>
+    <div class="logo"><span class="mark">鉀?/span>江湖小站-ZenTools</div>
     <div class="links">
-      <a href="/">首页</a>
-      <a href="#" class="active">文本工具</a>
-      <a href="/plugins-preview.html">全部工具</a>
+      <a href="/">棣栭〉</a>
+      <a href="#" class="active">鏂囨湰宸ュ叿</a>
+      <a href="/plugins-preview.html">鍏ㄩ儴宸ュ叿</a>
     </div>
   </nav>
-  <a href="/" class="back-home">�?返回首页</a>
+  <a href="/" class="back-home">鈫?杩斿洖棣栭〉</a>
   <div class="page-header">
-    <h1><span class="hl">文本</span> 工具�?/h1>
-    <p>在线文本处理工具集合，支持字数统计、大小写转换等操�?/p>
+    <h1><span class="hl">鏂囨湰</span> 宸ュ叿绠?/h1>
+    <p>鍦ㄧ嚎鏂囨湰澶勭悊宸ュ叿闆嗗悎锛屾敮鎸佸瓧鏁扮粺璁°€佸ぇ灏忓啓杞崲绛夋搷浣?/p>
   </div>
   <div class="tools-grid" id="toolsGrid">
-    <div class="empty-state">�?加载工具�?..</div>
+    <div class="empty-state">鈴?鍔犺浇宸ュ叿涓?..</div>
   </div>
-  <div class="footer">© 2026 <a href="/" style="color:var(--accent);">����Сվ-ZenTools</a> · 数据驱动分类架构</div>
+  <div class="footer">漏 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> 路 鏁版嵁椹卞姩鍒嗙被鏋舵瀯</div>
 </div>
 <script>
-  const CATEGORY_KEY = '文本工具';
-  const PAGE_TITLE = '文本';
-  const PAGE_DESC = '在线文本处理工具集合，支持字数统计、大小写转换等操�?;
+  const CATEGORY_KEY = '鏂囨湰宸ュ叿';
+  const PAGE_TITLE = '鏂囨湰';
+  const PAGE_DESC = '鍦ㄧ嚎鏂囨湰澶勭悊宸ュ叿闆嗗悎锛屾敮鎸佸瓧鏁扮粺璁°€佸ぇ灏忓啓杞崲绛夋搷浣?;
   const fallbackTools = [
-    { name: '字数统计', url: '/text/wordcount.html', icon: '📊', description: '统计文字数量、字符数和段落数', category: '文本工具' },
-    { name: '大小写转�?, url: '/text/caseconvert.html', icon: '🔤', description: '英文大小写互相转�?, category: '文本工具' },
-    { name: '去重工具', url: '/text/dedupe.html', icon: '🧹', description: '去除重复行或重复内容', category: '文本工具' },
-    { name: '空行处理', url: '/text/blankline.html', icon: '📄', description: '删除多余空行和空�?, category: '文本工具' },
-    { name: '链接提取', url: '/text/linkextract.html', icon: '🔗', description: '从文本中提取所有链�?, category: '文本工具' }
+    { name: '瀛楁暟缁熻', url: '/text/wordcount.html', icon: '馃搳', description: '缁熻鏂囧瓧鏁伴噺銆佸瓧绗︽暟鍜屾钀芥暟', category: '鏂囨湰宸ュ叿' },
+    { name: '澶у皬鍐欒浆鎹?, url: '/text/caseconvert.html', icon: '馃敜', description: '鑻辨枃澶у皬鍐欎簰鐩歌浆鎹?, category: '鏂囨湰宸ュ叿' },
+    { name: '鍘婚噸宸ュ叿', url: '/text/dedupe.html', icon: '馃Ч', description: '鍘婚櫎閲嶅琛屾垨閲嶅鍐呭', category: '鏂囨湰宸ュ叿' },
+    { name: '绌鸿澶勭悊', url: '/text/blankline.html', icon: '馃搫', description: '鍒犻櫎澶氫綑绌鸿鍜岀┖鐧?, category: '鏂囨湰宸ュ叿' },
+    { name: '閾炬帴鎻愬彇', url: '/text/linkextract.html', icon: '馃敆', description: '浠庢枃鏈腑鎻愬彇鎵€鏈夐摼鎺?, category: '鏂囨湰宸ュ叿' }
   ];
   function renderTools(tools) {
     const container = document.getElementById('toolsGrid'); if (!container) return;
     const filtered = tools.filter(t => t.category === CATEGORY_KEY);
-    if (filtered.length === 0) { container.innerHTML = '<div class="empty-state">📭 该分类下暂无工具，敬请期�?/div>'; return; }
+    if (filtered.length === 0) { container.innerHTML = '<div class="empty-state">馃摥 璇ュ垎绫讳笅鏆傛棤宸ュ叿锛屾暚璇锋湡寰?/div>'; return; }
     let html = '';
     for (const tool of filtered) {
       const isComingSoon = tool.url === '#' || !tool.url || tool.url === '';
       const cardClass = isComingSoon ? 'tool-card coming-soon' : 'tool-card';
       const href = isComingSoon ? '#' : tool.url;
-      const tagText = tool.new ? 'NEW' : (tool.category || '工具');
+      const tagText = tool.new ? 'NEW' : (tool.category || '宸ュ叿');
       const tagClass = tool.new ? 'new' : '';
-      html += `<a class="${cardClass}" href="${href}" target="${isComingSoon ? '' : '_blank'}" title="${tool.description || tool.name}"><span class="emoji">${tool.icon || '🔧'}</span><span class="name">${tool.name}</span><span class="desc">${tool.description || '点击使用工具'}</span><span class="tag ${tagClass}">${tagText}</span></a>`;
+      html += `<a class="${cardClass}" href="${href}" target="${isComingSoon ? '' : '_blank'}" title="${tool.description || tool.name}"><span class="emoji">${tool.icon || '馃敡'}</span><span class="name">${tool.name}</span><span class="desc">${tool.description || '鐐瑰嚮浣跨敤宸ュ叿'}</span><span class="tag ${tagClass}">${tagText}</span></a>`;
     }
     container.innerHTML = html;
   }
   function loadTools() {
-    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 工具箱`;
+    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 宸ュ叿绠盽;
     document.querySelector('.page-header p').textContent = PAGE_DESC;
-    fetch('/data/tools-data.json').then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return r.json(); }).then(d => { if (d && d.tools && d.tools.length) renderTools(d.tools); else throw Error('空数�?); }).catch(e => { console.warn(e); renderTools(fallbackTools); });
+    fetch('/data/tools-data.json').then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return r.json(); }).then(d => { if (d && d.tools && d.tools.length) renderTools(d.tools); else throw Error('绌烘暟鎹?); }).catch(e => { console.warn(e); renderTools(fallbackTools); });
   }
   document.addEventListener('DOMContentLoaded', loadTools);
 </script>

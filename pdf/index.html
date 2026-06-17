@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF 工具�?- ����Сվ-ZenTools</title>
-  <meta name="description" content="在线 PDF 处理工具集合，支�?PDF 转图片、图片转 PDF、合并、拆分等操作�? />
+  <title>PDF 宸ュ叿绠?- 江湖小站-ZenTools</title>
+  <meta name="description" content="鍦ㄧ嚎 PDF 澶勭悊宸ュ叿闆嗗悎锛屾敮鎸?PDF 杞浘鐗囥€佸浘鐗囪浆 PDF銆佸悎骞躲€佹媶鍒嗙瓑鎿嶄綔銆? />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -80,63 +80,63 @@
 
 <div class="container">
 
-  <!-- ===== 导航�?===== -->
+  <!-- ===== 瀵艰埅鏍?===== -->
   <nav class="nav-bar">
     <div class="logo">
-      <span class="mark">�?/span>
-      ����Сվ-ZenTools
+      <span class="mark">鉀?/span>
+      江湖小站-ZenTools
     </div>
     <div class="links">
-      <a href="/">首页</a>
-      <a href="#" class="active">PDF 工具</a>
-      <a href="/plugins-preview.html">全部工具</a>
+      <a href="/">棣栭〉</a>
+      <a href="#" class="active">PDF 宸ュ叿</a>
+      <a href="/plugins-preview.html">鍏ㄩ儴宸ュ叿</a>
     </div>
   </nav>
 
-  <!-- ===== 返回首页 ===== -->
-  <a href="/" class="back-home">�?返回首页</a>
+  <!-- ===== 杩斿洖棣栭〉 ===== -->
+  <a href="/" class="back-home">鈫?杩斿洖棣栭〉</a>
 
-  <!-- ===== 页面头部 ===== -->
+  <!-- ===== 椤甸潰澶撮儴 ===== -->
   <div class="page-header">
-    <h1><span class="hl">PDF</span> 工具�?/h1>
-    <p>在线 PDF 处理工具集合，支�?PDF 转图片、图片转 PDF 等操�?/p>
+    <h1><span class="hl">PDF</span> 宸ュ叿绠?/h1>
+    <p>鍦ㄧ嚎 PDF 澶勭悊宸ュ叿闆嗗悎锛屾敮鎸?PDF 杞浘鐗囥€佸浘鐗囪浆 PDF 绛夋搷浣?/p>
   </div>
 
-  <!-- ===== 工具网格 ===== -->
+  <!-- ===== 宸ュ叿缃戞牸 ===== -->
   <div class="tools-grid" id="toolsGrid">
-    <div class="empty-state">�?加载工具�?..</div>
+    <div class="empty-state">鈴?鍔犺浇宸ュ叿涓?..</div>
   </div>
 
   <!-- ===== Footer ===== -->
   <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">����Сվ-ZenTools</a> · 数据驱动分类架构
+    漏 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> 路 鏁版嵁椹卞姩鍒嗙被鏋舵瀯
   </div>
 
 </div>
 
 <script>
   // ============================================================
-  // 📌 PDF 分类页配置（已修正：带空格，�?JSON 一致）
+  // 馃搶 PDF 鍒嗙被椤甸厤缃紙宸蹭慨姝ｏ細甯︾┖鏍硷紝涓?JSON 涓€鑷达級
   // ============================================================
-  const CATEGORY_KEY = 'PDF工具';   // 必须�?tools-data.json 中的 category 完全一�?
-  const PAGE_TITLE = 'PDF';         // 页面标题
-  const PAGE_DESC = '在线 PDF 处理工具集合，支�?PDF 转图片、图片转 PDF 等操�?;
+  const CATEGORY_KEY = 'PDF宸ュ叿';   // 蹇呴』鍜?tools-data.json 涓殑 category 瀹屽叏涓€鑷?
+  const PAGE_TITLE = 'PDF';         // 椤甸潰鏍囬
+  const PAGE_DESC = '鍦ㄧ嚎 PDF 澶勭悊宸ュ叿闆嗗悎锛屾敮鎸?PDF 杞浘鐗囥€佸浘鐗囪浆 PDF 绛夋搷浣?;
 
   // ============================================================
-  // 备用数据（JSON 加载失败时使用）
+  // 澶囩敤鏁版嵁锛圝SON 鍔犺浇澶辫触鏃朵娇鐢級
   // ============================================================
   const fallbackTools = [
-    { name: 'PDF 转图�?, url: '/pdf/pdf-to-image.html', icon: '📄', description: '�?PDF 页面转换为图�?, category: 'PDF工具' },
-    { name: '图片�?PDF', url: '/pdf/image-to-pdf.html', icon: '🖼�?, description: '将图片合并为 PDF', category: 'PDF工具' },
-    { name: 'PDF 合并', url: '/pdf/merge.html', icon: '📄', description: '将多�?PDF 文件合并为一�?, category: 'PDF工具' },
-    { name: 'PDF 拆分', url: '/pdf/split.html', icon: '✂️', description: '�?PDF 拆分为多个独立页�?, category: 'PDF工具' },
-    { name: 'PDF 压缩', url: '/pdf/compress.html', icon: '🗜�?, description: '压缩 PDF 文件大小', category: 'PDF工具' },
-    { name: 'PDF转Word', url: '/pdf/pdf-to-word.html', icon: '📝', description: '�?PDF 转换�?Word 文档', category: 'PDF工具' },
-    { name: 'Word转PDF', url: '/pdf/word-to-pdf.html', icon: '📄', description: '�?Word 文档转换�?PDF', category: 'PDF工具' }
+    { name: 'PDF 杞浘鐗?, url: '/pdf/pdf-to-image.html', icon: '馃搫', description: '灏?PDF 椤甸潰杞崲涓哄浘鐗?, category: 'PDF宸ュ叿' },
+    { name: '鍥剧墖杞?PDF', url: '/pdf/image-to-pdf.html', icon: '馃柤锔?, description: '灏嗗浘鐗囧悎骞朵负 PDF', category: 'PDF宸ュ叿' },
+    { name: 'PDF 鍚堝苟', url: '/pdf/merge.html', icon: '馃搫', description: '灏嗗涓?PDF 鏂囦欢鍚堝苟涓轰竴涓?, category: 'PDF宸ュ叿' },
+    { name: 'PDF 鎷嗗垎', url: '/pdf/split.html', icon: '鉁傦笍', description: '灏?PDF 鎷嗗垎涓哄涓嫭绔嬮〉闈?, category: 'PDF宸ュ叿' },
+    { name: 'PDF 鍘嬬缉', url: '/pdf/compress.html', icon: '馃棞锔?, description: '鍘嬬缉 PDF 鏂囦欢澶у皬', category: 'PDF宸ュ叿' },
+    { name: 'PDF杞琖ord', url: '/pdf/pdf-to-word.html', icon: '馃摑', description: '灏?PDF 杞崲涓?Word 鏂囨。', category: 'PDF宸ュ叿' },
+    { name: 'Word杞琍DF', url: '/pdf/word-to-pdf.html', icon: '馃搫', description: '灏?Word 鏂囨。杞崲涓?PDF', category: 'PDF宸ュ叿' }
   ];
 
   // ============================================================
-  // 渲染函数
+  // 娓叉煋鍑芥暟
   // ============================================================
   function renderTools(tools) {
     const container = document.getElementById('toolsGrid');
@@ -145,7 +145,7 @@
     const filtered = tools.filter(t => t.category === CATEGORY_KEY);
 
     if (filtered.length === 0) {
-      container.innerHTML = `<div class="empty-state">📭 该分类下暂无工具，敬请期�?/div>`;
+      container.innerHTML = `<div class="empty-state">馃摥 璇ュ垎绫讳笅鏆傛棤宸ュ叿锛屾暚璇锋湡寰?/div>`;
       return;
     }
 
@@ -154,28 +154,28 @@
       const isComingSoon = tool.url === '#' || !tool.url || tool.url === '';
       const cardClass = isComingSoon ? 'tool-card coming-soon' : 'tool-card';
       const href = isComingSoon ? '#' : tool.url;
-      const tagText = tool.new ? 'NEW' : (tool.category || '工具');
+      const tagText = tool.new ? 'NEW' : (tool.category || '宸ュ叿');
       const tagClass = tool.new ? 'new' : '';
 
       html += `
         <a class="${cardClass}" href="${href}" target="${isComingSoon ? '' : '_blank'}" title="${tool.description || tool.name}">
-          <span class="emoji">${tool.icon || '🔧'}</span>
+          <span class="emoji">${tool.icon || '馃敡'}</span>
           <span class="name">${tool.name}</span>
-          <span class="desc">${tool.description || '点击使用工具'}</span>
+          <span class="desc">${tool.description || '鐐瑰嚮浣跨敤宸ュ叿'}</span>
           <span class="tag ${tagClass}">${tagText}</span>
         </a>
       `;
     }
 
     container.innerHTML = html;
-    console.log(`�?ZT-DCA: PDF 分类页加载完成，�?${filtered.length} 个工具`);
+    console.log(`鉁?ZT-DCA: PDF 鍒嗙被椤靛姞杞藉畬鎴愶紝鍏?${filtered.length} 涓伐鍏穈);
   }
 
   // ============================================================
-  // 加载数据
+  // 鍔犺浇鏁版嵁
   // ============================================================
   function loadTools() {
-    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 工具箱`;
+    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 宸ュ叿绠盽;
     document.querySelector('.page-header p').textContent = PAGE_DESC;
 
     fetch('/data/tools-data.json')
@@ -187,11 +187,11 @@
         if (data && data.tools && data.tools.length > 0) {
           renderTools(data.tools);
         } else {
-          throw new Error('工具数据为空');
+          throw new Error('宸ュ叿鏁版嵁涓虹┖');
         }
       })
       .catch(error => {
-        console.warn('⚠️ ZT-DCA: PDF 分类页加载失败，使用备用数据', error);
+        console.warn('鈿狅笍 ZT-DCA: PDF 鍒嗙被椤靛姞杞藉け璐ワ紝浣跨敤澶囩敤鏁版嵁', error);
         renderTools(fallbackTools);
       });
   }
