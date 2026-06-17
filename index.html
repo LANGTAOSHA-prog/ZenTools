@@ -252,6 +252,71 @@
     /* 修正重复的 "查看全部" 卡片区域 —— 注意原html中错误多出了一个闭合前多出的卡片，通过以下隐藏修复保持与原结构一致且不修改内容 */
     .tools-grid + .tool-card { display: none; }
     /* 确保原结构中多余部分不显示，但保留全部原始链接 */
+  <!-- ========== ZT-DCA 增强加载 (渐进式) ========== -->
+<script>
+(function() {
+    // 尝试从 data/tools-data.json 加载工具数据
+    fetch('/data/tools-data.json')
+        .then(response => {
+            if (!response.ok) throw new Error('JSON 文件未找到');
+            return response.json();
+        })
+        .then(data => {
+            if (!data.tools || data.tools.length === 0) throw new Error('工具数据为空');
+            console.log('✅ ZT-DCA: 成功加载 tools-data.json，共 ' + data.tools.length + ' 个工具');
+            
+            // 获取 featured 工具 (最多 7 个)
+            const featuredTools = data.tools.filter(t => t.featured === true).slice(0, 7);
+            const toolsToShow = featuredTools.length > 0 ? featuredTools : data.tools.slice(0, 7);
+            
+            // 找到首页的 .tools-grid 容器
+            const container = document.querySelector('.tools-grid');
+            if (!container) {
+                console.warn('⚠️ ZT-DCA: 未找到 .tools-grid 容器');
+                return;
+            }
+            
+            // 只替换工具卡片部分，保留"查看全部"按钮
+            // 清除现有卡片（但保留最后一个"查看全部"）
+            const allCards = container.querySelectorAll('.tool-card');
+            const viewAllCard = allCards.length > 0 ? allCards[allCards.length - 1] : null;
+            
+            // 移除所有卡片（保留"查看全部"）
+            allCards.forEach(card => {
+                if (card !== viewAllCard) card.remove();
+            });
+            
+            // 生成新卡片并插入到"查看全部"之前
+            let newCardsHtml = '';
+            for (const tool of toolsToShow) {
+                const tagText = tool.category || '工具';
+                const isNew = tool.new === true ? 'NEW' : tagText;
+                newCardsHtml += `
+                    <a class="tool-card" href="${tool.url}" target="_blank" title="${tool.description || tool.name}">
+                        <div class="tool-emoji">${tool.icon || '🔧'}</div>
+                        <div class="tool-name">${tool.name}</div>
+                        <div class="tool-desc">${tool.description || '点击使用工具'}</div>
+                        <span class="tool-tag">${isNew}</span>
+                    </a>
+                `;
+            }
+            
+            // 将新卡片插入到"查看全部"卡片之前
+            if (viewAllCard) {
+                viewAllCard.insertAdjacentHTML('beforebegin', newCardsHtml);
+                console.log('✅ ZT-DCA: 成功渲染 ' + toolsToShow.length + ' 个工具卡片');
+            } else {
+                // 如果没有"查看全部"卡片，直接追加
+                container.insertAdjacentHTML('beforeend', newCardsHtml);
+            }
+        })
+        .catch(error => {
+            // 静默失败，保留原有硬编码内容
+            console.log('ℹ️ ZT-DCA: 使用备用硬编码数据 (' + error.message + ')');
+        });
+})();
+</script>
+<!-- ========== ZT-DCA 增强加载结束 ========== -->
   </style>
 </head>
 <body>
