@@ -1,0 +1,66 @@
+<!-- ========== ZT-DCA 主加载 ========== -->
+<script>
+(function() {
+    fetch('/data/tools-data.json')
+        .then(response => {
+            if (!response.ok) throw new Error('JSON 文件未找到');
+            return response.json();
+        })
+        .then(data => {
+            if (!data.tools || data.tools.length === 0) throw new Error('工具数据为空');
+            console.log('✅ ZT-DCA: 成功加载 tools-data.json，共 ' + data.tools.length + ' 个工具');
+            
+            const featuredTools = data.tools.filter(t => t.featured === true).slice(0, 7);
+            const toolsToShow = featuredTools.length > 0 ? featuredTools : data.tools.slice(0, 7);
+            const container = document.querySelector('.tools-grid');
+            if (!container) {
+                console.warn('⚠️ ZT-DCA: 未找到 .tools-grid 容器');
+                return;
+            }
+            
+            // 清空容器
+            container.innerHTML = '';
+            
+            // 生成工具卡片
+            let html = '';
+            for (const tool of toolsToShow) {
+                const tagText = tool.category || '工具';
+                const isNew = tool.new === true ? 'NEW' : tagText;
+                html += `
+                    <a class="tool-card" href="${tool.url}" target="_blank" title="${tool.description || tool.name}">
+                        <div class="tool-emoji">${tool.icon || '🔧'}</div>
+                        <div class="tool-name">${tool.name}</div>
+                        <div class="tool-desc">${tool.description || '点击使用工具'}</div>
+                        <span class="tool-tag">${isNew}</span>
+                    </a>
+                `;
+            }
+            
+            // 添加"查看全部"卡片
+            html += `
+                <a class="tool-card" href="/plugins-preview.html" target="_blank" title="查看全部工具">
+                    <div class="tool-emoji">⭐</div>
+                    <div class="tool-name">查看全部</div>
+                    <div class="tool-desc">浏览更多工具</div>
+                    <span class="tool-tag">工具箱</span>
+                </a>
+            `;
+            
+            container.innerHTML = html;
+            console.log('✅ ZT-DCA: 成功渲染 ' + toolsToShow.length + ' 个工具卡片 + 查看全部');
+        })
+        .catch(error => {
+            console.warn('⚠️ ZT-DCA: 加载失败，显示备用内容', error);
+            // 可选：显示一个友好的提示
+            const container = document.querySelector('.tools-grid');
+            if (container && container.innerHTML.trim() === '') {
+                container.innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8;">
+                        ⏳ 工具加载中，请稍后刷新...
+                    </div>
+                `;
+            }
+        });
+})();
+</script>
+<!-- ========== ZT-DCA 主加载结束 ========== -->
