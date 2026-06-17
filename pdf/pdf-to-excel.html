@@ -348,7 +348,7 @@
 
       const status = document.getElementById("imgStatus");
       const btn = document.getElementById("generateBtn");
-      status.textContent = "ć­Łĺ¨çć PDFďźčŻˇç¨ĺâŚâ?;
+status.textContent = "Generating PDF, please wait...";
       btn.disabled = true;
 
       try{
@@ -373,10 +373,10 @@
           pdf.addImage(imgData, formatType, x, y, width, height);
         }
         pdf.save("˝­şţĐĄŐž-ZenTools-ĺžçč˝ŹPDF.pdf");
-        status.textContent = "PDF ĺˇ˛çćĺšśĺźĺ§ä¸č˝˝ă?;
+status.textContent = "PDF generation completed, file downloaded.";
       }catch(err){
         console.error(err);
-        status.textContent = "ĺ¤çĺ¤ąč´ĽďźčŻˇć´ć˘ćäťśćĺˇć°éĄľé˘ĺéčŻă?;
+status.textContent = "An error occurred while generating the PDF. Please try again.";
       }finally{
         btn.disabled = false;
       }
