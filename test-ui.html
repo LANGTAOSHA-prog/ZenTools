@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ZenTools 2.0 · 科技风测试</title>
+    <title>ZenTools 2.0 · 科技风</title>
     <style>
         * {
             margin: 0;
@@ -19,11 +19,12 @@
             padding: 20px;
         }
 
+        /* ===== 导航栏 ===== */
         .navbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 16px 24px;
+            padding: 14px 24px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 16px;
@@ -40,20 +41,24 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .logo span {
-            font-size: 12px;
+        .logo .badge {
+            font-size: 10px;
+            font-weight: 600;
             background: rgba(0, 180, 255, 0.15);
             color: #00d4ff;
             padding: 2px 10px;
             border-radius: 999px;
-            margin-left: 8px;
+            letter-spacing: 0.5px;
         }
 
         .nav-links {
             display: flex;
-            gap: 8px;
+            gap: 4px;
             list-style: none;
             flex-wrap: wrap;
         }
@@ -65,6 +70,10 @@
             border-radius: 999px;
             font-size: 14px;
             font-weight: 500;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .nav-links a:hover {
@@ -77,17 +86,64 @@
             background: rgba(0, 180, 255, 0.08);
         }
 
-        .btn {
-            padding: 8px 20px;
+        .nav-links a .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: #00d4ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00d4ff;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #8899bb;
+            padding: 8px 18px;
             border-radius: 999px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #f0f4ff;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #3b82f6);
             border: none;
+            color: #fff;
+            padding: 8px 22px;
+            border-radius: 999px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            background: linear-gradient(135deg, #00d4ff, #3b82f6);
-            color: #fff;
+            transition: 0.3s;
+            font-family: inherit;
         }
 
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 180, 255, 0.25);
+        }
+
+        /* ===== Hero ===== */
         .hero {
             text-align: center;
             max-width: 800px;
@@ -95,10 +151,33 @@
             padding: 40px 20px;
         }
 
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 180, 255, 0.08);
+            border: 1px solid rgba(0, 180, 255, 0.12);
+            padding: 6px 18px 6px 14px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #00d4ff;
+            margin-bottom: 24px;
+        }
+
+        .hero-tag .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
         .hero h1 {
             font-size: 48px;
             font-weight: 900;
             letter-spacing: -1px;
+            line-height: 1.1;
         }
 
         .hero h1 .hl {
@@ -112,6 +191,78 @@
             color: #8899bb;
             font-size: 18px;
             margin: 16px 0 28px;
+        }
+
+        .hero-actions {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .btn-hero {
+            padding: 14px 36px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-hero-primary {
+            background: linear-gradient(135deg, #00d4ff, #3b82f6);
+            color: #fff;
+            box-shadow: 0 0 40px rgba(0, 180, 255, 0.15);
+        }
+
+        .btn-hero-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 50px rgba(0, 180, 255, 0.25);
+        }
+
+        .btn-hero-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #f0f4ff;
+        }
+
+        .btn-hero-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        /* ===== 工具网格 ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .section-header h2 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .section-header .see-all {
+            color: #8899bb;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .section-header .see-all:hover {
+            color: #00d4ff;
         }
 
         .tools-grid {
@@ -131,12 +282,34 @@
             text-decoration: none;
             color: inherit;
             transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent, rgba(0, 180, 255, 0.1), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: 0.3s;
         }
 
         .tool-card:hover {
             transform: translateY(-4px);
             background: rgba(255, 255, 255, 0.06);
             border-color: rgba(0, 180, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 180, 255, 0.05);
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
         }
 
         .tool-card .emoji {
@@ -167,16 +340,42 @@
             border-radius: 999px;
         }
 
+        .tool-card .tag.new {
+            color: #22c55e;
+            background: rgba(34, 197, 94, 0.08);
+        }
+
+        /* ===== Footer ===== */
         .footer {
             max-width: 1200px;
             margin: 50px auto 0;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
             color: #4a5a7a;
             font-size: 13px;
         }
 
+        .footer a {
+            color: #8899bb;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .footer a:hover {
+            color: #00d4ff;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* ===== 响应式 ===== */
         @media (max-width: 640px) {
             .navbar {
                 flex-direction: column;
@@ -186,78 +385,123 @@
             .nav-links {
                 justify-content: center;
             }
+            .nav-right {
+                justify-content: center;
+            }
             .hero h1 {
                 font-size: 32px;
             }
             .tools-grid {
                 grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .footer {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- 导航栏 -->
+    <!-- ===== 导航栏 ===== -->
     <nav class="navbar">
-        <div class="logo">ZenTools <span>2.0</span></div>
+        <div class="logo">
+            ZenTools
+            <span class="badge">2.0</span>
+        </div>
         <ul class="nav-links">
             <li><a href="#" class="active">首页</a></li>
-            <li><a href="#tools">工具</a></li>
+            <li><a href="#tools">工具 <span class="dot"></span></a></li>
             <li><a href="#">分类</a></li>
+            <li><a href="#">教程</a></li>
             <li><a href="#">关于</a></li>
         </ul>
-        <button class="btn">开始使用</button>
+        <div class="nav-right">
+            <button class="btn-outline">🌙 暗色</button>
+            <button class="btn-primary">开始使用</button>
+        </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- ===== Hero ===== -->
     <section class="hero">
-        <h1>精简 · 高效 · <span class="hl">ZenTools</span></h1>
+        <div class="hero-tag">
+            <span class="live-dot"></span>
+            数据驱动 · 分类架构 · 本地优先
+        </div>
+        <h1>
+            精简 · 高效 · <span class="hl">ZenTools</span>
+        </h1>
         <p>基于 ZT-DCA 规范构建的在线工具集，所有工具本地运行，隐私安全。</p>
+        <div class="hero-actions">
+            <a href="#tools" class="btn-hero btn-hero-primary">🚀 探索工具</a>
+            <a href="#" class="btn-hero btn-hero-secondary">📖 开发守则</a>
+        </div>
     </section>
 
-    <!-- 工具网格 -->
-    <div class="tools-grid">
-        <a class="tool-card" href="/pdf/index.html">
-            <span class="emoji">📄</span>
-            <div class="name">PDF 工具</div>
-            <div class="desc">PDF 转图片、图片转 PDF</div>
-            <span class="tag">PDF</span>
-        </a>
-        <a class="tool-card" href="/image/compress.html">
-            <span class="emoji">🖼️</span>
-            <div class="name">图片压缩</div>
-            <div class="desc">压缩 JPG、PNG 图片体积</div>
-            <span class="tag">NEW</span>
-        </a>
-        <a class="tool-card" href="#">
-            <span class="emoji">🔊</span>
-            <div class="name">文字转语音</div>
-            <div class="desc">输入文字即可朗读</div>
-            <span class="tag">音频</span>
-        </a>
-        <a class="tool-card" href="#">
-            <span class="emoji">🌍</span>
-            <div class="name">世界时间</div>
-            <div class="desc">查看不同时区时间</div>
-            <span class="tag">生活</span>
-        </a>
-        <a class="tool-card" href="#">
-            <span class="emoji">💱</span>
-            <div class="name">汇率换算</div>
-            <div class="desc">常见货币兑换估算</div>
-            <span class="tag">金融</span>
-        </a>
-        <a class="tool-card" href="#">
-            <span class="emoji">🤖</span>
-            <div class="name">AI 工具导航</div>
-            <div class="desc">AI 写作、绘图工具入口</div>
-            <span class="tag">AI</span>
-        </a>
+    <!-- ===== 工具网格 ===== -->
+    <div id="tools">
+        <div class="section-header">
+            <h2>🔥 热门工具</h2>
+            <a href="#" class="see-all">查看全部 →</a>
+        </div>
+        <div class="tools-grid">
+            <a class="tool-card" href="/pdf/index.html">
+                <span class="emoji">📄</span>
+                <div class="name">PDF 工具</div>
+                <div class="desc">PDF 转图片、图片转 PDF</div>
+                <span class="tag">PDF</span>
+            </a>
+            <a class="tool-card" href="/image/compress.html">
+                <span class="emoji">🖼️</span>
+                <div class="name">图片压缩</div>
+                <div class="desc">压缩 JPG、PNG 图片体积</div>
+                <span class="tag new">NEW</span>
+            </a>
+            <a class="tool-card" href="#">
+                <span class="emoji">🔊</span>
+                <div class="name">文字转语音</div>
+                <div class="desc">输入文字即可朗读</div>
+                <span class="tag">音频</span>
+            </a>
+            <a class="tool-card" href="#">
+                <span class="emoji">🌍</span>
+                <div class="name">世界时间</div>
+                <div class="desc">查看不同时区时间</div>
+                <span class="tag">生活</span>
+            </a>
+            <a class="tool-card" href="#">
+                <span class="emoji">💱</span>
+                <div class="name">汇率换算</div>
+                <div class="desc">常见货币兑换估算</div>
+                <span class="tag">金融</span>
+            </a>
+            <a class="tool-card" href="#">
+                <span class="emoji">🤖</span>
+                <div class="name">AI 工具导航</div>
+                <div class="desc">AI 写作、绘图工具入口</div>
+                <span class="tag">AI</span>
+            </a>
+        </div>
     </div>
 
-    <!-- Footer -->
+    <!-- ===== Footer ===== -->
     <footer class="footer">
-        © 2026 ZenTools · 数据驱动分类架构
+        <div>© 2026 <a href="/">ZenTools</a> · 数据驱动分类架构</div>
+        <div class="footer-links">
+            <a href="#">GitHub</a>
+            <a href="#">开发守则</a>
+            <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2026030242号-1</a>
+        </div>
     </footer>
 
 </body>
