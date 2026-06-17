@@ -3,219 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAGE_TITLE - 江湖小站-ZenTools</title>
-  <meta name="description" content="PAGE_DESC" />
+  <title>AI 工具箱 - 江湖小站-ZenTools</title>
+  <meta name="description" content="在线 AI 工具集合，支持 AI 写作、翻译、总结、简历优化等操作" />
   <style>
-    /* ===== 澶嶇敤棣栭〉鏍峰紡 ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #071026;
-      --surface: #0c1320;
-      --surface2: #0f1a2a;
-      --border: rgba(255,255,255,0.04);
-      --border-bright: rgba(255,255,255,0.08);
-      --text: #e6eef8;
-      --muted: #93a3b8;
-      --accent: #06b6d4;
-      --accent2: #fb923c;
-      --radius: 12px;
-      --radius-pill: 999px;
-      --shadow: 0 18px 40px -14px rgba(2,6,23,0.6);
-    }
-    [data-theme="light"] {
-      --bg: #f0f4f8;
-      --surface: #ffffff;
-      --surface2: #f5f7fa;
-      --border: rgba(0,0,0,0.07);
-      --border-bright: rgba(0,0,0,0.12);
-      --text: #0d1117;
-      --muted: #556070;
-    }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background .3s; }
+    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --glass-border: rgba(255,255,255,0.08); }
+    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; --accent-glow: rgba(59,130,246,0.1); --glass-border: rgba(0,0,0,0.06); }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1080px; margin: 0 auto; padding: 30px 24px 60px; }
-
-    /* 瀵艰埅鏍忥紙绮剧畝鐗堬紝淇濇寔椋庢牸涓€鑷达級 */
-    .nav-bar {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 24px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; margin-bottom: 40px; flex-wrap: wrap; gap: 12px;
-    }
-    .nav-bar .logo { font-weight: 800; font-size: 18px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 40px; flex-wrap: wrap; gap: 12px; }
+    .nav-bar .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
     .nav-bar .links { display: flex; gap: 6px; flex-wrap: wrap; }
-    .nav-bar .links a { font-size: 13px; font-weight: 500; color: var(--muted); padding: 6px 14px; border-radius: var(--radius-pill); transition: .2s; }
+    .nav-bar .links a { font-size: 13px; font-weight: 500; color: var(--muted); padding: 6px 14px; border-radius: var(--radius-pill); }
     .nav-bar .links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-    .nav-bar .links a.active { color: var(--accent); background: rgba(6,182,212,.08); }
-
-    /* 澶撮儴 */
+    .nav-bar .links a.active { color: var(--accent); background: var(--accent-glow); }
     .page-header { margin-bottom: 32px; }
-    .page-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -.5px; }
-    .page-header h1 .hl { background: linear-gradient(100deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .page-header h1 { font-size: 28px; font-weight: 800; }
+    .page-header h1 .hl { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .page-header p { color: var(--muted); margin-top: 6px; font-size: 15px; }
-
-    /* 宸ュ叿缃戞牸锛堜笌棣栭〉瀹屽叏涓€鑷达級 */
-    .tools-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;
-    }
-    .tool-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-      border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px;
-      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
-      transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden;
-      text-decoration: none; color: inherit;
-    }
-    .tool-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
-    .tool-card:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(2,6,23,0.5); }
-    .tool-card:hover::after { opacity: 1; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .tool-card { background: var(--surface); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 20px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; transition: all .3s; backdrop-filter: blur(4px); }
+    .tool-card:hover { transform: translateY(-4px); border-color: var(--accent-glow); box-shadow: 0 8px 24px rgba(59,130,246,0.1); }
     .tool-card .emoji { font-size: 32px; }
-    .tool-card .name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .tool-card .name { font-size: 14px; font-weight: 600; }
     .tool-card .desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
-    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.08); border-radius: 8px; padding: 4px 12px; }
-    .tool-card .tag.new { color: #10b981; background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.08); }
-    .tool-card.coming-soon { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-    .tool-card.coming-soon .tag { color: var(--muted); background: rgba(122,132,153,.12); border-color: rgba(122,132,153,.2); }
-
-    /* 绌虹姸鎬?*/
+    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-glow); border-radius: 8px; padding: 4px 12px; }
     .empty-state { grid-column: 1/-1; text-align: center; padding: 50px 20px; color: var(--muted); }
-
-    /* 杩斿洖棣栭〉 */
-    .back-home { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 20px; transition: .2s; }
+    .back-home { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 20px; }
     .back-home:hover { color: var(--accent); }
-
-    /* Footer */
     .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
-
-    @media (max-width: 640px) {
-      .nav-bar { flex-direction: column; align-items: stretch; text-align: center; }
-      .nav-bar .links { justify-content: center; }
-      .tools-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .page-header h1 { font-size: 22px; }
-    }
-    @media (max-width: 400px) { .tools-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 640px) { .nav-bar { flex-direction: column; } .tools-grid { grid-template-columns: 1fr 1fr; } }
   </style>
 </head>
 <body>
-
 <div class="container">
-
-  <!-- ===== 瀵艰埅鏍?===== -->
   <nav class="nav-bar">
-    <div class="logo">
-      <span class="mark">鉀?/span>
-      江湖小站-ZenTools
-    </div>
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
     <div class="links">
-      <a href="/">棣栭〉</a>
-      <a href="#" class="active" id="navCategoryName">鍒嗙被</a>
-      <a href="/plugins-preview.html">鍏ㄩ儴宸ュ叿</a>
+      <a href="/">首页</a>
+      <a href="#" class="active">AI工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
     </div>
   </nav>
-
-  <!-- ===== 杩斿洖棣栭〉 ===== -->
-  <a href="/" class="back-home">鈫?杩斿洖棣栭〉</a>
-
-  <!-- ===== 椤甸潰澶撮儴 ===== -->
+  <a href="/" class="back-home">← 返回首页</a>
   <div class="page-header">
-    <h1><span class="hl" id="pageTitle">鍒嗙被</span> 宸ュ叿绠?/h1>
-    <p id="pageDesc">璇ュ垎绫讳笅鐨勬墍鏈夊湪绾垮伐鍏?/p>
+    <h1><span class="hl">AI</span> 工具箱</h1>
+    <p>在线 AI 工具集合，支持 AI 写作、翻译、总结、简历优化等操作</p>
   </div>
-
-  <!-- ===== 宸ュ叿缃戞牸 ===== -->
-  <div class="tools-grid" id="toolsGrid">
-    <div class="empty-state">鈴?鍔犺浇宸ュ叿涓?..</div>
-  </div>
-
-  <!-- ===== Footer ===== -->
-  <div class="footer">
-    漏 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> 路 鏁版嵁椹卞姩鍒嗙被鏋舵瀯
-  </div>
-
+  <div class="tools-grid" id="toolsGrid"><div class="empty-state">⏳ 加载工具中...</div></div>
+  <div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构</div>
 </div>
-
 <script>
-  // ============================================================
-  // 鍒嗙被椤甸厤缃紙姣忎釜椤甸潰淇敼杩欓噷鐨?3 涓€硷級
-  // ============================================================
-  const CATEGORY_KEY = 'AI宸ュ叿';      // 渚嬪: 'PDF宸ュ叿', '鍥剧墖宸ュ叿', 'JSON宸ュ叿'
-  const PAGE_TITLE = 'AI';        // 渚嬪: 'PDF', '鍥剧墖', 'JSON'
-  const PAGE_DESC = 'AI骞虫浛锛屾暀绋嬶紝鎸囦护璇嶏紝鍒嗕韩'; // 渚嬪: '鍦ㄧ嚎 PDF 澶勭悊宸ュ叿闆嗗悎'
-
-  // ============================================================
-  // 澶囩敤鏁版嵁锛圝SON 鍔犺浇澶辫触鏃朵娇鐢級
-  // ============================================================
-  const fallbackTools = [
-    { name: '绀轰緥宸ュ叿 1', url: '#', icon: '馃敡', description: '杩欐槸澶囩敤绀轰緥宸ュ叿', category: CATEGORY_KEY },
-    { name: '绀轰緥宸ュ叿 2', url: '#', icon: '馃敡', description: '璇风‘淇?tools-data.json 瀛樺湪', category: CATEGORY_KEY }
-  ];
-
-  // ============================================================
-  // 娓叉煋鍑芥暟
-  // ============================================================
+  const CATEGORY_KEY = 'AI工具';
+  const PAGE_TITLE = 'AI';
+  const PAGE_DESC = '在线 AI 工具集合，支持 AI 写作、翻译、总结、简历优化等操作';
+  const fallbackTools = [];
   function renderTools(tools) {
-    const container = document.getElementById('toolsGrid');
-    if (!container) return;
-
-    // 绛涢€夊睘浜庤鍒嗙被鐨勫伐鍏?
-    const filtered = tools.filter(t => t.category === CATEGORY_KEY);
-
-    if (filtered.length === 0) {
-      container.innerHTML = `<div class="empty-state">馃摥 璇ュ垎绫讳笅鏆傛棤宸ュ叿锛屾暚璇锋湡寰?/div>`;
-      return;
-    }
-
+    const c = document.getElementById('toolsGrid'); if (!c) return;
+    const f = tools.filter(t => t.category === CATEGORY_KEY);
+    if (!f.length) { c.innerHTML = '<div class="empty-state">📭 该分类下暂无工具，敬请期待</div>'; return; }
     let html = '';
-    for (const tool of filtered) {
-      const isComingSoon = tool.url === '#' || !tool.url || tool.url === '';
-      const cardClass = isComingSoon ? 'tool-card coming-soon' : 'tool-card';
-      const href = isComingSoon ? '#' : tool.url;
-      const tagText = tool.new ? 'NEW' : (tool.category || '宸ュ叿');
-      const tagClass = tool.new ? 'new' : '';
-
-      html += `
-        <a class="${cardClass}" href="${href}" target="${isComingSoon ? '' : '_blank'}" title="${tool.description || tool.name}">
-          <span class="emoji">${tool.icon || '馃敡'}</span>
-          <span class="name">${tool.name}</span>
-          <span class="desc">${tool.description || '鐐瑰嚮浣跨敤宸ュ叿'}</span>
-          <span class="tag ${tagClass}">${tagText}</span>
-        </a>
-      `;
+    for (const t of f) {
+      const cs = (!t.url || t.url === '#') ? 'tool-card' : 'tool-card';
+      const h = (!t.url || t.url === '#') ? '#' : t.url;
+      html += `<a class="${cs}" href="${h}" target="_blank"><span class="emoji">${t.icon || '🔧'}</span><span class="name">${t.name}</span><span class="desc">${t.description || ''}</span><span class="tag">${t.category || '工具'}</span></a>`;
     }
-
-    container.innerHTML = html;
-    console.log(`鉁?ZT-DCA: ${CATEGORY_KEY} 鍒嗙被椤靛姞杞藉畬鎴愶紝鍏?${filtered.length} 涓伐鍏穈);
+    c.innerHTML = html;
   }
-
-  // ============================================================
-  // 鍔犺浇鏁版嵁
-  // ============================================================
-  function loadTools() {
-    // 鏇存柊椤甸潰鏍囬
-    document.getElementById('pageTitle').textContent = PAGE_TITLE;
-    document.getElementById('pageDesc').textContent = PAGE_DESC;
-    document.getElementById('navCategoryName').textContent = PAGE_TITLE;
-
-    fetch('/data/tools-data.json')
-      .then(response => {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.json();
-      })
-      .then(data => {
-        if (data && data.tools && data.tools.length > 0) {
-          renderTools(data.tools);
-        } else {
-          throw new Error('宸ュ叿鏁版嵁涓虹┖');
-        }
-      })
-      .catch(error => {
-        console.warn(`鈿狅笍 ZT-DCA: ${PDF宸ュ叿} 鍒嗙被椤靛姞杞藉け璐ワ紝浣跨敤澶囩敤鏁版嵁`, error);
-        renderTools(fallbackTools);
-      });
+  function load() {
+    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 工具箱`;
+    document.querySelector('.page-header p').textContent = PAGE_DESC;
+    fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); else renderTools(fallbackTools); }).catch(() => renderTools(fallbackTools));
   }
-
-  // 椤甸潰鍔犺浇瀹屾垚鍚庢墽琛?
-  document.addEventListener('DOMContentLoaded', loadTools);
+  document.addEventListener('DOMContentLoaded', load);
 </script>
-
 </body>
 </html>
