@@ -3,461 +3,580 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>江湖小站-ZenTools - 个人学习记录与经验整理</title>
-  <meta name="description" content="江湖小站-ZenTools是一个个人学习记录页面，主要用于整理日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。" />
-  <meta name="keywords" content="江湖小站-ZenTools,个人学习记录,学习笔记,网页制作记录,文件处理经验,图片整理方法,日常效率技巧" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <title>ZenTools · 免费在线工具</title>
+  <meta name="description" content="江湖小站-ZenTools 是一个免费在线工具平台，提供 PDF、图片、文字等实用工具，同时记录个人学习与经验。" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
+    /* ===== 重置与变量 ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
-      --bg: #071026;
-      --surface: #0c1320;
-      --surface2: #0f1a2a;
-      --border: rgba(255,255,255,0.04);
-      --border-bright: rgba(255,255,255,0.08);
-      --text: #e6eef8;
-      --muted: #93a3b8;
-      --accent: #06b6d4;
-      --accent2: #fb923c;
-      --accent3: #7c3aed;
-      --green: #10b981;
-      --yellow: #f59e0b;
+      --bg: #070b18;
+      --surface: #0e1629;
+      --surface2: #141f37;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --text: #f0f4ff;
+      --muted: #8899bb;
+      --muted-light: #5a6a8a;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.2);
       --radius: 12px;
-      --radius-sm: 10px;
       --radius-pill: 999px;
-      --shadow: 0 18px 40px -14px rgba(2,6,23,0.6);
+      --shadow-card: 0 8px 24px rgba(0,0,0,0.4);
     }
     [data-theme="light"] {
-      --bg: #f0f4f8;
+      --bg: #f2f5f9;
       --surface: #ffffff;
-      --surface2: #f5f7fa;
-      --border: rgba(0,0,0,0.07);
-      --border-bright: rgba(0,0,0,0.12);
-      --text: #0d1117;
-      --muted: #556070;
-      --shadow: 0 8px 32px -8px rgba(14,165,233,0.1);
+      --surface2: #f0f4fe;
+      --border: rgba(0,0,0,0.06);
+      --border-hover: rgba(0,0,0,0.14);
+      --text: #0b111e;
+      --muted: #4a5a7a;
+      --muted-light: #7a8aaa;
+      --shadow-card: 0 8px 24px rgba(0,0,0,0.06);
     }
-
     html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
+    body {
+      font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background .3s, color .3s;
+      line-height: 1.6;
+    }
     a { text-decoration: none; color: inherit; }
-    ::-webkit-scrollbar { width: 5px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 5px; }
-    [data-theme="light"] ::-webkit-scrollbar-thumb { background: #c8d0dc; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 0 24px; }
+    /* ===== 导航栏 (参考 FreeConvert 风格) ===== */
+    .navbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: rgba(14, 22, 41, 0.85);
+    }
+    [data-theme="light"] .navbar {
+      background: rgba(255, 255, 255, 0.92);
+    }
     .nav-inner {
-      max-width: 1080px; margin: 14px auto 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border: 1px solid var(--border); border-radius: 12px;
-      padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; box-shadow: var(--shadow);
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 20px;
+      flex-wrap: wrap;
     }
-    [data-theme="light"] .nav-inner { background: rgba(255,255,255,0.85); }
-    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: .5px; }
-    .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 0 14px rgba(14,165,233,.35); flex-shrink: 0; }
-    .nav-right { display: flex; align-items: center; gap: 20px; }
-    .nav-right a { font-size: 13px; font-weight: 500; color: var(--muted); transition: color .2s; white-space: nowrap; }
-    .nav-right a:hover { color: var(--text); }
-    .theme-btn { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: var(--radius-pill); padding: 6px 13px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); transition: all .2s; white-space: nowrap; }
-    .theme-btn:hover { border-color: var(--accent); }
-
-    .hero { min-height: 88vh; position: relative; overflow: hidden; padding: 110px 24px 60px; }
-    [data-theme="light"] .hero { background: linear-gradient(160deg, #071220 0%, #0c1e30 100%); }
-    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 65% 55% at 20% 50%, rgba(14,165,233,.13) 0%, transparent 55%), radial-gradient(ellipse 55% 45% at 80% 25%, rgba(20,184,166,.1) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 55% 85%, rgba(99,102,241,.08) 0%, transparent 55%); pointer-events: none; }
-    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
-    .orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; animation: float 9s ease-in-out infinite; }
-    .orb-1 { width: 350px; height: 350px; background: var(--accent); opacity: .18; top: 10%; left: 2%; }
-    .orb-2 { width: 260px; height: 260px; background: var(--accent2); opacity: .15; top: 8%; right: 5%; animation-delay: -3s; }
-    .orb-3 { width: 200px; height: 200px; background: var(--accent3); opacity: .13; bottom: 22%; left: 28%; animation-delay: -6s; }
-    @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);} }
-
-    .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 420px; gap: 28px; align-items: center; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(6,182,212,.14); background: rgba(6,182,212,.06); color: var(--accent); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: var(--radius-pill); margin-bottom: 18px; letter-spacing: .8px; text-transform: uppercase; }
-    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.35;} }
-
-    .hero h1 { font-size: clamp(36px, 4.8vw, 64px); font-weight: 900; letter-spacing: -1px; line-height: 1.04; margin-bottom: 12px; color: var(--text); text-align: left; }
-    .hero h1 .hl { background: linear-gradient(100deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero-sub { font-size: 16px; color: var(--muted); max-width: 520px; margin: 0 0 20px 0; line-height: 1.7; text-align: left; }
-    .hero-actions { display: flex; gap: 12px; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 18px; }
-
-    .btn-primary { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 13px 28px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 700; box-shadow: 0 0 28px rgba(14,165,233,.3); transition: all .2s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(14,165,233,.45); }
-    .btn-outline { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: #fff; padding: 12px 26px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
-    .btn-outline:hover { background: rgba(255,255,255,.07); }
-
-    .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; max-width: 420px; justify-self: end; box-shadow: 0 18px 40px rgba(2,6,23,0.45); text-align: left; }
-    [data-theme="light"] .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.88)); border-color: rgba(0,0,0,0.06); }
-    .hero-card p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.8; }
-    .hero-card p + p { margin-top: 12px; }
-
-    .section-wrap { max-width: 1080px; margin: 96px auto 0; padding: 0 24px; }
-    .section-head { margin-bottom: 28px; }
-    .s-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-    .s-chip::before { content:''; display:inline-block; width:18px; height:2px; background:var(--accent); border-radius:2px; }
-    .s-title { font-size: 26px; font-weight: 800; letter-spacing: -.6px; color: var(--text); }
-    .s-sub { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
-
-    .about-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; }
-    .about-box::before { content:''; position:absolute; width:280px; height:280px; background:radial-gradient(circle,rgba(14,165,233,.1) 0%,transparent 70%); top:-80px; right:-60px; pointer-events:none; }
-    .about-box p { font-size: 15px; color: var(--muted); line-height: 1.85; position: relative; }
-    .about-box p + p { margin-top: 14px; }
-    .notice-bar { display: flex; align-items: flex-start; gap: 14px; background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.2); border-radius: 14px; padding: 18px 20px; margin-top: 24px; position: relative; }
-    .notice-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-    .notice-bar p { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
-    .notice-bar strong { color: var(--text); }
-
-    .records-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .rec-card { background: linear-gradient(180deg, var(--surface), var(--surface2)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; }
-    .rec-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
-    .rec-card:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(2,6,23,0.55); }
-    .rec-card:hover::after { opacity: 1; }
-    .rec-icon { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-    .ic-blue { background: rgba(14,165,233,.12); }
-    .ic-teal { background: rgba(20,184,166,.12); }
-    .ic-indigo { background: rgba(99,102,241,.12); }
-    .ic-amber { background: rgba(245,158,11,.12); }
-    .ic-green { background: rgba(16,185,129,.12); }
-    .ic-rose { background: rgba(244,63,94,.1); }
-    .rec-title { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.2px; }
-    .rec-desc { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
-    .rec-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; transition: gap .18s; }
-    .rec-card:hover .rec-link { gap: 8px; }
-
-    .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .tool-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; text-decoration: none; }
-    .tool-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
-    .tool-card:hover { transform: translateY(-8px); box-shadow: 0 28px 60px rgba(2,6,23,0.5); }
-    .tool-card:hover::after { opacity: 1; }
-    .tool-emoji { font-size: 32px; }
-    .tool-name { font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: -.2px; }
-    .tool-desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
-    .tool-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.08); border-radius: 8px; padding: 6px 12px; }
-    .tool-card.coming-soon { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
-    .tool-card.coming-soon .tool-tag { color: var(--muted); background: rgba(122,132,153,.12); border-color: rgba(122,132,153,.2); }
-
-    .stmt-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; }
-    .stmt-box p { font-size: 15px; color: var(--muted); line-height: 1.85; }
-    .stmt-box p + p { margin-top: 14px; }
-
-    /* ===== Footer 更新：备案信息 ===== */
-    .footer {
-      max-width: 1080px; margin: 80px auto 0; padding: 24px 24px 40px;
-      border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -.5px;
+      color: var(--text);
+      flex-shrink: 0;
     }
-    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--text); }
-    .footer-center {
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      font-size: 12px; color: var(--muted); text-align: center;
+    .nav-brand .mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #fff;
+      box-shadow: 0 0 20px var(--accent-glow);
     }
-    .footer-center a {
-      color: var(--muted); transition: color .2s;
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+      flex-wrap: wrap;
     }
-    .footer-center a:hover {
+    .nav-links a {
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      transition: all .2s;
+      white-space: nowrap;
+    }
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: rgba(255,255,255,0.06);
+    }
+    .nav-links a.active {
+      color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .btn-theme {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      font-size: 16px;
+      transition: all .2s;
+    }
+    .btn-theme:hover {
+      border-color: var(--border-hover);
+      color: var(--text);
+    }
+    .btn-primary-nav {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      border: none;
+      color: #fff;
+      padding: 8px 20px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-primary-nav:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    /* ===== Hero 区域 ===== */
+    .hero {
+      padding: 60px 0 40px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 900;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .hero h1 .hl {
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 28px;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-hero {
+      padding: 12px 32px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+      transition: all .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-hero.primary {
+      background: linear-gradient(135deg, var(--accent), #6366f1);
+      color: #fff;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn-hero.primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+    .btn-hero.secondary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-hero.secondary:hover { background: var(--surface2); border-color: var(--border-hover); }
+
+    /* ===== 通用区块 ===== */
+    .section-wrap {
+      margin: 48px auto;
+      scroll-margin-top: 80px;
+    }
+    .section-head {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .section-head h2 {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -.3px;
+    }
+    .section-head .more-link {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .2s;
+    }
+    .section-head .more-link:hover { color: var(--accent); }
+
+    /* ===== 工具卡片网格 (3列) ===== */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 18px;
+    }
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 16px 18px;
+      text-align: center;
+      transition: all .2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .tool-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card);
+    }
+    .tool-card .emoji { font-size: 32px; display: block; margin-bottom: 10px; }
+    .tool-card .name { font-weight: 600; font-size: 15px; }
+    .tool-card .desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .tool-card .tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-glow);
       color: var(--accent);
     }
-    .footer-center .beian-divider {
-      color: var(--border-bright);
-    }
-    .footer-right { font-size: 12px; color: var(--muted); text-align: right; line-height: 1.8; }
+    .tool-card .tag.new { background: rgba(16,185,129,.15); color: #10b981; }
 
-    .back-top { position: fixed; bottom: 26px; right: 26px; z-index: 300; width: 42px; height: 42px; border-radius: 12px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
-    [data-theme="light"] .back-top { background: rgba(255,255,255,.92); }
-    .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
-    .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 18px rgba(14,165,233,.4); }
-
-    @media(max-width: 900px) {
-      .records-grid { grid-template-columns: repeat(2,1fr); }
-      .tools-grid { grid-template-columns: repeat(2,1fr); }
+    /* ===== 个人学习栏 (原记录卡片) ===== */
+    .learning-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
     }
-    @media(max-width: 640px) {
-      .nav-right a:not(:last-child):not(.theme-btn) { display: none; }
-      .hero { padding: 110px 16px 56px; }
-      .hero-card { padding: 20px; }
-      .records-grid { grid-template-columns: 1fr; }
-      .tools-grid { grid-template-columns: 1fr; }
-      .section-wrap { margin-top: 64px; }
-      .about-box, .stmt-box { padding: 24px 20px; }
-      .footer { flex-direction: column; justify-content: center; text-align: center; }
-      .footer-right { text-align: center; }
-      .footer-center { order: 2; }
+    .learning-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 20px 18px;
+      transition: all .2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .learning-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-card);
+    }
+    .learning-card .lc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: var(--accent-glow);
+    }
+    .learning-card .lc-title { font-weight: 600; font-size: 16px; }
+    .learning-card .lc-desc { font-size: 13px; color: var(--muted); flex: 1; }
+    .learning-card .lc-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===== 关于与说明 ===== */
+    .about-box, .stmt-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+    }
+    .about-box p, .stmt-box p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .about-box p + p, .stmt-box p + p { margin-top: 14px; }
+    .notice-bar {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59,130,246,.15);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin-top: 18px;
+    }
+    .notice-bar .ni { font-size: 18px; flex-shrink: 0; }
+    .notice-bar p { font-size: 14px; color: var(--muted); margin: 0; }
+
+    /* ===== Footer ===== */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 40px;
+      margin-top: 48px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      color: var(--muted-light);
+    }
+    .footer a { color: var(--muted); transition: color .2s; }
+    .footer a:hover { color: var(--accent); }
+    .footer .beian a { margin: 0 6px; }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 768px) {
+      .nav-inner { height: auto; padding: 12px 0; gap: 10px; }
+      .nav-links { width: 100%; justify-content: center; gap: 2px; }
+      .nav-links a { padding: 6px 12px; font-size: 13px; }
+      .nav-right { margin-left: auto; }
+      .tools-grid { grid-template-columns: repeat(2, 1fr); }
+      .learning-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .tools-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .tool-card { padding: 16px 10px; }
     }
   </style>
 </head>
 <body>
 
-<nav class="nav-wrap">
+<!-- ===== 导航栏 (FreeConvert 风格) ===== -->
+<nav class="navbar">
   <div class="nav-inner">
-    <div class="nav-logo">
-      <div class="logo-mark">⛵</div>
-      江湖小站-ZenTools
-    </div>
+    <a href="/" class="nav-brand">
+      <span class="mark">⛵</span>
+      ZenTools
+    </a>
+    <ul class="nav-links">
+      <li><a href="#tools" class="active">工具</a></li>
+      <li><a href="#learning">个人学习</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#statement">说明</a></li>
+    </ul>
     <div class="nav-right">
-      <a href="#tools">🛠️ 工具大全</a>
-      <a href="plugins-preview.html">✨ 插件预览</a>
-      <a href="#about">关于本站</a>
-      <a href="#records">记录内容</a>
-      <a href="#statement">说明</a>
-      <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">☀️ 亮色</button>
+      <button class="btn-theme" onclick="toggleTheme()" id="themeBtn" aria-label="切换主题">🌙</button>
+      <a href="#tools" class="btn-primary-nav">探索工具</a>
     </div>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-dots"></div>
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="hero-inner">
-    <div class="hero-badge"><span class="badge-dot"></span>个人学习记录与经验整理</div>
-    <h1>江湖<span class="hl">小站</span></h1>
-    <p class="hero-sub">一个记录日常学习、网页制作和实用方法的个人小站</p>
+<div class="container">
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <h1>精简 · 高效 · <span class="hl">ZenTools</span></h1>
+    <p>免费在线工具集 · 数据驱动分类架构 · 本地优先 · 隐私安全</p>
     <div class="hero-actions">
-      <a href="#records" class="btn-primary">📘 查看记录内容</a>
-      <a href="#about" class="btn-outline">关于本站 →</a>
+      <a href="#tools" class="btn-hero primary">🚀 浏览工具</a>
+      <a href="#learning" class="btn-hero secondary">📘 学习笔记</a>
     </div>
-    <div class="hero-card">
-      <p>江湖小站是一个个人学习记录页面，主要用于整理本人在日常学习、网页制作、文件处理、图片整理和效率方法方面的实践经验。</p>
-      <p>这里的内容以个人笔记、操作步骤、使用心得和简单页面示例为主，方便自己以后查阅，也希望能给有类似需求的朋友提供一些参考。</p>
-      <p>本站由个人维护，内容仅用于学习记录和经验分享，不涉及企业经营、商品销售、在线交易、会员服务、论坛社区、新闻发布或教育培训等内容。</p>
+  </section>
+
+  <!-- ===== ZenTools 工具箱 ===== -->
+  <section class="section-wrap" id="tools">
+    <div class="section-head">
+      <h2>🛠️ 工具箱</h2>
+      <a href="/plugins-preview.html" class="more-link">查看全部 →</a>
     </div>
-  </div>
-</section>
-
-<div class="section-wrap" id="about">
-  <div class="section-head">
-    <div class="s-chip">关于本站</div>
-    <div class="s-title">这里是什么？</div>
-    <div class="s-sub">一个人的学习笔记本，记录遇到的问题和解决方法</div>
-  </div>
-  <div class="about-box">
-    <p>本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。</p>
-    <p>所有内容均为个人日常整理，仅供学习和参考使用。</p>
-    <div class="notice-bar">
-      <span class="notice-icon">💡</span>
-      <p>内容以个人笔记和实践心得为主，不保证完全准确，仅作参考。如有不妥之处欢迎指出。</p>
+    <div class="tools-grid" id="toolsGrid">
+      <!-- 由 JavaScript 动态渲染，保持与现有 data/tools-data.json 一致 -->
+      <div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--muted);">⏳ 加载工具中...</div>
     </div>
-  </div>
-</div>
+  </section>
 
-<div class="section-wrap" id="records">
-  <div class="section-head">
-    <div class="s-chip">记录内容</div>
-    <div class="s-title">整理了哪些内容？</div>
-    <div class="s-sub">围绕个人学习、网页制作、文件处理与效率方法展开</div>
-  </div>
-  <div class="records-grid">
-    <a class="rec-card" href="articles/my-first-pdf-tool.html">
-      <div class="rec-icon ic-green">📄</div>
-      <div class="rec-title">我的第一个 PDF 工具</div>
-      <div class="rec-desc">记录从零开始使用 VS Code 编写第一个 PDF 工具的过程、遇到的问题以及解决方法。</div>
-      <span class="rec-link">查看内容 →</span>
-    </a>
-    <a class="rec-card" href="notes.html">
-      <div class="rec-icon ic-blue">📘</div>
-      <div class="rec-title">个人学习笔记</div>
-      <div class="rec-desc">记录日常学习过程中遇到的问题、理解过程和整理心得。</div>
-      <span class="rec-link">查看内容 →</span>
-    </a>
-    <a class="rec-card" href="articles/web-design-notes.html">
-      <div class="rec-icon ic-indigo">💻</div>
-      <div class="rec-title">网页制作记录</div>
-      <div class="rec-desc">整理网页排版、页面结构、样式调整和常见问题处理方法。</div>
-      <span class="rec-link">查看内容 →</span>
-    </a>
-    <a class="rec-card" href="file-processing.html">
-      <div class="rec-icon ic-teal">📄</div>
-      <div class="rec-title">文件处理经验</div>
-      <div class="rec-desc">记录文档整理、文件保存、格式处理等日常操作经验。</div>
-      <span class="rec-link">查看内容 →</span>
-    </a>
-    <a class="rec-card" href="image-organize.html">
-      <div class="rec-icon ic-amber">🖼️</div>
-      <div class="rec-title">图片整理方法</div>
-      <div class="rec-desc">整理图片排版、尺寸调整、简单处理和保存方面的经验。</div>
-      <span class="rec-link">查看内容 →</span>
-    </a>
-    <a class="rec-card" href="efficiency.html">
-      <div class="rec-icon ic-green">⏱️</div>
-      <div class="rec-title">日常效率技巧</div>
-      <div class="rec-desc">记录一些提升日常学习和资料整理效率的小方法。</div>
-      <span class="rec-link">查看内容 →</span>
-    </a>
-    <a class="rec-card" href="examples.html">
-      <div class="rec-icon ic-rose">🧩</div>
-      <div class="rec-title">简单页面示例</div>
-      <div class="rec-desc">保存一些个人制作的小页面示例，方便以后查看和修改。</div>
-      <span class="rec-link">查看内容 →</span>
-    </a>
-  </div>
-</div>
-
-<!-- ===== ZenTools 工具箱（动态从 JSON 加载） ===== -->
-<div class="section-wrap" id="tools">
-  <div class="section-head">
-    <div class="s-chip">免费工具</div>
-    <div class="s-title">ZenTools 工具箱</div>
-    <div class="s-sub">精选免费在线工具，一站式解决日常工作需求</div>
-  </div>
-  <div class="tools-grid" id="toolsGrid">
-    <div style="grid-column:1/-1; text-align:center; padding:20px; color:var(--muted);">⏳ 加载工具中...</div>
-  </div>
-</div>
-
-<div class="section-wrap" id="statement">
-  <div class="section-head">
-    <div class="s-chip">网站说明</div>
-    <div class="s-title">关于本站性质</div>
-    <div class="s-sub">备案相关说明</div>
-  </div>
-  <div class="stmt-box">
-    <p>本网站为个人学习记录页面，主要用于整理本人在网页制作、文件处理、图片整理和日常效率方法方面的学习笔记、操作步骤和使用心得。</p>
-    <p>网站内容仅供个人学习和经验分享使用，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。</p>
-    <div class="notice-bar" style="margin-top:22px;">
-      <span class="notice-icon">📋</span>
-      <p><strong>说明：</strong>本站内容仅供学习参考，不涉及经营性互联网信息服务。</p>
+  <!-- ===== 个人学习栏 (原记录卡片) ===== -->
+  <section class="section-wrap" id="learning">
+    <div class="section-head">
+      <h2>📘 个人学习栏</h2>
+      <span class="more-link">记录与经验</span>
     </div>
-  </div>
-</div>
-
-<!-- ===== Footer 更新：含备案信息 ===== -->
-<footer class="footer">
-  <div class="footer-logo">
-    <div class="logo-mark" style="width:24px;height:24px;font-size:12px;border-radius:7px;">⛵</div>
-    江湖小站-ZenTools
-  </div>
-
-  <div class="footer-center">
-    <div>© <span id="year"></span> 江湖小站-ZenTools · 个人学习记录与经验整理</div>
-    <div>
-      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
-        鲁ICP备2026030242号-1
+    <div class="learning-grid" id="learningGrid">
+      <!-- 直接保留原有记录卡片，确保链接可用 -->
+      <a class="learning-card" href="articles/my-first-pdf-tool.html">
+        <div class="lc-icon" style="background:rgba(16,185,129,.15);">📄</div>
+        <div class="lc-title">我的第一个 PDF 工具</div>
+        <div class="lc-desc">记录从零开始使用 VS Code 编写第一个 PDF 工具的过程。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
-      <span class="beian-divider">|</span>
-      <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank" rel="noopener noreferrer">
-        鲁公网安备37098302001324号
+      <a class="learning-card" href="notes.html">
+        <div class="lc-icon" style="background:rgba(59,130,246,.15);">📘</div>
+        <div class="lc-title">个人学习笔记</div>
+        <div class="lc-desc">记录日常学习过程中遇到的问题、理解过程和整理心得。</div>
+        <span class="lc-link">查看内容 →</span>
+      </a>
+      <a class="learning-card" href="articles/web-design-notes.html">
+        <div class="lc-icon" style="background:rgba(99,102,241,.15);">💻</div>
+        <div class="lc-title">网页制作记录</div>
+        <div class="lc-desc">整理网页排版、样式调整和常见问题处理方法。</div>
+        <span class="lc-link">查看内容 →</span>
+      </a>
+      <a class="learning-card" href="file-processing.html">
+        <div class="lc-icon" style="background:rgba(20,184,166,.15);">📄</div>
+        <div class="lc-title">文件处理经验</div>
+        <div class="lc-desc">记录文档整理、文件保存、格式处理等日常操作经验。</div>
+        <span class="lc-link">查看内容 →</span>
+      </a>
+      <a class="learning-card" href="image-organize.html">
+        <div class="lc-icon" style="background:rgba(245,158,11,.15);">🖼️</div>
+        <div class="lc-title">图片整理方法</div>
+        <div class="lc-desc">整理图片排版、尺寸调整和简单处理方面的经验。</div>
+        <span class="lc-link">查看内容 →</span>
+      </a>
+      <a class="learning-card" href="efficiency.html">
+        <div class="lc-icon" style="background:rgba(16,185,129,.15);">⏱️</div>
+        <div class="lc-title">日常效率技巧</div>
+        <div class="lc-desc">记录提升日常学习和资料整理效率的小方法。</div>
+        <span class="lc-link">查看内容 →</span>
+      </a>
+      <a class="learning-card" href="examples.html">
+        <div class="lc-icon" style="background:rgba(244,63,94,.15);">🧩</div>
+        <div class="lc-title">简单页面示例</div>
+        <div class="lc-desc">保存一些个人制作的小页面示例，方便查看和修改。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
     </div>
-  </div>
+  </section>
 
-  <div class="footer-right">
-    不涉及经营性互联网信息服务
+  <!-- ===== 关于本站 ===== -->
+  <section class="section-wrap" id="about">
+    <div class="section-head"><h2>关于本站</h2></div>
+    <div class="about-box">
+      <p>本站是一个个人学习与工具集合站点，主要记录本人在学习、网页制作、文件处理、图片整理等方面的实践笔记。</p>
+      <p>所有内容均为个人日常整理，仅供学习和参考使用。工具部分采用数据驱动架构，统一从 <code style="background:var(--surface2);padding:2px 8px;border-radius:4px;">/data/tools-data.json</code> 加载。</p>
+      <div class="notice-bar">
+        <span class="ni">💡</span>
+        <p>内容以个人笔记和实践心得为主，不保证完全准确，仅作参考。如有不妥之处欢迎指出。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 网站说明 ===== -->
+  <section class="section-wrap" id="statement">
+    <div class="section-head"><h2>网站说明</h2></div>
+    <div class="stmt-box">
+      <p>本网站为个人学习记录与工具分享页面，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。</p>
+      <div class="notice-bar">
+        <span class="ni">📋</span>
+        <p><strong>说明：</strong>本站内容仅供学习参考，不涉及经营性互联网信息服务。</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ===== Footer ===== -->
+<footer class="container footer">
+  <div>© <span id="year"></span> <a href="/">ZenTools</a> · 数据驱动分类架构</div>
+  <div class="beian">
+    <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2026030242号-1</a>
+    <span style="color:var(--border);">|</span>
+    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank">鲁公网安备37098302001324号</a>
   </div>
 </footer>
 
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<!-- ===== 返回顶部 ===== -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:24px;right:24px;z-index:200;width:42px;height:42px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:all .3s;">↑</button>
 
 <script>
-  // ============================================================
-  // 基础功能：年份、主题、返回顶部
-  // ============================================================
+  // ===== 年份 =====
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // ===== 主题切换 =====
   function initTheme() {
     const s = localStorage.getItem('zh_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', s);
-    const btn = document.getElementById('themeBtn');
-    if (btn) btn.textContent = s === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+    document.getElementById('themeBtn').textContent = s === 'dark' ? '☀️' : '🌙';
   }
-
   function toggleTheme() {
     const c = document.documentElement.getAttribute('data-theme');
     const n = c === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', n);
     localStorage.setItem('zh_theme', n);
-    const btn = document.getElementById('themeBtn');
-    if (btn) btn.textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+    document.getElementById('themeBtn').textContent = n === 'dark' ? '☀️' : '🌙';
   }
-
   initTheme();
 
-  const bt = document.getElementById('backTop');
-  if (bt) {
-    window.addEventListener('scroll', () => bt.classList.toggle('visible', scrollY > 400), { passive: true });
-  }
+  // ===== 返回顶部 =====
+  const backTop = document.getElementById('backTop');
+  window.addEventListener('scroll', () => {
+    backTop.style.opacity = window.scrollY > 300 ? '1' : '0';
+    backTop.style.pointerEvents = window.scrollY > 300 ? 'all' : 'none';
+  });
 
-  // ============================================================
-  // ZT-DCA 核心：从 /data/tools-data.json 加载工具数据
-  // ============================================================
+  // ===== 动态加载工具 (从 /data/tools-data.json) =====
   (function() {
     const container = document.getElementById('toolsGrid');
     if (!container) return;
-
-    const fallbackTools = [
-      { name: 'PDF 工具', url: '/pdf/index.html', icon: '📄', description: 'PDF 转图片、图片转 PDF', category: 'PDF工具', featured: true },
-      { name: '图片压缩', url: '/image/compress.html', icon: '🖼️', description: '压缩 JPG、PNG 图片体积', category: '图片工具', featured: true, new: true },
-      { name: '文字转语音', url: '#', icon: '🔊', description: '输入文字即可朗读', category: '音频工具', featured: true },
-      { name: '世界时间', url: '#', icon: '🌍', description: '查看不同时区时间', category: '生活工具', featured: true },
-      { name: '汇率换算', url: '#', icon: '💱', description: '常见货币兑换估算', category: '金融工具', featured: false },
-      { name: 'AI 工具导航', url: '#', icon: '🤖', description: 'AI 写作、绘图工具入口', category: 'AI工具', featured: true }
+    // 备用数据 (当 JSON 加载失败时使用)
+    const fallback = [
+      { name: 'PDF 合并', url: '/pdf/merge.html', icon: '📄', category: 'PDF工具' },
+      { name: '图片压缩', url: '/image/compress.html', icon: '📦', category: '图片工具', new: true },
+      { name: '文字转语音', url: '#', icon: '🔊', category: '音频工具' }
     ];
-
-    function renderTools(tools) {
-      if (!tools || tools.length === 0) {
-        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:20px; color:var(--muted);">暂无工具数据</div>`;
+    function render(tools) {
+      if (!tools || !tools.length) {
+        container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">暂无工具</div>`;
         return;
       }
-
-      const featured = tools.filter(t => t.featured === true);
-      const toolsToShow = featured.length > 0 ? featured.slice(0, 7) : tools.slice(0, 7);
-
+      // 取前 6 个 (或 featured)
+      const list = tools.filter(t => t.featured !== false).slice(0, 6);
       let html = '';
-      for (const tool of toolsToShow) {
-        let tagText = tool.category || '工具';
-        let tagClass = '';
-        if (tool.new === true) {
-          tagText = 'NEW';
-          tagClass = 'new';
-        }
-        const isComingSoon = tool.url === '#' || !tool.url;
-        const cardClass = isComingSoon ? 'tool-card coming-soon' : 'tool-card';
-        const href = isComingSoon ? '#' : tool.url;
-
+      for (const t of list) {
+        const isNew = t.new ? 'new' : '';
+        const url = t.url && t.url !== '#' ? t.url : '#';
+        const target = url !== '#' ? '_blank' : '';
         html += `
-          <a class="${cardClass}" href="${href}" target="${isComingSoon ? '' : '_blank'}" title="${tool.description || tool.name}">
-            <div class="tool-emoji">${tool.icon || '🔧'}</div>
-            <div class="tool-name">${tool.name}</div>
-            <div class="tool-desc">${tool.description || '点击使用工具'}</div>
-            <span class="tool-tag">${tagText}</span>
+          <a class="tool-card" href="${url}" target="${target}">
+            <span class="emoji">${t.icon || '🔧'}</span>
+            <div class="name">${t.name}</div>
+            <div class="desc">${t.description || ''}</div>
+            <span class="tag ${isNew}">${t.category || '工具'}${isNew ? ' · NEW' : ''}</span>
           </a>
         `;
       }
-
-      html += `
-        <a class="tool-card" href="/plugins-preview.html" target="_blank" title="查看全部工具">
-          <div class="tool-emoji">⭐</div>
-          <div class="tool-name">查看全部</div>
-          <div class="tool-desc">浏览更多工具</div>
-          <span class="tool-tag">工具箱</span>
-        </a>
-      `;
-
       container.innerHTML = html;
     }
-
     fetch('/data/tools-data.json')
-      .then(response => {
-        if (!response.ok) throw new Error('HTTP ' + response.status);
-        return response.json();
-      })
-      .then(data => {
-        if (data && data.tools && data.tools.length > 0) {
-          console.log('✅ ZT-DCA: 从 tools-data.json 加载 ' + data.tools.length + ' 个工具');
-          renderTools(data.tools);
-        } else {
-          throw new Error('工具数据为空');
-        }
-      })
-      .catch(error => {
-        console.warn('⚠️ ZT-DCA: JSON 加载失败，使用备用数据', error);
-        renderTools(fallbackTools);
-      });
+      .then(r => r.ok ? r.json() : Promise.reject('HTTP ' + r.status))
+      .then(data => data?.tools ? render(data.tools) : render(fallback))
+      .catch(() => render(fallback));
   })();
 </script>
-
 </body>
 </html>
