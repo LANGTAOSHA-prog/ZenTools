@@ -47,276 +47,125 @@
     ::-webkit-scrollbar-thumb { background: #1e2a38; border-radius: 5px; }
     [data-theme="light"] ::-webkit-scrollbar-thumb { background: #c8d0dc; }
 
-    /* 响应式优化：导航栏在小屏幕上适配 */
-    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 0 16px; }
-    @media (min-width: 768px) {
-      .nav-wrap { padding: 0 24px; }
-    }
+    .nav-wrap { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 0 24px; }
     .nav-inner {
       max-width: 1080px; margin: 14px auto 0;
       background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
       border: 1px solid var(--border); border-radius: 12px;
-      padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; box-shadow: var(--shadow);
-    }
-    @media (min-width: 768px) {
-      .nav-inner { padding: 10px 20px; }
+      padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; box-shadow: var(--shadow);
     }
     [data-theme="light"] .nav-inner { background: rgba(255,255,255,0.85); }
-    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; color: var(--text); letter-spacing: .5px; }
-    @media (min-width: 480px) {
-      .nav-logo { font-size: 17px; }
-    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 17px; color: var(--text); letter-spacing: .5px; }
     .logo-mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 15px; box-shadow: 0 0 14px rgba(14,165,233,.35); flex-shrink: 0; }
-    .nav-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-    @media (min-width: 640px) {
-      .nav-right { gap: 20px; }
-    }
-    .nav-right a { font-size: 12px; font-weight: 500; color: var(--muted); transition: color .2s; white-space: nowrap; }
-    @media (min-width: 640px) {
-      .nav-right a { font-size: 13px; }
-    }
+    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-right a { font-size: 13px; font-weight: 500; color: var(--muted); transition: color .2s; white-space: nowrap; }
     .nav-right a:hover { color: var(--text); }
-    .theme-btn { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: var(--radius-pill); padding: 5px 12px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--text); transition: all .2s; white-space: nowrap; }
-    @media (min-width: 640px) {
-      .theme-btn { padding: 6px 13px; font-size: 13px; }
-    }
+    .theme-btn { background: var(--surface2); border: 1px solid var(--border-bright); border-radius: var(--radius-pill); padding: 6px 13px; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--text); transition: all .2s; white-space: nowrap; }
     .theme-btn:hover { border-color: var(--accent); }
 
-    /* hero 区域手机适配 */
-    .hero { min-height: 88vh; position: relative; overflow: hidden; padding: 100px 16px 48px; }
-    @media (min-width: 768px) {
-      .hero { padding: 110px 24px 60px; }
-    }
-    .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
-    @media (min-width: 900px) {
-      .hero-inner { grid-template-columns: 1fr 420px; gap: 28px; }
-    }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(6,182,212,.14); background: rgba(6,182,212,.06); color: var(--accent); font-size: 11px; font-weight: 600; padding: 5px 12px; border-radius: var(--radius-pill); margin-bottom: 18px; letter-spacing: .8px; text-transform: uppercase; width: fit-content; }
-    @media (min-width: 768px) {
-      .hero-badge { font-size: 12px; padding: 6px 14px; }
-    }
-    .hero h1 { font-size: clamp(32px, 6vw, 64px); font-weight: 900; letter-spacing: -1px; line-height: 1.08; margin-bottom: 12px; color: var(--text); text-align: left; }
+    .hero { min-height: 88vh; position: relative; overflow: hidden; padding: 110px 24px 60px; }
+    [data-theme="light"] .hero { background: linear-gradient(160deg, #071220 0%, #0c1e30 100%); }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 65% 55% at 20% 50%, rgba(14,165,233,.13) 0%, transparent 55%), radial-gradient(ellipse 55% 45% at 80% 25%, rgba(20,184,166,.1) 0%, transparent 55%), radial-gradient(ellipse 45% 40% at 55% 85%, rgba(99,102,241,.08) 0%, transparent 55%); pointer-events: none; }
+    .hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.055) 1px, transparent 1px); background-size: 30px 30px; pointer-events: none; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; animation: float 9s ease-in-out infinite; }
+    .orb-1 { width: 350px; height: 350px; background: var(--accent); opacity: .18; top: 10%; left: 2%; }
+    .orb-2 { width: 260px; height: 260px; background: var(--accent2); opacity: .15; top: 8%; right: 5%; animation-delay: -3s; }
+    .orb-3 { width: 200px; height: 200px; background: var(--accent3); opacity: .13; bottom: 22%; left: 28%; animation-delay: -6s; }
+    @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-22px);} }
+
+    .hero-inner { max-width: 1080px; margin: 0 auto; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 420px; gap: 28px; align-items: center; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(6,182,212,.14); background: rgba(6,182,212,.06); color: var(--accent); font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: var(--radius-pill); margin-bottom: 18px; letter-spacing: .8px; text-transform: uppercase; }
+    .badge-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 6px var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;}50%{opacity:.35;} }
+
+    .hero h1 { font-size: clamp(36px, 4.8vw, 64px); font-weight: 900; letter-spacing: -1px; line-height: 1.04; margin-bottom: 12px; color: var(--text); text-align: left; }
     .hero h1 .hl { background: linear-gradient(100deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .hero-sub { font-size: 15px; color: var(--muted); max-width: 520px; margin: 0 0 20px 0; line-height: 1.65; text-align: left; }
-    @media (min-width: 768px) {
-      .hero-sub { font-size: 16px; line-height: 1.7; }
-    }
+    .hero-sub { font-size: 16px; color: var(--muted); max-width: 520px; margin: 0 0 20px 0; line-height: 1.7; text-align: left; }
     .hero-actions { display: flex; gap: 12px; justify-content: flex-start; flex-wrap: wrap; margin-bottom: 18px; }
-    .btn-primary { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 11px 22px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 700; box-shadow: 0 0 28px rgba(14,165,233,.3); transition: all .2s; }
-    @media (min-width: 768px) {
-      .btn-primary { padding: 13px 28px; font-size: 14px; }
-    }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 7px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; padding: 13px 28px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 700; box-shadow: 0 0 28px rgba(14,165,233,.3); transition: all .2s; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 44px rgba(14,165,233,.45); }
-    .btn-outline { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: #fff; padding: 10px 22px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 600; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
-    @media (min-width: 768px) {
-      .btn-outline { padding: 12px 26px; font-size: 14px; }
-    }
+    .btn-outline { display: inline-flex; align-items: center; gap: 7px; background: transparent; color: #fff; padding: 12px 26px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600; border: 1px solid rgba(255,255,255,.2); transition: all .2s; }
     .btn-outline:hover { background: rgba(255,255,255,.07); }
-    .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; max-width: 100%; box-shadow: 0 18px 40px rgba(2,6,23,0.45); text-align: left; }
-    @media (min-width: 768px) {
-      .hero-card { padding: 22px; max-width: 420px; justify-self: end; }
-    }
+
+    .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; max-width: 420px; justify-self: end; box-shadow: 0 18px 40px rgba(2,6,23,0.45); text-align: left; }
     [data-theme="light"] .hero-card { background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.88)); border-color: rgba(0,0,0,0.06); }
-    .hero-card p { font-size: 13px; color: rgba(255,255,255,.6); line-height: 1.7; }
-    @media (min-width: 768px) {
-      .hero-card p { font-size: 14px; line-height: 1.8; }
-    }
+    .hero-card p { font-size: 14px; color: rgba(255,255,255,.6); line-height: 1.8; }
     .hero-card p + p { margin-top: 12px; }
 
-    /* 内容区块统一间距 */
-    .section-wrap { max-width: 1080px; margin: 64px auto 0; padding: 0 16px; }
-    @media (min-width: 768px) {
-      .section-wrap { margin: 96px auto 0; padding: 0 24px; }
-    }
-    .section-head { margin-bottom: 24px; }
-    @media (min-width: 768px) {
-      .section-head { margin-bottom: 28px; }
-    }
-    .s-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-    @media (min-width: 768px) {
-      .s-chip { font-size: 11px; margin-bottom: 10px; }
-    }
-    .s-title { font-size: 22px; font-weight: 800; letter-spacing: -.5px; color: var(--text); }
-    @media (min-width: 768px) {
-      .s-title { font-size: 26px; letter-spacing: -.6px; }
-    }
-    .s-sub { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
-    @media (min-width: 768px) {
-      .s-sub { font-size: 14px; line-height: 1.6; }
-    }
+    .section-wrap { max-width: 1080px; margin: 96px auto 0; padding: 0 24px; }
+    .section-head { margin-bottom: 28px; }
+    .s-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    .s-chip::before { content:''; display:inline-block; width:18px; height:2px; background:var(--accent); border-radius:2px; }
+    .s-title { font-size: 26px; font-weight: 800; letter-spacing: -.6px; color: var(--text); }
+    .s-sub { font-size: 14px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
 
-    /* about-box 手机适配 */
-    .about-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 20px; padding: 24px; position: relative; overflow: hidden; }
-    @media (min-width: 768px) {
-      .about-box { border-radius: 24px; padding: 36px; }
-    }
-    .about-box p { font-size: 14px; color: var(--muted); line-height: 1.7; position: relative; }
-    @media (min-width: 768px) {
-      .about-box p { font-size: 15px; line-height: 1.85; }
-    }
-    .about-box p + p { margin-top: 12px; }
-    .notice-bar { display: flex; align-items: flex-start; gap: 12px; background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.2); border-radius: 14px; padding: 14px 16px; margin-top: 20px; position: relative; }
-    @media (min-width: 768px) {
-      .notice-bar { gap: 14px; padding: 18px 20px; margin-top: 24px; }
-    }
-    .notice-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-    .notice-bar p { font-size: 12.5px; color: var(--muted); line-height: 1.65; margin: 0; }
-    @media (min-width: 768px) {
-      .notice-bar p { font-size: 13.5px; line-height: 1.7; }
-    }
+    .about-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; position: relative; overflow: hidden; }
+    .about-box::before { content:''; position:absolute; width:280px; height:280px; background:radial-gradient(circle,rgba(14,165,233,.1) 0%,transparent 70%); top:-80px; right:-60px; pointer-events:none; }
+    .about-box p { font-size: 15px; color: var(--muted); line-height: 1.85; position: relative; }
+    .about-box p + p { margin-top: 14px; }
+    .notice-bar { display: flex; align-items: flex-start; gap: 14px; background: rgba(14,165,233,.07); border: 1px solid rgba(14,165,233,.2); border-radius: 14px; padding: 18px 20px; margin-top: 24px; position: relative; }
+    .notice-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .notice-bar p { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin: 0; }
     .notice-bar strong { color: var(--text); }
 
-    /* 记录卡片网格：手机1列，平板2列，桌面3列 */
-    .records-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 640px) {
-      .records-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    }
-    @media (min-width: 900px) {
-      .records-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-    .rec-card { background: linear-gradient(180deg, var(--surface), var(--surface2)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; }
-    @media (min-width: 768px) {
-      .rec-card { padding: 20px; }
-    }
+    .records-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .rec-card { background: linear-gradient(180deg, var(--surface), var(--surface2)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; }
     .rec-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
     .rec-card:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(2,6,23,0.55); }
     .rec-card:hover::after { opacity: 1; }
     .rec-icon { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .ic-blue { background: rgba(14,165,233,.12); }
+    .ic-teal { background: rgba(20,184,166,.12); }
+    .ic-indigo { background: rgba(99,102,241,.12); }
+    .ic-amber { background: rgba(245,158,11,.12); }
+    .ic-green { background: rgba(16,185,129,.12); }
+    .ic-rose { background: rgba(244,63,94,.1); }
     .rec-title { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -.2px; }
     .rec-desc { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
     .rec-link { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; transition: gap .18s; }
     .rec-card:hover .rec-link { gap: 8px; }
 
-    /* 工具网格：手机1列，平板2列，桌面4列 */
-    .tools-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 560px) {
-      .tools-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    }
-    @media (min-width: 900px) {
-      .tools-grid { grid-template-columns: repeat(4, 1fr); }
-    }
-    .tool-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; text-decoration: none; }
-    @media (min-width: 768px) {
-      .tool-card { padding: 18px; }
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .tool-card { background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden; text-decoration: none; }
     .tool-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
     .tool-card:hover { transform: translateY(-8px); box-shadow: 0 28px 60px rgba(2,6,23,0.5); }
     .tool-card:hover::after { opacity: 1; }
-    .tool-emoji { font-size: 28px; }
-    @media (min-width: 768px) {
-      .tool-emoji { font-size: 32px; }
-    }
-    .tool-name { font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: -.2px; }
-    @media (min-width: 768px) {
-      .tool-name { font-size: 14px; }
-    }
-    .tool-desc { font-size: 11px; color: var(--muted); line-height: 1.5; flex: 1; }
-    .tool-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; color: var(--accent); background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.08); border-radius: 8px; padding: 4px 10px; }
-    @media (min-width: 768px) {
-      .tool-tag { font-size: 11px; padding: 6px 12px; }
-    }
+    .tool-emoji { font-size: 32px; }
+    .tool-name { font-size: 14px; font-weight: 600; color: var(--text); letter-spacing: -.2px; }
+    .tool-desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
+    .tool-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: var(--accent); background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.08); border-radius: 8px; padding: 6px 12px; }
     .tool-card.coming-soon { opacity: 0.6; cursor: not-allowed; pointer-events: none; }
     .tool-card.coming-soon .tool-tag { color: var(--muted); background: rgba(122,132,153,.12); border-color: rgba(122,132,153,.2); }
 
-    /* 声明区块 */
-    .stmt-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 20px; padding: 24px; }
-    @media (min-width: 768px) {
-      .stmt-box { border-radius: 24px; padding: 36px; }
-    }
-    .stmt-box p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-    @media (min-width: 768px) {
-      .stmt-box p { font-size: 15px; line-height: 1.85; }
-    }
-    .stmt-box p + p { margin-top: 12px; }
+    .stmt-box { background: var(--surface); border: 1px solid var(--border-bright); border-radius: 24px; padding: 36px; }
+    .stmt-box p { font-size: 15px; color: var(--muted); line-height: 1.85; }
+    .stmt-box p + p { margin-top: 14px; }
 
-    /* 页脚 */
-    .footer { max-width: 1080px; margin: 64px auto 0; padding: 20px 16px 32px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-    @media (min-width: 768px) {
-      .footer { margin: 80px auto 0; padding: 24px 24px 40px; flex-direction: row; justify-content: space-between; text-align: left; }
-    }
-    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: var(--text); justify-content: center; }
-    .footer-right { font-size: 11px; color: var(--muted); line-height: 1.6; text-align: center; }
-    @media (min-width: 768px) {
-      .footer-right { text-align: right; font-size: 12px; line-height: 1.8; }
-    }
-    .footer-right a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+    .footer { max-width: 1080px; margin: 80px auto 0; padding: 24px 24px 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--text); }
+    .footer-right { font-size: 12px; color: var(--muted); text-align: right; line-height: 1.8; }
 
-    .back-top { position: fixed; bottom: 20px; right: 20px; z-index: 300; width: 38px; height: 38px; border-radius: 10px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
-    @media (min-width: 768px) {
-      .back-top { width: 42px; height: 42px; bottom: 26px; right: 26px; border-radius: 12px; }
-    }
+    .back-top { position: fixed; bottom: 26px; right: 26px; z-index: 300; width: 42px; height: 42px; border-radius: 12px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
     [data-theme="light"] .back-top { background: rgba(255,255,255,.92); }
     .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
     .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 18px rgba(14,165,233,.4); }
 
-    /* 修正重复的 "查看全部" 卡片区域 —— 注意原html中错误多出了一个闭合前多出的卡片，通过以下隐藏修复保持与原结构一致且不修改内容 */
-    .tools-grid + .tool-card { display: none; }
-    /* 确保原结构中多余部分不显示，但保留全部原始链接 */
-  <!-- ========== ZT-DCA 增强加载 (渐进式) ========== -->
-<script>
-(function() {
-    // 尝试从 data/tools-data.json 加载工具数据
-    fetch('/data/tools-data.json')
-        .then(response => {
-            if (!response.ok) throw new Error('JSON 文件未找到');
-            return response.json();
-        })
-        .then(data => {
-            if (!data.tools || data.tools.length === 0) throw new Error('工具数据为空');
-            console.log('✅ ZT-DCA: 成功加载 tools-data.json，共 ' + data.tools.length + ' 个工具');
-            
-            // 获取 featured 工具 (最多 7 个)
-            const featuredTools = data.tools.filter(t => t.featured === true).slice(0, 7);
-            const toolsToShow = featuredTools.length > 0 ? featuredTools : data.tools.slice(0, 7);
-            
-            // 找到首页的 .tools-grid 容器
-            const container = document.querySelector('.tools-grid');
-            if (!container) {
-                console.warn('⚠️ ZT-DCA: 未找到 .tools-grid 容器');
-                return;
-            }
-            
-            // 只替换工具卡片部分，保留"查看全部"按钮
-            // 清除现有卡片（但保留最后一个"查看全部"）
-            const allCards = container.querySelectorAll('.tool-card');
-            const viewAllCard = allCards.length > 0 ? allCards[allCards.length - 1] : null;
-            
-            // 移除所有卡片（保留"查看全部"）
-            allCards.forEach(card => {
-                if (card !== viewAllCard) card.remove();
-            });
-            
-            // 生成新卡片并插入到"查看全部"之前
-            let newCardsHtml = '';
-            for (const tool of toolsToShow) {
-                const tagText = tool.category || '工具';
-                const isNew = tool.new === true ? 'NEW' : tagText;
-                newCardsHtml += `
-                    <a class="tool-card" href="${tool.url}" target="_blank" title="${tool.description || tool.name}">
-                        <div class="tool-emoji">${tool.icon || '🔧'}</div>
-                        <div class="tool-name">${tool.name}</div>
-                        <div class="tool-desc">${tool.description || '点击使用工具'}</div>
-                        <span class="tool-tag">${isNew}</span>
-                    </a>
-                `;
-            }
-            
-            // 将新卡片插入到"查看全部"卡片之前
-            if (viewAllCard) {
-                viewAllCard.insertAdjacentHTML('beforebegin', newCardsHtml);
-                console.log('✅ ZT-DCA: 成功渲染 ' + toolsToShow.length + ' 个工具卡片');
-            } else {
-                // 如果没有"查看全部"卡片，直接追加
-                container.insertAdjacentHTML('beforeend', newCardsHtml);
-            }
-        })
-        .catch(error => {
-            // 静默失败，保留原有硬编码内容
-            console.log('ℹ️ ZT-DCA: 使用备用硬编码数据 (' + error.message + ')');
-        });
-})();
-</script>
-<!-- ========== ZT-DCA 增强加载结束 ========== -->
+    @media(max-width: 900px) { 
+      .records-grid { grid-template-columns: repeat(2,1fr); }
+      .tools-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media(max-width: 640px) {
+      .nav-right a:not(:last-child):not(.theme-btn) { display: none; }
+      .hero { padding: 110px 16px 56px; }
+      .hero-card { padding: 20px; }
+      .records-grid { grid-template-columns: 1fr; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .section-wrap { margin-top: 64px; }
+      .about-box, .stmt-box { padding: 24px 20px; }
+      .footer { justify-content: center; text-align: center; }
+      .footer-right { text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -328,12 +177,7 @@
       江湖小站-ZenTools
     </div>
     <div class="nav-right">
-    <a href="https://zentools.xyz/plugins-preview.html"
-   target="_blank"
-   rel="noopener">
-   🛠️ 工具大全
-</a>
-</a>
+      <a href="#tools">🛠️ 工具大全</a>
       <a href="plugins-preview.html">✨ 插件预览</a>
       <a href="#about">关于本站</a>
       <a href="#records">记录内容</a>
@@ -433,378 +277,18 @@
   </div>
 </div>
 
-<!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>ZenTools 工具箱 | 免费在线工具合集</title>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #071026;
-      --surface: #0c1320;
-      --surface2: #0f1a2a;
-      --border: rgba(255,255,255,0.05);
-      --border-bright: rgba(255,255,255,0.1);
-      --text: #eef2ff;
-      --text-secondary: #9ca3cf;
-      --muted: #6c7a9e;
-      --accent: #06b6d4;
-      --accent-glow: rgba(6,182,212,0.25);
-      --purple: #a855f7;
-      --orange: #fb923c;
-      --green: #10b981;
-      --radius-lg: 24px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
-    }
-    [data-theme="light"] {
-      --bg: #f1f5f9;
-      --surface: #ffffff;
-      --surface2: #f8fafc;
-      --border: rgba(0,0,0,0.06);
-      --border-bright: rgba(0,0,0,0.12);
-      --text: #0f172a;
-      --text-secondary: #334155;
-      --muted: #64748b;
-      --accent: #0891b2;
-    }
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.2s, color 0.2s;
-      padding: 40px 24px;
-    }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-    /* 头部样式 */
-    .section-head {
-      margin-bottom: 36px;
-      text-align: center;
-    }
-    .s-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(6,182,212,0.1);
-      backdrop-filter: blur(4px);
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: var(--accent);
-      border: 1px solid rgba(6,182,212,0.2);
-      margin-bottom: 16px;
-    }
-    .s-chip::before {
-      content: "✦";
-      font-size: 10px;
-    }
-    .s-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 8px;
-    }
-    .s-sub {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-    /* 分类标签 */
-    .category-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .category-btn {
-      background: transparent;
-      border: 1px solid var(--border-bright);
-      padding: 8px 22px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .category-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      box-shadow: 0 4px 12px var(--accent-glow);
-    }
-    .category-btn:hover:not(.active) {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    /* 网格布局 */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 12px;
-    }
-    /* 卡片样式 - 全新UI */
-    .tool-card {
-      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      backdrop-filter: blur(2px);
-    }
-    .tool-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--purple), var(--orange));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .tool-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent);
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4), 0 0 0 1px rgba(6,182,212,0.1);
-    }
-    .tool-card:hover::before {
-      opacity: 1;
-    }
-    .tool-emoji {
-      font-size: 2.6rem;
-      line-height: 1;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
-    }
-    .tool-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      color: var(--text);
-    }
-    .tool-desc {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      flex: 1;
-    }
-    .tool-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 40px;
-      width: fit-content;
-      background: rgba(6,182,212,0.12);
-      color: var(--accent);
-      border: 1px solid rgba(6,182,212,0.2);
-      transition: all 0.2s;
-    }
-    .tool-card:hover .tool-tag {
-      background: rgba(6,182,212,0.2);
-      gap: 8px;
-    }
-    /* 学习中卡片特殊样式 */
-    .tool-card.coming-soon {
-      opacity: 0.7;
-      cursor: not-allowed;
-      filter: grayscale(0.1);
-    }
-    .tool-card.coming-soon .tool-tag {
-      background: var(--surface2);
-      color: var(--muted);
-      border-color: var(--border);
-    }
-    .tool-card.coming-soon:hover {
-      transform: none;
-      border-color: var(--border);
-    }
-    /* 开发者工具卡片微调 */
-    [data-category="dev"] .tool-emoji {
-      background: rgba(168,85,247,0.1);
-      border-radius: 14px;
-      padding: 6px;
-      width: 48px;
-      text-align: center;
-    }
-    /* 空状态提示 */
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: var(--muted);
-      grid-column: 1 / -1;
-    }
-    /* 响应式 */
-    @media (max-width: 640px) {
-      body { padding: 24px 16px; }
-      .s-title { font-size: 1.8rem; }
-      .tools-grid { gap: 16px; }
-      .tool-card { padding: 1.2rem; }
-    }
-  </style>
-</head>
-<body>
-<div class="container">
-  <!-- 头部 -->
+<!-- ===== ZenTools 工具箱（动态从 JSON 加载，保持 UI 不变） ===== -->
+<div class="section-wrap" id="tools">
   <div class="section-head">
     <div class="s-chip">免费工具</div>
     <div class="s-title">ZenTools 工具箱</div>
-    <div class="s-sub">精选免费在线工具 · 本地处理 · 隐私安全</div>
+    <div class="s-sub">精选免费在线工具，一站式解决日常工作需求</div>
   </div>
-
-  <!-- 分类切换 (功能保持不变，新增dev分类) -->
-  <div class="category-tabs">
-    <button class="category-btn active" data-cat="all">✨ 全部工具</button>
-    <button class="category-btn" data-cat="pdf">📄 PDF 工具</button>
-    <button class="category-btn" data-cat="image">🖼️ 图片工具</button>
-    <button class="category-btn" data-cat="dev">💻 开发者工具</button>
-    <button class="category-btn" data-cat="more">🔮 更多工具</button>
-  </div>
-
-  <!-- 工具网格 - 保持原有所有卡片功能不变，新增dev卡片 -->
   <div class="tools-grid" id="toolsGrid">
-    <!-- ========= PDF 工具 (原有) ========= -->
-    <a class="tool-card" href="/pdf/index.html" target="_blank" data-category="pdf" title="合并多个PDF文件">
-      <div class="tool-emoji">📄</div>
-      <div class="tool-name">PDF 合并</div>
-      <div class="tool-desc">快速合并多个 PDF 文件，支持拖拽排序</div>
-      <span class="tool-tag">PDF 工具</span>
-    </a>
-
-    <!-- ========= 图片工具 (原有) ========= -->
-    <a class="tool-card" href="/image/image-index.html" target="_blank" data-category="image" title="图片压缩工具">
-      <div class="tool-emoji">🖼️</div>
-      <div class="tool-name">图片压缩</div>
-      <div class="tool-desc">智能压缩 JPG、PNG、WebP 格式，画质优先</div>
-      <span class="tool-tag">NEW</span>
-    </a>
-
-    <!-- ========= 开发者工具 - JSON工具  ========= -->
-    <a class="tool-card" href="dev/json-index.html" target="_blank" data-category="dev" title="JSON 格式化工具">
-      <div class="tool-emoji">{ }</div>
-      <div class="tool-name">JSON 格式化</div>
-      <div class="tool-desc">格式化、压缩、验证 JSON 数据，语法高亮</div>
-      <span class="tool-tag">开发者工具</span>
-    </a>
-
-   
-
-    <!-- ========= 原有：学习中的工具（保持原样） ========= -->
-    <div class="tool-card coming-soon" data-category="more" title="敬请期待">
-      <div class="tool-emoji">📱</div>
-      <div class="tool-name">二维码生成</div>
-      <div class="tool-desc">快速生成各类二维码，支持自定义样式</div>
-      <span class="tool-tag">学习中</span>
-    </div>
-
-    <div class="tool-card coming-soon" data-category="more" title="敬请期待">
-      <div class="tool-emoji">📊</div>
-      <div class="tool-name">字数统计</div>
-      <div class="tool-desc">实时统计文字数量、字符数、行数</div>
-      <span class="tool-tag">学习中</span>
-    </div>
-
-    <div class="tool-card coming-soon" data-category="more" title="敬请期待">
-      <div class="tool-emoji">🔐</div>
-      <div class="tool-name">Base64 编码</div>
-      <div class="tool-desc">文本/图片 Base64 编码解码，支持 Unicode</div>
-      <span class="tool-tag">学习中</span>
-    </div>
-
-    <div class="tool-card coming-soon" data-category="more" title="敬请期待">
-      <div class="tool-emoji">💱</div>
-      <div class="tool-name">汇率换算</div>
-      <div class="tool-desc">实时汇率转换，支持主流货币</div>
-      <span class="tool-tag">学习中</span>
-    </div>
-
-    <!-- ========= 查看全部卡片 (原有) ========= -->
-    <a class="tool-card" href="/plugins-preview.html" target="_blank" data-category="all" title="浏览全部工具">
-      <div class="tool-emoji">⭐</div>
-      <div class="tool-name">查看全部</div>
-      <div class="tool-desc">浏览 ZenTools 全部工具列表</div>
-      <span class="tool-tag">工具箱</span>
-    </a>
+    <!-- 由 JavaScript 从 /data/tools-data.json 动态生成，保持 UI 风格不变 -->
+    <div style="grid-column:1/-1; text-align:center; padding:20px; color:var(--muted);">⏳ 加载工具中...</div>
   </div>
 </div>
-
-<script>
-  // 分类过滤功能，完全保留原有功能并支持新增 dev 分类
-  const filterButtons = document.querySelectorAll('.category-btn');
-  const cards = document.querySelectorAll('.tool-card');
-
-  function filterTools(category) {
-    let visibleCount = 0;
-    cards.forEach(card => {
-      const cardCat = card.getAttribute('data-category');
-      if (category === 'all' || cardCat === category) {
-        card.style.display = 'flex';
-        visibleCount++;
-      } else {
-        card.style.display = 'none';
-      }
-    });
-    // 如果没有显示任何卡片，可显示空状态（可选）
-    const grid = document.getElementById('toolsGrid');
-    let emptyMsg = grid.querySelector('.empty-state');
-    if (visibleCount === 0 && !emptyMsg) {
-      emptyMsg = document.createElement('div');
-      emptyMsg.className = 'empty-state';
-      emptyMsg.innerHTML = '✨ 暂无此分类工具，敬请期待更多内容';
-      emptyMsg.style.gridColumn = '1 / -1';
-      grid.appendChild(emptyMsg);
-    } else if (visibleCount > 0 && emptyMsg) {
-      emptyMsg.remove();
-    }
-  }
-
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // 更新激活样式
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const category = btn.getAttribute('data-cat');
-      filterTools(category);
-    });
-  });
-
-  // 确保初始状态显示全部且原有学习中的卡片状态不变
-  filterTools('all');
-
-  // 暗色/亮色主题切换支持（与之前样式联动，可选）
-  function initThemeToggle() {
-    const stored = localStorage.getItem('zt_theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', stored);
-  }
-  initThemeToggle();
-</script>
-
-<!-- 说明：所有原始卡片功能路径保持不变，仅新增了开发者工具卡片，且未修改任何原有功能链接。
-     新增的dev卡片路径为示例（/dev/json-diff-checker.html 等），可按实际部署调整。 -->
-</body>
-</html>
 
 <div class="section-wrap" id="statement">
   <div class="section-head">
@@ -830,27 +314,20 @@
   <div class="footer-right">
     <div>© <span id="year"></span> 江湖小站-ZenTools</div>
     <div>个人学习记录与经验整理页面 · 不涉及经营性互联网信息服务</div>
-    <div class="beian">
-  <a href="https://beian.miit.gov.cn/"
-     target="_blank"
-     rel="noopener noreferrer">
-     鲁ICP备2026030242号-1
-  </a>
-
-  <span> | </span>
-
-  <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324"
-     target="_blank"
-     rel="noopener noreferrer">
-     鲁公网安备37098302001324号
-  </a>
-</div>
+    <div>
+      <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
+        鲁ICP备2026030242号-1
+      </a>
+    </div>
   </div>
 </footer>
 
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+  // ============================================================
+  // 基础功能：年份、主题、返回顶部
+  // ============================================================
   document.getElementById('year').textContent = new Date().getFullYear();
 
   function initTheme() {
@@ -862,4 +339,106 @@
   
   function toggleTheme() {
     const c = document.documentElement.getAttribute('data-theme');
-    const n = c === 'dark' ? 'light' : '
+    const n = c === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', n);
+    localStorage.setItem('zh_theme', n);
+    const btn = document.getElementById('themeBtn');
+    if (btn) btn.textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
+  }
+  
+  initTheme();
+
+  const bt = document.getElementById('backTop');
+  if (bt) {
+    window.addEventListener('scroll', () => bt.classList.toggle('visible', scrollY > 400), { passive: true });
+  }
+
+  // ============================================================
+  // ZT-DCA 核心：从 /data/tools-data.json 加载工具数据
+  // 保持 UI 风格完全不变（使用现有 .tool-card 样式）
+  // ============================================================
+  (function() {
+    const container = document.getElementById('toolsGrid');
+    if (!container) return;
+
+    // 备用数据（当 JSON 加载失败时使用，确保网站始终可用）
+    const fallbackTools = [
+      { name: 'PDF 工具', url: '/pdf/index.html', icon: '📄', description: 'PDF 转图片、图片转 PDF', category: 'PDF 工具', featured: true },
+      { name: '图片压缩', url: '/image/compress.html', icon: '🖼️', description: '压缩 JPG、PNG 图片体积', category: '图片工具', featured: true, new: true },
+      { name: '文字转语音', url: '#', icon: '🔊', description: '输入文字即可朗读', category: '音频工具', featured: true },
+      { name: '世界时间', url: '#', icon: '🌍', description: '查看不同时区时间', category: '生活工具', featured: true },
+      { name: '汇率换算', url: '#', icon: '💱', description: '常见货币兑换估算', category: '金融工具', featured: false },
+      { name: 'AI 工具导航', url: '#', icon: '🤖', description: 'AI 写作、绘图工具入口', category: 'AI 工具', featured: true }
+    ];
+
+    // 渲染工具卡片（使用现有 UI 样式）
+    function renderTools(tools) {
+      if (!tools || tools.length === 0) {
+        container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:20px; color:var(--muted);">暂无工具数据</div>`;
+        return;
+      }
+
+      // 优先显示 featured 工具，最多 7 个
+      const featured = tools.filter(t => t.featured === true);
+      const toolsToShow = featured.length > 0 ? featured.slice(0, 7) : tools.slice(0, 7);
+
+      let html = '';
+      for (const tool of toolsToShow) {
+        // 处理标签：如果有 new 字段且为 true，显示 NEW，否则显示分类
+        let tagText = tool.category || '工具';
+        let tagClass = '';
+        if (tool.new === true) {
+          tagText = 'NEW';
+          tagClass = 'new'; // 可额外加样式，但现有 UI 中 .tool-tag 已有颜色
+        }
+        // 如果 url 是 #，添加 coming-soon 类
+        const isComingSoon = tool.url === '#' || !tool.url;
+        const cardClass = isComingSoon ? 'tool-card coming-soon' : 'tool-card';
+        const href = isComingSoon ? '#' : tool.url;
+
+        html += `
+          <a class="${cardClass}" href="${href}" target="${isComingSoon ? '' : '_blank'}" title="${tool.description || tool.name}">
+            <div class="tool-emoji">${tool.icon || '🔧'}</div>
+            <div class="tool-name">${tool.name}</div>
+            <div class="tool-desc">${tool.description || '点击使用工具'}</div>
+            <span class="tool-tag">${tagText}</span>
+          </a>
+        `;
+      }
+
+      // 添加"查看全部"卡片（固定，保持 UI 一致）
+      html += `
+        <a class="tool-card" href="/plugins-preview.html" target="_blank" title="查看全部工具">
+          <div class="tool-emoji">⭐</div>
+          <div class="tool-name">查看全部</div>
+          <div class="tool-desc">浏览更多工具</div>
+          <span class="tool-tag">工具箱</span>
+        </a>
+      `;
+
+      container.innerHTML = html;
+    }
+
+    // 尝试从 JSON 加载
+    fetch('/data/tools-data.json')
+      .then(response => {
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        return response.json();
+      })
+      .then(data => {
+        if (data && data.tools && data.tools.length > 0) {
+          console.log('✅ ZT-DCA: 从 tools-data.json 加载 ' + data.tools.length + ' 个工具');
+          renderTools(data.tools);
+        } else {
+          throw new Error('工具数据为空');
+        }
+      })
+      .catch(error => {
+        console.warn('⚠️ ZT-DCA: JSON 加载失败，使用备用数据', error);
+        renderTools(fallbackTools);
+      });
+  })();
+</script>
+
+</body>
+</html>
