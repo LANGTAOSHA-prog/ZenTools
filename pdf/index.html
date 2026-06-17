@@ -6,86 +6,67 @@
   <title>PDF 工具箱 - ZenTools</title>
   <meta name="description" content="在线 PDF 处理工具集合，支持 PDF 转图片、图片转 PDF、合并、拆分等操作。" />
   <style>
-    /* ===== 复用首页样式 ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg: #071026;
-      --surface: #0c1320;
-      --surface2: #0f1a2a;
-      --border: rgba(255,255,255,0.04);
-      --border-bright: rgba(255,255,255,0.08);
-      --text: #e6eef8;
-      --muted: #93a3b8;
-      --accent: #06b6d4;
-      --accent2: #fb923c;
+      --bg: #070b18;
+      --surface: #0e1629;
+      --surface2: #141f37;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --text: #f0f4ff;
+      --muted: #8899bb;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.2);
       --radius: 12px;
       --radius-pill: 999px;
-      --shadow: 0 18px 40px -14px rgba(2,6,23,0.6);
+      --shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
     [data-theme="light"] {
-      --bg: #f0f4f8;
+      --bg: #f2f5f9;
       --surface: #ffffff;
-      --surface2: #f5f7fa;
-      --border: rgba(0,0,0,0.07);
-      --border-bright: rgba(0,0,0,0.12);
-      --text: #0d1117;
-      --muted: #556070;
+      --surface2: #f0f4fe;
+      --border: rgba(0,0,0,0.06);
+      --border-hover: rgba(0,0,0,0.14);
+      --text: #0b111e;
+      --muted: #4a5a7a;
+      --shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
     body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background .3s; }
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1080px; margin: 0 auto; padding: 30px 24px 60px; }
-
-    /* 导航栏 */
     .nav-bar {
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 24px; background: var(--surface); border: 1px solid var(--border);
       border-radius: 12px; margin-bottom: 40px; flex-wrap: wrap; gap: 12px;
     }
     .nav-bar .logo { font-weight: 800; font-size: 18px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
     .nav-bar .links { display: flex; gap: 6px; flex-wrap: wrap; }
     .nav-bar .links a { font-size: 13px; font-weight: 500; color: var(--muted); padding: 6px 14px; border-radius: var(--radius-pill); transition: .2s; }
     .nav-bar .links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-    .nav-bar .links a.active { color: var(--accent); background: rgba(6,182,212,.08); }
-
-    /* 页面头部 */
+    .nav-bar .links a.active { color: var(--accent); background: var(--accent-glow); }
     .page-header { margin-bottom: 32px; }
     .page-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -.5px; }
-    .page-header h1 .hl { background: linear-gradient(100deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .page-header h1 .hl { background: linear-gradient(135deg, var(--accent), #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .page-header p { color: var(--muted); margin-top: 6px; font-size: 15px; }
-
-    /* 工具网格 */
-    .tools-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
     .tool-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-      border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 16px;
       display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
-      transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden;
-      text-decoration: none; color: inherit;
+      transition: all .2s; text-decoration: none; color: inherit;
     }
-    .tool-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
-    .tool-card:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(2,6,23,0.5); }
-    .tool-card:hover::after { opacity: 1; }
+    .tool-card:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: var(--shadow); }
     .tool-card .emoji { font-size: 32px; }
     .tool-card .name { font-size: 14px; font-weight: 600; color: var(--text); }
     .tool-card .desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
-    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.08); border-radius: 8px; padding: 4px 12px; }
-    .tool-card .tag.new { color: #10b981; background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.08); }
+    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-glow); border-radius: 8px; padding: 4px 12px; }
+    .tool-card .tag.new { color: #10b981; background: rgba(16,185,129,.08); }
     .tool-card.coming-soon { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-    .tool-card.coming-soon .tag { color: var(--muted); background: rgba(122,132,153,.12); border-color: rgba(122,132,153,.2); }
-
-    /* 空状态 */
+    .tool-card.coming-soon .tag { color: var(--muted); background: rgba(122,132,153,.12); }
     .empty-state { grid-column: 1/-1; text-align: center; padding: 50px 20px; color: var(--muted); }
-
-    /* 返回首页 */
     .back-home { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 20px; transition: .2s; }
     .back-home:hover { color: var(--accent); }
-
-    /* Footer */
     .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
-
     @media (max-width: 640px) {
       .nav-bar { flex-direction: column; align-items: stretch; text-align: center; }
       .nav-bar .links { justify-content: center; }

@@ -3,78 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PAGE_TITLE - ZenTools</title>
-  <meta name="description" content="PAGE_DESC" />
+  <title>图片工具箱 - ZenTools</title>
+  <meta name="description" content="在线图片处理工具集合，支持图片压缩、格式转换、裁剪、加水印等操作。" />
   <style>
     /* ===== 复用首页样式 ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --bg: #071026;
-      --surface: #0c1320;
-      --surface2: #0f1a2a;
-      --border: rgba(255,255,255,0.04);
-      --border-bright: rgba(255,255,255,0.08);
-      --text: #e6eef8;
-      --muted: #93a3b8;
-      --accent: #06b6d4;
-      --accent2: #fb923c;
+      --bg: #070b18;
+      --surface: #0e1629;
+      --surface2: #141f37;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(255,255,255,0.12);
+      --text: #f0f4ff;
+      --muted: #8899bb;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59, 130, 246, 0.2);
       --radius: 12px;
       --radius-pill: 999px;
-      --shadow: 0 18px 40px -14px rgba(2,6,23,0.6);
+      --shadow: 0 8px 24px rgba(0,0,0,0.4);
     }
     [data-theme="light"] {
-      --bg: #f0f4f8;
+      --bg: #f2f5f9;
       --surface: #ffffff;
-      --surface2: #f5f7fa;
-      --border: rgba(0,0,0,0.07);
-      --border-bright: rgba(0,0,0,0.12);
-      --text: #0d1117;
-      --muted: #556070;
+      --surface2: #f0f4fe;
+      --border: rgba(0,0,0,0.06);
+      --border-hover: rgba(0,0,0,0.14);
+      --text: #0b111e;
+      --muted: #4a5a7a;
+      --shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
     body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background .3s; }
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1080px; margin: 0 auto; padding: 30px 24px 60px; }
 
-    /* 导航栏（精简版，保持风格一致） */
+    /* 导航栏（统一风格） */
     .nav-bar {
       display: flex; align-items: center; justify-content: space-between;
       padding: 12px 24px; background: var(--surface); border: 1px solid var(--border);
       border-radius: 12px; margin-bottom: 40px; flex-wrap: wrap; gap: 12px;
     }
     .nav-bar .logo { font-weight: 800; font-size: 18px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), #8b5cf6); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
     .nav-bar .links { display: flex; gap: 6px; flex-wrap: wrap; }
     .nav-bar .links a { font-size: 13px; font-weight: 500; color: var(--muted); padding: 6px 14px; border-radius: var(--radius-pill); transition: .2s; }
     .nav-bar .links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-    .nav-bar .links a.active { color: var(--accent); background: rgba(6,182,212,.08); }
+    .nav-bar .links a.active { color: var(--accent); background: var(--accent-glow); }
 
-    /* 头部 */
+    /* 页面头部 */
     .page-header { margin-bottom: 32px; }
     .page-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -.5px; }
-    .page-header h1 .hl { background: linear-gradient(100deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .page-header h1 .hl { background: linear-gradient(135deg, var(--accent), #8b5cf6); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .page-header p { color: var(--muted); margin-top: 6px; font-size: 15px; }
 
-    /* 工具网格（与首页完全一致） */
+    /* 工具网格 */
     .tools-grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;
     }
     .tool-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));
-      border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 20px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 16px;
       display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px;
-      transition: transform .18s, box-shadow .18s; position: relative; overflow: hidden;
+      transition: all .2s; position: relative; overflow: hidden;
       text-decoration: none; color: inherit;
     }
-    .tool-card::after { content:''; position:absolute; top:0;left:0;right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0; transition:opacity .22s; }
-    .tool-card:hover { transform: translateY(-6px); box-shadow: 0 28px 60px rgba(2,6,23,0.5); }
-    .tool-card:hover::after { opacity: 1; }
+    .tool-card:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: var(--shadow); }
     .tool-card .emoji { font-size: 32px; }
     .tool-card .name { font-size: 14px; font-weight: 600; color: var(--text); }
     .tool-card .desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
-    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: rgba(6,182,212,.08); border: 1px solid rgba(6,182,212,.08); border-radius: 8px; padding: 4px 12px; }
-    .tool-card .tag.new { color: #10b981; background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.08); }
+    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-glow); border-radius: 8px; padding: 4px 12px; }
+    .tool-card .tag.new { color: #10b981; background: rgba(16,185,129,.08); }
     .tool-card.coming-soon { opacity: 0.5; cursor: not-allowed; pointer-events: none; }
-    .tool-card.coming-soon .tag { color: var(--muted); background: rgba(122,132,153,.12); border-color: rgba(122,132,153,.2); }
+    .tool-card.coming-soon .tag { color: var(--muted); background: rgba(122,132,153,.12); }
 
     /* 空状态 */
     .empty-state { grid-column: 1/-1; text-align: center; padding: 50px 20px; color: var(--muted); }
@@ -107,7 +106,7 @@
     </div>
     <div class="links">
       <a href="/">首页</a>
-      <a href="#" class="active" id="navCategoryName">分类</a>
+      <a href="#" class="active">图片工具</a>
       <a href="/plugins-preview.html">全部工具</a>
     </div>
   </nav>
@@ -117,8 +116,8 @@
 
   <!-- ===== 页面头部 ===== -->
   <div class="page-header">
-    <h1><span class="hl" id="pageTitle">分类</span> 工具箱</h1>
-    <p id="pageDesc">该分类下的所有在线工具</p>
+    <h1><span class="hl">图片</span> 工具箱</h1>
+    <p>在线图片处理工具集合，支持图片压缩、格式转换等操作</p>
   </div>
 
   <!-- ===== 工具网格 ===== -->
@@ -135,18 +134,22 @@
 
 <script>
   // ============================================================
-  // 分类页配置（每个页面修改这里的 3 个值）
+  // 分类页配置
   // ============================================================
-  const CATEGORY_KEY = '图片工具';      // 例如: 'PDF工具', '图片工具', 'JSON工具'
-  const PAGE_TITLE = '图片';        // 例如: 'PDF', '图片', 'JSON'
-  const PAGE_DESC = '在线图片处理集合'; // 例如: '在线 PDF 处理工具集合'
+  const CATEGORY_KEY = '图片工具';   // 必须和 tools-data.json 中的 category 完全一致
+  const PAGE_TITLE = '图片';
+  const PAGE_DESC = '在线图片处理工具集合，支持图片压缩、格式转换等操作';
 
   // ============================================================
   // 备用数据（JSON 加载失败时使用）
   // ============================================================
   const fallbackTools = [
-    { name: '示例工具 1', url: '#', icon: '🔧', description: '这是备用示例工具', category: CATEGORY_KEY },
-    { name: '示例工具 2', url: '#', icon: '🔧', description: '请确保 tools-data.json 存在', category: CATEGORY_KEY }
+    { name: '图片压缩', url: '/image/compress.html', icon: '📦', description: '压缩 JPG、PNG、WebP 图片体积', category: '图片工具' },
+    { name: '图片格式转换', url: '/image/convert.html', icon: '🔄', description: 'JPG、PNG、WebP、BMP 等格式互转', category: '图片工具' },
+    { name: '图片尺寸修改', url: '/image/resize.html', icon: '📐', description: '自定义调整图片宽度和高度', category: '图片工具' },
+    { name: '图片裁剪', url: '/image/crop.html', icon: '✂️', description: '自由裁剪图片区域', category: '图片工具' },
+    { name: '图片加水印', url: '/image/watermark.html', icon: '💧', description: '添加文字或图片水印', category: '图片工具' },
+    { name: '图片转 Base64', url: '/image/imagebase64.html', icon: '🔢', description: '将图片转换为 Base64 编码', category: '图片工具' }
   ];
 
   // ============================================================
@@ -156,7 +159,6 @@
     const container = document.getElementById('toolsGrid');
     if (!container) return;
 
-    // 筛选属于该分类的工具
     const filtered = tools.filter(t => t.category === CATEGORY_KEY);
 
     if (filtered.length === 0) {
@@ -183,17 +185,15 @@
     }
 
     container.innerHTML = html;
-    console.log(`✅ ZT-DCA: ${CATEGORY_KEY} 分类页加载完成，共 ${filtered.length} 个工具`);
+    console.log(`✅ ZT-DCA: 图片分类页加载完成，共 ${filtered.length} 个工具`);
   }
 
   // ============================================================
   // 加载数据
   // ============================================================
   function loadTools() {
-    // 更新页面标题
-    document.getElementById('pageTitle').textContent = PAGE_TITLE;
-    document.getElementById('pageDesc').textContent = PAGE_DESC;
-    document.getElementById('navCategoryName').textContent = PAGE_TITLE;
+    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 工具箱`;
+    document.querySelector('.page-header p').textContent = PAGE_DESC;
 
     fetch('/data/tools-data.json')
       .then(response => {
@@ -208,12 +208,11 @@
         }
       })
       .catch(error => {
-        console.warn(`⚠️ ZT-DCA: ${CATEGORY_KEY} 分类页加载失败，使用备用数据`, error);
+        console.warn('⚠️ ZT-DCA: 图片分类页加载失败，使用备用数据', error);
         renderTools(fallbackTools);
       });
   }
 
-  // 页面加载完成后执行
   document.addEventListener('DOMContentLoaded', loadTools);
 </script>
 
