@@ -142,8 +142,26 @@
     .stmt-box p { font-size: 15px; color: var(--muted); line-height: 1.85; }
     .stmt-box p + p { margin-top: 14px; }
 
-    .footer { max-width: 1080px; margin: 80px auto 0; padding: 24px 24px 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    /* ===== Footer 更新：备案信息 ===== */
+    .footer {
+      max-width: 1080px; margin: 80px auto 0; padding: 24px 24px 40px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+    }
     .footer-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; color: var(--text); }
+    .footer-center {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--muted); text-align: center;
+    }
+    .footer-center a {
+      color: var(--muted); transition: color .2s;
+    }
+    .footer-center a:hover {
+      color: var(--accent);
+    }
+    .footer-center .beian-divider {
+      color: var(--border-bright);
+    }
     .footer-right { font-size: 12px; color: var(--muted); text-align: right; line-height: 1.8; }
 
     .back-top { position: fixed; bottom: 26px; right: 26px; z-index: 300; width: 42px; height: 42px; border-radius: 12px; background: rgba(13,17,23,.88); backdrop-filter: blur(12px); border: 1px solid var(--border-bright); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; color: var(--muted); transition: all .25s; opacity: 0; pointer-events: none; transform: translateY(12px); box-shadow: 0 8px 24px rgba(0,0,0,.3); }
@@ -151,7 +169,7 @@
     .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
     .back-top:hover { background: var(--accent); color: white; border-color: var(--accent); box-shadow: 0 0 18px rgba(14,165,233,.4); }
 
-    @media(max-width: 900px) { 
+    @media(max-width: 900px) {
       .records-grid { grid-template-columns: repeat(2,1fr); }
       .tools-grid { grid-template-columns: repeat(2,1fr); }
     }
@@ -163,8 +181,9 @@
       .tools-grid { grid-template-columns: 1fr; }
       .section-wrap { margin-top: 64px; }
       .about-box, .stmt-box { padding: 24px 20px; }
-      .footer { justify-content: center; text-align: center; }
+      .footer { flex-direction: column; justify-content: center; text-align: center; }
       .footer-right { text-align: center; }
+      .footer-center { order: 2; }
     }
   </style>
 </head>
@@ -277,7 +296,7 @@
   </div>
 </div>
 
-<!-- ===== ZenTools 工具箱（动态从 JSON 加载，保持 UI 不变） ===== -->
+<!-- ===== ZenTools 工具箱（动态从 JSON 加载） ===== -->
 <div class="section-wrap" id="tools">
   <div class="section-head">
     <div class="s-chip">免费工具</div>
@@ -285,7 +304,6 @@
     <div class="s-sub">精选免费在线工具，一站式解决日常工作需求</div>
   </div>
   <div class="tools-grid" id="toolsGrid">
-    <!-- 由 JavaScript 从 /data/tools-data.json 动态生成，保持 UI 风格不变 -->
     <div style="grid-column:1/-1; text-align:center; padding:20px; color:var(--muted);">⏳ 加载工具中...</div>
   </div>
 </div>
@@ -306,19 +324,28 @@
   </div>
 </div>
 
+<!-- ===== Footer 更新：含备案信息 ===== -->
 <footer class="footer">
   <div class="footer-logo">
     <div class="logo-mark" style="width:24px;height:24px;font-size:12px;border-radius:7px;">⛵</div>
-    江湖小站-Zentools
+    江湖小站-ZenTools
   </div>
-  <div class="footer-right">
-    <div>© <span id="year"></span> 江湖小站-ZenTools</div>
-    <div>个人学习记录与经验整理页面 · 不涉及经营性互联网信息服务</div>
+
+  <div class="footer-center">
+    <div>© <span id="year"></span> 江湖小站-ZenTools · 个人学习记录与经验整理</div>
     <div>
       <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">
         鲁ICP备2026030242号-1
       </a>
+      <span class="beian-divider">|</span>
+      <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank" rel="noopener noreferrer">
+        鲁公网安备37098302001324号
+      </a>
     </div>
+  </div>
+
+  <div class="footer-right">
+    不涉及经营性互联网信息服务
   </div>
 </footer>
 
@@ -336,7 +363,7 @@
     const btn = document.getElementById('themeBtn');
     if (btn) btn.textContent = s === 'dark' ? '☀️ 亮色' : '🌙 暗色';
   }
-  
+
   function toggleTheme() {
     const c = document.documentElement.getAttribute('data-theme');
     const n = c === 'dark' ? 'light' : 'dark';
@@ -345,7 +372,7 @@
     const btn = document.getElementById('themeBtn');
     if (btn) btn.textContent = n === 'dark' ? '☀️ 亮色' : '🌙 暗色';
   }
-  
+
   initTheme();
 
   const bt = document.getElementById('backTop');
@@ -355,43 +382,37 @@
 
   // ============================================================
   // ZT-DCA 核心：从 /data/tools-data.json 加载工具数据
-  // 保持 UI 风格完全不变（使用现有 .tool-card 样式）
   // ============================================================
   (function() {
     const container = document.getElementById('toolsGrid');
     if (!container) return;
 
-    // 备用数据（当 JSON 加载失败时使用，确保网站始终可用）
     const fallbackTools = [
-      { name: 'PDF 工具', url: '/pdf/index.html', icon: '📄', description: 'PDF 转图片、图片转 PDF', category: 'PDF 工具', featured: true },
+      { name: 'PDF 工具', url: '/pdf/index.html', icon: '📄', description: 'PDF 转图片、图片转 PDF', category: 'PDF工具', featured: true },
       { name: '图片压缩', url: '/image/compress.html', icon: '🖼️', description: '压缩 JPG、PNG 图片体积', category: '图片工具', featured: true, new: true },
       { name: '文字转语音', url: '#', icon: '🔊', description: '输入文字即可朗读', category: '音频工具', featured: true },
       { name: '世界时间', url: '#', icon: '🌍', description: '查看不同时区时间', category: '生活工具', featured: true },
       { name: '汇率换算', url: '#', icon: '💱', description: '常见货币兑换估算', category: '金融工具', featured: false },
-      { name: 'AI 工具导航', url: '#', icon: '🤖', description: 'AI 写作、绘图工具入口', category: 'AI 工具', featured: true }
+      { name: 'AI 工具导航', url: '#', icon: '🤖', description: 'AI 写作、绘图工具入口', category: 'AI工具', featured: true }
     ];
 
-    // 渲染工具卡片（使用现有 UI 样式）
     function renderTools(tools) {
       if (!tools || tools.length === 0) {
         container.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:20px; color:var(--muted);">暂无工具数据</div>`;
         return;
       }
 
-      // 优先显示 featured 工具，最多 7 个
       const featured = tools.filter(t => t.featured === true);
       const toolsToShow = featured.length > 0 ? featured.slice(0, 7) : tools.slice(0, 7);
 
       let html = '';
       for (const tool of toolsToShow) {
-        // 处理标签：如果有 new 字段且为 true，显示 NEW，否则显示分类
         let tagText = tool.category || '工具';
         let tagClass = '';
         if (tool.new === true) {
           tagText = 'NEW';
-          tagClass = 'new'; // 可额外加样式，但现有 UI 中 .tool-tag 已有颜色
+          tagClass = 'new';
         }
-        // 如果 url 是 #，添加 coming-soon 类
         const isComingSoon = tool.url === '#' || !tool.url;
         const cardClass = isComingSoon ? 'tool-card coming-soon' : 'tool-card';
         const href = isComingSoon ? '#' : tool.url;
@@ -406,7 +427,6 @@
         `;
       }
 
-      // 添加"查看全部"卡片（固定，保持 UI 一致）
       html += `
         <a class="tool-card" href="/plugins-preview.html" target="_blank" title="查看全部工具">
           <div class="tool-emoji">⭐</div>
@@ -419,7 +439,6 @@
       container.innerHTML = html;
     }
 
-    // 尝试从 JSON 加载
     fetch('/data/tools-data.json')
       .then(response => {
         if (!response.ok) throw new Error('HTTP ' + response.status);
