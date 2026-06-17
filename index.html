@@ -475,13 +475,9 @@
     <p>免费在线工具 · 本地处理 · 隐私安全</p>
   </section>
 
-  <!-- ===== 分类快捷入口 (新增) ===== -->
-  <div class="category-ribbon">
-    <a href="/pdf/index.html"><span class="cat-icon">📄</span> PDF</a>
-    <a href="/image/index.html"><span class="cat-icon">🖼️</span> 图片</a>
-    <a href="/audio/index.html"><span class="cat-icon">🔊</span> 音频</a>
-    <a href="/life/index.html"><span class="cat-icon">🌍</span> 生活</a>
-    <a href="/ai/index.html"><span class="cat-icon">🤖</span> AI</a>
+  <!-- ===== 分类快捷入口 ===== -->
+  <div class="category-ribbon" id="categoryRibbon">
+    <!-- 由 JS 动态渲染 -->
   </div>
 
   <!-- ===== 最近使用 (新增) ===== -->
@@ -651,10 +647,49 @@
   }
   loadRecent();
 
+  // ===== 分类图标映射 =====
+  const CATEGORY_ICONS = {
+    'AI工具': '🤖',
+    '图片工具': '🖼️',
+    'PDF工具': '📄',
+    '文本工具': '📝',
+    '视频工具': '🎬',
+    '音频工具': '🔊',
+    '开发工具': '💻',
+    'SEO工具': '🔍',
+    '办公工具': '📎',
+    '生活工具': '🌍',
+    '金融工具': '💰',
+    '教育工具': '📚'
+  };
+
   // ===== 从 JSON 加载工具数据 =====
   (function() {
     const grid = document.getElementById('toolsGrid');
     const hot = document.getElementById('hotScroll');
+    const ribbon = document.getElementById('categoryRibbon');
+
+    // 渲染分类快捷入口
+    function renderCategories(categories) {
+      if (!categories || !categories.length) return;
+      let html = '';
+      for (const cat of categories) {
+        const icon = CATEGORY_ICONS[cat] || '🔧';
+        // 根据分类名生成目录路径
+        let path = '';
+        if (cat === 'AI工具') path = '/ai/index.html';
+        else if (cat === '图片工具') path = '/image/index.html';
+        else if (cat === 'PDF工具') path = '/pdf/index.html';
+        else if (cat === '文本工具') path = '/text/index.html';
+        else if (cat === '视频工具') path = '/video/index.html';
+        else if (cat === '音频工具') path = '/audio/index.html';
+        else if (cat === '开发工具') path = '/dev/index.html';
+        else if (cat === '生活工具') path = '/life/index.html';
+        else path = '/categories.html#' + encodeURIComponent(cat);
+        html += `<a href="${path}"><span class="cat-icon">${icon}</span> ${cat}</a>`;
+      }
+      ribbon.innerHTML = html;
+    }
 
     function renderTools(tools) {
       if (!tools || !tools.length) {
@@ -697,7 +732,11 @@
 
     fetch('/data/tools-data.json')
       .then(r => r.ok ? r.json() : Promise.reject('HTTP ' + r.status))
-      .then(data => data?.tools ? renderTools(data.tools) : renderTools(null))
+      .then(data => {
+        if (data?.categories) renderCategories(data.categories);
+        if (data?.tools) renderTools(data.tools);
+        else renderTools(null);
+      })
       .catch(() => {
         // 备用数据
         renderTools([
