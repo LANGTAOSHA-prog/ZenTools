@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF 工具箱 - ZenTools</title>
-  <meta name="description" content="在线 PDF 处理工具集合，支持 PDF 转图片、图片转 PDF、合并、拆分等操作。" />
+  <title>PDF 工具�?- ����Сվ-ZenTools</title>
+  <meta name="description" content="在线 PDF 处理工具集合，支�?PDF 转图片、图片转 PDF、合并、拆分等操作�? />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -80,11 +80,11 @@
 
 <div class="container">
 
-  <!-- ===== 导航栏 ===== -->
+  <!-- ===== 导航�?===== -->
   <nav class="nav-bar">
     <div class="logo">
-      <span class="mark">⛵</span>
-      ZenTools
+      <span class="mark">�?/span>
+      ����Сվ-ZenTools
     </div>
     <div class="links">
       <a href="/">首页</a>
@@ -94,45 +94,45 @@
   </nav>
 
   <!-- ===== 返回首页 ===== -->
-  <a href="/" class="back-home">← 返回首页</a>
+  <a href="/" class="back-home">�?返回首页</a>
 
   <!-- ===== 页面头部 ===== -->
   <div class="page-header">
-    <h1><span class="hl">PDF</span> 工具箱</h1>
-    <p>在线 PDF 处理工具集合，支持 PDF 转图片、图片转 PDF 等操作</p>
+    <h1><span class="hl">PDF</span> 工具�?/h1>
+    <p>在线 PDF 处理工具集合，支�?PDF 转图片、图片转 PDF 等操�?/p>
   </div>
 
   <!-- ===== 工具网格 ===== -->
   <div class="tools-grid" id="toolsGrid">
-    <div class="empty-state">⏳ 加载工具中...</div>
+    <div class="empty-state">�?加载工具�?..</div>
   </div>
 
   <!-- ===== Footer ===== -->
   <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">ZenTools</a> · 数据驱动分类架构
+    © 2026 <a href="/" style="color:var(--accent);">����Сվ-ZenTools</a> · 数据驱动分类架构
   </div>
 
 </div>
 
 <script>
   // ============================================================
-  // 📌 PDF 分类页配置（已修正：带空格，与 JSON 一致）
+  // 📌 PDF 分类页配置（已修正：带空格，�?JSON 一致）
   // ============================================================
-  const CATEGORY_KEY = 'PDF工具';   // 必须和 tools-data.json 中的 category 完全一致
+  const CATEGORY_KEY = 'PDF工具';   // 必须�?tools-data.json 中的 category 完全一�?
   const PAGE_TITLE = 'PDF';         // 页面标题
-  const PAGE_DESC = '在线 PDF 处理工具集合，支持 PDF 转图片、图片转 PDF 等操作';
+  const PAGE_DESC = '在线 PDF 处理工具集合，支�?PDF 转图片、图片转 PDF 等操�?;
 
   // ============================================================
   // 备用数据（JSON 加载失败时使用）
   // ============================================================
   const fallbackTools = [
-    { name: 'PDF 转图片', url: '/pdf/pdf-to-image.html', icon: '📄', description: '将 PDF 页面转换为图片', category: 'PDF工具' },
-    { name: '图片转 PDF', url: '/pdf/image-to-pdf.html', icon: '🖼️', description: '将图片合并为 PDF', category: 'PDF工具' },
-    { name: 'PDF 合并', url: '/pdf/merge.html', icon: '📄', description: '将多个 PDF 文件合并为一个', category: 'PDF工具' },
-    { name: 'PDF 拆分', url: '/pdf/split.html', icon: '✂️', description: '将 PDF 拆分为多个独立页面', category: 'PDF工具' },
-    { name: 'PDF 压缩', url: '/pdf/compress.html', icon: '🗜️', description: '压缩 PDF 文件大小', category: 'PDF工具' },
-    { name: 'PDF转Word', url: '/pdf/pdf-to-word.html', icon: '📝', description: '将 PDF 转换为 Word 文档', category: 'PDF工具' },
-    { name: 'Word转PDF', url: '/pdf/word-to-pdf.html', icon: '📄', description: '将 Word 文档转换为 PDF', category: 'PDF工具' }
+    { name: 'PDF 转图�?, url: '/pdf/pdf-to-image.html', icon: '📄', description: '�?PDF 页面转换为图�?, category: 'PDF工具' },
+    { name: '图片�?PDF', url: '/pdf/image-to-pdf.html', icon: '🖼�?, description: '将图片合并为 PDF', category: 'PDF工具' },
+    { name: 'PDF 合并', url: '/pdf/merge.html', icon: '📄', description: '将多�?PDF 文件合并为一�?, category: 'PDF工具' },
+    { name: 'PDF 拆分', url: '/pdf/split.html', icon: '✂️', description: '�?PDF 拆分为多个独立页�?, category: 'PDF工具' },
+    { name: 'PDF 压缩', url: '/pdf/compress.html', icon: '🗜�?, description: '压缩 PDF 文件大小', category: 'PDF工具' },
+    { name: 'PDF转Word', url: '/pdf/pdf-to-word.html', icon: '📝', description: '�?PDF 转换�?Word 文档', category: 'PDF工具' },
+    { name: 'Word转PDF', url: '/pdf/word-to-pdf.html', icon: '📄', description: '�?Word 文档转换�?PDF', category: 'PDF工具' }
   ];
 
   // ============================================================
@@ -145,7 +145,7 @@
     const filtered = tools.filter(t => t.category === CATEGORY_KEY);
 
     if (filtered.length === 0) {
-      container.innerHTML = `<div class="empty-state">📭 该分类下暂无工具，敬请期待</div>`;
+      container.innerHTML = `<div class="empty-state">📭 该分类下暂无工具，敬请期�?/div>`;
       return;
     }
 
@@ -168,7 +168,7 @@
     }
 
     container.innerHTML = html;
-    console.log(`✅ ZT-DCA: PDF 分类页加载完成，共 ${filtered.length} 个工具`);
+    console.log(`�?ZT-DCA: PDF 分类页加载完成，�?${filtered.length} 个工具`);
   }
 
   // ============================================================

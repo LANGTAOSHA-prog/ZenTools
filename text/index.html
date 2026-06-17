@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>文本工具箱 - ZenTools</title>
-  <meta name="description" content="在线文本处理工具集合，支持字数统计、大小写转换、去重等操作。" />
+  <title>文本工具�?- ����Сվ-ZenTools</title>
+  <meta name="description" content="在线文本处理工具集合，支持字数统计、大小写转换、去重等操作�? />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
@@ -79,38 +79,38 @@
 <body>
 <div class="container">
   <nav class="nav-bar">
-    <div class="logo"><span class="mark">⛵</span>ZenTools</div>
+    <div class="logo"><span class="mark">�?/span>����Сվ-ZenTools</div>
     <div class="links">
       <a href="/">首页</a>
       <a href="#" class="active">文本工具</a>
       <a href="/plugins-preview.html">全部工具</a>
     </div>
   </nav>
-  <a href="/" class="back-home">← 返回首页</a>
+  <a href="/" class="back-home">�?返回首页</a>
   <div class="page-header">
-    <h1><span class="hl">文本</span> 工具箱</h1>
-    <p>在线文本处理工具集合，支持字数统计、大小写转换等操作</p>
+    <h1><span class="hl">文本</span> 工具�?/h1>
+    <p>在线文本处理工具集合，支持字数统计、大小写转换等操�?/p>
   </div>
   <div class="tools-grid" id="toolsGrid">
-    <div class="empty-state">⏳ 加载工具中...</div>
+    <div class="empty-state">�?加载工具�?..</div>
   </div>
-  <div class="footer">© 2026 <a href="/" style="color:var(--accent);">ZenTools</a> · 数据驱动分类架构</div>
+  <div class="footer">© 2026 <a href="/" style="color:var(--accent);">����Сվ-ZenTools</a> · 数据驱动分类架构</div>
 </div>
 <script>
   const CATEGORY_KEY = '文本工具';
   const PAGE_TITLE = '文本';
-  const PAGE_DESC = '在线文本处理工具集合，支持字数统计、大小写转换等操作';
+  const PAGE_DESC = '在线文本处理工具集合，支持字数统计、大小写转换等操�?;
   const fallbackTools = [
     { name: '字数统计', url: '/text/wordcount.html', icon: '📊', description: '统计文字数量、字符数和段落数', category: '文本工具' },
-    { name: '大小写转换', url: '/text/caseconvert.html', icon: '🔤', description: '英文大小写互相转换', category: '文本工具' },
+    { name: '大小写转�?, url: '/text/caseconvert.html', icon: '🔤', description: '英文大小写互相转�?, category: '文本工具' },
     { name: '去重工具', url: '/text/dedupe.html', icon: '🧹', description: '去除重复行或重复内容', category: '文本工具' },
-    { name: '空行处理', url: '/text/blankline.html', icon: '📄', description: '删除多余空行和空白', category: '文本工具' },
-    { name: '链接提取', url: '/text/linkextract.html', icon: '🔗', description: '从文本中提取所有链接', category: '文本工具' }
+    { name: '空行处理', url: '/text/blankline.html', icon: '📄', description: '删除多余空行和空�?, category: '文本工具' },
+    { name: '链接提取', url: '/text/linkextract.html', icon: '🔗', description: '从文本中提取所有链�?, category: '文本工具' }
   ];
   function renderTools(tools) {
     const container = document.getElementById('toolsGrid'); if (!container) return;
     const filtered = tools.filter(t => t.category === CATEGORY_KEY);
-    if (filtered.length === 0) { container.innerHTML = '<div class="empty-state">📭 该分类下暂无工具，敬请期待</div>'; return; }
+    if (filtered.length === 0) { container.innerHTML = '<div class="empty-state">📭 该分类下暂无工具，敬请期�?/div>'; return; }
     let html = '';
     for (const tool of filtered) {
       const isComingSoon = tool.url === '#' || !tool.url || tool.url === '';
@@ -125,7 +125,7 @@
   function loadTools() {
     document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 工具箱`;
     document.querySelector('.page-header p').textContent = PAGE_DESC;
-    fetch('/data/tools-data.json').then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return r.json(); }).then(d => { if (d && d.tools && d.tools.length) renderTools(d.tools); else throw Error('空数据'); }).catch(e => { console.warn(e); renderTools(fallbackTools); });
+    fetch('/data/tools-data.json').then(r => { if (!r.ok) throw Error('HTTP ' + r.status); return r.json(); }).then(d => { if (d && d.tools && d.tools.length) renderTools(d.tools); else throw Error('空数�?); }).catch(e => { console.warn(e); renderTools(fallbackTools); });
   }
   document.addEventListener('DOMContentLoaded', loadTools);
 </script>
