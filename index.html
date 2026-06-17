@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>藵颅艧牛膼膭艕啪-ZenTools 脗藝 暮聟聧膷麓拧暮聹篓莽艧偶暮藝慕暮聟藝茅聸?/title>
-  <meta name="description" content="藵颅艧牛膼膭艕啪-ZenTools 膰聫聬盲啪聸暮聟聧膷麓拧莽職?PDF膬聙聛暮聸啪莽聣聡膬聙聛膰聳聡暮颅聴膬聙聛暮藕聙暮聫聭莽颅聣暮聹篓莽艧偶暮藝慕暮聟藝膹藕聦膰聹殴暮聹掳暮陇聞莽聬聠膹藕聦茅職聬莽搂聛暮沤聣暮聟篓膬聙? />
+  <title>江湖小站-ZenTools · 免费在线工具集</title>
+  <meta name="description" content="江湖小站-ZenTools 提供免费的 PDF、图片、文字、开发等在线工具，本地处理，隐私安全。" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <style>
-    /* ===== 茅聡聧莽藵沤 & 暮聫聵茅聡聫 ===== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
       --bg: #070b18;
@@ -52,440 +51,215 @@
     }
     a { text-decoration: none; color: inherit; }
     .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-    /* ===== 暮呕藕膷聢艦膰聽?===== */
     .navbar {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
       position: sticky;
-      top: 0;
-      z-index: 100;
+      top: 0; z-index: 100;
       backdrop-filter: blur(12px);
       background: rgba(14, 22, 41, 0.85);
     }
-    [data-theme="light"] .navbar {
-      background: rgba(255, 255, 255, 0.92);
-    }
+    [data-theme="light"] .navbar { background: rgba(255, 255, 255, 0.92); }
     .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      gap: 20px;
-      flex-wrap: wrap;
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; gap: 20px; flex-wrap: wrap;
     }
     .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 20px;
-      letter-spacing: -.5px;
-      color: var(--text);
-      flex-shrink: 0;
+      display: flex; align-items: center; gap: 10px;
+      font-weight: 800; font-size: 20px; letter-spacing: -.5px;
+      color: var(--text); flex-shrink: 0;
     }
     .nav-brand .mark {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+      width: 34px; height: 34px; border-radius: 10px;
       background: linear-gradient(135deg, var(--accent), #8b5cf6);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: #fff;
       box-shadow: 0 0 20px var(--accent-glow);
     }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      list-style: none;
-      flex-wrap: wrap;
-    }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; flex-wrap: wrap; }
     .nav-links a {
-      padding: 8px 14px;
-      border-radius: var(--radius-pill);
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--muted);
-      transition: all .2s;
-      white-space: nowrap;
+      padding: 8px 14px; border-radius: var(--radius-pill);
+      font-size: 14px; font-weight: 500; color: var(--muted);
+      transition: all .2s; white-space: nowrap;
     }
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--text);
-      background: rgba(255,255,255,0.06);
-    }
-    .nav-links a.active {
-      color: var(--accent);
-      background: var(--accent-glow);
-    }
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-shrink: 0;
-    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--accent); background: var(--accent-glow); }
+    .nav-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
     .btn-theme {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      width: 36px;
-      height: 36px;
-      border-radius: var(--radius-pill);
-      cursor: pointer;
-      font-size: 16px;
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--muted); width: 36px; height: 36px;
+      border-radius: var(--radius-pill); cursor: pointer; font-size: 16px;
       transition: all .2s;
     }
-    .btn-theme:hover {
-      border-color: var(--border-hover);
-      color: var(--text);
-    }
-
-    /* ===== Hero ===== */
+    .btn-theme:hover { border-color: var(--border-hover); color: var(--text); }
     .hero {
-      padding: 50px 0 36px;
-      text-align: center;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 30px;
-      position: relative;
-      overflow: hidden;
+      padding: 50px 0 36px; text-align: center;
+      border-bottom: 1px solid var(--border); margin-bottom: 30px;
+      position: relative; overflow: hidden;
     }
     .hero::before {
-      content: '';
-      position: absolute;
-      top: -60%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 500px;
-      height: 500px;
+      content: ''; position: absolute; top: -60%; left: 50%;
+      transform: translateX(-50%); width: 500px; height: 500px;
       background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
-      pointer-events: none;
-      opacity: 0.6;
+      pointer-events: none; opacity: 0.6;
     }
     .hero h1 {
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 900;
-      letter-spacing: -1px;
-      line-height: 1.1;
-      margin-bottom: 12px;
-      position: relative;
+      font-size: clamp(28px, 4vw, 44px); font-weight: 900;
+      letter-spacing: -1px; line-height: 1.1;
+      margin-bottom: 12px; position: relative;
     }
     .hero h1 .hl {
       background: linear-gradient(135deg, var(--accent), #8b5cf6);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
       position: relative;
     }
     .hero h1 .hl::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
-      border-radius: 2px;
-      opacity: 0.4;
+      content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 3px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+      border-radius: 2px; opacity: 0.4;
     }
     .hero p {
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 500px;
-      margin: 0 auto 20px;
-      position: relative;
+      font-size: 16px; color: var(--muted); max-width: 500px;
+      margin: 0 auto 20px; position: relative;
     }
-
-    /* ===== 暮聢聠莽膮钮暮偶扭膰聧藝暮聟慕暮聫艁 (膰聳掳暮藰聻) ===== */
     .category-ribbon {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 30px;
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: 12px; margin-bottom: 30px;
     }
     .category-ribbon a {
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-pill);
-      padding: 8px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--muted);
+      background: var(--surface); border: 1px solid var(--glass-border);
+      border-radius: var(--radius-pill); padding: 8px 20px;
+      font-size: 14px; font-weight: 600; color: var(--muted);
       transition: all .25s cubic-bezier(.4,0,.2,1);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      backdrop-filter: blur(4px);
+      display: inline-flex; align-items: center; gap: 6px; backdrop-filter: blur(4px);
     }
     .category-ribbon a:hover {
-      background: var(--surface2);
-      border-color: var(--accent-glow);
-      color: var(--text);
-      transform: translateY(-2px);
+      background: var(--surface2); border-color: var(--accent-glow);
+      color: var(--text); transform: translateY(-2px);
       box-shadow: 0 4px 16px rgba(59,130,246,0.08);
     }
     .category-ribbon a .cat-icon { font-size: 16px; }
-
-    /* ===== 莽聝颅茅聴篓暮藝慕暮聟藝膰篓艦暮聬聭膰钮職暮聤篓 (膰聳掳暮藰聻) ===== */
-    .hot-section {
-      margin-bottom: 32px;
-    }
-    .hot-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .hot-header h3 {
-      font-size: 18px;
-      font-weight: 700;
-    }
+    .hot-section { margin-bottom: 32px; }
+    .hot-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .hot-header h3 { font-size: 18px; font-weight: 700; }
     .hot-scroll {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      padding: 6px 2px 12px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin;
+      display: flex; gap: 14px; overflow-x: auto;
+      padding: 6px 2px 12px; scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch; scrollbar-width: thin;
     }
     .hot-scroll::-webkit-scrollbar { height: 4px; }
     .hot-scroll::-webkit-scrollbar-track { background: var(--border); border-radius: 4px; }
     .hot-scroll::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 4px; }
     .hot-item {
-      flex: 0 0 160px;
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 16px 14px;
-      text-align: center;
-      scroll-snap-align: start;
+      flex: 0 0 160px; background: var(--surface);
+      border: 1px solid var(--glass-border); border-radius: var(--radius);
+      padding: 16px 14px; text-align: center; scroll-snap-align: start;
       transition: all .25s cubic-bezier(.4,0,.2,1);
-      text-decoration: none;
-      color: inherit;
-      min-width: 140px;
-      backdrop-filter: blur(4px);
+      text-decoration: none; color: inherit; min-width: 140px; backdrop-filter: blur(4px);
     }
     .hot-item:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-glow);
+      transform: translateY(-4px); border-color: var(--accent-glow);
       box-shadow: 0 8px 24px rgba(59,130,246,0.1);
     }
     .hot-item .emoji { font-size: 28px; display: block; margin-bottom: 6px; }
     .hot-item .name { font-size: 14px; font-weight: 600; }
     .hot-item .tag {
-      font-size: 10px;
-      color: var(--muted-light);
-      background: var(--surface2);
-      padding: 2px 10px;
-      border-radius: var(--radius-pill);
-      display: inline-block;
-      margin-top: 6px;
+      font-size: 10px; color: var(--muted-light);
+      background: var(--surface2); padding: 2px 10px;
+      border-radius: var(--radius-pill); display: inline-block; margin-top: 6px;
     }
-
-    /* ===== 暮藝慕暮聟藝莽藵聭膰聽藕 ===== */
-    .section-wrap {
-      margin: 40px auto;
-      scroll-margin-top: 80px;
-    }
+    .section-wrap { margin: 40px auto; scroll-margin-top: 80px; }
     .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-      gap: 10px;
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
     }
-    .section-head h2 {
-      font-size: 22px;
-      font-weight: 700;
-    }
-    .section-head .more-link {
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color .2s;
-    }
+    .section-head h2 { font-size: 22px; font-weight: 700; }
+    .section-head .more-link { color: var(--muted); font-size: 14px; font-weight: 500; transition: color .2s; }
     .section-head .more-link:hover { color: var(--accent); }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-    }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; }
     .tool-card {
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 18px 14px 16px;
-      text-align: center;
-      transition: all .3s cubic-bezier(.4,0,.2,1);
-      text-decoration: none;
-      color: inherit;
-      backdrop-filter: blur(4px);
-      position: relative;
-      overflow: hidden;
+      background: var(--surface); border: 1px solid var(--glass-border);
+      border-radius: var(--radius); padding: 18px 14px 16px;
+      text-align: center; transition: all .3s cubic-bezier(.4,0,.2,1);
+      text-decoration: none; color: inherit;
+      backdrop-filter: blur(4px); position: relative; overflow: hidden;
     }
     .tool-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0;
-      transition: opacity .3s;
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      opacity: 0; transition: opacity .3s;
     }
     .tool-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-glow);
+      transform: translateY(-4px); border-color: var(--accent-glow);
       box-shadow: 0 8px 32px rgba(59,130,246,0.12);
     }
-    .tool-card:hover::before {
-      opacity: 1;
-    }
+    .tool-card:hover::before { opacity: 1; }
     .tool-card .emoji { font-size: 28px; display: block; margin-bottom: 8px; }
     .tool-card .name { font-weight: 600; font-size: 14px; }
     .tool-card .desc { font-size: 12px; color: var(--muted); margin-top: 4px; }
     .tool-card .tag {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 3px 12px;
-      border-radius: var(--radius-pill);
-      background: var(--accent-glow);
-      color: var(--accent);
+      display: inline-block; margin-top: 10px; font-size: 10px;
+      font-weight: 700; padding: 3px 12px; border-radius: var(--radius-pill);
+      background: var(--accent-glow); color: var(--accent);
     }
-
-    /* ===== 盲赂艦盲艧艧暮颅艢盲拧聽膰聽?===== */
-    .learning-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 18px;
-    }
+    .learning-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
     .learning-card {
-      background: var(--surface);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius);
-      padding: 18px 18px 16px;
+      background: var(--surface); border: 1px solid var(--glass-border);
+      border-radius: var(--radius); padding: 18px 18px 16px;
       transition: all .25s cubic-bezier(.4,0,.2,1);
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      backdrop-filter: blur(4px);
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column; gap: 6px; backdrop-filter: blur(4px);
     }
     .learning-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-glow);
+      transform: translateY(-4px); border-color: var(--accent-glow);
       box-shadow: 0 8px 24px rgba(59,130,246,0.1);
     }
     .learning-card .lc-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      background: var(--accent-glow);
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; background: var(--accent-glow);
     }
     .learning-card .lc-title { font-weight: 600; font-size: 15px; }
     .learning-card .lc-desc { font-size: 13px; color: var(--muted); }
-    .learning-card .lc-link {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-top: 4px;
-    }
-
-    /* ===== 膰聹聙膷偶聭盲藵偶莽聰?(膰聳掳暮藰聻) ===== */
+    .learning-card .lc-link { font-size: 13px; font-weight: 600; color: var(--accent); margin-top: 4px; }
     .recent-section {
-      margin: 24px 0 32px;
-      padding: 16px 20px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      display: none;
+      margin: 24px 0 32px; padding: 16px 20px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); display: none;
     }
     .recent-section.visible { display: block; }
-    .recent-section h4 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
-    .recent-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+    .recent-section h4 { font-size: 14px; font-weight: 600; color: var(--muted); margin-bottom: 12px; }
+    .recent-list { display: flex; flex-wrap: wrap; gap: 10px; }
     .recent-list a {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-pill);
-      padding: 4px 16px;
-      font-size: 13px;
-      color: var(--text);
-      transition: all .2s;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: var(--radius-pill); padding: 4px 16px;
+      font-size: 13px; color: var(--text); transition: all .2s;
     }
-    .recent-list a:hover {
-      border-color: var(--accent);
-      background: var(--accent-glow);
-    }
-
-    /* ===== 暮聟艂盲艧聨 & Footer ===== */
+    .recent-list a:hover { border-color: var(--accent); background: var(--accent-glow); }
     .about-box, .stmt-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 24px;
     }
-    .about-box p, .stmt-box p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.8;
-    }
+    .about-box p, .stmt-box p { color: var(--muted); font-size: 15px; line-height: 1.8; }
     .about-box p + p, .stmt-box p + p { margin-top: 12px; }
     .notice-bar {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      background: var(--accent-glow);
-      border: 1px solid rgba(59,130,246,.15);
-      border-radius: var(--radius);
-      padding: 14px 18px;
-      margin-top: 16px;
+      display: flex; align-items: flex-start; gap: 14px;
+      background: var(--accent-glow); border: 1px solid rgba(59,130,246,.15);
+      border-radius: var(--radius); padding: 14px 18px; margin-top: 16px;
     }
     .notice-bar .ni { font-size: 18px; flex-shrink: 0; }
     .notice-bar p { font-size: 14px; color: var(--muted); margin: 0; }
-
     .footer {
-      border-top: 1px solid var(--border);
-      padding: 28px 0 36px;
-      margin-top: 40px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      font-size: 13px;
-      color: var(--muted-light);
+      border-top: 1px solid var(--border); padding: 28px 0 36px;
+      margin-top: 40px; display: flex; flex-wrap: wrap;
+      justify-content: space-between; align-items: center;
+      gap: 16px; font-size: 13px; color: var(--muted-light);
     }
     .footer a { color: var(--muted); transition: color .2s; }
     .footer a:hover { color: var(--accent); }
     .footer .beian a { margin: 0 6px; }
-
-    /* ===== 暮聯聧暮艧聰暮藕?===== */
     @media (max-width: 768px) {
       .nav-inner { height: auto; padding: 10px 0; gap: 8px; }
       .nav-links { width: 100%; justify-content: center; gap: 2px; }
@@ -503,187 +277,150 @@
   </style>
 </head>
 <body>
-
-<!-- ===== 暮呕藕膷聢艦膰聽?===== -->
 <nav class="navbar">
   <div class="nav-inner">
-    <a href="/" class="nav-brand">
-      <span class="mark">芒聸?/span>
-      藵颅艧牛膼膭艕啪-ZenTools
-    </a>
+    <a href="/" class="nav-brand"><span class="mark">⛵</span>江湖小站-ZenTools</a>
     <ul class="nav-links">
-      <li><a href="#tools" class="active">暮藝慕暮聟藝</a></li>
-      <li><a href="#learning">暮颅艢盲拧聽</a></li>
-      <li><a href="#about">暮聟艂盲艧聨</a></li>
+      <li><a href="#tools" class="active">工具</a></li>
+      <li><a href="#learning">学习</a></li>
+      <li><a href="#about">关于</a></li>
     </ul>
     <div class="nav-right">
-      <button class="btn-theme" onclick="toggleTheme()" id="themeBtn">膽聼聦聶</button>
+      <button class="btn-theme" onclick="toggleTheme()" id="themeBtn">🌙</button>
     </div>
   </div>
 </nav>
-
 <div class="container">
-
-  <!-- ===== Hero ===== -->
   <section class="hero">
-    <h1>莽藳啪莽沤聙 脗藝 茅扭聵膰聲聢 脗藝 <span class="hl">藵颅艧牛膼膭艕啪-ZenTools</span></h1>
-    <p>暮聟聧膷麓拧暮聹篓莽艧偶暮藝慕暮聟藝 脗藝 膰聹殴暮聹掳暮陇聞莽聬聠 脗藝 茅職聬莽搂聛暮沤聣暮聟篓</p>
+    <h1>精简 · 高效 · <span class="hl">江湖小站-ZenTools</span></h1>
+    <p>免费在线工具 · 本地处理 · 隐私安全</p>
   </section>
-
-  <!-- ===== 暮聢聠莽膮钮暮偶扭膰聧藝暮聟慕暮聫艁 ===== -->
-  <div class="category-ribbon" id="categoryRibbon">
-    <!-- 莽聰?JS 暮聤篓膰聙聛膰赂藳膰聼?-->
-  </div>
-
-  <!-- ===== 膰聹聙膷偶聭盲藵偶莽聰?(膰聳掳暮藰聻) ===== -->
+  <div class="category-ribbon" id="categoryRibbon"></div>
   <div class="recent-section" id="recentSection">
-    <h4>膽聼聰聞 膰聹聙膷偶聭盲藵偶莽聰?/h4>
+    <h4>🔄 最近使用</h4>
     <div class="recent-list" id="recentList"></div>
   </div>
-
-  <!-- ===== 莽聝颅茅聴篓暮藝慕暮聟藝膰篓艦暮聬聭膰钮職暮聤篓 (膰聳掳暮藰聻) ===== -->
   <div class="hot-section">
     <div class="hot-header">
-      <h3>膽聼聰慕 莽聝颅茅聴篓暮藝慕暮聟藝</h3>
-      <span style="font-size:13px;color:var(--muted);">芒聠?膰钮聭暮聤篓膰木聫膷搂聢 芒聠?/span>
+      <h3>🔥 热门工具</h3>
+      <span style="font-size:13px;color:var(--muted);">← 滑动浏览 →</span>
     </div>
     <div class="hot-scroll" id="hotScroll">
-      <!-- 莽聰?JS 暮聤篓膰聙聛膰赂藳膰聼?-->
-      <div style="text-align:center;padding:20px;color:var(--muted);width:100%;">暮聤聽膷藵藵盲赂?..</div>
+      <div style="text-align:center;padding:20px;color:var(--muted);width:100%;">加载中...</div>
     </div>
   </div>
-
-  <!-- ===== 暮聟篓茅聝篓暮藝慕暮聟藝 ===== -->
   <section class="section-wrap" id="tools">
     <div class="section-head">
-      <h2>膽聼搂掳 暮聟篓茅聝篓暮藝慕暮聟藝</h2>
-      <a href="/plugins-preview.html" class="more-link">膰聼慕莽聹聥暮聟篓茅聝篓 芒聠?/a>
+      <h2>🧰 全部工具</h2>
+      <a href="/plugins-preview.html" class="more-link">查看全部 →</a>
     </div>
     <div class="tools-grid" id="toolsGrid">
-      <!-- 莽聰?JS 暮聤篓膰聙聛膰赂藳膰聼?-->
-      <div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">暮聤聽膷藵藵暮藝慕暮聟藝盲赂?..</div>
+      <div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">加载工具中...</div>
     </div>
   </section>
-
-  <!-- ===== 盲赂艦盲艧艧暮颅艢盲拧聽膰聽?===== -->
   <section class="section-wrap" id="learning">
     <div class="section-head">
-      <h2>膽聼聯職 盲赂艦盲艧艧暮颅艢盲拧聽膰聽?/h2>
-      <span class="more-link">膷沤掳暮藵聲盲赂聨莽钮聫茅艦?/span>
+      <h2>📚 个人学习栏</h2>
+      <span class="more-link">记录与经验</span>
     </div>
     <div class="learning-grid">
       <a class="learning-card" href="articles/my-first-pdf-tool.html">
-        <div class="lc-icon" style="background:rgba(16,185,129,.15);">膽聼聯聞</div>
-        <div class="lc-title">膰聢聭莽職聞莽殴殴盲赂聙盲赂?PDF 暮藝慕暮聟藝</div>
-        <div class="lc-desc">膷沤掳暮藵聲盲钮聨茅聸艣暮藕聙暮搂聥莽藕聳暮聠聶莽殴殴盲赂聙盲赂?PDF 暮藝慕暮聟藝莽職聞膷偶聡莽篓聥膬聙?/div>
-        <span class="lc-link">膰聼慕莽聹聥暮聠聟暮沤拧 芒聠?/span>
+        <div class="lc-icon" style="background:rgba(16,185,129,.15);">📄</div>
+        <div class="lc-title">我的第一个 PDF 工具</div>
+        <div class="lc-desc">记录从零开始编写第一个 PDF 工具的过程。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
       <a class="learning-card" href="notes.html">
-        <div class="lc-icon" style="background:rgba(59,130,246,.15);">膽聼聯聵</div>
-        <div class="lc-title">盲赂艦盲艧艧暮颅艢盲拧聽莽殴聰膷沤掳</div>
-        <div class="lc-desc">膷沤掳暮藵聲膰聴慕暮赂赂暮颅艢盲拧聽膷偶聡莽篓聥盲赂颅茅聛聡暮聢掳莽職聞茅聴沤茅藰聵暮聮聦暮偶聝暮啪聴膬聙?/div>
-        <span class="lc-link">膰聼慕莽聹聥暮聠聟暮沤拧 芒聠?/span>
+        <div class="lc-icon" style="background:rgba(59,130,246,.15);">📘</div>
+        <div class="lc-title">个人学习笔记</div>
+        <div class="lc-desc">记录日常学习过程中遇到的问题和心得。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
       <a class="learning-card" href="articles/web-design-notes.html">
-        <div class="lc-icon" style="background:rgba(99,102,241,.15);">膽聼聮钮</div>
-        <div class="lc-title">莽藵聭茅膭木暮聢艣盲藵聹膷沤掳暮藵聲</div>
-        <div class="lc-desc">膰聲麓莽聬聠莽藵聭茅膭木膰聨聮莽聣聢膬聙聛膰聽藝暮藕聫膷掳聝膰聲麓暮聮聦暮赂赂膷搂聛茅聴沤茅藰聵暮陇聞莽聬聠膬聙?/div>
-        <span class="lc-link">膰聼慕莽聹聥暮聠聟暮沤拧 芒聠?/span>
+        <div class="lc-icon" style="background:rgba(99,102,241,.15);">💻</div>
+        <div class="lc-title">网页制作记录</div>
+        <div class="lc-desc">整理网页排版、样式调整和常见问题处理。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
       <a class="learning-card" href="file-processing.html">
-        <div class="lc-icon" style="background:rgba(20,184,166,.15);">膽聼聯聞</div>
-        <div class="lc-title">膰聳聡盲钮艣暮陇聞莽聬聠莽钮聫茅艦聦</div>
-        <div class="lc-desc">膷沤掳暮藵聲膰聳聡膰膭艁膰聲麓莽聬聠膬聙聛膰聽藕暮藕聫暮陇聞莽聬聠莽颅聣膰聴慕暮赂赂膰聯聧盲藵聹莽钮聫茅艦聦膬聙?/div>
-        <span class="lc-link">膰聼慕莽聹聥暮聠聟暮沤拧 芒聠?/span>
+        <div class="lc-icon" style="background:rgba(20,184,166,.15);">📄</div>
+        <div class="lc-title">文件处理经验</div>
+        <div class="lc-desc">记录文档整理、格式处理等日常操作经验。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
       <a class="learning-card" href="image-organize.html">
-        <div class="lc-icon" style="background:rgba(245,158,11,.15);">膽聼聳藕膹赂?/div>
-        <div class="lc-title">暮聸啪莽聣聡膰聲麓莽聬聠膰聳拧膰艂聲</div>
-        <div class="lc-desc">膰聲麓莽聬聠暮聸啪莽聣聡膰聨聮莽聣聢膬聙聛暮掳艧暮呕赂膷掳聝膰聲麓暮聮聦莽沤聙暮聧聲暮陇聞莽聬聠莽钮聫茅艦聦膬聙?/div>
-        <span class="lc-link">膰聼慕莽聹聥暮聠聟暮沤拧 芒聠?/span>
+        <div class="lc-icon" style="background:rgba(245,158,11,.15);">🖼️</div>
+        <div class="lc-title">图片整理方法</div>
+        <div class="lc-desc">整理图片排版、尺寸调整和简单处理经验。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
       <a class="learning-card" href="efficiency.html">
-        <div class="lc-icon" style="background:rgba(16,185,129,.15);">芒聫膮膹赂聫</div>
-        <div class="lc-title">膰聴慕暮赂赂膰聲聢莽聨聡膰聤聙暮藝?/div>
-        <div class="lc-desc">膷沤掳暮藵聲膰聫聬暮聧聡暮颅艢盲拧聽暮聮聦膷木聞膰聳聶膰聲麓莽聬聠膰聲聢莽聨聡莽職聞暮掳聫膰聳拧膰艂聲膬聙?/div>
-        <span class="lc-link">膰聼慕莽聹聥暮聠聟暮沤拧 芒聠?/span>
+        <div class="lc-icon" style="background:rgba(16,185,129,.15);">⏱️</div>
+        <div class="lc-title">日常效率技巧</div>
+        <div class="lc-desc">记录提升学习和资料整理效率的小方法。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
       <a class="learning-card" href="examples.html">
-        <div class="lc-icon" style="background:rgba(244,63,94,.15);">膽聼搂艩</div>
-        <div class="lc-title">莽沤聙暮聧聲茅膭木茅聺藰莽陇艧盲啪?/div>
-        <div class="lc-desc">盲偶聺暮颅聵盲赂聙盲艧聸盲赂艦盲艧艧暮聢艣盲藵聹莽職聞暮掳聫茅膭木茅聺藰莽陇艧盲啪聥膹藕聦膰聳拧盲啪偶膰聼慕莽聹聥暮聮聦盲偶沤膰聰拧膬聙?/div>
-        <span class="lc-link">膰聼慕莽聹聥暮聠聟暮沤拧 芒聠?/span>
+        <div class="lc-icon" style="background:rgba(244,63,94,.15);">🧩</div>
+        <div class="lc-title">简单页面示例</div>
+        <div class="lc-desc">保存一些个人制作的小页面示例，方便查看和修改。</div>
+        <span class="lc-link">查看内容 →</span>
       </a>
     </div>
   </section>
-
-  <!-- ===== 暮聟艂盲艧聨 ===== -->
   <section class="section-wrap" id="about">
-    <div class="section-head"><h2>暮聟艂盲艧聨膰聹殴莽扭聶</h2></div>
+    <div class="section-head"><h2>关于本站</h2></div>
     <div class="about-box">
-      <p>膰聹殴莽扭聶膰聵呕盲赂聙盲赂艦盲赂艦盲艧艧暮颅艢盲拧聽盲赂聨暮藝慕暮聟藝茅聸聠暮聬聢莽扭聶莽聜拧膹藕聦膷沤掳暮藵聲暮颅艢盲拧聽膬聙聛莽藵聭茅膭木暮聢艣盲藵聹膬聙聛膰聳聡盲钮艣暮陇聞莽聬聠膬聙聛暮聸啪莽聣聡膰聲麓莽聬聠莽颅聣膰聳拧茅聺藰莽職聞暮沤聻膷藝木莽殴聰膷沤掳膬聙?/p>
-      <p>膰聣聙膰聹聣暮聠聟暮沤拧暮聺聡盲赂艧盲赂艦盲艧艧膰聴慕暮赂赂膰聲麓莽聬聠膹藕聦盲钮聟盲啪聸暮颅艢盲拧聽暮聮聦暮聫聜膷聙聝盲藵偶莽聰篓膬聙聜暮藝慕暮聟藝茅聝篓暮聢聠茅聡聡莽聰篓膰聲掳膰聧沤茅艩膮暮聤篓膰聻艣膰聻聞膹藕聦莽钮聼盲赂聙盲钮?<code style="background:var(--surface2);padding:2px 8px;border-radius:4px;">/data/tools-data.json</code> 暮聤聽膷藵藵膬聙?/p>
+      <p>本站是一个个人学习与工具集合站点，记录学习、网页制作、文件处理、图片整理等方面的实践笔记。</p>
+      <p>所有内容均为个人日常整理，仅供学习和参考使用。工具部分采用数据驱动架构，统一从 <code style="background:var(--surface2);padding:2px 8px;border-radius:4px;">/data/tools-data.json</code> 加载。</p>
       <div class="notice-bar">
-        <span class="ni">膽聼聮膭</span>
-        <p>暮聠聟暮沤拧盲钮慕盲赂艦盲艧艧莽殴聰膷沤掳暮聮聦暮沤聻膷藝木暮偶聝暮啪聴盲赂艧盲赂钮膹藕聦盲赂聧盲偶聺膷呕聛暮沤聦暮聟篓暮聡聠莽膭沤膹藕聦盲钮聟盲藵聹暮聫聜膷聙聝膬聙?/p>
+        <span class="ni">💡</span>
+        <p>内容以个人笔记和实践心得为主，不保证完全准确，仅作参考。</p>
       </div>
     </div>
   </section>
-
-  <!-- ===== 膷呕麓膰聵聨 ===== -->
   <section class="section-wrap" id="statement">
-    <div class="section-head"><h2>莽藵聭莽扭聶膷呕麓膰聵聨</h2></div>
+    <div class="section-head"><h2>网站说明</h2></div>
     <div class="stmt-box">
-      <p>膰聹殴莽藵聭莽扭聶盲赂艧盲赂艦盲艧艧暮颅艢盲拧聽膷沤掳暮藵聲盲赂聨暮藝慕暮聟藝暮聢聠盲艧扭茅膭木茅聺藰膹藕聦盲赂聧膰艣聣暮聫聤盲藕聛盲赂職盲偶膭膰聛呕膬聙聛暮聲聠暮聯聛茅聰聙暮聰沤膬聙聛暮聹篓莽艧偶盲艧陇膰聵聯莽颅聣莽钮聫膷聬慕膰聙搂膰聢聳茅聹聙膷艢聛盲赂聯茅膭拧暮沤膭膰聣拧莽職聞暮聠聟暮沤拧膬聙?/p>
+      <p>本网站为个人学习记录与工具分享页面，不涉及企业信息、商品销售、在线交易等经营性或需要专项审批的内容。</p>
       <div class="notice-bar">
-        <span class="ni">膽聼聯聥</span>
-        <p><strong>膷呕麓膰聵聨膹藕?/strong>膰聹殴莽扭聶暮聠聟暮沤拧盲钮聟盲啪聸暮颅艢盲拧聽暮聫聜膷聙聝膹藕聦盲赂聧膰艣聣暮聫聤莽钮聫膷聬慕膰聙搂盲艧聮膷聛聰莽藵聭盲偶膭膰聛呕膰聹聧暮聤膭膬聙?/p>
+        <span class="ni">📋</span>
+        <p><strong>说明：</strong>本站内容仅供学习参考，不涉及经营性互联网信息服务。</p>
       </div>
     </div>
   </section>
 </div>
-
-<!-- ===== Footer ===== -->
 <footer class="container footer">
-  <div>脗艩 <span id="year"></span> <a href="/">藵颅艧牛膼膭艕啪-ZenTools</a> 脗藝 膰聲掳膰聧沤茅艩膮暮聤篓</div>
+  <div>© <span id="year"></span> <a href="/">江湖小站-ZenTools</a> · 数据驱动</div>
   <div class="beian">
-    <a href="https://beian.miit.gov.cn/" target="_blank">茅藳聛ICP暮陇?026030242暮聫?1</a>
+    <a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2026030242号-1</a>
     <span style="color:var(--border);">|</span>
-    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank">茅藳聛暮聟殴莽藵聭暮沤聣暮陇?7098302001324暮聫?/a>
+    <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank">鲁公网安备37098302001324号</a>
   </div>
 </footer>
-
-<!-- ===== 膷偶聰暮聸聻茅膭艣茅聝篓 ===== -->
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:24px;right:24px;z-index:200;width:42px;height:42px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:all .3s;">芒聠?/button>
-
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="position:fixed;bottom:24px;right:24px;z-index:200;width:42px;height:42px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:all .3s;">↑</button>
 <script>
-  // ===== 暮聼艧莽膭聙暮聤聼膷聝藵 =====
   document.getElementById('year').textContent = new Date().getFullYear();
-
   function initTheme() {
     const s = localStorage.getItem('zh_theme') || 'dark';
     document.documentElement.setAttribute('data-theme', s);
-    document.getElementById('themeBtn').textContent = s === 'dark' ? '芒聵聙膹赂? : '膽聼聦聶';
+    document.getElementById('themeBtn').textContent = s === 'dark' ? '☀️' : '🌙';
   }
   function toggleTheme() {
     const c = document.documentElement.getAttribute('data-theme');
     const n = c === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', n);
     localStorage.setItem('zh_theme', n);
-    document.getElementById('themeBtn').textContent = n === 'dark' ? '芒聵聙膹赂? : '膽聼聦聶';
+    document.getElementById('themeBtn').textContent = n === 'dark' ? '☀️' : '🌙';
   }
   initTheme();
-
-  // 膷偶聰暮聸聻茅膭艣茅聝篓
   const backTop = document.getElementById('backTop');
   window.addEventListener('scroll', () => {
     backTop.style.opacity = window.scrollY > 300 ? '1' : '0';
     backTop.style.pointerEvents = window.scrollY > 300 ? 'all' : 'none';
   });
-
-  // ===== 膰聹聙膷偶聭盲藵偶莽聰?(localStorage) =====
   function loadRecent() {
-    const list = JSON.parse(localStorage.getItem('藵颅艧牛膼膭艕啪-ZenTools_recent') || '[]');
+    const list = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
     const container = document.getElementById('recentList');
     const section = document.getElementById('recentSection');
     if (!list.length) { section.classList.remove('visible'); return; }
@@ -693,113 +430,62 @@
     ).join('');
   }
   function addRecent(url) {
-    let list = JSON.parse(localStorage.getItem('藵颅艧牛膼膭艕啪-ZenTools_recent') || '[]');
+    let list = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
     list = list.filter(item => item !== url);
     list.unshift(url);
     if (list.length > 5) list = list.slice(0, 5);
-    localStorage.setItem('藵颅艧牛膼膭艕啪-ZenTools_recent', JSON.stringify(list));
+    localStorage.setItem('zentools_recent', JSON.stringify(list));
     loadRecent();
   }
   loadRecent();
-
-  // ===== 暮聢聠莽膮钮暮聸啪膰聽聡膰聵聽暮掳聞 =====
   const CATEGORY_ICONS = {
-    'AI暮藝慕暮聟藝': '膽聼陇聳',
-    '暮聸啪莽聣聡暮藝慕暮聟藝': '膽聼聳藕膹赂?,
-    'PDF暮藝慕暮聟藝': '膽聼聯聞',
-    '膰聳聡膰聹殴暮藝慕暮聟藝': '膽聼聯聺',
-    '膷搂聠茅藰聭暮藝慕暮聟藝': '膽聼聨殴',
-    '茅聼艂茅藰聭暮藝慕暮聟藝': '膽聼聰聤',
-    '暮藕聙暮聫聭暮藝慕暮聟?: '膽聼聮钮',
-    'SEO暮藝慕暮聟藝': '膽聼聰聧',
-    '暮聤聻暮聟殴暮藝慕暮聟藝': '膽聼聯聨',
-    '莽聰聼膰麓钮暮藝慕暮聟藝': '膽聼聦聧',
-    '茅聡聭膷聻聧暮藝慕暮聟藝': '膽聼聮掳',
-    '膰聲聶膷聜藳暮藝慕暮聟藝': '膽聼聯職'
+    'AI工具': '🤖', '图片工具': '🖼️', 'PDF工具': '📄', '文本工具': '📝',
+    '视频工具': '🎬', '音频工具': '🔊', '开发工具': '💻', 'SEO工具': '🔍',
+    '办公工具': '📎', '生活工具': '🌍', '金融工具': '💰', '教育工具': '📚'
   };
-
-  // ===== 盲钮?JSON 暮聤聽膷藵藵暮藝慕暮聟藝膰聲掳膰聧沤 =====
   (function() {
     const grid = document.getElementById('toolsGrid');
     const hot = document.getElementById('hotScroll');
     const ribbon = document.getElementById('categoryRibbon');
-
-    // 膰赂藳膰聼聯暮聢聠莽膮钮暮偶扭膰聧藝暮聟慕暮聫艁
     function renderCategories(categories) {
       if (!categories || !categories.length) return;
       let html = '';
       for (const cat of categories) {
-        const icon = CATEGORY_ICONS[cat] || '膽聼聰搂';
-        // 膰聽拧膰聧沤暮聢聠莽膮钮暮聬聧莽聰聼膰聢聬莽聸沤暮藵聲膷藝呕暮啪?
+        const icon = CATEGORY_ICONS[cat] || '🔧';
         let path = '';
-        if (cat === 'AI暮藝慕暮聟藝') path = '/ai/index.html';
-        else if (cat === '暮聸啪莽聣聡暮藝慕暮聟藝') path = '/image/index.html';
-        else if (cat === 'PDF暮藝慕暮聟藝') path = '/pdf/index.html';
-        else if (cat === '膰聳聡膰聹殴暮藝慕暮聟藝') path = '/text/index.html';
-        else if (cat === '膷搂聠茅藰聭暮藝慕暮聟藝') path = '/video/index.html';
-        else if (cat === '茅聼艂茅藰聭暮藝慕暮聟藝') path = '/audio/index.html';
-        else if (cat === '暮藕聙暮聫聭暮藝慕暮聟?) path = '/dev/index.html';
-        else if (cat === '莽聰聼膰麓钮暮藝慕暮聟藝') path = '/life/index.html';
+        if (cat === 'AI工具') path = '/ai/index.html';
+        else if (cat === '图片工具') path = '/image/index.html';
+        else if (cat === 'PDF工具') path = '/pdf/index.html';
+        else if (cat === '文本工具') path = '/text/index.html';
+        else if (cat === '视频工具') path = '/video/index.html';
+        else if (cat === '音频工具') path = '/audio/index.html';
+        else if (cat === '开发工具') path = '/dev/index.html';
+        else if (cat === '生活工具') path = '/life/index.html';
         else path = '/categories.html#' + encodeURIComponent(cat);
         html += `<a href="${path}"><span class="cat-icon">${icon}</span> ${cat}</a>`;
       }
       ribbon.innerHTML = html;
     }
-
     function renderTools(tools) {
-      if (!tools || !tools.length) {
-        grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">膰職聜膰聴聽暮藝慕暮聟藝</div>`;
-        return;
-      }
-      // 暮聟篓茅聝篓暮藝慕暮聟藝 (暮聫聳暮聣聧 8 盲赂?
+      if (!tools || !tools.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px;color:var(--muted);">暂无工具</div>'; return; }
       const list = tools.filter(t => t.featured !== false).slice(0, 8);
       let html = '';
       for (const t of list) {
         const url = t.url && t.url !== '#' ? t.url : '#';
         const target = url !== '#' ? '_blank' : '';
-        html += `
-          <a class="tool-card" href="${url}" target="${target}" onclick="addRecent('${url}')">
-            <span class="emoji">${t.icon || '膽聼聰搂'}</span>
-            <div class="name">${t.name}</div>
-            <div class="desc">${t.description || ''}</div>
-            <span class="tag">${t.category || '暮藝慕暮聟藝'}</span>
-          </a>
-        `;
+        html += `<a class="tool-card" href="${url}" target="${target}" onclick="addRecent('${url}')"><span class="emoji">${t.icon || '🔧'}</span><div class="name">${t.name}</div><div class="desc">${t.description || ''}</div><span class="tag">${t.category || '工具'}</span></a>`;
       }
       grid.innerHTML = html;
-
-      // 莽聝颅茅聴篓暮藝慕暮聟藝 (膰篓艦暮聬聭膰钮職暮聤篓)
       const hotTools = tools.filter(t => t.featured === true).slice(0, 8);
       let hotHtml = '';
       for (const t of hotTools) {
         const url = t.url && t.url !== '#' ? t.url : '#';
         const target = url !== '#' ? '_blank' : '';
-        hotHtml += `
-          <a class="hot-item" href="${url}" target="${target}" onclick="addRecent('${url}')">
-            <span class="emoji">${t.icon || '膽聼聰搂'}</span>
-            <div class="name">${t.name}</div>
-            <span class="tag">${t.category || ''}</span>
-          </a>
-        `;
+        hotHtml += `<a class="hot-item" href="${url}" target="${target}" onclick="addRecent('${url}')"><span class="emoji">${t.icon || '🔧'}</span><div class="name">${t.name}</div><span class="tag">${t.category || ''}</span></a>`;
       }
-      hot.innerHTML = hotHtml || '<div style="text-align:center;padding:20px;color:var(--muted);width:100%;">膰職聜膰聴聽莽聝颅茅聴篓暮藝慕暮聟藝</div>';
+      hot.innerHTML = hotHtml || '<div style="text-align:center;padding:20px;color:var(--muted);width:100%;">暂无热门工具</div>';
     }
-
-    fetch('/data/tools-data.json')
-      .then(r => r.ok ? r.json() : Promise.reject('HTTP ' + r.status))
-      .then(data => {
-        if (data?.categories) renderCategories(data.categories);
-        if (data?.tools) renderTools(data.tools);
-        else renderTools(null);
-      })
-      .catch(() => {
-        // 暮陇聡莽聰篓膰聲掳膰聧沤
-        renderTools([
-          { name: 'PDF 暮聬聢暮拧艣', url: '/pdf/merge.html', icon: '膽聼聯聞', category: 'PDF暮藝慕暮聟藝', featured: true },
-          { name: '暮聸啪莽聣聡暮聨聥莽藕艩', url: '/image/compress.html', icon: '膽聼聯艢', category: '暮聸啪莽聣聡暮藝慕暮聟藝', featured: true },
-          { name: '膰聳聡暮颅聴膷藵殴膷呕颅茅聼?, url: '#', icon: '膽聼聰聤', category: '茅聼艂茅藰聭暮藝慕暮聟藝' }
-        ]);
-      });
+    fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject('HTTP ' + r.status)).then(data => { if (data?.categories) renderCategories(data.categories); if (data?.tools) renderTools(data.tools); else renderTools(null); }).catch(() => { renderTools([{ name: 'PDF 合并', url: '/pdf/merge.html', icon: '📄', category: 'PDF工具', featured: true }, { name: '图片压缩', url: '/image/compress.html', icon: '📦', category: '图片工具', featured: true }, { name: '文字转语音', url: '#', icon: '🔊', category: '音频工具' }]); });
   })();
 </script>
 </body>
