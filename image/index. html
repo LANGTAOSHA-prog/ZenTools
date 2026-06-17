@@ -1,3 +1,33 @@
+好的，我现在一次性生成所有分类页的改造代码，确保在不影响现有网站运营的前提下，让所有分类页都从 /data/tools-data.json 读取数据。
+
+---
+
+🛡️ 安全保障策略
+
+策略 说明
+保留原文件 改造前备份所有原分类页，可随时回滚
+备用数据 每个页面都内置备用数据，JSON 加载失败时自动使用
+渐进式加载 先显示备用数据，JSON 加载成功后无缝替换
+控制台日志 方便你确认每个页面的加载状态
+
+---
+
+📦 统一分类页代码模板
+
+下面是通用模板，适用于所有分类页（/pdf/index.html、/image/index.html、/json/index.html、/text/index.html、/ai/index.html 等）。
+
+每个页面只需修改 3 个地方：
+
+修改项 说明 示例
+CATEGORY_KEY 该分类页对应的分类名称 'PDF工具'
+PAGE_TITLE 页面标题 'PDF 工具箱'
+PAGE_DESC 页面描述 '在线 PDF 处理工具集合'
+
+---
+
+📄 分类页完整代码
+
+```html
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
@@ -139,7 +169,7 @@
   // ============================================================
   const CATEGORY_KEY = '图片工具';      // 例如: 'PDF工具', '图片工具', 'JSON工具'
   const PAGE_TITLE = '图片';        // 例如: 'PDF', '图片', 'JSON'
-  const PAGE_DESC = '在线图片处理工具集合'; // 例如: '在线 PDF 处理工具集合'
+  const PAGE_DESC = '在线图片处理集合'; // 例如: '在线 PDF 处理工具集合'
 
   // ============================================================
   // 备用数据（JSON 加载失败时使用）
@@ -219,3 +249,54 @@
 
 </body>
 </html>
+```
+
+---
+
+📋 各分类页的具体配置
+
+请将上面的代码分别保存到以下文件，并替换对应的 3 个配置值：
+
+文件路径 CATEGORY_KEY PAGE_TITLE PAGE_DESC
+/pdf/index.html 'PDF工具' 'PDF' '在线 PDF 处理工具集合'
+/image/index.html '图片工具' '图片' '在线图片处理工具集合'
+/json/index.html 'JSON工具' 'JSON' '在线 JSON 处理工具集合'
+/text/index.html '文本工具' '文本' '在线文本处理工具集合'
+/ai/index.html 'AI工具' 'AI' 'AI 工具导航与入口'
+/developer/index.html '开发工具' '开发' '开发者常用工具集合'
+/life/index.html '生活工具' '生活' '生活实用工具集合'
+/finance/index.html '金融工具' '金融' '金融计算与换算工具'
+
+---
+
+🛠️ 操作步骤
+
+1. 备份：将现有分类页备份（如重命名为 index.html.bak）
+2. 创建：用上面的代码创建新的 index.html
+3. 修改配置：将 CATEGORY_KEY 等 3 个值改为对应的分类
+4. 上传：上传到对应的目录
+5. 测试：访问 https://zentools.xyz/pdf/ 等页面，确认正常显示
+
+---
+
+✅ 改造后的效果
+
+页面 数据来源 显示内容
+/pdf/index.html tools-data.json 所有 category: "PDF工具" 的工具
+/image/index.html tools-data.json 所有 category: "图片工具" 的工具
+其他分类页 tools-data.json 各自分类对应的工具
+
+---
+
+🧪 测试建议
+
+1. 先改造一个分类页（如 /pdf/index.html）测试
+2. 确认正常后再改造其他分类页
+3. 每个页面打开浏览器控制台，确认看到 ✅ ZT-DCA 日志
+
+---
+
+❓ 确认
+
+1. 你现在要开始改造吗？
+2. 还是需要我先生成一个具体的分类页（如 /pdf/index.html）的完整代码让你先测试？
