@@ -1,464 +1,365 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>PDF 鎷嗗垎宸ュ叿 - ZenTools</title>
-
-<meta name="description" content="ZenTools 鍏嶈垂鍦ㄧ嚎 PDF 鎷嗗垎宸ュ叿锛屾敮鎸佹彁鍙栨寚瀹?PDF 椤甸潰銆?>
-
-<style>
-
-:root{
-  --bg:#0f172a;
-  --card:#111827;
-  --border:#1f2937;
-  --text:#f3f4f6;
-  --muted:#9ca3af;
-  --blue:#2563eb;
-  --green:#10b981;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  line-height:1.7;
-}
-
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:40px 20px;
-}
-
-a{
-  color:#60a5fa;
-  text-decoration:none;
-}
-
-.top-bar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:15px;
-  margin-bottom:20px;
-}
-
-.lang-select{
-  background:#0f172a;
-  color:white;
-  border:1px solid #334155;
-  border-radius:10px;
-  padding:10px 12px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:28px;
-}
-
-h1{
-  margin-bottom:15px;
-}
-
-.desc{
-  color:var(--muted);
-  margin-bottom:25px;
-}
-
-.ad-box{
-  margin:25px 0;
-  height:110px;
-  border:2px dashed #334155;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#64748b;
-}
-
-input[type="file"],
-input[type="text"]{
-  width:100%;
-  margin:18px 0;
-  padding:14px;
-  border-radius:12px;
-  border:1px solid #334155;
-  background:#0f172a;
-  color:white;
-}
-
-button{
-  background:var(--blue);
-  color:white;
-  border:none;
-  padding:14px 20px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:bold;
-}
-
-.download-btn{
-  display:none;
-  margin-top:20px;
-  background:var(--green);
-  color:white;
-  padding:14px 20px;
-  border-radius:12px;
-  font-weight:bold;
-}
-
-.info{
-  margin-top:40px;
-}
-
-.info h2{
-  margin-top:30px;
-  margin-bottom:10px;
-}
-
-.info p{
-  color:#cbd5e1;
-  white-space:pre-line;
-}
-
-footer{
-  margin-top:50px;
-  text-align:center;
-  color:#94a3b8;
-}
-
-@media(max-width:768px){
-
-  .container{
-    padding:25px 15px;
-  }
-
-  button,
-  .download-btn,
-  .lang-select{
-    width:100%;
-    text-align:center;
-  }
-
-}
-
-</style>
-
-<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-</head>
-
-<body>
-
-<div class="container">
-
-  <div class="top-bar">
-
-    <a href="index.html" data-i18n="back">
-      鈫?杩斿洖棣栭〉
-    </a>
-
-    <select id="languageSelect" class="lang-select">
-      <option value="zh">涓枃</option>
-      <option value="ja">鏃ユ湰瑾?/option>
-      <option value="en">English</option>
-      <option value="vi">Ti岷縩g Vi峄噒</option>
-    </select>
-
-  </div>
-
-  <div class="card">
-
-    <h1 data-i18n="title">
-      PDF 鎷嗗垎宸ュ叿
-    </h1>
-
-    <p class="desc" data-i18n="desc">
-      鍏嶈垂鍦ㄧ嚎 PDF 鎷嗗垎宸ュ叿銆傛敮鎸佹彁鍙栨寚瀹氶〉闈€?    </p>
-
-    <div class="ad-box" data-i18n="ad">
-      骞垮憡浣嶏紙Google AdSense锛?    </div>
-
-    <input type="file" id="pdfInput" accept=".pdf">
-
-    <input
-      type="text"
-      id="pageInput"
-      placeholder="渚嬪锛?,2,5"
-    >
-
-    <button onclick="splitPDF()" data-i18n="splitBtn">
-      寮€濮嬫媶鍒?    </button>
-
-    <a
-      id="downloadBtn"
-      class="download-btn"
-      download="split.pdf"
-      data-i18n="download"
-    >
-      涓嬭浇 PDF
-    </a>
-
-    <div class="info">
-
-      <h2 data-i18n="guideTitle">
-        浣跨敤璇存槑
-      </h2>
-
-      <p data-i18n="guideText">
-1. 涓婁紶 PDF 鏂囦欢銆?2. 杈撳叆闇€瑕佹彁鍙栫殑椤电爜銆?3. 鐐瑰嚮寮€濮嬫媶鍒嗐€?4. 涓嬭浇鏂?PDF銆?      </p>
-
-      <h2 data-i18n="privacyTitle">
-        闅愮璇存槑
-      </h2>
-
-      <p data-i18n="privacyText">
-PDF 澶勭悊鍦ㄦ祻瑙堝櫒鏈湴瀹屾垚锛屾甯告儏鍐典笅涓嶄細涓婁紶鍒版湇鍔″櫒銆?      </p>
-
-    </div>
-
-  </div>
-
-  <footer>
-    漏 2026 ZenTools. All Rights Reserved.
-  </footer>
-
-</div>
-
-<script>
-
-const languageSelect = document.getElementById("languageSelect");
-
-let currentLang = "zh";
-
-const translations = {
-
-  zh:{
-    pageTitle:"PDF 鎷嗗垎宸ュ叿 - ZenTools",
-    back:"鈫?杩斿洖棣栭〉",
-    title:"PDF 鎷嗗垎宸ュ叿",
-    desc:"鍏嶈垂鍦ㄧ嚎 PDF 鎷嗗垎宸ュ叿銆傛敮鎸佹彁鍙栨寚瀹氶〉闈€?,
-    ad:"骞垮憡浣嶏紙Google AdSense锛?,
-    splitBtn:"寮€濮嬫媶鍒?,
-    download:"涓嬭浇 PDF",
-    alertNoFile:"璇烽€夋嫨 PDF 鏂囦欢",
-    alertNoPages:"璇疯緭鍏ラ〉鐮?,
-    guideTitle:"浣跨敤璇存槑",
-    guideText:"1. 涓婁紶 PDF 鏂囦欢銆俓n2. 杈撳叆闇€瑕佹彁鍙栫殑椤电爜銆俓n3. 鐐瑰嚮寮€濮嬫媶鍒嗐€俓n4. 涓嬭浇鏂?PDF銆?,
-    privacyTitle:"闅愮璇存槑",
-    privacyText:"PDF 澶勭悊鍦ㄦ祻瑙堝櫒鏈湴瀹屾垚锛屾甯告儏鍐典笅涓嶄細涓婁紶鍒版湇鍔″櫒銆?
-  },
-
-  ja:{
-    pageTitle:"PDF 鍒嗗壊銉勩兗銉?- ZenTools",
-    back:"鈫?銉涖兗銉犮伀鎴汇倠",
-    title:"PDF 鍒嗗壊銉勩兗銉?,
-    desc:"鐒℃枡銈兂銉┿偆銉?PDF 鍒嗗壊銉勩兗銉€傛寚瀹氥儦銉笺偢銈掓娊鍑恒仹銇嶃伨銇欍€?,
-    ad:"搴冨憡銈广儦銉笺偣",
-    splitBtn:"PDF 銈掑垎鍓?,
-    download:"PDF 銈掋儉銈︺兂銉兗銉?,
-    alertNoFile:"PDF 銉曘偂銈ゃ儷銈掗伕鎶炪仐銇︺亸銇犮仌銇?,
-    alertNoPages:"銉氥兗銈哥暘鍙枫倰鍏ュ姏銇椼仸銇忋仩銇曘亜",
-    guideTitle:"浣裤亜鏂?,
-    guideText:"1. PDF 銈掋偄銉冦儣銉兗銉夈仐銇俱仚銆俓n2. 鎶藉嚭銇欍倠銉氥兗銈哥暘鍙枫倰鍏ュ姏銇椼伨銇欍€俓n3. PDF 銈掑垎鍓层倰銈儶銉冦偗銇椼伨銇欍€俓n4. 鏂般仐銇?PDF 銈掍繚瀛樸仐銇俱仚銆?,
-    privacyTitle:"銉椼儵銈ゃ儛銈枫兗銇仱銇勩仸",
-    privacyText:"PDF 鍑︾悊銇儢銉┿偊銈跺唴銇ц銈忋倢銆侀€氬父銈点兗銉愩兗銇搞偄銉冦儣銉兗銉夈仌銈屻伨銇涖倱銆?
-  },
-
-  en:{
-    pageTitle:"PDF Splitter - ZenTools",
-    back:"鈫?Back to Home",
-    title:"PDF Splitter",
-    desc:"Free online PDF splitter. Extract specific PDF pages.",
-    ad:"Ad Space",
-    splitBtn:"Split PDF",
-    download:"Download PDF",
-    alertNoFile:"Please select a PDF file",
-    alertNoPages:"Please enter page numbers",
-    guideTitle:"How to Use",
-    guideText:"1. Upload a PDF file.\n2. Enter page numbers.\n3. Click Split PDF.\n4. Download the new PDF.",
-    privacyTitle:"Privacy Notice",
-    privacyText:"PDF processing is completed locally in your browser and is not uploaded to a server."
-  },
-
-  vi:{
-    pageTitle:"C么ng c峄?t谩ch PDF - ZenTools",
-    back:"鈫?Quay l岷 trang ch峄?,
-    title:"C么ng c峄?t谩ch PDF",
-    desc:"C么ng c峄?t谩ch PDF mi峄卬 ph铆. H峄?tr峄?tr铆ch xu岷 trang PDF.",
-    ad:"V峄?tr铆 qu岷g c谩o",
-    splitBtn:"B岷痶 膽岷 t谩ch",
-    download:"T岷 PDF",
-    alertNoFile:"Vui l貌ng ch峄峮 file PDF",
-    alertNoPages:"Vui l貌ng nh岷璸 s峄?trang",
-    guideTitle:"H瓢峄沶g d岷玭 s峄?d峄g",
-    guideText:"1. T岷 file PDF.\n2. Nh岷璸 s峄?trang c岷 tr铆ch xu岷.\n3. Nh岷 b岷痶 膽岷 t谩ch.\n4. T岷 PDF m峄沬.",
-    privacyTitle:"Th么ng tin quy峄乶 ri锚ng t瓢",
-    privacyText:"PDF 膽瓢峄 x峄?l媒 tr峄眂 ti岷縫 trong tr矛nh duy峄噒 v脿 kh么ng t岷 l锚n m谩y ch峄?"
-  }
-
-};
-
-function setLanguage(lang){
-
-  currentLang = lang;
-
-  const data = translations[lang] || translations.zh;
-
-  document.documentElement.lang = lang;
-
-  document.title = data.pageTitle;
-
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-
-    const key = el.getAttribute("data-i18n");
-
-    if(data[key]){
-      el.textContent = data[key];
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF 拆分 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="从 PDF 中提取指定页面，免费在线使用，本地处理保护隐私，无需上传服务器。" />
+  <meta name="keywords" content="PDF拆分,PDF提取页面,提取PDF页面,在线PDF工具,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/split.html" />
+
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    /* 工具专用样式 */
+    .page-input-row {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      margin-top: 16px;
+    }
+    .page-input-row input[type="text"] {
+      flex: 1; min-width: 200px;
+      padding: 14px 18px; border: 1px solid var(--border);
+      border-radius: 12px; background: rgba(255,255,255,0.04);
+      color: var(--text); font-size: 14px; outline: none;
+    }
+    .page-input-row input[type="text"]:focus {
+      border-color: var(--border-h);
+    }
+    .page-hint {
+      font-size: 12px; color: var(--muted); margin-top: 8px;
     }
 
-  });
+    .result-box {
+      margin-top: 24px;
+      display: none;
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: 14px; padding: 20px;
+    }
+    .result-box.visible { display: block; }
+    .result-info { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .result-info strong { color: var(--text); }
 
-  localStorage.setItem("siteLanguage", lang);
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
 
-}
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-languageSelect.addEventListener("change", function(){
+  <div class="z-wrap">
 
-  setLanguage(this.value);
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
 
-});
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">PDF 拆分</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">PDF 拆分</span><br /><span data-i18n="h1Sub">提取指定页面</span></h1>
+      <p data-i18n="pageDesc">从 PDF 中提取指定页面，单独保存或分享，精准高效。</p>
+    </div>
 
-const savedLang = localStorage.getItem("siteLanguage") || "zh";
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
+      <p class="note" data-i18n="toolNote">选择一个 PDF 文件，输入要提取的页码（用逗号分隔）。</p>
+      <div class="file-input-row">
+        <input type="file" id="pdfInput" accept=".pdf" />
+      </div>
+      <div class="page-input-row">
+        <input type="text" id="pageInput" placeholder="1,2,5" data-i18n-placeholder="pagePlaceholder" />
+        <button class="btn-primary" id="splitBtn" type="button" onclick="splitPDF()" data-i18n="splitBtn">开始拆分</button>
+      </div>
+      <p class="page-hint" data-i18n="pageHint">例如：1,2,5 表示提取第 1、2、5 页</p>
+      <div class="status" id="status"></div>
+      <div class="result-box" id="resultBox">
+        <div class="result-info" id="resultInfo"></div>
+        <button class="download-btn" id="downloadBtn" onclick="downloadSplit()" data-i18n="downloadBtn">📥 下载拆分后的 PDF</button>
+      </div>
+    </div>
 
-languageSelect.value = savedLang;
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解 PDF 拆分工具</h2>
+      </div>
 
-setLanguage(savedLang);
+      <div class="info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">隐私安全</h4>
+          <p data-i18n="info1D">所有拆分操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">免费使用</h4>
+          <p data-i18n="info2D">工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">灵活提取</h4>
+          <p data-i18n="info3D">支持任意页码组合，可以提取不连续的页面，灵活满足不同需求。</p>
+        </div>
+      </div>
+    </div>
 
-async function splitPDF(){
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/pdf/" data-i18n="footerPdf">PDF工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
 
-  const file = document.getElementById("pdfInput").files[0];
+  </div>
 
-  const pagesText = document.getElementById("pageInput").value.trim();
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: 'PDF 拆分 - 免费在线工具 | ZenTools',
+        navHome: '首页', navPdf: 'PDF工具', navAll: '全部工具',
+        crumbHome: '首页', crumbPdf: 'PDF工具', crumbCur: 'PDF 拆分',
+        eyebrow: 'PDF 工具',
+        h1Grad: 'PDF 拆分', h1Sub: '提取指定页面',
+        pageDesc: '从 PDF 中提取指定页面，单独保存或分享，精准高效。',
+        toolTitle: '选择 PDF 文件',
+        toolNote: '选择一个 PDF 文件，输入要提取的页码（用逗号分隔）。',
+        splitBtn: '开始拆分',
+        pagePlaceholder: '1,2,5',
+        pageHint: '例如：1,2,5 表示提取第 1、2、5 页',
+        downloadBtn: '📥 下载拆分后的 PDF',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解 PDF 拆分工具',
+        info1T: '隐私安全', info1D: '所有拆分操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。',
+        info2T: '免费使用', info2D: '工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用。',
+        info3T: '灵活提取', info3D: '支持任意页码组合，可以提取不连续的页面，灵活满足不同需求。',
+        footerHome: '首页', footerPdf: 'PDF工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '已选择文件：{name}（{pages} 页）',
+        statusWorking: '🔄 正在拆分 PDF，请稍候……',
+        statusComplete: '✅ 拆分完成！共提取 {n} 页。',
+        statusError: '❌ 处理失败，请检查页码是否正确或更换文件后重试。',
+        alertNoFile: '⚠️ 请先选择 PDF 文件',
+        alertNoPages: '⚠️ 请输入要提取的页码',
+        resultText: '从原文件 {total} 页中提取了 <strong>{n}</strong> 页'
+      },
+      en: {
+        pageTitle: 'PDF Splitter - Free Online Tool | ZenTools',
+        navHome: 'Home', navPdf: 'PDF Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbPdf: 'PDF Tools', crumbCur: 'PDF Splitter',
+        eyebrow: 'PDF TOOLS',
+        h1Grad: 'PDF Splitter', h1Sub: 'Extract Specific Pages',
+        pageDesc: 'Extract specific pages from a PDF file. Save or share them separately.',
+        toolTitle: 'Select PDF File',
+        toolNote: 'Choose a PDF file and enter the page numbers to extract (comma-separated).',
+        splitBtn: 'Split PDF',
+        pagePlaceholder: '1,2,5',
+        pageHint: 'e.g. 1,2,5 means extract pages 1, 2, and 5',
+        downloadBtn: '📥 Download Split PDF',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About PDF Splitter',
+        info1T: 'Privacy Safe', info1D: 'All processing is done locally in your browser. No files are uploaded.',
+        info2T: 'Free to Use', info2D: 'Completely free, no registration needed, no file limits.',
+        info3T: 'Flexible Extraction', info3D: 'Support any page combination. Extract non-consecutive pages easily.',
+        footerHome: 'Home', footerPdf: 'PDF Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'File selected: {name} ({pages} pages)',
+        statusWorking: '🔄 Splitting PDF, please wait…',
+        statusComplete: '✅ Done! {n} page(s) extracted.',
+        statusError: '❌ Processing failed. Please check page numbers or try a different file.',
+        alertNoFile: '⚠️ Please select a PDF file first',
+        alertNoPages: '⚠️ Please enter page numbers to extract',
+        resultText: 'Extracted <strong>{n}</strong> page(s) from {total} total pages'
+      },
+      ja: {
+        pageTitle: 'PDF 分割 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navPdf: 'PDFツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbPdf: 'PDFツール', crumbCur: 'PDF 分割',
+        eyebrow: 'PDFツール',
+        h1Grad: 'PDF 分割', h1Sub: '指定ページを抽出',
+        pageDesc: 'PDF から指定したページを抽出して保存。',
+        toolTitle: 'PDF ファイルを選択',
+        toolNote: 'PDF ファイルを選び、抽出するページ番号をカンマ区切りで入力。',
+        splitBtn: '分割する',
+        pagePlaceholder: '1,2,5',
+        pageHint: '例：1,2,5 は 1、2、5 ページ目を抽出',
+        downloadBtn: '📥 分割した PDF をダウンロード',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: 'PDF 分割ツールについて',
+        info1T: 'プライバシー保護', info1D: 'すべての処理はブラウザ内で完了。サーバーにアップロードされません。',
+        info2T: '無料利用', info2D: '完全無料、登録不要、ファイル数制限なし。',
+        info3T: '柔軟な抽出', info3D: '任意のページ番号の組み合わせに対応。連続しないページも抽出可能。',
+        footerHome: 'ホーム', footerPdf: 'PDFツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: 'ファイル選択: {name}（{pages} ページ）',
+        statusWorking: '🔄 PDF を分割中…',
+        statusComplete: '✅ 完了！{n} ページを抽出しました。',
+        statusError: '❌ 処理に失敗しました。ページ番号を確認するか、別のファイルをお試しください。',
+        alertNoFile: '⚠️ PDF ファイルを選択してください',
+        alertNoPages: '⚠️ 抽出するページ番号を入力してください',
+        resultText: '全 {total} ページから <strong>{n}</strong> ページを抽出'
+      },
+      vi: {
+        pageTitle: 'Tách PDF - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navPdf: 'Công cụ PDF', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbPdf: 'Công cụ PDF', crumbCur: 'Tách PDF',
+        eyebrow: 'CÔNG CỤ PDF',
+        h1Grad: 'Tách PDF', h1Sub: 'Trích xuất trang chỉ định',
+        pageDesc: 'Trích xuất các trang cụ thể từ tệp PDF. Lưu hoặc chia sẻ riêng lẻ.',
+        toolTitle: 'Chọn tệp PDF',
+        toolNote: 'Chọn tệp PDF và nhập số trang cần trích xuất (phân cách bằng dấu phẩy).',
+        splitBtn: 'Tách PDF',
+        pagePlaceholder: '1,2,5',
+        pageHint: 'VD: 1,2,5 nghĩa là trích xuất trang 1, 2 và 5',
+        downloadBtn: '📥 Tải PDF đã tách',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ tách PDF',
+        info1T: 'Bảo mật', info1D: 'Tất cả xử lý đều hoàn tất trong trình duyệt. Không tệp nào được tải lên máy chủ.',
+        info2T: 'Miễn phí', info2D: 'Hoàn toàn miễn phí, không cần đăng ký, không giới hạn số lượng tệp.',
+        info3T: 'Linh hoạt', info3D: 'Hỗ trợ mọi tổ hợp số trang. Có thể trích xuất các trang không liên tiếp.',
+        footerHome: 'Trang chủ', footerPdf: 'Công cụ PDF', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Đã chọn: {name}（{pages} trang）',
+        statusWorking: '🔄 Đang tách PDF, vui lòng chờ…',
+        statusComplete: '✅ Hoàn tất! Đã trích xuất {n} trang.',
+        statusError: '❌ Xử lý thất bại. Vui lòng kiểm tra số trang hoặc thử tệp khác.',
+        alertNoFile: '⚠️ Vui lòng chọn tệp PDF trước',
+        alertNoPages: '⚠️ Vui lòng nhập số trang cần trích xuất',
+        resultText: 'Đã trích xuất <strong>{n}</strong> trang từ tổng số {total} trang'
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    let splitPdfBytes = null;
+    let totalPages = 0;
 
-  if(!file){
+    document.getElementById("pdfInput").addEventListener("change", function() {
+      const status = document.getElementById("status");
+      const resultBox = document.getElementById("resultBox");
+      resultBox.classList.remove("visible");
+      status.textContent = "";
 
-    alert(translations[currentLang].alertNoFile);
+      if (!this.files[0]) return;
 
-    return;
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      const dict = (window.ZT_PAGE || {})[lang] || window.ZT_PAGE.zh;
 
-  }
+      // 读取 PDF 获取页数
+      const file = this.files[0];
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const pdfDoc = await PDFLib.PDFDocument.load(e.target.result);
+          totalPages = pdfDoc.getPageCount();
+          status.textContent = dict.statusReady
+            .replace('{name}', file.name)
+            .replace('{pages}', totalPages);
+        } catch {
+          status.textContent = '⚠️ ' + (lang === 'ja' ? 'PDF を読み込めません' : lang === 'en' ? 'Cannot read PDF' : '无法读取 PDF');
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    });
 
-  if(!pagesText){
+    async function splitPDF() {
+      const file = document.getElementById("pdfInput").files[0];
+      const pagesText = document.getElementById("pageInput").value.trim();
+      const status = document.getElementById("status");
+      const btn = document.getElementById("splitBtn");
+      const resultBox = document.getElementById("resultBox");
+      const resultInfo = document.getElementById("resultInfo");
+      const downloadBtn = document.getElementById("downloadBtn");
 
-    alert(translations[currentLang].alertNoPages);
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      const dict = (window.ZT_PAGE || {})[lang] || window.ZT_PAGE.zh;
 
-    return;
+      if (!file) { status.textContent = dict.alertNoFile; return; }
+      if (!pagesText) { status.textContent = dict.alertNoPages; return; }
+      if (typeof PDFLib === 'undefined') {
+        status.textContent = "⚠️ " + (lang === 'ja' ? 'コンポーネントが読み込まれていません。' : '组件尚未加载完成，请刷新页面。');
+        return;
+      }
 
-  }
+      const pageNumbers = pagesText.split(",").map(p => parseInt(p.trim()) - 1).filter(p => !isNaN(p));
+      if (pageNumbers.length === 0) { status.textContent = dict.alertNoPages; return; }
 
-  const pageNumbers = pagesText
-    .split(",")
-    .map(p=>parseInt(p.trim()) - 1)
-    .filter(p=>!isNaN(p));
+      status.textContent = dict.statusWorking;
+      btn.disabled = true;
+      resultBox.classList.remove("visible");
 
-  const bytes = await file.arrayBuffer();
+      try {
+        const bytes = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(bytes);
 
-  const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+        // 验证页码范围
+        const validPages = pageNumbers.filter(p => p >= 0 && p < pdfDoc.getPageCount());
+        if (validPages.length === 0) {
+          status.textContent = '⚠️ ' + (lang === 'ja' ? 'ページ番号が範囲外です' : lang === 'en' ? 'Page numbers out of range' : '页码超出范围');
+          btn.disabled = false;
+          return;
+        }
 
-  const newPdf = await PDFLib.PDFDocument.create();
+        const newPdf = await PDFLib.PDFDocument.create();
+        const copiedPages = await newPdf.copyPages(pdfDoc, validPages);
+        copiedPages.forEach(page => newPdf.addPage(page));
 
-  const copiedPages = await newPdf.copyPages(pdfDoc, pageNumbers);
+        splitPdfBytes = await newPdf.save();
+        status.textContent = dict.statusComplete.replace('{n}', validPages.length);
+        resultInfo.innerHTML = dict.resultText
+          .replace('{total}', pdfDoc.getPageCount())
+          .replace('{n}', validPages.length);
+        resultBox.classList.add("visible");
 
-  copiedPages.forEach(page=>newPdf.addPage(page));
+        // 自动下载
+        downloadSplit();
 
-  const pdfBytes = await newPdf.save();
+      } catch (err) {
+        console.error(err);
+        status.textContent = dict.statusError;
+      } finally {
+        btn.disabled = false;
+      }
+    }
 
-  const blob = new Blob([pdfBytes], {type:"application/pdf"});
-
-  const url = URL.createObjectURL(blob);
-
-  const downloadBtn = document.getElementById("downloadBtn");
-
-  downloadBtn.href = url;
-
-  downloadBtn.style.display = "inline-block";
-
-}
-
-<script>
-const seoData = {
-  title: "宸ュ叿鍚嶇О - 鍏嶈垂鍦ㄧ嚎宸ュ叿 | ZenTools",
-  description: "鍏嶈垂鍦ㄧ嚎宸ュ叿鍚嶇О锛屾敮鎸佹墜鏈轰笌鐢佃剳锛屾棤闇€瀹夎杞欢銆?,
-  keywords: "宸ュ叿鍚嶇О,鍦ㄧ嚎宸ュ叿,鍏嶈垂宸ュ叿,ZenTools",
-  url: "https://www.zentools.xyz/tool.html",
-  image: "https://www.zentools.xyz/logo.png"
-};
-
-function setMeta(name, content){
-  let meta = document.querySelector(`meta[name="${name}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("name", name);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setProperty(property, content){
-  let meta = document.querySelector(`meta[property="${property}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("property", property);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setCanonical(url){
-  let link = document.querySelector('link[rel="canonical"]');
-  if(!link){
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-  link.setAttribute("href", url);
-}
-
-function applySEO(){
-  document.title = seoData.title;
-
-  setMeta("description", seoData.description);
-  setMeta("keywords", seoData.keywords);
-  setMeta("author", "ZenTools");
-
-  setCanonical(seoData.url);
-
-  setProperty("og:title", seoData.title);
-  setProperty("og:description", seoData.description);
-  setProperty("og:type", "website");
-  setProperty("og:url", seoData.url);
-  setProperty("og:image", seoData.image);
-
-  setMeta("twitter:card", "summary_large_image");
-  setMeta("twitter:title", seoData.title);
-  setMeta("twitter:description", seoData.description);
-}
-
-applySEO();
-</script>
+    function downloadSplit() {
+      if (!splitPdfBytes) return;
+      const blob = new Blob([splitPdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "split.pdf";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
 
 </body>
 </html>
