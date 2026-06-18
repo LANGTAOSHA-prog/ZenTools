@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>正则测试器 - 免费在线工具 | ZenTools</title><meta name="description" content="在线测试正则表达式，实时匹配高亮显示，免费使用。"/><link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/regex-tester.html"/><link rel="stylesheet" href="../assets/css/tool-ui.css"/><style>.regex-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}@media(max-width:640px){.regex-grid{grid-template-columns:1fr}}.regex-panel{display:flex;flex-direction:column;gap:8px}.regex-panel label{font-size:12px;color:var(--muted);font-weight:600}.regex-panel input,.regex-panel textarea{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,0.03);color:var(--text);font-size:13px;outline:none;font-family:Consolas,monospace}.regex-panel input:focus,.regex-panel textarea:focus{border-color:var(--border-h)}.regex-panel textarea{min-height:200px;resize:vertical;line-height:1.5}.match-info{font-size:13px;color:var(--muted);margin-top:8px}.match-info strong{color:var(--cyan)}.highlight{background:rgba(0,229,255,0.2);border-radius:3px;padding:1px 0}.highlight2{background:rgba(168,85,247,0.3);border-radius:3px;padding:1px 0}.flags-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:4px}.flags-row label{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--muted);cursor:pointer}</style></head><body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap"><nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/dev/">开发工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">正则测试器</span></div><span class="page-eyebrow" data-i18n="eyebrow">开发工具</span><h1><span class="grad" data-i18n="h1Grad">正则测试器</span><br/><span data-i18n="h1Sub">实时匹配高亮</span></h1><p data-i18n="pageDesc">输入正则表达式和测试文本，实时查看匹配结果。</p></div>
+<div class="tool-box reveal">
+<div class="regex-grid"><div class="regex-panel"><label data-i18n="regexLabel">正则表达式</label><input type="text" id="regexInput" placeholder="\d+" oninput="testRegex()"/><div class="flags-row"><label><input type="checkbox" id="flagGI" onchange="testRegex()"/> gi</label></div></div>
+<div class="regex-panel"><label data-i18n="testLabel">测试文本</label><textarea id="testInput" placeholder="在此输入测试文本..." oninput="testRegex()">Hello 123 World 456 Test 789</textarea></div></div>
+<div class="match-info" id="matchInfo"><span data-i18n="matchStatus">匹配结果：</span><strong id="matchCount">0</strong></div>
+<div class="status" id="status"></div></div>
+<script>
+window.ZT_PAGE={zh:{crumbCur:'正则测试器',eyebrow:'开发工具',h1Grad:'正则测试器',h1Sub:'实时匹配高亮',pageDesc:'输入正则表达式和测试文本，实时查看匹配结果。',regexLabel:'正则表达式',testLabel:'测试文本',matchStatus:'匹配结果：共 '},
+en:{crumbCur:'Regex Tester',eyebrow:'DEV TOOLS',h1Grad:'Regex Tester',h1Sub:'Real-time Match Highlighting',pageDesc:'Test regex patterns with real-time match highlighting.',regexLabel:'Regex Pattern',testLabel:'Test Text',matchStatus:'Matches: '},
+ja:{crumbCur:'正規表現テスト',h1Grad:'正規表現テスター',regexLabel:'正規表現',testLabel:'テストテキスト',matchStatus:'一致: '},
+vi:{crumbCur:'Kiểm tra regex',h1Grad:'Kiểm tra biểu thức chính quy',regexLabel:'Biểu thức',testLabel:'Văn bản kiểm tra',matchStatus:'Kết quả: '}
+};
+</script><script src="../assets/js/tool-ui.js"></script><script>
+function testRegex(){const pattern=document.getElementById('regexInput').value;const text=document.getElementById('testInput').value;const gi=document.getElementById('flagGI').checked;const count=document.getElementById('matchCount');
+if(!pattern||!text){document.getElementById('status').innerHTML=text;count.textContent='0';return;}
+try{const flags=gi?'gi':'g';const regex=new RegExp(pattern,flags);let html='';let lastIdx=0;let matches=0;let m;
+while((m=regex.exec(text))!==null){html+=escapeHtml(text.slice(lastIdx,m.index));html+=`<span class="highlight">${escapeHtml(m[0])}</span>`;lastIdx=regex.lastIndex;matches++;if(m.index===regex.lastIndex)regex.lastIndex++;}
+html+=escapeHtml(text.slice(lastIdx));document.getElementById('status').innerHTML=html||escapeHtml(text);count.textContent=matches;
+}catch(e){document.getElementById('status').innerHTML=escapeHtml(text);count.textContent='0';if(!gi)document.getElementById('status').innerHTML=`<span style="color:#f87171;">⚠️ ${e.message}</span>`;}
+}
+function escapeHtml(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+testRegex();
+</script></body></html>

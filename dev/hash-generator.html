@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Hash生成器 - 免费在线工具 | ZenTools</title><meta name="description" content="在线生成 MD5、SHA1、SHA256、SHA512 哈希值，免费使用。"/><link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/hash-generator.html"/><link rel="stylesheet" href="../assets/css/tool-ui.css"/><style>textarea{width:100%;min-height:150px;padding:14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text);font-size:14px;resize:vertical;outline:none;font-family:Consolas,monospace}textarea:focus{border-color:var(--border-h)}.hash-res{display:grid;grid-template-columns:1fr;gap:8px;margin-top:16px}.hash-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;font-size:13px}.hash-row .algo{width:80px;font-weight:700;color:var(--cyan);flex-shrink:0}.hash-row .val{font-family:Consolas,monospace;font-size:12px;word-break:break-all;color:var(--text);flex:1}.hash-row .cpy{padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:var(--glass);color:var(--muted);cursor:pointer;font-size:11px}</style></head><body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap"><nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/dev/">开发工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">Hash 生成器</span></div><span class="page-eyebrow" data-i18n="eyebrow">开发工具</span><h1><span class="grad" data-i18n="h1Grad">Hash 生成器</span><br/><span data-i18n="h1Sub">MD5 · SHA1 · SHA256 · SHA512</span></h1><p data-i18n="pageDesc">输入文本，实时生成多种哈希值。</p></div>
+<div class="tool-box reveal"><h2 data-i18n="toolTitle">输入文本</h2><textarea id="input" placeholder="在此输入文本..." data-i18n-placeholder="placeholder" oninput="generate()"></textarea>
+<div class="hash-res" id="result"></div></div>
+<script>
+window.ZT_PAGE={zh:{crumbCur:'Hash 生成器',eyebrow:'开发工具',h1Grad:'Hash 生成器',pageDesc:'输入文本，实时生成多种哈希值。',placeholder:'在此输入文本...',copyBtn:'复制',copied:'已复制!'},
+en:{crumbCur:'Hash Generator',eyebrow:'DEV TOOLS',h1Grad:'Hash Generator',pageDesc:'Generate MD5, SHA1, SHA256, SHA512 hashes.',placeholder:'Enter text here...',copyBtn:'Copy',copied:'Copied!'},
+ja:{crumbCur:'ハッシュ生成',h1Grad:'ハッシュ生成',placeholder:'テキストを入力...',copyBtn:'コピー',copied:'コピーしました!'},
+vi:{crumbCur:'Tạo hash',h1Grad:'Tạo hash',placeholder:'Nhập văn bản...',copyBtn:'Sao chép',copied:'Đã sao chép!'}
+};
+</script><script src="../assets/js/tool-ui.js"></script>
+<script>
+function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
+async function generate(){const text=document.getElementById('input').value;const r=document.getElementById('result');const dict=getDict();if(!text){r.innerHTML='';return;}
+const enc=new TextEncoder().encode(text);const b2h=b=>Array.from(new Uint8Array(b)).map(b=>b.toString(16).padStart(2,'0')).join('');
+const results=[{algo:'MD5',hash:b2h(await crypto.subtle.digest('MD5',enc))},{algo:'SHA1',hash:b2h(await crypto.subtle.digest('SHA-1',enc))},{algo:'SHA256',hash:b2h(await crypto.subtle.digest('SHA-256',enc))},{algo:'SHA512',hash:b2h(await crypto.subtle.digest('SHA-512',enc))}];
+r.innerHTML=results.map(r=>`<div class="hash-row"><span class="algo">${r.algo}</span><span class="val">${r.hash}</span><button class="cpy" onclick="copyVal('${r.hash}',this)">${dict.copyBtn}</button></div>`).join('');}
+function copyVal(v,el){navigator.clipboard.writeText(v).then(()=>{const d=getDict();el.textContent=d.copied;setTimeout(()=>{el.textContent=d.copyBtn;},1500);});}
+</script></body></html>
