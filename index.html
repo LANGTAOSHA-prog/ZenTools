@@ -438,12 +438,15 @@
 
     // ===== 获取工具的多语言名称 =====
     function tName(tool, lang) {
+      if (lang === 'zh') return tool.name;
       return tool['name__' + lang] || tool['name__en'] || tool.name;
     }
     function tDesc(tool, lang) {
+      if (lang === 'zh') return tool.description;
       return tool['description__' + lang] || tool['description__en'] || tool.description;
     }
     function tCat(cats, catsEn, catsJa, catsVi, lang, index) {
+      if (lang === 'zh') return cats[index];
       const map = { en: catsEn, ja: catsJa, vi: catsVi };
       return (map[lang] && map[lang][index]) || cats[index];
     }
