@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>文本反转 - 免费在线工具 | ZenTools</title><meta name="description" content="反转文本字符串或反转行顺序，免费在线使用。"/><link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/text/textreverse.html"/><link rel="stylesheet" href="../assets/css/tool-ui.css"/><style>textarea{width:100%;min-height:200px;padding:16px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text);font-size:14px;line-height:1.6;resize:vertical;outline:none;font-family:Consolas,monospace}textarea:focus{border-color:var(--border-h)}</style></head><body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap"><nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/text/">文本工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/text/">文本工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">文本反转</span></div><span class="page-eyebrow" data-i18n="eyebrow">文本工具</span><h1><span class="grad" data-i18n="h1Grad">文本反转</span><br/><span data-i18n="h1Sub">反转文字或行</span></h1><p data-i18n="pageDesc">反转文本字符串的顺序，或反转行的上下顺序。</p></div>
+<div class="tool-box reveal"><textarea id="input" placeholder="在此输入文本..." data-i18n-placeholder="placeholder"></textarea><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;"><button class="btn-primary" onclick="reverseText()" data-i18n="reverseText">反转文字</button><button class="btn-primary" onclick="reverseLines()" data-i18n="reverseLines">反转行序</button><button class="btn-primary" onclick="copyResult()" data-i18n="copyBtn">复制</button></div><div class="status" id="status"></div></div>
+<script>
+window.ZT_PAGE={zh:{crumbCur:'文本反转',eyebrow:'文本工具',h1Grad:'文本反转',h1Sub:'反转文字或行',pageDesc:'反转文本字符串的顺序，或反转行的上下顺序。',placeholder:'在此输入文本...',reverseText:'反转文字',reverseLines:'反转行序',copyBtn:'复制',statusDone:'✅ 反转完成！',statusCopied:'✅ 已复制'},
+en:{crumbCur:'Reverse Text',h1Grad:'Reverse Text',h1Sub:'Reverse Text or Lines',pageDesc:'Reverse the entire text string or reverse line order.',placeholder:'Enter text here...',reverseText:'Reverse Text',reverseLines:'Reverse Lines',copyBtn:'Copy',statusDone:'✅ Done!',statusCopied:'✅ Copied!'},
+ja:{crumbCur:'テキスト反転',h1Grad:'テキスト反転',h1Sub:'文字列または行を反転',reverseText:'文字列を反転',reverseLines:'行順を反転',copyBtn:'コピー',statusDone:'✅ 完了！',statusCopied:'✅ コピーしました！'},
+vi:{crumbCur:'Đảo ngược văn bản',h1Grad:'Đảo ngược văn bản',reverseText:'Đảo chữ',reverseLines:'Đảo dòng',copyBtn:'Sao chép',statusDone:'✅ Hoàn tất!',statusCopied:'✅ Đã sao chép!'}
+};
+</script><script src="../assets/js/tool-ui.js"></script><script>
+function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
+const el=()=>document.getElementById('input');
+function reverseText(){const s=el().value;el().value=s.split('').reverse().join('');doc();}
+function reverseLines(){const s=el().value;el().value=s.split('\n').reverse().join('\n');doc();}
+function copyResult(){navigator.clipboard.writeText(el().value).then(()=>{document.getElementById('status').textContent=getDict().statusCopied;});}
+function doc(){document.getElementById('status').textContent=getDict().statusDone;}
+</script></body></html>
