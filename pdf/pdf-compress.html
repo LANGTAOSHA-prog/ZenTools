@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF压缩 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="压缩 PDF 文件大小，优化存储和传输，免费在线使用，本地处理保护隐私。" />
+  <meta name="keywords" content="PDF压缩,压缩PDF,PDF大小压缩,在线PDF工具,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-compress.html" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .compress-info { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; padding: 16px; background: rgba(255,255,255,0.03); border-radius: 12px; border: 1px solid var(--border); }
+    .compress-info .stat { flex: 1; min-width: 100px; text-align: center; }
+    .compress-info .stat .num { display: block; font-size: 20px; font-weight: 700; color: var(--cyan); }
+    .compress-info .stat .label { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .download-btn {
+      display: none; margin-top: 24px; padding: 14px 32px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff;
+      font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+    }
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="/">ZenTools<span>2.0</span></a>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a><a href="/pdf/" data-i18n="navPdf">PDF工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select>
+      </div>
+    </div>
+  </nav>
+  <div class="page-header reveal">
+    <div class="breadcrumb">
+      <a href="/" data-i18n="crumbHome">首页</a><span class="breadcrumb-sep">/</span>
+      <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a><span class="breadcrumb-sep">/</span>
+      <span class="cur" data-i18n="crumbCur">PDF 压缩</span>
+    </div>
+    <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+    <h1><span class="grad" data-i18n="h1Grad">PDF 压缩</span><br /><span data-i18n="h1Sub">减小文件体积</span></h1>
+    <p data-i18n="pageDesc">通过优化 PDF 内部结构来减小文件体积，方便存储、分享和邮件附件。</p>
+  </div>
+  <div class="tool-box reveal">
+    <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
+    <p class="note" data-i18n="toolNote">选择 PDF 文件，点击压缩按钮即可优化文件大小。</p>
+    <div class="file-input-row">
+      <input type="file" id="pdfInput" accept=".pdf" />
+      <button class="btn-primary" id="compressBtn" type="button" onclick="compressPDF()" data-i18n="compressBtn">压缩 PDF</button>
+    </div>
+    <div class="status" id="status"></div>
+    <div class="compress-info" id="compressInfo" style="display:none;">
+      <div class="stat"><span class="num" id="originalSize">-</span><span class="label" data-i18n="origLabel">原始大小</span></div>
+      <div class="stat"><span class="num" id="compressedSize">-</span><span class="label" data-i18n="compLabel">压缩后</span></div>
+      <div class="stat"><span class="num" id="savedPercent">-</span><span class="label" data-i18n="savedLabel">节省</span></div>
+    </div>
+    <button class="download-btn" id="downloadBtn" onclick="downloadResult()" data-i18n="downloadBtn">📥 下载压缩后的 PDF</button>
+  </div>
+  <div class="section">
+    <div class="section-head reveal">
+      <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+      <h2 data-i18n="sectionTitle">了解 PDF 压缩工具</h2>
+    </div>
+    <div class="info-grid reveal-stagger">
+      <div class="info-card"><h4 data-i18n="info1T">隐私安全</h4><p data-i18n="info1D">所有压缩操作在浏览器本地完成，文件不会上传到任何服务器。</p></div>
+      <div class="info-card"><h4 data-i18n="info2T">免费使用</h4><p data-i18n="info2D">工具完全免费，无需注册账号。</p></div>
+      <div class="info-card"><h4 data-i18n="info3T">优化原理</h4><p data-i18n="info3D">通过重新整理 PDF 内部结构来减小体积。压缩效果取决于文件内容，图片较多的 PDF 效果更明显。</p></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links"><a href="/" data-i18n="footerHome">首页</a><a href="/pdf/" data-i18n="footerPdf">PDF工具</a><a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a></div>
+      <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+    </div>
+  </footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'PDF压缩 - 免费在线工具 | ZenTools',navHome:'首页',navPdf:'PDF工具',navAll:'全部工具',crumbHome:'首页',crumbPdf:'PDF工具',crumbCur:'PDF 压缩',eyebrow:'PDF 工具',h1Grad:'PDF 压缩',h1Sub:'减小文件体积',pageDesc:'通过优化 PDF 内部结构来减小文件体积，方便存储、分享和邮件附件。',toolTitle:'选择 PDF 文件',toolNote:'选择 PDF 文件，点击压缩按钮即可优化文件大小。',compressBtn:'压缩 PDF',downloadBtn:'📥 下载压缩后的 PDF',sectionEyebrow:'工具说明',sectionTitle:'了解 PDF 压缩工具',info1T:'隐私安全',info1D:'所有压缩操作在浏览器本地完成，文件不会上传到任何服务器。',info2T:'免费使用',info2D:'工具完全免费，无需注册账号。',info3T:'优化原理',info3D:'通过重新整理 PDF 内部结构来减小体积。压缩效果取决于文件内容，图片较多的 PDF 效果更明显。',footerHome:'首页',footerPdf:'PDF工具',footerPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱，持续更新中。',statusReady:'已选择：{name}（{size}）',statusWorking:'🔄 正在压缩……',statusComplete:'✅ 压缩完成！',statusError:'❌ 压缩失败。',alertNoFile:'⚠️ 请先选择 PDF 文件',origLabel:'原始大小',compLabel:'压缩后',savedLabel:'节省'},
+en:{pageTitle:'PDF Compress - Free Online Tool | ZenTools',crumbCur:'PDF Compress',h1Grad:'PDF Compress',h1Sub:'Reduce File Size',pageDesc:'Optimize PDF file size for storage and sharing.',compressBtn:'Compress PDF',info3D:'Reorganizes PDF structure to reduce size. Better results with image-heavy files.',statusReady:'Selected: {name} ({size})',statusWorking:'🔄 Compressing…',statusComplete:'✅ Done!',alertNoFile:'⚠️ Select a PDF',origLabel:'Original',compLabel:'Compressed',savedLabel:'Saved'},
+ja:{pageTitle:'PDF 圧縮 - 無料ツール | ZenTools',crumbCur:'PDF 圧縮',h1Grad:'PDF 圧縮',h1Sub:'ファイルサイズ削減',pageDesc:'PDF ファイルサイズを最適化。',compressBtn:'圧縮',statusReady:'選択: {name}（{size}）',statusWorking:'🔄 圧縮中…',statusComplete:'✅ 完了！',origLabel:'元のサイズ',compLabel:'圧縮後',savedLabel:'削減'},
+vi:{pageTitle:'Nén PDF - Công cụ miễn phí | ZenTools',crumbCur:'Nén PDF',h1Grad:'Nén PDF',h1Sub:'Giảm kích thước',pageDesc:'Tối ưu kích thước tệp PDF.',compressBtn:'Nén PDF',statusReady:'Đã chọn: {name}（{size}）',statusWorking:'🔄 Đang nén…',statusComplete:'✅ Hoàn tất!',origLabel:'Gốc',compLabel:'Đã nén',savedLabel:'Tiết kiệm'}
+};
+</script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+let compressedBytes=null;
+function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
+function fmtSize(b){return b>1024*1024?(b/1024/1024).toFixed(1)+' MB':(b/1024).toFixed(0)+' KB';}
+
+document.getElementById("pdfInput").addEventListener("change",function(){
+  const status=document.getElementById("status");const dict=getDict();
+  if(!this.files[0]){status.textContent="";return;}
+  const file=this.files[0];status.textContent=dict.statusReady.replace('{name}',file.name).replace('{size}',fmtSize(file.size));
+});
+
+async function compressPDF(){
+  const file=document.getElementById("pdfInput").files[0];const status=document.getElementById("status");
+  const btn=document.getElementById("compressBtn");const downloadBtn=document.getElementById("downloadBtn");
+  const info=document.getElementById("compressInfo");const dict=getDict();
+  if(!file){status.textContent=dict.alertNoFile;return;}
+  status.textContent=dict.statusWorking;btn.disabled=true;downloadBtn.style.display="none";info.style.display="none";
+  try{
+    const bytes=await file.arrayBuffer();const pdfDoc=await PDFLib.PDFDocument.load(bytes);
+    compressedBytes=await pdfDoc.save({useObjectStreams:true,addDefaultPage:false,objectsPerTick:100});
+    const orig=file.size;const comp=compressedBytes.length;const saved=((1-comp/orig)*100).toFixed(1);
+    document.getElementById("originalSize").textContent=fmtSize(orig);
+    document.getElementById("compressedSize").textContent=fmtSize(comp);
+    document.getElementById("savedPercent").textContent=saved+'%';
+    info.style.display="flex";status.textContent=dict.statusComplete;
+    downloadBtn.style.display="block";downloadResult();
+  }catch(err){console.error(err);status.textContent=dict.statusError;}
+  finally{btn.disabled=false;}
+}
+function downloadResult(){if(!compressedBytes)return;const name=document.getElementById("pdfInput").files[0].name.replace('.pdf','')+'_压缩.pdf';const blob=new Blob([compressedBytes],{type:"application/pdf"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
+</script>
+</body>
+</html>

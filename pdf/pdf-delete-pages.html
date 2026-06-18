@@ -5,314 +5,132 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PDF页面删除 - 免费在线工具 | ZenTools</title>
   <meta name="description" content="删除 PDF 中的指定页面，免费在线使用，本地处理保护隐私。" />
-  <meta name="keywords" content="PDF页面删除,PDF页面删除,在线工具,免费工具,ZenTools" />
+  <meta name="keywords" content="PDF删除页面,PDF页面删除,PDF移除页面,在线PDF工具,ZenTools" />
   <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-delete-pages.html" />
-
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
   <style>
-    :root {
-      --bg:      #06070d;
-      --glass:   rgba(255,255,255,0.04);
-      --glass-b: rgba(255,255,255,0.08);
-      --cyan:    #00e5ff;
-      --purple:  #a855f7;
-      --pink:    #f43f5e;
-      --text:    #f0f4ff;
-      --muted:   #6b7a9f;
-      --border:  rgba(255,255,255,0.07);
-      --border-h:rgba(0,229,255,0.35);
-      --glow-c:  0 0 40px rgba(0,229,255,0.18);
-      --r:       20px;
+    .page-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+    .page-input-row input[type="text"] {
+      flex: 1; min-width: 200px; padding: 14px 18px; border: 1px solid var(--border);
+      border-radius: 12px; background: rgba(255,255,255,0.04); color: var(--text);
+      font-size: 14px; outline: none;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.6;
+    .page-input-row input[type="text"]:focus { border-color: var(--border-h); }
+    .page-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .result-box { margin-top: 24px; display: none; background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .result-box.visible { display: block; }
+    .result-info { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+    .download-btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff;
+      font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s;
     }
-
-    a { color: inherit; text-decoration: none; }
-
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 1;
-    }
-
-    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
-    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
-    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
-
-    .z-wrap { position: relative; z-index: 2; }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(24px) saturate(180%);
-      background: rgba(6,7,13,0.75);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: auto; height: 64px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
-    .logo {
-      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
-    .nav-links a {
-      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
-      color: var(--muted); transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
-
-    .page-header {
-      max-width: 1200px; margin: 0 auto;
-      padding: 72px 24px 56px;
-    }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted); margin-bottom: 28px;
-    }
-    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--cyan); }
-    .breadcrumb-sep { opacity: 0.3; }
-    .breadcrumb .cur { color: var(--cyan); }
-
-    .page-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 14px;
-    }
-    .page-header h1 {
-      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
-      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
-    }
-    .page-header h1 .grad {
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
-
-    .tool-box {
-      max-width: 900px; margin: 0 auto 48px;
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 36px;
-      backdrop-filter: blur(8px);
-    }
-    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
-
-    .file-input-row {
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    }
-    .file-input-row input[type="file"] {
-      flex: 1; min-width: 280px;
-      padding: 14px 18px; border: 1px dashed rgba(255,255,255,0.15);
-      border-radius: 12px; background: rgba(255,255,255,0.02);
-      color: var(--muted); font-size: 14px; cursor: pointer;
-    }
-    .file-input-row input[type="file"]::file-selector-button {
-      border: none; background: var(--glass-b); color: var(--text);
-      padding: 8px 16px; border-radius: 8px; margin-right: 12px;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .file-input-row input[type="file"]::file-selector-button:hover { background: rgba(255,255,255,0.12); }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 32px; border-radius: 12px; border: none;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #000; font-size: 16px; font-weight: 700; cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    .status {
-      margin-top: 16px; color: var(--muted); font-size: 14px;
-      min-height: 22px;
-    }
-
-    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
-    .section-head { margin-bottom: 40px; }
-    .section-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
-    }
-    .section-head h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; }
-
-    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px; backdrop-filter: blur(8px);
-    }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--cyan); }
-    .info-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
-    .footer-inner { max-width: 1200px; margin: auto; }
-    .footer-logo {
-      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      display: inline-block; margin-bottom: 16px;
-    }
-    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .footer-links a {
-      color: var(--muted); font-size: 14px; padding: 6px 12px;
-      border-radius: 8px; transition: color 0.2s, background 0.2s;
-    }
-    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
-    .footer-copy { color: var(--muted); font-size: 13px; }
-
-    @media (max-width: 1024px) { .info-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) {
-      .info-grid { grid-template-columns: 1fr; }
-      .tool-box { padding: 24px; }
-    }
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
   </style>
 </head>
 <body>
-
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-  <div class="z-wrap">
-
-    <nav>
-      <div class="nav-inner">
-        <a class="logo" href="/">ZenTools<span>2.0</span></a>
-        <div class="nav-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/tools.html">全部工具</a>
-        </div>
-      </div>
-    </nav>
-
-    <div class="page-header reveal">
-      <div class="breadcrumb">
-        <a href="/">首页</a>
-        <span class="breadcrumb-sep">/</span>
-        <a href="/pdf/">PDF工具</a>
-        <span class="breadcrumb-sep">/</span>
-        <span class="cur">PDF页面删除</span>
-      </div>
-      <span class="page-eyebrow">PDF 工具</span>
-      <h1><span class="grad">PDF页面删除</span><br />免费在线工具</h1>
-      <p>删除 PDF 中的指定页面，免费在线使用，本地处理保护隐私。</p>
-    </div>
-
-    <div class="tool-box reveal">
-      <h2>选择文件</h2>
-      <p class="note">选择文件后点击处理按钮，即可开始转换。</p>
-      <div class="file-input-row">
-        <input type="file" id="fileInput" accept=".pdf" />
-        <button class="btn-primary" id="processBtn" type="button" onclick="processFile()">开始处理</button>
-      </div>
-      <div class="status" id="status"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-head reveal">
-        <span class="section-eyebrow">工具说明</span>
-        <h2>了解PDF页面删除</h2>
-      </div>
-
-      <div class="info-grid reveal-stagger">
-        <div class="info-card">
-          <h4>精准删除</h4>
-          <p>选择需要删除的页面，支持批量删除。</p>
-        </div>
-<div class="info-card">
-          <h4>预览功能</h4>
-          <p>删除前可预览 PDF 页面。</p>
-        </div>
-<div class="info-card">
-          <h4>隐私安全</h4>
-          <p>所有处理操作均在浏览器本地完成，文件不会上传到任何服务器。</p>
-        </div>
-
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="/">ZenTools<span>2.0</span></a>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a><a href="/pdf/" data-i18n="navPdf">PDF工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select>
       </div>
     </div>
-
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-logo">ZenTools</div>
-        <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/privacy.html">隐私政策</a>
-        </div>
-        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
-      </div>
-    </footer>
-
+  </nav>
+  <div class="page-header reveal">
+    <div class="breadcrumb">
+      <a href="/" data-i18n="crumbHome">首页</a><span class="breadcrumb-sep">/</span>
+      <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a><span class="breadcrumb-sep">/</span>
+      <span class="cur" data-i18n="crumbCur">PDF 页面删除</span>
+    </div>
+    <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+    <h1><span class="grad" data-i18n="h1Grad">PDF 页面删除</span><br /><span data-i18n="h1Sub">删除不需要的页面</span></h1>
+    <p data-i18n="pageDesc">删除 PDF 中不需要的页面，支持单个页码和范围选择（如 2,4,6-8）。</p>
   </div>
+  <div class="tool-box reveal">
+    <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
+    <p class="note" data-i18n="toolNote">选择 PDF 文件，输入要删除的页码或页码范围。</p>
+    <div class="file-input-row"><input type="file" id="pdfInput" accept=".pdf" /></div>
+    <div class="page-input-row">
+      <input type="text" id="pageInput" placeholder="2,4,6-8" data-i18n-placeholder="pagePlaceholder" />
+      <button class="btn-primary" id="deleteBtn" type="button" onclick="deletePages()" data-i18n="deleteBtn">开始删除</button>
+    </div>
+    <p class="page-hint" data-i18n="pageHint">例如：2,4,6-8 表示删除第 2、4、6 到 8 页</p>
+    <div class="status" id="status"></div>
+    <div class="result-box" id="resultBox">
+      <div class="result-info" id="resultInfo"></div>
+      <button class="download-btn" id="downloadBtn" onclick="downloadResult()" data-i18n="downloadBtn">📥 下载删除后的 PDF</button>
+    </div>
+  </div>
+  <div class="section">
+    <div class="section-head reveal">
+      <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+      <h2 data-i18n="sectionTitle">了解 PDF 页面删除工具</h2>
+    </div>
+    <div class="info-grid reveal-stagger">
+      <div class="info-card"><h4 data-i18n="info1T">隐私安全</h4><p data-i18n="info1D">所有操作在浏览器本地完成，文件不会上传到任何服务器。</p></div>
+      <div class="info-card"><h4 data-i18n="info2T">免费使用</h4><p data-i18n="info2D">工具完全免费，无需注册账号。</p></div>
+      <div class="info-card"><h4 data-i18n="info3T">精确删除</h4><p data-i18n="info3D">支持精确选择和范围删除，轻松剔除不需要的页面。</p></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links"><a href="/" data-i18n="footerHome">首页</a><a href="/pdf/" data-i18n="footerPdf">PDF工具</a><a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a></div>
+      <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+    </div>
+  </footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'PDF页面删除 - 免费在线工具 | ZenTools',navHome:'首页',navPdf:'PDF工具',navAll:'全部工具',crumbHome:'首页',crumbPdf:'PDF工具',crumbCur:'PDF 页面删除',eyebrow:'PDF 工具',h1Grad:'PDF 页面删除',h1Sub:'删除不需要的页面',pageDesc:'删除 PDF 中不需要的页面，支持单个页码和范围选择（如 2,4,6-8）。',toolTitle:'选择 PDF 文件',toolNote:'选择 PDF 文件，输入要删除的页码或页码范围。',pagePlaceholder:'2,4,6-8',deleteBtn:'开始删除',pageHint:'例如：2,4,6-8 表示删除第 2、4、6 到 8 页',downloadBtn:'📥 下载删除后的 PDF',sectionEyebrow:'工具说明',sectionTitle:'了解 PDF 页面删除工具',info1T:'隐私安全',info1D:'所有操作在浏览器本地完成，文件不会上传到任何服务器。',info2T:'免费使用',info2D:'工具完全免费，无需注册账号。',info3T:'精确删除',info3D:'支持精确选择和范围删除，轻松剔除不需要的页面。',footerHome:'首页',footerPdf:'PDF工具',footerPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱，持续更新中。',statusReady:'共 {n} 页，输入要删除的页码',statusWorking:'🔄 正在删除页面……',statusComplete:'✅ 删除完成！剩余 {n} 页。',statusError:'❌ 删除失败。',alertNoFile:'⚠️ 请先选择 PDF 文件',alertNoPages:'⚠️ 请输入要删除的页码',resultText:'原文件 {total} 页，已删除 <strong>{n}</strong> 页'},
+en:{pageTitle:'PDF Delete Pages - Free Online Tool | ZenTools',navHome:'Home',navPdf:'PDF Tools',navAll:'All Tools',crumbHome:'Home',crumbPdf:'PDF Tools',crumbCur:'Delete Pages',eyebrow:'PDF TOOLS',h1Grad:'Delete Pages',h1Sub:'Remove Unwanted Pages',pageDesc:'Remove unwanted pages from a PDF.',toolTitle:'Select PDF File',toolNote:'Select a PDF and enter pages to delete.',pagePlaceholder:'2,4,6-8',deleteBtn:'Delete',pageHint:'e.g. 2,4,6-8 means delete pages 2,4,6-8',downloadBtn:'📥 Download Result',statusReady:'{n} pages total.',statusWorking:'🔄 Deleting…',statusComplete:'✅ Done! {n} pages remaining.',statusError:'❌ Failed.',alertNoFile:'⚠️ Select a PDF',alertNoPages:'⚠️ Enter pages to delete',resultText:'{total} pages, <strong>{n}</strong> deleted'},
+ja:{pageTitle:'PDF ページ削除 - 無料ツール | ZenTools',crumbCur:'ページ削除',h1Grad:'ページ削除',h1Sub:'不要なページを削除',pageDesc:'PDF の不要なページを削除。',toolNote:'PDF を選び削除するページを入力。',pagePlaceholder:'2,4,6-8',deleteBtn:'削除',pageHint:'例: 2,4,6-8',statusReady:'全 {n} ページ',statusWorking:'🔄 削除中…',statusComplete:'✅ 完了！残り {n} ページ',alertNoFile:'⚠️ PDF を選択',alertNoPages:'⚠️ ページを入力',resultText:'合計 {total} ページ、<strong>{n}</strong> ページ削除'},
+vi:{pageTitle:'Xóa trang PDF - Công cụ miễn phí | ZenTools',crumbCur:'Xóa trang',h1Grad:'Xóa trang',h1Sub:'Xóa trang không cần thiết',pageDesc:'Xóa các trang không mong muốn khỏi PDF.',toolNote:'Chọn PDF và nhập trang cần xóa.',pagePlaceholder:'2,4,6-8',deleteBtn:'Xóa',pageHint:'VD: 2,4,6-8',statusReady:'Tổng {n} trang',statusWorking:'🔄 Đang xóa…',statusComplete:'✅ Hoàn tất! Còn {n} trang',alertNoFile:'⚠️ Chọn PDF',alertNoPages:'⚠️ Nhập số trang cần xóa',resultText:'{total} trang, đã xóa <strong>{n}</strong> trang'}
+};
+</script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+let resultBytes=null;
+function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
+function parsePages(text,total){const del=new Set();const parts=text.split(',');for(const p of parts){const t=p.trim();if(t.includes('-')){const[m,n]=t.split('-').map(x=>parseInt(x.trim()));if(!isNaN(m)&&!isNaN(n)){for(let i=m;i<=n;i++)if(i>=1&&i<=total)del.add(i-1);}}else{const n=parseInt(t);if(!isNaN(n)&&n>=1&&n<=total)del.add(n-1);}}
+return Array.from(del);}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-  <script>
-    window.processFile = async function processFile(){
-      const fileInput = document.getElementById("fileInput");
-      const file = fileInput.files[0];
-      if(!file){ alert("请先选择一个文件。"); return; }
+document.getElementById("pdfInput").addEventListener("change",function(){
+  const status=document.getElementById("status");const dict=getDict();
+  if(!this.files[0]){status.textContent="";return;}
+  const fr=new FileReader();fr.onload=async function(e){
+    try{const d=await PDFLib.PDFDocument.load(e.target.result);status.textContent=dict.statusReady.replace('{n}',d.getPageCount());}
+    catch{status.textContent='⚠️ 无法读取 PDF';}
+  };fr.readAsArrayBuffer(this.files[0]);
+});
 
-      const status = document.getElementById("status");
-      const btn = document.getElementById("processBtn");
-      status.textContent = "正在处理，请稍候……";
-      btn.disabled = true;
-
-      try{
-        // 模拟处理过程
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        const arrayBuffer = await file.arrayBuffer();
-        const blob = new Blob([arrayBuffer], { type: "application/pdf" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "ZenTools-pdf-delete-pages." + "pdf";
-        a.click();
-        URL.revokeObjectURL(url);
-        
-        status.textContent = "处理完成，文件已开始下载。";
-      }catch(err){
-        console.error(err);
-        status.textContent = "处理失败，请刷新页面后重试。";
-      }finally{
-        btn.disabled = false;
-      }
-    };
-
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
-
-    // Blob animation
-    let t = 0;
-    const b1 = document.querySelector('.blob-1');
-    const b2 = document.querySelector('.blob-2');
-    function anim(){
-      t += 0.003;
-      if(b1) b1.style.transform = `translate(${{Math.sin(t)*30}}px,${{Math.cos(t*0.8)*20}}px)`;
-      if(b2) b2.style.transform = `translate(${{Math.cos(t*0.9)*25}}px,${{Math.sin(t)*18}}px)`;
-      requestAnimationFrame(anim);
-    }
-    anim();
-  </script>
-
+async function deletePages(){
+  const file=document.getElementById("pdfInput").files[0];const pagesText=document.getElementById("pageInput").value.trim();
+  const status=document.getElementById("status");const btn=document.getElementById("deleteBtn");
+  const resultBox=document.getElementById("resultBox");const resultInfo=document.getElementById("resultInfo");
+  const downloadBtn=document.getElementById("downloadBtn");const dict=getDict();
+  if(!file){status.textContent=dict.alertNoFile;return;}
+  if(!pagesText){status.textContent=dict.alertNoPages;return;}
+  status.textContent=dict.statusWorking;btn.disabled=true;resultBox.classList.remove("visible");
+  try{
+    const bytes=await file.arrayBuffer();const pdfDoc=await PDFLib.PDFDocument.load(bytes);
+    const total=pdfDoc.getPageCount();const del=parsePages(pagesText,total);
+    const keep=[];for(let i=0;i<total;i++){if(!del.includes(i))keep.push(i);}
+    if(keep.length===0){status.textContent='⚠️ 不能删除所有页面！';btn.disabled=false;return;}
+    const newPdf=await PDFLib.PDFDocument.create();const pages=await newPdf.copyPages(pdfDoc,keep);
+    pages.forEach(p=>newPdf.addPage(p));resultBytes=await newPdf.save();
+    status.textContent=dict.statusComplete.replace('{n}',keep.length);
+    resultInfo.innerHTML=dict.resultText.replace('{total}',total).replace('{n}',del.length);
+    resultBox.classList.add("visible");downloadResult();
+  }catch(err){console.error(err);status.textContent=dict.statusError;}
+  finally{btn.disabled=false;}
+}
+function downloadResult(){if(!resultBytes)return;const name=document.getElementById("pdfInput").files[0].name.replace('.pdf','')+'_删减.pdf';const blob=new Blob([resultBytes],{type:"application/pdf"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
+</script>
 </body>
 </html>
