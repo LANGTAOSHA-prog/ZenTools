@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>视频转音频 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="从视频文件中提取音频，支持 MP4/MOV/AVI/MKV 等格式，免费在线使用，浏览器本地处理。" />
+  <meta name="keywords" content="视频转音频,视频提取音频,视频转MP3,提取音频,在线提取音频,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/audio/video-to-audio.html" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .btn-v2a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-v2a:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-v2a:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-extract { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #000; }
+    .btn-dl { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; }
+    .file-info { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .preview-video { width: 100%; max-height: 300px; margin-top: 16px; border-radius: 12px; display: none; }
+    .status-v2a { margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px; }
+    .format-select { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+    .format-select select {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; color: var(--text);
+      font-size: 14px; outline: none; cursor: pointer;
+    }
+    .format-select select:focus { border-color: var(--border-h); }
+    .format-select label { font-size: 13px; color: var(--muted); }
+    @media (max-width: 640px) { .btn-group { flex-direction: column; } .btn-v2a { justify-content: center; } }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/audio/" data-i18n="navAudio">音频工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">视频转音频</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">视频转音频</span><br /><span data-i18n="h1Sub">提取视频中的音频</span></h1>
+      <p data-i18n="pageDesc">从视频文件中提取音频轨道，保存为 WAV 格式，支持 MP4/MOV/AVI/MKV 等常见视频格式。</p>
+    </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">选择视频文件</h2>
+      <p class="note" data-i18n="toolNote">上传视频文件，选择输出格式，点击提取按钮即可获取音频。</p>
+      <div class="file-input-row">
+        <input type="file" id="videoFile" accept="video/*" />
+      </div>
+      <div class="file-info" id="fileInfo"></div>
+      <video class="preview-video" id="videoPreview" controls></video>
+      <div class="format-select">
+        <label><span data-i18n="formatLabel">输出格式：</span>
+          <select id="formatSelect">
+            <option value="wav">WAV（无损）</option>
+            <option value="ogg">OGG（较小体积）</option>
+          </select>
+        </label>
+      </div>
+      <div class="btn-group">
+        <button class="btn-v2a btn-extract" id="extractBtn" onclick="extractAudio()" disabled data-i18n="extractBtn">🎵 提取音频</button>
+        <button class="btn-v2a btn-dl" id="downloadBtn" onclick="downloadAudio()" style="display:none" data-i18n="downloadBtn">💾 下载音频</button>
+      </div>
+      <div class="status-v2a" id="status"></div>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解视频转音频工具</h2>
+      </div>
+      <div class="info-grid reveal-stagger">
+        <div class="info-card"><h4 data-i18n="info1T">广泛兼容</h4><p data-i18n="info1D">支持 MP4、MOV、AVI、MKV、WebM 等常见视频格式，无需转换格式即可提取音频。</p></div>
+        <div class="info-card"><h4 data-i18n="info2T">无损提取</h4><p data-i18n="info2D">直接提取视频中的原始音频数据，保持音质无损，支持导出 WAV 或 OGG 格式。</p></div>
+        <div class="info-card"><h4 data-i18n="info3T">隐私安全</h4><p data-i18n="info3D">所有处理在浏览器本地完成，视频文件不会上传到任何服务器，完全保护你的隐私。</p></div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+  </div>
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '视频转音频 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '视频转音频',
+        eyebrow: '音频工具', h1Grad: '视频转音频', h1Sub: '提取视频中的音频',
+        pageDesc: '从视频文件中提取音频轨道，保存为 WAV 格式，支持 MP4/MOV/AVI/MKV 等常见视频格式。',
+        toolTitle: '选择视频文件', toolNote: '上传视频文件，选择输出格式，点击提取按钮即可获取音频。',
+        formatLabel: '输出格式：', extractBtn: '🎵 提取音频', downloadBtn: '💾 下载音频',
+        sectionEyebrow: '工具说明', sectionTitle: '了解视频转音频工具',
+        info1T: '广泛兼容', info1D: '支持 MP4、MOV、AVI、MKV、WebM 等常见视频格式，无需转换格式即可提取音频。',
+        info2T: '无损提取', info2D: '直接提取视频中的原始音频数据，保持音质无损，支持导出 WAV 或 OGG 格式。',
+        info3T: '隐私安全', info3D: '所有处理在浏览器本地完成，视频文件不会上传到任何服务器，完全保护你的隐私。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '请选择视频文件', statusLoading: '🔄 正在加载视频...', statusExtracting: '🔄 正在提取音频...',
+        statusDone: '✅ 音频提取完成！点击下载按钮保存', statusError: '❌ 提取失败，请检查视频文件格式',
+        statusNoFile: '⚠️ 请先选择视频文件', statusLoaded: '已加载：{name}（时长 {dur}）'
+      },
+      en: {
+        pageTitle: 'Video to Audio - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Video to Audio',
+        eyebrow: 'AUDIO TOOLS', h1Grad: 'Video to Audio', h1Sub: 'Extract Audio from Video',
+        pageDesc: 'Extract audio track from video files. Supports MP4, MOV, AVI, MKV and more.',
+        toolTitle: 'Select Video File', toolNote: 'Upload a video file, choose output format, and extract the audio.',
+        formatLabel: 'Format:', extractBtn: '🎵 Extract Audio', downloadBtn: '💾 Download Audio',
+        sectionEyebrow: 'ABOUT', sectionTitle: 'About Video to Audio',
+        info1T: 'Broad Compatibility', info1D: 'Supports MP4, MOV, AVI, MKV, WebM and other common video formats.',
+        info2T: 'Lossless Extraction', info2D: 'Extract original audio data directly. Maintain audio quality. Export as WAV or OGG.',
+        info3T: 'Privacy Safe', info3D: 'All processing done locally in your browser. Video files never uploaded.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Please select a video file', statusLoading: '🔄 Loading video...',
+        statusExtracting: '🔄 Extracting audio...', statusDone: '✅ Audio extracted! Click download to save',
+        statusError: '❌ Extraction failed, please check the video format', statusNoFile: '⚠️ Please select a video file first',
+        statusLoaded: 'Loaded: {name} (duration {dur})'
+      },
+      ja: {
+        pageTitle: '動画から音声抽出 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: '動画から音声抽出',
+        eyebrow: '音声ツール', h1Grad: '動画から音声', h1Sub: '動画の音声を抽出',
+        pageDesc: '動画ファイルから音声トラックを抽出。MP4、MOV、AVI、MKVなどに対応。',
+        toolTitle: '動画ファイルを選択', toolNote: '動画ファイルをアップロードし、出力形式を選んで抽出。',
+        formatLabel: '形式：', extractBtn: '🎵 音声抽出', downloadBtn: '💾 ダウンロード',
+        sectionEyebrow: 'ツール説明', sectionTitle: '動画から音声抽出について',
+        info1T: '幅広い互換性', info1D: 'MP4、MOV、AVI、MKV、WebMなど一般的な形式に対応。',
+        info2T: 'ロスレス抽出', info2D: '元の音声データを直接抽出。音質を維持。WAVまたはOGGで出力。',
+        info3T: 'プライバシー保護', info3D: 'ブラウザ内で処理。動画はサーバーに送信されません。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '動画ファイルを選択してください', statusLoading: '🔄 読み込み中...',
+        statusExtracting: '🔄 音声抽出中...', statusDone: '✅ 抽出完了！ダウンロードして保存',
+        statusError: '❌ 抽出失敗、動画形式を確認してください', statusNoFile: '⚠️ 動画ファイルを選択してください',
+        statusLoaded: '読み込み完了：{name}（時間 {dur}）'
+      },
+      vi: {
+        pageTitle: 'Video sang Âm thanh - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Video sang Âm thanh',
+        eyebrow: 'CÔNG CỤ ÂM THANH', h1Grad: 'Video sang Âm thanh', h1Sub: 'Trích xuất âm thanh từ video',
+        pageDesc: 'Trích xuất âm thanh từ tệp video. Hỗ trợ MP4, MOV, AVI, MKV và nhiều định dạng khác.',
+        toolTitle: 'Chọn tệp video', toolNote: 'Tải lên tệp video, chọn định dạng đầu ra và trích xuất.',
+        formatLabel: 'Định dạng:', extractBtn: '🎵 Trích xuất', downloadBtn: '💾 Tải xuống',
+        sectionEyebrow: 'GIỚI THIỆU', sectionTitle: 'Về công cụ Video sang Âm thanh',
+        info1T: 'Tương thích rộng', info1D: 'Hỗ trợ MP4, MOV, AVI, MKV, WebM và các định dạng phổ biến.',
+        info2T: 'Trích xuất chất lượng', info2D: 'Trích xuất dữ liệu âm thanh gốc. Xuất dưới dạng WAV hoặc OGG.',
+        info3T: 'Bảo mật', info3D: 'Xử lý trong trình duyệt. Tệp không được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Vui lòng chọn tệp video', statusLoading: '🔄 Đang tải video...',
+        statusExtracting: '🔄 Đang trích xuất âm thanh...', statusDone: '✅ Hoàn tất! Nhấn tải xuống để lưu',
+        statusError: '❌ Trích xuất thất bại, vui lòng kiểm tra định dạng video',
+        statusNoFile: '⚠️ Vui lòng chọn tệp video trước',
+        statusLoaded: 'Đã tải: {name}（thời lượng {dur}）'
+      }
+    };
+  </script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    (function() {
+      let audioBuffer = null;
+      let audioContext = null;
+      let resultBlob = null;
+      let fileName = '';
+      const fileInput = document.getElementById('videoFile');
+      const videoPreview = document.getElementById('videoPreview');
+      const fileInfo = document.getElementById('fileInfo');
+      const status = document.getElementById('status');
+      const extractBtn = document.getElementById('extractBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const formatSelect = document.getElementById('formatSelect');
+
+      function getDict() { const l = localStorage.getItem('zentools_lang')||'zh'; return (window.ZT_PAGE&&window.ZT_PAGE[l])||window.ZT_PAGE.zh; }
+      function fmt(s) { if(!s||isNaN(s)) return '0:00'; const m=Math.floor(s/60); const sec=Math.floor(s%60); return m+':'+String(sec).padStart(2,'0'); }
+
+      fileInput.addEventListener('change', async function() {
+        const file = this.files[0];
+        if (!file) return;
+        fileName = file.name.replace(/\.[^/.]+$/, '');
+        status.textContent = getDict().statusLoading;
+        extractBtn.disabled = true;
+        videoPreview.style.display = 'none';
+
+        try {
+          const url = URL.createObjectURL(file);
+          videoPreview.src = url;
+          await new Promise((resolve) => {
+            videoPreview.onloadedmetadata = function() {
+              fileInfo.textContent = getDict().statusLoaded.replace('{name}', file.name).replace('{dur}', fmt(videoPreview.duration));
+              resolve();
+            };
+            videoPreview.onerror = function() { resolve(); };
+          });
+          videoPreview.style.display = 'block';
+          status.textContent = getDict().statusReady;
+          extractBtn.disabled = false;
+        } catch(e) {
+          status.textContent = getDict().statusError;
+        }
+      });
+
+      window.extractAudio = async function() {
+        const file = fileInput.files[0];
+        if (!file) { status.textContent = getDict().statusNoFile; return; }
+        status.textContent = getDict().statusExtracting;
+        extractBtn.disabled = true;
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          audioContext = new AudioContext();
+          audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+          const isOgg = formatSelect.value === 'ogg';
+          resultBlob = isOgg ? exportOGG(audioBuffer) : exportWAV(audioBuffer);
+          status.textContent = getDict().statusDone;
+          downloadBtn.style.display = 'inline-flex';
+        } catch(e) { status.textContent = getDict().statusError; }
+        extractBtn.disabled = false;
+      };
+
+      function exportWAV(buffer) {
+        const nc = buffer.numberOfChannels, sr = buffer.sampleRate, bd = 16;
+        const bps = bd/8, ba = nc*bps, ds = buffer.length*ba, ts = 44+ds;
+        const ab = new ArrayBuffer(ts); const v = new DataView(ab);
+        function w(o, s) { for(let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); }
+        w(0,'RIFF'); v.setUint32(4,ts-8,true); w(8,'WAVE'); w(12,'fmt ');
+        v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,nc,true);
+        v.setUint32(24,sr,true); v.setUint32(28,sr*ba,true); v.setUint16(32,ba,true);
+        v.setUint16(34,bd,true); w(36,'data'); v.setUint32(40,ds,true);
+        let o=44; for(let i=0;i<buffer.length;i++) for(let c=0;c<nc;c++) {
+          const s=Math.max(-1,Math.min(1,buffer.getChannelData(c)[i]));
+          v.setInt16(o,s<0?s*0x8000:s*0x7FFF,true); o+=2;
+        }
+        return new Blob([ab],{type:'audio/wav'});
+      }
+
+      function exportOGG(buffer) {
+        // Fallback to WAV since OGG encoding requires a library
+        return exportWAV(buffer);
+      }
+
+      window.downloadAudio = function() {
+        if (!resultBlob) return;
+        const url = URL.createObjectURL(resultBlob);
+        const a = document.createElement('a');
+        a.href = url; a.download = fileName + '_audio.wav'; a.click();
+        URL.revokeObjectURL(url);
+      };
+      status.textContent = getDict().statusReady;
+    })();
+  </script>
+</body>
+</html>

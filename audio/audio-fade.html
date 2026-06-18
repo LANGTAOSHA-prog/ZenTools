@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>音频淡入淡出 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="在线为音频添加淡入淡出效果，自定义时长，适合音乐编辑、播客制作和音频后期处理。" />
+  <meta name="keywords" content="音频淡入淡出,音频渐变,音频特效,音乐淡入淡出,播客编辑,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/audio/audio-fade.html" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .btn-fade {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-fade:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-fade:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-process { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #000; }
+    .btn-dl { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; }
+
+    .fade-controls { display: flex; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+    .fade-group { flex: 1; min-width: 200px; }
+    .fade-group label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .fade-group .fade-row { display: flex; align-items: center; gap: 10px; }
+    .fade-group select, .fade-group input[type="number"] {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; color: var(--text);
+      font-size: 14px; outline: none;
+    }
+    .fade-group select { cursor: pointer; min-width: 120px; }
+    .fade-group select:focus, .fade-group input:focus { border-color: var(--border-h); }
+    .fade-group input[type="number"] { width: 80px; }
+    .fade-group input[type="range"] {
+      -webkit-appearance: none; appearance: none; width: 100%; height: 4px;
+      border-radius: 2px; background: rgba(255,255,255,0.12); outline: none;
+    }
+    .fade-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--cyan); cursor: pointer;
+    }
+    .fade-group input[type="range"]::-moz-range-thumb {
+      width: 16px; height: 16px; border-radius: 50%; background: var(--cyan); cursor: pointer; border: none;
+    }
+
+    .info-row { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .status-fade { margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px; }
+    audio { width: 100%; margin-top: 16px; border-radius: 8px; display: none; }
+    .fade-visual { width: 100%; height: 50px; margin-top: 12px; border-radius: 8px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); overflow: hidden; }
+    .fade-visual canvas { width: 100%; height: 100%; display: block; }
+    @media (max-width: 640px) { .btn-group { flex-direction: column; } .btn-fade { justify-content: center; } .fade-controls { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/audio/" data-i18n="navAudio">音频工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">音频淡入淡出</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">音频淡入淡出</span><br /><span data-i18n="h1Sub">添加渐变效果</span></h1>
+      <p data-i18n="pageDesc">在线为音频添加淡入淡出效果，自定义时长和类型，适合音乐编辑、播客制作和音频后期处理。</p>
+    </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">选择音频文件</h2>
+      <p class="note" data-i18n="toolNote">上传音频文件，设置淡入和淡出参数，点击处理按钮生成带有渐变效果的音频。</p>
+      <div class="file-input-row">
+        <input type="file" id="audioFile" accept="audio/*" />
+      </div>
+      <div class="info-row" id="fileInfo"></div>
+      <div class="fade-visual"><canvas id="fadeCanvas"></canvas></div>
+      <div class="fade-controls">
+        <div class="fade-group">
+          <label data-i18n="fadeInLabel">淡入：</label>
+          <div class="fade-row">
+            <select id="fadeInType">
+              <option value="linear" data-i18n="linear">线性</option>
+              <option value="ease-in" data-i18n="easeIn">先慢后快</option>
+              <option value="ease-out" data-i18n="easeOut">先快后慢</option>
+            </select>
+            <input type="number" id="fadeInDur" value="2" min="0" max="30" step="0.5" />
+            <span style="color:var(--muted);font-size:13px;">s</span>
+          </div>
+        </div>
+        <div class="fade-group">
+          <label data-i18n="fadeOutLabel">淡出：</label>
+          <div class="fade-row">
+            <select id="fadeOutType">
+              <option value="linear" data-i18n="linear">线性</option>
+              <option value="ease-in" data-i18n="easeIn">先慢后快</option>
+              <option value="ease-out" data-i18n="easeOut">先快后慢</option>
+            </select>
+            <input type="number" id="fadeOutDur" value="3" min="0" max="30" step="0.5" />
+            <span style="color:var(--muted);font-size:13px;">s</span>
+          </div>
+        </div>
+      </div>
+      <div class="btn-group">
+        <button class="btn-fade btn-process" id="processBtn" onclick="processFade()" disabled data-i18n="processBtn">✨ 应用效果</button>
+        <button class="btn-fade btn-dl" id="downloadBtn" onclick="downloadAudio()" style="display:none" data-i18n="downloadBtn">💾 下载</button>
+      </div>
+      <audio id="audioPreview" controls></audio>
+      <div class="status-fade" id="status"></div>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解音频淡入淡出工具</h2>
+      </div>
+      <div class="info-grid reveal-stagger">
+        <div class="info-card"><h4 data-i18n="info1T">渐变类型</h4><p data-i18n="info1D">支持线性、先慢后快、先快后慢三种淡入淡出曲线，满足不同风格需求。</p></div>
+        <div class="info-card"><h4 data-i18n="info2T">自定义时长</h4><p data-i18n="info2D">淡入和淡出时长可独立调节，支持 0 到 30 秒范围，精确到 0.5 秒。</p></div>
+        <div class="info-card"><h4 data-i18n="info3T">本地处理</h4><p data-i18n="info3D">所有处理在浏览器本地完成，音频文件不会上传到任何服务器，保护隐私。</p></div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+  </div>
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '音频淡入淡出 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '音频淡入淡出',
+        eyebrow: '音频工具', h1Grad: '音频淡入淡出', h1Sub: '添加渐变效果',
+        pageDesc: '在线为音频添加淡入淡出效果，自定义时长和类型，适合音乐编辑、播客制作和音频后期处理。',
+        toolTitle: '选择音频文件', toolNote: '上传音频文件，设置淡入和淡出参数，点击处理按钮生成带有渐变效果的音频。',
+        fadeInLabel: '淡入：', fadeOutLabel: '淡出：',
+        linear: '线性', easeIn: '先慢后快', easeOut: '先快后慢',
+        processBtn: '✨ 应用效果', downloadBtn: '💾 下载',
+        sectionEyebrow: '工具说明', sectionTitle: '了解音频淡入淡出工具',
+        info1T: '渐变类型', info1D: '支持线性、先慢后快、先快后慢三种淡入淡出曲线，满足不同风格需求。',
+        info2T: '自定义时长', info2D: '淡入和淡出时长可独立调节，支持 0 到 30 秒范围，精确到 0.5 秒。',
+        info3T: '本地处理', info3D: '所有处理在浏览器本地完成，音频文件不会上传到任何服务器，保护隐私。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '请选择音频文件', statusProcessing: '🔄 正在处理...', statusDone: '✅ 处理完成！可试听或下载',
+        statusError: '❌ 处理失败，请检查音频格式', statusNoFile: '⚠️ 请先选择音频文件',
+        statusLoaded: '已加载：{name}（时长 {dur}）'
+      },
+      en: {
+        pageTitle: 'Audio Fade In/Out - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Audio Fade',
+        eyebrow: 'AUDIO TOOLS', h1Grad: 'Fade In/Out', h1Sub: 'Add Fade Effects',
+        pageDesc: 'Add fade in/out effects to audio. Custom duration and curve type. Perfect for music and podcast editing.',
+        toolTitle: 'Select Audio File', toolNote: 'Upload audio, set fade parameters, and process.',
+        fadeInLabel: 'Fade In:', fadeOutLabel: 'Fade Out:',
+        linear: 'Linear', easeIn: 'Ease In', easeOut: 'Ease Out',
+        processBtn: '✨ Apply Effect', downloadBtn: '💾 Download',
+        sectionEyebrow: 'ABOUT', sectionTitle: 'About Audio Fade Tool',
+        info1T: 'Fade Types', info1D: 'Linear, ease-in, and ease-out curves available for different styles.',
+        info2T: 'Custom Duration', info2D: 'Independent fade in/out duration. 0 to 30 seconds, precise to 0.5s.',
+        info3T: 'Local Processing', info3D: 'All processing done locally. No files uploaded to servers.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Please select an audio file', statusProcessing: '🔄 Processing...',
+        statusDone: '✅ Done! Preview or download', statusError: '❌ Processing failed',
+        statusNoFile: '⚠️ Please select an audio file first',
+        statusLoaded: 'Loaded: {name} (duration {dur})'
+      },
+      ja: {
+        pageTitle: 'フェードイン/アウト - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: 'フェード',
+        eyebrow: '音声ツール', h1Grad: 'フェード', h1Sub: 'フェード効果を追加',
+        pageDesc: '音声にフェードイン/アウト効果を追加。カスタム時間と曲線タイプ。',
+        toolTitle: '音声ファイルを選択', toolNote: '音声をアップロードし、フェードパラメータを設定。',
+        fadeInLabel: 'フェードイン：', fadeOutLabel: 'フェードアウト：',
+        linear: '線形', easeIn: 'イーズイン', easeOut: 'イーズアウト',
+        processBtn: '✨ 適用', downloadBtn: '💾 ダウンロード',
+        sectionEyebrow: 'ツール説明', sectionTitle: 'フェードツールについて',
+        info1T: 'フェードタイプ', info1D: '線形、イーズイン、イーズアウトの3種類の曲線に対応。',
+        info2T: 'カスタム時間', info2D: 'フェードイン/アウトの時間を個別に設定。0～30秒、0.5秒単位。',
+        info3T: 'ローカル処理', info3D: 'ブラウザ内で処理。サーバーに送信されません。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '音声ファイルを選択してください', statusProcessing: '🔄 処理中...',
+        statusDone: '✅ 完了！再生またはダウンロード', statusError: '❌ 処理失敗',
+        statusNoFile: '⚠️ 音声ファイルを選択してください', statusLoaded: '読み込み完了：{name}（時間 {dur}）'
+      },
+      vi: {
+        pageTitle: 'Làm mờ dần âm thanh - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Làm mờ dần',
+        eyebrow: 'CÔNG CỤ ÂM THANH', h1Grad: 'Làm mờ dần', h1Sub: 'Thêm hiệu ứng fade',
+        pageDesc: 'Thêm hiệu ứng fade in/out cho âm thanh. Tùy chỉnh thời gian và loại đường cong.',
+        toolTitle: 'Chọn tệp âm thanh', toolNote: 'Tải lên âm thanh, đặt thông số fade và xử lý.',
+        fadeInLabel: 'Fade In:', fadeOutLabel: 'Fade Out:',
+        linear: 'Tuyến tính', easeIn: 'Ease In', easeOut: 'Ease Out',
+        processBtn: '✨ Áp dụng', downloadBtn: '💾 Tải xuống',
+        sectionEyebrow: 'GIỚI THIỆU', sectionTitle: 'Về công cụ làm mờ dần',
+        info1T: 'Loại fade', info1D: 'Hỗ trợ đường cong tuyến tính, ease-in và ease-out.',
+        info2T: 'Thời gian tùy chỉnh', info2D: 'Thời gian fade in/out độc lập. 0-30 giây, chính xác đến 0.5s.',
+        info3T: 'Xử lý cục bộ', info3D: 'Xử lý trong trình duyệt. Tệp không được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Vui lòng chọn tệp âm thanh', statusProcessing: '🔄 Đang xử lý...',
+        statusDone: '✅ Hoàn tất! Phát thử hoặc tải xuống', statusError: '❌ Xử lý thất bại',
+        statusNoFile: '⚠️ Vui lòng chọn tệp âm thanh trước', statusLoaded: 'Đã tải: {name}（thời lượng {dur}）'
+      }
+    };
+  </script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    (function() {
+      let audioBuffer = null;
+      let audioContext = null;
+      let resultBlob = null;
+      let fileName = '';
+      const fileInput = document.getElementById('audioFile');
+      const status = document.getElementById('status');
+      const fileInfo = document.getElementById('fileInfo');
+      const processBtn = document.getElementById('processBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const audioPreview = document.getElementById('audioPreview');
+      const canvas = document.getElementById('fadeCanvas');
+      const ctx = canvas.getContext('2d');
+      const fadeInType = document.getElementById('fadeInType');
+      const fadeOutType = document.getElementById('fadeOutType');
+      const fadeInDur = document.getElementById('fadeInDur');
+      const fadeOutDur = document.getElementById('fadeOutDur');
+
+      function resizeCanvas() {
+        const p = canvas.parentElement;
+        canvas.width = p.clientWidth * 2;
+        canvas.height = p.clientHeight * 2;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function getDict() { const l = localStorage.getItem('zentools_lang')||'zh'; return (window.ZT_PAGE&&window.ZT_PAGE[l])||window.ZT_PAGE.zh; }
+      function fmt(s) { if(!s||isNaN(s)) return '0:00'; const m=Math.floor(s/60); const c=Math.floor(s%60); return m+':'+String(c).padStart(2,'0'); }
+
+      function getFadeCurve(type, t) {
+        if (type === 'ease-in') return 1 - Math.pow(1 - t, 2);
+        if (type === 'ease-out') return Math.pow(t, 2);
+        return t; // linear
+      }
+
+      function drawFadeCurve() {
+        const w = canvas.width, h = canvas.height;
+        const fi = parseFloat(fadeInDur.value) || 0;
+        const fo = parseFloat(fadeOutDur.value) || 0;
+        const total = Math.max(fi + fo, 1);
+        const fiRatio = fi / total;
+        const foRatio = fo / total;
+
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = 'rgba(0,229,255,0.03)';
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = '#00e5ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        for (let x = 0; x < w; x++) {
+          const t = x / w;
+          let gain = 1;
+          if (t < fiRatio && fi > 0) {
+            gain = getFadeCurve(fadeInType.value, t / fiRatio);
+          } else if (t > 1 - foRatio && fo > 0) {
+            gain = getFadeCurve(fadeOutType.value, (1 - t) / foRatio);
+          }
+          const y = h - gain * (h - 10) - 5;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+
+      fadeInType.addEventListener('change', drawFadeCurve);
+      fadeOutType.addEventListener('change', drawFadeCurve);
+      fadeInDur.addEventListener('input', drawFadeCurve);
+      fadeOutDur.addEventListener('input', drawFadeCurve);
+      drawFadeCurve();
+
+      fileInput.addEventListener('change', async function() {
+        const file = this.files[0]; if (!file) return;
+        fileName = file.name.replace(/\.[^/.]+$/, '');
+        status.textContent = '🔄 ' + (getDict().statusProcessing || 'Loading...');
+        processBtn.disabled = true;
+        try {
+          const ab = await file.arrayBuffer();
+          audioContext = new AudioContext();
+          audioBuffer = await audioContext.decodeAudioData(ab);
+          fileInfo.textContent = getDict().statusLoaded.replace('{name}', file.name).replace('{dur}', fmt(audioBuffer.duration));
+          status.textContent = getDict().statusReady;
+          processBtn.disabled = false;
+        } catch(e) { status.textContent = getDict().statusError; }
+      });
+
+      window.processFade = function() {
+        if (!audioBuffer) { status.textContent = getDict().statusNoFile; return; }
+        status.textContent = getDict().statusProcessing;
+        processBtn.disabled = true;
+        try {
+          const nc = audioBuffer.numberOfChannels;
+          const sr = audioBuffer.sampleRate;
+          const len = audioBuffer.length;
+          const dur = audioBuffer.duration;
+          const fiSamples = Math.min(Math.floor(parseFloat(fadeInDur.value) * sr), len);
+          const foSamples = Math.min(Math.floor(parseFloat(fadeOutDur.value) * sr), len);
+
+          const newBuffer = audioContext.createBuffer(nc, len, sr);
+          for (let ch = 0; ch < nc; ch++) {
+            const src = audioBuffer.getChannelData(ch);
+            const dst = newBuffer.getChannelData(ch);
+            for (let i = 0; i < len; i++) {
+              let gain = 1;
+              if (i < fiSamples && fiSamples > 0) {
+                gain = getFadeCurve(fadeInType.value, i / fiSamples);
+              } else if (i > len - foSamples && foSamples > 0) {
+                gain = getFadeCurve(fadeOutType.value, (len - i) / foSamples);
+              }
+              dst[i] = src[i] * gain;
+            }
+          }
+
+          resultBlob = exportWAV(newBuffer);
+          const url = URL.createObjectURL(resultBlob);
+          audioPreview.src = url;
+          audioPreview.style.display = 'block';
+          audioPreview.load();
+          status.textContent = getDict().statusDone;
+          downloadBtn.style.display = 'inline-flex';
+        } catch(e) { status.textContent = getDict().statusError; }
+        processBtn.disabled = false;
+      };
+
+      function exportWAV(buffer) {
+        const nc = buffer.numberOfChannels, sr = buffer.sampleRate, bd = 16;
+        const bps = bd/8, ba = nc*bps, ds = buffer.length*ba, ts = 44+ds;
+        const ab = new ArrayBuffer(ts); const v = new DataView(ab);
+        function w(o, s) { for(let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); }
+        w(0,'RIFF'); v.setUint32(4,ts-8,true); w(8,'WAVE'); w(12,'fmt ');
+        v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,nc,true);
+        v.setUint32(24,sr,true); v.setUint32(28,sr*ba,true); v.setUint16(32,ba,true);
+        v.setUint16(34,bd,true); w(36,'data'); v.setUint32(40,ds,true);
+        let o=44; for(let i=0;i<buffer.length;i++) for(let c=0;c<nc;c++) {
+          const s=Math.max(-1,Math.min(1,buffer.getChannelData(c)[i]));
+          v.setInt16(o,s<0?s*0x8000:s*0x7FFF,true); o+=2;
+        }
+        return new Blob([ab],{type:'audio/wav'});
+      }
+
+      window.downloadAudio = function() {
+        if (!resultBlob) return;
+        const url = URL.createObjectURL(resultBlob);
+        const a = document.createElement('a');
+        a.href = url; a.download = fileName + '_fade.wav'; a.click();
+        URL.revokeObjectURL(url);
+      };
+      status.textContent = getDict().statusReady;
+    })();
+  </script>
+</body>
+</html>

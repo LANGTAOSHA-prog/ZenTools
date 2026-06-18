@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>音量调节 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="在线调节音频音量，支持增大和减小音量，最高可提升至 300%，免费浏览器本地处理。" />
+  <meta name="keywords" content="音量调节,音量增大,音量减小,音频增益,音量调整,在线音量调节,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/audio/volume-booster.html" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .btn-group { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .btn-vol {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-vol:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-vol:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-process { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #000; }
+    .btn-dl { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; }
+
+    .gain-control { display: flex; align-items: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
+    .gain-control label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .gain-control input[type="range"] {
+      -webkit-appearance: none; appearance: none; width: 250px; height: 4px;
+      border-radius: 2px; background: rgba(255,255,255,0.12); outline: none;
+    }
+    .gain-control input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--purple)); cursor: pointer;
+    }
+    .gain-control input[type="range"]::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--purple)); cursor: pointer; border: none;
+    }
+    .gain-display { font-size: 24px; font-weight: 700; color: var(--cyan); min-width: 100px; text-align: center; }
+
+    .gain-presets { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .gain-presets button {
+      padding: 6px 16px; border-radius: 8px; border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04); color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.2s;
+    }
+    .gain-presets button:hover { border-color: var(--cyan); color: var(--cyan); }
+    .gain-presets button.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,229,255,0.1); }
+
+    .warning-box {
+      margin-top: 16px; padding: 12px 16px; border-radius: 10px;
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2);
+      font-size: 13px; color: #f59e0b; display: none;
+    }
+    .info-row { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .status-vol { margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px; }
+    audio { width: 100%; margin-top: 16px; border-radius: 8px; display: none; }
+    @media (max-width: 640px) { .btn-group { flex-direction: column; } .btn-vol { justify-content: center; } }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/audio/" data-i18n="navAudio">音频工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">音量调节</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">音量调节</span><br /><span data-i18n="h1Sub">增大或减小音量</span></h1>
+      <p data-i18n="pageDesc">在线调节音频音量，支持增大和减小音量，最高可提升至 300%，永久保存调整结果。</p>
+    </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">选择音频文件</h2>
+      <p class="note" data-i18n="toolNote">上传音频文件，调整增益值，点击处理按钮生成音量调整后的音频。</p>
+      <div class="file-input-row">
+        <input type="file" id="audioFile" accept="audio/*" />
+      </div>
+      <div class="info-row" id="fileInfo"></div>
+      <div class="gain-control">
+        <label><span data-i18n="gainLabel">增益：</span>
+          <input type="range" id="gainRange" min="0.0" max="3.0" step="0.1" value="1.0" />
+        </label>
+        <span class="gain-display" id="gainDisplay">100%</span>
+      </div>
+      <div class="gain-presets" id="gainPresets">
+        <button data-gain="0.25">25%</button>
+        <button data-gain="0.5">50%</button>
+        <button data-gain="0.75">75%</button>
+        <button data-gain="1.0" class="active">100%</button>
+        <button data-gain="1.5">150%</button>
+        <button data-gain="2.0">200%</button>
+        <button data-gain="3.0">300%</button>
+      </div>
+      <div class="warning-box" id="warningBox" data-i18n="warningText">⚠️ 增益过高可能导致音频失真，建议不超过 200%。</div>
+      <div class="btn-group">
+        <button class="btn-vol btn-process" id="processBtn" onclick="processGain()" disabled data-i18n="processBtn">⚡ 处理</button>
+        <button class="btn-vol btn-dl" id="downloadBtn" onclick="downloadAudio()" style="display:none" data-i18n="downloadBtn">💾 下载</button>
+      </div>
+      <audio id="audioPreview" controls></audio>
+      <div class="status-vol" id="status"></div>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解音量调节工具</h2>
+      </div>
+      <div class="info-grid reveal-stagger">
+        <div class="info-card"><h4 data-i18n="info1T">精确调节</h4><p data-i18n="info1D">支持 0% 到 300% 增益调节，提供常用预设值，轻松提升或降低音量。</p></div>
+        <div class="info-card"><h4 data-i18n="info2T">永久保存</h4><p data-i18n="info2D">与普通播放器不同，本工具直接将增益应用于音频数据并导出，效果永久保存。</p></div>
+        <div class="info-card"><h4 data-i18n="info3T">本地处理</h4><p data-i18n="info3D">所有处理在浏览器本地完成，音频文件不会上传到任何服务器，保护隐私。</p></div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+  </div>
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '音量调节 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '音量调节',
+        eyebrow: '音频工具', h1Grad: '音量调节', h1Sub: '增大或减小音量',
+        pageDesc: '在线调节音频音量，支持增大和减小音量，最高可提升至 300%，永久保存调整结果。',
+        toolTitle: '选择音频文件', toolNote: '上传音频文件，调整增益值，点击处理按钮生成音量调整后的音频。',
+        gainLabel: '增益：', processBtn: '⚡ 处理', downloadBtn: '💾 下载',
+        warningText: '⚠️ 增益过高可能导致音频失真，建议不超过 200%。',
+        sectionEyebrow: '工具说明', sectionTitle: '了解音量调节工具',
+        info1T: '精确调节', info1D: '支持 0% 到 300% 增益调节，提供常用预设值，轻松提升或降低音量。',
+        info2T: '永久保存', info2D: '与普通播放器不同，本工具直接将增益应用于音频数据并导出，效果永久保存。',
+        info3T: '本地处理', info3D: '所有处理在浏览器本地完成，音频文件不会上传到任何服务器，保护隐私。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '请选择音频文件', statusProcessing: '🔄 正在处理...', statusDone: '✅ 处理完成！可试听或下载',
+        statusError: '❌ 处理失败，请检查音频格式', statusNoFile: '⚠️ 请先选择音频文件',
+        statusLoaded: '已加载：{name}（时长 {dur}）'
+      },
+      en: {
+        pageTitle: 'Volume Booster - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Volume Booster',
+        eyebrow: 'AUDIO TOOLS', h1Grad: 'Volume Booster', h1Sub: 'Increase or Decrease Volume',
+        pageDesc: 'Adjust audio volume online. Boost up to 300% or reduce volume. Permanently save the result.',
+        toolTitle: 'Select Audio File', toolNote: 'Upload audio, adjust gain, and process.',
+        gainLabel: 'Gain:', processBtn: '⚡ Process', downloadBtn: '💾 Download',
+        warningText: '⚠️ High gain may cause distortion. Recommended maximum 200%.',
+        sectionEyebrow: 'ABOUT', sectionTitle: 'About Volume Booster',
+        info1T: 'Precise Control', info1D: 'Adjust from 0% to 300% with preset values. Easily boost or reduce volume.',
+        info2T: 'Permanent Effect', info2D: 'Unlike a player, this tool applies gain directly to audio data for permanent results.',
+        info3T: 'Local Processing', info3D: 'All processing done locally. No files uploaded to servers.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Please select an audio file', statusProcessing: '🔄 Processing...',
+        statusDone: '✅ Done! Preview or download', statusError: '❌ Processing failed',
+        statusNoFile: '⚠️ Please select an audio file first',
+        statusLoaded: 'Loaded: {name} (duration {dur})'
+      },
+      ja: {
+        pageTitle: '音量調整 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: '音量調整',
+        eyebrow: '音声ツール', h1Grad: '音量調整', h1Sub: '音量を上げる/下げる',
+        pageDesc: '音声の音量をオンラインで調整。最大300%まで増幅可能。',
+        toolTitle: '音声ファイルを選択', toolNote: '音声をアップロードし、ゲインを調整して処理。',
+        gainLabel: 'ゲイン：', processBtn: '⚡ 処理', downloadBtn: '💾 ダウンロード',
+        warningText: '⚠️ 高ゲインは歪みの原因になります。200%以下をお勧めします。',
+        sectionEyebrow: 'ツール説明', sectionTitle: '音量調整ツールについて',
+        info1T: '精密調整', info1D: '0%～300%まで調整可能。プリセット値で簡単操作。',
+        info2T: '永続的効果', info2D: 'プレーヤーと違い、音声データに直接ゲインを適用して出力。効果は永続的。',
+        info3T: 'ローカル処理', info3D: 'ブラウザ内で処理。サーバーに送信されません。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '音声ファイルを選択してください', statusProcessing: '🔄 処理中...',
+        statusDone: '✅ 完了！再生またはダウンロード', statusError: '❌ 処理失敗',
+        statusNoFile: '⚠️ 音声ファイルを選択してください', statusLoaded: '読み込み完了：{name}（時間 {dur}）'
+      },
+      vi: {
+        pageTitle: 'Chỉnh âm lượng - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Chỉnh âm lượng',
+        eyebrow: 'CÔNG CỤ ÂM THANH', h1Grad: 'Chỉnh âm lượng', h1Sub: 'Tăng hoặc giảm âm lượng',
+        pageDesc: 'Điều chỉnh âm lượng trực tuyến. Tăng lên đến 300% hoặc giảm âm lượng.',
+        toolTitle: 'Chọn tệp âm thanh', toolNote: 'Tải lên âm thanh, điều chỉnh gain và xử lý.',
+        gainLabel: 'Gain:', processBtn: '⚡ Xử lý', downloadBtn: '💾 Tải xuống',
+        warningText: '⚠️ Gain cao có thể gây méo tiếng. Khuyến nghị tối đa 200%.',
+        sectionEyebrow: 'GIỚI THIỆU', sectionTitle: 'Về công cụ chỉnh âm lượng',
+        info1T: 'Điều chỉnh chính xác', info1D: 'Điều chỉnh từ 0% đến 300% với các giá trị đặt sẵn.',
+        info2T: 'Hiệu ứng vĩnh viễn', info2D: 'Áp dụng gain trực tiếp vào dữ liệu âm thanh và xuất ra. Hiệu quả vĩnh viễn.',
+        info3T: 'Xử lý cục bộ', info3D: 'Xử lý trong trình duyệt. Tệp không được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Vui lòng chọn tệp âm thanh', statusProcessing: '🔄 Đang xử lý...',
+        statusDone: '✅ Hoàn tất! Phát thử hoặc tải xuống', statusError: '❌ Xử lý thất bại',
+        statusNoFile: '⚠️ Vui lòng chọn tệp âm thanh trước', statusLoaded: 'Đã tải: {name}（thời lượng {dur}）'
+      }
+    };
+  </script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    (function() {
+      let audioBuffer = null;
+      let audioContext = null;
+      let resultBlob = null;
+      let fileName = '';
+      const fileInput = document.getElementById('audioFile');
+      const status = document.getElementById('status');
+      const fileInfo = document.getElementById('fileInfo');
+      const processBtn = document.getElementById('processBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const audioPreview = document.getElementById('audioPreview');
+      const gainRange = document.getElementById('gainRange');
+      const gainDisplay = document.getElementById('gainDisplay');
+      const warningBox = document.getElementById('warningBox');
+      const presetBtns = document.querySelectorAll('#gainPresets button');
+
+      function getDict() { const l = localStorage.getItem('zentools_lang')||'zh'; return (window.ZT_PAGE&&window.ZT_PAGE[l])||window.ZT_PAGE.zh; }
+      function fmt(s) { if(!s||isNaN(s)) return '0:00'; const m=Math.floor(s/60); const c=Math.floor(s%60); return m+':'+String(c).padStart(2,'0'); }
+
+      gainRange.addEventListener('input', function() {
+        const pct = Math.round(parseFloat(this.value) * 100);
+        gainDisplay.textContent = pct + '%';
+        warningBox.style.display = parseFloat(this.value) > 2.0 ? 'block' : 'none';
+        presetBtns.forEach(b => b.classList.toggle('active', Math.abs(parseFloat(b.dataset.gain) - parseFloat(this.value)) < 0.05));
+      });
+      presetBtns.forEach(b => b.addEventListener('click', function() {
+        const g = parseFloat(this.dataset.gain);
+        gainRange.value = g;
+        gainDisplay.textContent = Math.round(g * 100) + '%';
+        warningBox.style.display = g > 2.0 ? 'block' : 'none';
+        presetBtns.forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+      }));
+
+      fileInput.addEventListener('change', async function() {
+        const file = this.files[0]; if (!file) return;
+        fileName = file.name.replace(/\.[^/.]+$/, '');
+        status.textContent = '🔄 ' + (getDict().statusProcessing || 'Loading...');
+        processBtn.disabled = true;
+        try {
+          const ab = await file.arrayBuffer();
+          audioContext = new AudioContext();
+          audioBuffer = await audioContext.decodeAudioData(ab);
+          fileInfo.textContent = getDict().statusLoaded.replace('{name}', file.name).replace('{dur}', fmt(audioBuffer.duration));
+          status.textContent = getDict().statusReady;
+          processBtn.disabled = false;
+        } catch(e) { status.textContent = getDict().statusError; }
+      });
+
+      window.processGain = function() {
+        if (!audioBuffer) { status.textContent = getDict().statusNoFile; return; }
+        const gain = parseFloat(gainRange.value);
+        status.textContent = getDict().statusProcessing;
+        processBtn.disabled = true;
+        try {
+          const nc = audioBuffer.numberOfChannels;
+          const sr = audioBuffer.sampleRate;
+          const len = audioBuffer.length;
+          const newBuffer = audioContext.createBuffer(nc, len, sr);
+          for (let ch = 0; ch < nc; ch++) {
+            const src = audioBuffer.getChannelData(ch);
+            const dst = newBuffer.getChannelData(ch);
+            for (let i = 0; i < len; i++) dst[i] = Math.max(-1, Math.min(1, src[i] * gain));
+          }
+          resultBlob = exportWAV(newBuffer);
+          const url = URL.createObjectURL(resultBlob);
+          audioPreview.src = url;
+          audioPreview.style.display = 'block';
+          audioPreview.load();
+          status.textContent = getDict().statusDone;
+          downloadBtn.style.display = 'inline-flex';
+        } catch(e) { status.textContent = getDict().statusError; }
+        processBtn.disabled = false;
+      };
+
+      function exportWAV(buffer) {
+        const nc = buffer.numberOfChannels, sr = buffer.sampleRate, bd = 16;
+        const bps = bd/8, ba = nc*bps, ds = buffer.length*ba, ts = 44+ds;
+        const ab = new ArrayBuffer(ts); const v = new DataView(ab);
+        function w(o, s) { for(let i=0;i<s.length;i++) v.setUint8(o+i, s.charCodeAt(i)); }
+        w(0,'RIFF'); v.setUint32(4,ts-8,true); w(8,'WAVE'); w(12,'fmt ');
+        v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,nc,true);
+        v.setUint32(24,sr,true); v.setUint32(28,sr*ba,true); v.setUint16(32,ba,true);
+        v.setUint16(34,bd,true); w(36,'data'); v.setUint32(40,ds,true);
+        let o=44; for(let i=0;i<buffer.length;i++) for(let c=0;c<nc;c++) {
+          const s=Math.max(-1,Math.min(1,buffer.getChannelData(c)[i]));
+          v.setInt16(o,s<0?s*0x8000:s*0x7FFF,true); o+=2;
+        }
+        return new Blob([ab],{type:'audio/wav'});
+      }
+
+      window.downloadAudio = function() {
+        if (!resultBlob) return;
+        const url = URL.createObjectURL(resultBlob);
+        const a = document.createElement('a');
+        a.href = url; a.download = fileName + '_volume.wav'; a.click();
+        URL.revokeObjectURL(url);
+      };
+      status.textContent = getDict().statusReady;
+    })();
+  </script>
+</body>
+</html>
