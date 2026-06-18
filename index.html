@@ -29,7 +29,7 @@
 
     .mega-menu {
       position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
-      margin-top: 6px; min-width: 600px;
+      margin-top: 6px; min-width: 680px; max-width: 90vw; max-height: 70vh; overflow-y: auto;
       background: rgba(10,12,20,0.94); backdrop-filter: blur(24px) saturate(180%);
       border: 1px solid var(--border); border-radius: 16px;
       padding: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
@@ -42,23 +42,25 @@
     }
 
     .mega-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
     }
     .mega-cat {
       grid-column: 1 / -1;
       display: flex; align-items: center; gap: 8px;
-      padding: 6px 0; border-bottom: 1px solid var(--border);
+      padding: 4px 0; margin-top: 4px; border-bottom: 1px solid var(--border);
       font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
     }
+    .mega-cat:first-child { margin-top: 0; }
     .mega-item {
-      display: flex; flex-direction: column; gap: 4px;
-      padding: 10px 12px; border-radius: 10px;
+      display: flex; flex-direction: column; gap: 2px;
+      padding: 6px 8px; border-radius: 8px;
       transition: background 0.15s;
     }
     .mega-item:hover { background: var(--glass-b); }
-    .mega-item .mi-icon { font-size: 18px; }
-    .mega-item .mi-name { font-size: 13px; font-weight: 600; }
-    .mega-item .mi-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+    .mega-item .mi-icon { font-size: 16px; }
+    .mega-item .mi-name { font-size: 12px; font-weight: 600; line-height: 1.2; }
+    .mega-item .mi-desc { display: none; }
+    .mega-empty { grid-column: 1 / -1; padding: 8px; text-align: center; color: var(--muted); font-size: 12px; }
 
     /* Hero 区 */
     .hero {
@@ -497,28 +499,27 @@
         `;
       }
 
-      // 巨型下拉菜单
+      // 巨型下拉菜单 - 显示所有分类
       const megaMenu = document.getElementById('megaMenu');
       if (megaMenu) {
-        megaMenu.innerHTML = `<div class="mega-grid">${
-          Object.keys(grouped).filter(c => grouped[c].length > 0).map((cat, ci) => {
-            const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
-            const tools = grouped[cat];
-            const catName = tCat(cats, catsEn, catsJa, catsVi, lang, cats.indexOf(cat));
-            const rows = [];
-            for (let i = 0; i < tools.length; i += 4) {
-              const chunk = tools.slice(i, i + 4);
-              rows.push(chunk.map(t => `
-                <a class="mega-item" href="${t.url}">
-                  <div class="mi-icon">${t.icon || '🔧'}</div>
-                  <div class="mi-name">${tName(t, lang)}</div>
-                  <div class="mi-desc">${tDesc(t, lang)}</div>
-                </a>
-              `).join(''));
-            }
-            return `<div class="mega-cat" style="color:${cc.color}"><span>${catName}</span><span style="font-size:11px;opacity:0.5">${tools.length}</span></div>${rows.join('')}`;
-          }).join('')
-        }</div>`;
+        const catOrder = data.categories || Object.keys(grouped);
+        let megaHtml = '<div class="mega-grid">';
+        catOrder.forEach(function(cat) {
+          const catIdx = cats.indexOf(cat);
+          const catName = tCat(cats, catsEn, catsJa, catsVi, lang, catIdx);
+          const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
+          const tls = grouped[cat] || [];
+          megaHtml += '<div class="mega-cat" style="color:' + cc.color + '"><span>' + catName + '</span><span style="font-size:11px;opacity:0.5">' + tls.length + '</span></div>';
+          if (tls.length === 0) {
+            megaHtml += '<div class="mega-empty">—</div>';
+          } else {
+            tls.forEach(function(t) {
+              megaHtml += '<a class="mega-item" href="' + t.url + '"><div class="mi-icon">' + (t.icon || '🔧') + '</div><div class="mi-name">' + tName(t, lang) + '</div></a>';
+            });
+          }
+        });
+        megaHtml += '</div>';
+        megaMenu.innerHTML = megaHtml;
       }
 
       // 工具分类区
