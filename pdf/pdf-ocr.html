@@ -1,38 +1,27 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF OCR - ZenTools</title>
-  <meta name="description" content="PDF 文字识别（OCR）工具说明与推荐。" />
-  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-ocr.html" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
-</head>
-<body>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>PDF OCR - 免费在线工具 | ZenTools</title><meta name="description" content="使用 OCR 识别 PDF 中的文字内容，支持中文、英文等多语种，免费在线使用。"/><link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-ocr.html"/><link rel="stylesheet" href="../assets/css/tool-ui.css"/><style>textarea{width:100%;min-height:200px;padding:16px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text);font-size:13px;line-height:1.5;resize:vertical;outline:none;font-family:inherit}textarea:focus{border-color:var(--border-h)}.download-btn{display:none;margin-top:20px;padding:14px 32px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;font-size:16px;font-weight:700;cursor:pointer}.download-btn:hover{opacity:.9}.progress{font-size:13px;color:var(--cyan);margin-top:8px}.ocr-status{font-size:13px;color:var(--muted);margin-top:4px}</style></head><body>
 <div class="blob blob-1"></div><div class="blob blob-2"></div>
-<div class="z-wrap">
-  <nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a>
-    <div class="nav-links">
-      <a href="/">首页</a><a href="/pdf/">PDF工具</a><a href="/tools.html">全部工具</a>
-      <select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div>
-  </nav>
-  <div class="page-header reveal">
-    <div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/pdf/">PDF工具</a><span class="breadcrumb-sep">/</span><span class="cur">PDF OCR</span></div>
-    <span class="page-eyebrow">PDF 工具</span>
-    <h1><span class="grad">PDF OCR</span><br/><span>文字识别</span></h1>
-    <p>浏览器端 OCR 识别需要加载大型识别模型，建议使用以下方案：</p>
-  </div>
-  <div class="section">
-    <div class="info-grid reveal-stagger">
-      <div class="info-card"><h4>🌐 在线 OCR 服务</h4><p>推荐使用 <strong>OnlineOCR.net</strong>、<strong>i2OCR</strong> 或 <strong>Google Drive</strong>（上传后用Google文档打开自动识别）。</p></div>
-      <div class="info-card"><h4>🖥️ 桌面软件</h4><p>Adobe Acrobat Pro 内置 OCR 功能，Tesseract OCR 是免费开源的命令行方案。</p></div>
-      <div class="info-card"><h4>📱 手机方案</h4><p>手机相机扫描类 App（如 扫描全能王、Microsoft Lens）大多自带 OCR 功能。</p></div>
-    </div>
-  </div>
-  <footer><div class="footer-inner"><div class="footer-logo">ZenTools</div>
-    <div class="footer-links"><a href="/">首页</a><a href="/pdf/">PDF工具</a><a href="/privacy.html">隐私政策</a></div>
-    <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p></div>
-  </footer>
-</div>
+<div class="z-wrap"><nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/pdf/">PDF工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/pdf/">PDF工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">PDF OCR</span></div><span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span><h1><span class="grad" data-i18n="h1Grad">PDF OCR</span><br/><span data-i18n="h1Sub">识别图片型PDF中的文字</span></h1><p data-i18n="pageDesc">对扫描件或图片型 PDF 进行 OCR 文字识别，支持中英文。</p></div>
+<div class="tool-box reveal"><h2 data-i18n="toolTitle">选择 PDF 文件</h2><p class="note" data-i18n="toolNote">选择一个扫描件或图片型 PDF，点击识别文字。</p>
+<div class="file-input-row"><input type="file" id="pdfInput" accept=".pdf"/><button class="btn-primary" onclick="doOCR()" data-i18n="ocrBtn">开始识别</button></div>
+<div class="progress" id="progress"></div><div class="ocr-status" id="ocrStatus"></div><div class="status" id="status"></div>
+<textarea id="resultArea" placeholder="识别的文字将显示在这里..." data-i18n-placeholder="resultPlace" readonly></textarea>
+<div style="margin-top:12px;"><button class="download-btn" id="downloadBtn" onclick="downloadResult()" data-i18n="downloadBtn">📥 下载为 TXT</button></div></div>
 <script src="../assets/js/tool-ui.js"></script>
-</body>
-</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<script>
+let ocrText='';function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
+pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+async function doOCR(){const file=document.getElementById('pdfInput').files[0];const status=document.getElementById('status');const progress=document.getElementById('progress');const ocrS=document.getElementById('ocrStatus');const area=document.getElementById('resultArea');const btn=document.getElementById('downloadBtn');const dict=getDict();
+if(!file){status.textContent=dict.alertNoFile;return;}
+status.textContent=dict.statusWorking;progress.textContent='';ocrS.textContent='';btn.style.display='none';area.value='';
+try{const buffer=await file.arrayBuffer();const pdf=await pdfjsLib.getDocument({data:buffer}).promise;const total=pdf.numPages;let fullText='';
+for(let i=1;i<=total;i++){const page=await pdf.getPage(i);const vp=page.getViewport({scale:2});const canvas=document.createElement('canvas');canvas.width=vp.width;canvas.height=vp.height;const ctx=canvas.getContext('2d');await page.render({canvasContext:ctx,viewport:vp}).promise;
+progress.textContent=`第 ${i}/${total} 页 OCR 中...`;ocrS.textContent='正在加载识别引擎...';
+const {data}=await Tesseract.recognize(canvas.toDataURL('image/png'),'chi_sim+eng',{logger:m=>{if(m.status==='recognizing text')ocrS.textContent=`识别中 ${Math.round(m.progress*100)}%`;}});
+fullText+=`--- 第 ${i} 页 ---\n${data.text}\n\n`;progress.textContent=`${i}/${total}`;}
+area.value=fullText;ocrText=fullText;status.textContent=dict.statusComplete.replace('{n}',total);btn.style.display='inline-flex';
+}catch(err){console.error(err);status.textContent=dict.statusError;}}
+function downloadResult(){if(!ocrText)return;const name=document.getElementById('pdfInput').files[0].name.replace('.pdf','')+'_OCR.txt';const blob=new Blob([ocrText],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
+</script></body></html>
