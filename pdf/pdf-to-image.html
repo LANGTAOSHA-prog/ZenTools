@@ -8,124 +8,9 @@
   <meta name="keywords" content="PDF转图片,PDF转PNG,PDF转JPG,在线PDF工具,ZenTools" />
   <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-to-image.html" />
 
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
   <style>
-    :root {
-      --bg:      #06070d;
-      --glass:   rgba(255,255,255,0.04);
-      --glass-b: rgba(255,255,255,0.08);
-      --cyan:    #00e5ff;
-      --purple:  #a855f7;
-      --pink:    #f43f5e;
-      --text:    #f0f4ff;
-      --muted:   #6b7a9f;
-      --border:  rgba(255,255,255,0.07);
-      --border-h:rgba(0,229,255,0.35);
-      --glow-c:  0 0 40px rgba(0,229,255,0.18);
-      --r:       20px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 1;
-    }
-
-    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
-    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
-    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
-
-    .z-wrap { position: relative; z-index: 2; }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(24px) saturate(180%);
-      background: rgba(6,7,13,0.75);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: auto; height: 64px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
-    .logo {
-      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
-    .nav-links a {
-      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
-      color: var(--muted); transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
-
-    .page-header {
-      max-width: 1200px; margin: 0 auto;
-      padding: 72px 24px 56px;
-    }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted); margin-bottom: 28px;
-    }
-    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--cyan); }
-    .breadcrumb-sep { opacity: 0.3; }
-    .breadcrumb .cur { color: var(--cyan); }
-
-    .page-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 14px;
-    }
-    .page-header h1 {
-      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
-      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
-    }
-    .page-header h1 .grad {
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
-
-    .tool-box {
-      max-width: 900px; margin: 0 auto 48px;
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 36px;
-      backdrop-filter: blur(8px);
-    }
-    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
-
-    .file-input-row {
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    }
-    .file-input-row input[type="file"] {
-      flex: 1; min-width: 280px;
-      padding: 14px 18px; border: 1px dashed rgba(255,255,255,0.15);
-      border-radius: 12px; background: rgba(255,255,255,0.02);
-      color: var(--muted); font-size: 14px; cursor: pointer;
-    }
-    .file-input-row input[type="file"]::file-selector-button {
-      border: none; background: var(--glass-b); color: var(--text);
-      padding: 8px 16px; border-radius: 8px; margin-right: 12px;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .file-input-row input[type="file"]::file-selector-button:hover { background: rgba(255,255,255,0.12); }
-
+    /* 工具专用样式 */
     .format-select {
       display: flex; gap: 12px; align-items: center; margin-top: 20px;
     }
@@ -133,21 +18,6 @@
     .format-select select {
       padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border);
       background: rgba(255,255,255,0.04); color: var(--text); font-size: 14px;
-    }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 32px; border-radius: 12px; border: none;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #000; font-size: 16px; font-weight: 700; cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    .status {
-      margin-top: 16px; color: var(--muted); font-size: 14px;
-      min-height: 22px;
     }
 
     .preview {
@@ -173,44 +43,6 @@
       font-size: 13px; font-weight: 600; transition: background 0.2s;
     }
     .page-card .download-link:hover { background: rgba(0,229,255,0.12); }
-
-    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
-    .section-head { margin-bottom: 40px; }
-    .section-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
-    }
-    .section-head h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; }
-
-    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px; backdrop-filter: blur(8px);
-    }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--cyan); }
-    .info-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
-    .footer-inner { max-width: 1200px; margin: auto; }
-    .footer-logo {
-      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      display: inline-block; margin-bottom: 16px;
-    }
-    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .footer-links a {
-      color: var(--muted); font-size: 14px; padding: 6px 12px;
-      border-radius: 8px; transition: color 0.2s, background 0.2s;
-    }
-    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
-    .footer-copy { color: var(--muted); font-size: 13px; }
-
-    @media (max-width: 1024px) { .info-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) {
-      .info-grid { grid-template-columns: 1fr; }
-      .tool-box { padding: 24px; }
-    }
   </style>
 </head>
 <body>
@@ -224,38 +56,44 @@
       <div class="nav-inner">
         <a class="logo" href="/">ZenTools<span>2.0</span></a>
         <div class="nav-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/tools.html">全部工具</a>
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
         </div>
       </div>
     </nav>
 
     <div class="page-header reveal">
       <div class="breadcrumb">
-        <a href="/">首页</a>
+        <a href="/" data-i18n="crumbHome">首页</a>
         <span class="breadcrumb-sep">/</span>
-        <a href="/pdf/">PDF工具</a>
+        <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a>
         <span class="breadcrumb-sep">/</span>
-        <span class="cur">PDF 转图片</span>
+        <span class="cur" data-i18n="crumbCur">PDF 转图片</span>
       </div>
-      <span class="page-eyebrow">PDF 工具</span>
-      <h1><span class="grad">PDF 转图片</span><br />免费在线转换</h1>
-      <p>将 PDF 文件的每一页转换为高清图片（PNG 或 JPG），本地处理保护隐私，无需上传服务器。</p>
+      <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">PDF 转图片</span><br /><span data-i18n="h1Sub">免费在线转换</span></h1>
+      <p data-i18n="pageDesc">将 PDF 文件的每一页转换为高清图片（PNG 或 JPG），本地处理保护隐私，无需上传服务器。</p>
     </div>
 
     <div class="tool-box reveal">
-      <h2>选择 PDF 文件</h2>
-      <p class="note">选择一个 PDF 文件，系统将把每一页转换为图片进行预览，并提供单页下载。</p>
+      <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
+      <p class="note" data-i18n="toolNote">选择一个 PDF 文件，系统将把每一页转换为图片进行预览，并提供单页下载。</p>
       <div class="file-input-row">
         <input type="file" id="pdfFile" accept="application/pdf,.pdf" />
-        <button class="btn-primary" id="convertBtn" type="button" onclick="convertPDF()">开始转换</button>
+        <button class="btn-primary" id="convertBtn" type="button" onclick="convertPDF()" data-i18n="convertBtn">开始转换</button>
       </div>
       <div class="format-select">
-        <label>输出格式：</label>
+        <label data-i18n="formatLabel">输出格式：</label>
         <select id="outputFormat">
-          <option value="image/png">PNG（推荐，无损）</option>
-          <option value="image/jpeg">JPG（较小体积）</option>
+          <option value="image/png" data-i18n="fmtPng">PNG（推荐，无损）</option>
+          <option value="image/jpeg" data-i18n="fmtJpg">JPG（较小体积）</option>
         </select>
       </div>
       <div class="status" id="pdfStatus"></div>
@@ -264,22 +102,22 @@
 
     <div class="section">
       <div class="section-head reveal">
-        <span class="section-eyebrow">工具说明</span>
-        <h2>了解 PDF 转图片工具</h2>
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解 PDF 转图片工具</h2>
       </div>
 
       <div class="info-grid reveal-stagger">
         <div class="info-card">
-          <h4>隐私安全</h4>
-          <p>所有转换操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。</p>
+          <h4 data-i18n="info1T">隐私安全</h4>
+          <p data-i18n="info1D">所有转换操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。</p>
         </div>
         <div class="info-card">
-          <h4>免费使用</h4>
-          <p>工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用。</p>
+          <h4 data-i18n="info2T">免费使用</h4>
+          <p data-i18n="info2D">工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用。</p>
         </div>
         <div class="info-card">
-          <h4>支持格式</h4>
-          <p>支持输出为 PNG（无损质量）或 JPG（较小体积），满足不同场景需求。</p>
+          <h4 data-i18n="info3T">支持格式</h4>
+          <p data-i18n="info3D">支持输出为 PNG（无损质量）或 JPG（较小体积），满足不同场景需求。</p>
         </div>
       </div>
     </div>
@@ -288,17 +126,130 @@
       <div class="footer-inner">
         <div class="footer-logo">ZenTools</div>
         <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/privacy.html">隐私政策</a>
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/pdf/" data-i18n="footerPdf">PDF工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
         </div>
-        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
       </div>
     </footer>
 
   </div>
 
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: 'PDF 转图片 - 免费在线工具 | ZenTools',
+        navHome: '首页', navPdf: 'PDF工具', navAll: '全部工具',
+        crumbHome: '首页', crumbPdf: 'PDF工具', crumbCur: 'PDF 转图片',
+        eyebrow: 'PDF 工具',
+        h1Grad: 'PDF 转图片', h1Sub: '免费在线转换',
+        pageDesc: '将 PDF 文件的每一页转换为高清图片（PNG 或 JPG），本地处理保护隐私，无需上传服务器。',
+        toolTitle: '选择 PDF 文件',
+        toolNote: '选择一个 PDF 文件，系统将把每一页转换为图片进行预览，并提供单页下载。',
+        convertBtn: '开始转换',
+        formatLabel: '输出格式：',
+        fmtPng: 'PNG（推荐，无损）',
+        fmtJpg: 'JPG（较小体积）',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解 PDF 转图片工具',
+        info1T: '隐私安全', info1D: '所有转换操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。',
+        info2T: '免费使用', info2D: '工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用。',
+        info3T: '支持格式', info3D: '支持输出为 PNG（无损质量）或 JPG（较小体积），满足不同场景需求。',
+        footerHome: '首页', footerPdf: 'PDF工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusWorking: '正在转换 PDF，请稍候……',
+        statusComplete: '转换完成，共 {n} 页。',
+        statusError: '处理失败，请更换文件或刷新页面后重试。',
+        alertNoFile: '请先选择一个 PDF 文件。',
+        pageLabel: '第 {n} 页',
+        downloadLabel: '下载第 {n} 页'
+      },
+      en: {
+        pageTitle: 'PDF to Image - Free Online Tool | ZenTools',
+        navHome: 'Home', navPdf: 'PDF Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbPdf: 'PDF Tools', crumbCur: 'PDF to Image',
+        eyebrow: 'PDF TOOLS',
+        h1Grad: 'PDF to Image', h1Sub: 'Free Online Converter',
+        pageDesc: 'Convert every page of a PDF to high-quality images (PNG or JPG). All processing is local and private.',
+        toolTitle: 'Select PDF File',
+        toolNote: 'Choose a PDF file. Each page will be converted to an image for preview with single-page download.',
+        convertBtn: 'Convert',
+        formatLabel: 'Output format:',
+        fmtPng: 'PNG (recommended, lossless)',
+        fmtJpg: 'JPG (smaller size)',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About PDF to Image Tool',
+        info1T: 'Privacy Safe', info1D: 'All conversion is done locally in your browser. No files are uploaded to any server.',
+        info2T: 'Free to Use', info2D: 'Completely free, no registration needed, no file limits.',
+        info3T: 'Format Support', info3D: 'Supports PNG (lossless) or JPG (smaller size) output for various needs.',
+        footerHome: 'Home', footerPdf: 'PDF Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusWorking: 'Converting PDF, please wait…',
+        statusComplete: 'Done! {n} page(s) converted.',
+        statusError: 'Processing failed. Please try a different file or refresh the page.',
+        alertNoFile: 'Please select a PDF file first.',
+        pageLabel: 'Page {n}',
+        downloadLabel: 'Download Page {n}'
+      },
+      ja: {
+        pageTitle: 'PDF を画像に変換 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navPdf: 'PDFツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbPdf: 'PDFツール', crumbCur: 'PDF を画像に',
+        eyebrow: 'PDFツール',
+        h1Grad: 'PDF を画像に', h1Sub: '無料オンライン変換',
+        pageDesc: 'PDF の各ページを高画質画像（PNG/JPG）に変換。ブラウザ内で完結し、プライバシー保護。',
+        toolTitle: 'PDF ファイルを選択',
+        toolNote: 'PDF ファイルを選択すると、各ページを画像に変換してプレビュー、個別ダウンロードできます。',
+        convertBtn: '変換する',
+        formatLabel: '出力形式：',
+        fmtPng: 'PNG（推奨、高品質）',
+        fmtJpg: 'JPG（小容量）',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: 'PDF 画像変換ツールについて',
+        info1T: 'プライバシー保護', info1D: 'すべての変換はブラウザ内で完了。サーバーにアップロードされません。',
+        info2T: '無料利用', info2D: '完全無料、登録不要、ファイル数制限なし。',
+        info3T: '対応形式', info3D: 'PNG（高品質）または JPG（小容量）に対応。',
+        footerHome: 'ホーム', footerPdf: 'PDFツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusWorking: 'PDF を変換中…',
+        statusComplete: '完了！{n} ページを変換しました。',
+        statusError: '処理に失敗しました。ファイルを変更するかページを再読み込みしてください。',
+        alertNoFile: 'PDF ファイルを選択してください。',
+        pageLabel: '{n} ページ目',
+        downloadLabel: '{n} ページ目をダウンロード'
+      },
+      vi: {
+        pageTitle: 'PDF sang Ảnh - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navPdf: 'Công cụ PDF', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbPdf: 'Công cụ PDF', crumbCur: 'PDF sang Ảnh',
+        eyebrow: 'CÔNG CỤ PDF',
+        h1Grad: 'PDF sang Ảnh', h1Sub: 'Chuyển đổi miễn phí',
+        pageDesc: 'Chuyển đổi từng trang PDF thành ảnh chất lượng cao (PNG/JPG). Xử lý cục bộ, bảo vệ quyền riêng tư.',
+        toolTitle: 'Chọn tệp PDF',
+        toolNote: 'Chọn một tệp PDF, mỗi trang sẽ được chuyển thành ảnh để xem trước và tải xuống từng trang.',
+        convertBtn: 'Chuyển đổi',
+        formatLabel: 'Định dạng đầu ra:',
+        fmtPng: 'PNG (khuyến nghị, không mất chất lượng)',
+        fmtJpg: 'JPG (dung lượng nhỏ hơn)',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ PDF sang Ảnh',
+        info1T: 'Bảo mật', info1D: 'Tất cả chuyển đổi đều hoàn tất trong trình duyệt. Không tệp nào được tải lên máy chủ.',
+        info2T: 'Miễn phí', info2D: 'Hoàn toàn miễn phí, không cần đăng ký, không giới hạn số lượng tệp.',
+        info3T: 'Định dạng hỗ trợ', info3D: 'Hỗ trợ đầu ra PNG (chất lượng cao) hoặc JPG (dung lượng nhỏ).',
+        footerHome: 'Trang chủ', footerPdf: 'Công cụ PDF', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusWorking: 'Đang chuyển đổi PDF, vui lòng chờ…',
+        statusComplete: 'Hoàn tất! Đã chuyển đổi {n} trang.',
+        statusError: 'Xử lý thất bại. Vui lòng thử tệp khác hoặc tải lại trang.',
+        alertNoFile: 'Vui lòng chọn tệp PDF trước.',
+        pageLabel: 'Trang {n}',
+        downloadLabel: 'Tải trang {n}'
+      }
+    };
+  </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="../assets/js/tool-ui.js"></script>
   <script>
     if(window.pdfjsLib){
       pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
@@ -310,12 +261,14 @@
       const status = document.getElementById("pdfStatus");
       const format = document.getElementById("outputFormat").value;
       const btn = document.getElementById("convertBtn");
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      const dict = (window.ZT_PAGE || {})[lang] || window.ZT_PAGE.zh;
 
-      if(!file){ alert("请先选择一个 PDF 文件。"); return; }
-      if(!window.pdfjsLib){ alert("转换组件尚未加载完成，请刷新页面或检查网络。"); return; }
+      if(!file){ alert(dict.alertNoFile); return; }
+      if(!window.pdfjsLib){ alert("⚠️ " + (lang === 'ja' ? 'コンポーネントが読み込まれていません。' : '组件尚未加载完成，请刷新页面或检查网络。')); return; }
 
       preview.innerHTML = "";
-      status.textContent = "正在转换 PDF，请稍候……";
+      status.textContent = dict.statusWorking;
       btn.disabled = true;
 
       try{
@@ -335,46 +288,26 @@
           card.className = "page-card";
           const img = document.createElement("img");
           img.src = imgUrl;
-          img.alt = "PDF 第 " + pageNum + " 页";
+          img.alt = dict.pageLabel.replace('{n}', pageNum);
           const p = document.createElement("p");
-          p.textContent = "第 " + pageNum + " 页";
+          p.textContent = dict.pageLabel.replace('{n}', pageNum);
           const link = document.createElement("a");
           link.className = "download-link";
           link.href = imgUrl;
           const ext = format === "image/png" ? "png" : "jpg";
           link.download = "zentools-pdf-page-" + pageNum + "." + ext;
-          link.textContent = "下载第 " + pageNum + " 页";
+          link.textContent = dict.downloadLabel.replace('{n}', pageNum);
           card.appendChild(img); card.appendChild(p); card.appendChild(link);
           preview.appendChild(card);
         }
-        status.textContent = "转换完成，共 " + pdf.numPages + " 页。";
+        status.textContent = dict.statusComplete.replace('{n}', pdf.numPages);
       }catch(err){
         console.error(err);
-        status.textContent = "处理失败，请更换文件或刷新页面后重试。";
+        status.textContent = dict.statusError;
       }finally{
         btn.disabled = false;
       }
     };
-
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
-
-    // Blob animation
-    let t = 0;
-    const b1 = document.querySelector('.blob-1');
-    const b2 = document.querySelector('.blob-2');
-    function anim(){
-      t += 0.003;
-      if(b1) b1.style.transform = `translate(${Math.sin(t)*30}px,${Math.cos(t*0.8)*20}px)`;
-      if(b2) b2.style.transform = `translate(${Math.cos(t*0.9)*25}px,${Math.sin(t)*18}px)`;
-      requestAnimationFrame(anim);
-    }
-    anim();
   </script>
 
 </body>

@@ -1,502 +1,310 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF 合并 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="将多个 PDF 文件合并成一个，免费在线使用，本地处理保护隐私，无需上传服务器。" />
+  <meta name="keywords" content="PDF合并,PDF合并工具,合并PDF,在线PDF工具,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/merge.html" />
 
-<title>PDF 合并工具 - ZenTools</title>
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    /* 工具专用样式 */
+    .file-list {
+      margin-top: 20px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .file-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      font-size: 14px; color: var(--text);
+    }
+    .file-item .file-icon { color: var(--pink); font-size: 18px; }
+    .file-item .file-size { margin-left: auto; color: var(--muted); font-size: 12px; }
 
-<meta name="description" content="ZenTools 免费在线 PDF 合并工具，支持多PDF 文件合并>
-
-<style>
-:root{
-  --bg:#0f172a;
-  --card:#111827;
-  --border:#1f2937;
-  --text:#f3f4f6;
-  --muted:#9ca3af;
-  --blue:#2563eb;
-  --green:#10b981;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
-  line-height:1.7;
-}
-
-.container{
-  max-width:1000px;
-  margin:auto;
-  padding:40px 20px;
-}
-
-a{
-  color:#60a5fa;
-  text-decoration:none;
-}
-
-.top-bar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
-}
-
-.lang-select{
-  background:#0f172a;
-  color:white;
-  border:1px solid #334155;
-  border-radius:10px;
-  padding:10px 12px;
-}
-
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:20px;
-  padding:28px;
-}
-
-h1{
-  margin-bottom:15px;
-}
-
-.desc{
-  color:var(--muted);
-  margin-bottom:25px;
-}
-
-.ad-box{
-  margin:25px 0;
-  height:110px;
-  border:2px dashed #334155;
-  border-radius:18px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#64748b;
-}
-
-input[type="file"]{
-  width:100%;
-  margin:20px 0;
-}
-
-button{
-  background:var(--blue);
-  color:white;
-  border:none;
-  padding:14px 20px;
-  border-radius:12px;
-  cursor:pointer;
-  font-size:16px;
-  font-weight:bold;
-}
-
-.download-btn{
-  display:none;
-  margin-top:20px;
-  background:var(--green);
-  color:white;
-  padding:14px 20px;
-  border-radius:12px;
-  font-weight:bold;
-}
-
-.file-list{
-  margin-top:20px;
-  color:#cbd5e1;
-}
-
-.info{
-  margin-top:40px;
-}
-
-.info h2{
-  margin-top:30px;
-  margin-bottom:10px;
-}
-
-.info p{
-  color:#cbd5e1;
-  white-space:pre-line;
-}
-
-footer{
-  margin-top:50px;
-  text-align:center;
-  color:#94a3b8;
-}
-
-@media(max-width:768px){
-
-  .container{
-    padding:25px 15px;
-  }
-
-  button,
-  .download-btn,
-  .lang-select{
-    width:100%;
-    text-align:center;
-  }
-
-}
-</style>
-
-<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    .download-btn {
+      display: none;
+      margin-top: 24px;
+      padding: 14px 32px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
+      text-align: center; transition: opacity 0.2s, transform 0.2s;
+    }
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+  </style>
 </head>
-
 <body>
 
-<div class="container">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-  <div class="top-bar">
+  <div class="z-wrap">
 
-    <a href="index.html" data-i18n="back">
-      返回首页
-    </a>
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
 
-    <select id="languageSelect" class="lang-select">
-      <option value="zh">中文</option>
-      <option value="ja">日本/option>
-      <option value="en">English</option>
-      <option value="vi">Tiếng Việt</option>
-    </select>
-
-  </div>
-
-  <div class="card">
-
-    <h1 data-i18n="title">
-      PDF 合并工具
-    </h1>
-
-    <p class="desc" data-i18n="desc">
-      免费在线 PDF 合并工具。支持多PDF 文件合并
-    </p>
-
-    <div class="ad-box" data-i18n="ad">
-      广告位（Google AdSense
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">PDF 合并</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">PDF 合并</span><br /><span data-i18n="h1Sub">免费在线合并</span></h1>
+      <p data-i18n="pageDesc">将多个 PDF 文件合并成一个，整理资料、合同、学习笔记，一步到位。</p>
     </div>
 
-    <input type="file" id="pdfInput" accept=".pdf" multiple>
-
-    <button onclick="mergePDFs()" data-i18n="mergeBtn">
-      开始合
-    </button>
-
-    <div class="file-list" id="fileList"></div>
-
-    <a id="downloadBtn" class="download-btn" download="merged.pdf" data-i18n="download">
-      下载 PDF
-    </a>
-
-    <div class="info">
-
-      <h2 data-i18n="guideTitle">使用说明</h2>
-
-      <p data-i18n="guideText">
-1. 选择多个 PDF 文件
-2. 点击开始合并
-3. 下载合并后的 PDF
-      </p>
-
-      <h2 data-i18n="privacyTitle">隐私说明</h2>
-
-      <p data-i18n="privacyText">
-PDF 合并在浏览器本地完成，正常情况下不会上传到服务器
-      </p>
-
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
+      <p class="note" data-i18n="toolNote">选择多个 PDF 文件，按顺序合并成一个文档。</p>
+      <div class="file-input-row">
+        <input type="file" id="pdfInput" accept=".pdf" multiple />
+        <button class="btn-primary" id="mergeBtn" type="button" onclick="mergePDFs()" data-i18n="mergeBtn">开始合并</button>
+      </div>
+      <div class="file-list" id="fileList"></div>
+      <div class="status" id="status"></div>
+      <button class="download-btn" id="downloadBtn" onclick="downloadMerged()" data-i18n="downloadBtn">📥 下载合并后的 PDF</button>
     </div>
 
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解 PDF 合并工具</h2>
+      </div>
+
+      <div class="info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">隐私安全</h4>
+          <p data-i18n="info1D">所有合并操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">免费使用</h4>
+          <p data-i18n="info2D">工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">操作简单</h4>
+          <p data-i18n="info3D">选择文件、点击合并、下载结果，三步完成。支持任意顺序排列的 PDF 文件合并。</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/pdf/" data-i18n="footerPdf">PDF工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+
   </div>
 
-  <footer>
-    © 2026 ZenTools. All Rights Reserved.
-  </footer>
-
-</div>
-
-<script>
-
-const languageSelect = document.getElementById("languageSelect");
-
-let currentLang = "zh";
-
-const translations = {
-
-  zh:{
-    pageTitle:"PDF 合并工具 - ZenTools",
-    back:"返回首页",
-    title:"PDF 合并工具",
-    desc:"免费在线 PDF 合并工具。支持多PDF 文件合并,
-    ad:"广告位（Google AdSense,
-    mergeBtn:"开始合,
-    download:"下载 PDF",
-    alertNoFile:"请选择 PDF 文件",
-    guideTitle:"使用说明",
-    guideText:"1. 选择多个 PDF 文件。\n2. 点击开始合并。\n3. 下载合并后的 PDF,
-    privacyTitle:"隐私说明",
-    privacyText:"PDF 合并在浏览器本地完成，正常情况下不会上传到服务器
-  },
-
-  ja:{
-    pageTitle:"PDF 結合ツー- ZenTools",
-    back:"ホームに戻る",
-    title:"PDF 結合ツー,
-    desc:"無料オンライPDF 結合ツール。複数の PDF を結合できます,
-    ad:"広告スペース（Google AdSense,
-    mergeBtn:"PDF を結,
-    download:"PDF をダウンロー,
-    alertNoFile:"PDF ファイルを選択してくださ,
-    guideTitle:"使い,
-    guideText:"1. 複数PDF を選択します。\n2. PDF を結合をクリックします。\n3. 結合後の PDF を保存します,
-    privacyTitle:"プライバシーについて",
-    privacyText:"PDF 結合はブラウザ内で行われ、通常サーバーへアップロードされません
-  },
-
-  en:{
-    pageTitle:"PDF Merger - ZenTools",
-    back:"Back to Home",
-    title:"PDF Merger",
-    desc:"Free online PDF merger tool. Merge multiple PDF files.",
-    ad:"Ad Space（Google AdSense,
-    mergeBtn:"Merge PDF",
-    download:"Download PDF",
-    alertNoFile:"Please select PDF files",
-    guideTitle:"How to Use",
-    guideText:"1. Select multiple PDF files.\n2. Click Merge PDF.\n3. Download the merged PDF.",
-    privacyTitle:"Privacy Notice",
-    privacyText:"PDF merging is completed locally in your browser and is not uploaded to a server."
-  },
-
-  vi:{
-    pageTitle:"Công cgộp PDF - ZenTools",
-    back:"Quay lại trang ch,
-    title:"Công cgộp PDF",
-    desc:"Công cgộp PDF trực tuyến miễn phí. Htrgộp nhiều file PDF.",
-    ad:"Vtrí quảng cáo（Google AdSense,
-    mergeBtn:"Bắt đầu gộp",
-    download:"Tải PDF",
-    alertNoFile:"Vui lòng chọn file PDF",
-    guideTitle:"Hướng dẫn sdụng",
-    guideText:"1. Chọn nhiều file PDF.\n2. Nhấn bắt đầu gộp.\n3. Tải file PDF sau khi gộp.",
-    privacyTitle:"Thông tin quyền riêng tư",
-    privacyText:"PDF được xlý trực tiếp trong trình duyệt và không được tải lên máy ch"
-  }
-
-};
-
-function setLanguage(lang){
-
-  currentLang = lang;
-
-  const data = translations[lang] || translations.zh;
-
-  document.documentElement.lang = lang;
-
-  document.title = data.pageTitle;
-
-  document.querySelectorAll("[data-i18n]").forEach(el=>{
-
-    const key = el.getAttribute("data-i18n");
-
-    if(data[key]){
-      el.textContent = data[key];
-    }
-
-  });
-
-  localStorage.setItem("siteLanguage", lang);
-
-}
-
-languageSelect.addEventListener("change", function(){
-
-  setLanguage(this.value);
-
-});
-
-const savedLang = localStorage.getItem("siteLanguage") || "zh";
-
-languageSelect.value = savedLang;
-
-setLanguage(savedLang);
-
-document.getElementById("pdfInput").addEventListener("change", function(){
-
-  const list = document.getElementById("fileList");
-
-  list.innerHTML = "";
-
-  Array.from(this.files).forEach(file=>{
-
-    const div = document.createElement("div");
-
-    div.textContent = file.name;
-
-    list.appendChild(div);
-
-  });
-
-});
-
-async function mergePDFs(){
-
-  const files = document.getElementById("pdfInput").files;
-
-  if(files.length === 0){
-
-    alert(translations[currentLang].alertNoFile);
-
-    return;
-
-  }
-
-  const mergedPdf = await PDFLib.PDFDocument.create();
-
-  for(const file of files){
-
-    const bytes = await file.arrayBuffer();
-
-    const pdf = await PDFLib.PDFDocument.load(bytes);
-
-    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-
-    copiedPages.forEach(page=>mergedPdf.addPage(page));
-
-  }
-
-  const mergedBytes = await mergedPdf.save();
-
-  const blob = new Blob([mergedBytes], {type:"application/pdf"});
-
-  const url = URL.createObjectURL(blob);
-
-  const downloadBtn = document.getElementById("downloadBtn");
-
-  downloadBtn.href = url;
-
-  downloadBtn.style.display = "inline-block";
-
-}
-
-<script>
-const seoData = {
-  title: "工具名称 - 免费在线工具 | ZenTools",
-  description: "免费在线工具名称，支持手机与电脑，无需安装软件,
-  keywords: "工具名称,在线工具,免费工具,ZenTools",
-  url: "https://www.ZenTools.xyz/tool.html",
-  image: "https://www.ZenTools.xyz/logo.png"
-};
-
-function setMeta(name, content){
-  let meta = document.querySelector(`meta[name="${name}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("name", name);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setProperty(property, content){
-  let meta = document.querySelector(`meta[property="${property}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("property", property);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setCanonical(url){
-  let link = document.querySelector('link[rel="canonical"]');
-  if(!link){
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-  link.setAttribute("href", url);
-}
-
-function applySEO(){
-  document.title = seoData.title;
-
-  setMeta("description", seoData.description);
-  setMeta("keywords", seoData.keywords);
-  setMeta("author", "ZenTools");
-
-  setCanonical(seoData.url);
-
-  setProperty("og:title", seoData.title);
-  setProperty("og:description", seoData.description);
-  setProperty("og:type", "website");
-  setProperty("og:url", seoData.url);
-  setProperty("og:image", seoData.image);
-
-  setMeta("twitter:card", "summary_large_image");
-  setMeta("twitter:title", seoData.title);
-  setMeta("twitter:description", seoData.description);
-}
-
-applySEO();
-</script>
-<!-- ===== 你可能还需===== -->
-<div class="recommend-section" style="max-width:1200px;margin:40px auto 0;padding:0 24px;">
-  <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">💡 你可能还需/h3>
-  <div id="recommendList" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;">
-    <div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:20px;">加载推荐...</div>
-  </div>
-</div>
-
-<script>
-(function() {
-  // 当前工具的分(从页面路径推断或手动设置)
-  const currentCategory = 'PDF工具'; // 根据页面修改: PDF工具 / 图片工具 / 音频工具 
-  const currentUrl = window.location.pathname;
-
-  fetch('/data/tools-data.json')
-    .then(r => r.ok ? r.json() : Promise.reject())
-    .then(data => {
-      if (!data?.tools) return;
-      // 筛选同分类下、且不是当前页面的工
-      const recs = data.tools.filter(t =>
-        t.category === currentCategory &&
-        t.url &&
-        t.url !== currentUrl &&
-        t.url !== '#'
-      ).slice(0, 4);
-
-      const container = document.getElementById('recommendList');
-      if (!recs.length) {
-        container.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:12px;">暂无更多工具</div>';
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: 'PDF 合并 - 免费在线工具 | ZenTools',
+        navHome: '首页', navPdf: 'PDF工具', navAll: '全部工具',
+        crumbHome: '首页', crumbPdf: 'PDF工具', crumbCur: 'PDF 合并',
+        eyebrow: 'PDF 工具',
+        h1Grad: 'PDF 合并', h1Sub: '免费在线合并',
+        pageDesc: '将多个 PDF 文件合并成一个，整理资料、合同、学习笔记，一步到位。',
+        toolTitle: '选择 PDF 文件',
+        toolNote: '选择多个 PDF 文件，按顺序合并成一个文档。',
+        mergeBtn: '开始合并',
+        downloadBtn: '📥 下载合并后的 PDF',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解 PDF 合并工具',
+        info1T: '隐私安全', info1D: '所有合并操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。',
+        info2T: '免费使用', info2D: '工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用。',
+        info3T: '操作简单', info3D: '选择文件、点击合并、下载结果，三步完成。支持任意顺序排列的 PDF 文件合并。',
+        footerHome: '首页', footerPdf: 'PDF工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '已选择 {n} 个 PDF 文件，点击「开始合并」',
+        statusWorking: '🔄 正在合并 PDF，请稍候……',
+        statusComplete: '✅ 合并完成！共 {n} 个文件已合并为一个 PDF。',
+        statusError: '❌ 处理失败，请更换文件或刷新页面后重试。',
+        alertNoFile: '⚠️ 请先选择 PDF 文件'
+      },
+      en: {
+        pageTitle: 'PDF Merger - Free Online Tool | ZenTools',
+        navHome: 'Home', navPdf: 'PDF Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbPdf: 'PDF Tools', crumbCur: 'PDF Merger',
+        eyebrow: 'PDF TOOLS',
+        h1Grad: 'PDF Merger', h1Sub: 'Free Online Tool',
+        pageDesc: 'Combine multiple PDF files into one. Perfect for organizing documents, contracts, and notes.',
+        toolTitle: 'Select PDF Files',
+        toolNote: 'Choose multiple PDF files to merge in order.',
+        mergeBtn: 'Merge PDF',
+        downloadBtn: '📥 Download Merged PDF',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About PDF Merger',
+        info1T: 'Privacy Safe', info1D: 'All processing is done locally in your browser. No files are uploaded to any server.',
+        info2T: 'Free to Use', info2D: 'Completely free, no registration needed, no file limits.',
+        info3T: 'Easy to Use', info3D: 'Select files, click merge, download result. Supports any order of PDF files.',
+        footerHome: 'Home', footerPdf: 'PDF Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: '{n} PDF file(s) selected. Click "Merge PDF"',
+        statusWorking: '🔄 Merging PDFs, please wait…',
+        statusComplete: '✅ Done! {n} file(s) merged into one PDF.',
+        statusError: '❌ Processing failed. Please try a different file or refresh the page.',
+        alertNoFile: '⚠️ Please select PDF files first'
+      },
+      ja: {
+        pageTitle: 'PDF 結合 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navPdf: 'PDFツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbPdf: 'PDFツール', crumbCur: 'PDF 結合',
+        eyebrow: 'PDFツール',
+        h1Grad: 'PDF 結合', h1Sub: '無料オンライン',
+        pageDesc: '複数の PDF ファイルを1つに結合。書類や契約書の整理に便利です。',
+        toolTitle: 'PDF ファイルを選択',
+        toolNote: '複数の PDF ファイルを選択し、順番に結合します。',
+        mergeBtn: '結合する',
+        downloadBtn: '📥 結合した PDF をダウンロード',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: 'PDF 結合ツールについて',
+        info1T: 'プライバシー保護', info1D: 'すべての処理はブラウザ内で完了。サーバーにアップロードされません。',
+        info2T: '無料利用', info2D: '完全無料、登録不要、ファイル数制限なし。',
+        info3T: '簡単操作', info3D: 'ファイルを選んで結合するだけ。好きな順序で結合できます。',
+        footerHome: 'ホーム', footerPdf: 'PDFツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '{n} 個の PDF ファイルを選択しました。「結合する」をクリック',
+        statusWorking: '🔄 PDF を結合中…',
+        statusComplete: '✅ 完了！{n} 個のファイルを結合しました。',
+        statusError: '❌ 処理に失敗しました。ファイルを変更するかページを再読み込みしてください。',
+        alertNoFile: '⚠️ PDF ファイルを選択してください'
+      },
+      vi: {
+        pageTitle: 'Gộp PDF - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navPdf: 'Công cụ PDF', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbPdf: 'Công cụ PDF', crumbCur: 'Gộp PDF',
+        eyebrow: 'CÔNG CỤ PDF',
+        h1Grad: 'Gộp PDF', h1Sub: 'Miễn phí trực tuyến',
+        pageDesc: 'Kết hợp nhiều tệp PDF thành một. Phù hợp để sắp xếp tài liệu, hợp đồng, ghi chú.',
+        toolTitle: 'Chọn tệp PDF',
+        toolNote: 'Chọn nhiều tệp PDF để gộp theo thứ tự.',
+        mergeBtn: 'Gộp PDF',
+        downloadBtn: '📥 Tải PDF đã gộp',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ gộp PDF',
+        info1T: 'Bảo mật', info1D: 'Tất cả xử lý đều hoàn tất trong trình duyệt. Không tệp nào được tải lên máy chủ.',
+        info2T: 'Miễn phí', info2D: 'Hoàn toàn miễn phí, không cần đăng ký, không giới hạn số lượng tệp.',
+        info3T: 'Dễ sử dụng', info3D: 'Chọn tệp, nhấn gộp, tải kết quả. Hỗ trợ bất kỳ thứ tự nào.',
+        footerHome: 'Trang chủ', footerPdf: 'Công cụ PDF', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Đã chọn {n} tệp PDF. Nhấn "Gộp PDF"',
+        statusWorking: '🔄 Đang gộp PDF, vui lòng chờ…',
+        statusComplete: '✅ Hoàn tất! Đã gộp {n} tệp thành một PDF.',
+        statusError: '❌ Xử lý thất bại. Vui lòng thử tệp khác hoặc tải lại trang.',
+        alertNoFile: '⚠️ Vui lòng chọn tệp PDF trước'
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    let mergedPdfBytes = null;
+
+    document.getElementById("pdfInput").addEventListener("change", function() {
+      const list = document.getElementById("fileList");
+      list.innerHTML = "";
+      const status = document.getElementById("status");
+
+      if (this.files.length === 0) {
+        status.textContent = "";
         return;
       }
-      container.innerHTML = recs.map(t =>
-        `<a href="${t.url}" style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;text-align:center;text-decoration:none;color:inherit;transition:all .2s;" onmouseover="this.style.transform='translateY(-4px)';this.style.borderColor='var(--border-hover)';" onmouseout="this.style.transform='';this.style.borderColor='';">
-          <div style="font-size:28px;">${t.icon || '🔧'}</div>
-          <div style="font-weight:600;font-size:14px;margin-top:6px;">${t.name}</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px;">${t.description || ''}</div>
-        </a>`
-      ).join('');
-    })
-    .catch(() => {
-      document.getElementById('recommendList').innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:12px;">推荐加载失败</div>';
+
+      Array.from(this.files).forEach(file => {
+        const div = document.createElement("div");
+        div.className = "file-item";
+        const size = file.size > 1024 * 1024
+          ? (file.size / 1024 / 1024).toFixed(1) + " MB"
+          : (file.size / 1024).toFixed(0) + " KB";
+        div.innerHTML = `<span class="file-icon">📄</span>${file.name}<span class="file-size">${size}</span>`;
+        list.appendChild(div);
+      });
+
+      const dict = (window.ZT_PAGE || {})[localStorage.getItem('zentools_lang') || 'zh'] || window.ZT_PAGE.zh;
+      status.textContent = dict.statusReady.replace('{n}', this.files.length);
     });
-})();
-</script>
+
+    async function mergePDFs() {
+      const files = document.getElementById("pdfInput").files;
+      const status = document.getElementById("status");
+      const btn = document.getElementById("mergeBtn");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      const dict = (window.ZT_PAGE || {})[lang] || window.ZT_PAGE.zh;
+
+      if (files.length === 0) {
+        status.textContent = dict.alertNoFile;
+        return;
+      }
+
+      if (typeof PDFLib === 'undefined') {
+        status.textContent = "⚠️ " + (lang === 'ja' ? 'コンポーネントが読み込まれていません。ページを更新してください。' : '组件尚未加载完成，请刷新页面或检查网络。');
+        return;
+      }
+
+      status.textContent = dict.statusWorking;
+      btn.disabled = true;
+      downloadBtn.style.display = "none";
+
+      try {
+        const mergedPdf = await PDFLib.PDFDocument.create();
+
+        for (const file of files) {
+          const bytes = await file.arrayBuffer();
+          const pdf = await PDFLib.PDFDocument.load(bytes);
+          const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+          copiedPages.forEach(page => mergedPdf.addPage(page));
+        }
+
+        mergedPdfBytes = await mergedPdf.save();
+        status.textContent = dict.statusComplete.replace('{n}', files.length);
+        downloadBtn.style.display = "block";
+        downloadMerged();
+
+      } catch (err) {
+        console.error(err);
+        status.textContent = dict.statusError;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function downloadMerged() {
+      if (!mergedPdfBytes) return;
+      const blob = new Blob([mergedPdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "merged.pdf";
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+
 </body>
 </html>
