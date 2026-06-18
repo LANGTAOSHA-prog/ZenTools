@@ -252,7 +252,7 @@
         <span class="section-eyebrow" data-i18n="recEyebrow">记录内容</span>
         <h2 data-i18n="recTitle">整理了哪些内容？</h2>
       </div>
-      <div class="records-grid">
+      <div class="records-grid" id="recordsGrid">
         <a class="rec-card" href="articles/my-first-pdf-tool.html">
           <div class="rec-icon" style="background:rgba(16,185,129,.12)">📄</div>
           <div class="rec-title">我的第一个 PDF 工具</div>
@@ -298,7 +298,7 @@
         <span class="section-eyebrow" data-i18n="aboutEyebrow">关于本站</span>
         <h2 data-i18n="aboutTitle">这里是什么？</h2>
       </div>
-      <div class="about-card">
+      <div class="about-card" id="aboutCard">
         <p>本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。</p>
         <p>所有内容均为个人日常整理，仅供学习和参考使用。网站内容仅供个人学习和经验分享使用，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。</p>
         <div class="notice-bar">
@@ -317,7 +317,7 @@
           <a href="/pdf/">PDF工具</a>
           <a href="/privacy.html">隐私政策</a>
         </div>
-        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+        <p class="footer-copy" id="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
         <p class="footer-copy" style="margin-top:6px;">
           <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" style="color:var(--muted);">鲁ICP备2026030242号-1</a>
           <span style="color:var(--muted);"> | </span>
@@ -339,7 +339,20 @@
         heroDesc: '一个记录日常学习、网页制作和实用方法的个人小站，配以免费在线工具箱。',
         startUse: '🛠️ 浏览工具', viewRecords: '📘 查看记录',
         recEyebrow: '记录内容', recTitle: '整理了哪些内容？',
-        aboutEyebrow: '关于本站', aboutTitle: '这里是什么？'
+        aboutEyebrow: '关于本站', aboutTitle: '这里是什么？',
+        aboutP1: '本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。',
+        aboutP2: '所有内容均为个人日常整理，仅供学习和参考使用。',
+        aboutNotice: '本站内容仅供学习参考，不涉及经营性互联网信息服务。',
+        statTools: '免费工具', statCats: '工具分类', statLocal: '本地处理',
+        toolCount: '个工具', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        records: [
+          { title:'我的第一个 PDF 工具', desc:'记录从零开始使用 VS Code 编写 PDF 工具的过程、问题和解决方法。', link:'查看内容 →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
+          { title:'个人学习笔记', desc:'记录日常学习过程中遇到的问题、理解过程和整理心得。', link:'查看内容 →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
+          { title:'网页制作记录', desc:'整理网页排版、页面结构、样式调整和常见问题处理方法。', link:'查看内容 →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
+          { title:'文件处理经验', desc:'记录文档整理、文件保存、格式处理等日常操作经验。', link:'查看内容 →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
+          { title:'图片整理方法', desc:'整理图片排版、尺寸调整、简单处理和保存方面的经验。', link:'查看内容 →', url:'image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
+          { title:'简单页面示例', desc:'保存一些个人制作的小页面示例，方便以后查看和修改。', link:'查看内容 →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
+        ]
       },
       en: {
         pageTitle: 'ZenTools - Personal Learning & Free Online Tools',
@@ -349,7 +362,20 @@
         heroDesc: 'A personal site documenting daily learning, web development tips, and practical methods, paired with a free online toolbox.',
         startUse: '🛠️ Browse Tools', viewRecords: '📘 View Notes',
         recEyebrow: 'RECORDS', recTitle: 'What\'s Inside?',
-        aboutEyebrow: 'ABOUT', aboutTitle: 'What is this?'
+        aboutEyebrow: 'ABOUT', aboutTitle: 'What is this?',
+        aboutP1: 'A personal site documenting my learning journey with computers, web development, documents, images and more.',
+        aboutP2: 'All content is personal notes for learning and reference only.',
+        aboutNotice: 'This site is for learning purposes only and does not involve commercial internet services.',
+        statTools: 'Free Tools', statCats: 'Categories', statLocal: 'Local Processing',
+        toolCount: 'tools', footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        records: [
+          { title:'My First PDF Tool', desc:'From scratch to building a PDF tool with VS Code.', link:'Read more →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
+          { title:'Learning Notes', desc:'Daily learning notes, problems and solutions.', link:'Read more →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
+          { title:'Web Design Notes', desc:'Layout tips, structure, styling and troubleshooting.', link:'Read more →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
+          { title:'File Processing', desc:'Document organization, file saving and format handling.', link:'Read more →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
+          { title:'Image Organization', desc:'Image layout, resizing, processing and storage tips.', link:'Read more →', url:'image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
+          { title:'Sample Pages', desc:'Personal demo pages for future reference.', link:'Read more →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
+        ]
       },
       ja: {
         pageTitle: 'ZenTools - 個人学習記録と無料ツール',
@@ -359,7 +385,20 @@
         heroDesc: '日常の学習、ウェブ制作、実用的な方法を記録する個人サイト。無料オンラインツールボックス付き。',
         startUse: '🛠️ ツールを見る', viewRecords: '📘 記録を見る',
         recEyebrow: '記録内容', recTitle: 'どんな内容？',
-        aboutEyebrow: '概要', aboutTitle: 'これは何？'
+        aboutEyebrow: '概要', aboutTitle: 'これは何？',
+        aboutP1: 'パソコンやウェブ、書類、画像などの学習過程で出会った問題と解決方法を記録しています。',
+        aboutP2: 'すべての内容は個人の学習と参考用です。',
+        aboutNotice: '当サイトは学習目的のみで、営利目的の情報サービスは提供しておりません。',
+        statTools: '無料ツール', statCats: 'カテゴリー', statLocal: 'ローカル処理',
+        toolCount: 'ツール', footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        records: [
+          { title:'初めてのPDFツール', desc:'VS Code で PDF ツールを作った記録。', link:'読む →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
+          { title:'学習ノート', desc:'日常の学習記録、問題と解決方法。', link:'読む →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
+          { title:'ウェブ制作記録', desc:'レイアウト、構造、スタイル調整のヒント。', link:'読む →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
+          { title:'ファイル処理', desc:'書類整理、保存、形式変換の経験。', link:'読む →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
+          { title:'画像整理方法', desc:'画像のレイアウト、サイズ調整、保存方法。', link:'読む →', url:'image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
+          { title:'サンプルページ', desc:'個人制作のページサンプル。', link:'読む →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
+        ]
       },
       vi: {
         pageTitle: 'ZenTools - Học tập cá nhân & Công cụ miễn phí',
@@ -369,129 +408,204 @@
         heroDesc: 'Trang web cá nhân ghi lại học tập hàng ngày, mẹo phát triển web và các phương pháp thực tế, kèm hộp công cụ trực tuyến miễn phí.',
         startUse: '🛠️ Xem công cụ', viewRecords: '📘 Xem ghi chép',
         recEyebrow: 'GHI CHÉP', recTitle: 'Có gì bên trong?',
-        aboutEyebrow: 'GIỚI THIỆU', aboutTitle: 'Đây là gì?'
+        aboutEyebrow: 'GIỚI THIỆU', aboutTitle: 'Đây là gì?',
+        aboutP1: 'Trang web ghi lại hành trình học tập về máy tính, phát triển web, tài liệu, hình ảnh và nhiều hơn nữa.',
+        aboutP2: 'Tất cả nội dung là ghi chép cá nhân cho mục đích học tập và tham khảo.',
+        aboutNotice: 'Trang web này chỉ dành cho mục đích học tập, không liên quan đến dịch vụ thương mại.',
+        statTools: 'Công cụ miễn phí', statCats: 'Danh mục', statLocal: 'Xử lý local',
+        toolCount: 'công cụ', footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        records: [
+          { title:'Công cụ PDF đầu tiên', desc:'Xây dựng công cụ PDF từ đầu với VS Code.', link:'Xem thêm →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
+          { title:'Ghi chép học tập', desc:'Ghi chép học tập hàng ngày, vấn đề và giải pháp.', link:'Xem thêm →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
+          { title:'Ghi chép thiết kế web', desc:'Mẹo bố cục, cấu trúc, kiểu dáng và xử lý sự cố.', link:'Xem thêm →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
+          { title:'Xử lý tệp', desc:'Sắp xếp tài liệu, lưu tệp và xử lý định dạng.', link:'Xem thêm →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
+          { title:'Phương pháp sắp xếp ảnh', desc:'Bố cục ảnh, thay đổi kích thước, xử lý và lưu trữ.', link:'Xem thêm →', url:'image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
+          { title:'Trang mẫu', desc:'Các trang demo cá nhân để tham khảo sau.', link:'Xem thêm →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
+        ]
       }
     };
   </script>
   <script src="assets/js/tool-ui.js"></script>
   <script>
-    // ===== 从 tools-data.json 加载数据 =====
-    (async function() {
-      try {
-        const res = await fetch('data/tools-data.json');
-        if (!res.ok) throw new Error('Failed to load tools data');
-        const data = await res.json();
+    // ===== 缓存数据 =====
+    let _toolsData = null;
 
-        const tools = data.tools || [];
-        const categories = data.categories || [];
+    // ===== 获取当前语言的翻译 =====
+    function getDict() {
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
+    }
 
-        // 按分类分组
-        const grouped = {};
-        tools.forEach(t => {
-          const cat = t.category || '其他';
-          if (!grouped[cat]) grouped[cat] = [];
-          grouped[cat].push(t);
-        });
+    // ===== 获取工具的多语言名称 =====
+    function tName(tool, lang) {
+      return tool['name__' + lang] || tool['name__en'] || tool.name;
+    }
+    function tDesc(tool, lang) {
+      return tool['description__' + lang] || tool['description__en'] || tool.description;
+    }
+    function tCat(cats, catsEn, catsJa, catsVi, lang, index) {
+      const map = { en: catsEn, ja: catsJa, vi: catsVi };
+      return (map[lang] && map[lang][index]) || cats[index];
+    }
 
-        // 分类颜色映射
-        const catColors = {
-          'PDF工具':   { color: '#f43145', bg: 'rgba(244,49,69,.12)' },
-          '图片工具':  { color: '#27c27b', bg: 'rgba(39,194,123,.12)' },
-          '文本工具':  { color: '#2d8cff', bg: 'rgba(45,140,255,.12)' },
-          '视频工具':  { color: '#8a45ff', bg: 'rgba(138,69,255,.12)' },
-          '音频工具':  { color: '#3278ff', bg: 'rgba(50,120,255,.12)' },
-          '生活工具':  { color: '#ffb324', bg: 'rgba(255,179,36,.12)' },
-          '金融工具':  { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
-          'AI工具':    { color: '#8b4cff', bg: 'rgba(139,76,255,.12)' },
-          '开发工具':  { color: '#22b978', bg: 'rgba(34,185,120,.12)' },
-        };
+    // ===== 分类颜色映射 =====
+    const catColors = {
+      'PDF工具': { color: '#f43145', bg: 'rgba(244,49,69,.12)' },
+      '图片工具': { color: '#27c27b', bg: 'rgba(39,194,123,.12)' },
+      '文本工具': { color: '#2d8cff', bg: 'rgba(45,140,255,.12)' },
+      '视频工具': { color: '#8a45ff', bg: 'rgba(138,69,255,.12)' },
+      '音频工具': { color: '#3278ff', bg: 'rgba(50,120,255,.12)' },
+      '生活工具': { color: '#ffb324', bg: 'rgba(255,179,36,.12)' },
+      '金融工具': { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
+      'AI工具':   { color: '#8b4cff', bg: 'rgba(139,76,255,.12)' },
+      '开发工具': { color: '#22b978', bg: 'rgba(34,185,120,.12)' },
+    };
+    const catIconMap = {
+      'PDF工具': 'PDF', '图片工具': 'IMG', '文本工具': 'T',
+      '视频工具': '▶', '音频工具': '♪', '生活工具': '☁',
+      '金融工具': '₿', 'AI工具': 'AI', '开发工具': '</>'
+    };
+    function getCatIcon(cat) { return catIconMap[cat] || '🔧'; }
 
-        // 渲染统计
-        const statsBar = document.getElementById('statsBar');
-        const totalTools = tools.length;
-        const totalCats = Object.keys(grouped).length;
+    // ===== 渲染首页 =====
+    function renderHome(data, lang) {
+      const tools = data.tools || [];
+      const cats = data.categories || [];
+      const catsEn = data.categories__en || [];
+      const catsJa = data.categories__ja || [];
+      const catsVi = data.categories__vi || [];
+      const dict = getDict();
+
+      // 按分类分组
+      const grouped = {};
+      tools.forEach(t => {
+        const cat = t.category || '其他';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(t);
+      });
+
+      // 统计条
+      const statsBar = document.getElementById('statsBar');
+      if (statsBar) {
         statsBar.innerHTML = `
-          <div class="stat-item"><div class="stat-num">${totalTools}</div><div class="stat-label">免费工具</div></div>
-          <div class="stat-item"><div class="stat-num">${totalCats}</div><div class="stat-label">工具分类</div></div>
-          <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">本地处理</div></div>
-        `;
-
-        // 渲染工具箱巨型下拉菜单
-        const megaMenu = document.getElementById('megaMenu');
-        megaMenu.innerHTML = `
-          <div class="mega-grid">
-            ${Object.keys(grouped).filter(cat => grouped[cat].length > 0).map(cat => {
-              const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
-              const tools = grouped[cat];
-              // 每个分类占一行标题，工具占 4 列
-              const rows = [];
-              // 把工具每 4 个一组分行
-              for (let i = 0; i < tools.length; i += 4) {
-                const chunk = tools.slice(i, i + 4);
-                rows.push(chunk.map(t => `
-                  <a class="mega-item" href="${t.url}">
-                    <div class="mi-icon">${t.icon || '🔧'}</div>
-                    <div class="mi-name">${t.name}</div>
-                    <div class="mi-desc">${t.description || ''}</div>
-                  </a>
-                `).join(''));
-              }
-              return `
-                <div class="mega-cat" style="color:${cc.color}">
-                  <span>${cat}</span>
-                  <span style="font-size:11px;opacity:0.5">${tools.length}</span>
-                </div>
-                ${rows.map(r => r).join('')}
-              `;
-            }).join('')}
-          </div>
-        `;
-
-        // 渲染工具分类区
-        const container = document.getElementById('toolsContainer');
-        container.innerHTML = Object.keys(grouped)
-          .filter(cat => grouped[cat].length > 0)
-          .map(cat => {
-            const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
-            const tools = grouped[cat];
-            return `
-              <div class="cat-section">
-                <div class="cat-header reveal">
-                  <div class="cat-icon" style="background:${cc.bg};color:${cc.color}">${getCatIcon(cat)}</div>
-                  <span class="cat-name">${cat}</span>
-                  <span class="cat-count">${tools.length} 个工具</span>
-                </div>
-                <div class="tools-mini-grid reveal-stagger">
-                  ${tools.map(t => `
-                    <a class="mini-card" href="${t.url}">
-                      <div class="mc-icon">${t.icon || '🔧'}</div>
-                      <div class="mc-name">${t.name}</div>
-                      <div class="mc-desc">${t.description || ''}</div>
-                    </a>
-                  `).join('')}
-                </div>
-              </div>
-            `;
-          }).join('');
-
-        function getCatIcon(cat) {
-          const map = {
-            'PDF工具': 'PDF', '图片工具': 'IMG', '文本工具': 'T',
-            '视频工具': '▶', '音频工具': '♪', '生活工具': '☁',
-            '金融工具': '₿', 'AI工具': 'AI', '开发工具': '</>'
-          };
-          return map[cat] || '🔧';
-        }
-
-      } catch (err) {
-        console.error('工具数据加载失败:', err);
-        document.getElementById('toolsContainer').innerHTML = `
-          <div class="cat-section" style="text-align:center;padding:80px 24px;">
-            <p style="color:var(--muted);font-size:16px;">⚠️ 工具数据加载失败，请刷新页面重试。</p>
-          </div>
+          <div class="stat-item"><div class="stat-num">${tools.length}</div><div class="stat-label">${dict.statTools}</div></div>
+          <div class="stat-item"><div class="stat-num">${Object.keys(grouped).length}</div><div class="stat-label">${dict.statCats}</div></div>
+          <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">${dict.statLocal}</div></div>
         `;
       }
-    })();
+
+      // 巨型下拉菜单
+      const megaMenu = document.getElementById('megaMenu');
+      if (megaMenu) {
+        megaMenu.innerHTML = `<div class="mega-grid">${
+          Object.keys(grouped).filter(c => grouped[c].length > 0).map((cat, ci) => {
+            const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
+            const tools = grouped[cat];
+            const catName = tCat(cats, catsEn, catsJa, catsVi, lang, cats.indexOf(cat));
+            const rows = [];
+            for (let i = 0; i < tools.length; i += 4) {
+              const chunk = tools.slice(i, i + 4);
+              rows.push(chunk.map(t => `
+                <a class="mega-item" href="${t.url}">
+                  <div class="mi-icon">${t.icon || '🔧'}</div>
+                  <div class="mi-name">${tName(t, lang)}</div>
+                  <div class="mi-desc">${tDesc(t, lang)}</div>
+                </a>
+              `).join(''));
+            }
+            return `<div class="mega-cat" style="color:${cc.color}"><span>${catName}</span><span style="font-size:11px;opacity:0.5">${tools.length}</span></div>${rows.join('')}`;
+          }).join('')
+        }</div>`;
+      }
+
+      // 工具分类区
+      const container = document.getElementById('toolsContainer');
+      if (container) {
+        container.innerHTML = Object.keys(grouped).filter(c => grouped[c].length > 0).map(cat => {
+          const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
+          const tools = grouped[cat];
+          const catName = tCat(cats, catsEn, catsJa, catsVi, lang, cats.indexOf(cat));
+          return `<div class="cat-section">
+            <div class="cat-header reveal">
+              <div class="cat-icon" style="background:${cc.bg};color:${cc.color}">${getCatIcon(cat)}</div>
+              <span class="cat-name">${catName}</span>
+              <span class="cat-count">${tools.length} ${dict.toolCount}</span>
+            </div>
+            <div class="tools-mini-grid reveal-stagger">
+              ${tools.map(t => `
+                <a class="mini-card" href="${t.url}">
+                  <div class="mc-icon">${t.icon || '🔧'}</div>
+                  <div class="mc-name">${tName(t, lang)}</div>
+                  <div class="mc-desc">${tDesc(t, lang)}</div>
+                </a>
+              `).join('')}
+            </div>
+          </div>`;
+        }).join('');
+      }
+
+      // 个人记录区
+      const recordsGrid = document.getElementById('recordsGrid');
+      if (recordsGrid && dict.records) {
+        recordsGrid.innerHTML = dict.records.map(r => `
+          <a class="rec-card" href="${r.url}">
+            <div class="rec-icon" style="background:${r.bg}">${r.icon}</div>
+            <div class="rec-title">${r.title}</div>
+            <div class="rec-desc">${r.desc}</div>
+            <span class="rec-link">${r.link}</span>
+          </a>
+        `).join('');
+      }
+
+      // 关于区 + 页脚
+      const aboutCard = document.getElementById('aboutCard');
+      if (aboutCard) {
+        aboutCard.innerHTML = `
+          <p>${dict.aboutP1}</p>
+          <p>${dict.aboutP2}</p>
+          <div class="notice-bar"><span style="font-size:18px;">💡</span><p><strong>${dict.aboutTitle}：</strong>${dict.aboutNotice}</p></div>
+        `;
+      }
+      const footerCopy = document.getElementById('footerCopy');
+      if (footerCopy) footerCopy.textContent = dict.footerCopy;
+
+      // 重新触发滚动动画
+      setTimeout(() => {
+        document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
+          el.classList.remove('visible');
+          const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+          }, { threshold: 0.08 });
+          obs.observe(el);
+        });
+      }, 100);
+    }
+
+    // ===== 加载并渲染 =====
+    async function loadAndRender(lang) {
+      if (!_toolsData) {
+        try {
+          const res = await fetch('data/tools-data.json');
+          if (!res.ok) throw new Error('Failed');
+          _toolsData = await res.json();
+        } catch (err) {
+          console.error('工具数据加载失败:', err);
+          const container = document.getElementById('toolsContainer');
+          if (container) container.innerHTML = '<div class="cat-section" style="text-align:center;padding:80px 24px;"><p style="color:var(--muted);font-size:16px;">⚠️ 工具数据加载失败，请刷新页面重试。</p></div>';
+          return;
+        }
+      }
+      renderHome(_toolsData, lang);
+    }
+
+    // ===== 监听语言切换 =====
+    window.addEventListener('zt-langchange', function(e) {
+      loadAndRender(e.detail.lang);
+    });
+
+    // ===== 初始加载 =====
+    const initLang = localStorage.getItem('zentools_lang') || 'zh';
+    loadAndRender(initLang);
   </script>
 
 </body>

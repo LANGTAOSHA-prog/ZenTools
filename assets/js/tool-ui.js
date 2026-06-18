@@ -31,6 +31,9 @@
     });
 
     localStorage.setItem('zentools_lang', lang);
+
+    // 触发语言变更事件，让动态内容跟随切换
+    window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang, dict: dict } }));
   };
 
   // 语言选择器初始化
