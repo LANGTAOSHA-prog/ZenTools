@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>音频裁剪 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="在线裁剪音频文件，选择开始和结束时间截取片段，支持 MP3/WAV/OGG 格式，免费浏览器本地处理。" />
+  <meta name="keywords" content="音频裁剪,音频截取,音频剪切,音频编辑,在线音频裁剪,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/audio/audio-cutter.html" />
+
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .cutter-controls {
+      display: flex; flex-direction: column; gap: 20px; margin-top: 20px;
+    }
+    .cutter-row {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+    .cutter-row label {
+      font-size: 13px; color: var(--muted); display: flex;
+      align-items: center; gap: 8px;
+    }
+    .cutter-row input[type="number"] {
+      width: 80px; padding: 10px 12px; border-radius: 10px;
+      border: 1px solid var(--border); background: rgba(255,255,255,0.04);
+      color: var(--text); font-size: 14px; outline: none;
+    }
+    .cutter-row input[type="number"]:focus { border-color: var(--border-h); }
+
+    .btn-group {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+    }
+    .btn-cut {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-cut:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-cut:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-cut-primary { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #000; }
+    .btn-cut-download { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; }
+
+    .waveform-container {
+      width: 100%; height: 100px; margin-top: 16px;
+      border-radius: 12px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); overflow: hidden;
+      position: relative;
+    }
+    .waveform-container canvas {
+      width: 100%; height: 100%; display: block;
+    }
+
+    .time-display {
+      display: flex; justify-content: space-between; font-size: 13px;
+      color: var(--muted); margin-top: 8px;
+    }
+
+    .file-info {
+      font-size: 13px; color: var(--muted); margin-top: 8px;
+    }
+
+    .status-cut {
+      margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px;
+    }
+
+    @media (max-width: 640px) {
+      .cutter-row { flex-direction: column; align-items: stretch; }
+      .btn-group { flex-direction: column; }
+      .btn-cut { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/audio/" data-i18n="navAudio">音频工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">音频裁剪</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">音频裁剪</span><br /><span data-i18n="h1Sub">截取音频片段</span></h1>
+      <p data-i18n="pageDesc">在线裁剪音频文件，选择开始和结束时间截取想要的片段，免费浏览器本地处理。</p>
+    </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">选择音频文件</h2>
+      <p class="note" data-i18n="toolNote">上传音频文件，拖动滑块或输入时间设置裁剪范围，点击裁剪按钮截取片段。</p>
+      <div class="file-input-row">
+        <input type="file" id="audioFile" accept="audio/*" />
+      </div>
+      <div class="file-info" id="fileInfo"></div>
+
+      <div class="waveform-container" id="waveformContainer">
+        <canvas id="waveform"></canvas>
+      </div>
+      <div class="time-display">
+        <span id="timeStart">0:00</span>
+        <span id="timeDuration">0:00</span>
+        <span id="timeEnd">0:00</span>
+      </div>
+
+      <div class="cutter-controls">
+        <div class="cutter-row">
+          <label><span data-i18n="startLabel">开始：</span>
+            <input type="number" id="startMin" value="0" min="0" step="1" /> :
+            <input type="number" id="startSec" value="0" min="0" max="59" step="1" />
+          </label>
+          <label><span data-i18n="endLabel">结束：</span>
+            <input type="number" id="endMin" value="0" min="0" step="1" /> :
+            <input type="number" id="endSec" value="0" min="0" max="59" step="1" />
+          </label>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-cut btn-cut-primary" id="cutBtn" onclick="cutAudio()" disabled data-i18n="cutBtn">✂️ 裁剪</button>
+        <button class="btn-cut btn-cut-download" id="downloadBtn" onclick="downloadCut()" style="display:none" data-i18n="downloadBtn">💾 下载裁剪后的音频</button>
+      </div>
+      <div class="status-cut" id="status"></div>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解音频裁剪工具</h2>
+      </div>
+      <div class="info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">精确裁剪</h4>
+          <p data-i18n="info1D">支持以秒为单位精确设置裁剪范围，截取音频中的任意片段，满足各种需求。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">广泛兼容</h4>
+          <p data-i18n="info2D">支持 MP3、WAV、OGG、M4A 等常见音频格式，上传后即可预览波形。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">本地处理</h4>
+          <p data-i18n="info3D">音频裁剪在浏览器本地完成，文件不会上传到任何服务器，保护你的隐私。</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '音频裁剪 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '音频裁剪',
+        eyebrow: '音频工具',
+        h1Grad: '音频裁剪', h1Sub: '截取音频片段',
+        pageDesc: '在线裁剪音频文件，选择开始和结束时间截取想要的片段，免费浏览器本地处理。',
+        toolTitle: '选择音频文件',
+        toolNote: '上传音频文件，输入时间设置裁剪范围，点击裁剪按钮截取片段。',
+        startLabel: '开始：',
+        endLabel: '结束：',
+        cutBtn: '✂️ 裁剪',
+        downloadBtn: '💾 下载裁剪后的音频',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解音频裁剪工具',
+        info1T: '精确裁剪', info1D: '支持以秒为单位精确设置裁剪范围，截取音频中的任意片段，满足各种需求。',
+        info2T: '广泛兼容', info2D: '支持 MP3、WAV、OGG、M4A 等常见音频格式，上传后即可预览波形。',
+        info3T: '本地处理', info3D: '音频裁剪在浏览器本地完成，文件不会上传到任何服务器，保护你的隐私。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '请选择音频文件',
+        statusLoaded: '已加载：{name}（{dur}）',
+        statusCutting: '🔄 正在裁剪...',
+        statusDone: '✅ 裁剪完成！点击下载按钮保存',
+        statusError: '❌ 裁剪失败，请重试',
+        statusNoFile: '⚠️ 请先选择音频文件',
+        statusInvalidTime: '⚠️ 开始时间不能晚于结束时间'
+      },
+      en: {
+        pageTitle: 'Audio Cutter - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Audio Cutter',
+        eyebrow: 'AUDIO TOOLS',
+        h1Grad: 'Audio Cutter', h1Sub: 'Cut Audio Clips',
+        pageDesc: 'Cut and trim audio files online. Select start and end times to extract the segment you want.',
+        toolTitle: 'Select Audio File',
+        toolNote: 'Upload an audio file, set the time range, and cut to get your clip.',
+        startLabel: 'Start:',
+        endLabel: 'End:',
+        cutBtn: '✂️ Cut',
+        downloadBtn: '💾 Download Cut Audio',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About Audio Cutter',
+        info1T: 'Precise Cutting', info1D: 'Set the cut range with second-level precision. Extract any segment from your audio.',
+        info2T: 'Broad Compatibility', info2D: 'Supports MP3, WAV, OGG, M4A and other common audio formats.',
+        info3T: 'Local Processing', info3D: 'Audio cutting is done locally in your browser. No files uploaded to servers.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Please select an audio file',
+        statusLoaded: 'Loaded: {name} ({dur})',
+        statusCutting: '🔄 Cutting...',
+        statusDone: '✅ Done! Click download to save',
+        statusError: '❌ Cut failed, please try again',
+        statusNoFile: '⚠️ Please select an audio file first',
+        statusInvalidTime: '⚠️ Start time cannot be after end time'
+      },
+      ja: {
+        pageTitle: '音声カッター - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: '音声カッター',
+        eyebrow: '音声ツール',
+        h1Grad: '音声カッター', h1Sub: '音声クリップをカット',
+        pageDesc: '音声ファイルをオンラインでカット。開始時間と終了時間を指定して目的の部分を抽出。',
+        toolTitle: '音声ファイルを選択',
+        toolNote: '音声ファイルをアップロードし、時間範囲を設定してカット。',
+        startLabel: '開始：',
+        endLabel: '終了：',
+        cutBtn: '✂️ カット',
+        downloadBtn: '💾 カットした音声をダウンロード',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: '音声カッターについて',
+        info1T: '正確なカット', info1D: '秒単位で精度の高いカットが可能。任意の部分を抽出。',
+        info2T: '幅広い互換性', info2D: 'MP3、WAV、OGG、M4Aなど一般的な形式に対応。',
+        info3T: 'ローカル処理', info3D: 'すべてブラウザ内で処理。ファイルはサーバーに送信されません。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '音声ファイルを選択してください',
+        statusLoaded: '読み込み完了：{name}（{dur}）',
+        statusCutting: '🔄 カット中...',
+        statusDone: '✅ 完了！ダウンロードして保存',
+        statusError: '❌ カット失敗、もう一度お試しください',
+        statusNoFile: '⚠️ 音声ファイルを選択してください',
+        statusInvalidTime: '⚠️ 開始時間は終了時間より前でなければなりません'
+      },
+      vi: {
+        pageTitle: 'Cắt âm thanh - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Cắt âm thanh',
+        eyebrow: 'CÔNG CỤ ÂM THANH',
+        h1Grad: 'Cắt âm thanh', h1Sub: 'Trích xuất đoạn âm thanh',
+        pageDesc: 'Cắt và chỉnh sửa tệp âm thanh trực tuyến. Chọn thời gian bắt đầu và kết thúc để trích xuất.',
+        toolTitle: 'Chọn tệp âm thanh',
+        toolNote: 'Tải lên tệp âm thanh, đặt phạm vi thời gian và cắt.',
+        startLabel: 'Bắt đầu:',
+        endLabel: 'Kết thúc:',
+        cutBtn: '✂️ Cắt',
+        downloadBtn: '💾 Tải âm thanh đã cắt',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ cắt âm thanh',
+        info1T: 'Cắt chính xác', info1D: 'Cắt với độ chính xác đến từng giây. Trích xuất bất kỳ đoạn nào.',
+        info2T: 'Tương thích rộng', info2D: 'Hỗ trợ MP3, WAV, OGG, M4A và các định dạng phổ biến khác.',
+        info3T: 'Xử lý cục bộ', info3D: 'Xử lý trong trình duyệt. Tệp không được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Vui lòng chọn tệp âm thanh',
+        statusLoaded: 'Đã tải: {name}（{dur}）',
+        statusCutting: '🔄 Đang cắt...',
+        statusDone: '✅ Hoàn tất! Nhấn tải xuống để lưu',
+        statusError: '❌ Cắt thất bại, vui lòng thử lại',
+        statusNoFile: '⚠️ Vui lòng chọn tệp âm thanh trước',
+        statusInvalidTime: '⚠️ Thời gian bắt đầu không thể sau thời gian kết thúc'
+      }
+    };
+  </script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    (function() {
+      let audioBuffer = null;
+      let audioContext = null;
+      let cutBlob = null;
+      let fileName = '';
+
+      const fileInput = document.getElementById('audioFile');
+      const status = document.getElementById('status');
+      const fileInfo = document.getElementById('fileInfo');
+      const cutBtn = document.getElementById('cutBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const startMin = document.getElementById('startMin');
+      const startSec = document.getElementById('startSec');
+      const endMin = document.getElementById('endMin');
+      const endSec = document.getElementById('endSec');
+      const timeStart = document.getElementById('timeStart');
+      const timeDuration = document.getElementById('timeDuration');
+      const timeEnd = document.getElementById('timeEnd');
+      const canvas = document.getElementById('waveform');
+      const ctx = canvas.getContext('2d');
+
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth * 2;
+        canvas.height = container.clientHeight * 2;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function getDict() {
+        const lang = localStorage.getItem('zentools_lang') || 'zh';
+        return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
+      }
+
+      function formatTime(seconds) {
+        if (!seconds || isNaN(seconds)) return '0:00';
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return m + ':' + String(s).padStart(2, '0');
+      }
+
+      function drawWaveform(buffer) {
+        const data = buffer.getChannelData(0);
+        const step = Math.ceil(data.length / canvas.width);
+        const amp = canvas.height / 2;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(0,229,255,0.03)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.strokeStyle = '#00e5ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+
+        for (let i = 0; i < canvas.width; i++) {
+          let min = 1.0;
+          let max = -1.0;
+          for (let j = 0; j < step; j++) {
+            const idx = i * step + j;
+            if (idx < data.length) {
+              const datum = data[idx];
+              if (datum < min) min = datum;
+              if (datum > max) max = datum;
+            }
+          }
+          ctx.moveTo(i, (1 + min) * amp);
+          ctx.lineTo(i, (1 + max) * amp);
+        }
+        ctx.stroke();
+      }
+
+      fileInput.addEventListener('change', async function() {
+        const file = this.files[0];
+        if (!file) return;
+
+        fileName = file.name.replace(/\.[^/.]+$/, '');
+        status.textContent = '🔄 ' + (getDict().statusCutting || 'Loading...');
+        cutBtn.disabled = true;
+
+        try {
+          const arrayBuffer = await file.arrayBuffer();
+          audioContext = new AudioContext();
+          audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+
+          const duration = audioBuffer.duration;
+          fileInfo.textContent = getDict().statusLoaded
+            .replace('{name}', file.name)
+            .replace('{dur}', formatTime(duration));
+
+          drawWaveform(audioBuffer);
+
+          // 更新时间显示
+          timeDuration.textContent = formatTime(duration);
+          timeStart.textContent = '0:00';
+          timeEnd.textContent = formatTime(duration);
+
+          // 设置结束时间输入框
+          const durMin = Math.floor(duration / 60);
+          const durSec = Math.floor(duration % 60);
+          endMin.value = durMin;
+          endSec.value = durSec;
+          endMin.max = durMin + 1;
+
+          status.textContent = getDict().statusReady;
+          cutBtn.disabled = false;
+        } catch(e) {
+          status.textContent = '❌ ' + (getDict().statusError || 'Error loading file');
+          fileInfo.textContent = '';
+          cutBtn.disabled = true;
+        }
+      });
+
+      window.cutAudio = function() {
+        if (!audioBuffer) {
+          status.textContent = getDict().statusNoFile;
+          return;
+        }
+
+        const start = parseInt(startMin.value) * 60 + parseInt(startSec.value);
+        const end = parseInt(endMin.value) * 60 + parseInt(endSec.value);
+
+        if (start >= end) {
+          status.textContent = getDict().statusInvalidTime;
+          return;
+        }
+
+        if (end > audioBuffer.duration) {
+          // 自动调整到音频时长
+          endMin.value = Math.floor(audioBuffer.duration / 60);
+          endSec.value = Math.floor(audioBuffer.duration % 60);
+        }
+
+        status.textContent = getDict().statusCutting;
+        cutBtn.disabled = true;
+
+        try {
+          const sampleRate = audioBuffer.sampleRate;
+          const startSample = Math.floor(start * sampleRate);
+          const endSample = Math.floor(Math.min(end, audioBuffer.duration) * sampleRate);
+          const length = endSample - startSample;
+
+          const newBuffer = audioContext.createBuffer(
+            audioBuffer.numberOfChannels,
+            length,
+            sampleRate
+          );
+
+          for (let ch = 0; ch < audioBuffer.numberOfChannels; ch++) {
+            const oldData = audioBuffer.getChannelData(ch);
+            const newData = newBuffer.getChannelData(ch);
+            for (let i = 0; i < length; i++) {
+              newData[i] = oldData[startSample + i];
+            }
+          }
+
+          // 导出为 WAV
+          const wavBlob = exportWAV(newBuffer);
+          cutBlob = wavBlob;
+
+          status.textContent = getDict().statusDone;
+          downloadBtn.style.display = 'inline-flex';
+          cutBtn.disabled = false;
+        } catch(e) {
+          status.textContent = getDict().statusError;
+          cutBtn.disabled = false;
+        }
+      };
+
+      function exportWAV(buffer) {
+        const numChannels = buffer.numberOfChannels;
+        const sampleRate = buffer.sampleRate;
+        const format = 1; // PCM
+        const bitDepth = 16;
+
+        const bytesPerSample = bitDepth / 8;
+        const blockAlign = numChannels * bytesPerSample;
+        const dataSize = buffer.length * blockAlign;
+        const totalSize = 44 + dataSize;
+
+        const arrayBuffer = new ArrayBuffer(totalSize);
+        const view = new DataView(arrayBuffer);
+
+        // WAV header
+        writeString(view, 0, 'RIFF');
+        view.setUint32(4, totalSize - 8, true);
+        writeString(view, 8, 'WAVE');
+        writeString(view, 12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, format, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * blockAlign, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitDepth, true);
+        writeString(view, 36, 'data');
+        view.setUint32(40, dataSize, true);
+
+        // 音频数据
+        let offset = 44;
+        for (let i = 0; i < buffer.length; i++) {
+          for (let ch = 0; ch < numChannels; ch++) {
+            const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
+            const val = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+            view.setInt16(offset, val, true);
+            offset += 2;
+          }
+        }
+
+        return new Blob([arrayBuffer], { type: 'audio/wav' });
+      }
+
+      function writeString(view, offset, str) {
+        for (let i = 0; i < str.length; i++) {
+          view.setUint8(offset + i, str.charCodeAt(i));
+        }
+      }
+
+      window.downloadCut = function() {
+        if (!cutBlob) return;
+        const url = URL.createObjectURL(cutBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName + '_cut.wav';
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      status.textContent = getDict().statusReady;
+    })();
+  </script>
+</body>
+</html>

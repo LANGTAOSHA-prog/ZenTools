@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>在线录音 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="直接在浏览器中录制音频，支持暂停和下载为 MP3/WAV 格式，免费在线使用，无需安装任何软件。" />
+  <meta name="keywords" content="在线录音,麦克风录音,音频录制,录音工具,浏览器录音,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/audio/voice-recorder.html" />
+
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .recorder-controls {
+      display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; align-items: center;
+    }
+    .btn-group {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+    }
+    .btn-rec {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-rec:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-rec:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-start-rec { background: linear-gradient(135deg, var(--pink), #f97316); color: #fff; }
+    .btn-start-rec.recording { animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(244,63,94,0.4)} 50%{box-shadow:0 0 0 12px rgba(244,63,94,0)} }
+    .btn-pause-rec { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid var(--border); }
+    .btn-stop-rec { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+    .btn-download { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #000; }
+
+    .timer {
+      font-size: 36px; font-weight: 300; font-variant-numeric: tabular-nums;
+      color: var(--text); text-align: center; padding: 20px 0;
+      letter-spacing: 2px;
+    }
+    .timer.recording { color: var(--pink); }
+
+    .visualizer {
+      width: 100%; height: 60px; margin-top: 16px;
+      border-radius: 12px; background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); overflow: hidden;
+    }
+    .visualizer canvas {
+      width: 100%; height: 100%; display: block;
+    }
+
+    .format-select {
+      display: flex; align-items: center; gap: 12px; margin-top: 20px;
+    }
+    .format-select select {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; color: var(--text);
+      font-size: 14px; outline: none; cursor: pointer;
+    }
+    .format-select select:focus { border-color: var(--border-h); }
+    .format-select label { font-size: 13px; color: var(--muted); }
+
+    .recordings-list {
+      margin-top: 20px;
+    }
+    .recording-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+    .recording-item audio { flex: 1; min-width: 200px; height: 40px; }
+    .recording-item .rec-name { font-size: 13px; color: var(--muted); min-width: 80px; }
+    .recording-item .rec-size { font-size: 12px; color: var(--muted); }
+
+    .status-rec {
+      margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px;
+    }
+
+    @media (max-width: 640px) {
+      .btn-group { flex-direction: column; }
+      .btn-rec { justify-content: center; }
+      .recording-item { flex-direction: column; }
+      .recording-item audio { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/audio/" data-i18n="navAudio">音频工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">在线录音</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">在线录音</span><br /><span data-i18n="h1Sub">浏览器直接录制</span></h1>
+      <p data-i18n="pageDesc">直接在浏览器中录制音频，支持暂停和下载，无需安装任何软件，免费使用。</p>
+    </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">录音控制</h2>
+      <p class="note" data-i18n="toolNote">点击「开始录音」按钮，允许麦克风权限后即可开始录制。录制完成后可试听和下载。</p>
+
+      <div class="format-select">
+        <label><span data-i18n="formatLabel">输出格式：</span>
+          <select id="formatSelect">
+            <option value="audio/webm;codecs=opus">WebM (Opus)</option>
+            <option value="audio/wav">WAV</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="timer" id="timer">00:00</div>
+
+      <div class="visualizer">
+        <canvas id="visualizer"></canvas>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-rec btn-start-rec" id="startBtn" onclick="startRecording()" data-i18n="startBtn">⏺ 开始录音</button>
+        <button class="btn-rec btn-pause-rec" id="pauseBtn" onclick="pauseRecording()" disabled data-i18n="pauseBtn">⏸ 暂停</button>
+        <button class="btn-rec btn-stop-rec" id="stopBtn" onclick="stopRecording()" disabled data-i18n="stopBtn">⏹ 停止</button>
+      </div>
+
+      <div class="status-rec" id="status"></div>
+
+      <div class="recordings-list" id="recordingsList"></div>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解在线录音工具</h2>
+      </div>
+      <div class="info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">即开即用</h4>
+          <p data-i18n="info1D">无需下载安装任何软件，打开网页即可录制音频，支持暂停和继续录制。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">可视化反馈</h4>
+          <p data-i18n="info2D">实时音频波形可视化，录音时长精确显示，让你对录音状态一目了然。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">灵活导出</h4>
+          <p data-i18n="info3D">支持 WebM 和 WAV 格式导出，录制完成后可以直接试听或下载保存。</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '在线录音 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '在线录音',
+        eyebrow: '音频工具',
+        h1Grad: '在线录音', h1Sub: '浏览器直接录制',
+        pageDesc: '直接在浏览器中录制音频，支持暂停和下载，无需安装任何软件，免费使用。',
+        toolTitle: '录音控制',
+        toolNote: '点击「开始录音」按钮，允许麦克风权限后即可开始录制。录制完成后可试听和下载。',
+        formatLabel: '输出格式：',
+        startBtn: '⏺ 开始录音',
+        pauseBtn: '⏸ 暂停',
+        stopBtn: '⏹ 停止',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解在线录音工具',
+        info1T: '即开即用', info1D: '无需下载安装任何软件，打开网页即可录制音频，支持暂停和继续录制。',
+        info2T: '可视化反馈', info2D: '实时音频波形可视化，录音时长精确显示，让你对录音状态一目了然。',
+        info3T: '灵活导出', info3D: '支持 WebM 和 WAV 格式导出，录制完成后可以直接试听或下载保存。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '点击「开始录音」按钮开始录制',
+        statusRecording: '🔴 录制中...',
+        statusPaused: '⏸ 已暂停',
+        statusStopped: '✅ 录制完成',
+        statusNoSupport: '⚠️ 您的浏览器不支持录音功能，请使用 Chrome 或 Edge 浏览器。',
+        statusNoMic: '⚠️ 未检测到麦克风或麦克风权限被拒绝',
+        recTitle: '录音',
+        downloadBtn: '💾 下载',
+        btnDelete: '🗑',
+        paused: '已暂停',
+        recording: '录制中'
+      },
+      en: {
+        pageTitle: 'Voice Recorder - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Voice Recorder',
+        eyebrow: 'AUDIO TOOLS',
+        h1Grad: 'Voice Recorder', h1Sub: 'Record in Browser',
+        pageDesc: 'Record audio directly in your browser. Supports pause/resume and download. No software installation needed.',
+        toolTitle: 'Recording Controls',
+        toolNote: 'Click "Start Recording", allow microphone access, and begin recording.',
+        formatLabel: 'Format:',
+        startBtn: '⏺ Start Recording',
+        pauseBtn: '⏸ Pause',
+        stopBtn: '⏹ Stop',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About Voice Recorder',
+        info1T: 'Ready to Use', info1D: 'No installation needed. Open the page and start recording immediately. Supports pause and resume.',
+        info2T: 'Visual Feedback', info2D: 'Real-time audio waveform visualization and precise recording duration display.',
+        info3T: 'Flexible Export', info3D: 'Export as WebM or WAV format. Preview or download your recordings instantly.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Click "Start Recording" to begin',
+        statusRecording: '🔴 Recording...',
+        statusPaused: '⏸ Paused',
+        statusStopped: '✅ Recording complete',
+        statusNoSupport: '⚠️ Your browser does not support audio recording. Please use Chrome or Edge.',
+        statusNoMic: '⚠️ No microphone detected or permission denied',
+        recTitle: 'Recording',
+        downloadBtn: '💾 Download',
+        btnDelete: '🗑',
+        paused: 'Paused',
+        recording: 'Recording'
+      },
+      ja: {
+        pageTitle: 'ボイスレコーダー - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: 'ボイスレコーダー',
+        eyebrow: '音声ツール',
+        h1Grad: 'ボイスレコーダー', h1Sub: 'ブラウザで録音',
+        pageDesc: 'ブラウザで直接音声を録音。一時停止/再開に対応。ダウンロード可能。',
+        toolTitle: '録音コントロール',
+        toolNote: '「録音開始」をクリックし、マイクを許可して録音を開始します。',
+        formatLabel: 'フォーマット：',
+        startBtn: '⏺ 録音開始',
+        pauseBtn: '⏸ 一時停止',
+        stopBtn: '⏹ 停止',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: 'ボイスレコーダーについて',
+        info1T: 'すぐ使える', info1D: 'インストール不要。ページを開いてすぐ録音。一時停止/再開対応。',
+        info2T: 'ビジュアル表示', info2D: 'リアルタイム波形表示と正確な録音時間表示。',
+        info3T: '柔軟な出力', info3D: 'WebMまたはWAV形式でエクスポート。録音後すぐに再生・ダウンロード。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '「録音開始」をクリックして開始',
+        statusRecording: '🔴 録音中...',
+        statusPaused: '⏸ 一時停止中',
+        statusStopped: '✅ 録音完了',
+        statusNoSupport: '⚠️ お使いのブラウザは録音に対応していません。ChromeまたはEdgeをご利用ください。',
+        statusNoMic: '⚠️ マイクが見つからないか、権限が拒否されました',
+        recTitle: '録音',
+        downloadBtn: '💾 ダウンロード',
+        btnDelete: '🗑',
+        paused: '一時停止中',
+        recording: '録音中'
+      },
+      vi: {
+        pageTitle: 'Ghi âm trực tuyến - Công cụ miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Ghi âm trực tuyến',
+        eyebrow: 'CÔNG CỤ ÂM THANH',
+        h1Grad: 'Ghi âm trực tuyến', h1Sub: 'Ghi âm trong trình duyệt',
+        pageDesc: 'Ghi âm trực tiếp trong trình duyệt. Hỗ trợ tạm dừng/tiếp tục và tải xuống.',
+        toolTitle: 'Điều khiển ghi âm',
+        toolNote: 'Nhấn "Bắt đầu ghi âm", cho phép truy cập micrô và bắt đầu ghi.',
+        formatLabel: 'Định dạng:',
+        startBtn: '⏺ Bắt đầu ghi âm',
+        pauseBtn: '⏸ Tạm dừng',
+        stopBtn: '⏹ Dừng',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ ghi âm',
+        info1T: 'Sẵn sàng sử dụng', info1D: 'Không cần cài đặt. Mở trang và ghi âm ngay lập tức.',
+        info2T: 'Phản hồi trực quan', info2D: 'Hiển thị sóng âm thanh thời gian thực và thời gian ghi chính xác.',
+        info3T: 'Xuất linh hoạt', info3D: 'Xuất dưới dạng WebM hoặc WAV. Nghe thử hoặc tải xuống ngay.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Nhấn "Bắt đầu ghi âm" để bắt đầu',
+        statusRecording: '🔴 Đang ghi âm...',
+        statusPaused: '⏸ Đã tạm dừng',
+        statusStopped: '✅ Ghi âm hoàn tất',
+        statusNoSupport: '⚠️ Trình duyệt không hỗ trợ ghi âm. Vui lòng dùng Chrome hoặc Edge.',
+        statusNoMic: '⚠️ Không tìm thấy micrô hoặc quyền bị từ chối',
+        recTitle: 'Ghi âm',
+        downloadBtn: '💾 Tải xuống',
+        btnDelete: '🗑',
+        paused: 'Đã tạm dừng',
+        recording: 'Đang ghi âm'
+      }
+    };
+  </script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    (function() {
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let stream = null;
+      let timerInterval = null;
+      let seconds = 0;
+      let isPaused = false;
+      let audioContext = null;
+      let analyser = null;
+      let source = null;
+      let animId = null;
+      let recordingId = 0;
+
+      const startBtn = document.getElementById('startBtn');
+      const pauseBtn = document.getElementById('pauseBtn');
+      const stopBtn = document.getElementById('stopBtn');
+      const status = document.getElementById('status');
+      const timer = document.getElementById('timer');
+      const recordingsList = document.getElementById('recordingsList');
+      const formatSelect = document.getElementById('formatSelect');
+      const canvas = document.getElementById('visualizer');
+      const ctx = canvas.getContext('2d');
+
+      function resizeCanvas() {
+        canvas.width = canvas.clientWidth * 2;
+        canvas.height = canvas.clientHeight * 2;
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+
+      function getDict() {
+        const lang = localStorage.getItem('zentools_lang') || 'zh';
+        return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
+      }
+
+      function formatTime(s) {
+        const m = Math.floor(s / 60);
+        const sec = s % 60;
+        return String(m).padStart(2, '0') + ':' + String(sec).padStart(2, '0');
+      }
+
+      function updateTimer() {
+        timer.textContent = formatTime(seconds);
+      }
+
+      function drawWave() {
+        if (!analyser) return;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+        analyser.getByteTimeDomainData(dataArray);
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(0,229,255,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = '#00e5ff';
+        ctx.beginPath();
+
+        const sliceWidth = canvas.width / bufferLength;
+        let x = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const v = dataArray[i] / 128.0;
+          const y = v * (canvas.height / 2);
+          if (i === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+          x += sliceWidth;
+        }
+        ctx.stroke();
+        animId = requestAnimationFrame(drawWave);
+      }
+
+      window.startRecording = async function() {
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch(e) {
+          status.textContent = getDict().statusNoMic;
+          return;
+        }
+
+        audioChunks = [];
+        seconds = 0;
+        isPaused = false;
+
+        const mimeType = formatSelect.value;
+        mediaRecorder = new MediaRecorder(stream, { mimeType: mimeType });
+
+        mediaRecorder.ondataavailable = function(e) {
+          if (e.data.size > 0) audioChunks.push(e.data);
+        };
+
+        mediaRecorder.onstop = function() {
+          clearInterval(timerInterval);
+          if (animId) cancelAnimationFrame(animId);
+          timer.classList.remove('recording');
+
+          const blob = new Blob(audioChunks, { type: mimeType });
+          const url = URL.createObjectURL(blob);
+          recordingId++;
+
+          const ext = mimeType.includes('wav') ? 'wav' : 'webm';
+          const item = document.createElement('div');
+          item.className = 'recording-item';
+          item.innerHTML = `
+            <span class="rec-name">${getDict().recTitle} ${recordingId}</span>
+            <audio controls src="${url}"></audio>
+            <span class="rec-size">${(blob.size / 1024).toFixed(1)} KB</span>
+            <a class="btn-rec btn-download" href="${url}" download="recording-${recordingId}.${ext}" style="padding:8px 16px;font-size:13px;">${getDict().downloadBtn}</a>
+            <button class="btn-rec btn-stop-rec" onclick="this.parentElement.remove()" style="padding:8px 12px;font-size:13px;">${getDict().btnDelete}</button>
+          `;
+          recordingsList.prepend(item);
+
+          // 清理
+          stream.getTracks().forEach(t => t.stop());
+          stream = null;
+          mediaRecorder = null;
+          analyser = null;
+          if (audioContext) { audioContext.close(); audioContext = null; }
+
+          startBtn.disabled = false;
+          pauseBtn.disabled = true;
+          stopBtn.disabled = true;
+          startBtn.classList.remove('recording');
+          status.textContent = getDict().statusStopped;
+        };
+
+        mediaRecorder.onpause = function() {
+          isPaused = true;
+          clearInterval(timerInterval);
+          pauseBtn.textContent = getDict().pauseBtn;
+          status.textContent = getDict().statusPaused;
+          timer.classList.remove('recording');
+        };
+
+        mediaRecorder.onresume = function() {
+          isPaused = false;
+          timerInterval = setInterval(() => { seconds++; updateTimer(); }, 1000);
+          pauseBtn.textContent = getDict().pauseBtn;
+          status.textContent = getDict().statusRecording;
+          timer.classList.add('recording');
+        };
+
+        mediaRecorder.start(250); // 每250ms收集数据
+        timerInterval = setInterval(() => { seconds++; updateTimer(); }, 1000);
+        updateTimer();
+
+        // 音频可视化
+        audioContext = new AudioContext();
+        source = audioContext.createMediaStreamSource(stream);
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        source.connect(analyser);
+        drawWave();
+
+        startBtn.disabled = true;
+        pauseBtn.disabled = false;
+        stopBtn.disabled = false;
+        startBtn.classList.add('recording');
+        timer.classList.add('recording');
+        status.textContent = getDict().statusRecording;
+      };
+
+      window.pauseRecording = function() {
+        if (!mediaRecorder) return;
+        if (!isPaused && mediaRecorder.state === 'recording') {
+          mediaRecorder.pause();
+        } else if (isPaused && mediaRecorder.state === 'paused') {
+          mediaRecorder.resume();
+        }
+      };
+
+      window.stopRecording = function() {
+        if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+          mediaRecorder.stop();
+        }
+      };
+
+      status.textContent = getDict().statusReady;
+      pauseBtn.disabled = true;
+      stopBtn.disabled = true;
+
+      // 绘制空白波形
+      function drawIdle() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(255,255,255,0.03)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        const mid = canvas.height / 2;
+        ctx.moveTo(0, mid);
+        for (let x = 0; x < canvas.width; x += 10) {
+          ctx.lineTo(x, mid + Math.sin(x * 0.05) * 8);
+        }
+        ctx.stroke();
+      }
+      drawIdle();
+    })();
+  </script>
+</body>
+</html>

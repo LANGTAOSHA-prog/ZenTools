@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>语音转文字 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="使用麦克风实时将语音转换为文字，支持多语种识别，免费在线使用，浏览器本地处理保护隐私。" />
+  <meta name="keywords" content="语音转文字,语音识别,听写,语音输入,在线语音转文字,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/audio/speech-to-text.html" />
+
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .stt-controls {
+      display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; align-items: center;
+    }
+    .stt-controls select {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px; color: var(--text);
+      font-size: 14px; outline: none; min-width: 200px; cursor: pointer;
+    }
+    .stt-controls select:focus { border-color: var(--border-h); }
+    .stt-controls label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+
+    .btn-group {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+    }
+    .btn-stt {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-stt:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-stt:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-record { background: linear-gradient(135deg, var(--pink), #f97316); color: #fff; }
+    .btn-record.recording { animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(244,63,94,0.4)} 50%{box-shadow:0 0 0 12px rgba(244,63,94,0)} }
+    .btn-stop-rec { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid var(--border); }
+    .btn-copy { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+    .btn-clear { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+
+    .stt-result {
+      width: 100%; min-height: 200px; margin-top: 20px;
+      padding: 18px; border: 1px solid var(--border);
+      border-radius: 14px; background: rgba(255,255,255,0.03);
+      color: var(--text); font-size: 15px; line-height: 1.7;
+      resize: vertical; outline: none; font-family: inherit;
+    }
+    .stt-result:focus { border-color: var(--border-h); }
+
+    .status-stt {
+      margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px;
+    }
+    .status-stt.listening { color: var(--pink); font-weight: 600; }
+
+    .interim-text {
+      margin-top: 10px; font-size: 14px; color: var(--muted);
+      min-height: 22px; font-style: italic; opacity: 0.7;
+    }
+
+    @media (max-width: 640px) {
+      .stt-controls { flex-direction: column; align-items: stretch; }
+      .stt-controls select { width: 100%; }
+      .btn-group { flex-direction: column; }
+      .btn-stt { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/audio/" data-i18n="navAudio">音频工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">语音转文字</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">语音转文字</span><br /><span data-i18n="h1Sub">实时语音识别</span></h1>
+      <p data-i18n="pageDesc">使用麦克风实时将语音转换为文字，支持多语种识别，会议记录、采访整理、学习笔记的好帮手。</p>
+    </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">语音识别</h2>
+      <p class="note" data-i18n="toolNote">选择识别语言，点击「开始录音」按钮，对着麦克风说话，识别的文字将实时显示在下方。</p>
+      <div class="stt-controls">
+        <label>
+          <span data-i18n="langLabel">识别语言：</span>
+          <select id="langSelectStt">
+            <option value="zh-CN" data-i18n="langZh">中文（普通话）</option>
+            <option value="en-US" data-i18n="langEn">English (US)</option>
+            <option value="ja-JP" data-i18n="langJa">日本語</option>
+            <option value="yue-Hant-HK" data-i18n="langYue">粵語（香港）</option>
+            <option value="vi-VN" data-i18n="langVi">Tiếng Việt</option>
+            <option value="ko-KR" data-i18n="langKo">한국어</option>
+            <option value="fr-FR" data-i18n="langFr">Français</option>
+            <option value="de-DE" data-i18n="langDe">Deutsch</option>
+          </select>
+        </label>
+      </div>
+      <div class="btn-group">
+        <button class="btn-stt btn-record" id="startBtn" onclick="startRecognition()" data-i18n="startBtn">🎤 开始录音</button>
+        <button class="btn-stt btn-stop-rec" id="stopBtn" onclick="stopRecognition()" disabled data-i18n="stopBtn">⏹ 停止录音</button>
+        <button class="btn-stt btn-copy" id="copyBtn" onclick="copyResult()" data-i18n="copyBtn">📋 复制</button>
+        <button class="btn-stt btn-clear" id="clearBtn" onclick="clearResult()" data-i18n="clearBtn">🗑 清空</button>
+      </div>
+      <div class="status-stt" id="status"></div>
+      <div class="interim-text" id="interim"></div>
+      <textarea class="stt-result" id="result" placeholder="识别的文字将显示在这里..." data-i18n-placeholder="resultPlaceholder" readonly></textarea>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解语音转文字工具</h2>
+      </div>
+      <div class="info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">实时识别</h4>
+          <p data-i18n="info1D">边说边转，实时显示识别结果。支持长段连续语音识别，适合会议记录、采访整理等场景。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">多语种支持</h4>
+          <p data-i18n="info2D">支持中文、英语、日语、粤语、韩语、法语、德语等多种语言，满足国际化需求。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">隐私安全</h4>
+          <p data-i18n="info3D">语音识别在浏览器本地完成，录音数据不会上传到任何服务器，完全保护你的隐私。</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '语音转文字 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '语音转文字',
+        eyebrow: '音频工具',
+        h1Grad: '语音转文字', h1Sub: '实时语音识别',
+        pageDesc: '使用麦克风实时将语音转换为文字，支持多语种识别，会议记录、采访整理、学习笔记的好帮手。',
+        toolTitle: '语音识别',
+        toolNote: '选择识别语言，点击「开始录音」按钮，对着麦克风说话，识别的文字将实时显示在下方。',
+        langLabel: '识别语言：',
+        langZh: '中文（普通话）', langEn: 'English (US)', langJa: '日本語',
+        langYue: '粵語（香港）', langVi: 'Tiếng Việt', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch',
+        startBtn: '🎤 开始录音',
+        stopBtn: '⏹ 停止录音',
+        copyBtn: '📋 复制',
+        clearBtn: '🗑 清空',
+        resultPlaceholder: '识别的文字将显示在这里...',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解语音转文字工具',
+        info1T: '实时识别', info1D: '边说边转，实时显示识别结果。支持长段连续语音识别，适合会议记录、采访整理等场景。',
+        info2T: '多语种支持', info2D: '支持中文、英语、日语、粤语、韩语、法语、德语等多种语言，满足国际化需求。',
+        info3T: '隐私安全', info3D: '语音识别在浏览器本地完成，录音数据不会上传到任何服务器，完全保护你的隐私。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '点击「开始录音」按钮，允许麦克风权限后即可开始语音识别',
+        statusListening: '🔴 正在录音...',
+        statusStopped: '⏹ 录音已停止',
+        statusNoSupport: '⚠️ 您的浏览器暂不支持语音识别功能，请使用 Chrome 或 Edge 浏览器。',
+        statusNoMic: '⚠️ 未检测到麦克风或麦克风权限被拒绝',
+        statusCopied: '✅ 已复制到剪贴板',
+        statusCleared: '已清空'
+      },
+      en: {
+        pageTitle: 'Speech to Text - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Speech to Text',
+        eyebrow: 'AUDIO TOOLS',
+        h1Grad: 'Speech to Text', h1Sub: 'Real-time Recognition',
+        pageDesc: 'Convert speech to text in real-time using your microphone. Supports multiple languages.',
+        toolTitle: 'Speech Recognition',
+        toolNote: 'Select recognition language, click "Start Recording", speak into your microphone.',
+        langLabel: 'Language:',
+        langZh: 'Chinese (Mandarin)', langEn: 'English (US)', langJa: 'Japanese',
+        langYue: 'Cantonese (HK)', langVi: 'Vietnamese', langKo: 'Korean',
+        langFr: 'French', langDe: 'German',
+        startBtn: '🎤 Start Recording',
+        stopBtn: '⏹ Stop Recording',
+        copyBtn: '📋 Copy',
+        clearBtn: '🗑 Clear',
+        resultPlaceholder: 'Recognized text will appear here...',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About Speech to Text',
+        info1T: 'Real-time', info1D: 'Speech is converted to text in real-time as you speak. Perfect for meetings and interviews.',
+        info2T: 'Multi-language', info2D: 'Supports Chinese, English, Japanese, Cantonese, Korean, French, German and more.',
+        info3T: 'Privacy Safe', info3D: 'Speech recognition is done locally in your browser. No audio data is uploaded to servers.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Click "Start Recording" and allow microphone access to begin',
+        statusListening: '🔴 Listening...',
+        statusStopped: '⏹ Recording stopped',
+        statusNoSupport: '⚠️ Your browser does not support speech recognition. Please use Chrome or Edge.',
+        statusNoMic: '⚠️ No microphone detected or permission denied',
+        statusCopied: '✅ Copied to clipboard',
+        statusCleared: 'Cleared'
+      },
+      ja: {
+        pageTitle: '音声認識 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: '音声認識',
+        eyebrow: '音声ツール',
+        h1Grad: '音声認識', h1Sub: 'リアルタイム文字起こし',
+        pageDesc: 'マイクを使って音声をリアルタイムでテキストに変換。多言語対応。',
+        toolTitle: '音声認識',
+        toolNote: '認識言語を選び、「録音開始」をクリックしてマイクに向かって話しかけてください。',
+        langLabel: '認識言語：',
+        langZh: '中国語（普通話）', langEn: 'English (US)', langJa: '日本語',
+        langYue: '広東語（香港）', langVi: 'Tiếng Việt', langKo: '韓国語',
+        langFr: 'フランス語', langDe: 'ドイツ語',
+        startBtn: '🎤 録音開始',
+        stopBtn: '⏹ 録音停止',
+        copyBtn: '📋 コピー',
+        clearBtn: '🗑 クリア',
+        resultPlaceholder: '認識されたテキストがここに表示されます...',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: '音声認識ツールについて',
+        info1T: 'リアルタイム認識', info1D: '話すと同時にテキストに変換。会議やインタビューに最適。',
+        info2T: '多言語対応', info2D: '日本語、中国語、英語、広東語、韓国語など多言語に対応。',
+        info3T: 'プライバシー保護', info3D: '音声認識はブラウザ内で処理。音声データはサーバーに送信されません。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '「録音開始」をクリックし、マイクを許可してください',
+        statusListening: '🔴 録音中...',
+        statusStopped: '⏹ 録音停止',
+        statusNoSupport: '⚠️ お使いのブラウザは音声認識に対応していません。ChromeまたはEdgeをご利用ください。',
+        statusNoMic: '⚠️ マイクが見つからないか、権限が拒否されました',
+        statusCopied: '✅ クリップボードにコピーしました',
+        statusCleared: 'クリアしました'
+      },
+      vi: {
+        pageTitle: 'Nhận dạng giọng nói - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Nhận dạng giọng nói',
+        eyebrow: 'CÔNG CỤ ÂM THANH',
+        h1Grad: 'Giọng nói thành văn bản', h1Sub: 'Nhận dạng thời gian thực',
+        pageDesc: 'Chuyển giọng nói thành văn bản theo thời gian thực. Hỗ trợ nhiều ngôn ngữ.',
+        toolTitle: 'Nhận dạng giọng nói',
+        toolNote: 'Chọn ngôn ngữ, nhấn "Bắt đầu ghi âm" và nói vào micrô của bạn.',
+        langLabel: 'Ngôn ngữ:',
+        langZh: 'Tiếng Trung (Phổ thông)', langEn: 'English (US)', langJa: 'Tiếng Nhật',
+        langYue: 'Tiếng Quảng Đông (HK)', langVi: 'Tiếng Việt', langKo: 'Tiếng Hàn',
+        langFr: 'Tiếng Pháp', langDe: 'Tiếng Đức',
+        startBtn: '🎤 Bắt đầu ghi âm',
+        stopBtn: '⏹ Dừng ghi âm',
+        copyBtn: '📋 Sao chép',
+        clearBtn: '🗑 Xóa',
+        resultPlaceholder: 'Văn bản nhận dạng sẽ hiển thị ở đây...',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ nhận dạng giọng nói',
+        info1T: 'Thời gian thực', info1D: 'Chuyển giọng nói thành văn bản ngay khi bạn nói. Phù hợp cho họp và phỏng vấn.',
+        info2T: 'Đa ngôn ngữ', info2D: 'Hỗ trợ tiếng Trung, tiếng Anh, tiếng Nhật, tiếng Quảng Đông, tiếng Hàn và nhiều hơn nữa.',
+        info3T: 'Bảo mật', info3D: 'Nhận dạng giọng nói được xử lý trong trình duyệt. Dữ liệu không được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Nhấn "Bắt đầu ghi âm" và cho phép truy cập micrô',
+        statusListening: '🔴 Đang nghe...',
+        statusStopped: '⏹ Đã dừng ghi âm',
+        statusNoSupport: '⚠️ Trình duyệt không hỗ trợ nhận dạng giọng nói. Vui lòng dùng Chrome hoặc Edge.',
+        statusNoMic: '⚠️ Không tìm thấy micrô hoặc quyền bị từ chối',
+        statusCopied: '✅ Đã sao chép vào clipboard',
+        statusCleared: 'Đã xóa'
+      }
+    };
+  </script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    (function() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const startBtn = document.getElementById('startBtn');
+      const stopBtn = document.getElementById('stopBtn');
+      const status = document.getElementById('status');
+      const interim = document.getElementById('interim');
+      const result = document.getElementById('result');
+      const langSelect = document.getElementById('langSelectStt');
+
+      let recognition = null;
+      let isRecording = false;
+
+      function getDict() {
+        const lang = localStorage.getItem('zentools_lang') || 'zh';
+        return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
+      }
+
+      if (!SpeechRecognition) {
+        status.textContent = getDict().statusNoSupport;
+        startBtn.disabled = true;
+      }
+
+      window.startRecognition = function() {
+        if (!SpeechRecognition) {
+          status.textContent = getDict().statusNoSupport;
+          return;
+        }
+        if (isRecording) return;
+
+        recognition = new SpeechRecognition();
+        recognition.lang = langSelect.value;
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function() {
+          isRecording = true;
+          startBtn.disabled = true;
+          stopBtn.disabled = false;
+          startBtn.classList.add('recording');
+          status.textContent = getDict().statusListening;
+          status.classList.add('listening');
+        };
+
+        recognition.onresult = function(e) {
+          let finalText = '';
+          let interimText = '';
+          for (let i = e.resultIndex; i < e.results.length; i++) {
+            if (e.results[i].isFinal) {
+              finalText += e.results[i][0].transcript;
+            } else {
+              interimText += e.results[i][0].transcript;
+            }
+          }
+          if (finalText) {
+            result.value += finalText;
+            result.scrollTop = result.scrollHeight;
+          }
+          interim.textContent = interimText;
+        };
+
+        recognition.onerror = function(e) {
+          if (e.error === 'not-allowed') {
+            status.textContent = getDict().statusNoMic;
+          } else if (e.error === 'no-speech') {
+            // 静默忽略无语音错误
+          } else {
+            status.textContent = '❌ ' + (getDict()['error_' + e.error] || e.error);
+          }
+          stopRecognition();
+        };
+
+        recognition.onend = function() {
+          // 自动重启（除非手动停止）
+          if (isRecording) {
+            try { recognition.start(); } catch(e) {}
+          }
+        };
+
+        try {
+          recognition.start();
+        } catch(e) {
+          status.textContent = '❌ ' + e.message;
+        }
+      };
+
+      window.stopRecognition = function() {
+        isRecording = false;
+        if (recognition) {
+          recognition.onend = null;
+          try { recognition.stop(); } catch(e) {}
+          recognition = null;
+        }
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        startBtn.classList.remove('recording');
+        status.textContent = getDict().statusStopped;
+        status.classList.remove('listening');
+        interim.textContent = '';
+      };
+
+      window.copyResult = function() {
+        if (!result.value) return;
+        navigator.clipboard.writeText(result.value).then(() => {
+          const orig = status.textContent;
+          status.textContent = getDict().statusCopied;
+          setTimeout(() => { status.textContent = orig; }, 2000);
+        });
+      };
+
+      window.clearResult = function() {
+        result.value = '';
+        interim.textContent = '';
+        status.textContent = getDict().statusCleared;
+      };
+
+      // 初始状态
+      status.textContent = getDict().statusReady;
+    })();
+  </script>
+</body>
+</html>

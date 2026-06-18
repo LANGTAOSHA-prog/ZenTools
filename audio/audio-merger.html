@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>音频合并 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="在线合并多个音频文件，支持 MP3/WAV/OGG 格式，自由排列顺序，免费浏览器本地处理。" />
+  <meta name="keywords" content="音频合并,音频拼接,合并音频,音频文件合并,在线音频合并,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/audio/audio-merger.html" />
+
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
+  <style>
+    .file-list {
+      margin-top: 20px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .file-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+      font-size: 14px; color: var(--text);
+    }
+    .file-item .drag-handle {
+      cursor: grab; color: var(--muted); font-size: 18px; user-select: none;
+    }
+    .file-item .file-icon { font-size: 20px; }
+    .file-item .file-name { flex: 1; }
+    .file-item .file-dur { color: var(--muted); font-size: 12px; }
+    .file-item .file-remove {
+      background: none; border: none; color: var(--pink); cursor: pointer;
+      font-size: 16px; padding: 4px 8px; border-radius: 6px;
+    }
+    .file-item .file-remove:hover { background: rgba(244,63,94,0.1); }
+
+    .btn-group {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+    }
+    .btn-merge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-merge:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-merge:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-merge-primary { background: linear-gradient(135deg, var(--cyan), var(--purple)); color: #000; }
+    .btn-merge-download { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; }
+
+    .total-info {
+      font-size: 13px; color: var(--muted); margin-top: 12px;
+    }
+
+    .status-merge {
+      margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px;
+    }
+
+    .empty-state {
+      text-align: center; padding: 30px; color: var(--muted); font-size: 14px;
+    }
+
+    @media (max-width: 640px) {
+      .btn-group { flex-direction: column; }
+      .btn-merge { justify-content: center; }
+      .file-item { flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/audio/" data-i18n="navAudio">音频工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">音频合并</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">音频合并</span><br /><span data-i18n="h1Sub">拼接多个音频</span></h1>
+      <p data-i18n="pageDesc">在线合并多个音频文件，自由拖动排序，将多个片段拼接成一个完整的音频文件。</p>
+    </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">选择音频文件</h2>
+      <p class="note" data-i18n="toolNote">选择多个音频文件，拖动调整顺序，点击合并按钮将它们拼接为一个文件。</p>
+      <div class="file-input-row">
+        <input type="file" id="audioFiles" accept="audio/*" multiple />
+      </div>
+      <div class="file-list" id="fileList">
+        <div class="empty-state" data-i18n="emptyState">📂 添加音频文件开始合并</div>
+      </div>
+      <div class="total-info" id="totalInfo"></div>
+
+      <div class="btn-group">
+        <button class="btn-merge btn-merge-primary" id="mergeBtn" onclick="mergeAudio()" disabled data-i18n="mergeBtn">🔗 开始合并</button>
+        <button class="btn-merge btn-merge-download" id="downloadBtn" onclick="downloadMerged()" style="display:none" data-i18n="downloadBtn">💾 下载合并后的音频</button>
+      </div>
+      <div class="status-merge" id="status"></div>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解音频合并工具</h2>
+      </div>
+      <div class="info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">自由排序</h4>
+          <p data-i18n="info1D">支持拖拽调整音频顺序，灵活排列片段，满足不同的拼接需求。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">批量处理</h4>
+          <p data-i18n="info2D">一次性选择多个音频文件，支持 MP3、WAV、OGG、M4A 等常见格式。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">隐私安全</h4>
+          <p data-i18n="info3D">音频合并在浏览器本地完成，所有文件不会上传到任何服务器，保护你的隐私。</p>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '音频合并 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '音频合并',
+        eyebrow: '音频工具',
+        h1Grad: '音频合并', h1Sub: '拼接多个音频',
+        pageDesc: '在线合并多个音频文件，自由拖动排序，将多个片段拼接成一个完整的音频文件。',
+        toolTitle: '选择音频文件',
+        toolNote: '选择多个音频文件，拖动调整顺序，点击合并按钮将它们拼接为一个文件。',
+        emptyState: '📂 添加音频文件开始合并',
+        mergeBtn: '🔗 开始合并',
+        downloadBtn: '💾 下载合并后的音频',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解音频合并工具',
+        info1T: '自由排序', info1D: '支持拖拽调整音频顺序，灵活排列片段，满足不同的拼接需求。',
+        info2T: '批量处理', info2D: '一次性选择多个音频文件，支持 MP3、WAV、OGG、M4A 等常见格式。',
+        info3T: '隐私安全', info3D: '音频合并在浏览器本地完成，所有文件不会上传到任何服务器，保护你的隐私。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '请添加音频文件',
+        statusMerging: '🔄 正在合并中，请稍候...',
+        statusDone: '✅ 合并完成！点击下载按钮保存',
+        statusError: '❌ 合并失败，请检查文件格式后重试',
+        statusNoFile: '⚠️ 请至少添加一个音频文件',
+        totalInfo: '共 {n} 个文件，总时长 {dur}',
+        removeFile: '删除',
+        dragHint: '⠿'
+      },
+      en: {
+        pageTitle: 'Audio Merger - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Audio Merger',
+        eyebrow: 'AUDIO TOOLS',
+        h1Grad: 'Audio Merger', h1Sub: 'Join Audio Files',
+        pageDesc: 'Merge multiple audio files online. Drag to reorder and combine them into one.',
+        toolTitle: 'Select Audio Files',
+        toolNote: 'Select multiple audio files, drag to reorder, and click merge to combine them.',
+        emptyState: '📂 Add audio files to start merging',
+        mergeBtn: '🔗 Merge',
+        downloadBtn: '💾 Download Merged Audio',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About Audio Merger',
+        info1T: 'Free Ordering', info1D: 'Drag to reorder audio files. Flexible arrangement for any merging needs.',
+        info2T: 'Batch Process', info2D: 'Select multiple files at once. Supports MP3, WAV, OGG, M4A and more.',
+        info3T: 'Privacy Safe', info3D: 'Audio merging is done locally in your browser. No files uploaded to servers.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Please add audio files',
+        statusMerging: '🔄 Merging, please wait...',
+        statusDone: '✅ Merge complete! Click download to save',
+        statusError: '❌ Merge failed, please check file formats',
+        statusNoFile: '⚠️ Please add at least one audio file',
+        totalInfo: '{n} files, total duration {dur}',
+        removeFile: 'Remove',
+        dragHint: '⠿'
+      },
+      ja: {
+        pageTitle: '音声結合 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: '音声結合',
+        eyebrow: '音声ツール',
+        h1Grad: '音声結合', h1Sub: '複数の音声を結合',
+        pageDesc: '複数の音声ファイルを結合。ドラッグで並び替え可能。',
+        toolTitle: '音声ファイルを選択',
+        toolNote: '複数の音声ファイルを選択し、ドラッグで順序を調整して結合。',
+        emptyState: '📂 音声ファイルを追加',
+        mergeBtn: '🔗 結合',
+        downloadBtn: '💾 結合した音声をダウンロード',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: '音声結合ツールについて',
+        info1T: '自由な順序', info1D: 'ドラッグで順序を自由に変更可能。',
+        info2T: '一括処理', info2D: '複数ファイルを一度に選択。MP3、WAV、OGG、M4Aなどに対応。',
+        info3T: 'プライバシー保護', info3D: 'ブラウザ内で処理。サーバーに送信されません。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '音声ファイルを追加してください',
+        statusMerging: '🔄 結合中...',
+        statusDone: '✅ 完了！ダウンロードして保存',
+        statusError: '❌ 結合失敗、ファイル形式を確認してください',
+        statusNoFile: '⚠️ 少なくとも1つの音声ファイルを追加してください',
+        totalInfo: '{n} ファイル、合計時間 {dur}',
+        removeFile: '削除',
+        dragHint: '⠿'
+      },
+      vi: {
+        pageTitle: 'Ghép âm thanh - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Ghép âm thanh',
+        eyebrow: 'CÔNG CỤ ÂM THANH',
+        h1Grad: 'Ghép âm thanh', h1Sub: 'Nối nhiều tệp âm thanh',
+        pageDesc: 'Ghép nhiều tệp âm thanh trực tuyến. Kéo để sắp xếp thứ tự.',
+        toolTitle: 'Chọn tệp âm thanh',
+        toolNote: 'Chọn nhiều tệp âm thanh, kéo để sắp xếp thứ tự và ghép.',
+        emptyState: '📂 Thêm tệp âm thanh để bắt đầu',
+        mergeBtn: '🔗 Ghép',
+        downloadBtn: '💾 Tải âm thanh đã ghép',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ ghép âm thanh',
+        info1T: 'Sắp xếp tự do', info1D: 'Kéo để sắp xếp thứ tự tệp âm thanh linh hoạt.',
+        info2T: 'Xử lý hàng loạt', info2D: 'Chọn nhiều tệp cùng lúc. Hỗ trợ MP3, WAV, OGG, M4A.',
+        info3T: 'Bảo mật', info3D: 'Xử lý trong trình duyệt. Tệp không được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Vui lòng thêm tệp âm thanh',
+        statusMerging: '🔄 Đang ghép...',
+        statusDone: '✅ Hoàn tất! Nhấn tải xuống để lưu',
+        statusError: '❌ Ghép thất bại, vui lòng kiểm tra định dạng tệp',
+        statusNoFile: '⚠️ Vui lòng thêm ít nhất một tệp âm thanh',
+        totalInfo: '{n} tệp, tổng thời lượng {dur}',
+        removeFile: 'Xóa',
+        dragHint: '⠿'
+      }
+    };
+  </script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    (function() {
+      let fileList = [];
+      let audioContext = null;
+      let mergedBlob = null;
+
+      const fileInput = document.getElementById('audioFiles');
+      const listEl = document.getElementById('fileList');
+      const totalInfo = document.getElementById('totalInfo');
+      const status = document.getElementById('status');
+      const mergeBtn = document.getElementById('mergeBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      function getDict() {
+        const lang = localStorage.getItem('zentools_lang') || 'zh';
+        return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
+      }
+
+      function formatTime(seconds) {
+        if (!seconds || isNaN(seconds)) return '0:00';
+        const m = Math.floor(seconds / 60);
+        const s = Math.floor(seconds % 60);
+        return m + ':' + String(s).padStart(2, '0');
+      }
+
+      function renderList() {
+        if (fileList.length === 0) {
+          listEl.innerHTML = `<div class="empty-state">${getDict().emptyState}</div>`;
+          totalInfo.textContent = '';
+          mergeBtn.disabled = true;
+          return;
+        }
+
+        let html = '';
+        let total = 0;
+        fileList.forEach((f, i) => {
+          total += f.duration || 0;
+          html += `
+            <div class="file-item" data-index="${i}">
+              <span class="drag-handle" data-i18n="dragHint">⠿</span>
+              <span class="file-icon">🎵</span>
+              <span class="file-name">${f.name}</span>
+              <span class="file-dur">${formatTime(f.duration)}</span>
+              <button class="file-remove" onclick="removeFile(${i})">✕</button>
+            </div>
+          `;
+        });
+        listEl.innerHTML = html;
+
+        totalInfo.textContent = getDict().totalInfo
+          .replace('{n}', fileList.length)
+          .replace('{dur}', formatTime(total));
+
+        mergeBtn.disabled = false;
+      }
+
+      fileInput.addEventListener('change', async function() {
+        const files = Array.from(this.files);
+        if (files.length === 0) return;
+
+        status.textContent = '🔄 ' + (getDict().statusMerging || 'Loading...');
+        mergeBtn.disabled = true;
+
+        for (const file of files) {
+          try {
+            const arrayBuffer = await file.arrayBuffer();
+            if (!audioContext) audioContext = new AudioContext();
+            const buffer = await audioContext.decodeAudioData(arrayBuffer);
+            fileList.push({
+              name: file.name,
+              buffer: buffer,
+              duration: buffer.duration
+            });
+          } catch(e) {
+            // 跳过无法解码的文件
+            console.warn('Cannot decode:', file.name);
+          }
+        }
+
+        renderList();
+        status.textContent = getDict().statusReady;
+        this.value = '';
+      });
+
+      window.removeFile = function(index) {
+        fileList.splice(index, 1);
+        renderList();
+        if (fileList.length === 0) {
+          status.textContent = getDict().statusReady;
+        }
+        downloadBtn.style.display = 'none';
+        mergedBlob = null;
+      };
+
+      window.mergeAudio = async function() {
+        if (fileList.length === 0) {
+          status.textContent = getDict().statusNoFile;
+          return;
+        }
+
+        if (fileList.length < 2) {
+          // 只有一个文件直接下载
+          const buf = fileList[0].buffer;
+          mergedBlob = exportWAV(buf);
+          status.textContent = getDict().statusDone;
+          downloadBtn.style.display = 'inline-flex';
+          return;
+        }
+
+        status.textContent = getDict().statusMerging;
+        mergeBtn.disabled = true;
+
+        try {
+          if (!audioContext) audioContext = new AudioContext();
+
+          // 计算总长度
+          let totalLength = 0;
+          fileList.forEach(f => totalLength += f.buffer.length);
+
+          const sampleRate = fileList[0].buffer.sampleRate;
+          const numChannels = fileList[0].buffer.numberOfChannels;
+          const newBuffer = audioContext.createBuffer(numChannels, totalLength, sampleRate);
+
+          let offset = 0;
+          for (const f of fileList) {
+            for (let ch = 0; ch < numChannels; ch++) {
+              const srcData = f.buffer.getChannelData(Math.min(ch, f.buffer.numberOfChannels - 1));
+              const dstData = newBuffer.getChannelData(ch);
+              for (let i = 0; i < f.buffer.length; i++) {
+                dstData[offset + i] = srcData[i];
+              }
+            }
+            offset += f.buffer.length;
+          }
+
+          mergedBlob = exportWAV(newBuffer);
+          status.textContent = getDict().statusDone;
+          downloadBtn.style.display = 'inline-flex';
+        } catch(e) {
+          console.error(e);
+          status.textContent = getDict().statusError;
+        } finally {
+          mergeBtn.disabled = false;
+        }
+      };
+
+      function exportWAV(buffer) {
+        const numChannels = buffer.numberOfChannels;
+        const sampleRate = buffer.sampleRate;
+        const bitDepth = 16;
+        const bytesPerSample = bitDepth / 8;
+        const blockAlign = numChannels * bytesPerSample;
+        const dataSize = buffer.length * blockAlign;
+        const totalSize = 44 + dataSize;
+        const arrayBuffer = new ArrayBuffer(totalSize);
+        const view = new DataView(arrayBuffer);
+
+        function writeStr(offset, str) {
+          for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+        }
+
+        writeStr(0, 'RIFF');
+        view.setUint32(4, totalSize - 8, true);
+        writeStr(8, 'WAVE');
+        writeStr(12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, numChannels, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * blockAlign, true);
+        view.setUint16(32, blockAlign, true);
+        view.setUint16(34, bitDepth, true);
+        writeStr(36, 'data');
+        view.setUint32(40, dataSize, true);
+
+        let offset = 44;
+        for (let i = 0; i < buffer.length; i++) {
+          for (let ch = 0; ch < numChannels; ch++) {
+            const sample = Math.max(-1, Math.min(1, buffer.getChannelData(ch)[i]));
+            view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+            offset += 2;
+          }
+        }
+        return new Blob([arrayBuffer], { type: 'audio/wav' });
+      }
+
+      window.downloadMerged = function() {
+        if (!mergedBlob) return;
+        const url = URL.createObjectURL(mergedBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'merged_audio.wav';
+        a.click();
+        URL.revokeObjectURL(url);
+      };
+
+      status.textContent = getDict().statusReady;
+    })();
+  </script>
+</body>
+</html>
