@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>图片压缩工具 - ZenTools</title>
+    <title>图片压缩工具 - ����Сվ-ZenTools</title>
     <style>
         * {
             margin: 0;
@@ -129,7 +129,7 @@
             display: none;
         }
 
-        /* 预览图 */
+        /* 预览�?*/
         .preview-img {
             max-width: 100%;
             max-height: 250px;
@@ -236,7 +236,7 @@
             margin-left: 8px;
         }
 
-        /* 响应式 */
+        /* 响应�?*/
         @media (max-width: 768px) {
             .main-grid {
                 grid-template-columns: 1fr;
@@ -262,7 +262,7 @@
 </head>
 <body>
 <div class="container">
-    <a href="/" class="back-btn">← 返回首页</a>
+    <a href="/" class="back-btn">�?返回首页</a>
 
     <div class="header">
         <h1>📦 图片压缩工具</h1>
@@ -270,22 +270,22 @@
     </div>
 
     <div class="main-grid">
-        <!-- 左侧：上传区域 -->
+        <!-- 左侧：上传区�?-->
         <div class="card">
             <div class="card-title">
                 <span>📤</span> 1. 选择图片
             </div>
             <div class="upload-area" id="uploadArea">
-                <div class="upload-icon">🖼️</div>
+                <div class="upload-icon">🖼�?/div>
                 <strong>点击或拖拽图片到此处</strong>
-                <p>支持 JPG、PNG、WebP、GIF（GIF 压缩效果有限）</p>
+                <p>支持 JPG、PNG、WebP、GIF（GIF 压缩效果有限�?/p>
                 <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/gif">
             </div>
             <div id="previewContainer" style="text-align: center;"></div>
             <div id="originalInfo" class="img-info"></div>
         </div>
 
-        <!-- 右侧：压缩设置 & 结果 -->
+        <!-- 右侧：压缩设�?& 结果 -->
         <div class="card">
             <div class="card-title">
                 <span>⚙️</span> 2. 压缩设置
@@ -297,7 +297,7 @@
                 </div>
                 <input type="range" id="qualitySlider" min="10" max="100" value="80">
                 <div style="font-size: 0.7rem; color: #64748b; margin-top: 5px;">
-                    ⚡ 较低质量 = 更小体积 | 推荐 75-85%
+                    �?较低质量 = 更小体积 | 推荐 75-85%
                 </div>
             </div>
 
@@ -308,11 +308,11 @@
                 <p style="color: #94a3b8; text-align: center;">等待压缩...</p>
             </div>
 
-            <button class="btn btn-download" id="downloadBtn" disabled>⬇️ 下载压缩后图片</button>
+            <button class="btn btn-download" id="downloadBtn" disabled>⬇️ 下载压缩后图�?/button>
         </div>
     </div>
     <footer>
-        ⚡ 纯本地压缩 | 图片不会上传到任何服务器，请放心使用
+        �?纯本地压�?| 图片不会上传到任何服务器，请放心使用
     </footer>
 </div>
 
@@ -327,9 +327,9 @@
     const originalInfo = document.getElementById('originalInfo');
     const resultInfo = document.getElementById('resultInfo');
 
-    let currentFile = null;        // 当前选择的原始文件
+    let currentFile = null;        // 当前选择的原始文�?
     let currentCompressedBlob = null;  // 压缩后的 Blob
-    let currentCompressedUrl = null;    // 用于预览的 URL
+    let currentCompressedUrl = null;    // 用于预览�?URL
 
     // 更新质量显示
     qualitySlider.addEventListener('input', function() {
@@ -422,12 +422,12 @@
                 outputType = 'image/jpeg';
             }
             
-            // PNG 格式下 quality 参数无效，但为了保持体验，如果是 PNG 且 quality < 0.9，转成 JPEG 可以大幅减小体积（注意透明背景会变白）
+            // PNG 格式�?quality 参数无效，但为了保持体验，如果是 PNG �?quality < 0.9，转�?JPEG 可以大幅减小体积（注意透明背景会变白）
             let finalQuality = quality;
             let finalType = outputType;
             
             if (outputType === 'image/png' && quality < 0.9) {
-                // 可选：如果用户主动压缩 PNG，转为 JPEG（不保留透明背景）
+                // 可选：如果用户主动压缩 PNG，转�?JPEG（不保留透明背景�?
                 // 为了更好的体验，让用户知晓：这里自动转为 JPEG 格式
                 finalType = 'image/jpeg';
             }
@@ -446,16 +446,16 @@
                 // 显示压缩结果
                 let formatNote = '';
                 if (finalType !== file.type) {
-                    formatNote = `<div style="margin-top: 8px; font-size: 0.75rem; background: #334155; padding: 6px 12px; border-radius: 12px;">⚠️ 为获得更好压缩效果，格式从 ${file.type.split('/')[1].toUpperCase()} 转为 ${finalType.split('/')[1].toUpperCase()}</div>`;
+                    formatNote = `<div style="margin-top: 8px; font-size: 0.75rem; background: #334155; padding: 6px 12px; border-radius: 12px;">⚠️ 为获得更好压缩效果，格式�?${file.type.split('/')[1].toUpperCase()} 转为 ${finalType.split('/')[1].toUpperCase()}</div>`;
                 }
                 
                 resultInfo.innerHTML = `
                     <div style="background: #1e293b; border-radius: 16px; padding: 16px;">
-                        <div>📦 压缩后大小: <strong style="color: #4ade80; font-size: 1.2rem;">${compressedSizeKB} KB</strong></div>
+                        <div>📦 压缩后大�? <strong style="color: #4ade80; font-size: 1.2rem;">${compressedSizeKB} KB</strong></div>
                         <div>📁 原始大小: <span style="color: #f87171;">${originalSizeKB} KB</span></div>
-                        <div>✨ 体积减小: <span style="color: #60a5fa;">${savedPercent}%</span></div>
+                        <div>�?体积减小: <span style="color: #60a5fa;">${savedPercent}%</span></div>
                         ${formatNote}
-                        <div class="size-badge" style="margin-top: 12px;">🖼️ 分辨率: ${img.width} x ${img.height}</div>
+                        <div class="size-badge" style="margin-top: 12px;">🖼�?分辨�? ${img.width} x ${img.height}</div>
                     </div>
                 `;
                 
@@ -468,7 +468,7 @@
                 }
                 currentCompressedUrl = URL.createObjectURL(blob);
                 // 在右侧区域添加一个小小的压缩后预览？
-                // 也可以在 preview 区域旁边增加对比，为了简洁，暂时不重复
+                // 也可以在 preview 区域旁边增加对比，为了简洁，暂时不重�?
             }, finalType, finalQuality);
         };
         
@@ -484,7 +484,7 @@
     downloadBtn.addEventListener('click', () => {
         if (!currentCompressedBlob) return;
         
-        // 获取原始文件名和扩展名
+        // 获取原始文件名和扩展�?
         let originalName = currentFile.name;
         let lastDot = originalName.lastIndexOf('.');
         let baseName = lastDot > 0 ? originalName.substring(0, lastDot) : 'compressed_image';
