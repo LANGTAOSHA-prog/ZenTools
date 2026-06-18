@@ -710,15 +710,15 @@ def generate_page(tool):
     """生成单个工具页面"""
     keywords = tool["name"] + "," + tool["name"].replace(" ", "") + ",在线工具,免费工具,ZenTools"
     
-    html = html_template.format(
-        name=tool["name"],
-        slug=tool["slug"],
-        description=tool["description"],
-        keywords=keywords,
-        accept=tool["accept"],
-        outputFormat=tool["outputFormat"],
-        features_html=generate_features_html(tool["features"])
-    )
+    html = html_template
+    # Safe replacements to avoid CSS { } conflicts with .format()
+    html = html.replace("{name}", tool["name"])
+    html = html.replace("{slug}", tool["slug"])
+    html = html.replace("{description}", tool["description"])
+    html = html.replace("{keywords}", keywords)
+    html = html.replace("{accept}", tool["accept"])
+    html = html.replace("{outputFormat}", tool["outputFormat"])
+    html = html.replace("{features_html}", generate_features_html(tool["features"]))
     return html
 
 def main():

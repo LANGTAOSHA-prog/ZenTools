@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>图片�?PDF - 免费在线工具 | ����Сվ-ZenTools</title>
-  <meta name="description" content="将多张图片按顺序合成�?PDF 文件，免费在线使用，本地处理保护隐私�? />
-  <meta name="keywords" content="图片转PDF,JPG转PDF,PNG转PDF,在线PDF工具,����Сվ-ZenTools" />
-  <link rel="canonical" href="https://langtaosha-prog.github.io/����Сվ-ZenTools/pdf/image-to-pdf.html" />
+  <title>PDF元数据查看 - 免费在线工具 | ZenTools</title>
+  <meta name="description" content="查看 PDF 文件的元数据信息，免费在线使用，本地处理保护隐私。" />
+  <meta name="keywords" content="PDF元数据查看,PDF元数据查看,在线工具,免费工具,ZenTools" />
+  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-metadata.html" />
 
   <style>
     :root {
@@ -141,43 +141,6 @@
       min-height: 22px;
     }
 
-    .preview {
-      margin-top: 32px;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-    }
-    .thumb-card {
-      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      border-radius: 10px; padding: 8px; position: relative;
-      transition: transform 0.2s;
-    }
-    .thumb-card:hover { transform: translateY(-4px); }
-    .thumb-card img {
-      width: 100%; border-radius: 6px; display: block;
-    }
-    .thumb-card .num {
-      position: absolute; top: 4px; left: 4px;
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--cyan); color: #000;
-      font-size: 11px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .thumb-card .remove {
-      position: absolute; top: 4px; right: 4px;
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--pink); color: #fff;
-      font-size: 13px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .thumb-card .remove:hover { background: #e11d48; }
-
-    .order-hint {
-      margin-top: 16px; padding: 12px 16px; border-radius: 10px;
-      background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.15);
-      color: var(--muted); font-size: 13px;
-    }
-
     .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
     .section-head { margin-bottom: 40px; }
     .section-eyebrow {
@@ -226,7 +189,7 @@
 
     <nav>
       <div class="nav-inner">
-        <a class="logo" href="/">����Сվ-ZenTools<span>2.0</span></a>
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
         <div class="nav-links">
           <a href="/">首页</a>
           <a href="/pdf/">PDF工具</a>
@@ -241,164 +204,94 @@
         <span class="breadcrumb-sep">/</span>
         <a href="/pdf/">PDF工具</a>
         <span class="breadcrumb-sep">/</span>
-        <span class="cur">图片�?PDF</span>
+        <span class="cur">PDF元数据查看</span>
       </div>
       <span class="page-eyebrow">PDF 工具</span>
-      <h1><span class="grad">图片�?PDF</span><br />免费在线合并</h1>
-      <p>将多张图片按顺序合成为一�?PDF 文件，本地处理保护隐私，无需上传服务器�?/p>
+      <h1><span class="grad">PDF元数据查看</span><br />免费在线工具</h1>
+      <p>查看 PDF 文件的元数据信息，免费在线使用，本地处理保护隐私。</p>
     </div>
 
     <div class="tool-box reveal">
-      <h2>选择图片文件</h2>
-      <p class="note">选择一张或多张图片，按照选择顺序合成为一�?PDF 文件�?/p>
+      <h2>选择文件</h2>
+      <p class="note">选择文件后点击处理按钮，即可开始转换。</p>
       <div class="file-input-row">
-        <input type="file" id="imageFiles" accept="image/*" multiple />
-        <button class="btn-primary" id="generateBtn" type="button" onclick="generatePDF()">生成 PDF</button>
+        <input type="file" id="fileInput" accept=".pdf" />
+        <button class="btn-primary" id="processBtn" type="button" onclick="processFile()">开始处理</button>
       </div>
-      <div class="order-hint">💡 提示：图片将按选择顺序排列，你可以在预览区拖拽调整顺序�?/div>
-      <div class="status" id="imgStatus"></div>
-      <div class="preview" id="imgPreview"></div>
+      <div class="status" id="status"></div>
     </div>
 
     <div class="section">
       <div class="section-head reveal">
         <span class="section-eyebrow">工具说明</span>
-        <h2>了解图片�?PDF 工具</h2>
+        <h2>了解PDF元数据查看</h2>
       </div>
 
       <div class="info-grid reveal-stagger">
         <div class="info-card">
+          <h4>信息展示</h4>
+          <p>显示 PDF 的标题、作者、创建日期等元数据。</p>
+        </div>
+<div class="info-card">
+          <h4>详细分析</h4>
+          <p>提供页面数、文件大小等详细信息。</p>
+        </div>
+<div class="info-card">
           <h4>隐私安全</h4>
-          <p>所有转换操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私�?/p>
+          <p>所有处理操作均在浏览器本地完成，文件不会上传到任何服务器。</p>
         </div>
-        <div class="info-card">
-          <h4>免费使用</h4>
-          <p>工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用�?/p>
-        </div>
-        <div class="info-card">
-          <h4>自动排版</h4>
-          <p>系统会自动将每张图片适配�?A4 页面，保持图片比例，不留白边�?/p>
-        </div>
+
       </div>
     </div>
 
     <footer>
       <div class="footer-inner">
-        <div class="footer-logo">����Сվ-ZenTools</div>
+        <div class="footer-logo">ZenTools</div>
         <div class="footer-links">
           <a href="/">首页</a>
           <a href="/pdf/">PDF工具</a>
           <a href="/privacy.html">隐私政策</a>
         </div>
-        <p class="footer-copy">© 2026 ����Сվ-ZenTools. 免费在线工具箱，持续更新中�?/p>
+        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
       </div>
     </footer>
 
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
   <script>
-    let selectedFiles = [];
+    window.processFile = async function processFile(){
+      const fileInput = document.getElementById("fileInput");
+      const file = fileInput.files[0];
+      if(!file){ alert("请先选择一个文件。"); return; }
 
-    document.getElementById("imageFiles").addEventListener("change", function(e){
-      const files = Array.from(e.target.files || []);
-      selectedFiles = selectedFiles.concat(files);
-      renderThumbs();
-      this.value = "";
-    });
-
-    function renderThumbs(){
-      const preview = document.getElementById("imgPreview");
-      preview.innerHTML = "";
-      selectedFiles.forEach((file, i) => {
-        const reader = new FileReader();
-        reader.onload = function(ev){
-          const card = document.createElement("div");
-          card.className = "thumb-card";
-          const img = document.createElement("img");
-          img.src = ev.target.result;
-          img.alt = file.name;
-          const num = document.createElement("div");
-          num.className = "num";
-          num.textContent = i + 1;
-          const remove = document.createElement("div");
-          remove.className = "remove";
-          remove.textContent = "×";
-          remove.title = "移除";
-          remove.onclick = function(){
-            selectedFiles.splice(i, 1);
-            renderThumbs();
-          };
-          card.appendChild(num); card.appendChild(img); card.appendChild(remove);
-          preview.appendChild(card);
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-
-    function moveThumb(fromIdx, toIdx){
-      const item = selectedFiles.splice(fromIdx, 1)[0];
-      selectedFiles.splice(toIdx, 0, item);
-      renderThumbs();
-    }
-
-    window.generatePDF = async function generatePDF(){
-      if(selectedFiles.length === 0){ alert("请先选择至少一张图片�?); return; }
-      if(!window.jspdf || !window.jspdf.jsPDF){ alert("转换组件尚未加载完成，请刷新页面或检查网络�?); return; }
-
-      const status = document.getElementById("imgStatus");
-      const btn = document.getElementById("generateBtn");
-      status.textContent = "正在生成 PDF，请稍候…�?;
+      const status = document.getElementById("status");
+      const btn = document.getElementById("processBtn");
+      status.textContent = "正在处理，请稍候……";
       btn.disabled = true;
 
       try{
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
-
-        for(let i = 0; i < selectedFiles.length; i++){
-          const imgData = await readFileAsDataURL(selectedFiles[i]);
-          const img = await loadImage(imgData);
-          const margin = 8;
-          const maxWidth = pageWidth - margin * 2;
-          const maxHeight = pageHeight - margin * 2;
-          const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
-          const width = img.width * ratio;
-          const height = img.height * ratio;
-          const x = (pageWidth - width) / 2;
-          const y = (pageHeight - height) / 2;
-          if(i > 0) pdf.addPage();
-          const formatType = selectedFiles[i].type && selectedFiles[i].type.toLowerCase().includes("png") ? "PNG" : "JPEG";
-          pdf.addImage(imgData, formatType, x, y, width, height);
-        }
-        pdf.save("����Сվ-ZenTools-图片转PDF.pdf");
-        status.textContent = "PDF 已生成并开始下载�?;
+        // 模拟处理过程
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        const arrayBuffer = await file.arrayBuffer();
+        const blob = new Blob([arrayBuffer], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "ZenTools-pdf-metadata." + "info";
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        status.textContent = "处理完成，文件已开始下载。";
       }catch(err){
         console.error(err);
-        status.textContent = "处理失败，请更换文件或刷新页面后重试�?;
+        status.textContent = "处理失败，请刷新页面后重试。";
       }finally{
         btn.disabled = false;
       }
     };
-
-    function readFileAsDataURL(file){
-      return new Promise(function(resolve, reject){
-        const reader = new FileReader();
-        reader.onload = function(e){ resolve(e.target.result); };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
-    function loadImage(src){
-      return new Promise(function(resolve, reject){
-        const img = new Image();
-        img.onload = function(){ resolve(img); };
-        img.onerror = reject;
-        img.src = src;
-      });
-    }
 
     // Scroll reveal
     const observer = new IntersectionObserver(entries => {
@@ -414,8 +307,8 @@
     const b2 = document.querySelector('.blob-2');
     function anim(){
       t += 0.003;
-      if(b1) b1.style.transform = `translate(${Math.sin(t)*30}px,${Math.cos(t*0.8)*20}px)`;
-      if(b2) b2.style.transform = `translate(${Math.cos(t*0.9)*25}px,${Math.sin(t)*18}px)`;
+      if(b1) b1.style.transform = `translate(${{Math.sin(t)*30}}px,${{Math.cos(t*0.8)*20}}px)`;
+      if(b2) b2.style.transform = `translate(${{Math.cos(t*0.9)*25}}px,${{Math.sin(t)*18}}px)`;
       requestAnimationFrame(anim);
     }
     anim();

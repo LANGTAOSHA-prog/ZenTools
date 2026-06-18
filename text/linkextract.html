@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>链接批量提取 - ����Сվ-ZenTools</title>
-<meta name="description" content="����Сվ-ZenTools 免费在线链接批量提取工具�?>
+<title>链接批量提取 - ZenTools</title>
+<meta name="description" content="ZenTools 免费在线链接批量提取工具。">
 
 <style>
 :root{--bg:#0f172a;--card:#111827;--card2:#0b1220;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444;--gold:#f59e0b}
@@ -35,10 +35,10 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <body>
 <div class="container">
   <div class="top-bar">
-    <a href="index.html" data-i18n="back">�?返回首页</a>
+    <a href="index.html" data-i18n="back">← 返回首页</a>
     <select id="languageSelect" class="lang-select">
       <option value="zh">中文</option>
-      <option value="ja">日本�?/option>
+      <option value="ja">日本語</option>
       <option value="en">English</option>
       <option value="vi">Tiếng Việt</option>
     </select>
@@ -46,9 +46,9 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
   <div class="card">
 
 <h1 data-i18n="title">链接批量提取</h1>
-<p class="desc" data-i18n="desc">从文本中自动提取 URL 链接�?/p>
-<div class="ad-box" data-i18n="ad">广告位（Google AdSense�?/div>
-<textarea id="text" data-i18n-placeholder="placeholder" placeholder="粘贴包含链接的文�?.."></textarea>
+<p class="desc" data-i18n="desc">从文本中自动提取 URL 链接。</p>
+<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+<textarea id="text" data-i18n-placeholder="placeholder" placeholder="粘贴包含链接的文本..."></textarea>
 <button onclick="extractLinks()" data-i18n="run">提取链接</button>
 <button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
 <button onclick="clearAll()" class="clear-btn" data-i18n="clear">清空</button>
@@ -56,15 +56,15 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <div class="result" id="count"></div>
 
   </div>
-  <footer>© 2026 ����Сվ-ZenTools</footer>
+  <footer>© 2026 ZenTools</footer>
 </div>
 <script>
 
 const translations={
- zh:{pageTitle:"链接批量提取 - ����Сվ-ZenTools",back:"�?返回首页",title:"链接批量提取",desc:"从文本中自动提取 URL 链接�?,ad:"广告位（Google AdSense�?,placeholder:"粘贴包含链接的文�?..",resultPlaceholder:"提取结果...",run:"提取链接",copy:"复制结果",clear:"清空",found:"找到链接�?},
- ja:{pageTitle:"リンク抽�?- ����Сվ-ZenTools",back:"�?ホームに戻る",title:"リンク抽�?,desc:"テキストからURLを自動抽出�?,ad:"広告スペース",placeholder:"リンクを含むテキストを貼り付�?..",resultPlaceholder:"抽出結果...",run:"リンク抽�?,copy:"結果をコピー",clear:"クリ�?,found:"リンク数�?},
- en:{pageTitle:"Link Extractor - ����Сվ-ZenTools",back:"�?Back to Home",title:"Link Extractor",desc:"Extract URLs from text automatically.",ad:"Ad Space",placeholder:"Paste text containing links...",resultPlaceholder:"Extracted links...",run:"Extract Links",copy:"Copy Result",clear:"Clear",found:"Links found: "},
- vi:{pageTitle:"Trích xuất liên kết - ����Сվ-ZenTools",back:"�?Quay lại trang ch�?,title:"Trích xuất liên kết",desc:"T�?động trích xuất URL t�?văn bản.",ad:"V�?trí quảng cáo",placeholder:"Dán văn bản có chứa liên kết...",resultPlaceholder:"Kết qu�?..",run:"Trích xuất",copy:"Sao chép",clear:"Xóa",found:"S�?liên kết: "}
+ zh:{pageTitle:"链接批量提取 - ZenTools",back:"← 返回首页",title:"链接批量提取",desc:"从文本中自动提取 URL 链接。",ad:"广告位（Google AdSense）",placeholder:"粘贴包含链接的文本...",resultPlaceholder:"提取结果...",run:"提取链接",copy:"复制结果",clear:"清空",found:"找到链接："},
+ ja:{pageTitle:"リンク抽出 - ZenTools",back:"← ホームに戻る",title:"リンク抽出",desc:"テキストからURLを自動抽出。",ad:"広告スペース",placeholder:"リンクを含むテキストを貼り付け...",resultPlaceholder:"抽出結果...",run:"リンク抽出",copy:"結果をコピー",clear:"クリア",found:"リンク数："},
+ en:{pageTitle:"Link Extractor - ZenTools",back:"← Back to Home",title:"Link Extractor",desc:"Extract URLs from text automatically.",ad:"Ad Space",placeholder:"Paste text containing links...",resultPlaceholder:"Extracted links...",run:"Extract Links",copy:"Copy Result",clear:"Clear",found:"Links found: "},
+ vi:{pageTitle:"Trích xuất liên kết - ZenTools",back:"← Quay lại trang chủ",title:"Trích xuất liên kết",desc:"Tự động trích xuất URL từ văn bản.",ad:"Vị trí quảng cáo",placeholder:"Dán văn bản có chứa liên kết...",resultPlaceholder:"Kết quả...",run:"Trích xuất",copy:"Sao chép",clear:"Xóa",found:"Số liên kết: "}
 };
 
 const languageSelect=document.getElementById("languageSelect");
@@ -89,11 +89,11 @@ function clearAll(){document.getElementById("text").value="";document.getElement
 
 <script>
 const seoData = {
-  title: "工具名称 - 免费在线工具 | ����Сվ-ZenTools",
-  description: "免费在线工具名称，支持手机与电脑，无需安装软件�?,
-  keywords: "工具名称,在线工具,免费工具,����Сվ-ZenTools",
-  url: "https://www.����Сվ-ZenTools.xyz/tool.html",
-  image: "https://www.����Сվ-ZenTools.xyz/logo.png"
+  title: "工具名称 - 免费在线工具 | ZenTools",
+  description: "免费在线工具名称，支持手机与电脑，无需安装软件。",
+  keywords: "工具名称,在线工具,免费工具,ZenTools",
+  url: "https://www.zentools.xyz/tool.html",
+  image: "https://www.zentools.xyz/logo.png"
 };
 
 function setMeta(name, content){
@@ -131,7 +131,7 @@ function applySEO(){
 
   setMeta("description", seoData.description);
   setMeta("keywords", seoData.keywords);
-  setMeta("author", "����Сվ-ZenTools");
+  setMeta("author", "ZenTools");
 
   setCanonical(seoData.url);
 

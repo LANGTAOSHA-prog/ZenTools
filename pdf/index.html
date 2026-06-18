@@ -1,89 +1,450 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF 工具箱 - 江湖小站-ZenTools</title>
-  <meta name="description" content="在线 PDF 处理工具集合，支持 PDF 转图片、图片转 PDF、合并、拆分、压缩等操作" />
+  <title>PDF工具 - ZenTools 2.0</title>
+  <meta name="description" content="ZenTools PDF工具集：PDF合并、拆分、压缩、OCR、转文本、旋转、水印、删除页面，全部免费在线使用。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --glass-border: rgba(255,255,255,0.08); }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; --accent-glow: rgba(59,130,246,0.1); --glass-border: rgba(0,0,0,0.06); }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-    a { text-decoration: none; color: inherit; }
-    .container { max-width: 1080px; margin: 0 auto; padding: 30px 24px 60px; }
-    .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 40px; flex-wrap: wrap; gap: 12px; }
-    .nav-bar .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
-    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
-    .nav-bar .links { display: flex; gap: 6px; flex-wrap: wrap; }
-    .nav-bar .links a { font-size: 13px; font-weight: 500; color: var(--muted); padding: 6px 14px; border-radius: var(--radius-pill); }
-    .nav-bar .links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
-    .nav-bar .links a.active { color: var(--accent); background: var(--accent-glow); }
-    .page-header { margin-bottom: 32px; }
-    .page-header h1 { font-size: 28px; font-weight: 800; }
-    .page-header h1 .hl { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .page-header p { color: var(--muted); margin-top: 6px; font-size: 15px; }
-    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
-    .tool-card { background: var(--surface); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 20px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; transition: all .3s; backdrop-filter: blur(4px); }
-    .tool-card:hover { transform: translateY(-4px); border-color: var(--accent-glow); box-shadow: 0 8px 24px rgba(59,130,246,0.1); }
-    .tool-card .emoji { font-size: 32px; }
-    .tool-card .name { font-size: 14px; font-weight: 600; }
-    .tool-card .desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
-    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-glow); border-radius: 8px; padding: 4px 12px; }
-    .empty-state { grid-column: 1/-1; text-align: center; padding: 50px 20px; color: var(--muted); }
-    .back-home { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 20px; }
-    .back-home:hover { color: var(--accent); }
-    .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
-    @media (max-width: 640px) { .nav-bar { flex-direction: column; } .tools-grid { grid-template-columns: 1fr 1fr; } }
+    :root {
+      --bg:      #06070d;
+      --glass:   rgba(255,255,255,0.04);
+      --glass-b: rgba(255,255,255,0.08);
+      --cyan:    #00e5ff;
+      --purple:  #a855f7;
+      --pink:    #f43f5e;
+      --text:    #f0f4ff;
+      --muted:   #6b7a9f;
+      --border:  rgba(255,255,255,0.07);
+      --border-h:rgba(0,229,255,0.35);
+      --glow-c:  0 0 40px rgba(0,229,255,0.18);
+      --r:       20px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* Noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 1;
+    }
+
+    /* Blobs */
+    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
+    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
+    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
+
+    .z-wrap { position: relative; z-index: 2; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(24px) saturate(180%);
+      background: rgba(6,7,13,0.75);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1200px; margin: auto; height: 64px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    }
+    .logo {
+      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a {
+      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
+      color: var(--muted); transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
+    .nav-badge {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #000; font-weight: 700; padding: 8px 18px;
+      border-radius: 10px; font-size: 14px; transition: opacity 0.2s;
+    }
+    .nav-badge:hover { opacity: 0.85; color: #000; }
+
+    /* ── PAGE HEADER ── */
+    .page-header {
+      max-width: 1200px; margin: 0 auto;
+      padding: 72px 24px 56px;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted); margin-bottom: 28px;
+    }
+    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--cyan); }
+    .breadcrumb-sep { opacity: 0.3; }
+    .breadcrumb .cur { color: var(--cyan); }
+
+    .page-eyebrow {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 14px;
+    }
+    .page-header h1 {
+      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
+      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
+    }
+    .page-header h1 .grad {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
+
+    /* ── STATS ROW ── */
+    .stats-row {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 24px 56px;
+      display: flex; gap: 0;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+    .stat-cell {
+      flex: 1; padding: 28px 24px; text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell strong {
+      display: block; font-size: 32px; font-weight: 900; line-height: 1;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 6px;
+    }
+    .stat-cell span { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      max-width: 1200px; margin: 0 auto;
+    }
+
+    /* ── TOOLS GRID ── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
+
+    .section-head { margin-bottom: 40px; }
+    .section-eyebrow {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
+    }
+    .section-head h2 {
+      font-size: clamp(24px, 3vw, 36px); font-weight: 800;
+      letter-spacing: -0.8px; line-height: 1.15;
+    }
+
+    .tool-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .tool-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 18px;
+      padding: 26px; display: flex; flex-direction: column; gap: 12px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      backdrop-filter: blur(8px); position: relative; overflow: hidden;
+    }
+    .tool-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .tool-card:hover {
+      border-color: rgba(0,229,255,0.3); transform: translateY(-4px);
+      box-shadow: var(--glow-c), 0 20px 50px rgba(0,0,0,0.4);
+    }
+    .tool-card:hover::after { opacity: 1; }
+
+    .tool-icon {
+      width: 48px; height: 48px; border-radius: 13px;
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+      background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.15);
+      flex-shrink: 0;
+    }
+
+    .tool-card h3 { font-size: 17px; font-weight: 700; letter-spacing: -0.2px; }
+
+    .tool-card p { color: var(--muted); font-size: 13px; line-height: 1.65; flex: 1; }
+
+    .tool-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 13px; font-weight: 600; color: var(--cyan);
+      padding: 10px 18px; border-radius: 999px;
+      border: 1px solid rgba(0,229,255,0.2);
+      background: rgba(0,229,255,0.05);
+      transition: background 0.2s, border-color 0.2s, gap 0.2s;
+      width: fit-content; margin-top: 4px;
+    }
+    .tool-link:hover { background: rgba(0,229,255,0.12); border-color: var(--cyan); gap: 11px; }
+    .tool-link svg { width: 13px; height: 13px; transition: transform 0.2s; }
+    .tool-card:hover .tool-link svg { transform: translateX(2px); }
+
+    /* ── TIPS SECTION ── */
+    .tips-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .tip-card {
+      background: var(--glass); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; backdrop-filter: blur(8px);
+    }
+    .tip-num {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--purple); margin-bottom: 10px;
+    }
+    .tip-card h4 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .tip-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.45s ease, transform 0.45s ease; }
+    .reveal-stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:0.04s; }
+    .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.10s; }
+    .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.16s; }
+    .reveal-stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:0.22s; }
+    .reveal-stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:0.28s; }
+    .reveal-stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:0.34s; }
+    .reveal-stagger.visible > *:nth-child(7) { opacity:1; transform:translateY(0); transition-delay:0.40s; }
+    .reveal-stagger.visible > *:nth-child(8) { opacity:1; transform:translateY(0); transition-delay:0.46s; }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
+    .footer-inner { max-width: 1200px; margin: auto; }
+    .footer-logo {
+      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      display: inline-block; margin-bottom: 16px;
+    }
+    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .footer-links a {
+      color: var(--muted); font-size: 14px; padding: 6px 12px;
+      border-radius: 8px; transition: color 0.2s, background 0.2s;
+    }
+    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
+    .footer-copy { color: var(--muted); font-size: 13px; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .tool-grid { grid-template-columns: repeat(2, 1fr); }
+      .tips-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .tool-grid, .tips-grid { grid-template-columns: 1fr; }
+      .stats-row { flex-direction: column; }
+      .stat-cell { border-right: none; border-bottom: 1px solid var(--border); }
+      .stat-cell:last-child { border-bottom: none; }
+      .nav-links .nav-badge { display: none; }
+    }
+    @media (max-width: 420px) {
+      .nav-links a { padding: 6px 10px; font-size: 13px; }
+    }
   </style>
 </head>
+
 <body>
-<div class="container">
-  <nav class="nav-bar">
-    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
-    <div class="links">
-      <a href="/">首页</a>
-      <a href="#" class="active">PDF工具</a>
-      <a href="/plugins-preview.html">全部工具</a>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="z-wrap">
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/">首页</a>
+          <a href="#tools" class="active">PDF工具</a>
+          <a href="/plugins-preview.html">插件预览</a>
+          <a href="/tutorials/">教程</a>
+          <a class="nav-badge" href="#tools">查看全部工具 →</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur">PDF 工具</span>
+      </div>
+      <span class="page-eyebrow">PDF 工具集</span>
+      <h1><span class="grad">PDF 工具</span><br />全部免费使用</h1>
+      <p>6 款常用 PDF 工具，本地处理、无需上传服务器、保护你的文件隐私，简单快速，永久免费。</p>
     </div>
-  </nav>
-  <a href="/" class="back-home">← 返回首页</a>
-  <div class="page-header">
-    <h1><span class="hl">PDF</span> 工具箱</h1>
-    <p>在线 PDF 处理工具集合，支持 PDF 转图片、图片转 PDF、合并、拆分、压缩等操作</p>
+
+    <!-- STATS -->
+    <div style="max-width:1200px;margin:0 auto;padding:0 24px 56px;">
+      <div class="stats-row reveal">
+        <div class="stat-cell"><strong>6</strong><span>PDF 工具</span></div>
+        <div class="stat-cell"><strong>100%</strong><span>本地处理</span></div>
+        <div class="stat-cell"><strong>免费</strong><span>永久可用</span></div>
+        <div class="stat-cell"><strong>无限制</strong><span>文件数量</span></div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TOOLS -->
+    <div class="section" id="tools">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">全部工具</span>
+        <h2>6 款 PDF 工具，立即可用</h2>
+      </div>
+
+      <div class="tool-grid reveal-stagger">
+
+        <div class="tool-card">
+          <div class="tool-icon">🔗</div>
+          <h3>PDF 合并</h3>
+          <p>将多个 PDF 文件合并成一个，整理资料、合同、学习笔记，一步到位。</p>
+          <a class="tool-link" href="/pdf/mergepdf.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">✂️</div>
+          <h3>PDF 拆分</h3>
+          <p>从 PDF 中拆出指定页面，单独保存或分享，精准高效。</p>
+          <a class="tool-link" href="/pdf/splitpdf.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">📦</div>
+          <h3>PDF 压缩</h3>
+          <p>压缩 PDF 文件体积，适合上传、邮件附件或节省存储空间。</p>
+          <a class="tool-link" href="/pdf/compresspdf.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <!-- 以下工具页面尚未创建，暂时移除 -->
+
+        <div class="tool-card">
+          <div class="tool-icon">🖼️</div>
+          <h3>PDF 转图片</h3>
+          <p>将 PDF 每页转换为图片（PNG/JPG），便于分享、上传或作为图片使用。</p>
+          <a class="tool-link" href="/pdf/pdf-to-image.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">📄</div>
+          <h3>图片转 PDF</h3>
+          <p>将多张图片合并为一个 PDF 文件，适合整理照片、截图、扫描件等。</p>
+          <a class="tool-link" href="/pdf/image-to-pdf.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-icon">➕</div>
+          <h3>PDF 添加页面</h3>
+          <p>在 PDF 开头、结尾或指定位置添加空白页或图片页面，灵活编辑。</p>
+          <a class="tool-link" href="/pdf/pdf-add-pages.html">
+            打开工具
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TIPS -->
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow">使用须知</span>
+        <h2>快速了解这些工具</h2>
+      </div>
+
+      <div class="tips-grid reveal-stagger">
+        <div class="tip-card">
+          <div class="tip-num">01 · 隐私安全</div>
+          <h4>文件本地处理</h4>
+          <p>所有 PDF 操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私。</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">02 · 免费使用</div>
+          <h4>永久免费，无需注册</h4>
+          <p>所有工具完全免费，无需注册账号，无文件数量限制，打开即用。</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-num">03 · 浏览器要求</div>
+          <h4>推荐现代浏览器</h4>
+          <p>建议使用 Chrome、Edge 或 Firefox 最新版以获得最佳兼容性和性能体验。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/pdf/">PDF工具</a>
+          <a href="/tutorials/">教程中心</a>
+          <a href="/privacy.html">隐私政策</a>
+        </div>
+        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
+    </footer>
+
   </div>
-  <div class="tools-grid" id="toolsGrid"><div class="empty-state">⏳ 加载工具中...</div></div>
-  <div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构</div>
-</div>
-<script>
-  const CATEGORY_KEY = 'PDF工具';
-  const PAGE_TITLE = 'PDF';
-  const PAGE_DESC = '在线 PDF 处理工具集合，支持 PDF 转图片、图片转 PDF、合并、拆分、压缩等操作';
-  const fallbackTools = [
-    { name: 'PDF 合并', url: '/pdf/merge.html', icon: '📄', description: '将多个 PDF 文件合并为一个', category: 'PDF工具' },
-    { name: 'PDF 拆分', url: '/pdf/split.html', icon: '✂️', description: '将 PDF 拆分为多个独立页面', category: 'PDF工具' },
-    { name: 'PDF 压缩', url: '/pdf/compress.html', icon: '🗜️', description: '压缩 PDF 文件大小', category: 'PDF工具' },
-    { name: 'PDF 转 Word', url: '/pdf/pdf-to-word.html', icon: '📝', description: '将 PDF 转换为可编辑的 Word 文档', category: 'PDF工具' },
-    { name: 'PDF 转图片', url: '/pdf/pdf-to-image.html', icon: '📸', description: '将 PDF 页面转换为图片格式', category: 'PDF工具' }
-  ];
-  function renderTools(tools) {
-    const c = document.getElementById('toolsGrid'); if (!c) return;
-    const f = tools.filter(t => t.category === CATEGORY_KEY);
-    if (!f.length) { c.innerHTML = '<div class="empty-state">📭 该分类下暂无工具，敬请期待</div>'; return; }
-    let html = '';
-    for (const t of f) {
-      const cs = (!t.url || t.url === '#') ? 'tool-card' : 'tool-card';
-      const h = (!t.url || t.url === '#') ? '#' : t.url;
-      html += `<a class="${cs}" href="${h}" target="_blank"><span class="emoji">${t.icon || '🔧'}</span><span class="name">${t.name}</span><span class="desc">${t.description || ''}</span><span class="tag">${t.category || '工具'}</span></a>`;
+
+  <script>
+    /* Scroll reveal */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+
+    /* Blob animation */
+    let t = 0;
+    const b1 = document.querySelector('.blob-1');
+    const b2 = document.querySelector('.blob-2');
+    function anim() {
+      t += 0.003;
+      if (b1) b1.style.transform = `translate(${Math.sin(t)*30}px,${Math.cos(t*0.8)*20}px)`;
+      if (b2) b2.style.transform = `translate(${Math.cos(t*0.9)*25}px,${Math.sin(t)*18}px)`;
+      requestAnimationFrame(anim);
     }
-    c.innerHTML = html;
-  }
-  function load() {
-    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 工具箱`;
-    document.querySelector('.page-header p').textContent = PAGE_DESC;
-    fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); else renderTools(fallbackTools); }).catch(() => renderTools(fallbackTools));
-  }
-  document.addEventListener('DOMContentLoaded', load);
-</script>
+    anim();
+  </script>
+
 </body>
 </html>

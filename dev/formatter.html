@@ -1,11 +1,11 @@
-<!-- JSON 格式化工�?1: 基础格式化与压缩 -->
+<!-- JSON æ ¼å¼åå·¥å?1: åºç¡æ ¼å¼åä¸åç¼© -->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>JSON 格式化工�?- 基础�?| ����Сվ-ZenTools</title>
-  <meta name="description" content="在线JSON格式化、压缩、验证工具，支持语法高亮和错误提示，完全本地运行�? />
+  <title>JSON 格式化工具 - 基础版 | 江湖小站-ZenTools</title>
+  <meta name="description" content="å¨çº¿JSONæ ¼å¼åãåç¼©ãéªè¯å·¥å·ï¼æ¯æè¯­æ³é«äº®åéè¯¯æç¤ºï¼å®å¨æ¬å°è¿è¡ã? />
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -51,33 +51,33 @@
 </head>
 <body>
 <div class="container">
-  <a href="/dev/json-index.html" class="back-link">�?返回工具�?/a>
+  <a href="/dev/json-index.html" class="back-link">â?è¿åå·¥å·ç®?/a>
   <div class="header">
-    <h1>📝 JSON 格式化工�?· 基础�?/h1>
-    <div class="sub">格式化、压缩、验�?JSON 数据</div>
+    <h1>ð JSON æ ¼å¼åå·¥å?Â· åºç¡ç?/h1>
+    <div class="sub">æ ¼å¼åãåç¼©ãéªè¯?JSON æ°æ®</div>
   </div>
   <div class="toolbar">
-    <button onclick="formatJSON()">�?格式�?/button>
-    <button onclick="minifyJSON()">📦 压缩</button>
-    <button onclick="clearAll()">🗑�?清空</button>
-    <button onclick="copyOutput()">📋 复制结果</button>
+    <button onclick="formatJSON()">â?æ ¼å¼å?/button>
+    <button onclick="minifyJSON()">ð¦ åç¼©</button>
+    <button onclick="clearAll()">ðï¸?æ¸ç©º</button>
+    <button onclick="copyOutput()">ð å¤å¶ç»æ</button>
   </div>
-  <textarea id="inputJSON" placeholder='{"name": "����Сվ-ZenTools","version": "2.0"}'></textarea>
+  <textarea id="inputJSON" placeholder='{"name": "½­ºþÐ¡Õ¾-ZenTools","version": "2.0"}'></textarea>
   <div id="outputArea" class="output-area"></div>
   <div id="message" class="error" style="display:none;"></div>
 </div>
-<div class="footer">© ����Сվ-ZenTools · 本地处理，数据不上传</div>
+<div class="footer">Â© ½­ºþÐ¡Õ¾-ZenTools Â· æ¬å°å¤çï¼æ°æ®ä¸ä¸ä¼ </div>
 <script>
   function formatJSON() { process((obj) => JSON.stringify(obj, null, 2)); }
   function minifyJSON() { process((obj) => JSON.stringify(obj)); }
   function process(transform) {
     const input = document.getElementById('inputJSON').value.trim();
-    if (!input) { showMsg('请输�?JSON 数据', 'error'); return; }
+    if (!input) { showMsg('è¯·è¾å?JSON æ°æ®', 'error'); return; }
     try { const obj = JSON.parse(input); document.getElementById('outputArea').innerHTML = `<pre style="margin:0;font-family:monospace;">${escapeHtml(transform(obj))}</pre>`; hideMsg(); }
-    catch(e) { showMsg('JSON 解析错误: ' + e.message, 'error'); }
+    catch(e) { showMsg('JSON è§£æéè¯¯: ' + e.message, 'error'); }
   }
-  function clearAll() { document.getElementById('inputJSON').value = ''; document.getElementById('outputArea').innerHTML = '<span style="color:var(--muted);">等待输入...</span>'; hideMsg(); }
-  function copyOutput() { const out = document.getElementById('outputArea').innerText; if(out && out !== '等待输入...') { navigator.clipboard.writeText(out); showMsg('已复制到剪贴�?, 'success'); setTimeout(hideMsg, 1500); } else showMsg('无内容可复制', 'error'); }
+  function clearAll() { document.getElementById('inputJSON').value = ''; document.getElementById('outputArea').innerHTML = '<span style="color:var(--muted);">ç­å¾è¾å¥...</span>'; hideMsg(); }
+  function copyOutput() { const out = document.getElementById('outputArea').innerText; if(out && out !== 'ç­å¾è¾å¥...') { navigator.clipboard.writeText(out); showMsg('å·²å¤å¶å°åªè´´æ?, 'success'); setTimeout(hideMsg, 1500); } else showMsg('æ åå®¹å¯å¤å¶', 'error'); }
   function showMsg(msg, type) { const el = document.getElementById('message'); el.textContent = msg; el.className = type === 'error' ? 'error' : 'success'; el.style.display = 'block'; }
   function hideMsg() { document.getElementById('message').style.display = 'none'; }
   function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;}); }

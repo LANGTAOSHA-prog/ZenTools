@@ -1,10 +1,10 @@
-<!-- JSON 格式化工�?2: 高级版（语法高亮 + 树形视图�?-->
+<!-- JSON æ ¼å¼åå·¥å?2: é«çº§çï¼è¯­æ³é«äº® + æ å½¢è§å¾ï¼?-->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>JSON 可视化工�?- 树形视图 | ����Сվ-ZenTools</title>
+  <title>JSON 可视化工具 - 树形视图 | 江湖小站-ZenTools</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -63,28 +63,28 @@
 </head>
 <body>
 <div class="container">
-  <a href="/dev/json-index.html" class="back-link">�?返回工具�?/a>
+  <a href="/dev/json-index.html" class="back-link">â?è¿åå·¥å·ç®?/a>
   <div class="header">
-    <h1>🌳 JSON 可视化工�?· 树形视图</h1>
-    <div class="sub">交互式树形结构，支持展开/折叠节点，语法高�?/div>
+    <h1>ð³ JSON å¯è§åå·¥å?Â· æ å½¢è§å¾</h1>
+    <div class="sub">äº¤äºå¼æ å½¢ç»æï¼æ¯æå±å¼/æå èç¹ï¼è¯­æ³é«äº?/div>
   </div>
   <div class="toolbar">
-    <button onclick="renderTree()">🌲 生成树形视图</button>
-    <button onclick="clearAll()">🗑�?清空</button>
-    <button onclick="expandAll()">📂 全部展开</button>
-    <button onclick="collapseAll()">📁 全部折叠</button>
+    <button onclick="renderTree()">ð² çææ å½¢è§å¾</button>
+    <button onclick="clearAll()">ðï¸?æ¸ç©º</button>
+    <button onclick="expandAll()">ð å¨é¨å±å¼</button>
+    <button onclick="collapseAll()">ð å¨é¨æå </button>
   </div>
-  <textarea id="jsonInput" placeholder='{"tool":"����Сվ-ZenTools","features":["格式�?,"树形视图","高亮"],"info":{"version":"2.0","free":true}}'></textarea>
-  <div id="treeContainer" class="tree-view"><span style="color:var(--muted);">等待输入 JSON...</span></div>
+  <textarea id="jsonInput" placeholder='{"tool":"½­ºþÐ¡Õ¾-ZenTools","features":["æ ¼å¼å?,"æ å½¢è§å¾","é«äº®"],"info":{"version":"2.0","free":true}}'></textarea>
+  <div id="treeContainer" class="tree-view"><span style="color:var(--muted);">ç­å¾è¾å¥ JSON...</span></div>
   <div id="errorMsg" class="error" style="display:none;"></div>
 </div>
-<div class="footer">© ����Сվ-ZenTools · 本地解析，数据不上传</div>
+<div class="footer">Â© ½­ºþÐ¡Õ¾-ZenTools Â· æ¬å°è§£æï¼æ°æ®ä¸ä¸ä¼ </div>
 <script>
   function renderTree() {
     const input = document.getElementById('jsonInput').value.trim();
-    if (!input) { showError('请输�?JSON 数据'); return; }
+    if (!input) { showError('è¯·è¾å?JSON æ°æ®'); return; }
     try { const obj = JSON.parse(input); const html = buildTree(obj); document.getElementById('treeContainer').innerHTML = html; hideError(); attachToggleEvents(); }
-    catch(e) { showError('JSON 解析错误: ' + e.message); }
+    catch(e) { showError('JSON è§£æéè¯¯: ' + e.message); }
   }
   function buildTree(data, key = null, isLast = true) {
     let type = typeof data;
@@ -96,21 +96,21 @@
       if (data.length === 0) return `<span class="tree-null">[]</span>`;
       let children = '';
       data.forEach((item, idx) => { children += `<div class="tree-node">${buildTree(item, idx, idx === data.length-1)}${idx !== data.length-1 ? ',' : ''}</div>`; });
-      return `<span class="tree-toggle">�?/span><span class="tree-key">[${key !== null ? key : ''}]</span><div class="tree-children">${children}</div>`;
+      return `<span class="tree-toggle">â?/span><span class="tree-key">[${key !== null ? key : ''}]</span><div class="tree-children">${children}</div>`;
     }
     if (type === 'object') {
       const keys = Object.keys(data);
       if (keys.length === 0) return `<span class="tree-null">{}</span>`;
       let children = '';
-      keys.forEach((k, idx) => { children += `<div class="tree-node"><span class="tree-toggle">�?/span><span class="tree-key">"${escapeHtml(k)}"</span>: ${buildTree(data[k], k, idx === keys.length-1)}${idx !== keys.length-1 ? ',' : ''}</div>`; });
+      keys.forEach((k, idx) => { children += `<div class="tree-node"><span class="tree-toggle">â?/span><span class="tree-key">"${escapeHtml(k)}"</span>: ${buildTree(data[k], k, idx === keys.length-1)}${idx !== keys.length-1 ? ',' : ''}</div>`; });
       return `<div class="tree-children">${children}</div>`;
     }
     return String(data);
   }
-  function attachToggleEvents() { document.querySelectorAll('.tree-toggle').forEach(toggle => { toggle.onclick = function(e) { e.stopPropagation(); const parent = this.parentElement; parent.classList.toggle('collapsed'); this.textContent = parent.classList.contains('collapsed') ? '�? : '�?; }; }); }
-  function expandAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(p.classList.contains('collapsed')){ p.classList.remove('collapsed'); t.textContent='�?; } }); }
-  function collapseAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(!p.classList.contains('collapsed')){ p.classList.add('collapsed'); t.textContent='�?; } }); }
-  function clearAll() { document.getElementById('jsonInput').value = ''; document.getElementById('treeContainer').innerHTML = '<span style="color:var(--muted);">等待输入 JSON...</span>'; hideError(); }
+  function attachToggleEvents() { document.querySelectorAll('.tree-toggle').forEach(toggle => { toggle.onclick = function(e) { e.stopPropagation(); const parent = this.parentElement; parent.classList.toggle('collapsed'); this.textContent = parent.classList.contains('collapsed') ? 'â? : 'â?; }; }); }
+  function expandAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(p.classList.contains('collapsed')){ p.classList.remove('collapsed'); t.textContent='â?; } }); }
+  function collapseAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(!p.classList.contains('collapsed')){ p.classList.add('collapsed'); t.textContent='â?; } }); }
+  function clearAll() { document.getElementById('jsonInput').value = ''; document.getElementById('treeContainer').innerHTML = '<span style="color:var(--muted);">ç­å¾è¾å¥ JSON...</span>'; hideError(); }
   function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
   function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
   function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;}); }

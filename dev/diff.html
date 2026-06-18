@@ -1,10 +1,10 @@
-<!-- JSON 格式化工�?3: 对比/校验器（两个JSON差异对比�?-->
+<!-- JSON æ ¼å¼åå·¥å?3: å¯¹æ¯/æ ¡éªå¨ï¼ä¸¤ä¸ªJSONå·®å¼å¯¹æ¯ï¼?-->
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>JSON 对比工具 · 差异检�?| ����Сվ-ZenTools</title>
+  <title>JSON 对比工具 · 差异检测 | 江湖小站-ZenTools</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -52,27 +52,27 @@
 </head>
 <body>
 <div class="container">
-  <a href="/dev/json-index.html" class="back-link">�?返回工具�?/a>
+  <a href="/dev/json-index.html" class="back-link">â?è¿åå·¥å·ç®?/a>
   <div class="header">
-    <h1>🔍 JSON 对比工具 · 差异检�?/h1>
-    <div class="sub">比较两个 JSON 的结构差异，高亮显示新增、删除和修改的字�?/div>
+    <h1>ð JSON å¯¹æ¯å·¥å· Â· å·®å¼æ£æµ?/h1>
+    <div class="sub">æ¯è¾ä¸¤ä¸ª JSON çç»æå·®å¼ï¼é«äº®æ¾ç¤ºæ°å¢ãå é¤åä¿®æ¹çå­æ®?/div>
   </div>
   <div class="split-panel">
-    <div class="panel"><h3>📄 原始 JSON (A)</h3><textarea id="jsonA" placeholder='{"name":"����Сվ-ZenTools","version":"1.0","features":["格式�?]}'></textarea></div>
-    <div class="panel"><h3>📄 对比 JSON (B)</h3><textarea id="jsonB" placeholder='{"name":"����Сվ-ZenTools Pro","version":"2.0","features":["格式�?,"对比"]}'></textarea></div>
+    <div class="panel"><h3>ð åå§ JSON (A)</h3><textarea id="jsonA" placeholder='{"name":"½­ºþÐ¡Õ¾-ZenTools","version":"1.0","features":["æ ¼å¼å?]}'></textarea></div>
+    <div class="panel"><h3>ð å¯¹æ¯ JSON (B)</h3><textarea id="jsonB" placeholder='{"name":"½­ºþÐ¡Õ¾-ZenTools Pro","version":"2.0","features":["æ ¼å¼å?,"å¯¹æ¯"]}'></textarea></div>
   </div>
-  <div class="toolbar"><button onclick="compareJSON()">�?对比差异</button><button onclick="clearAll()">🗑�?清空</button><button onclick="swapJSON()">🔄 交换位置</button></div>
-  <div id="diffResult" class="diff-result"><span style="color:var(--muted);">点击对比查看 JSON 差异</span></div>
+  <div class="toolbar"><button onclick="compareJSON()">â?å¯¹æ¯å·®å¼</button><button onclick="clearAll()">ðï¸?æ¸ç©º</button><button onclick="swapJSON()">ð äº¤æ¢ä½ç½®</button></div>
+  <div id="diffResult" class="diff-result"><span style="color:var(--muted);">ç¹å»å¯¹æ¯æ¥ç JSON å·®å¼</span></div>
   <div id="errorMsg" class="error" style="display:none;"></div>
 </div>
-<div class="footer">© ����Сվ-ZenTools · 本地对比，数据不上传</div>
+<div class="footer">Â© ½­ºþÐ¡Õ¾-ZenTools Â· æ¬å°å¯¹æ¯ï¼æ°æ®ä¸ä¸ä¼ </div>
 <script>
   function compareJSON() {
     const aText = document.getElementById('jsonA').value.trim();
     const bText = document.getElementById('jsonB').value.trim();
-    if (!aText || !bText) { showError('请填写两�?JSON 数据'); return; }
+    if (!aText || !bText) { showError('è¯·å¡«åä¸¤ä¸?JSON æ°æ®'); return; }
     try { const objA = JSON.parse(aText); const objB = JSON.parse(bText); const diff = getDiff(objA, objB); displayDiff(diff); hideError(); }
-    catch(e) { showError('JSON 解析错误: ' + e.message); }
+    catch(e) { showError('JSON è§£æéè¯¯: ' + e.message); }
   }
   function getDiff(a, b, path = '') {
     const changes = [];
@@ -89,16 +89,16 @@
     return changes;
   }
   function displayDiff(diff) {
-    if (diff.length === 0) { document.getElementById('diffResult').innerHTML = '<span style="color:#4ade80;">�?两个 JSON 完全一致，没有差异</span>'; return; }
-    let html = '<div style="margin-bottom:12px;font-weight:600;">📊 差异列表�?/div>';
+    if (diff.length === 0) { document.getElementById('diffResult').innerHTML = '<span style="color:#4ade80;">â?ä¸¤ä¸ª JSON å®å¨ä¸è´ï¼æ²¡æå·®å¼</span>'; return; }
+    let html = '<div style="margin-bottom:12px;font-weight:600;">ð å·®å¼åè¡¨ï¼?/div>';
     diff.forEach(d => {
-      if (d.type === 'added') html += `<div class="diff-added">�?新增: ${escapeHtml(d.path)} = ${escapeHtml(d.value)}</div>`;
-      else if (d.type === 'removed') html += `<div class="diff-removed">�?删除: ${escapeHtml(d.path)} = ${escapeHtml(d.value)}</div>`;
-      else html += `<div class="diff-removed" style="background:rgba(239,68,68,0.08);">🔄 修改: ${escapeHtml(d.path)}<br>&nbsp;&nbsp;A: ${escapeHtml(d.oldValue)}<br>&nbsp;&nbsp;B: ${escapeHtml(d.newValue)}</div>`;
+      if (d.type === 'added') html += `<div class="diff-added">â?æ°å¢: ${escapeHtml(d.path)} = ${escapeHtml(d.value)}</div>`;
+      else if (d.type === 'removed') html += `<div class="diff-removed">â?å é¤: ${escapeHtml(d.path)} = ${escapeHtml(d.value)}</div>`;
+      else html += `<div class="diff-removed" style="background:rgba(239,68,68,0.08);">ð ä¿®æ¹: ${escapeHtml(d.path)}<br>&nbsp;&nbsp;A: ${escapeHtml(d.oldValue)}<br>&nbsp;&nbsp;B: ${escapeHtml(d.newValue)}</div>`;
     });
     document.getElementById('diffResult').innerHTML = html;
   }
-  function clearAll() { document.getElementById('jsonA').value = ''; document.getElementById('jsonB').value = ''; document.getElementById('diffResult').innerHTML = '<span style="color:var(--muted);">点击对比查看 JSON 差异</span>'; hideError(); }
+  function clearAll() { document.getElementById('jsonA').value = ''; document.getElementById('jsonB').value = ''; document.getElementById('diffResult').innerHTML = '<span style="color:var(--muted);">ç¹å»å¯¹æ¯æ¥ç JSON å·®å¼</span>'; hideError(); }
   function swapJSON() { const a = document.getElementById('jsonA').value; const b = document.getElementById('jsonB').value; document.getElementById('jsonA').value = b; document.getElementById('jsonB').value = a; }
   function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
   function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
