@@ -106,6 +106,42 @@
     }
     .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
+    /* 搜索框 */
+    .search-wrap {
+      position: relative; max-width: 480px; margin-top: 24px;
+    }
+    .search-wrap .search-icon {
+      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      font-size: 16px; opacity: 0.5; pointer-events: none;
+    }
+    .search-wrap .search-clear {
+      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; color: var(--muted); cursor: pointer;
+      font-size: 14px; padding: 4px; display: none;
+    }
+    .search-wrap .search-clear:hover { color: var(--text); }
+    #toolSearch {
+      width: 100%; padding: 14px 38px 14px 42px;
+      border: 1px solid var(--border); border-radius: 14px;
+      background: var(--glass); color: var(--text); font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    #toolSearch:focus {
+      border-color: var(--cyan); box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    #toolSearch::placeholder { color: var(--muted); opacity: 0.6; }
+    .search-stats {
+      display: none; font-size: 12px; color: var(--muted); margin-top: 8px; padding-left: 4px;
+    }
+    .search-empty {
+      text-align: center; padding: 60px 20px; color: var(--muted); display: none;
+    }
+    .search-empty .empty-icon { font-size: 40px; margin-bottom: 12px; }
+    .search-empty .empty-text { font-size: 15px; }
+    .search-empty .empty-hint { font-size: 12px; margin-top: 6px; opacity: 0.6; }
+    .cat-section.search-hidden { display: none; }
+
     /* 统计条 */
     .stats-bar {
       display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap;
@@ -240,6 +276,12 @@
         <div class="hero-actions">
           <a href="#tools" class="btn-primary" data-i18n="startUse">🛠️ 浏览工具</a>
           <a href="#records" class="btn-primary" style="background:var(--glass-b);color:var(--text);box-shadow:none;" data-i18n="viewRecords">📘 查看记录</a>
+        </div>
+        <div class="search-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="toolSearch" placeholder="搜索工具，例如：PDF、图片压缩、AI写作..." autocomplete="off">
+          <button class="search-clear" id="searchClear">✕</button>
+          <div class="search-stats" id="searchStats"></div>
         </div>
         <div class="stats-bar" id="statsBar"></div>
       </div>
@@ -539,7 +581,7 @@
             </div>
             <div class="tools-mini-grid reveal-stagger">
               ${tools.map(t => `
-                <a class="mini-card" href="${t.url}">
+                <a class="mini-card" href="${t.url}" data-keywords="${(t.keywords || '') + ' ' + (t.name__en || '') + ' ' + (t.name__ja || '') + ' ' + (t.name__vi || '')}">
                   <div class="mc-icon">${t.icon || '🔧'}</div>
                   <div class="mc-name">${tName(t, lang)}</div>
                   <div class="mc-desc">${tDesc(t, lang)}</div>
@@ -612,6 +654,67 @@
     // ===== 初始加载 =====
     const initLang = localStorage.getItem('zentools_lang') || 'zh';
     loadAndRender(initLang);
+  </script>
+  <script>
+    // ===== 工具搜索 =====
+    const searchInput = document.getElementById('toolSearch');
+    const searchClear = document.getElementById('searchClear');
+    const searchStats = document.getElementById('searchStats');
+
+    function filterTools(query) {
+      const q = query.trim().toLowerCase();
+      const cats = document.querySelectorAll('.cat-section');
+      let visibleCount = 0;
+
+      cats.forEach(function(cat) {
+        const cards = cat.querySelectorAll('.mini-card');
+        let catVisible = false;
+
+        if (!q) {
+          cards.forEach(function(c) { c.style.display = ''; });
+          catVisible = true;
+        } else {
+          cards.forEach(function(c) {
+            const name = c.querySelector('.mc-name');
+            const desc = c.querySelector('.mc-desc');
+            const text = (name ? name.textContent : '') + ' ' +
+                        (desc ? desc.textContent : '') + ' ' +
+                        (c.getAttribute('data-keywords') || '');
+            const match = text.toLowerCase().includes(q);
+            c.style.display = match ? '' : 'none';
+            if (match) catVisible = true;
+          });
+        }
+        cat.style.display = catVisible ? '' : 'none';
+        if (catVisible) {
+          visibleCount += cat.querySelectorAll('.mini-card:not([style*="display: none"])').length;
+        }
+      });
+
+      if (q) {
+        searchStats.style.display = 'block';
+        searchStats.textContent = '🔍 找到 ' + visibleCount + ' 个工具';
+        searchClear.style.display = 'block';
+      } else {
+        searchStats.style.display = 'none';
+        searchClear.style.display = 'none';
+      }
+    }
+
+    searchInput.addEventListener('input', function() { filterTools(this.value); });
+    searchClear.addEventListener('click', function() {
+      searchInput.value = ''; searchInput.focus(); filterTools('');
+    });
+
+    const searchPlaceholders = {
+      zh: '搜索工具，例如：PDF、图片压缩、AI写作...',
+      en: 'Search tools, e.g. PDF, image compress, AI writing...',
+      ja: 'ツールを検索（例：PDF、画像圧縮、AI作成...）',
+      vi: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
+    };
+    document.getElementById('langSelect').addEventListener('change', function() {
+      searchInput.placeholder = searchPlaceholders[this.value] || searchPlaceholders.zh;
+    });
   </script>
 
 </body>
