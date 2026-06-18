@@ -216,7 +216,58 @@
     /* 适配 tool-ui.css footer */
     .z-wrap footer { margin-top: 0; }
 
-    /* 响应式 */
+    /* 汉堡菜单按钮 — 桌面隐藏，移动端显示 */
+.hamburger {
+  display: none; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 10px; border: none;
+  background: var(--glass-b); color: var(--text); cursor: pointer;
+  font-size: 20px; transition: background 0.2s; flex-shrink: 0;
+}
+.hamburger:hover { background: rgba(255,255,255,0.12); }
+.hamburger.active { background: var(--cyan); color: #000; }
+
+/* 移动端侧滑菜单 */
+.mobile-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.mobile-overlay.open { opacity: 1; visibility: visible; }
+.mobile-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw;
+  background: rgba(10,12,20,0.97); border-left: 1px solid var(--border);
+  padding: 24px 20px; z-index: 310; overflow-y: auto;
+  transform: translateX(100%); transition: transform 0.3s;
+  backdrop-filter: blur(24px);
+}
+.mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+.mobile-drawer .close-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 10px; border: none;
+  background: var(--glass-b); color: var(--text); cursor: pointer;
+  font-size: 18px; margin-bottom: 20px; margin-left: auto;
+}
+.mobile-drawer .close-btn:hover { background: rgba(255,255,255,0.12); }
+.mobile-drawer a {
+  display: block; padding: 12px 16px; border-radius: 12px;
+  font-size: 16px; font-weight: 600; color: var(--muted);
+  transition: color 0.2s, background 0.2s;
+}
+.mobile-drawer a:hover { color: var(--text); background: var(--glass-b); }
+.mobile-drawer .m-cat {
+  font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cyan); padding: 16px 16px 6px; margin-top: 8px; border-top: 1px solid var(--border);
+}
+.mobile-drawer .m-cat:first-of-type { border-top: none; margin-top: 0; }
+.mobile-drawer .m-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
+  color: var(--muted); transition: color 0.2s, background 0.2s;
+}
+.mobile-drawer .m-item:hover { color: var(--text); background: var(--glass-b); }
+.mobile-drawer .m-item .mi-icon { font-size: 16px; width: 24px; text-align: center; }
+.mobile-drawer .mobile-tools { margin-bottom: 20px; }
     @media (max-width: 900px) {
       .records-grid { grid-template-columns: repeat(2, 1fr); }
       .tools-mini-grid { grid-template-columns: repeat(2, 1fr); }
@@ -230,6 +281,7 @@
       .stat-num { font-size: 22px; }
       .nav-links a:not(:first-child):not(:last-child) { display: none; }
       .nav-group { display: none; }
+      .hamburger { display: flex !important; }
     }
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
@@ -260,9 +312,23 @@
             <option value="ja">日本語</option>
             <option value="vi">Tiếng Việt</option>
           </select>
+          <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
         </div>
       </div>
     </nav>
+
+    <!-- ===== 移动端侧滑菜单 ===== -->
+    <div class="mobile-overlay" id="mobileOverlay">
+      <div class="mobile-drawer" id="mobileDrawer">
+        <button class="close-btn" id="mobileClose">✕</button>
+        <div class="mobile-tools" id="mobileTools">
+          <div class="m-cat">导航</div>
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/articles.html" data-i18n="navArticles">教程</a>
+          <a href="/about.html" data-i18n="navAbout">关于</a>
+        </div>
+      </div>
+    </div>
 
     <!-- ===== Hero ===== -->
     <section class="hero">
@@ -717,6 +783,79 @@
     };
     document.getElementById('langSelect').addEventListener('change', function() {
       searchInput.placeholder = searchPlaceholders[this.value] || searchPlaceholders.zh;
+    });
+  </script>
+  <script>
+    // ===== 移动端侧滑菜单 =====
+    const overlay = document.getElementById('mobileOverlay');
+    const drawer = document.getElementById('mobileDrawer');
+    const hamBtn = document.getElementById('hamburgerBtn');
+    const closeBtn = document.getElementById('mobileClose');
+    const mobileTools = document.getElementById('mobileTools');
+
+    function openMenu() {
+      overlay.classList.add('open');
+      hamBtn.classList.add('active');
+      hamBtn.textContent = '✕';
+      document.body.style.overflow = 'hidden';
+      // 填充工具列表
+      if (_toolsData && mobileTools) {
+        const lang = localStorage.getItem('zentools_lang') || 'zh';
+        const cats = _toolsData.categories || [];
+        const catsEn = _toolsData.categories__en || [];
+        const catsJa = _toolsData.categories__ja || [];
+        const catsVi = _toolsData.categories__vi || [];
+        const tCat = function(cats, catsEn, catsJa, catsVi, lang, index) {
+          if (lang === 'zh') return cats[index];
+          const map = { en: catsEn, ja: catsJa, vi: catsVi };
+          return (map[lang] && map[lang][index]) || cats[index];
+        };
+        const grouped = {};
+        _toolsData.tools.forEach(function(t) {
+          const cat = t.category || '其他';
+          if (!grouped[cat]) grouped[cat] = [];
+          grouped[cat].push(t);
+        });
+        let html = '<div class="m-cat">导航</div><a href="/" data-i18n="navHome">首页</a><a href="/articles.html">教程</a><a href="/about.html">关于</a><a href="/contact.html">联系我们</a>';
+        cats.forEach(function(cat, idx) {
+          const tls = grouped[cat] || [];
+          if (tls.length === 0) return;
+          const catName = tCat(cats, catsEn, catsJa, catsVi, lang, idx);
+          html += '<div class="m-cat">' + catName + ' (' + tls.length + ')</div>';
+          tls.forEach(function(t) {
+            html += '<a class="m-item" href="' + t.url + '"><span class="mi-icon">' + (t.icon || '🔧') + '</span>' + (t['name__' + lang] || t['name__en'] || t.name) + '</a>';
+          });
+        });
+        mobileTools.innerHTML = html;
+        // 重新应用 i18n
+        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+          const dict = window.ZT_PAGE && window.ZT_PAGE[lang];
+          if (dict) {
+            const key = el.getAttribute('data-i18n');
+            if (dict[key]) el.textContent = dict[key];
+          }
+        });
+      }
+    }
+
+    function closeMenu() {
+      overlay.classList.remove('open');
+      hamBtn.classList.remove('active');
+      hamBtn.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+
+    hamBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (overlay.classList.contains('open')) { closeMenu(); } else { openMenu(); }
+    });
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', function(e) {
+      if (!drawer.contains(e.target)) closeMenu();
+    });
+    // Esc 键关闭
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
     });
   </script>
 
