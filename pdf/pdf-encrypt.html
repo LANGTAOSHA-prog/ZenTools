@@ -4,315 +4,265 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PDF加密 - 免费在线工具 | ZenTools</title>
-  <meta name="description" content="为 PDF 文件添加密码保护，免费在线使用，本地处理保护隐私。" />
-  <meta name="keywords" content="PDF加密,PDF加密,在线工具,免费工具,ZenTools" />
+  <meta name="description" content="为 PDF 文件添加密码保护，免费在线使用，本地处理保护隐私，无需上传服务器。" />
+  <meta name="keywords" content="PDF加密,PDF加密码,PDF保护,在线PDF工具,ZenTools" />
   <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-encrypt.html" />
 
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
   <style>
-    :root {
-      --bg:      #06070d;
-      --glass:   rgba(255,255,255,0.04);
-      --glass-b: rgba(255,255,255,0.08);
-      --cyan:    #00e5ff;
-      --purple:  #a855f7;
-      --pink:    #f43f5e;
-      --text:    #f0f4ff;
-      --muted:   #6b7a9f;
-      --border:  rgba(255,255,255,0.07);
-      --border-h:rgba(0,229,255,0.35);
-      --glow-c:  0 0 40px rgba(0,229,255,0.18);
-      --r:       20px;
+    .pwd-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 16px; }
+    .pwd-input-row input[type="password"] {
+      flex: 1; min-width: 200px; padding: 14px 18px; border: 1px solid var(--border);
+      border-radius: 12px; background: rgba(255,255,255,0.04); color: var(--text);
+      font-size: 14px; outline: none;
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 1;
-    }
-
-    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
-    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
-    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
-
-    .z-wrap { position: relative; z-index: 2; }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(24px) saturate(180%);
-      background: rgba(6,7,13,0.75);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: auto; height: 64px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
-    .logo {
-      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
-    .nav-links a {
-      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
-      color: var(--muted); transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
-
-    .page-header {
-      max-width: 1200px; margin: 0 auto;
-      padding: 72px 24px 56px;
-    }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted); margin-bottom: 28px;
-    }
-    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--cyan); }
-    .breadcrumb-sep { opacity: 0.3; }
-    .breadcrumb .cur { color: var(--cyan); }
-
-    .page-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 14px;
-    }
-    .page-header h1 {
-      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
-      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
-    }
-    .page-header h1 .grad {
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
-
-    .tool-box {
-      max-width: 900px; margin: 0 auto 48px;
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 36px;
-      backdrop-filter: blur(8px);
-    }
-    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
-
-    .file-input-row {
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    }
-    .file-input-row input[type="file"] {
-      flex: 1; min-width: 280px;
-      padding: 14px 18px; border: 1px dashed rgba(255,255,255,0.15);
-      border-radius: 12px; background: rgba(255,255,255,0.02);
-      color: var(--muted); font-size: 14px; cursor: pointer;
-    }
-    .file-input-row input[type="file"]::file-selector-button {
-      border: none; background: var(--glass-b); color: var(--text);
-      padding: 8px 16px; border-radius: 8px; margin-right: 12px;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .file-input-row input[type="file"]::file-selector-button:hover { background: rgba(255,255,255,0.12); }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 32px; border-radius: 12px; border: none;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #000; font-size: 16px; font-weight: 700; cursor: pointer;
+    .pwd-input-row input[type="password"]:focus { border-color: var(--border-h); }
+    .pwd-hint { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .download-btn {
+      display: none; margin-top: 24px; padding: 14px 32px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; text-align: center;
       transition: opacity 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    .status {
-      margin-top: 16px; color: var(--muted); font-size: 14px;
-      min-height: 22px;
-    }
-
-    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
-    .section-head { margin-bottom: 40px; }
-    .section-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
-    }
-    .section-head h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; }
-
-    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px; backdrop-filter: blur(8px);
-    }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--cyan); }
-    .info-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
-    .footer-inner { max-width: 1200px; margin: auto; }
-    .footer-logo {
-      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      display: inline-block; margin-bottom: 16px;
-    }
-    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .footer-links a {
-      color: var(--muted); font-size: 14px; padding: 6px 12px;
-      border-radius: 8px; transition: color 0.2s, background 0.2s;
-    }
-    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
-    .footer-copy { color: var(--muted); font-size: 13px; }
-
-    @media (max-width: 1024px) { .info-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) {
-      .info-grid { grid-template-columns: 1fr; }
-      .tool-box { padding: 24px; }
-    }
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
   </style>
 </head>
 <body>
-
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-
   <div class="z-wrap">
-
     <nav>
       <div class="nav-inner">
         <a class="logo" href="/">ZenTools<span>2.0</span></a>
         <div class="nav-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/tools.html">全部工具</a>
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
         </div>
       </div>
     </nav>
-
     <div class="page-header reveal">
       <div class="breadcrumb">
-        <a href="/">首页</a>
+        <a href="/" data-i18n="crumbHome">首页</a>
         <span class="breadcrumb-sep">/</span>
-        <a href="/pdf/">PDF工具</a>
+        <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a>
         <span class="breadcrumb-sep">/</span>
-        <span class="cur">PDF加密</span>
+        <span class="cur" data-i18n="crumbCur">PDF 加密</span>
       </div>
-      <span class="page-eyebrow">PDF 工具</span>
-      <h1><span class="grad">PDF加密</span><br />免费在线工具</h1>
-      <p>为 PDF 文件添加密码保护，免费在线使用，本地处理保护隐私。</p>
+      <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">PDF 加密</span><br /><span data-i18n="h1Sub">添加密码保护</span></h1>
+      <p data-i18n="pageDesc">为 PDF 文件添加密码保护，防止文件被未经授权的用户打开。</p>
     </div>
-
     <div class="tool-box reveal">
-      <h2>选择文件</h2>
-      <p class="note">选择文件后点击处理按钮，即可开始转换。</p>
+      <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
+      <p class="note" data-i18n="toolNote">选择一个 PDF 文件，输入密码即可加密。</p>
       <div class="file-input-row">
-        <input type="file" id="fileInput" accept=".pdf" />
-        <button class="btn-primary" id="processBtn" type="button" onclick="processFile()">开始处理</button>
+        <input type="file" id="pdfInput" accept=".pdf" />
       </div>
+      <div class="pwd-input-row">
+        <input type="password" id="passwordInput" placeholder="请输入密码" data-i18n-placeholder="pwdPlaceholder" />
+        <button class="btn-primary" id="encryptBtn" type="button" onclick="encryptPDF()" data-i18n="encryptBtn">开始加密</button>
+      </div>
+      <p class="pwd-hint" data-i18n="pwdHint">请牢记密码，忘记后将无法打开 PDF 文件</p>
       <div class="status" id="status"></div>
+      <button class="download-btn" id="downloadBtn" onclick="downloadEncrypted()" data-i18n="downloadBtn">📥 下载加密后的 PDF</button>
     </div>
-
     <div class="section">
       <div class="section-head reveal">
-        <span class="section-eyebrow">工具说明</span>
-        <h2>了解PDF加密</h2>
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解 PDF 加密工具</h2>
       </div>
-
       <div class="info-grid reveal-stagger">
         <div class="info-card">
-          <h4>密码保护</h4>
-          <p>设置打开密码，保护 PDF 内容安全。</p>
+          <h4 data-i18n="info1T">隐私安全</h4>
+          <p data-i18n="info1D">所有加密操作均在浏览器本地完成，密码和文件不会上传到任何服务器，完全保护你的隐私。</p>
         </div>
-<div class="info-card">
-          <h4>权限控制</h4>
-          <p>可设置打印、复制、编辑等权限。</p>
+        <div class="info-card">
+          <h4 data-i18n="info2T">免费使用</h4>
+          <p data-i18n="info2D">工具完全免费，无需注册账号，打开网页即可使用。</p>
         </div>
-<div class="info-card">
-          <h4>隐私安全</h4>
-          <p>所有加密操作均在浏览器本地完成，文件不会上传到任何服务器。</p>
+        <div class="info-card">
+          <h4 data-i18n="info3T">密码保护</h4>
+          <p data-i18n="info3D">使用标准 PDF 加密算法，设置密码后他人必须输入密码才能查看文件内容。</p>
         </div>
-
       </div>
     </div>
-
     <footer>
       <div class="footer-inner">
         <div class="footer-logo">ZenTools</div>
         <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/privacy.html">隐私政策</a>
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/pdf/" data-i18n="footerPdf">PDF工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
         </div>
-        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
       </div>
     </footer>
-
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
   <script>
-    window.processFile = async function processFile(){
-      const fileInput = document.getElementById("fileInput");
-      const file = fileInput.files[0];
-      if(!file){ alert("请先选择一个文件。"); return; }
-
-      const status = document.getElementById("status");
-      const btn = document.getElementById("processBtn");
-      status.textContent = "正在处理，请稍候……";
-      btn.disabled = true;
-
-      try{
-        // 模拟处理过程
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        const arrayBuffer = await file.arrayBuffer();
-        const blob = new Blob([arrayBuffer], { type: "application/pdf" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "ZenTools-pdf-encrypt." + "pdf";
-        a.click();
-        URL.revokeObjectURL(url);
-        
-        status.textContent = "处理完成，文件已开始下载。";
-      }catch(err){
-        console.error(err);
-        status.textContent = "处理失败，请刷新页面后重试。";
-      }finally{
-        btn.disabled = false;
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: 'PDF加密 - 免费在线工具 | ZenTools', navHome: '首页', navPdf: 'PDF工具', navAll: '全部工具',
+        crumbHome: '首页', crumbPdf: 'PDF工具', crumbCur: 'PDF 加密', eyebrow: 'PDF 工具',
+        h1Grad: 'PDF 加密', h1Sub: '添加密码保护',
+        pageDesc: '为 PDF 文件添加密码保护，防止文件被未经授权的用户打开。',
+        toolTitle: '选择 PDF 文件', toolNote: '选择一个 PDF 文件，输入密码即可加密。',
+        pwdPlaceholder: '请输入密码', encryptBtn: '开始加密',
+        pwdHint: '请牢记密码，忘记后将无法打开 PDF 文件',
+        downloadBtn: '📥 下载加密后的 PDF',
+        sectionEyebrow: '工具说明', sectionTitle: '了解 PDF 加密工具',
+        info1T: '隐私安全', info1D: '所有加密操作均在浏览器本地完成，密码和文件不会上传到任何服务器，完全保护你的隐私。',
+        info2T: '免费使用', info2D: '工具完全免费，无需注册账号，打开网页即可使用。',
+        info3T: '密码保护', info3D: '使用标准 PDF 加密算法，设置密码后他人必须输入密码才能查看文件内容。',
+        footerHome: '首页', footerPdf: 'PDF工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '已选择文件：{name}', statusWorking: '🔄 正在加密 PDF，请稍候……',
+        statusComplete: '✅ 加密完成！请牢记密码：{pwd}',
+        statusError: '❌ 加密失败，请更换文件或刷新页面后重试。',
+        alertNoFile: '⚠️ 请先选择 PDF 文件', alertNoPwd: '⚠️ 请输入密码',
+        alertPwdShort: '⚠️ 密码长度至少 4 位'
+      },
+      en: {
+        pageTitle: 'PDF Encrypt - Free Online Tool | ZenTools', navHome: 'Home', navPdf: 'PDF Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbPdf: 'PDF Tools', crumbCur: 'PDF Encrypt', eyebrow: 'PDF TOOLS',
+        h1Grad: 'PDF Encrypt', h1Sub: 'Add Password Protection',
+        pageDesc: 'Protect your PDF files with a password.',
+        toolTitle: 'Select PDF File', toolNote: 'Choose a PDF file and enter a password.',
+        pwdPlaceholder: 'Enter password', encryptBtn: 'Encrypt PDF',
+        pwdHint: 'Remember your password - you will need it to open the PDF.',
+        downloadBtn: '📥 Download Encrypted PDF',
+        sectionEyebrow: 'ABOUT', sectionTitle: 'About PDF Encrypt',
+        info1T: 'Privacy Safe', info1D: 'All processing is done locally. No data is uploaded to any server.',
+        info2T: 'Free to Use', info2D: 'Completely free, no registration needed.',
+        info3T: 'Password Protection', info3D: 'Uses standard PDF encryption. Others need the password to view the file.',
+        footerHome: 'Home', footerPdf: 'PDF Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'File selected: {name}', statusWorking: '🔄 Encrypting PDF, please wait…',
+        statusComplete: '✅ Done! Password: {pwd}',
+        statusError: '❌ Encryption failed. Please try a different file or refresh.',
+        alertNoFile: '⚠️ Please select a PDF file first', alertNoPwd: '⚠️ Please enter a password',
+        alertPwdShort: '⚠️ Password must be at least 4 characters'
+      },
+      ja: {
+        pageTitle: 'PDF 暗号化 - 無料オンラインツール | ZenTools', navHome: 'ホーム', navPdf: 'PDFツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbPdf: 'PDFツール', crumbCur: 'PDF 暗号化', eyebrow: 'PDFツール',
+        h1Grad: 'PDF 暗号化', h1Sub: 'パスワード保護',
+        pageDesc: 'PDF ファイルにパスワードを追加して保護します。',
+        toolTitle: 'PDF ファイルを選択', toolNote: 'PDF ファイルを選び、パスワードを入力してください。',
+        pwdPlaceholder: 'パスワードを入力', encryptBtn: '暗号化する',
+        pwdHint: 'パスワードを忘れるとファイルを開けなくなります。',
+        downloadBtn: '📥 暗号化した PDF をダウンロード',
+        sectionEyebrow: 'ツール説明', sectionTitle: 'PDF 暗号化について',
+        info1T: 'プライバシー保護', info1D: 'すべての処理はブラウザ内で完了。パスワードやファイルはサーバーに送信されません。',
+        info2T: '無料利用', info2D: '完全無料、登録不要。',
+        info3T: 'パスワード保護', info3D: '標準の PDF 暗号化方式を採用。パスワードが必要です。',
+        footerHome: 'ホーム', footerPdf: 'PDFツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: 'ファイル選択: {name}', statusWorking: '🔄 PDF を暗号化中…',
+        statusComplete: '✅ 完了！パスワード: {pwd}',
+        statusError: '❌ 暗号化に失敗しました。',
+        alertNoFile: '⚠️ PDF ファイルを選択してください', alertNoPwd: '⚠️ パスワードを入力してください',
+        alertPwdShort: '⚠️ パスワードは4文字以上必要です'
+      },
+      vi: {
+        pageTitle: 'Mã hóa PDF - Công cụ trực tuyến miễn phí | ZenTools', navHome: 'Trang chủ', navPdf: 'Công cụ PDF', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbPdf: 'Công cụ PDF', crumbCur: 'Mã hóa PDF', eyebrow: 'CÔNG CỤ PDF',
+        h1Grad: 'Mã hóa PDF', h1Sub: 'Thêm bảo vệ mật khẩu',
+        pageDesc: 'Bảo vệ tệp PDF của bạn bằng mật khẩu.',
+        toolTitle: 'Chọn tệp PDF', toolNote: 'Chọn tệp PDF và nhập mật khẩu.',
+        pwdPlaceholder: 'Nhập mật khẩu', encryptBtn: 'Mã hóa PDF',
+        pwdHint: 'Hãy ghi nhớ mật khẩu - bạn sẽ cần nó để mở tệp PDF.',
+        downloadBtn: '📥 Tải PDF đã mã hóa',
+        sectionEyebrow: 'GIỚI THIỆU', sectionTitle: 'Về công cụ mã hóa PDF',
+        info1T: 'Bảo mật', info1D: 'Tất cả xử lý đều hoàn tất trong trình duyệt. Không dữ liệu nào được tải lên máy chủ.',
+        info2T: 'Miễn phí', info2D: 'Hoàn toàn miễn phí, không cần đăng ký.',
+        info3T: 'Bảo vệ mật khẩu', info3D: 'Sử dụng mã hóa PDF tiêu chuẩn. Cần mật khẩu để xem tệp.',
+        footerHome: 'Trang chủ', footerPdf: 'Công cụ PDF', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Đã chọn: {name}', statusWorking: '🔄 Đang mã hóa PDF…',
+        statusComplete: '✅ Hoàn tất! Mật khẩu: {pwd}',
+        statusError: '❌ Mã hóa thất bại.',
+        alertNoFile: '⚠️ Vui lòng chọn tệp PDF trước', alertNoPwd: '⚠️ Vui lòng nhập mật khẩu',
+        alertPwdShort: '⚠️ Mật khẩu phải có ít nhất 4 ký tự'
       }
     };
-
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
-
-    // Blob animation
-    let t = 0;
-    const b1 = document.querySelector('.blob-1');
-    const b2 = document.querySelector('.blob-2');
-    function anim(){
-      t += 0.003;
-      if(b1) b1.style.transform = `translate(${{Math.sin(t)*30}}px,${{Math.cos(t*0.8)*20}}px)`;
-      if(b2) b2.style.transform = `translate(${{Math.cos(t*0.9)*25}}px,${{Math.sin(t)*18}}px)`;
-      requestAnimationFrame(anim);
-    }
-    anim();
   </script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    let encryptedPdfBytes = null;
 
+    function getDict() {
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      return (window.ZT_PAGE || {})[lang] || window.ZT_PAGE.zh;
+    }
+
+    async function encryptPDF() {
+      const file = document.getElementById("pdfInput").files[0];
+      const password = document.getElementById("passwordInput").value;
+      const status = document.getElementById("status");
+      const btn = document.getElementById("encryptBtn");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const dict = getDict();
+
+      if (!file) { status.textContent = dict.alertNoFile; return; }
+      if (!password) { status.textContent = dict.alertNoPwd; return; }
+      if (password.length < 4) { status.textContent = dict.alertPwdShort; return; }
+
+      if (typeof PDFLib === 'undefined') {
+        status.textContent = "⚠️ " + '组件尚未加载完成，请刷新页面。';
+        return;
+      }
+
+      status.textContent = dict.statusWorking;
+      btn.disabled = true;
+      downloadBtn.style.display = "none";
+
+      try {
+        const bytes = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+        pdfDoc.encrypt({
+          userPassword: password,
+          ownerPassword: password,
+          permissions: {
+            printing: 'lowResolution',
+            modifying: false,
+            copying: false,
+            annotating: false,
+            fillingForms: true,
+            contentAccessibility: true,
+            documentAssembly: false
+          }
+        });
+        encryptedPdfBytes = await pdfDoc.save();
+        status.textContent = dict.statusComplete.replace('{pwd}', password);
+        downloadBtn.style.display = "block";
+        downloadEncrypted();
+      } catch (err) {
+        console.error(err);
+        status.textContent = dict.statusError;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function downloadEncrypted() {
+      if (!encryptedPdfBytes) return;
+      const name = document.getElementById("pdfInput").files[0].name.replace('.pdf', '') + '_加密.pdf';
+      const blob = new Blob([encryptedPdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
 </body>
 </html>

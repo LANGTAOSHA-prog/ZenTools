@@ -5,314 +5,255 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PDF旋转 - 免费在线工具 | ZenTools</title>
   <meta name="description" content="旋转 PDF 页面方向，免费在线使用，本地处理保护隐私。" />
-  <meta name="keywords" content="PDF旋转,PDF旋转,在线工具,免费工具,ZenTools" />
+  <meta name="keywords" content="PDF旋转,PDF页面旋转,在线PDF工具,ZenTools" />
   <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/pdf-rotate.html" />
 
+  <link rel="stylesheet" href="../assets/css/tool-ui.css" />
   <style>
-    :root {
-      --bg:      #06070d;
-      --glass:   rgba(255,255,255,0.04);
-      --glass-b: rgba(255,255,255,0.08);
-      --cyan:    #00e5ff;
-      --purple:  #a855f7;
-      --pink:    #f43f5e;
-      --text:    #f0f4ff;
-      --muted:   #6b7a9f;
-      --border:  rgba(255,255,255,0.07);
-      --border-h:rgba(0,229,255,0.35);
-      --glow-c:  0 0 40px rgba(0,229,255,0.18);
-      --r:       20px;
+    .angle-select { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+    .angle-option {
+      flex: 1; min-width: 100px; padding: 16px; border: 1px solid var(--border);
+      border-radius: 12px; background: rgba(255,255,255,0.03); cursor: pointer;
+      text-align: center; transition: border-color 0.2s, background 0.2s;
+      font-size: 15px; color: var(--text);
     }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 1;
-    }
-
-    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
-    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
-    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
-
-    .z-wrap { position: relative; z-index: 2; }
-
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(24px) saturate(180%);
-      background: rgba(6,7,13,0.75);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: auto; height: 64px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
-    .logo {
-      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
-    .nav-links a {
-      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
-      color: var(--muted); transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
-
-    .page-header {
-      max-width: 1200px; margin: 0 auto;
-      padding: 72px 24px 56px;
-    }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted); margin-bottom: 28px;
-    }
-    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--cyan); }
-    .breadcrumb-sep { opacity: 0.3; }
-    .breadcrumb .cur { color: var(--cyan); }
-
-    .page-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 14px;
-    }
-    .page-header h1 {
-      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
-      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
-    }
-    .page-header h1 .grad {
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
-
-    .tool-box {
-      max-width: 900px; margin: 0 auto 48px;
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 36px;
-      backdrop-filter: blur(8px);
-    }
-    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
-
-    .file-input-row {
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    }
-    .file-input-row input[type="file"] {
-      flex: 1; min-width: 280px;
-      padding: 14px 18px; border: 1px dashed rgba(255,255,255,0.15);
-      border-radius: 12px; background: rgba(255,255,255,0.02);
-      color: var(--muted); font-size: 14px; cursor: pointer;
-    }
-    .file-input-row input[type="file"]::file-selector-button {
-      border: none; background: var(--glass-b); color: var(--text);
-      padding: 8px 16px; border-radius: 8px; margin-right: 12px;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .file-input-row input[type="file"]::file-selector-button:hover { background: rgba(255,255,255,0.12); }
-
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 32px; border-radius: 12px; border: none;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #000; font-size: 16px; font-weight: 700; cursor: pointer;
+    .angle-option:hover { border-color: var(--border-h); background: rgba(255,255,255,0.06); }
+    .angle-option.selected { border-color: var(--cyan); background: rgba(0,229,255,0.1); }
+    .angle-option .deg { display: block; font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .angle-option .hint { font-size: 12px; color: var(--muted); }
+    .download-btn {
+      display: none; margin-top: 24px; padding: 14px 32px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
       transition: opacity 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
-    .status {
-      margin-top: 16px; color: var(--muted); font-size: 14px;
-      min-height: 22px;
-    }
-
-    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
-    .section-head { margin-bottom: 40px; }
-    .section-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
-    }
-    .section-head h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; }
-
-    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px; backdrop-filter: blur(8px);
-    }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--cyan); }
-    .info-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-
-    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
-    .footer-inner { max-width: 1200px; margin: auto; }
-    .footer-logo {
-      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      display: inline-block; margin-bottom: 16px;
-    }
-    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .footer-links a {
-      color: var(--muted); font-size: 14px; padding: 6px 12px;
-      border-radius: 8px; transition: color 0.2s, background 0.2s;
-    }
-    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
-    .footer-copy { color: var(--muted); font-size: 13px; }
-
-    @media (max-width: 1024px) { .info-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) {
-      .info-grid { grid-template-columns: 1fr; }
-      .tool-box { padding: 24px; }
-    }
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
   </style>
 </head>
 <body>
-
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-
   <div class="z-wrap">
-
     <nav>
       <div class="nav-inner">
         <a class="logo" href="/">ZenTools<span>2.0</span></a>
         <div class="nav-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/tools.html">全部工具</a>
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
         </div>
       </div>
     </nav>
-
     <div class="page-header reveal">
       <div class="breadcrumb">
-        <a href="/">首页</a>
+        <a href="/" data-i18n="crumbHome">首页</a>
         <span class="breadcrumb-sep">/</span>
-        <a href="/pdf/">PDF工具</a>
+        <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a>
         <span class="breadcrumb-sep">/</span>
-        <span class="cur">PDF旋转</span>
+        <span class="cur" data-i18n="crumbCur">PDF 旋转</span>
       </div>
-      <span class="page-eyebrow">PDF 工具</span>
-      <h1><span class="grad">PDF旋转</span><br />免费在线工具</h1>
-      <p>旋转 PDF 页面方向，免费在线使用，本地处理保护隐私。</p>
+      <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">PDF 旋转</span><br /><span data-i18n="h1Sub">调整页面方向</span></h1>
+      <p data-i18n="pageDesc">旋转 PDF 页面的方向，支持 90 度、180 度、270 度旋转，所有页面统一调整。</p>
     </div>
-
     <div class="tool-box reveal">
-      <h2>选择文件</h2>
-      <p class="note">选择文件后点击处理按钮，即可开始转换。</p>
+      <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
+      <p class="note" data-i18n="toolNote">选择一个 PDF 文件，选择旋转角度。</p>
       <div class="file-input-row">
-        <input type="file" id="fileInput" accept=".pdf" />
-        <button class="btn-primary" id="processBtn" type="button" onclick="processFile()">开始处理</button>
+        <input type="file" id="pdfInput" accept=".pdf" />
+      </div>
+      <div class="angle-select" id="angleSelect">
+        <div class="angle-option" data-angle="0" onclick="selectAngle(this)">
+          <span class="deg">0°</span><span class="hint" data-i18n="angle0">不旋转</span>
+        </div>
+        <div class="angle-option" data-angle="90" onclick="selectAngle(this)">
+          <span class="deg">90°</span><span class="hint" data-i18n="angle90">顺时针</span>
+        </div>
+        <div class="angle-option" data-angle="180" onclick="selectAngle(this)">
+          <span class="deg">180°</span><span class="hint" data-i18n="angle180">翻转</span>
+        </div>
+        <div class="angle-option" data-angle="270" onclick="selectAngle(this)">
+          <span class="deg">270°</span><span class="hint" data-i18n="angle270">逆时针</span>
+        </div>
+      </div>
+      <div style="margin-top:16px;">
+        <button class="btn-primary" id="rotateBtn" type="button" onclick="rotatePDF()" data-i18n="rotateBtn">开始旋转</button>
       </div>
       <div class="status" id="status"></div>
+      <button class="download-btn" id="downloadBtn" onclick="downloadRotated()" data-i18n="downloadBtn">📥 下载旋转后的 PDF</button>
     </div>
-
     <div class="section">
       <div class="section-head reveal">
-        <span class="section-eyebrow">工具说明</span>
-        <h2>了解PDF旋转</h2>
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解 PDF 旋转工具</h2>
       </div>
-
       <div class="info-grid reveal-stagger">
         <div class="info-card">
-          <h4>多角度旋转</h4>
-          <p>支持 90°、180°、270° 旋转。</p>
+          <h4 data-i18n="info1T">隐私安全</h4>
+          <p data-i18n="info1D">所有旋转操作均在浏览器本地完成，文件不会上传到任何服务器。</p>
         </div>
-<div class="info-card">
-          <h4>选择性旋转</h4>
-          <p>可选择旋转全部页面或指定页面。</p>
+        <div class="info-card">
+          <h4 data-i18n="info2T">免费使用</h4>
+          <p data-i18n="info2D">工具完全免费，无需注册账号，打开网页即可使用。</p>
         </div>
-<div class="info-card">
-          <h4>隐私安全</h4>
-          <p>所有处理操作均在浏览器本地完成，文件不会上传到任何服务器。</p>
+        <div class="info-card">
+          <h4 data-i18n="info3T">整文件旋转</h4>
+          <p data-i18n="info3D">所有页面统一旋转，适合扫描件方向不对、页面倒置等情况。</p>
         </div>
-
       </div>
     </div>
-
     <footer>
       <div class="footer-inner">
         <div class="footer-logo">ZenTools</div>
         <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/privacy.html">隐私政策</a>
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/pdf/" data-i18n="footerPdf">PDF工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
         </div>
-        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
       </div>
     </footer>
-
   </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
   <script>
-    window.processFile = async function processFile(){
-      const fileInput = document.getElementById("fileInput");
-      const file = fileInput.files[0];
-      if(!file){ alert("请先选择一个文件。"); return; }
-
-      const status = document.getElementById("status");
-      const btn = document.getElementById("processBtn");
-      status.textContent = "正在处理，请稍候……";
-      btn.disabled = true;
-
-      try{
-        // 模拟处理过程
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        const arrayBuffer = await file.arrayBuffer();
-        const blob = new Blob([arrayBuffer], { type: "application/pdf" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "ZenTools-pdf-rotate." + "pdf";
-        a.click();
-        URL.revokeObjectURL(url);
-        
-        status.textContent = "处理完成，文件已开始下载。";
-      }catch(err){
-        console.error(err);
-        status.textContent = "处理失败，请刷新页面后重试。";
-      }finally{
-        btn.disabled = false;
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: 'PDF旋转 - 免费在线工具 | ZenTools', navHome: '首页', navPdf: 'PDF工具', navAll: '全部工具',
+        crumbHome: '首页', crumbPdf: 'PDF工具', crumbCur: 'PDF 旋转', eyebrow: 'PDF 工具',
+        h1Grad: 'PDF 旋转', h1Sub: '调整页面方向',
+        pageDesc: '旋转 PDF 页面的方向，支持 90 度、180 度、270 度旋转，所有页面统一调整。',
+        toolTitle: '选择 PDF 文件', toolNote: '选择一个 PDF 文件，选择旋转角度。',
+        angle0: '不旋转', angle90: '顺时针', angle180: '翻转', angle270: '逆时针',
+        rotateBtn: '开始旋转',
+        downloadBtn: '📥 下载旋转后的 PDF',
+        sectionEyewbrow: '工具说明', sectionTitle: '了解 PDF 旋转工具',
+        info1T: '隐私安全', info1D: '所有旋转操作均在浏览器本地完成，文件不会上传到任何服务器。',
+        info2T: '免费使用', info2D: '工具完全免费，无需注册账号，打开网页即可使用。',
+        info3T: '整文件旋转', info3D: '所有页面统一旋转，适合扫描件方向不对、页面倒置等情况。',
+        footerHome: '首页', footerPdf: 'PDF工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '已选择文件：{name}', statusWorking: '🔄 正在旋转 PDF，请稍候……',
+        statusComplete: '✅ 旋转完成！', statusError: '❌ 旋转失败，请重试。',
+        alertNoFile: '⚠️ 请先选择 PDF 文件', alertNoAngle: '⚠️ 请选择旋转角度'
+      },
+      en: {
+        pageTitle: 'PDF Rotate - Free Online Tool | ZenTools', navHome: 'Home', navPdf: 'PDF Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbPdf: 'PDF Tools', crumbCur: 'PDF Rotate', eyebrow: 'PDF TOOLS',
+        h1Grad: 'PDF Rotate', h1Sub: 'Adjust Page Orientation',
+        pageDesc: 'Rotate PDF pages by 90, 180, or 270 degrees.',
+        toolTitle: 'Select PDF File', toolNote: 'Choose a PDF file and select rotation angle.',
+        angle0: 'No rotation', angle90: 'Clockwise', angle180: 'Flip', angle270: 'Counter-clockwise',
+        rotateBtn: 'Rotate PDF',
+        downloadBtn: '📥 Download Rotated PDF',
+        sectionEyewbrow: 'ABOUT', sectionTitle: 'About PDF Rotate',
+        info1T: 'Privacy Safe', info1D: 'All processing is done locally.',
+        info2T: 'Free to Use', info2D: 'Completely free, no registration.',
+        info3T: 'Whole File Rotate', info3D: 'Rotate all pages at once. Perfect for fixing scanned document orientation.',
+        footerHome: 'Home', footerPdf: 'PDF Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox.',
+        statusReady: 'File selected: {name}', statusWorking: '🔄 Rotating PDF, please wait…',
+        statusComplete: '✅ Done!', statusError: '❌ Rotation failed. Please try again.',
+        alertNoFile: '⚠️ Please select a PDF file first', alertNoAngle: '⚠️ Please select rotation angle'
+      },
+      ja: {
+        pageTitle: 'PDF 回転 - 無料オンラインツール | ZenTools', navHome: 'ホーム', navPdf: 'PDFツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbPdf: 'PDFツール', crumbCur: 'PDF 回転', eyebrow: 'PDFツール',
+        h1Grad: 'PDF 回転', h1Sub: 'ページの向きを調整',
+        pageDesc: 'PDF ページを 90°・180°・270° 回転します。',
+        toolTitle: 'PDF ファイルを選択', toolNote: 'PDF を選び、回転角度を選択。',
+        angle0: '回転なし', angle90: '時計回り', angle180: '反転', angle270: '反時計回り',
+        rotateBtn: '回転する',
+        downloadBtn: '📥 回転した PDF をダウンロード',
+        sectionTitle: 'PDF 回転ツールについて',
+        info1T: 'プライバシー保護', info2T: '無料利用', info3T: '一括回転',
+        footerCopy: '© 2026 ZenTools.',
+        statusReady: 'ファイル選択: {name}', statusWorking: '🔄 回転中…',
+        statusComplete: '✅ 完了！', statusError: '❌ 回転に失敗しました。',
+        alertNoFile: '⚠️ PDF を選択してください', alertNoAngle: '⚠️ 回転角度を選択してください'
+      },
+      vi: {
+        pageTitle: 'Xoay PDF - Công cụ miễn phí | ZenTools', navHome: 'Trang chủ', navPdf: 'Công cụ PDF', navAll: 'Tất cả',
+        crumbHome: 'Trang chủ', crumbPdf: 'Công cụ PDF', crumbCur: 'Xoay PDF', eyebrow: 'CÔNG CỤ PDF',
+        h1Grad: 'Xoay PDF', h1Sub: 'Điều chỉnh hướng trang',
+        pageDesc: 'Xoay trang PDF 90°, 180° hoặc 270°.',
+        toolTitle: 'Chọn tệp PDF', toolNote: 'Chọn PDF và chọn góc xoay.',
+        angle0: 'Không xoay', angle90: 'Chiều kim đồng hồ', angle180: 'Lật', angle270: 'Ngược chiều',
+        rotateBtn: 'Xoay PDF',
+        downloadBtn: '📥 Tải PDF đã xoay',
+        statusReady: 'Đã chọn: {name}', statusWorking: '🔄 Đang xoay…',
+        statusComplete: '✅ Hoàn tất!', statusError: '❌ Xoay thất bại.',
+        alertNoFile: '⚠️ Chọn PDF trước', alertNoAngle: '⚠️ Chọn góc xoay'
       }
     };
-
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
-
-    // Blob animation
-    let t = 0;
-    const b1 = document.querySelector('.blob-1');
-    const b2 = document.querySelector('.blob-2');
-    function anim(){
-      t += 0.003;
-      if(b1) b1.style.transform = `translate(${{Math.sin(t)*30}}px,${{Math.cos(t*0.8)*20}}px)`;
-      if(b2) b2.style.transform = `translate(${{Math.cos(t*0.9)*25}}px,${{Math.sin(t)*18}}px)`;
-      requestAnimationFrame(anim);
-    }
-    anim();
   </script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="../assets/js/tool-ui.js"></script>
+  <script>
+    let rotatedPdfBytes = null;
+    let selectedAngle = null;
 
+    function getDict() {
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      return (window.ZT_PAGE || {})[lang] || window.ZT_PAGE.zh;
+    }
+
+    function selectAngle(el) {
+      document.querySelectorAll('.angle-option').forEach(a => a.classList.remove('selected'));
+      el.classList.add('selected');
+      selectedAngle = parseInt(el.dataset.angle);
+    }
+
+    async function rotatePDF() {
+      const file = document.getElementById("pdfInput").files[0];
+      const status = document.getElementById("status");
+      const btn = document.getElementById("rotateBtn");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const dict = getDict();
+
+      if (!file) { status.textContent = dict.alertNoFile; return; }
+      if (selectedAngle === null || selectedAngle === 0) { status.textContent = dict.alertNoAngle; return; }
+      if (typeof PDFLib === 'undefined') { status.textContent = "⚠️ 组件尚未加载完成。"; return; }
+
+      status.textContent = dict.statusWorking;
+      btn.disabled = true;
+      downloadBtn.style.display = "none";
+
+      try {
+        const bytes = await file.arrayBuffer();
+        const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+        const pages = pdfDoc.getPages();
+        for (const page of pages) {
+          const current = page.getRotation().angle;
+          page.setRotation(PDFLib.PDFDegrees((current + selectedAngle) % 360));
+        }
+        rotatedPdfBytes = await pdfDoc.save();
+        status.textContent = dict.statusComplete;
+        downloadBtn.style.display = "block";
+        downloadRotated();
+      } catch (err) {
+        console.error(err);
+        status.textContent = dict.statusError;
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    function downloadRotated() {
+      if (!rotatedPdfBytes) return;
+      const name = document.getElementById("pdfInput").files[0].name.replace('.pdf','') + '_旋转.pdf';
+      const blob = new Blob([rotatedPdfBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = name;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
 </body>
 </html>
