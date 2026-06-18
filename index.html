@@ -15,11 +15,8 @@
       --surface-h: rgba(255,255,255,0.06);
     }
 
-    /* 导航栏扩展：下拉菜单 */
-    .nav-links { position: relative; }
-    .nav-group {
-      position: relative;
-    }
+    /* 导航栏扩展：工具箱巨型下拉菜单 */
+    .nav-group { position: relative; }
     .nav-trigger {
       padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
       color: var(--muted); cursor: pointer; transition: color 0.2s, background 0.2s;
@@ -30,29 +27,38 @@
     .nav-trigger .arrow { font-size: 10px; transition: transform 0.2s; }
     .nav-group:hover .nav-trigger .arrow { transform: rotate(180deg); }
 
-    .nav-dropdown {
-      position: absolute; top: 100%; left: 0; margin-top: 6px;
-      min-width: 220px;
-      background: rgba(10,12,20,0.92); backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid var(--border); border-radius: 14px;
-      padding: 8px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      opacity: 0; visibility: hidden; transform: translateY(8px);
+    .mega-menu {
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+      margin-top: 6px; min-width: 600px;
+      background: rgba(10,12,20,0.94); backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      opacity: 0; visibility: hidden;
       transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
       z-index: 200;
     }
-    .nav-group:hover .nav-dropdown {
-      opacity: 1; visibility: visible; transform: translateY(0);
+    .nav-group:hover .mega-menu {
+      opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
     }
 
-    .nav-dropdown a {
-      display: flex; align-items: center; gap: 10px;
-      padding: 10px 14px; border-radius: 10px;
-      font-size: 13px; color: var(--muted); transition: all 0.15s;
+    .mega-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
     }
-    .nav-dropdown a:hover { color: var(--text); background: var(--glass-b); }
-    .nav-dropdown .dd-icon { font-size: 16px; width: 24px; text-align: center; flex-shrink: 0; }
-    .nav-dropdown .dd-name { font-weight: 500; }
-    .nav-dropdown .dd-desc { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 1px; }
+    .mega-cat {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 8px;
+      padding: 6px 0; border-bottom: 1px solid var(--border);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .mega-item {
+      display: flex; flex-direction: column; gap: 4px;
+      padding: 10px 12px; border-radius: 10px;
+      transition: background 0.15s;
+    }
+    .mega-item:hover { background: var(--glass-b); }
+    .mega-item .mi-icon { font-size: 18px; }
+    .mega-item .mi-name { font-size: 13px; font-weight: 600; }
+    .mega-item .mi-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
 
     /* Hero 区 */
     .hero {
@@ -185,7 +191,7 @@
       .stats-bar { gap: 20px; }
       .stat-num { font-size: 22px; }
       .nav-links a:not(:first-child):not(:last-child) { display: none; }
-      .nav-links .nav-group { display: none; }
+      .nav-group { display: none; }
     }
   </style>
 </head>
@@ -202,8 +208,10 @@
         <a class="logo" href="/">ZenTools<span>2.0</span></a>
         <div class="nav-links">
           <a href="/" data-i18n="navHome" style="color:var(--text);">首页</a>
-          <!-- 分类下拉菜单由 JS 动态生成 -->
-          <div id="navDropdowns"></div>
+          <div class="nav-group">
+            <button class="nav-trigger" data-i18n="navTools"><span>工具箱</span><span class="arrow">▼</span></button>
+            <div class="mega-menu" id="megaMenu"></div>
+          </div>
           <a href="/articles.html" data-i18n="navArticles">教程</a>
           <a href="/about.html" data-i18n="navAbout">关于</a>
           <select id="langSelect" class="lang-select">
@@ -364,33 +372,36 @@
           <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">本地处理</div></div>
         `;
 
-        // 渲染分类下拉菜单
-        const dropdownContainer = document.getElementById('navDropdowns');
-        dropdownContainer.innerHTML = Object.keys(grouped)
-          .filter(cat => grouped[cat].length > 0)
-          .map(cat => {
-            const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
-            const tools = grouped[cat];
-            return `
-              <div class="nav-group">
-                <button class="nav-trigger">
-                  <span style="color:${cc.color}">${cat}</span>
-                  <span class="arrow">▼</span>
-                </button>
-                <div class="nav-dropdown">
-                  ${tools.map(t => `
-                    <a href="${t.url}">
-                      <span class="dd-icon">${t.icon || '🔧'}</span>
-                      <div>
-                        <div class="dd-name">${t.name}</div>
-                        <div class="dd-desc">${t.description || ''}</div>
-                      </div>
-                    </a>
-                  `).join('')}
+        // 渲染工具箱巨型下拉菜单
+        const megaMenu = document.getElementById('megaMenu');
+        megaMenu.innerHTML = `
+          <div class="mega-grid">
+            ${Object.keys(grouped).filter(cat => grouped[cat].length > 0).map(cat => {
+              const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
+              const tools = grouped[cat];
+              // 每个分类占一行标题，工具占 4 列
+              const rows = [];
+              // 把工具每 4 个一组分行
+              for (let i = 0; i < tools.length; i += 4) {
+                const chunk = tools.slice(i, i + 4);
+                rows.push(chunk.map(t => `
+                  <a class="mega-item" href="${t.url}">
+                    <div class="mi-icon">${t.icon || '🔧'}</div>
+                    <div class="mi-name">${t.name}</div>
+                    <div class="mi-desc">${t.description || ''}</div>
+                  </a>
+                `).join(''));
+              }
+              return `
+                <div class="mega-cat" style="color:${cc.color}">
+                  <span>${cat}</span>
+                  <span style="font-size:11px;opacity:0.5">${tools.length}</span>
                 </div>
-              </div>
-            `;
-          }).join('');
+                ${rows.map(r => r).join('')}
+              `;
+            }).join('')}
+          </div>
+        `;
 
         // 渲染工具分类区
         const container = document.getElementById('toolsContainer');
@@ -437,18 +448,6 @@
         `;
       }
     })();
-
-    // ===== 导航栏点击展开/收起（移动端友好） =====
-    document.addEventListener('click', function(e) {
-      const groups = document.querySelectorAll('.nav-group');
-      groups.forEach(g => {
-        const dd = g.querySelector('.nav-dropdown');
-        if (dd && !g.contains(e.target)) {
-          dd.style.opacity = '0';
-          dd.style.visibility = 'hidden';
-        }
-      });
-    });
   </script>
 
 </body>
