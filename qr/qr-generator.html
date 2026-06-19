@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>二维码生成器 - 告别黑白丑码</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f5; padding: 20px; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding-top: 40px; }
+        .container { max-width: 1000px; width: 100%; background: white; border-radius: 24px; padding: 32px; box-shadow: 0 8px 40px rgba(0, 0, 0, 0.07); }
+        .header h1 { font-size: 28px; margin-bottom: 4px; }
+        .header .sub { color: #555; font-size: 15px; margin-bottom: 6px; }
+        .badge { display: inline-block; background: #e6f7e6; color: #1a7f3a; padding: 4px 14px; border-radius: 20px; font-size: 13px; margin-right: 8px; }
+        .row { display: flex; gap: 32px; margin-top: 24px; flex-wrap: wrap; }
+        .left { flex: 1.2; min-width: 260px; }
+        .right { flex: 0.8; min-width: 220px; display: flex; flex-direction: column; align-items: center; background: #fafbfc; padding: 24px 20px; border-radius: 18px; border: 1.5px dashed #d0d7de; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 5px; color: #1f2937; }
+        .form-group input[type="text"], .form-group input[type="url"] { width: 100%; padding: 12px 16px; border: 1.5px solid #d0d7de; border-radius: 12px; font-size: 15px; transition: 0.2s; background: #fafbfc; }
+        .form-group input:focus { border-color: #2563eb; outline: none; background: white; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08); }
+        .color-grid { display: flex; gap: 10px; flex-wrap: wrap; }
+        .color-swatch { width: 44px; height: 44px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .color-swatch:hover { transform: scale(1.08); }
+        .color-swatch.active { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.25); }
+        .range-wrap { display: flex; align-items: center; gap: 14px; }
+        .range-wrap input[type="range"] { flex: 1; accent-color: #2563eb; height: 6px; }
+        .range-wrap .val { font-size: 14px; font-weight: 600; color: #2563eb; min-width: 32px; }
+        .logo-upload { border: 1.5px dashed #d0d7de; border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; transition: 0.2s; background: #fafbfc; }
+        .logo-upload:hover { border-color: #2563eb; background: #eff6ff; }
+        .logo-upload .preview { width: 64px; height: 64px; object-fit: contain; border-radius: 10px; background: #f3f4f6; display: none; margin: 0 auto 6px; }
+        .logo-upload .preview.show { display: block; }
+        .logo-upload .hint { font-size: 13px; color: #6b7280; }
+        #logoInput { display: none; }
+        .qr-preview { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        #qrcode { background: white; padding: 12px; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); margin-bottom: 14px; min-height: 180px; display: flex; align-items: center; justify-content: center; width: 100%; }
+        #qrcode canvas, #qrcode img { max-width: 100%; height: auto; border-radius: 8px; }
+        .qr-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+        .btn-primary { background: #2563eb; color: white; border: none; padding: 14px 0; width: 100%; border-radius: 40px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(37,99,235,0.2); }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .btn-primary:active { transform: scale(0.97); }
+        .btn-secondary { background: #f3f4f6; color: #1f2937; border: 1px solid #d1d5db; padding: 12px 0; width: 100%; border-radius: 40px; font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .btn-secondary:hover { background: #e5e7eb; }
+        .btn-outline { background: transparent; color: #4b5563; border: 1.5px solid #d0d7de; padding: 12px 0; width: 100%; border-radius: 40px; font-size: 14px; font-weight: 500; cursor: pointer; transition: 0.2s; }
+        .btn-outline:hover { background: #f9fafb; border-color: #2563eb; color: #2563eb; }
+        .footer-tip { margin-top: 24px; font-size: 13px; color: #6b7280; background: #f3f4f6; padding: 10px 16px; border-radius: 10px; }
+        .hint-text { font-size: 13px; color: #6b7280; text-align: center; margin-top: 4px; }
+        @media (max-width: 640px) { .container { padding: 16px; } .header h1 { font-size: 22px; } .row { flex-direction: column; } .right { order: -1; } .color-swatch { width: 38px; height: 38px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 输入链接 · 生成专属精美二维码</h1>
+            <div class="sub">
+                <span class="badge">🌈 6种渐变色</span>
+                <span class="badge">🔄 圆角边框</span>
+                <span class="badge">🖼️ 支持Logo嵌入</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="left">
+                <div class="form-group">
+                    <label>🔗 链接 / 文本内容</label>
+                    <input type="url" id="urlInput" placeholder="https://example.com 或任意文本" value="https://www.zentools.xyz" />
+                </div>
+                <div class="form-group">
+                    <label>🎨 渐变色主题</label>
+                    <div class="color-grid" id="colorGrid">
+                        <div class="color-swatch active" style="background:linear-gradient(135deg,#2563eb,#7c3aed);" data-colors="#2563eb,#7c3aed"></div>
+                        <div class="color-swatch" style="background:linear-gradient(135deg,#f59e0b,#ef4444);" data-colors="#f59e0b,#ef4444"></div>
+                        <div class="color-swatch" style="background:linear-gradient(135deg,#10b981,#06b6d4);" data-colors="#10b981,#06b6d4"></div>
+                        <div class="color-swatch" style="background:linear-gradient(135deg,#ec4899,#f43f5e);" data-colors="#ec4899,#f43f5e"></div>
+                        <div class="color-swatch" style="background:linear-gradient(135deg,#8b5cf6,#d946ef);" data-colors="#8b5cf6,#d946ef"></div>
+                        <div class="color-swatch" style="background:linear-gradient(135deg,#1e293b,#475569);" data-colors="#1e293b,#475569"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>🔲 圆角大小</label>
+                    <div class="range-wrap">
+                        <input type="range" id="radiusRange" min="0" max="50" value="16" />
+                        <span class="val" id="radiusVal">16</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>🖼️ 嵌入 Logo（居中）</label>
+                    <div class="logo-upload" id="logoUpload">
+                        <img class="preview" id="logoPreview" alt="logo预览" />
+                        <div class="hint">👆 点击上传 Logo (建议 200x200 PNG)</div>
+                        <input type="file" id="logoInput" accept="image/png,image/jpeg,image/webp" />
+                    </div>
+                </div>
+                <button class="btn-primary" id="generateBtn">🎨 生成并预览高清大图</button>
+                <div style="margin-top:6px;text-align:center;"><span style="font-size:12px;color:#9ca3af;">💡 修改任意选项自动实时更新</span></div>
+            </div>
+            <div class="right">
+                <div class="qr-preview">
+                    <div id="qrcode"></div>
+                    <div class="qr-actions">
+                        <button class="btn-secondary" id="downloadPngBtn">📥 下载 PNG</button>
+                        <button class="btn-outline" id="downloadSvgBtn">📥 下载 SVG (矢量)</button>
+                        <span class="hint-text">📱 长按图片可保存到相册</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-tip">🛡️ 隐私承诺：所有数据仅在浏览器本地生成，<strong>绝不</strong>上传到任何服务器。</div>
+    </div>
+    <script>
+        (function() {
+            const urlInput = document.getElementById('urlInput');
+            const colorGrid = document.getElementById('colorGrid');
+            const radiusRange = document.getElementById('radiusRange');
+            const radiusVal = document.getElementById('radiusVal');
+            const logoInput = document.getElementById('logoInput');
+            const logoPreview = document.getElementById('logoPreview');
+            const logoUpload = document.getElementById('logoUpload');
+            const generateBtn = document.getElementById('generateBtn');
+            const downloadPngBtn = document.getElementById('downloadPngBtn');
+            const downloadSvgBtn = document.getElementById('downloadSvgBtn');
+            const qrContainer = document.getElementById('qrcode');
+            let currentColors = ['#2563eb', '#7c3aed'];
+            let currentRadius = 16;
+            let logoDataURL = null;
+            colorGrid.addEventListener('click', function(e) {
+                const swatch = e.target.closest('.color-swatch');
+                if (!swatch) return;
+                document.querySelectorAll('.color-swatch').forEach(el => el.classList.remove('active'));
+                swatch.classList.add('active');
+                currentColors = swatch.dataset.colors.split(',');
+                generateQR();
+            });
+            radiusRange.addEventListener('input', function() {
+                currentRadius = parseInt(this.value);
+                radiusVal.textContent = currentRadius;
+                generateQR();
+            });
+            logoUpload.addEventListener('click', function(e) {
+                if (e.target.closest('.preview')) return;
+                logoInput.click();
+            });
+            logoInput.addEventListener('change', function() {
+                if (this.files && this.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        logoDataURL = e.target.result;
+                        logoPreview.src = logoDataURL;
+                        logoPreview.classList.add('show');
+                        logoUpload.querySelector('.hint').textContent = '✅ Logo已上传，点击更换';
+                        generateQR();
+                    };
+                    reader.readAsDataURL(this.files[0]);
+                }
+                this.value = '';
+            });
+            logoPreview.addEventListener('dblclick', function() {
+                logoDataURL = null;
+                logoPreview.classList.remove('show');
+                logoPreview.src = '';
+                logoUpload.querySelector('.hint').textContent = '👆 点击上传 Logo (建议 200x200 PNG)';
+                generateQR();
+            });
+            urlInput.addEventListener('input', generateQR);
+            function generateQR() {
+                const text = urlInput.value.trim() || 'https://zentools.xyz';
+                qrContainer.innerHTML = '';
+                const tempDiv = document.createElement('div');
+                tempDiv.style.display = 'none';
+                document.body.appendChild(tempDiv);
+                const qr = new QRCode(tempDiv, { text: text, width: 300, height: 300, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
+                const canvas = tempDiv.querySelector('canvas');
+                if (!canvas) { document.body.removeChild(tempDiv); qrContainer.innerHTML = '<p style="color:#ef4444;">⚠️ 生成失败</p>'; return; }
+                const size = 300;
+                const newCanvas = document.createElement('canvas');
+                newCanvas.width = size; newCanvas.height = size;
+                const ctx = newCanvas.getContext('2d');
+                const r = currentRadius;
+                ctx.beginPath(); ctx.moveTo(r,0); ctx.arcTo(size,0,size,size,r); ctx.arcTo(size,size,0,size,r); ctx.arcTo(0,size,0,0,r); ctx.arcTo(0,0,size,0,r); ctx.closePath(); ctx.clip();
+                ctx.fillStyle = '#ffffff'; ctx.fillRect(0,0,size,size);
+                const srcCtx = canvas.getContext('2d');
+                const imageData = srcCtx.getImageData(0,0,size,size);
+                const data = imageData.data;
+                function hexToRgb(hex) { const r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r?{r:parseInt(r[1],16),g:parseInt(r[2],16),b:parseInt(r[3],16)}:{r:0,g:0,b:0}; }
+                const c1=hexToRgb(currentColors[0]),c2=hexToRgb(currentColors[1]);
+                for(let y=0;y<size;y++) for(let x=0;x<size;x++){ const idx=(y*size+x)*4; if(data[idx]<128&&data[idx+1]<128&&data[idx+2]<128){ const t=(x+y)/(size*2); const cl=`rgb(${Math.round(c1.r+(c2.r-c1.r)*t)},${Math.round(c1.g+(c2.g-c1.g)*t)},${Math.round(c1.b+(c2.b-c1.b)*t)})`; ctx.fillStyle=cl; ctx.fillRect(x,y,1,1); } }
+                if (logoDataURL) {
+                    const logoSize=60,lx=(size-logoSize)/2,ly=(size-logoSize)/2;
+                    const li=new Image();
+                    li.onload=function(){ ctx.beginPath(); ctx.arc(size/2,size/2,logoSize/2+4,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.fill(); ctx.save(); ctx.beginPath(); ctx.arc(size/2,size/2,logoSize/2,0,Math.PI*2); ctx.clip(); ctx.drawImage(li,lx,ly,logoSize,logoSize); ctx.restore(); };
+                    li.src=logoDataURL;
+                }
+                document.body.removeChild(tempDiv);
+                qrContainer.innerHTML=''; qrContainer.appendChild(newCanvas);
+            }
+            function downloadPNG(){ const c=qrContainer.querySelector('canvas'); if(!c){alert('请先生成二维码');return;} generateQR(); setTimeout(function(){ const cc=qrContainer.querySelector('canvas'); if(!cc)return; const a=document.createElement('a'); a.download='qrcode.png'; a.href=cc.toDataURL('image/png'); a.click(); },200); }
+            function downloadSVG(){ const text=urlInput.value.trim()||'https://zentools.xyz'; const td=document.createElement('div'); td.style.display='none'; document.body.appendChild(td); const qr=new QRCode(td,{text:text,width:300,height:300,colorDark:currentColors[0],colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); const c=td.querySelector('canvas'); if(c){ const ctx=c.getContext('2d'); const id=ctx.getImageData(0,0,300,300); const d=id.data; let svg='<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><rect width="300" height="300" fill="white"/>'; for(let y=0;y<300;y+=2) for(let x=0;x<300;x+=2){ const idx=(y*300+x)*4; if(d[idx]<128) svg+='<rect x="'+x+'" y="'+y+'" width="2" height="2" fill="'+currentColors[0]+'"/>'; } svg+='</svg>'; const b=new Blob([svg],{type:'image/svg+xml'}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='qrcode.svg'; a.click(); URL.revokeObjectURL(a.href); } document.body.removeChild(td); }
+            generateBtn.addEventListener('click',function(){generateQR(); generateBtn.textContent='✅ 已更新'; setTimeout(function(){generateBtn.textContent='🎨 生成并预览高清大图';},1200);});
+            downloadPngBtn.addEventListener('click',downloadPNG);
+            downloadSvgBtn.addEventListener('click',downloadSVG);
+            setTimeout(generateQR,100);
+        })();
+    </script>
+</body>
+</html>
