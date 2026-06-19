@@ -1,43 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>生活工具 | ZenTools</title>
-    <link rel="stylesheet" href="../assets/css/style.css" />
-    <link rel="stylesheet" href="../assets/css/tool-ui.css" />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>生活工具箱 - 江湖小站-ZenTools</title>
+  <meta name="description" content="在线生活工具集合，支持 BMI计算、单位换算、密码生成、随机工具等操作" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --glass-border: rgba(255,255,255,0.08); }
+    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; --accent-glow: rgba(59,130,246,0.1); --glass-border: rgba(0,0,0,0.06); }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 30px 24px 60px; }
+    .nav-bar { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 40px; flex-wrap: wrap; gap: 12px; }
+    .nav-bar .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+    .nav-bar .logo .mark { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 14px; color: #fff; }
+    .nav-bar .links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .nav-bar .links a { font-size: 13px; font-weight: 500; color: var(--muted); padding: 6px 14px; border-radius: var(--radius-pill); }
+    .nav-bar .links a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+    .nav-bar .links a.active { color: var(--accent); background: var(--accent-glow); }
+    .page-header { margin-bottom: 32px; }
+    .page-header h1 { font-size: 28px; font-weight: 800; }
+    .page-header h1 .hl { background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .page-header p { color: var(--muted); margin-top: 6px; font-size: 15px; }
+    .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .tool-card { background: var(--surface); border: 1px solid var(--glass-border); border-radius: var(--radius); padding: 20px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 8px; transition: all .3s; backdrop-filter: blur(4px); }
+    .tool-card:hover { transform: translateY(-4px); border-color: var(--accent-glow); box-shadow: 0 8px 24px rgba(59,130,246,0.1); }
+    .tool-card .emoji { font-size: 32px; }
+    .tool-card .name { font-size: 14px; font-weight: 600; }
+    .tool-card .desc { font-size: 12px; color: var(--muted); line-height: 1.5; flex: 1; }
+    .tool-card .tag { font-size: 10px; font-weight: 700; color: var(--accent); background: var(--accent-glow); border-radius: 8px; padding: 4px 12px; }
+    .empty-state { grid-column: 1/-1; text-align: center; padding: 50px 20px; color: var(--muted); }
+    .back-home { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 14px; font-weight: 500; margin-bottom: 20px; }
+    .back-home:hover { color: var(--accent); }
+    .footer { margin-top: 50px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
+    @media (max-width: 640px) { .nav-bar { flex-direction: column; } .tools-grid { grid-template-columns: 1fr 1fr; } }
+  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;font-size:13px}}</style>
 </head>
 <body>
-    <h1>生活工具</h1>
-    <div id="tool-list" class="tool-list"></div>
-
-    <script>
-        // Fetch the merged tools.json and filter for life tools.
-        fetch('../data/tools.json')
-            .then(r => r.json())
-            .then(data => {
-                const list = document.getElementById('tool-list');
-                data
-                    .filter(t => t.type === 'life')
-                    .forEach(t => {
-                        const a = document.createElement('a');
-                        // Build href that works for both file:// and http://
-                        let href = t.url.replace(/^\./, ''); // strip leading dot
-                        if (location.protocol !== 'file:') {
-                            // On a web server use root‑relative path
-                            href = '/' + href;
-                        }
-                        a.href = href;
-                        a.textContent = t.name;
-                        a.className = 'tool-link';
-                        list.appendChild(a);
-                        list.appendChild(document.createElement('br'));
-                    });
-            })
-            .catch(e => console.error('加载工具列表失败', e));
-    </script>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">生活工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">生活</span> 工具箱</h1>
+    <p>在线生活工具集合，支持 BMI计算、单位换算、密码生成、随机工具等操作</p>
+  </div>
+  <div class="tools-grid" id="toolsGrid"><div class="empty-state">⏳ 加载工具中...</div></div>
+  <div class="footer">&copy; 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> &middot; 数据驱动分类架构</div>
+</div>
+<script>
+  const CATEGORY_KEY = '生活工具';
+  const PAGE_TITLE = '生活';
+  const PAGE_DESC = '在线生活工具集合，支持 BMI计算、单位换算、密码生成、随机工具等操作';
+  const fallbackTools = [];
+  function renderTools(tools) {
+    const c = document.getElementById('toolsGrid'); if (!c) return;
+    const f = tools.filter(t => t.category === CATEGORY_KEY);
+    if (!f.length) { c.innerHTML = '<div class="empty-state">📭 该分类下暂无工具，敬请期待</div>'; return; }
+    let html = '';
+    for (const t of f) {
+      const h = t.url || '#';
+      html += `<a class="tool-card" href="${h}" target="_blank"><span class="emoji">${t.icon || '🔧'}</span><span class="name">${t.name}</span><span class="desc">${t.description || ''}</span><span class="tag">${t.category || '工具'}</span></a>`;
+    }
+    c.innerHTML = html;
+  }
+  function load() {
+    document.querySelector('.page-header h1').innerHTML = `<span class="hl">${PAGE_TITLE}</span> 工具箱`;
+    document.querySelector('.page-header p').textContent = PAGE_DESC;
+    fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); else renderTools(fallbackTools); }).catch(() => renderTools(fallbackTools));
+  }
+  document.addEventListener('DOMContentLoaded', load);
+</script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 </body>

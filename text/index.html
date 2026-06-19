@@ -13,19 +13,23 @@
 <footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/text/">文本工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer></div>
 <script src="../assets/js/tool-ui.js"></script>
 <script>
-const textTools=[
-{name:'字数统计',url:'/text/wordcount.html',icon:'📊',desc:'统计字符数、单词数、行数和段落数',badge:'热门'},
-{name:'大小写转换',url:'/text/caseconvert.html',icon:'🔤',desc:'英文大小写互相转换，首字母大写等',badge:'热门'},
-{name:'去重工具',url:'/text/dedupe.html',icon:'🧹',desc:'去除文本中的重复行内容',badge:'热门'},
-{name:'空行处理',url:'/text/blankline.html',icon:'📄',desc:'删除多余空行和首尾空白'},
-{name:'链接提取',url:'/text/linkextract.html',icon:'🔗',desc:'从文本中提取所有链接地址'},
-{name:'文本排序',url:'/text/sortlines.html',icon:'🔀',desc:'A-Z、Z-A 或随机排序文本行',badge:'新'},
-{name:'查找替换',url:'/text/findreplace.html',icon:'🔍',desc:'查找并替换指定内容',badge:'新'},
-{name:'文本反转',url:'/text/textreverse.html',icon:'↩️',desc:'反转文字顺序或行顺序',badge:'新'},
-{name:'URL编码解码',url:'/text/urlencode.html',icon:'🔗',desc:'URL 编码或解码',badge:'新'},
-{name:'文本对比',url:'/text/textdiff.html',icon:'📋',desc:'对比两段文本差异并高亮显示',badge:'新'}
-];
-const grid=document.getElementById('toolsGrid');if(grid)grid.innerHTML=textTools.map(t=>`<a class="tool-card" href="${t.url}"><div class="icon">${t.icon}</div><div class="name">${t.name}</div><div class="desc">${t.desc}</div>${t.badge?`<span class="badge">${t.badge}</span>`:''}</a>`).join('');
+const CATEGORY_KEY = '文本工具';
+const fallbackTools = [];
+function renderTools(tools) {
+  const c = document.getElementById('toolsGrid'); if (!c) return;
+  const f = tools.filter(t => t.category === CATEGORY_KEY);
+  if (!f.length) { c.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);">📭 该分类下暂无工具，敬请期待</div>'; return; }
+  let html = '';
+  for (const t of f) {
+    const h = t.url || '#';
+    html += `<a class="tool-card" href="${h}"><div class="icon">${t.icon || '🔧'}</div><div class="name">${t.name}</div><div class="desc">${t.description || ''}</div>${t.featured ? '<span class="badge">热门</span>' : ''}</a>`;
+  }
+  c.innerHTML = html;
+}
+function load() {
+  fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); else renderTools(fallbackTools); }).catch(() => renderTools(fallbackTools));
+}
+document.addEventListener('DOMContentLoaded', load);
 </script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 </body></html>
