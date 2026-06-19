@@ -182,9 +182,7 @@
       '<button onclick="ZT_CRASH.dismissFallback()" style="' +
       'background:rgba(255,255,255,0.2);border:1px solid rgba(255,255,255,0.3);' +
       'color:#fff;padding:4px 14px;border-radius:8px;cursor:pointer;font-size:13px;">我知道了</button>' +
-      '<a href="/recovery-console.html" style="' +
-      'background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);' +
-      'color:#fff;padding:4px 14px;border-radius:8px;text-decoration:none;font-size:13px;">🔧 恢复控制台</a>';
+      ''; // 恢复控制台已移至本地保留
 
     // 调整 body padding-top 避免被遮挡
     document.body.prepend(banner);
