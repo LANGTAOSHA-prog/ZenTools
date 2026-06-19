@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JSON美化 - 本地处理</title>
+    <title>粘贴即美化，错误自动标红 - JSON格式化校验器</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f6f8fa; padding: 20px; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
@@ -27,7 +27,11 @@
         .output-box.show { display: block; }
         .error-msg { color: #dc2626; background: #fee2e2; padding: 10px 16px; border-radius: 10px; margin-top: 12px; display: none; font-size: 14px; }
         .error-msg.show { display: block; }
-        @media (max-width: 640px) { .container { padding: 16px; } .header h1 { font-size: 22px; } .row { flex-direction: column; } textarea { height: 200px; } }
+        .tip-line { text-align: center; font-size: 12px; color: #9ca3af; margin-top: 10px; }
+        .bookmark-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg,#2563eb,#7c3aed); color: white; border: none; padding: 14px 22px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(37,99,235,0.35); transition: transform 0.2s,box-shadow 0.2s; text-decoration: none; }
+        .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
+        .bookmark-float:active { transform: scale(0.96); }
+        @media (max-width:640px) { .container { padding: 16px; } .header h1 { font-size: 22px; } .row { flex-direction: column; } textarea { height: 200px; } .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; } }
     </style>
 </head>
 <body>
@@ -35,10 +39,11 @@
     <div class="header">
         <h1>📋 粘贴即美化 · 错误自动标红</h1>
         <div class="sub">
-            <span class="badge">✅ 纯本地计算</span>
             <span class="badge-red">❌ 不上传服务器</span>
+            <span class="badge">✅ 纯浏览器本地计算</span>
         </div>
     </div>
+    <div class="tip-line">支持解析高达 5MB 的大文件，不卡顿</div>
     <div class="row">
         <div class="left">
             <textarea id="inputArea" placeholder="在此粘贴你的 JSON 数据..."></textarea>
@@ -58,6 +63,7 @@
     </div>
     <div class="footer-tip">🛡️ 隐私承诺：数据仅在浏览器内存中处理，绝不存储或传输到任何服务器。</div>
 </div>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 <script>
 (function() {
     const input = document.getElementById('inputArea');
@@ -75,7 +81,7 @@
     }
     function formatJSON() {
         var raw = input.value.trim();
-        if (!raw) { errorBox.textContent = '⚠️ 请输入或粘贴 JSON 数据'; errorBox.classList.add('show'); output.classList.remove('show'); return; }
+        if (!raw) { errorBox.textContent = '请粘贴 JSON 数据'; errorBox.classList.add('show'); output.classList.remove('show'); return; }
         try {
             var parsed = JSON.parse(raw);
             if (sortCheck.checked) parsed = sortKeys(parsed);
@@ -86,7 +92,7 @@
                     formatBtn.textContent = '✅ 已复制！';
                     setTimeout(function() { formatBtn.textContent = '✨ 一键美化并复制'; }, 1800);
                 }).catch(function() {
-                    formatBtn.textContent = '📋 复制失败，请手动选中';
+                    formatBtn.textContent = '复制失败，请手动选中';
                     setTimeout(function() { formatBtn.textContent = '✨ 一键美化并复制'; }, 2500);
                 });
             }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>二维码生成器 - 告别黑白丑码</title>
+    <title>输入链接，10秒生成专属精美二维码 - 二维码生成器</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
     </script>
     <style>
@@ -19,7 +19,7 @@
         .form-group { margin-bottom: 18px; }
         .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 5px; color: #1f2937; }
         .form-group input[type="text"], .form-group input[type="url"] { width: 100%; padding: 12px 16px; border: 1.5px solid #d0d7de; border-radius: 12px; font-size: 15px; transition: 0.2s; background: #fafbfc; }
-        .form-group input:focus { border-color: #2563eb; outline: none; background: white; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08); }
+        .form-group input:focus { border-color: #2563eb; outline: none; background: white; box-shadow: 0 0 0 4px rgba(37,99,235,0.08); }
         .color-grid { display: flex; gap: 10px; flex-wrap: wrap; }
         .color-swatch { width: 44px; height: 44px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
         .color-swatch:hover { transform: scale(1.08); }
@@ -46,17 +46,22 @@
         .btn-outline:hover { background: #f9fafb; border-color: #2563eb; color: #2563eb; }
         .footer-tip { margin-top: 24px; font-size: 13px; color: #6b7280; background: #f3f4f6; padding: 10px 16px; border-radius: 10px; }
         .hint-text { font-size: 13px; color: #6b7280; text-align: center; margin-top: 4px; }
-        @media (max-width: 640px) { .container { padding: 16px; } .header h1 { font-size: 22px; } .row { flex-direction: column; } .right { order: -1; } .color-swatch { width: 38px; height: 38px; } }
+        .save-tip { font-size: 12px; color: #059669; font-weight: 600; text-align: center; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .bookmark-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg,#2563eb,#7c3aed); color: white; border: none; padding: 14px 22px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(37,99,235,0.35); transition: transform 0.2s,box-shadow 0.2s; text-decoration: none; }
+        .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
+        .bookmark-float:active { transform: scale(0.96); }
+        @media (max-width: 640px) { .container { padding: 16px; } .header h1 { font-size: 22px; } .row { flex-direction: column; } .right { order: -1; } .color-swatch { width: 38px; height: 38px; } .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; } }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎨 输入链接 · 生成专属精美二维码</h1>
+            <h1>🔗 输入链接，10秒生成专属精美二维码</h1>
             <div class="sub">
                 <span class="badge">🌈 6种渐变色</span>
                 <span class="badge">🔄 圆角边框</span>
                 <span class="badge">🖼️ 支持Logo嵌入</span>
+                <span style="color:#9ca3af;font-size:12px;margin-left:6px;">告别黑白丑码</span>
             </div>
         </div>
         <div class="row">
@@ -100,13 +105,14 @@
                     <div class="qr-actions">
                         <button class="btn-secondary" id="downloadPngBtn">📥 下载 PNG</button>
                         <button class="btn-outline" id="downloadSvgBtn">📥 下载 SVG (矢量)</button>
-                        <span class="hint-text">📱 长按图片可保存到相册</span>
+                        <span class="save-tip">📱 长按保存到相册（推荐）</span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="footer-tip">🛡️ 隐私承诺：所有数据仅在浏览器本地生成，<strong>绝不</strong>上传到任何服务器。</div>
     </div>
+    <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
     <script>
         (function() {
             const urlInput = document.getElementById('urlInput');
@@ -136,31 +142,16 @@
                 radiusVal.textContent = currentRadius;
                 generateQR();
             });
-            logoUpload.addEventListener('click', function(e) {
-                if (e.target.closest('.preview')) return;
-                logoInput.click();
-            });
+            logoUpload.addEventListener('click', function(e) { if (e.target.closest('.preview')) return; logoInput.click(); });
             logoInput.addEventListener('change', function() {
                 if (this.files && this.files[0]) {
                     const reader = new FileReader();
-                    reader.onload = function(e) {
-                        logoDataURL = e.target.result;
-                        logoPreview.src = logoDataURL;
-                        logoPreview.classList.add('show');
-                        logoUpload.querySelector('.hint').textContent = '✅ Logo已上传，点击更换';
-                        generateQR();
-                    };
+                    reader.onload = function(e) { logoDataURL = e.target.result; logoPreview.src = logoDataURL; logoPreview.classList.add('show'); logoUpload.querySelector('.hint').textContent = '✅ Logo已上传，点击更换'; generateQR(); };
                     reader.readAsDataURL(this.files[0]);
                 }
                 this.value = '';
             });
-            logoPreview.addEventListener('dblclick', function() {
-                logoDataURL = null;
-                logoPreview.classList.remove('show');
-                logoPreview.src = '';
-                logoUpload.querySelector('.hint').textContent = '👆 点击上传 Logo (建议 200x200 PNG)';
-                generateQR();
-            });
+            logoPreview.addEventListener('dblclick', function() { logoDataURL = null; logoPreview.classList.remove('show'); logoPreview.src = ''; logoUpload.querySelector('.hint').textContent = '👆 点击上传 Logo'; generateQR(); });
             urlInput.addEventListener('input', generateQR);
             function generateQR() {
                 const text = urlInput.value.trim() || 'https://zentools.xyz';
@@ -170,7 +161,7 @@
                 document.body.appendChild(tempDiv);
                 const qr = new QRCode(tempDiv, { text: text, width: 300, height: 300, colorDark: '#000000', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H });
                 const canvas = tempDiv.querySelector('canvas');
-                if (!canvas) { document.body.removeChild(tempDiv); qrContainer.innerHTML = '<p style="color:#ef4444;">⚠️ 生成失败</p>'; return; }
+                if (!canvas) { document.body.removeChild(tempDiv); qrContainer.innerHTML = '<p style="color:#ef4444;">生成失败</p>'; return; }
                 const size = 300;
                 const newCanvas = document.createElement('canvas');
                 newCanvas.width = size; newCanvas.height = size;
@@ -183,19 +174,14 @@
                 const data = imageData.data;
                 function hexToRgb(hex) { const r=/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return r?{r:parseInt(r[1],16),g:parseInt(r[2],16),b:parseInt(r[3],16)}:{r:0,g:0,b:0}; }
                 const c1=hexToRgb(currentColors[0]),c2=hexToRgb(currentColors[1]);
-                for(let y=0;y<size;y++) for(let x=0;x<size;x++){ const idx=(y*size+x)*4; if(data[idx]<128&&data[idx+1]<128&&data[idx+2]<128){ const t=(x+y)/(size*2); const cl=`rgb(${Math.round(c1.r+(c2.r-c1.r)*t)},${Math.round(c1.g+(c2.g-c1.g)*t)},${Math.round(c1.b+(c2.b-c1.b)*t)})`; ctx.fillStyle=cl; ctx.fillRect(x,y,1,1); } }
-                if (logoDataURL) {
-                    const logoSize=60,lx=(size-logoSize)/2,ly=(size-logoSize)/2;
-                    const li=new Image();
-                    li.onload=function(){ ctx.beginPath(); ctx.arc(size/2,size/2,logoSize/2+4,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.fill(); ctx.save(); ctx.beginPath(); ctx.arc(size/2,size/2,logoSize/2,0,Math.PI*2); ctx.clip(); ctx.drawImage(li,lx,ly,logoSize,logoSize); ctx.restore(); };
-                    li.src=logoDataURL;
-                }
+                for(let y=0;y<size;y++) for(let x=0;x<size;x++){ const idx=(y*size+x)*4; if(data[idx]<128&&data[idx+1]<128&&data[idx+2]<128){ const t=(x+y)/(size*2); ctx.fillStyle=`rgb(${Math.round(c1.r+(c2.r-c1.r)*t)},${Math.round(c1.g+(c2.g-c1.g)*t)},${Math.round(c1.b+(c2.b-c1.b)*t)})`; ctx.fillRect(x,y,1,1); } }
+                if (logoDataURL) { const ls=60,lx=(size-ls)/2,ly=(size-ls)/2; const li=new Image(); li.onload=function(){ ctx.beginPath(); ctx.arc(size/2,size/2,ls/2+4,0,Math.PI*2); ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.fill(); ctx.save(); ctx.beginPath(); ctx.arc(size/2,size/2,ls/2,0,Math.PI*2); ctx.clip(); ctx.drawImage(li,lx,ly,ls,ls); ctx.restore(); }; li.src=logoDataURL; }
                 document.body.removeChild(tempDiv);
                 qrContainer.innerHTML=''; qrContainer.appendChild(newCanvas);
             }
-            function downloadPNG(){ const c=qrContainer.querySelector('canvas'); if(!c){alert('请先生成二维码');return;} generateQR(); setTimeout(function(){ const cc=qrContainer.querySelector('canvas'); if(!cc)return; const a=document.createElement('a'); a.download='qrcode.png'; a.href=cc.toDataURL('image/png'); a.click(); },200); }
+            function downloadPNG(){ const c=qrContainer.querySelector('canvas'); if(!c)return; generateQR(); setTimeout(function(){ const cc=qrContainer.querySelector('canvas'); if(!cc)return; const a=document.createElement('a'); a.download='qrcode.png'; a.href=cc.toDataURL('image/png'); a.click(); },200); }
             function downloadSVG(){ const text=urlInput.value.trim()||'https://zentools.xyz'; const td=document.createElement('div'); td.style.display='none'; document.body.appendChild(td); const qr=new QRCode(td,{text:text,width:300,height:300,colorDark:currentColors[0],colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.H}); const c=td.querySelector('canvas'); if(c){ const ctx=c.getContext('2d'); const id=ctx.getImageData(0,0,300,300); const d=id.data; let svg='<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><rect width="300" height="300" fill="white"/>'; for(let y=0;y<300;y+=2) for(let x=0;x<300;x+=2){ const idx=(y*300+x)*4; if(d[idx]<128) svg+='<rect x="'+x+'" y="'+y+'" width="2" height="2" fill="'+currentColors[0]+'"/>'; } svg+='</svg>'; const b=new Blob([svg],{type:'image/svg+xml'}); const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='qrcode.svg'; a.click(); URL.revokeObjectURL(a.href); } document.body.removeChild(td); }
-            generateBtn.addEventListener('click',function(){generateQR(); generateBtn.textContent='✅ 已更新'; setTimeout(function(){generateBtn.textContent='🎨 生成并预览高清大图';},1200);});
+            generateBtn.addEventListener('click',function(){generateBtn.textContent='✅ 已更新'; setTimeout(function(){generateBtn.textContent='🎨 生成并预览高清大图';},1200);});
             downloadPngBtn.addEventListener('click',downloadPNG);
             downloadSvgBtn.addEventListener('click',downloadSVG);
             setTimeout(generateQR,100);
