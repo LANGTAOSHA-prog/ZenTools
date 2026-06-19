@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="assets/css/tool-ui.css" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
+
+  <!-- ===== 防崩 1.0 — 最先加载，兜住所有错误 ===== -->
+  <script src="assets/js/anti-crash.js"></script>
   <style>
     /* 首页专用样式 */
     :root {
@@ -702,8 +705,15 @@
       }, 100);
     }
 
-    // ===== 加载并渲染 =====
+    // ===== 加载并渲染（防崩增强版）=====
     async function loadAndRender(lang) {
+      // 检查是否处于备用模式
+      if (window.ZT_CRASH && window.ZT_CRASH.fallbackMode) {
+        console.warn('[防崩] 备用模式中，使用内置数据');
+        _toolsData = window.ZT_CRASH.FALLBACK_DATA;
+        renderHome(_toolsData, lang);
+        return;
+      }
       if (!_toolsData) {
         try {
           const res = await fetch('data/tools-data.json');
@@ -711,6 +721,17 @@
           _toolsData = await res.json();
         } catch (err) {
           console.error('工具数据加载失败:', err);
+          // 备用模式自动激活
+          if (window.ZT_CRASH) {
+            window.ZT_CRASH.errorCount++;
+            window.ZT_CRASH.errorLog.push({ time: new Date().toLocaleString('zh-CN'), type: 'data', msg: 'tools-data.json 加载失败' });
+            if (window.ZT_CRASH.FALLBACK_DATA) {
+              console.warn('[防崩] 使用备用数据渲染');
+              _toolsData = window.ZT_CRASH.FALLBACK_DATA;
+              renderHome(_toolsData, lang);
+              return;
+            }
+          }
           const container = document.getElementById('toolsContainer');
           if (container) container.innerHTML = '<div class="cat-section" style="text-align:center;padding:80px 24px;"><p style="color:var(--muted);font-size:16px;">⚠️ 工具数据加载失败，请刷新页面重试。</p></div>';
           return;
@@ -865,5 +886,11 @@
 
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<button class="recovery-float" onclick="location.href='/recovery-console.html'">🛡 恢复控制台</button>
+
+<style>
+.recovery-float{position:fixed;bottom:80px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:rgba(244,63,94,0.9);color:#fff;border:none;padding:10px 16px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(244,63,94,0.3);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;backdrop-filter:blur(8px);border:1px solid rgba(244,63,94,0.3)}.recovery-float:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(244,63,94,0.45)}.recovery-float:active{transform:scale(0.96)}@media(max-width:640px){.recovery-float{bottom:72px;right:16px;padding:8px 14px;font-size:12px}}
+</style>
 </body>
 </html>

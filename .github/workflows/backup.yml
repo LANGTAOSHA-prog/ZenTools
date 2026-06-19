@@ -1,0 +1,155 @@
+# =============================================
+# ZenTools 防崩 1.0 — GitHub Actions 自动备份
+# =============================================
+# 功能：
+#   1. 每天 UTC 00:00 自动备份关键数据
+#   2. 每次 push 到 main/master 分支时备份
+#   3. 保留最近 30 天备份
+#   4. 备份内容包括：数据文件、配置、核心脚本
+# =============================================
+
+name: ZenTools 自动备份
+
+on:
+  # 定时备份：每天 UTC 00:00（北京时间 08:00）
+  schedule:
+    - cron: '0 0 * * *'
+
+  # Push 到主分支时触发
+  push:
+    branches: [main, master]
+
+  # 允许手动触发
+  workflow_dispatch:
+
+jobs:
+  backup:
+    name: 备份站点数据
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 创建备份目录
+        run: |
+          mkdir -p .backup/data
+          mkdir -p .backup/assets/js
+          mkdir -p .backup/assets/css
+
+      - name: 备份 JSON 数据文件
+        run: |
+          cp -v data/tools-data.json .backup/data/ 2>/dev/null || echo "⚠️ tools-data.json 不存在"
+          cp -v data/tools.json .backup/data/ 2>/dev/null || echo "⚠️ tools.json 不存在"
+          cp -v data/translations.json .backup/data/ 2>/dev/null || echo "⚠️ translations.json 不存在"
+          cp -v data/categories.json .backup/data/ 2>/dev/null || echo "⚠️ categories.json 不存在"
+
+      - name: 备份核心 JS 脚本
+        run: |
+          cp -v assets/js/anti-crash.js .backup/assets/js/ 2>/dev/null || echo "⚠️ anti-crash.js 不存在"
+          cp -v assets/js/tool-ui.js .backup/assets/js/ 2>/dev/null || echo "⚠️ tool-ui.js 不存在"
+          cp -v assets/js/main.js .backup/assets/js/ 2>/dev/null || echo "⚠️ main.js 不存在"
+          cp -v assets/js/i18n.js .backup/assets/js/ 2>/dev/null || echo "⚠️ i18n.js 不存在"
+          cp -v loader.js .backup/ 2>/dev/null || echo "⚠️ loader.js 不存在"
+
+      - name: 备份核心 CSS
+        run: |
+          cp -v assets/css/style.css .backup/assets/css/ 2>/dev/null || echo "⚠️ style.css 不存在"
+          cp -v assets/css/tool-ui.css .backup/assets/css/ 2>/dev/null || echo "⚠️ tool-ui.css 不存在"
+
+      - name: 备份关键配置文件
+        run: |
+          cp -v index.html .backup/ 2>/dev/null || echo "⚠️ index.html 不存在"
+          cp -v recovery-console.html .backup/ 2>/dev/null || echo "⚠️ recovery-console.html 不存在"
+          cp -v sitemap.xml .backup/ 2>/dev/null || echo "⚠️ sitemap.xml 不存在"
+
+      - name: 备份站点地图（HTML 文件清单）
+        run: |
+          find . -name "*.html" -not -path "./.git/*" -not -path "./.backup/*" \
+            -not -path "./node_modules/*" -not -path "./pdf_tools/*" > .backup/html-file-list.txt
+          echo "📄 共 $(wc -l < .backup/html-file-list.txt) 个 HTML 文件"
+
+      - name: 校验 JSON 完整性
+        run: |
+          echo "🔍 校验 JSON 文件..."
+          for f in data/tools-data.json data/tools.json data/translations.json data/categories.json; do
+            if [ -f "$f" ]; then
+              if jq empty "$f" 2>/dev/null; then
+                echo "  ✅ $f"
+              else
+                echo "  ❌ $f — JSON 格式错误！"
+                exit 1
+              fi
+            else
+              echo "  ⚠️ $f 不存在，跳过"
+            fi
+          done
+
+      - name: 生成备份报告
+        run: |
+          REPORT=".backup/BACKUP_REPORT.md"
+          TIMESTAMP=$(date '+%Y-%m-%d %H:%M:%S UTC')
+          COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+          {
+            echo "# ZenTools 备份报告"
+            echo ""
+            echo "| 项目 | 内容 |"
+            echo "|------|------|"
+            echo "| 备份时间 | $TIMESTAMP |"
+            echo "| 触发方式 | \${{ github.event_name }} |"
+            echo "| Commit | $COMMIT |"
+            echo "| 分支 | \${{ github.ref }} |"
+            echo ""
+            echo "## 备份文件清单"
+            echo ""
+            find .backup -type f -not -name "BACKUP_REPORT.md" | sort | while read f; do
+              size=$(stat --format=%s "$f" 2>/dev/null || stat -f%z "$f" 2>/dev/null || echo "?")
+              echo "- \`$f\` (${size} bytes)"
+            done
+          } > "$REPORT"
+          cat "$REPORT"
+
+      - name: 上传备份产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: zentools-backup-${{ github.run_id }}
+          path: .backup/
+          retention-days: 30
+
+      - name: 提交备份到存储分支
+        run: |
+          # 仅在 schedule 触发时提交到 backup 分支
+          if [ "\${{ github.event_name }}" = "schedule" ]; then
+            TIMESTAMP=$(date '+%Y%m%d-%H%M%S')
+            git config user.name "ZenTools Backup Bot"
+            git config user.email "backup@zentools.xyz"
+
+            # 切换到备份分支
+            git fetch origin backup 2>/dev/null || git checkout --orphan backup
+            git checkout backup 2>/dev/null || git checkout --orphan backup
+
+            # 清理并复制备份
+            rm -rf .backup-temp
+            mkdir -p .backup-temp
+            cp -r .backup/* .backup-temp/
+
+            # 添加备份文件
+            cp -r .backup-temp/* .
+            git add .
+
+            # 只提交有变化的文件
+            git diff --cached --quiet || {
+              git commit -m "🤖 自动备份 $TIMESTAMP"
+              git push origin backup || echo "⚠️ 推送到 backup 分支失败（可能需要手动配置 token）"
+            }
+          else
+            echo "⏭️ 非定时触发，跳过备份分支提交"
+          fi
+
+      - name: 备份完成通知
+        run: |
+          echo "=========================================="
+          echo "✅ ZenTools 备份完成"
+          echo "   时间: $(date '+%Y-%m-%d %H:%M:%S')"
+          echo "   备份目录: .backup/"
+          echo "=========================================="
