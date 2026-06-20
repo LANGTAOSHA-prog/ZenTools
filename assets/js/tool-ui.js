@@ -7,6 +7,38 @@
 
   window.ZT = window.ZT || {};
 
+  // ===== 站点分析（Google Analytics 4）=====
+  // 如需启用，在下方设置你的 GA4 Measurement ID
+  // 获取方式：https://analytics.google.com → 管理 → 数据流 → 选择网站 → 测量 ID
+  var GA_ID = ''; // 填入你的 G-XXXXXXXX  ID
+  if (GA_ID && !window.gtag) {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){ dataLayer.push(arguments); };
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  }
+
+  // ===== 简单页面浏览统计（自托管，无第三方依赖）=====
+  (function() {
+    var key = 'zt_pageviews';
+    try {
+      var pv = JSON.parse(localStorage.getItem(key)) || {};
+      var today = new Date().toISOString().slice(0, 10);
+      if (!pv[today]) pv[today] = 0;
+      pv[today]++;
+      // Keep last 30 days
+      var dates = Object.keys(pv).sort();
+      while (dates.length > 30) {
+        delete pv[dates.shift()];
+      }
+      localStorage.setItem(key, JSON.stringify(pv));
+    } catch(e) {}
+  })();
+
   // ===== i18n 多语言引擎 =====
   ZT.applyLanguage = function(lang) {
     const dict = (window.ZT_PAGE && window.ZT_PAGE[lang]) || (window.ZT_PAGE && window.ZT_PAGE.zh);
