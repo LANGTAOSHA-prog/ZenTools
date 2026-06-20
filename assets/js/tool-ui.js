@@ -10,7 +10,7 @@
   // ===== 站点分析（Google Analytics 4）=====
   // 如需启用，在下方设置你的 GA4 Measurement ID
   // 获取方式：https://analytics.google.com → 管理 → 数据流 → 选择网站 → 测量 ID
-  var GA_ID = ''; // 填入你的 G-XXXXXXXX  ID
+  var GA_ID = 'G-V3MP20S9Z3';
   if (GA_ID && !window.gtag) {
     var s = document.createElement('script');
     s.async = true;
