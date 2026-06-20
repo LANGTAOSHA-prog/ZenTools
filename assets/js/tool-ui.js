@@ -5,61 +5,32 @@
 (function() {
   'use strict';
 
-  // ===== i18n 多语言引擎 =====
-
   window.ZT = window.ZT || {};
 
-  /**
-   * 应用当前语言到所有 [data-i18n] 元素
-   * 页面的翻译数据需提前定义在 window.ZT_PAGE 中
-   */
+  // ===== i18n 多语言引擎 =====
   ZT.applyLanguage = function(lang) {
     const dict = (window.ZT_PAGE && window.ZT_PAGE[lang]) || (window.ZT_PAGE && window.ZT_PAGE.zh);
     if (!dict) return;
-
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
-
-    // 更新 <title>
     if (dict.pageTitle) document.title = dict.pageTitle;
-
-    // 更新所有 data-i18n 元素
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.getAttribute('data-i18n');
-      if (dict[key] != null) {
-        el.textContent = dict[key];
-      }
+      if (dict[key] != null) el.textContent = dict[key];
     });
-
     localStorage.setItem('zentools_lang', lang);
-
-    // 触发语言变更事件，让动态内容跟随切换
     window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang, dict: dict } }));
   };
 
-  // 语言选择器初始化
   function initLang() {
     const sel = document.getElementById('langSelect');
     if (!sel) return;
-
     const saved = localStorage.getItem('zentools_lang') || 'zh';
     sel.value = langNames[saved] ? saved : 'zh';
-
-    sel.addEventListener('change', function() {
-      ZT.applyLanguage(this.value);
-    });
-
+    sel.addEventListener('change', function() { ZT.applyLanguage(this.value); });
     ZT.applyLanguage(sel.value);
   }
 
-  // ===== 语言选择器选项文本 =====
-  const langNames = {
-    zh: '中文',
-    en: 'English',
-    ja: '日本語',
-    vi: 'Tiếng Việt'
-  };
-
-  // 填充语言选择器选项文本
+  const langNames = { zh: '中文', en: 'English', ja: '日本語', vi: 'Tiếng Việt' };
   document.querySelectorAll('#langSelect option').forEach(opt => {
     const lang = opt.value;
     if (langNames[lang]) opt.textContent = langNames[lang];
@@ -68,29 +39,221 @@
   // ===== 滚动渐入动画 =====
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
     });
   }, { threshold: 0.08 });
-
   document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
 
   // ===== 浮动光晕动画 =====
   let t = 0;
   const b1 = document.querySelector('.blob-1');
   const b2 = document.querySelector('.blob-2');
-
   function animBlob() {
     t += 0.003;
     if (b1) b1.style.transform = `translate(${Math.sin(t) * 30}px,${Math.cos(t * 0.8) * 20}px)`;
     if (b2) b2.style.transform = `translate(${Math.cos(t * 0.9) * 25}px,${Math.sin(t) * 18}px)`;
     requestAnimationFrame(animBlob);
   }
-
   if (b1 || b2) animBlob();
 
-  // ===== 启动 i18n（放在页面脚本定义 ZT_PAGE 之后加载）=====
+  // ===== #7 工具点击统计 =====
+  ZT.clickTrack = function(url, name) {
+    try {
+      const key = 'zt_clicks';
+      let clicks = JSON.parse(localStorage.getItem(key)) || {};
+      clicks[url] = (clicks[url] || 0) + 1;
+      localStorage.setItem(key, JSON.stringify(clicks));
+    } catch(e) {}
+  };
+  // Track clicks on tool cards
+  document.addEventListener('click', function(e) {
+    const card = e.target.closest('.tool-card, .mini-card, .fav-item, .mega-item');
+    if (card) {
+      const href = card.getAttribute('href');
+      if (href) ZT.clickTrack(href, card.textContent.trim().slice(0, 30));
+    }
+  });
+
+  // ===== #8 回到顶部按钮 =====
+  var backTop = document.createElement('button');
+  backTop.className = 'zt-backtop';
+  backTop.innerHTML = '↑';
+  backTop.title = '回到顶部';
+  backTop.onclick = function() { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  document.body.appendChild(backTop);
+  window.addEventListener('scroll', function() {
+    backTop.classList.toggle('show', window.scrollY > 400);
+  });
+
+  // ===== #10 暗色/亮色主题切换 =====
+  (function() {
+    var btn = document.createElement('button');
+    btn.className = 'zt-theme-toggle';
+    var currentTheme = localStorage.getItem('zentools_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    btn.innerHTML = currentTheme === 'dark' ? '☀️' : '🌙';
+    btn.title = currentTheme === 'dark' ? '亮色模式' : '暗色模式';
+    btn.onclick = function() {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      btn.innerHTML = next === 'dark' ? '☀️' : '🌙';
+      btn.title = next === 'dark' ? '亮色模式' : '暗色模式';
+      localStorage.setItem('zentools_theme', next);
+    };
+    document.body.appendChild(btn);
+  })();
+
+  // ===== #11 键盘快捷键 =====
+  document.addEventListener('keydown', function(e) {
+    // / 聚焦搜索
+    if (e.key === '/' && !e.ctrlKey && !e.metaKey && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
+      e.preventDefault();
+      var search = document.getElementById('toolSearch');
+      if (search) { search.focus(); search.select(); }
+    }
+    // Escape 关闭下拉菜单
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.mega-menu').forEach(function(m) { m.style.opacity = '0'; m.style.visibility = 'hidden'; });
+      document.querySelectorAll('.mobile-overlay').forEach(function(o) { o.classList.remove('active'); });
+    }
+  });
+
+  // ===== #12 骨架屏（替换加载文字） =====
+  document.querySelectorAll('.tools-grid, .dev-grid, .cat-grid').forEach(function(grid) {
+    var empty = grid.querySelector('.empty-state');
+    if (empty && empty.textContent.trim().startsWith('⏳')) {
+      var skeleton = '';
+      for (var i = 0; i < 6; i++) {
+        skeleton += '<div class="skeleton-card"><div class="skeleton-icon"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>';
+      }
+      empty.outerHTML = skeleton;
+    }
+  });
+
+  // ===== #6 最近使用 & 收藏 =====
+  ZT.track = {
+    _recent: [],
+    _fav: [],
+    _key_recent: 'zt_recent',
+    _key_fav: 'zt_favorites',
+    init() {
+      try {
+        this._recent = JSON.parse(localStorage.getItem(this._key_recent)) || [];
+        this._fav = JSON.parse(localStorage.getItem(this._key_fav)) || [];
+      } catch(e) { this._recent = []; this._fav = []; }
+      const toolName = this._getToolName();
+      if (toolName) this.add(toolName);
+    },
+    _getToolName() {
+      const title = document.title.replace(/\s*[-|]\s*(免费在线工具|ZenTools|SEO工具|金融工具).*$/, '').trim();
+      return title || null;
+    },
+    _getPageUrl() { return window.location.pathname; },
+    add(name) {
+      const url = this._getPageUrl();
+      this._recent = this._recent.filter(r => r.url !== url);
+      this._recent.unshift({ name, url, time: Date.now() });
+      if (this._recent.length > 20) this._recent = this._recent.slice(0, 20);
+      localStorage.setItem(this._key_recent, JSON.stringify(this._recent));
+    },
+    toggleFav(name) {
+      const url = this._getPageUrl();
+      const idx = this._fav.findIndex(f => f.url === url);
+      if (idx >= 0) {
+        this._fav.splice(idx, 1);
+        localStorage.setItem(this._key_fav, JSON.stringify(this._fav));
+        return false;
+      } else {
+        this._fav.unshift({ name, url, time: Date.now() });
+        localStorage.setItem(this._key_fav, JSON.stringify(this._fav));
+        return true;
+      }
+    },
+    isFav() { return this._fav.some(f => f.url === this._getPageUrl()); },
+    addFavBtn() {
+      const name = this._getToolName();
+      if (!name) return;
+      var btn = document.createElement('button');
+      btn.className = 'fav-btn';
+      btn.innerHTML = this.isFav() ? '★' : '☆';
+      btn.title = this.isFav() ? '取消收藏' : '收藏此工具';
+      btn.onclick = function() {
+        var added = ZT.track.toggleFav(name);
+        btn.innerHTML = added ? '★' : '☆';
+        btn.title = added ? '取消收藏' : '收藏此工具';
+      };
+      var header = document.querySelector('.page-header');
+      if (header) header.appendChild(btn);
+    }
+  };
+  ZT.track.init();
+  ZT.track.addFavBtn();
+
+  // ===== #9 工具间快捷跳转（互补工具推荐） =====
+  (function() {
+    var relatedMap = {
+      'pdf-merge': ['pdf-split', 'pdf-compress'],
+      'pdf-split': ['pdf-merge', 'pdf-extract-pages'],
+      'pdf-compress': ['pdf-merge', 'image-to-pdf'],
+      'pdf-to-word': ['word-to-pdf', 'pdf-to-excel'],
+      'word-to-pdf': ['pdf-to-word', 'excel-to-pdf'],
+      'pdf-to-excel': ['excel-to-pdf', 'pdf-to-csv'],
+      'excel-to-pdf': ['pdf-to-excel', 'word-to-pdf'],
+      'pdf-to-ppt': ['ppt-to-pdf'],
+      'ppt-to-pdf': ['pdf-to-ppt'],
+      'image-to-pdf': ['pdf-to-image', 'imgtopdf'],
+      'pdf-to-image': ['image-to-pdf'],
+      'image-compress': ['image-convert', 'image-resize'],
+      'image-convert': ['image-compress', 'image-resize'],
+      'image-resize': ['image-crop', 'image-compress'],
+      'image-crop': ['image-resize', 'image-rotate'],
+      'audio-cutter': ['audio-merger', 'audio-speed'],
+      'audio-merger': ['audio-cutter'],
+      'video-compress': ['video-to-gif', 'video-to-mp3'],
+      'video-to-gif': ['video-to-mp3', 'video-compress'],
+      'text-to-speech': ['speech-to-text'],
+      'speech-to-text': ['text-to-speech'],
+      'currency-converter': ['cny-jpy'],
+      'cny-jpy': ['currency-converter'],
+      'json-formatter': ['json-diff', 'json-viewer'],
+      'json-diff': ['json-formatter'],
+      'hash-generator': ['regex-tester'],
+      'loan-calculator': ['deposit-interest', 'stock-fee'],
+      'deposit-interest': ['loan-calculator'],
+      'stock-fee': ['loan-calculator']
+    };
+    var path = window.location.pathname;
+    var slug = path.replace(/^\//, '').replace(/\.html$/, '').replace(/\//g, '-');
+    // Try to match from various patterns
+    var related = null;
+    for (var key in relatedMap) {
+      if (path.indexOf(key) >= 0) {
+        related = relatedMap[key];
+        break;
+      }
+    }
+    if (related && related.length) {
+      // Try loading tools data to get names
+      fetch('/data/tools-data.json').then(function(r) { return r.json(); }).then(function(data) {
+        var tools = data.tools || [];
+        var html = '<div class="related-tools"><h3 style="font-size:16px;font-weight:700;margin-bottom:12px;color:var(--muted);">🔗 相关工具推荐</h3><div style="display:flex;gap:10px;flex-wrap:wrap;">';
+        var count = 0;
+        related.forEach(function(s) {
+          var t = tools.find(function(t2) { return t2.slug === s || t2.url.indexOf(s) >= 0; });
+          if (t && count < 4) {
+            html += '<a class="mini-card" href="' + t.url + '" style="padding:12px 16px;"><div class="mc-icon">' + (t.icon || '🔧') + '</div><div class="mc-name">' + t.name + '</div></a>';
+            count++;
+          }
+        });
+        html += '</div></div>';
+        if (count) {
+          var container = document.querySelector('.tool-box') || document.querySelector('.container');
+          if (container) container.insertAdjacentHTML('afterend', html);
+        }
+      }).catch(function() {});
+    }
+  })();
+
+  // ===== 启动 i18n =====
   initLang();
 })();

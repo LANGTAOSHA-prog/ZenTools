@@ -186,6 +186,31 @@
     .mini-card .mc-name { font-size: 14px; font-weight: 600; }
     .mini-card .mc-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
 
+    /* 最近使用 & 收藏 */
+    .fav-section { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .fav-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .fav-item {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 14px;
+      transition: transform 0.2s, border-color 0.2s;
+      font-size: 13px;
+    }
+    .fav-item:hover { transform: translateY(-2px); border-color: var(--border-h); }
+    .fav-item .fi-icon { font-size: 18px; }
+    .fav-item .fi-name { font-weight: 600; white-space: nowrap; }
+    .fav-item .fi-tag { font-size: 10px; color: var(--muted); background: var(--glass-b); padding: 2px 8px; border-radius: 6px; }
+    .fav-btn {
+      position: fixed; bottom: 80px; right: 24px; z-index: 99;
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--surface);
+      color: #f59e0b; font-size: 22px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .fav-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
+
     /* 个人记录区 */
     .section-records { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
     .records-grid {
@@ -474,7 +499,7 @@
         aboutP2: '所有内容均为个人日常整理，仅供学习和参考使用。',
         aboutNotice: '本站内容仅供学习参考，不涉及经营性互联网信息服务。',
         statTools: '在线工具', statCats: '工具分类', statLocal: '纯本地处理',
-        toolCount: '个工具', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        toolCount: '个工具', favTitle: '⭐ 收藏的工具', recentTitle: '🕐 最近使用', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
         records: [
           { title:'我的第一个 PDF 工具', desc:'记录从零开始使用 VS Code 编写 PDF 工具的过程、问题和解决方法。', link:'查看内容 →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
           { title:'个人学习笔记', desc:'记录日常学习过程中遇到的问题、理解过程和整理心得。', link:'查看内容 →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
@@ -630,6 +655,34 @@
           <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">${dict.statLocal}</div></div>
         `;
       }
+
+      // 最近使用 & 收藏
+      try {
+        const recent = JSON.parse(localStorage.getItem('zt_recent')) || [];
+        const favs = JSON.parse(localStorage.getItem('zt_favorites')) || [];
+        const container2 = document.getElementById('toolsContainer');
+        if (container2 && (recent.length || favs.length)) {
+          let html = '<div class="fav-section">';
+          if (favs.length) {
+            html += '<div class="section-head reveal" style="margin-top:40px;"><span class="section-eyebrow">\u2b50</span><h2>' + (dict.favTitle || '\u6536\u85cf\u7684\u5de5\u5177') + '</h2></div><div class="fav-grid">';
+            favs.slice(0, 8).forEach(function(f) {
+              const t = tools.find(function(t2) { return t2.url === f.url; });
+              if (t) html += '<a class="fav-item" href="' + t.url + '"><span class="fi-icon">' + (t.icon || '\U0001f527') + '</span><span class="fi-name">' + tName(t, lang) + '</span><span class="fi-tag">' + t.category + '</span></a>';
+            });
+            html += '</div>';
+          }
+          if (recent.length) {
+            html += '<div class="section-head reveal" style="margin-top:40px;"><span class="section-eyebrow">\U0001f550</span><h2>' + (dict.recentTitle || '\u6700\u8fd1\u4f7f\u7528') + '</h2></div><div class="fav-grid">';
+            recent.slice(0, 8).forEach(function(r) {
+              const t = tools.find(function(t2) { return t2.url === r.url; });
+              if (t) html += '<a class="fav-item" href="' + t.url + '"><span class="fi-icon">' + (t.icon || '\U0001f527') + '</span><span class="fi-name">' + tName(t, lang) + '</span><span class="fi-tag">' + t.category + '</span></a>';
+            });
+            html += '</div>';
+          }
+          html += '</div>';
+          container2.insertAdjacentHTML('beforebegin', html);
+        }
+      } catch(e) {}
 
       // 巨型下拉菜单 - 显示所有分类
       const megaMenu = document.getElementById('megaMenu');
