@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 页码删除 - ZenTools 免费在线工具箱</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/tool-ui.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ZenTools</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="../index.html" data-i18n="nav_home">首页</a>
+                <a href="../categories.html" data-i18n="nav_categories">分类</a>
+                <a href="../about.html" data-i18n="nav_about">关于</a>
+            </nav>
+            <div class="lang-selector">
+                <select id="langSelect">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <h1 data-i18n="title">PDF 页码删除</h1>
+                <p data-i18n="subtitle">移除 PDF 文件中的页码，支持自定义页码区域</p>
+            </div>
+
+            <div class="tool-ui">
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-icon">🔢</div>
+                    <p data-i18n="drop_hint">拖拽 PDF 文件到此处，或点击上传</p>
+                    <p class="upload-note" data-i18n="local_note">文件仅在浏览器本地处理，不会上传到服务器</p>
+                </div>
+
+                <div class="settings-panel" id="settingsPanel" style="display: none;">
+                    <h3 data-i18n="settings_title">页码设置</h3>
+                    <div class="form-group">
+                        <label data-i18n="label_position">页码位置</label>
+                        <select id="positionSelect">
+                            <option value="bottom-center" data-i18n="opt_bottom_center">底部居中</option>
+                            <option value="bottom-left" data-i18n="opt_bottom_left">底部左侧</option>
+                            <option value="bottom-right" data-i18n="opt_bottom_right">底部右侧</option>
+                            <option value="top-center" data-i18n="opt_top_center">顶部居中</option>
+                            <option value="top-left" data-i18n="opt_top_left">顶部左侧</option>
+                            <option value="top-right" data-i18n="opt_top_right">顶部右侧</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="label_margin">边距 (像素)</label>
+                        <input type="number" id="marginInput" value="50" min="0" max="200">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="label_height">页码高度范围 (像素)</label>
+                        <div class="range-inputs">
+                            <input type="number" id="minHeight" value="0" min="0" placeholder="最小">
+                            <input type="number" id="maxHeight" value="30" min="0" placeholder="最大">
+                        </div>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" id="allPagesCheck" checked>
+                            <span data-i18n="opt_all_pages">所有页面</span>
+                        </label>
+                    </div>
+                    <div class="form-group" id="pageRangeGroup" style="display: none;">
+                        <label data-i18n="label_page_range">指定页面</label>
+                        <input type="text" id="pageRange" placeholder="例如: 1-5, 10, 15-20">
+                    </div>
+                </div>
+
+                <div class="action-area" id="actionArea" style="display: none;">
+                    <button class="tool-btn btn-primary" id="processBtn" data-i18n="btn_process">开始删除页码</button>
+                </div>
+
+                <div class="result-area" id="resultArea" style="display: none;">
+                    <div class="result-status" id="resultStatus"></div>
+                    <button class="tool-btn btn-primary" id="downloadBtn" data-i18n="btn_download">下载处理后的 PDF</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/anti-crash.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const actionArea = document.getElementById('actionArea');
+        const resultArea = document.getElementById('resultArea');
+        const resultStatus = document.getElementById('resultStatus');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const allPagesCheck = document.getElementById('allPagesCheck');
+        const pageRangeGroup = document.getElementById('pageRangeGroup');
+
+        let pdfDoc = null;
+        let originalArrayBuffer = null;
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                loadPdf(file);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadPdf(file);
+        });
+
+        allPagesCheck.addEventListener('change', () => {
+            pageRangeGroup.style.display = allPagesCheck.checked ? 'none' : 'block';
+        });
+
+        async function loadPdf(file) {
+            originalArrayBuffer = await file.arrayBuffer();
+            pdfDoc = await pdfjsLib.getDocument({ data: originalArrayBuffer }).promise;
+            settingsPanel.style.display = 'block';
+            actionArea.style.display = 'block';
+        }
+
+        document.getElementById('processBtn').addEventListener('click', async () => {
+            resultArea.style.display = 'block';
+            resultStatus.className = 'result-status loading';
+            resultStatus.textContent = '正在处理...';
+
+            try {
+                const position = document.getElementById('positionSelect').value;
+                const margin = parseInt(document.getElementById('marginInput').value) || 50;
+                const minHeight = parseInt(document.getElementById('minHeight').value) || 0;
+                const maxHeight = parseInt(document.getElementById('maxHeight').value) || 30;
+                const useAllPages = allPagesCheck.checked;
+                const pageRangeText = document.getElementById('pageRange').value;
+
+                const pdfLibDoc = await PDFLib.PDFDocument.load(originalArrayBuffer);
+                const pageCount = pdfLibDoc.getPages().length;
+
+                let pagesToProcess = [];
+                if (useAllPages) {
+                    pagesToProcess = Array.from({ length: pageCount }, (_, i) => i);
+                } else {
+                    pagesToProcess = parsePageRange(pageRangeText, pageCount);
+                }
+
+                for (const pageIndex of pagesToProcess) {
+                    if (pageIndex >= 0 && pageIndex < pageCount) {
+                        const page = pdfLibDoc.getPages()[pageIndex];
+                        const { width, height } = page.getSize();
+                        
+                        let x1, y1, x2, y2;
+                        const [posX, posY] = position.split('-');
+                        
+                        if (posY === 'bottom') {
+                            y1 = 0;
+                            y2 = Math.min(maxHeight, height * 0.1);
+                        } else {
+                            y1 = height - Math.min(maxHeight, height * 0.1);
+                            y2 = height;
+                        }
+
+                        if (posX === 'center') {
+                            x1 = width * 0.3;
+                            x2 = width * 0.7;
+                        } else if (posX === 'left') {
+                            x1 = 0;
+                            x2 = width * 0.3;
+                        } else {
+                            x1 = width * 0.7;
+                            x2 = width;
+                        }
+
+                        page.drawRectangle({
+                            x: x1,
+                            y: y1,
+                            width: x2 - x1,
+                            height: y2 - y1,
+                            color: PDFLib.rgb(1, 1, 1),
+                        });
+                    }
+                }
+
+                const modifiedPdf = await pdfLibDoc.save();
+                const blob = new Blob([modifiedPdf], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                resultStatus.className = 'result-status success';
+                resultStatus.textContent = `✅ 成功处理 ${pagesToProcess.length} 页`;
+                
+                downloadBtn.onclick = () => {
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'no_pagenums_' + (uploadZone.dataset.filename || 'document.pdf');
+                    a.click();
+                };
+            } catch (error) {
+                resultStatus.className = 'result-status error';
+                resultStatus.textContent = `❌ 处理失败: ${error.message}`;
+            }
+        });
+
+        function parsePageRange(rangeText, totalPages) {
+            const pages = new Set();
+            const parts = rangeText.split(',').map(s => s.trim()).filter(Boolean);
+            
+            for (const part of parts) {
+                if (part.includes('-')) {
+                    const [start, end] = part.split('-').map(Number);
+                    for (let i = start - 1; i < end; i++) {
+                        if (i >= 0 && i < totalPages) pages.add(i);
+                    }
+                } else {
+                    const num = parseInt(part) - 1;
+                    if (num >= 0 && num < totalPages) pages.add(num);
+                }
+            }
+            return Array.from(pages);
+        }
+
+        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
+    </script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 修复 - ZenTools 免费在线工具箱</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/tool-ui.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ZenTools</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="../index.html" data-i18n="nav_home">首页</a>
+                <a href="../categories.html" data-i18n="nav_categories">分类</a>
+                <a href="../about.html" data-i18n="nav_about">关于</a>
+            </nav>
+            <div class="lang-selector">
+                <select id="langSelect">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <h1 data-i18n="title">PDF 修复</h1>
+                <p data-i18n="subtitle">修复损坏的 PDF 文件，恢复可读内容</p>
+            </div>
+
+            <div class="tool-ui">
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-icon">🔧</div>
+                    <p data-i18n="drop_hint">拖拽损坏的 PDF 文件到此处，或点击上传</p>
+                    <p class="upload-note" data-i18n="local_note">文件仅在浏览器本地处理，不会上传到服务器</p>
+                </div>
+
+                <div class="result-area" id="resultArea" style="display: none;">
+                    <div class="result-status" id="resultStatus"></div>
+                    <div class="result-info" id="resultInfo"></div>
+                    <button class="tool-btn btn-primary" id="downloadBtn" style="display: none;">下载修复后的 PDF</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/anti-crash.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const resultArea = document.getElementById('resultArea');
+        const resultStatus = document.getElementById('resultStatus');
+        const resultInfo = document.getElementById('resultInfo');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                repairPdf(file);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) repairPdf(file);
+        });
+
+        async function repairPdf(file) {
+            resultArea.style.display = 'block';
+            resultStatus.className = 'result-status loading';
+            resultStatus.textContent = '正在分析 PDF 文件结构...';
+            resultInfo.innerHTML = '';
+            downloadBtn.style.display = 'none';
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                
+                let pdfDoc;
+                try {
+                    pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                } catch (e) {
+                    resultStatus.textContent = '检测到 PDF 文件可能损坏，正在尝试修复...';
+                    
+                    const fixedBuffer = await attemptRepair(arrayBuffer);
+                    
+                    if (fixedBuffer) {
+                        pdfDoc = await pdfjsLib.getDocument({ data: fixedBuffer }).promise;
+                        
+                        resultStatus.className = 'result-status success';
+                        resultStatus.textContent = '✅ PDF 修复成功！';
+                        resultInfo.innerHTML = `
+                            <p>修复后文件包含 ${pdfDoc.numPages} 页</p>
+                            <p>文件大小: ${(fixedBuffer.byteLength / 1024).toFixed(2)} KB</p>
+                        `;
+                        
+                        const blob = new Blob([fixedBuffer], { type: 'application/pdf' });
+                        const url = URL.createObjectURL(blob);
+                        downloadBtn.onclick = () => {
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'repaired_' + file.name;
+                            a.click();
+                        };
+                        downloadBtn.style.display = 'inline-block';
+                    } else {
+                        resultStatus.className = 'result-status error';
+                        resultStatus.textContent = '❌ 无法修复此 PDF 文件';
+                        resultInfo.innerHTML = '<p>文件可能严重损坏，建议使用专业 PDF 修复工具。</p>';
+                    }
+                }
+
+                if (pdfDoc) {
+                    resultStatus.className = 'result-status success';
+                    resultStatus.textContent = '✅ PDF 文件结构正常';
+                    resultInfo.innerHTML = `
+                        <p>页数: ${pdfDoc.numPages}</p>
+                        <p>此 PDF 文件无需修复</p>
+                    `;
+                }
+            } catch (error) {
+                resultStatus.className = 'result-status error';
+                resultStatus.textContent = '❌ 文件处理失败';
+                resultInfo.innerHTML = `<p>错误信息: ${error.message}</p>`;
+            }
+        }
+
+        async function attemptRepair(arrayBuffer) {
+            try {
+                const text = new TextDecoder().decode(arrayBuffer);
+                
+                if (!text.startsWith('%PDF')) {
+                    const pdfHeaderIndex = text.indexOf('%PDF-');
+                    if (pdfHeaderIndex > 0) {
+                        const fixedText = text.substring(pdfHeaderIndex);
+                        return new TextEncoder().encode(fixedText).buffer;
+                    }
+                }
+
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                
+                try {
+                    const original = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const pageIndices = original.getPageIndices();
+                    for (const idx of pageIndices) {
+                        const [copiedPage] = await pdfDoc.copyPages(original, [idx]);
+                        pdfDoc.addPage(copiedPage);
+                    }
+                    return await pdfDoc.save();
+                } catch (e) {
+                    console.log('Direct load failed, trying text extraction...');
+                }
+
+                return null;
+            } catch (e) {
+                console.error('Repair failed:', e);
+                return null;
+            }
+        }
+
+        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
+    </script>
+</body>
+</html>

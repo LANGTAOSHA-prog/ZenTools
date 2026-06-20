@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 编辑 - ZenTools 免费在线工具箱</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/tool-ui.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ZenTools</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="../index.html" data-i18n="nav_home">首页</a>
+                <a href="../categories.html" data-i18n="nav_categories">分类</a>
+                <a href="../about.html" data-i18n="nav_about">关于</a>
+            </nav>
+            <div class="lang-selector">
+                <select id="langSelect">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <h1 data-i18n="title">PDF 编辑</h1>
+                <p data-i18n="subtitle">直接在浏览器中编辑 PDF 文本和内容，无需上传文件</p>
+            </div>
+
+            <div class="tool-ui">
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-icon">📄</div>
+                    <p data-i18n="drop_hint">拖拽 PDF 文件到此处，或点击上传</p>
+                    <p class="upload-note" data-i18n="local_note">文件仅在浏览器本地处理，不会上传到服务器</p>
+                </div>
+
+                <div class="toolbar" id="toolbar" style="display: none;">
+                    <button class="tool-btn" id="addTextBtn" data-i18n="btn_add_text">添加文字</button>
+                    <button class="tool-btn" id="addImageBtn" data-i18n="btn_add_image">添加图片</button>
+                    <button class="tool-btn" id="drawBtn" data-i18n="btn_draw">绘图</button>
+                    <button class="tool-btn" id="eraseBtn" data-i18n="btn_erase">擦除</button>
+                    <button class="tool-btn" id="undoBtn" data-i18n="btn_undo">撤销</button>
+                    <button class="tool-btn" id="redoBtn" data-i18n="btn_redo">重做</button>
+                    <div class="toolbar-spacer"></div>
+                    <button class="tool-btn btn-primary" id="downloadBtn" data-i18n="btn_download">下载编辑后的 PDF</button>
+                </div>
+
+                <div class="canvas-container" id="canvasContainer" style="display: none;">
+                    <canvas id="pdfCanvas"></canvas>
+                    <div class="page-nav">
+                        <button id="prevPage">◀</button>
+                        <span id="pageInfo">第 1 / 1 页</span>
+                        <button id="nextPage">▶</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/anti-crash.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let pdfDoc = null;
+        let pdfLibDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        let canvas = document.getElementById('pdfCanvas');
+        let ctx = canvas.getContext('2d');
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let toolMode = 'select';
+        let history = [];
+        let historyIndex = -1;
+
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const toolbar = document.getElementById('toolbar');
+        const canvasContainer = document.getElementById('canvasContainer');
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                loadPdf(file);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadPdf(file);
+        });
+
+        async function loadPdf(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            pdfLibDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+            totalPages = pdfDoc.numPages;
+            currentPage = 1;
+            renderPage(currentPage);
+            toolbar.style.display = 'flex';
+            canvasContainer.style.display = 'block';
+        }
+
+        async function renderPage(num) {
+            const page = await pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: 1.5 });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+            document.getElementById('pageInfo').textContent = `第 ${num} / ${totalPages} 页`;
+        }
+
+        canvas.addEventListener('mousedown', (e) => {
+            if (toolMode === 'select') return;
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            lastX = e.clientX - rect.left;
+            lastY = e.clientY - rect.top;
+        });
+
+        canvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing || toolMode === 'select') return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            ctx.strokeStyle = toolMode === 'erase' ? '#ffffff' : '#ff0000';
+            ctx.lineWidth = toolMode === 'erase' ? 20 : 3;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            lastX = x;
+            lastY = y;
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            isDrawing = false;
+        });
+
+        document.getElementById('addTextBtn').addEventListener('click', () => {
+            const text = prompt('请输入要添加的文字：');
+            if (text) {
+                const x = prompt('X 坐标（默认 100）：') || 100;
+                const y = prompt('Y 坐标（默认 700）：') || 700;
+                const fontSize = prompt('字体大小（默认 12）：') || 12;
+                pdfLibDoc.addPage([595.28, 841.89]).then(page => {
+                    page.drawText(text, { x: parseFloat(x), y: parseFloat(y), size: parseFloat(fontSize) });
+                });
+            }
+        });
+
+        document.getElementById('addImageBtn').addEventListener('click', () => {
+            const imgInput = document.createElement('input');
+            imgInput.type = 'file';
+            imgInput.accept = 'image/*';
+            imgInput.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const arrayBuffer = await file.arrayBuffer();
+                    let image;
+                    if (file.type === 'image/jpeg') {
+                        image = pdfLibDoc.embedJpg(arrayBuffer);
+                    } else if (file.type === 'image/png') {
+                        image = pdfLibDoc.embedPng(arrayBuffer);
+                    }
+                    if (image) {
+                        const page = pdfLibDoc.addPage([595.28, 841.89]);
+                        const { width, height } = await image;
+                        page.drawImage(image, { x: 100, y: 600, width: 200, height: (height / width) * 200 });
+                    }
+                }
+            };
+            imgInput.click();
+        });
+
+        document.getElementById('drawBtn').addEventListener('click', () => {
+            toolMode = toolMode === 'draw' ? 'select' : 'draw';
+            document.getElementById('drawBtn').classList.toggle('active', toolMode === 'draw');
+        });
+
+        document.getElementById('eraseBtn').addEventListener('click', () => {
+            toolMode = toolMode === 'erase' ? 'select' : 'erase';
+            document.getElementById('eraseBtn').classList.toggle('active', toolMode === 'erase');
+        });
+
+        document.getElementById('undoBtn').addEventListener('click', () => {
+            if (historyIndex >= 0) {
+                historyIndex--;
+            }
+        });
+
+        document.getElementById('redoBtn').addEventListener('click', () => {
+            if (historyIndex < history.length - 1) {
+                historyIndex++;
+            }
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', async () => {
+            const pdfBytes = await pdfLibDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'edited.pdf';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage);
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage(currentPage);
+            }
+        });
+
+        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
+    </script>
+</body>
+</html>

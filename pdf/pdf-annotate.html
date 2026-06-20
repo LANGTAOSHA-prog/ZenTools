@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 注释 - ZenTools 免费在线工具箱</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/tool-ui.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ZenTools</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="../index.html" data-i18n="nav_home">首页</a>
+                <a href="../categories.html" data-i18n="nav_categories">分类</a>
+                <a href="../about.html" data-i18n="nav_about">关于</a>
+            </nav>
+            <div class="lang-selector">
+                <select id="langSelect">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <h1 data-i18n="title">PDF 注释</h1>
+                <p data-i18n="subtitle">为 PDF 添加高亮、下划线、删除线、注释和贴纸</p>
+            </div>
+
+            <div class="tool-ui">
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-icon">📝</div>
+                    <p data-i18n="drop_hint">拖拽 PDF 文件到此处，或点击上传</p>
+                    <p class="upload-note" data-i18n="local_note">文件仅在浏览器本地处理，不会上传到服务器</p>
+                </div>
+
+                <div class="annotation-toolbar" id="annotationToolbar" style="display: none;">
+                    <div class="tool-group">
+                        <button class="tool-btn active" data-tool="select" title="选择">✋</button>
+                        <button class="tool-btn" data-tool="highlight" title="高亮">🖍️</button>
+                        <button class="tool-btn" data-tool="underline" title="下划线">📏</button>
+                        <button class="tool-btn" data-tool="strike" title="删除线">➖</button>
+                    </div>
+                    <div class="tool-group">
+                        <button class="tool-btn" data-tool="text" title="文字注释">T</button>
+                        <button class="tool-btn" data-tool="stamp" title="贴纸">📌</button>
+                        <button class="tool-btn" data-tool="freehand" title="手绘">✏️</button>
+                    </div>
+                    <div class="tool-group color-picker">
+                        <input type="color" id="colorPicker" value="#ffff00">
+                        <label data-i18n="label_color">颜色</label>
+                    </div>
+                    <div class="tool-group">
+                        <button class="tool-btn" id="undoBtn" title="撤销">↩️</button>
+                        <button class="tool-btn" id="redoBtn" title="重做">↪️</button>
+                        <button class="tool-btn" id="clearBtn" title="清除全部">🗑️</button>
+                    </div>
+                    <div class="tool-group spacer"></div>
+                    <div class="page-nav">
+                        <button id="prevPage">◀</button>
+                        <span id="pageInfo">第 1 / 1 页</span>
+                        <button id="nextPage">▶</button>
+                    </div>
+                    <button class="tool-btn btn-primary" id="downloadBtn" data-i18n="btn_download">下载注释后的 PDF</button>
+                </div>
+
+                <div class="canvas-wrapper" id="canvasWrapper" style="display: none;">
+                    <canvas id="pdfCanvas"></canvas>
+                    <canvas id="annotationCanvas" class="annotation-layer"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="../assets/js/i18n.js"></script>
+    <script src="../assets/js/anti-crash.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        let pdfDoc = null;
+        let pdfLibDoc = null;
+        let currentPage = 1;
+        let totalPages = 0;
+        let currentTool = 'select';
+        let isDrawing = false;
+        let annotations = [];
+        let currentPageAnnotations = [];
+        let history = [];
+        let historyIndex = -1;
+
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const annotationToolbar = document.getElementById('annotationToolbar');
+        const canvasWrapper = document.getElementById('canvasWrapper');
+        const pdfCanvas = document.getElementById('pdfCanvas');
+        const annotationCanvas = document.getElementById('annotationCanvas');
+        const pdfCtx = pdfCanvas.getContext('2d');
+        const annCtx = annotationCanvas.getContext('2d');
+
+        document.querySelectorAll('[data-tool]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-tool]').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentTool = btn.dataset.tool;
+            });
+        });
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                loadPdf(file);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadPdf(file);
+        });
+
+        async function loadPdf(file) {
+            const arrayBuffer = await file.arrayBuffer();
+            pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            pdfLibDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+            totalPages = pdfDoc.numPages;
+            currentPage = 1;
+            annotations = {};
+            renderPage(currentPage);
+            annotationToolbar.style.display = 'flex';
+            canvasWrapper.style.display = 'block';
+        }
+
+        async function renderPage(num) {
+            const page = await pdfDoc.getPage(num);
+            const viewport = page.getViewport({ scale: 1.5 });
+            pdfCanvas.width = viewport.width;
+            pdfCanvas.height = viewport.height;
+            annotationCanvas.width = viewport.width;
+            annotationCanvas.height = viewport.height;
+
+            await page.render({ canvasContext: pdfCtx, viewport: viewport }).promise;
+            renderAnnotations();
+
+            document.getElementById('pageInfo').textContent = `第 ${num} / ${totalPages} 页`;
+        }
+
+        function renderAnnotations() {
+            annCtx.clearRect(0, 0, annotationCanvas.width, annotationCanvas.height);
+            const pageAnns = annotations[currentPage] || [];
+            
+            for (const ann of pageAnns) {
+                annCtx.globalAlpha = 0.5;
+                
+                switch (ann.type) {
+                    case 'highlight':
+                        annCtx.fillStyle = ann.color;
+                        annCtx.fillRect(ann.x, ann.y, ann.width, ann.height);
+                        break;
+                    case 'underline':
+                        annCtx.strokeStyle = ann.color;
+                        annCtx.lineWidth = 2;
+                        annCtx.beginPath();
+                        annCtx.moveTo(ann.x, ann.y + ann.height);
+                        annCtx.lineTo(ann.x + ann.width, ann.y + ann.height);
+                        annCtx.stroke();
+                        break;
+                    case 'strike':
+                        annCtx.strokeStyle = ann.color;
+                        annCtx.lineWidth = 2;
+                        annCtx.beginPath();
+                        annCtx.moveTo(ann.x, ann.y + ann.height / 2);
+                        annCtx.lineTo(ann.x + ann.width, ann.y + ann.height / 2);
+                        annCtx.stroke();
+                        break;
+                    case 'freehand':
+                        annCtx.strokeStyle = ann.color;
+                        annCtx.lineWidth = 2;
+                        annCtx.lineCap = 'round';
+                        annCtx.beginPath();
+                        if (ann.points.length > 0) {
+                            annCtx.moveTo(ann.points[0].x, ann.points[0].y);
+                            for (let i = 1; i < ann.points.length; i++) {
+                                annCtx.lineTo(ann.points[i].x, ann.points[i].y);
+                            }
+                        }
+                        annCtx.stroke();
+                        break;
+                }
+            }
+            annCtx.globalAlpha = 1;
+        }
+
+        function getMousePos(e) {
+            const rect = annotationCanvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        annotationCanvas.addEventListener('mousedown', (e) => {
+            if (currentTool === 'select') return;
+            isDrawing = true;
+            const pos = getMousePos(e);
+            
+            if (currentTool === 'freehand') {
+                currentPageAnnotations = [];
+                annotations[currentPage] = currentPageAnnotations;
+                history.push(JSON.parse(JSON.stringify(annotations)));
+                historyIndex = history.length - 1;
+                
+                const ann = {
+                    type: 'freehand',
+                    color: document.getElementById('colorPicker').value,
+                    points: [pos]
+                };
+                currentPageAnnotations.push(ann);
+            } else {
+                currentPageAnnotations = annotations[currentPage] || [];
+                annotations[currentPage] = currentPageAnnotations;
+            }
+        });
+
+        annotationCanvas.addEventListener('mousemove', (e) => {
+            if (!isDrawing) return;
+            const pos = getMousePos(e);
+
+            if (currentTool === 'freehand') {
+                const ann = currentPageAnnotations[currentPageAnnotations.length - 1];
+                ann.points.push(pos);
+                renderAnnotations();
+            }
+        });
+
+        annotationCanvas.addEventListener('mouseup', () => {
+            if (isDrawing) {
+                isDrawing = false;
+                history.push(JSON.parse(JSON.stringify(annotations)));
+                historyIndex = history.length - 1;
+            }
+        });
+
+        document.getElementById('colorPicker').addEventListener('input', (e) => {
+            if (currentTool !== 'select' && currentPageAnnotations.length > 0) {
+                const lastAnn = currentPageAnnotations[currentPageAnnotations.length - 1];
+                if (lastAnn) lastAnn.color = e.target.value;
+                renderAnnotations();
+            }
+        });
+
+        document.getElementById('undoBtn').addEventListener('click', () => {
+            if (historyIndex > 0) {
+                historyIndex--;
+                annotations = JSON.parse(JSON.stringify(history[historyIndex]));
+                renderAnnotations();
+            }
+        });
+
+        document.getElementById('redoBtn').addEventListener('click', () => {
+            if (historyIndex < history.length - 1) {
+                historyIndex++;
+                annotations = JSON.parse(JSON.stringify(history[historyIndex]));
+                renderAnnotations();
+            }
+        });
+
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            if (confirm('确定要清除当前页面的所有注释吗？')) {
+                annotations[currentPage] = [];
+                renderAnnotations();
+                history.push(JSON.parse(JSON.stringify(annotations)));
+                historyIndex = history.length - 1;
+            }
+        });
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderPage(currentPage);
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderPage(currentPage);
+            }
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', async () => {
+            for (const [pageNum, pageAnns] of Object.entries(annotations)) {
+                const pageIndex = parseInt(pageNum) - 1;
+                const page = pdfLibDoc.getPages()[pageIndex];
+                const { width, height } = page.getSize();
+                const scale = pdfCanvas.width / width;
+
+                for (const ann of pageAnns) {
+                    const x = ann.x / scale;
+                    const y = (height - (ann.y + (ann.height || 0))) / scale;
+                    const w = (ann.width || 0) / scale;
+                    const h = (ann.height || 0) / scale;
+
+                    if (ann.type === 'highlight') {
+                        page.addHighlightAnnotation({
+                            rect: [x, y, x + w, y + h],
+                            color: hexToRgb(ann.color),
+                        });
+                    } else if (ann.type === 'underline') {
+                        page.addUnderlineAnnotation({
+                            rect: [x, y, x + w, y + h],
+                            color: hexToRgb(ann.color),
+                        });
+                    } else if (ann.type === 'strike') {
+                        page.addStrikethroughAnnotation({
+                            rect: [x, y, x + w, y + h],
+                            color: hexToRgb(ann.color),
+                        });
+                    } else if (ann.type === 'freehand') {
+                        const points = ann.points.map(p => ({
+                            x: p.x / scale,
+                            y: (height - p.y) / scale
+                        }));
+                        page.addInkAnnotation({
+                            paths: [points],
+                            color: hexToRgb(ann.color),
+                        });
+                    }
+                }
+            }
+
+            const pdfBytes = await pdfLibDoc.save();
+            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'annotated.pdf';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? PDFLib.rgb(
+                parseInt(result[1], 16) / 255,
+                parseInt(result[2], 16) / 255,
+                parseInt(result[3], 16) / 255
+            ) : PDFLib.rgb(1, 1, 0);
+        }
+
+        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
+    </script>
+    <style>
+        .annotation-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .tool-group {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        .tool-group.spacer {
+            flex-grow: 1;
+        }
+        .tool-btn {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .tool-btn:hover {
+            background: #f0f0f0;
+        }
+        .tool-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        .canvas-wrapper {
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: auto;
+            max-height: 70vh;
+        }
+        #pdfCanvas {
+            display: block;
+        }
+        .annotation-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+        }
+        .color-picker {
+            align-items: center;
+            gap: 5px;
+        }
+        .color-picker input[type="color"] {
+            width: 40px;
+            height: 36px;
+            border: none;
+            cursor: pointer;
+        }
+        .page-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .page-nav button {
+            padding: 5px 10px;
+        }
+    </style>
+</body>
+</html>
