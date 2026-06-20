@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图片转 GIF - 视频工具 | ZenTools</title>
+  <meta property="og:title" content="图片转 GIF | ZenTools" />
+  <meta property="og:description" content="将多张图片合并转换为 GIF 动图，支持 JPG、PNG、WEBP 格式。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/video/image-to-gif.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="图片转 GIF | ZenTools" />
+  <meta name="twitter:description" content="Combine multiple images into an animated GIF." />
+<meta name="description" content="将多张图片合并转换为 GIF 动图，支持 JPG、PNG、WEBP 格式。">
+<meta name="keywords" content="图片转gif,图片合成gif,动图制作,gif制作,多图转gif">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+input, select { padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+input:focus, select:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.btn:disabled { opacity:.4; cursor:not-allowed; }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); text-align:center; }
+.progress { margin-top:12px; height:6px; border-radius:3px; background:var(--glass); overflow:hidden; display:none; }
+.progress-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:3px; transition:width .3s; }
+.drop-zone {
+  border:2px dashed var(--border); border-radius:12px; padding:40px 20px;
+  text-align:center; cursor:pointer; transition:border-color .3s, background .3s;
+  margin-bottom:16px;
+}
+.drop-zone:hover { border-color:var(--cyan); background:var(--glass); }
+.drop-zone.dragover { border-color:var(--cyan); background:var(--glass-b); }
+.drop-zone-icon { font-size:48px; margin-bottom:12px; }
+.drop-zone-text { font-size:14px; color:var(--muted); }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">视频工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">图片转 GIF</span></h1>
+    <p>将多张图片合并转换为 GIF 动图，支持 JPG、PNG、WEBP 格式。</p>
+  </div>
+  <div class="tool-box">
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-zone-icon">\U0001f5bc\ufe0f</div>
+      <div class="drop-zone-text">点击上传或多选图片文件（支持 JPG/PNG/WEBP）</div>
+      <input type="file" id="fileInput" accept="image/*" style="display:none" />
+    </div>
+    <div id="options" style="display:none;">
+      <div class="row">
+        <div><label>质量</label><select id="quality"><option value="10">最高</option><option value="8" selected>高</option><option value="5">中</option><option value="3">低</option></select></div>
+        <div><label>帧率 (fps)</label><select id="fps"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="24">24</option></select></div>
+        <div><label>宽度</label><select id="width"><option value="0">原始尺寸</option><option value="320">320px</option><option value="480">480px</option><option value="640" selected>640px</option><option value="800">800px</option></select></div>
+      </div>
+      <button class="btn" id="convertBtn" onclick="startConvert()">▶ 开始转换</button>
+    </div>
+    <div class="progress" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="result" id="result" style="display:none;"></div>
+  </div>
+</div>
+<video id="vidPlayer" style="display:none;"></video>
+<canvas id="canvas" style="display:none;"></canvas>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+// Minimal GIF Encoder
+var GIFEncoder = function() {
+  var exports = {}, width, height, data, delay=100, repeat=0, index=0, header, stream=[];
+  function writeByte(b) { stream.push(b); }
+  function writeBytes(arr) { arr.forEach(function(b){stream.push(b);}); }
+  function writeString(s) { for(var i=0;i<s.length;i++)stream.push(s.charCodeAt(i)); }
+  function writeColorTable(colors) {
+    for(var i=0;i<colors.length;i++){
+      writeByte(colors[i][0]);writeByte(colors[i][1]);writeByte(colors[i][2]);
+    }
+  }
+  function encodeImage(pixels, w, h) {
+    // Simple Floyd-Steinberg dithering quantizer
+    var pal = [], used = {};
+    // Quantize to 256 colors
+    for(var y=0;y<h;y++)for(var x=0;x<w;x++){
+      var idx=(y*w+x)*4, r=pixels[idx], g=pixels[idx+1], b=pixels[idx+2], key=r+","+g+","+b;
+      if(!used[key]&&pal.length<256){used[key]=true;pal.push([r,g,b]);}
+    }
+    if(pal.length===0)pal=[[0,0,0]];
+    // Image descriptor
+    writeByte(0x2C); // Image separator
+    writeBytes([0,0]);writeBytes([0,0]); // left, top
+    writeBytes([w&0xFF,(w>>8)&0xFF]);writeBytes([h&0xFF,(h>>8)&0xFF]); // width, height
+    var palSize=0;while((1<<palSize)<pal.length)palSize++;
+    writeByte(0x80|(palSize-1)); // Local color table
+    writeColorTable(pal);
+    // LZW encode
+    var lzwMin=palSize<2?2:palSize, clear=1<<lzwMin, eoi=clear+1;
+    var table={}, codeSize=lzwMin+1, nextCode=eoi+1, curCode=-1;
+    function addToStream(code,bits){
+      for(var b=0;b<bits;b++){header=(header>>1)|(((code>>b)&1)<<15);index++;if(index===8){stream.push(header&0xFF);header>>=8;index=0;}}
+    }
+    // Map pixels to palette indices
+    var indices=[];
+    for(var y=0;y<h;y++)for(var x=0;x<w;x++){
+      var idx2=(y*w+x)*4, r=pixels[idx2], g=pixels[idx2+1], b=pixels[idx2+2], best=0,bd=9999999;
+      for(var p=0;p<pal.length;p++){var dr=r-pal[p][0],dg=g-pal[p][1],db=b-pal[p][2],d=dr*dr+dg*dg+db*db;if(d<bd){bd=d;best=p;}}
+      indices.push(best);
+    }
+    addToStream(clear,codeSize);
+    curCode=indices[0];
+    for(var i=1;i<indices.length;i++){
+      var nxt=indices[i], key=curCode+","+nxt;
+      if(table[key]!==undefined){curCode=table[key];}
+      else{
+        addToStream(curCode,codeSize);
+        table[key]=nextCode++;
+        curCode=nxt;
+        if(nextCode>=(1<<codeSize)&&codeSize<12)codeSize++;
+        if(nextCode>4095){addToStream(clear,codeSize);table={};nextCode=eoi+1;codeSize=lzwMin+1;}
+      }
+    }
+    addToStream(curCode,codeSize);addToStream(eoi,codeSize);
+    if(index>0)stream.push(header&0xFF);
+    writeByte(0x00); // Block terminator
+  }
+  exports.setSize=function(w,h){width=w;height=h;};
+  exports.setDelay=function(ms){delay=ms;};
+  exports.setRepeat=function(r){repeat=r;};
+  exports.addFrame=function(ctx){
+    var imgData=ctx.getImageData(0,0,width,height);
+    if(index===0){
+      // Header + LSD + Global color table + Netscape extension
+      writeString("GIF89a");
+      writeBytes([width&0xFF,(width>>8)&0xFF,height&0xFF,(height>>8)&0xFF]);
+      writeByte(0xF7); // GCT flag + size
+      writeByte(0x00); // Background
+      writeByte(0x00); // Aspect
+      // Dummy GCT (will be filled per frame)
+      var tempPal=[];
+      for(var i=0;i<256;i++)tempPal.push([0,0,0]);
+      writeColorTable(tempPal);
+      // Netscape loop extension
+      writeByte(0x21);writeByte(0xFF);writeByte(0x0B);
+      writeString("NETSCAPE2.0");writeByte(0x03);writeByte(0x01);
+      writeBytes([repeat&0xFF,(repeat>>8)&0xFF]);writeByte(0x00);
+    }
+    // GCE
+    writeByte(0x21);writeByte(0xF9);writeByte(0x04);
+    writeByte(0x04); // Disposal
+    writeBytes([delay&0xFF,(delay>>8)&0xFF]);writeByte(0x00);writeByte(0x00);
+    encodeImage(imgData.data,width,height);
+    index++;
+  };
+  exports.finish=function(){
+    writeByte(0x3B); // Trailer
+    return new Blob([new Uint8Array(stream)],{type:"image/gif"});
+  };
+  return exports;
+};
+
+var dropZone=document.getElementById('dropZone'), fileInput=document.getElementById('fileInput');
+dropZone.onclick=function(){fileInput.click();};
+dropZone.ondragover=function(e){e.preventDefault();dropZone.classList.add('dragover');};
+dropZone.ondragleave=function(){dropZone.classList.remove('dragover');};
+dropZone.ondrop=function(e){e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);};
+fileInput.onchange=function(){if(this.files.length)handleFile(this.files[0]);};
+
+var videoFile=null;
+function handleFile(file){videoFile=file;document.getElementById('options').style.display='block';dropZone.querySelector('.drop-zone-text').textContent='已选择: '+file.name;}
+
+function startConvert(){
+  if(!videoFile){alert('请选择文件');return;}
+  var btn=document.getElementById('convertBtn');btn.disabled=true;btn.textContent='转换中...';
+  document.getElementById('progress').style.display='block';
+  document.getElementById('result').style.display='none';
+  var quality=parseInt(document.getElementById('quality').value);
+  var fps=parseInt(document.getElementById('fps').value);
+  var maxW=parseInt(document.getElementById('width').value);
+  
+  var url=URL.createObjectURL(videoFile);
+  var video=document.getElementById('vidPlayer');
+  video.src=url;video.muted=true;video.playsInline=true;
+  video.onloadedmetadata=function(){
+    var w=video.videoWidth, h=video.videoHeight;
+    if(maxW>0&&w>maxW){h=Math.round(h*maxW/w);w=maxW;}
+    var encoder=GIFEncoder();
+    encoder.setSize(w,h);
+    encoder.setDelay(Math.round(1000/fps));
+    encoder.setRepeat(0);
+    
+    var canvas=document.getElementById('canvas');
+    canvas.width=w;canvas.height=h;
+    var ctx=canvas.getContext('2d');
+    var duration=Math.min(video.duration,10); // Max 10 seconds
+    var totalFrames=Math.ceil(duration*fps);
+    var frameIdx=0;
+    
+    function captureFrame(){
+      if(frameIdx>=totalFrames||video.ended||video.paused){
+        video.pause();
+        encoder.addFrame(ctx);
+        var blob=encoder.finish();
+        var durl=URL.createObjectURL(blob);
+        document.getElementById('result').style.display='block';
+        document.getElementById('result').innerHTML='<div style="margin-bottom:12px;font-weight:700;">✅ 转换完成</div><a class="btn" href="'+durl+'" download="output.gif">⬇ 下载 GIF</a><br><div style="margin-top:8px;font-size:12px;color:var(--muted);">'+(blob.size/1024).toFixed(1)+' KB | '+totalFrames+' 帧</div>';
+        document.getElementById('progress').style.display='none';
+        btn.disabled=false;btn.textContent='▶ 开始转换';
+        URL.revokeObjectURL(url);
+        return;
+      }
+      video.currentTime=frameIdx/fps;
+      video.onseeked=function(){
+        ctx.drawImage(video,0,0,w,h);
+        if(frameIdx===0||frameIdx%Math.max(1,Math.floor(totalFrames/quality*2))===0){
+          var pct=Math.round(frameIdx/totalFrames*100);
+          document.getElementById('progressBar').style.width=pct+'%';
+        }
+        frameIdx++;
+        captureFrame();
+      };
+    }
+    video.currentTime=0;
+    video.play().then(function(){
+      setTimeout(captureFrame,200);
+    }).catch(function(e){
+      // Direct frame capture fallback
+      captureFrame();
+    });
+  };
+}
+
+
+var images=[];
+function handleFiles(files){
+  images=[];
+  for(var i=0;i<files.length;i++){
+    (function(file){
+      var reader=new FileReader();
+      reader.onload=function(e){
+        var img=new Image();
+        img.onload=function(){images.push(img);if(images.length===files.length){document.getElementById('options').style.display='block';document.getElementById('dropText').textContent='已选择 '+images.length+' 张图片';}};
+        img.src=e.target.result;
+      };
+      reader.readAsDataURL(file);
+    })(files[i]);
+  }
+}
+
+function startConvert(){
+  if(images.length<1){alert('请选择图片');return;}
+  var btn=document.getElementById('convertBtn');btn.disabled=true;btn.textContent='转换中...';
+  document.getElementById('progress').style.display='block';
+  document.getElementById('result').style.display='none';
+  var delay=Math.round(1000/(parseInt(document.getElementById('fps').value)||10));
+  var maxW=parseInt(document.getElementById('width').value)||640;
+  
+  var w=Math.min(images[0].width,maxW),h=Math.round(images[0].height*w/images[0].width);
+  var encoder=GIFEncoder();
+  encoder.setSize(w,h);encoder.setDelay(delay);encoder.setRepeat(0);
+  var canvas=document.getElementById('canvas');canvas.width=w;canvas.height=h;
+  var ctx=canvas.getContext('2d');
+  
+  var idx=0;
+  function addNext(){
+    if(idx>=images.length){
+      var blob=encoder.finish();
+      var durl=URL.createObjectURL(blob);
+      document.getElementById('result').style.display='block';
+      document.getElementById('result').innerHTML='<div style="margin-bottom:12px;font-weight:700;">✅ 转换完成</div><a class="btn" href="'+durl+'" download="output.gif">⬇ 下载 GIF</a><br><div style="margin-top:8px;font-size:12px;color:var(--muted);">'+(blob.size/1024).toFixed(1)+' KB | '+images.length+' 帧</div>';
+      document.getElementById('progress').style.display='none';
+      btn.disabled=false;btn.textContent='▶ 开始转换';
+      return;
+    }
+    ctx.drawImage(images[idx],0,0,w,h);
+    encoder.addFrame(ctx);
+    idx++;
+    document.getElementById('progressBar').style.width=Math.round(idx/images.length*100)+'%';
+    setTimeout(addNext,50);
+  }
+  addNext();
+}
+
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>
