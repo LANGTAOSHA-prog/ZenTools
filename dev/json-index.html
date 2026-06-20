@@ -6,7 +6,8 @@
 <title>JSON 工具集 - ZenTools</title>
 <meta name="description" content="JSON 格式化、对比、树形视图等在线 JSON 工具集合，完全本地运行，免费使用。"/>
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/json-index.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin-top:24px; }
 .tool-card { display:flex; flex-direction:column; gap:10px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center; transition:border-color 0.25s,transform 0.25s; text-decoration:none; }
@@ -61,5 +62,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>随机数生成器 - ZenTools</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>随机数生成器 - ZenTools</title>
 <meta name="description" content="随机数、随机选择、随机抽奖等，免费在线使用，本地处理保护隐私，无需上传服务器。">
 
 <style>
@@ -161,5 +162,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

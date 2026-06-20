@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>输入链接，10秒生成专属精美二维码 - 二维码生成器</title>
+    <link rel="manifest" href="/manifest.json" />
+  <title>输入链接，10秒生成专属精美二维码 - 二维码生成器</title>
+  <meta property="og:title" content="二维码生成器 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="6种渐变色 + 圆角边框 + Logo嵌入，告别黑白丑码" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/qr/qr-generator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="二维码生成器 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="6 gradients + rounded corners + Logo embed, say goodbye to plain QR codes" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js">
     </script>
     <style>
@@ -187,5 +197,13 @@
             setTimeout(generateQR,100);
         })();
     </script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

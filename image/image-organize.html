@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>图片整理方法 - 江湖小站</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>图片整理方法 - 江湖小站</title>
 <meta name="description" content="记录图片分类、尺寸调整、图片压缩、命名整理等个人学习和日常使用经验。">
 
 <style>
@@ -202,5 +203,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

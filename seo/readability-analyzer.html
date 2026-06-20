@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>内容可读性分析 - SEO 工具 | ZenTools</title>
+  <meta property="og:title" content="内容可读性分析 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="分析文本的可读性，评估句子长度、段落结构等指标。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/seo/readability-analyzer.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="内容可读性分析 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Analyze text readability, evaluate sentence length and structure." />
+<meta name="description" content="分析文本的可读性，评估句子长度、段落结构等指标。">
+<meta name="keywords" content="可读性分析,文本分析,内容优化,seo内容,阅读难度">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; resize:vertical; font-family:inherit; }
+  textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.6; }
+  .stat { display:inline-block; padding:4px 12px; border-radius:6px; background:var(--glass); margin:4px; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">SEO 工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">内容可读性分析</span></h1>
+    <p>分析文本的可读性，评估句子长度、段落结构等指标。</p>
+  </div>
+  <div class="tool-box">
+    
+  <label>输入文本内容</label>
+  <textarea id="readText" rows="8" placeholder="粘贴文章内容..."></textarea>
+  <div style="display:flex;gap:10px;margin-top:16px;">
+    <button class="btn" onclick="analyzeReadability()">分析</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('readText').value='';document.getElementById('readResult').style.display='none';">清除</button>
+  </div>
+  <div class="result" id="readResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function analyzeReadability() {
+  const text = document.getElementById('readText').value.trim();
+  if (!text) { alert('请输入文本'); return; }
+  const chars = text.length;
+  const sentences = text.split(/[。！？.!?\n]+/).filter(Boolean).length || 1;
+  const paragraphs = text.split(/\n\s*\n/).filter(Boolean).length || 1;
+  const chineseChars = (text.match(/[\u4e00-\u9fff]/g) || []).length;
+  const words = text.match(/[\u4e00-\u9fff\w]+/g) || [];
+  const avgSentLen = Math.round(chars / sentences);
+  const avgParaLen = Math.round(chars / paragraphs);
+  let result = '📊 内容分析结果\n' + '='.repeat(30) + '\n\n';
+  result += '总字符数: ' + chars + '\n';
+  result += '中文字数: ' + chineseChars + '\n';
+  result += '句子数: ' + sentences + '\n';
+  result += '段落数: ' + paragraphs + '\n';
+  result += '平均句长: ' + avgSentLen + ' 字符' + (avgSentLen > 100 ? ' ⚠️ 偏长' : avgSentLen > 50 ? ' 适中' : ' 良好') + '\n';
+  result += '平均段长: ' + avgParaLen + ' 字符' + (avgParaLen > 500 ? ' ⚠️ 偏长，建议分段' : ' 良好') + '\n\n';
+  result += '--- 建议 ---\n';
+  if (chineseChars < 300) result += '🔸 内容偏短，建议补充至 300 字以上\n';
+  if (sentences < 3) result += '🔸 句子数量较少，建议分段\n';
+  if (avgSentLen > 80) result += '🔸 句子偏长，建议拆分长句\n';
+  if (paragraphs < 3 && chars > 200) result += '🔸 段落数偏少，建议分段提高可读性\n';
+  if (chineseChars >= 300 && avgSentLen <= 80 && paragraphs >= 3) result += '✅ 内容结构良好！';
+  const el = document.getElementById('readResult');
+  el.style.display = 'block';
+  el.textContent = result;
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

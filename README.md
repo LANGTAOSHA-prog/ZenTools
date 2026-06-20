@@ -1,31 +1,100 @@
-# PDF Tools
+# ZenTools - 免费在线工具箱
 
-本仓库包含一个小型 PDF 工具包，位于 `pdf_tools/` 目录，当前分支（演示分支）：`feat/pdf-tools`。
+> **147 款工具 · 纯本地处理 · 无需注册 · 免费无限制**
 
-工具列表（实现于 `pdf_tools/pdf_tools.py`）：
+ZenTools 是一个功能全面的免费在线工具箱，提供 PDF 处理、图片编辑、音频视频处理、开发工具、生活工具等 **11 大类 147 款工具**。所有工具均在浏览器本地运行，**文件不上传服务器**，保障您的隐私安全。
 
-- 合并 PDF（merge）
-- 拆分 PDF（split）
-- 提取页面（extract）
-- 批量处理（batch）
+🌐 在线访问：**[zentools.xyz](https://zentools.xyz)**
 
-快速使用示例：
+---
 
-```bash
-# 生成示例 PDF
-python pdf_tools/pdf_tools.py create-samples
+## ✨ 特性
 
-# 合并
-python pdf_tools/pdf_tools.py merge pdf_tools/samples/sample1.pdf pdf_tools/samples/sample2.pdf -o pdf_tools/out/merged.pdf
+- 🔒 **隐私优先** — 所有工具在浏览器本地处理，文件不上传任何服务器
+- 🌍 **多语言支持** — 中文 · English · 日本語 · Tiếng Việt
+- 🆓 **完全免费** — 无使用次数限制，无水印，无需注册
+- 📱 **全平台适配** — 桌面端和移动端均有良好体验
+- ⚡ **即开即用** — 无需安装，打开浏览器即可使用
+- 🎨 **精美暗色主题** — 现代毛玻璃 UI 设计，视觉舒适
 
-# 拆分
-python pdf_tools/pdf_tools.py split pdf_tools/samples/sample2.pdf -d pdf_tools/out/split_sample2
+---
 
-# 提取页面（示例：提取第 2 和第 3 页）
-python pdf_tools/pdf_tools.py extract pdf_tools/samples/sample2.pdf 2 3 -o pdf_tools/out/extracted.pdf
+## 🗂️ 工具分类
 
-# 批量合并 samples 目录下所有 PDF
-python pdf_tools/pdf_tools.py batch --op merge --input pdf_tools/samples --out pdf_tools/out
+| 分类 | 数量 | 包含工具 |
+|:-----|:---:|:---------|
+| 📄 **PDF 工具** | 31 | 合并、拆分、压缩、转换(Word/Excel/PPT/图片)、加密解密、水印、签名、OCR 等 |
+| 🖼️ **图片工具** | 20 | 压缩、格式转换、裁剪、去背景、滤镜、拼图、水印、锐化、马赛克等 |
+| 🎵 **音频工具** | 10 | 裁剪、合并、变速、反转、淡入淡出、录音、语音转文字、文字转语音等 |
+| 🎬 **视频工具** | 10 | 压缩、裁剪、合并、变速、旋转、截图、倒放、转 GIF/MP3 等 |
+| ✏️ **文本工具** | 10 | 字数统计、大小写转换、查找替换、排序、去重、文本对比、URL 编码等 |
+| 💻 **开发工具** | 12 | JSON 格式化/对比/树形视图、Base64、Hash 生成、正则测试、键盘/鼠标/摄像头测试等 |
+| 🤖 **AI 工具** | 11 | AI 写作、翻译、润色、代码解释、简历生成、日语作文、标题生成等 |
+| 🌐 **SEO 工具** | 10 | 标题检查器、关键词密度分析、Meta 标签生成、SERP 预览、关键词提取等 |
+| 🏦 **金融工具** | 10 | 贷款计算、存款利息、股票手续费、理财计算、通胀计算、增值税计算等 |
+| 🎨 **设计工具** | 10 | Midjourney、Canva AI、Figma AI、二维码生成器等 AI 设计导航 |
+| ☀️ **生活工具** | 13 | BMI 计算、单位换算、密码生成、随机工具、日本工资/税金/年金/电费计算等 |
+
+---
+
+## 🚀 快速开始
+
+1. 打开 [zentools.xyz](https://zentools.xyz)
+2. 在搜索框输入关键词（如"PDF 合并"）或浏览分类
+3. 点击工具卡片即可使用
+4. 右上角语言选择器可切换中/英/日/越
+
+---
+
+## 🏗️ 项目结构
+
+```
+├── index.html              # 首页
+├── data/
+│   └── tools-data.json     # 工具数据（驱动全站）
+├── assets/
+│   ├── css/
+│   │   ├── style.css       # 全局样式
+│   │   └── tool-ui.css     # 工具页面样式
+│   └── js/
+│       ├── main.js         # 首页渲染逻辑
+│       ├── tool-ui.js      # 工具页面共享组件
+│       ├── anti-crash.js   # 防崩容错机制
+│       └── i18n.js         # 国际化引擎
+├── pdf/                    # PDF 工具页面
+├── image/                  # 图片工具页面
+├── audio/                  # 音频工具页面
+├── video/                  # 视频工具页面
+├── text/                   # 文本工具页面
+├── dev/                    # 开发工具页面
+├── life/                   # 生活工具页面
+├── finance/                # 金融工具页面
+├── ai/                     # AI 工具页面
+├── qr/                     # 二维码生成器
+├── seo/                    # SEO 工具页面
+├── tools/                  # AI 导航 & 其他工具
+└── pdf_tools/              # Python PDF 脚本（独立工具包）
 ```
 
-更多说明请参阅： `pdf_tools/README.md`
+---
+
+## 🛠️ 技术栈
+
+- **纯前端** — HTML5 + CSS3 + Vanilla JavaScript
+- **数据驱动** — 一套 JSON 数据驱动全站工具渲染
+- **本地处理** — 使用浏览器原生 API（Canvas、Web Audio、PDF.js 等）
+- **国际化** — 自定义 i18n 引擎，支持 4 种语言
+- **无外部依赖** — 不依赖 React/Vue/jQuery 等框架，轻量快速
+
+---
+
+## 📄 许可证
+
+本项目仅供个人学习和经验分享使用。
+
+---
+
+## 📬 联系
+
+- 网站：[zentools.xyz](https://zentools.xyz)
+- 隐私政策：[zentools.xyz/privacy.html](https://zentools.xyz/privacy.html)

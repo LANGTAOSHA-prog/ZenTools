@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="/manifest.json" />
   <title>ZenTools 插件预览 - 工具展示与下载</title>
   <meta name="description" content="ZenTools 插件预览页面，展示所有可用工具和插件的功能介绍、截图演示和下载链接。" />
   <meta name="keywords" content="ZenTools,插件预览,工具展示,在线工具,免费工具" />
@@ -875,5 +876,13 @@
   </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

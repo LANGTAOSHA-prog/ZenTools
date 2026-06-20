@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="/manifest.json" />
   <title>Jasper AI - AI工具教程 | AIHubTools 智汇工具</title>
   <meta name="description" content="企业级AI写作平台。">
   <meta name="keywords" content="AI Writing|SEO|Marketing,AI工具,AIHubTools,智汇工具">
@@ -162,5 +163,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

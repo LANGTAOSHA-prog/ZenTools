@@ -4,10 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>键盘测试 - ZenTools</title>
+  <meta property="og:title" content="键盘测试 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="按下任意按键，实时显示按键名称与状态" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/keyboardtest.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="键盘测试 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Test keyboard keys with real-time feedback" />
 <meta name="description" content="在线键盘测试工具，按下任意按键实时显示按键名称与状态，检测键盘响应。"/>
 <meta name="keywords" content="键盘测试 键盘检测 keyboard test" />
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/keyboardtest.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 .key-display { text-align:center; padding:32px 16px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; margin:16px 0; }
 .key-display .key-label { font-size:13px; color:var(--muted); margin-bottom:8px; }
@@ -73,5 +83,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

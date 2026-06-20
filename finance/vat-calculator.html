@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>增值税计算器 - 金融工具 | ZenTools</title>
+  <meta property="og:title" content="增值税计算器 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="计算增值税（VAT），支持含税价与不含税价互相转换。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/finance/vat-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="增值税计算器 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Calculate VAT, convert between inclusive and exclusive prices." />
+<meta name="description" content="计算增值税（VAT），支持含税价与不含税价互相转换。">
+<meta name="keywords" content="增值税计算器,vat计算,税费计算,含税价,不含税价">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+  input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+  select { padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; }
+  .row > * { flex:1; min-width:150px; }
+  .highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">金融工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">增值税计算器</span></h1>
+    <p>计算增值税（VAT），支持含税价与不含税价互相转换。</p>
+  </div>
+  <div class="tool-box">
+    
+  <div class="row">
+    <div><label>金额 (元)</label><input type="number" id="vatAmount" value="10000" /></div>
+    <div><label>增值税率 (%)</label>
+      <select id="vatRate">
+        <option value="13">13% - 一般货物</option>
+        <option value="9">9% - 农产品/图书</option>
+        <option value="6" selected>6% - 服务</option>
+        <option value="3">3% - 小规模</option>
+        <option value="0">0% - 免税</option>
+      </select>
+    </div>
+  </div>
+  <label>金额类型</label>
+  <select id="vatType">
+    <option value="exclude">不含税价 → 计算含税价</option>
+    <option value="include">含税价 → 计算不含税价</option>
+  </select>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="calcVAT()">计算</button>
+  </div>
+  <div class="result" id="vatResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function calcVAT() {
+  const amount = parseFloat(document.getElementById('vatAmount').value) || 0;
+  const rate = parseFloat(document.getElementById('vatRate').value) / 100 || 0;
+  const type = document.getElementById('vatType').value;
+  let exclusive, inclusive, vat;
+  if (type === 'exclude') {
+    exclusive = amount;
+    vat = amount * rate;
+    inclusive = amount + vat;
+  } else {
+    inclusive = amount;
+    vat = amount * rate / (1 + rate);
+    exclusive = amount - vat;
+  }
+  const el = document.getElementById('vatResult');
+  el.style.display = 'block';
+  el.innerHTML =
+    '<div class="row">' +
+    '<div><div style="color:var(--muted);font-size:12px;">不含税价</div><div class="highlight">' + exclusive.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">增值税 (' + (rate * 100) + '%)</div><div class="highlight" style="color:#f59e0b;">' + vat.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">含税价</div><div class="highlight">' + inclusive.toFixed(2) + ' 元</div></div>' +
+    '</div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

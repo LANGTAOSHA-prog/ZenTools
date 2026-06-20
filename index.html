@@ -7,6 +7,7 @@
   <meta name="description" content="江湖小站-ZenTools 是一个个人学习记录页面，提供 PDF、图片、文本、AI 等免费在线工具，以及个人学习笔记和经验整理。" />
   <meta name="keywords" content="江湖小站-ZenTools,ZenTools,免费在线工具,PDF工具,图片工具,学习笔记" />
 
+  <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="assets/css/tool-ui.css" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="apple-touch-icon" href="favicon.svg" />
@@ -901,5 +902,13 @@
 
 <!-- 恢复控制台已移至本地保留 -->
 
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

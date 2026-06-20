@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI写作 - ZenTools</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>AI写作 - ZenTools</title>
 <meta name="description" content="免费在线 AI 写作辅助工具，根据主题生成文章大纲和正文草稿。">
 <meta name="keywords" content="AI写作,AI文章生成,在线写作工具,ZenTools,AI工具,在线工具,免费工具">
 <link rel="canonical" href="https://www.zentools.xyz/ai-writing.html">
@@ -84,4 +85,12 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body></html>

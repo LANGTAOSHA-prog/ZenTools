@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>日本税金计算 - ZenTools</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>日本税金计算 - ZenTools</title>
 <meta name="description" content="简易估算日本所得税和住民税，适合在日工作和报税参考。，免费在线使用，本地处理保护隐私，无需上传服务器。">
 <meta name="keywords" content="日本税金计算,日本所得税,日本住民税,ZenTools,日本生活工具,在线计算器,免费工具">
 <link rel="canonical" href="https://www.zentools.xyz/japan-tax.html">
@@ -82,4 +83,12 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body></html>

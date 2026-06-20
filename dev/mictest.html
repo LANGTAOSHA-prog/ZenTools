@@ -4,10 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>麦克风测试 - ZenTools</title>
+  <meta property="og:title" content="麦克风测试 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="测试麦克风输入音量，实时音频波形反馈" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/mictest.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="麦克风测试 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Test microphone with real-time audio waveform" />
 <meta name="description" content="在线麦克风测试工具，实时显示音量级别和音频波形，检测麦克风是否正常工作。"/>
 <meta name="keywords" content="麦克风测试 麦克风检测 mic test" />
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/mictest.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 .volume-display { text-align:center; padding:24px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; margin:16px 0; }
 .volume-display .vol-label { font-size:13px; color:var(--muted); margin-bottom:8px; }
@@ -78,5 +88,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

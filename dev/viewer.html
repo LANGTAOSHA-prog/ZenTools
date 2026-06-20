@@ -4,10 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>JSON 树形视图 - ZenTools</title>
+  <meta property="og:title" content="JSON树形视图 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="交互式树形结构展示 JSON，支持展开/折叠节点" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/viewer.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON树形视图 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Interactive tree view for JSON with expand/collapse" />
 <meta name="description" content="在线 JSON 可视化工具，交互式树形结构，支持展开/折叠节点，语法高亮，完全本地运行。"/>
 <meta name="keywords" content="json树形 json查看器 json viewer" />
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/viewer.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 textarea.tool-input { width:100%; min-height:240px; padding:16px; border:1px solid var(--border); border-radius:12px; background:rgba(255,255,255,0.03); color:var(--text); font-family:Consolas,monospace; font-size:13px; resize:vertical; outline:none; }
 textarea.tool-input:focus { border-color:var(--border-h); }
@@ -99,5 +109,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

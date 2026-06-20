@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>中日汇率换算 - ZenTools</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>中日汇率换算 - ZenTools</title>
 <meta name="description" content="人民币与日元快速互相换算，适合中日跨境支付和旅行参考。，免费在线使用，本地处理保护隐私，无需上传服务器。">
 <meta name="keywords" content="中日汇率换算,人民币日元,JPY CNY,ZenTools,日本生活工具,在线计算器,免费工具">
 <link rel="canonical" href="https://www.zentools.xyz/cny-jpy.html">
@@ -82,4 +83,12 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body></html>

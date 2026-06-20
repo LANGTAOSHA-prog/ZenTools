@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>视频转 GIF - ZenTools</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>视频转 GIF - ZenTools</title>
 <meta name="description" content="将视频片段转换为 GIF 动图，免费在线使用，本地处理保护隐私，无需上传服务器。">
 <meta name="keywords" content="视频转 GIF,在线视频工具,免费工具,ZenTools">
 <link rel="canonical" href="https://www.zentools.xyz/video-to-gif.html">
@@ -159,5 +160,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

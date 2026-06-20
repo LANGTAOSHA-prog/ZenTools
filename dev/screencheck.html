@@ -4,10 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>屏幕检测 - ZenTools</title>
+  <meta property="og:title" content="屏幕检测 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="全屏检测坏点、亮点、色彩过渡和漏光情况" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/screencheck.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="屏幕检测 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Full-screen test for dead pixels, color and bleeding" />
 <meta name="description" content="在线屏幕检测工具，全屏显示纯色检测坏点、亮点、色彩过渡和漏光情况。"/>
 <meta name="keywords" content="屏幕检测 屏幕测试 坏点检测" />
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/screencheck.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 .color-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:10px; margin:16px 0; }
 .color-btn { height:70px; border-radius:12px; border:2px solid transparent; cursor:pointer; transition:transform 0.2s,border-color 0.2s; font-size:13px; font-weight:700; color:#fff; text-shadow:0 1px 4px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; }
@@ -72,5 +82,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

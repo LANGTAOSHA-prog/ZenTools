@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SERP 预览工具 - SEO 工具 | ZenTools</title>
+  <meta property="og:title" content="SERP 搜索结果预览 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="预览网页在 Google 搜索结果中的展示效果，优化标题和描述。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/seo/serp-preview.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SERP 搜索结果预览 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Preview how your page looks in Google search results." />
+<meta name="description" content="预览网页在 Google 搜索结果中的展示效果，优化标题和描述。">
+<meta name="keywords" content="serp预览,搜索结果预览,标题预览,seo预览,google搜索预览">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; resize:vertical; font-family:inherit; }
+  textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.6; }
+  .stat { display:inline-block; padding:4px 12px; border-radius:6px; background:var(--glass); margin:4px; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">SEO 工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">SERP 搜索结果预览</span></h1>
+    <p>预览网页在 Google 搜索结果中的展示效果，优化标题和描述。</p>
+  </div>
+  <div class="tool-box">
+    
+  <label>页面标题 (Title)</label>
+  <textarea id="serpTitle" rows="2" placeholder="输入标题，建议 30-60 字符"></textarea>
+  <label>Meta 描述 (Description)</label>
+  <textarea id="serpDesc" rows="3" placeholder="输入描述，建议 120-155 字符"></textarea>
+  <label>网页链接 (URL)</label>
+  <input type="text" id="serpUrl" value="https://zentools.xyz/" />
+  <div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+    <button class="btn" onclick="previewSERP()">预览</button>
+    <button class="btn btn-secondary" onclick="clearPreview()">清除</button>
+  </div>
+  <div class="result" id="serpResult" style="display:none;">
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px;">Google 搜索结果预览：</div>
+    <div id="serpPreview"></div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap;">
+    <span class="stat" id="titleLen">标题: 0 字符</span>
+    <span class="stat" id="descLen">描述: 0 字符</span>
+  </div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function previewSERP() {
+  const title = document.getElementById('serpTitle').value.trim();
+  const desc = document.getElementById('serpDesc').value.trim();
+  const url = document.getElementById('serpUrl').value.trim();
+  const el = document.getElementById('serpResult');
+  el.style.display = 'block';
+  document.getElementById('serpPreview').innerHTML =
+    '<div style="font-size:14px;color:#8ab4f8;margin-bottom:2px;text-decoration:none;">' + esc(title || '(无标题)') + '</div>' +
+    '<div style="font-size:12px;color:#bdc1c6;">' + esc(url || '') + '</div>' +
+    '<div style="font-size:13px;color:#bdc1c6;margin-top:4px;line-height:1.4;">' + esc(desc || '(无描述)') + '</div>';
+  document.getElementById('titleLen').textContent = '标题: ' + title.length + ' 字符' + (title.length > 60 ? ' ⚠️ 超过60' : title.length < 30 ? ' ⚠️ 少于30' : ' ✅');
+  document.getElementById('descLen').textContent = '描述: ' + desc.length + ' 字符' + (desc.length > 155 ? ' ⚠️ 超过155' : desc.length < 120 ? ' ⚠️ 少于120' : ' ✅');
+}
+function clearPreview() {
+  document.getElementById('serpTitle').value = '';
+  document.getElementById('serpDesc').value = '';
+  document.getElementById('serpResult').style.display = 'none';
+  document.getElementById('titleLen').textContent = '标题: 0 字符';
+  document.getElementById('descLen').textContent = '描述: 0 字符';
+}
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

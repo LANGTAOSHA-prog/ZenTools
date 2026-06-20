@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>信用卡还款计算器 - 金融工具 | ZenTools</title>
+  <meta property="og:title" content="信用卡还款计算器 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="计算信用卡最低还款、分期还款的利息和费用，帮您做出最优还款决策。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/finance/credit-card-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="信用卡还款计算器 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Compare minimum payment vs installment interest for credit cards." />
+<meta name="description" content="计算信用卡最低还款、分期还款的利息和费用，帮您做出最优还款决策。">
+<meta name="keywords" content="信用卡还款,分期计算,最低还款,利息计算,信用卡利息">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+  input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+  select { padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; }
+  .row > * { flex:1; min-width:150px; }
+  .highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">金融工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">信用卡还款计算器</span></h1>
+    <p>计算信用卡最低还款、分期还款的利息和费用，帮您做出最优还款决策。</p>
+  </div>
+  <div class="tool-box">
+    
+  <div class="row">
+    <div><label>欠款金额 (元)</label><input type="number" id="ccBalance" value="10000" /></div>
+    <div><label>日利率 (%)</label><input type="number" id="ccDailyRate" value="0.05" step="0.001" /></div>
+  </div>
+  <div class="row">
+    <div><label>最低还款比例 (%)</label><input type="number" id="ccMinPct" value="10" /></div>
+    <div><label>预计还清月数</label><input type="number" id="ccMonths" value="12" min="1" /></div>
+  </div>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="calcCreditCard()">计算</button>
+  </div>
+  <div class="result" id="ccResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function calcCreditCard() {
+  const balance = parseFloat(document.getElementById('ccBalance').value) || 0;
+  const dailyRate = parseFloat(document.getElementById('ccDailyRate').value) / 100 || 0;
+  const minPct = parseFloat(document.getElementById('ccMinPct').value) / 100 || 0.1;
+  const months = parseInt(document.getElementById('ccMonths').value) || 12;
+  const monthlyRate = dailyRate * 30;
+  // Min payment scenario
+  let remaining = balance;
+  let totalMinInt = 0;
+  let minMonths = 0;
+  let maxIter = 200;
+  while (remaining > 1 && minMonths < maxIter) {
+    const minPay = Math.max(remaining * minPct, 100);
+    const interest = remaining * monthlyRate;
+    totalMinInt += interest;
+    remaining = remaining + interest - minPay;
+    minMonths++;
+    if (remaining < 0) remaining = 0;
+  }
+  // Equal installment scenario
+  let installmentMonthly = 0;
+  let totalInstallInt = 0;
+  if (monthlyRate > 0) {
+    const factor = Math.pow(1 + monthlyRate, months);
+    installmentMonthly = balance * monthlyRate * factor / (factor - 1);
+    totalInstallInt = installmentMonthly * months - balance;
+  } else {
+    installmentMonthly = balance / months;
+  }
+  const el = document.getElementById('ccResult');
+  el.style.display = 'block';
+  el.innerHTML =
+    '<div style="font-weight:700;margin-bottom:8px;">🔴 每月最低还款（' + (minPct * 100) + '%）</div>' +
+    '<div>预计还清: ' + minMonths + ' 个月 (约 ' + (minMonths/12).toFixed(1) + ' 年)</div>' +
+    '<div>总利息: <span style="color:#f43f5e;font-weight:700;">' + totalMinInt.toFixed(2) + ' 元</span></div>' +
+    '<div style="margin:12px 0;border-top:1px solid var(--border);"></div>' +
+    '<div style="font-weight:700;margin-bottom:8px;">🟢 分期还款（' + months + ' 期）</div>' +
+    '<div>每月还款: <span class="highlight">' + installmentMonthly.toFixed(2) + ' 元</span></div>' +
+    '<div>总利息: <span style="color:#10b981;font-weight:700;">' + totalInstallInt.toFixed(2) + ' 元</span></div>' +
+    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">' +
+    '💡 建议：尽早全额还款避免利息。分期比最低还款节省利息。' +
+    '</div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

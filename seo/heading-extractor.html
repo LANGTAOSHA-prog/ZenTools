@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H标题提取器 - SEO 工具 | ZenTools</title>
+  <meta property="og:title" content="H 标题提取器 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="从 HTML 中提取 H1-H6 标题结构，检查页面标题层级是否合理。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/seo/heading-extractor.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="H 标题提取器 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Extract H1-H6 heading structure from HTML." />
+<meta name="description" content="从 HTML 中提取 H1-H6 标题结构，检查页面标题层级是否合理。">
+<meta name="keywords" content="h标题提取,标题结构分析,html标题,h1提取,seo结构">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; resize:vertical; font-family:inherit; }
+  textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.6; }
+  .stat { display:inline-block; padding:4px 12px; border-radius:6px; background:var(--glass); margin:4px; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">SEO 工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">H 标题提取器</span></h1>
+    <p>从 HTML 中提取 H1-H6 标题结构，检查页面标题层级是否合理。</p>
+  </div>
+  <div class="tool-box">
+    
+  <label>粘贴 HTML 代码</label>
+  <textarea id="htmlInput" rows="8" placeholder="粘贴网页 HTML 代码..."></textarea>
+  <div style="display:flex;gap:10px;margin-top:16px;">
+    <button class="btn" onclick="extractHeadings()">提取标题</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('htmlInput').value='';document.getElementById('headingResult').style.display='none';">清除</button>
+  </div>
+  <div class="result" id="headingResult" style="display:none;"></div>
+  <div id="headingStats" style="display:none;margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function extractHeadings() {
+  const html = document.getElementById('htmlInput').value;
+  if (!html.trim()) { alert('请粘贴 HTML 代码'); return; }
+  const tags = ['h1','h2','h3','h4','h5','h6'];
+  let result = '';
+  const counts = {};
+  tags.forEach(t => counts[t] = 0);
+  const regex = /<(h[1-6])[^>]*>([\s\S]*?)<\/\1>/gi;
+  let match;
+  while ((match = regex.exec(html)) !== null) {
+    const tag = match[1].toLowerCase();
+    const text = match[2].replace(/<[^>]*>/g,'').trim();
+    if (text) {
+      counts[tag]++;
+      result += tag.toUpperCase() + ': ' + text + '\n';
+    }
+  }
+  const el = document.getElementById('headingResult');
+  el.style.display = 'block';
+  if (!result) {
+    el.textContent = '未找到任何 H1-H6 标题标签';
+    return;
+  }
+  el.textContent = result;
+  // Stats
+  const stats = document.getElementById('headingStats');
+  stats.style.display = 'flex';
+  let html = '';
+  tags.forEach(t => {
+    if (counts[t] > 0) html += '<span class="stat">' + t.toUpperCase() + ': ' + counts[t] + '</span>';
+  });
+  // Validation
+  if (counts['h1'] === 0) html += '<span class="stat" style="color:#f43f5e;">⚠️ 缺少 H1</span>';
+  if (counts['h1'] > 1) html += '<span class="stat" style="color:#f59e0b;">⚠️ 多个 H1 (' + counts['h1'] + '个)</span>';
+  stats.innerHTML = html;
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

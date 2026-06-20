@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>页面结构分析器 - SEO 工具 | ZenTools</title>
+<meta name="description" content="分析 HTML 页面结构，检查 SEO 关键元素是否完整。">
+<meta name="keywords" content="页面结构分析,html分析,seo检查,网站结构,seo诊断">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; resize:vertical; font-family:inherit; }
+  textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.6; }
+  .stat { display:inline-block; padding:4px 12px; border-radius:6px; background:var(--glass); margin:4px; font-size:13px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">SEO 工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">页面结构分析器</span></h1>
+    <p>分析 HTML 页面结构，检查 SEO 关键元素是否完整。</p>
+  </div>
+  <div class="tool-box">
+    
+  <label>粘贴网页 HTML 代码</label>
+  <textarea id="structHtml" rows="8" placeholder="粘贴完整的 HTML 代码..."></textarea>
+  <div style="display:flex;gap:10px;margin-top:16px;">
+    <button class="btn" onclick="analyzeStructure()">分析结构</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('structHtml').value='';document.getElementById('structResult').style.display='none';">清除</button>
+  </div>
+  <div class="result" id="structResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function analyzeStructure() {
+  const html = document.getElementById('structHtml').value;
+  if (!html.trim()) { alert('请粘贴 HTML 代码'); return; }
+  const checks = {
+    'DOCTYPE': /<!DOCTYPE/i.test(html),
+    'html lang': /html[^>]+lang=/i.test(html),
+    'charset': /charset/i.test(html),
+    'viewport': /viewport/i.test(html),
+    'title': /<title>[\s\S]*?<\/title>/i.test(html),
+    'meta description': /<meta[^>]*name=["']description["']/i.test(html),
+    'canonical': /rel=["']canonical["']/i.test(html),
+    'favicon': /favicon/i.test(html),
+    'H1 标题': /<h1[^>]*>/i.test(html),
+    '结构化数据': /application\/ld\+json/i.test(html),
+    'Open Graph': /og:title/i.test(html),
+    'sitemap 引用': /sitemap/i.test(html.toLowerCase()),
+    'CSS 文件': /<link[^>]*rel=["']stylesheet["']/i.test(html),
+    'JS 文件': /<script[^>]*src=/i.test(html)
+  };
+  let score = 0, total = Object.keys(checks).length;
+  let result = '📋 SEO 结构检查结果\n' + '='.repeat(30) + '\n\n';
+  Object.entries(checks).forEach(([name, ok]) => {
+    result += (ok ? '✅' : '❌') + ' ' + name + '\n';
+    if (ok) score++;
+  });
+  const pct = Math.round(score/total*100);
+  result += '\n---\n得分: ' + score + '/' + total + ' (' + pct + '%)\n';
+  if (pct >= 90) result += '🌟 SEO 基础结构优秀！';
+  else if (pct >= 70) result += '👍 SEO 结构良好，可补充缺失项';
+  else result += '🔧 建议补充缺失的 SEO 元素';
+  const el = document.getElementById('structResult');
+  el.style.display = 'block';
+  el.textContent = result;
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

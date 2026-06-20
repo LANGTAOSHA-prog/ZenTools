@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>退休金计算器 - 金融工具 | ZenTools</title>
+  <meta property="og:title" content="退休金计算器 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="估算退休所需储蓄金额和每月需存金额，帮助规划养老。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/finance/retirement-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="退休金计算器 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Estimate retirement savings needed and monthly contribution." />
+<meta name="description" content="估算退休所需储蓄金额和每月需存金额，帮助规划养老。">
+<meta name="keywords" content="退休金计算,养老计算,退休规划,储蓄计划,养老金估算">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+  input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+  select { padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; }
+  .row > * { flex:1; min-width:150px; }
+  .highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">金融工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">退休金计算器</span></h1>
+    <p>估算退休所需储蓄金额和每月需存金额，帮助规划养老。</p>
+  </div>
+  <div class="tool-box">
+    
+  <div class="row">
+    <div><label>当前年龄</label><input type="number" id="retAge" value="30" min="18" max="80" /></div>
+    <div><label>计划退休年龄</label><input type="number" id="retTarget" value="60" min="30" max="90" /></div>
+    <div><label>预期寿命</label><input type="number" id="retLifespan" value="85" min="60" max="120" /></div>
+  </div>
+  <div class="row">
+    <div><label>退休后每月开销 (元)</label><input type="number" id="retMonthly" value="5000" /></div>
+    <div><label>年化收益率 (%)</label><input type="number" id="retRate" value="5" step="0.1" /></div>
+    <div><label>年通胀率 (%)</label><input type="number" id="retInfl" value="3" step="0.1" /></div>
+  </div>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="calcRetirement()">计算</button>
+  </div>
+  <div class="result" id="retResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function calcRetirement() {
+  const age = parseInt(document.getElementById('retAge').value) || 30;
+  const target = parseInt(document.getElementById('retTarget').value) || 60;
+  const lifespan = parseInt(document.getElementById('retLifespan').value) || 85;
+  const monthly = parseFloat(document.getElementById('retMonthly').value) || 5000;
+  const rate = parseFloat(document.getElementById('retRate').value) / 100 || 0.05;
+  const infl = parseFloat(document.getElementById('retInfl').value) / 100 || 0.03;
+  const workingYears = target - age;
+  const retirementYears = lifespan - target;
+  if (workingYears <= 0 || retirementYears <= 0) {
+    document.getElementById('retResult').style.display = 'block';
+    document.getElementById('retResult').innerHTML = '<span style="color:#f43f5e;">请输入合理的年龄数值</span>';
+    return;
+  }
+  const realRate = (1 + rate) / (1 + infl) - 1;
+  const monthlyRealRate = realRate / 12;
+  const retirementMonths = retirementYears * 12;
+  // Total needed at retirement (present value of annuity at retirement)
+  let totalNeeded = 0;
+  if (monthlyRealRate > 0) {
+    totalNeeded = monthly * (1 - Math.pow(1 + monthlyRealRate, -retirementMonths)) / monthlyRealRate;
+  } else {
+    totalNeeded = monthly * retirementMonths;
+  }
+  // Monthly savings needed during working years
+  const workingMonths = workingYears * 12;
+  let monthlySave = 0;
+  if (monthlyRealRate > 0) {
+    monthlySave = totalNeeded * monthlyRealRate / (Math.pow(1 + monthlyRealRate, workingMonths) - 1);
+  } else {
+    monthlySave = totalNeeded / workingMonths;
+  }
+  const el = document.getElementById('retResult');
+  el.style.display = 'block';
+  el.innerHTML =
+    '<div class="row">' +
+    '<div><div style="color:var(--muted);font-size:12px;">需储蓄总金额</div><div class="highlight">' + totalNeeded.toFixed(0) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">每月需存</div><div class="highlight" style="color:#10b981;">' + monthlySave.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">储蓄年限</div><div class="highlight">' + workingYears + ' 年</div></div>' +
+    '</div>' +
+    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">' +
+    '从 ' + age + ' 岁到 ' + target + ' 岁，每月存 <strong style="color:var(--text);">' + monthlySave.toFixed(0) + ' 元</strong>，' +
+    '退休后 ' + retirementYears + ' 年间每月可支配 ' + monthly.toFixed(0) + ' 元（已考虑通胀）' +
+    '</div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

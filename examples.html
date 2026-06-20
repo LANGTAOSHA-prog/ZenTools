@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>简单页面示例 - 江湖小站</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>简单页面示例 - 江湖小站</title>
 <meta name="description" content="记录个人网页制作中的简单页面示例，包括页面结构、导航栏、首页视觉、内容布局和图片展示位置。">
 
 <style>
@@ -257,5 +258,13 @@ footer{
 
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

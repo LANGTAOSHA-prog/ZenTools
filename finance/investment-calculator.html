@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>理财计算器 - 金融工具 | ZenTools</title>
+  <meta property="og:title" content="理财计算器 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="计算复利投资的未来收益，支持每月定投和一次性投入。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/finance/investment-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="理财计算器 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Calculate compound investment returns with monthly contributions." />
+<meta name="description" content="计算复利投资的未来收益，支持每月定投和一次性投入。">
+<meta name="keywords" content="理财计算器,复利计算,投资计算,定投计算,收益计算">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+  .tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+  label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+  textarea, input[type="text"], input[type="number"] { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+  input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+  select { padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+  .btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; transition:opacity .2s; }
+  .btn:hover { opacity:.85; }
+  .btn-secondary { background:var(--glass-b); color:var(--text); }
+  .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; }
+  .row > * { flex:1; min-width:150px; }
+  .highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links">
+      <a href="/">首页</a>
+      <a href="#" class="active">金融工具</a>
+      <a href="/plugins-preview.html">全部工具</a>
+    </div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">理财计算器</span></h1>
+    <p>计算复利投资的未来收益，支持每月定投和一次性投入。</p>
+  </div>
+  <div class="tool-box">
+    
+  <label>初始投入金额 (元)</label>
+  <input type="number" id="initial" value="10000" min="0" />
+  <div class="row">
+    <div><label>每月定投 (元)</label><input type="number" id="monthly" value="1000" min="0" /></div>
+    <div><label>年化收益率 (%)</label><input type="number" id="annualRate" value="8" step="0.1" /></div>
+    <div><label>投资年限</label><input type="number" id="years" value="10" min="1" /></div>
+  </div>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="calcInvestment()">计算收益</button>
+  </div>
+  <div class="result" id="invResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function calcInvestment() {
+  const initial = parseFloat(document.getElementById('initial').value) || 0;
+  const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+  const rate = parseFloat(document.getElementById('annualRate').value) / 100 || 0;
+  const years = parseInt(document.getElementById('years').value) || 1;
+  const monthlyRate = rate / 12;
+  const months = years * 12;
+  // Initial compounding
+  let futureInitial = initial * Math.pow(1 + monthlyRate, months);
+  // Monthly investment compounding (ordinary annuity)
+  let futureMonthly = 0;
+  if (monthlyRate > 0) {
+    futureMonthly = monthly * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+  } else {
+    futureMonthly = monthly * months;
+  }
+  const total = futureInitial + futureMonthly;
+  const totalInvested = initial + monthly * months;
+  const earnings = total - totalInvested;
+  const el = document.getElementById('invResult');
+  el.style.display = 'block';
+  el.innerHTML =
+    '<div class="row">' +
+    '<div><div style="color:var(--muted);font-size:12px;">投入本金</div><div class="highlight">' + totalInvested.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">总收益</div><div class="highlight" style="color:#10b981;">+' + earnings.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">最终金额</div><div class="highlight">' + total.toFixed(2) + ' 元</div></div>' +
+    '</div>' +
+    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">' +
+    '年化收益率: ' + (rate * 100).toFixed(1) + '% | 投资期限: ' + years + ' 年 (' + months + ' 个月)<br/>' +
+    '月收益率: ' + (monthlyRate * 100).toFixed(3) + '%' +
+    '</div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

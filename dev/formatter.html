@@ -7,7 +7,8 @@
 <meta name="description" content="在线 JSON 格式化、压缩、验证工具，支持语法高亮和错误提示，完全本地运行。"/>
 <meta name="keywords" content="json格式化 json压缩 json验证" />
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/formatter.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 textarea.tool-input { width:100%; min-height:280px; padding:16px; border:1px solid var(--border); border-radius:12px; background:rgba(255,255,255,0.03); color:var(--text); font-family:'Monaco','Menlo',Consolas,monospace; font-size:13px; resize:vertical; outline:none; }
 textarea.tool-input:focus { border-color:var(--border-h); }
@@ -89,5 +90,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

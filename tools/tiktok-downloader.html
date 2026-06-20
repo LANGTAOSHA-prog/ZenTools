@@ -12,7 +12,8 @@ content="Free TikTok video downloader without watermark. Download TikTok videos 
 <meta name="keywords"
 content="TikTok Downloader,TikTok No Watermark,TikTok Video Download">
 
-<link rel="icon" href="https://www.tiktok.com/favicon.ico">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="icon" href="https://www.tiktok.com/favicon.ico">
 
 <style>
 
@@ -396,5 +397,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

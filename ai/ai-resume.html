@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI简历生成 - ZenTools</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>AI简历生成 - ZenTools</title>
 <meta name="description" content="免费在线 AI 简历生成工具，快速生成简历结构。，免费在线使用，本地处理保护隐私，无需上传服务器。">
 <meta name="keywords" content="AI简历生成,在线简历,简历模板,ZenTools,AI工具,在线工具,免费工具">
 <link rel="canonical" href="https://www.zentools.xyz/ai-resume.html">
@@ -84,4 +85,12 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body></html>

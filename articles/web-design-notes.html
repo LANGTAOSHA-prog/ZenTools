@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <link rel="manifest" href="/manifest.json" />
   <title>网页制作记录 - 江湖小站</title>
   <meta name="description" content="网页制作记录，整理网页排版、页面结构、样式调整和常见问题处理方法，适合个人学习和网页制作参考。" />
   <meta name="keywords" content="网页制作记录,网页排版,页面结构,HTML学习,CSS样式,个人学习笔记" />
@@ -509,5 +510,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

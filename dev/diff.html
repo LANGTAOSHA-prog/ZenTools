@@ -4,10 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>JSON 对比工具 - ZenTools</title>
+  <meta property="og:title" content="JSON对比 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="对比两个 JSON 结构的差异，高亮新增/删除/修改" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/diff.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JSON对比 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Compare two JSON structures and highlight differences" />
 <meta name="description" content="在线对比两个 JSON 的结构差异，高亮显示新增、删除和修改的字段，完全本地运行。"/>
 <meta name="keywords" content="json对比 json差异 json diff" />
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/diff.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 .split-panel { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
 @media(max-width:768px) { .split-panel { grid-template-columns:1fr; } }
@@ -95,5 +105,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

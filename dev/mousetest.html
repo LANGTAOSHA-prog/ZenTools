@@ -4,10 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>鼠标测试 - ZenTools</title>
+  <meta property="og:title" content="鼠标测试 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="检测鼠标左右键、滚轮和移动轨迹" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/mousetest.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="鼠标测试 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Test mouse buttons, scroll wheel and movement" />
 <meta name="description" content="在线鼠标测试工具，检测鼠标点击、滚轮和移动坐标，确认各项功能正常。"/>
 <meta name="keywords" content="鼠标测试 鼠标检测 mouse test" />
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/mousetest.html"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 .test-area { min-height:280px; display:flex; align-items:center; justify-content:center; text-align:center; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; margin:16px 0; cursor:crosshair; transition:border-color 0.2s; padding:24px; }
 .test-area:hover { border-color:var(--border-h); }
@@ -77,5 +87,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

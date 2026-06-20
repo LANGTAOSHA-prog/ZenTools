@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-i18n="pageTitle">关于我们 - ZenTools 免费在线工具</title>
 <meta name="description" content="ZenTools 是一个免费在线工具箱，提供 PDF、图片、AI、文本等工具，所有处理在浏览器本地完成。">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="assets/css/style.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
 <style>
 .page-content{max-width:800px;margin:0 auto;padding:40px 24px 80px}
@@ -154,5 +155,13 @@ applyPageLang(savedLang);
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

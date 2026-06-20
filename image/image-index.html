@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="manifest" href="/manifest.json" />
   <title>图片工具 | 江湖小站-ZenTools 2.0 | 免费在线图片压缩/裁剪/格式转换/水印/抠图</title>
   <meta name="description" content="½­ºþÐ¡Õ¾-ZenTools å¾çå·¥å·ç®±ï¼å¾çåç¼©ãå°ºå¯¸è°æ´ãè£åªãæ ¼å¼è½¬æ¢ãå æ°´å°ãèæ¯ç§»é¤ãå¾çè½¬PDFãPDFè½¬å¾çãäºç»´ç çæï¼å¨é¨åè´¹æ¬å°å¤çã? />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -484,5 +485,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

@@ -4,7 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>拼图工具 - 免费在线拼接图片 | ZenTools</title>
+<link rel="manifest" href="/manifest.json" />
+  <title>拼图工具 - 免费在线拼接图片 | ZenTools</title>
 
 <meta name="description" content="免费在线拼图工具，支持横向拼接、纵向拼接、网格拼图，多语言支持，无需上传服务器。">
 <meta name="keywords" content="拼图工具,图片拼接,在线拼图,图片合并,ZenTools">
@@ -459,5 +460,13 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

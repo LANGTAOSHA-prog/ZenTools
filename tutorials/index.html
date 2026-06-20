@@ -6,7 +6,8 @@
 <title data-i18n="pageTitle">在线工具教程 - ZenTools</title>
 <meta name="description" content="ZenTools 在线工具使用教程：PDF合并、图片压缩、视频转GIF、AI写作等实用技巧，助你高效办公。"/>
 <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/tutorials/"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
 .article-list { display:flex; flex-direction:column; gap:24px; max-width:900px; margin:0 auto; padding:20px 0; }
 .article-card { display:flex; flex-direction:column; gap:12px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; padding:28px; transition:border-color 0.25s,transform 0.25s; }
@@ -135,5 +136,13 @@ vi:{pageTitle:'Hướng dẫn - ZenTools',crumbHome:'Trang chủ',crumbCur:'Hư�
 </script>
 <script src="../assets/js/tool-ui.js"></script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>

@@ -3,7 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>拖进来，体积秒降70%，画质几乎不变 - 图片压缩</title>
+    <link rel="manifest" href="/manifest.json" />
+  <title>拖进来，体积秒降70%，画质几乎不变 - 图片压缩</title>
+  <meta property="og:title" content="图片压缩工具 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="批量压缩，体积秒降70%，画质几乎不变，支持ZIP打包下载" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/image/image-compressor.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="图片压缩工具 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Batch compress, size down 70%, quality preserved, ZIP download supported" />
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f5; padding: 20px; min-height: 100vh; display: flex; justify-content: center; }
@@ -240,6 +250,14 @@
         savePercent.textContent = orig > 0 ? ((1 - comp / orig) * 100).toFixed(0) + '%' : '0%';
     }
 })();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
 </script>
 </body>
 </html>
