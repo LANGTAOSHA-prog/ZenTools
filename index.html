@@ -499,7 +499,7 @@
         aboutP2: '所有内容均为个人日常整理，仅供学习和参考使用。',
         aboutNotice: '本站内容仅供学习参考，不涉及经营性互联网信息服务。',
         statTools: '在线工具', statCats: '工具分类', statLocal: '纯本地处理',
-        toolCount: '个工具', favTitle: '⭐ 收藏的工具', recentTitle: '🕐 最近使用', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        toolCount: '个工具', favTitle: '⭐ 收藏的工具', recentTitle: '🕐 最近使用', hotTitle: '🔥 热门工具', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
         records: [
           { title:'我的第一个 PDF 工具', desc:'记录从零开始使用 VS Code 编写 PDF 工具的过程、问题和解决方法。', link:'查看内容 →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
           { title:'个人学习笔记', desc:'记录日常学习过程中遇到的问题、理解过程和整理心得。', link:'查看内容 →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
@@ -681,6 +681,30 @@
           }
           html += '</div>';
           container2.insertAdjacentHTML('beforebegin', html);
+        }
+      } catch(e) {}
+
+      // 热门工具（基于点击统计）
+      try {
+        var clicksStr = localStorage.getItem('zt_clicks');
+        if (clicksStr) {
+          var clicks = JSON.parse(clicksStr);
+          var entries = Object.entries(clicks).sort(function(a, b) { return b[1] - a[1]; });
+          var top10 = entries.slice(0, 10);
+          var hotHtml = '<div class="fav-section" style="margin-top:40px;"><div class="section-head reveal"><span class="section-eyebrow">\U0001f525</span><h2>' + (dict.hotTitle || '\u70ed\u95e8\u5de5\u5177') + '</h2></div><div class="fav-grid">';
+          var added = 0;
+          top10.forEach(function(e) {
+            var t = tools.find(function(t2) { return t2.url === e[0] || t2.url.indexOf(e[0].replace('/','-')) >= 0 || e[0].indexOf(t2.url) >= 0; });
+            if (t && added < 8) {
+              hotHtml += '<a class="fav-item" href="' + t.url + '"><span class="fi-icon">' + (t.icon || '\U0001f527') + '</span><span class="fi-name">' + tName(t, lang) + '</span><span class="fi-tag">' + e[1] + '\u6b21</span></a>';
+              added++;
+            }
+          });
+          hotHtml += '</div></div>';
+          if (added) {
+            var c = document.getElementById('toolsContainer');
+            if (c) c.insertAdjacentHTML('beforebegin', hotHtml);
+          }
         }
       } catch(e) {}
 
