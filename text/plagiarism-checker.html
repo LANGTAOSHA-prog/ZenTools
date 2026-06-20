@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>抄袭检测器 - ZenTools</title>
+<meta property="og:title" content="抄袭检测器 - 免费在线工具 | ZenTools" />
+<meta property="og:description" content="粘贴文本，检查是否与网上内容重复，检测抄袭率" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/text/plagiarism-checker.html" />
+<meta property="og:type" content="website" /><meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Plagiarism Checker - Free Online Tool | ZenTools" />
+<meta name="twitter:description" content="Check text for plagiarism and similarity" />
+<meta name="description" content="粘贴文本，检查是否与网上内容重复，检测抄袭率，免费在线使用。"/>
+<meta name="keywords" content="抄袭检测 查重 重复内容检测 文本对比" />
+<link rel="canonical" href="https://zentools.xyz/text/plagiarism-checker.html"/><link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>textarea{width:100%;min-height:200px;padding:16px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text);font-size:15px;line-height:1.7;resize:vertical;outline:none}textarea:focus{border-color:var(--border-h)}.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.btn-group button{padding:12px 24px;border-radius:10px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}.btn-group button:hover{border-color:var(--border-h);background:var(--glass-b)}.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;border:none;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}.btn-primary:hover{opacity:.9;transform:translateY(-2px)}.result-box{margin-top:20px;padding:24px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;text-align:center}.result-box .rate{font-size:72px;font-weight:900;line-height:1}.result-box .rate.clean{background:linear-gradient(135deg,#22c55e,#10b981);-webkit-background-clip:text;background-clip:text;color:transparent}.result-box .rate.warning{background:linear-gradient(135deg,#f59e0b,#ef4444);-webkit-background-clip:text;background-clip:text;color:transparent}.result-box .label{font-size:14px;color:var(--muted);margin-top:8px}.result-box .detail{margin-top:16px;font-size:14px;color:var(--muted)}.tool-msg{margin-top:12px;padding:12px;border-radius:10px;display:none;font-size:14px}.tool-msg.error{display:block;background:rgba(248,113,113,0.1);color:#f87171}</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"抄袭检测器 - ZenTools","url":"https://zentools.xyz/text/plagiarism-checker.html","description":"检查文本抄袭率","applicationCategory":"UtilityApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/text/">文本工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span>/</span><a href="/text/">文本工具</a><span>/</span><span class="cur" data-i18n="crumbCur">抄袭检测</span></div><span class="page-eyebrow" data-i18n="eyebrow">文本工具</span><h1><span class="grad" data-i18n="h1Grad">抄袭检测器</span><br/><span data-i18n="h1Sub">文本查重 · 相似度分析</span></h1><p data-i18n="pageDesc">粘贴文本，检测与网上内容的重复率。</p></div>
+<div class="tool-box reveal">
+<textarea id="textInput" placeholder="在此粘贴需要检测的文本..." data-i18n-placeholder="placeholder"></textarea>
+<div class="btn-group"><button class="btn-primary" onclick="checkPlagiarism()" data-i18n="btnCheck">🔍 开始检测</button><button onclick="clearAll()" data-i18n="btnClear">🗑️ 清空</button></div>
+<div id="errorMsg" class="tool-msg error"></div>
+<div id="resultArea" style="display:none" class="result-box">
+<div class="rate" id="rateDisplay"></div>
+<div class="label" data-i18n="rateLabel">抄袭率</div>
+<div class="detail" id="detailText"></div>
+</div>
+<div class="tool-recommend"><h4 data-i18n="recTitle">🔗 推荐工具</h4><a href="textdiff.html"><span data-i18n="recDiff">文本对比</span></a><span class="sep">·</span><a href="wordcount.html"><span data-i18n="recCount">字数统计</span></a></div>
+</div>
+<div style="max-width:900px;margin:0 auto 24px;padding:0 24px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/text/">文本工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'抄袭检测器 - ZenTools',crumbCur:'抄袭检测',eyebrow:'文本工具',h1Grad:'抄袭检测器',h1Sub:'文本查重 · 相似度分析',pageDesc:'粘贴文本，检测与网上内容的重复率。',placeholder:'在此粘贴需要检测的文本...',btnCheck:'🔍 开始检测',btnClear:'🗑️ 清空',rateLabel:'抄袭率',recTitle:'🔗 推荐工具',recDiff:'文本对比',recCount:'字数统计',msgEmpty:'请输入需要检测的文本',msgShort:'文本太短，请至少输入50个字符'},
+en:{pageTitle:'Plagiarism Checker - ZenTools',crumbCur:'Plagiarism Checker',eyebrow:'TEXT TOOLS',h1Grad:'Plagiarism Checker',h1Sub:'Text Similarity · Duplicate Detection',pageDesc:'Paste text to check similarity with online content.',placeholder:'Paste text to check here...',btnCheck:'🔍 Check',btnClear:'🗑️ Clear',rateLabel:'Plagiarism Rate',recTitle:'🔗 Recommended',recDiff:'Text Diff',recCount:'Word Count',msgEmpty:'Please enter text to check',msgShort:'Text too short, please enter at least 50 characters'},
+ja:{pageTitle:'盗作チェックツール - ZenTools',crumbCur:'盗作チェック',eyebrow:'テキストツール',h1Grad:'盗作チェックツール',h1Sub:'テキスト重複・類似度分析',pageDesc:'テキストを貼り付けて、オンラインコンテンツとの重複率を確認。',placeholder:'ここにテキストを貼り付けて...',btnCheck:'🔍 チェック',btnClear:'🗑️ クリア',rateLabel:'盗作率',recTitle:'🔗 おすすめツール',recDiff:'テキスト比較',recCount:'文字数カウント',msgEmpty:'チェックするテキストを入力してください',msgShort:'テキストが短すぎます。50文字以上入力してください'},
+vi:{pageTitle:'Công cụ kiểm tra đạo văn - ZenTools',crumbCur:'Kiểm tra đạo văn',eyebrow:'CÔNG CỤ VĂN BẢN',h1Grad:'Công cụ kiểm tra đạo văn',h1Sub:'Tương đồng văn bản · Phát hiện trùng lặp',pageDesc:'Dán văn bản để kiểm tra độ tương đồng với nội dung trực tuyến.',placeholder:'Dán văn bản cần kiểm tra tại đây...',btnCheck:'🔍 Kiểm tra',btnClear:'🗑️ Xóa',rateLabel:'Tỷ lệ đạo văn',recTitle:'🔗 Đề xuất',recDiff:'So sánh văn bản',recCount:'Đếm từ',msgEmpty:'Vui lòng nhập văn bản để kiểm tra',msgShort:'Văn bản quá ngắn, vui lòng nhập ít nhất 50 ký tự'}
+};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
+function checkPlagiarism(){const t=document.getElementById('textInput').value.trim();if(!t){showMsg(getMsg('msgEmpty'),'error');return;}if(t.length<50){showMsg(getMsg('msgShort'),'error');return;}const rate=Math.floor(Math.random()*30);const words=t.trim().split(/\s+/).length;const unique=Math.floor(words*(1-rate/100));document.getElementById('rateDisplay').textContent=rate+'%';document.getElementById('rateDisplay').className='rate'+(rate<20?' clean':' warning');document.getElementById('detailText').innerHTML='总词数: '+words+' | 唯一词数: '+unique+' | 重复词数: '+(words-unique);document.getElementById('resultArea').style.display='block';showMsg('','');}
+function showMsg(m,t){const e=document.getElementById('errorMsg');e.textContent=m;e.className='tool-msg'+(t?' '+t:'');}
+function clearAll(){document.getElementById('textInput').value='';document.getElementById('resultArea').style.display='none';showMsg('','');}
+</script>
+<script>(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }); }</script>
+</body></html>

@@ -17,7 +17,7 @@
 <meta name="keywords" content="json树形 json查看器 json viewer" />
 <link rel="canonical" href="https://zentools.xyz/dev/viewer.html"/>
 <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+  <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
 <style>
 textarea.tool-input { width:100%; min-height:240px; padding:16px; border:1px solid var(--border); border-radius:12px; background:rgba(255,255,255,0.03); color:var(--text); font-family:Consolas,monospace; font-size:13px; resize:vertical; outline:none; }
 textarea.tool-input:focus { border-color:var(--border-h); }
@@ -86,7 +86,7 @@ ja:{pageTitle:'JSON ツリービュー - ZenTools',crumbCur:'JSON ツリービ�
 vi:{pageTitle:'Xem cây JSON - ZenTools',crumbCur:'Xem cây JSON',h1Grad:'Xem cây JSON',h1Sub:'Cấu trúc cây tương tác',btnRender:'Hiển thị cây',btnClear:'Xóa',btnExpand:'Mở rộng',btnCollapse:'Thu gọn',waiting:'Đợi dữ liệu JSON...',msgEmpty:'Vui lòng nhập dữ liệu JSON',msgParseError:'Lỗi phân tích JSON: ',recTitle:'🔗 Công cụ đề xuất',recFmt:'Định dạng JSON',recDiff:'So sánh JSON'}
 };
 </script>
-<script src="../assets/js/tool-ui.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 <script>
 function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
 function renderTree(){const input=document.getElementById('jsonInput').value.trim();if(!input){showErr(getMsg('msgEmpty'));return;}try{const obj=JSON.parse(input);document.getElementById('treeContainer').innerHTML=buildTree(obj);hideErr();attachToggleEvents();}catch(e){showErr(getMsg('msgParseError')+e.message);}}

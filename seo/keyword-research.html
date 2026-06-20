@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>关键词研究工具 - ZenTools</title>
+<meta property="og:title" content="关键词研究工具 - 免费在线工具 | ZenTools" />
+<meta property="og:description" content="输入种子关键词，生成相关长尾词、搜索量和难度评分" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/seo/keyword-research.html" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Keyword Research Tool - Free Online Tool | ZenTools" />
+<meta name="twitter:description" content="Generate related long-tail keywords with search volume and difficulty scores" />
+<meta name="description" content="输入种子关键词，生成相关长尾词、搜索量和难度评分，免费在线使用，本地处理保护隐私。"/>
+<meta name="keywords" content="关键词研究 关键词工具 长尾词 SEO关键词" />
+<link rel="canonical" href="https://zentools.xyz/seo/keyword-research.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.input-wrap { display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap; }
+.input-wrap input { flex:1; min-width:200px; padding:14px 18px; border:1px solid var(--border); border-radius:12px; background:rgba(255,255,255,0.03); color:var(--text); font-size:15px; outline:none; }
+.input-wrap input:focus { border-color:var(--border-h); }
+.btn-group { display:flex; gap:10px; flex-wrap:wrap; margin:16px 0; }
+.btn-group button { padding:12px 24px; border-radius:10px; border:1px solid var(--border); background:var(--glass); color:var(--text); font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+.btn-group button:hover { border-color:var(--border-h); background:var(--glass-b); }
+.btn-primary { background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#000; border:none; padding:12px 28px; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; transition:opacity 0.2s,transform 0.2s; }
+.btn-primary:hover { opacity:0.9; transform:translateY(-2px); }
+.result-table { width:100%; border-collapse:collapse; margin-top:16px; }
+.result-table th { text-align:left; padding:12px 14px; background:rgba(255,255,255,0.03); border-bottom:1px solid var(--border); font-size:13px; color:var(--muted); font-weight:600; }
+.result-table td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.04); font-size:14px; }
+.result-table tr:hover td { background:rgba(255,255,255,0.02); }
+.difficulty { display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:600; }
+.diff-low { background:rgba(34,197,94,0.15); color:#4ade80; }
+.diff-med { background:rgba(251,191,36,0.15); color:#fbbf24; }
+.diff-high { background:rgba(239,68,68,0.15); color:#f87171; }
+.tool-msg { margin-top:12px; padding:12px; border-radius:10px; display:none; font-size:14px; }
+.tool-msg.error { display:block; background:rgba(248,113,113,0.1); color:#f87171; }
+.tool-msg.success { display:block; background:rgba(34,197,94,0.1); color:#4ade80; }
+@media(max-width:640px) { .result-table { font-size:12px; } .result-table th, .result-table td { padding:8px 6px; } }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这个工具免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "是的，完全免费。所有工具在浏览器本地运行，无需注册。"}}, {"@type": "Question", "name": "搜索量数据准确吗？", "acceptedAnswer": {"@type": "Answer", "text": "本工具使用模拟数据生成关键词建议，仅供参考。实际搜索量请以Google Keyword Planner等官方工具为准。"}}, {"@type": "Question", "name": "支持哪些语言？", "acceptedAnswer": {"@type": "Answer", "text": "支持中文、英文、日文、越南文四种语言界面。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "关键词研究工具 - ZenTools", "url": "https://zentools.xyz/seo/keyword-research.html", "description": "输入种子关键词，生成相关长尾词、搜索量和难度评分", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/seo/">SEO工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/seo/">SEO工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">关键词研究</span></div><span class="page-eyebrow" data-i18n="eyebrow">SEO工具</span><h1><span class="grad" data-i18n="h1Grad">关键词研究工具</span><br/><span data-i18n="h1Sub">长尾词挖掘 · 搜索量分析</span></h1><p data-i18n="pageDesc">输入种子关键词，生成相关长尾词建议，附带搜索量和难度评分。</p></div>
+<div class="tool-box reveal">
+<div class="input-wrap">
+<input type="text" id="seedInput" placeholder="输入种子关键词，如：在线工具、PDF转换器..." data-i18n-placeholder="seedPlaceholder"/>
+<button class="btn-primary" onclick="researchKeywords()" data-i18n="btnResearch">🔍 生成关键词</button>
+</div>
+<div class="btn-group">
+<button onclick="exportCSV()" data-i18n="btnExport">📥 导出CSV</button>
+<button onclick="clearAll()" data-i18n="btnClear">🗑️ 清空</button>
+</div>
+<div id="errorMsg" class="tool-msg error"></div>
+<div id="resultArea" style="display:none;">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+<span style="color:var(--muted);font-size:14px;" data-i18n="resultCount"></span>
+<span id="avgVolume" style="font-size:13px;color:var(--cyan);"></span>
+</div>
+<div style="overflow-x:auto;">
+<table class="result-table">
+<thead><tr><th data-i18n="thKeyword">关键词</th><th data-i18n="thVolume">月搜索量</th><th data-i18n="thDifficulty">难度</th><th data-i18n="thTrend">趋势</th></tr></thead>
+<tbody id="resultBody"></tbody>
+</table>
+</div>
+</div>
+<div class="tool-recommend">
+<h4 data-i18n="recTitle">🔗 推荐工具</h4>
+<a href="title-checker.html"><span data-i18n="recTitleChecker">SEO标题检查器</span></a><span class="sep">·</span>
+<a href="serp-preview.html"><span data-i18n="recSerp">SERP预览</span></a>
+</div>
+</div>
+<!-- Google AdSense -->
+<div style="max-width:900px;margin:0 auto 24px;padding:0 24px;">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/seo/">SEO工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'关键词研究工具 - ZenTools',crumbCur:'关键词研究',eyebrow:'SEO工具',h1Grad:'关键词研究工具',h1Sub:'长尾词挖掘 · 搜索量分析',pageDesc:'输入种子关键词，生成相关长尾词建议，附带搜索量和难度评分。',seedPlaceholder:'输入种子关键词，如：在线工具、PDF转换器...',btnResearch:'🔍 生成关键词',btnExport:'📥 导出CSV',btnClear:'🗑️ 清空',resultCount:'找到关键词',avgVol:'平均搜索量',thKeyword:'关键词',thVolume:'月搜索量',thDifficulty:'难度',thTrend:'趋势',recTitle:'🔗 推荐工具',recTitleChecker:'SEO标题检查器',recSerp:'SERP预览',msgEmpty:'请输入种子关键词',msgNoResult:'未找到相关关键词，请尝试其他词'},
+en:{pageTitle:'Keyword Research Tool - ZenTools',crumbCur:'Keyword Research',eyebrow:'SEO TOOLS',h1Grad:'Keyword Research Tool',h1Sub:'Long-tail Discovery · Volume Analysis',pageDesc:'Enter seed keywords to generate related long-tail suggestions with search volume and difficulty scores.',seedPlaceholder:'Enter seed keywords, e.g. online tools, PDF converter...',btnResearch:'🔍 Research',btnExport:'📥 Export CSV',btnClear:'🗑️ Clear',resultCount:'Keywords found',avgVol:'Avg. Volume',thKeyword:'Keyword',thVolume:'Monthly Volume',thDifficulty:'Difficulty',thTrend:'Trend',recTitle:'🔗 Recommended',recTitleChecker:'SEO Title Checker',recSerp:'SERP Preview',msgEmpty:'Please enter a seed keyword',msgNoResult:'No results found. Try a different keyword.'},
+ja:{pageTitle:'キーワードリサーチツール - ZenTools',crumbCur:'キーワードリサーチ',eyebrow:'SEOツール',h1Grad:'キーワードリサーチツール',h1Sub:'ロングテール発見・ボリューム分析',pageDesc:'シードキーワードを入力して、関連するロングテールキーワードの検索ボリュームと難易度スコアを生成。',seedPlaceholder:'シードキーワードを入力（例：オンラインツール、PDFコンバータ）',btnResearch:'🔍 リサーチ',btnExport:'📥 CSV書き出し',btnClear:'🗑️ クリア',resultCount:'キーワード発見',avgVol:'平均ボリューム',thKeyword:'キーワード',thVolume:'月間検索数',thDifficulty:'難易度',thTrend:'トレンド',recTitle:'🔗 おすすめツール',recTitleChecker:'SEOタイトルチェッカー',recSerp:'SERPプレビュー',msgEmpty:'シードキーワードを入力してください',msgNoResult:'結果が見つかりません。別のキーワードを試してください。'},
+vi:{pageTitle:'Công cụ nghiên cứu từ khóa - ZenTools',crumbCur:'Nghiên cứu từ khóa',eyebrow:'CÔNG CỤ SEO',h1Grad:'Công cụ nghiên cứu từ khóa',h1Sub:'Khám phá đuôi dài · Phân tích khối lượng',pageDesc:'Nhập từ khóa gốc để tạo gợi ý từ khóa đuôi dài kèm số lượng tìm kiếm và điểm khó khăn.',seedPlaceholder:'Nhập từ khóa gốc, ví dụ: công cụ trực tuyến, chuyển đổi PDF...',btnResearch:'🔍 Nghiên cứu',btnExport:'📥 Xuất CSV',btnClear:'🗑️ Xóa',resultCount:'Từ khóa tìm thấy',avgVol:'TB. Khối lượng',thKeyword:'Từ khóa',thVolume:'Lượt tìm kiếm/tháng',thDifficulty:'Khó khăn',thTrend:'Xu hướng',recTitle:'🔗 Công cụ đề xuất',recTitleChecker:'Kiểm tra tiêu đề SEO',recSerp:'Xem trước SERP',msgEmpty:'Vui lòng nhập từ khóa gốc',msgNoResult:'Không tìm thấy kết quả. Hãy thử từ khóa khác.'}
+};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
+const KW_DATABASE={
+zh:['在线工具','PDF转换器','图片压缩','视频编辑','格式转换','文件压缩','文本处理','图片编辑','音频转换','二维码生成','OCR识别','视频转GIF','JSON格式化','密码生成','单位换算','计算器在线','截图工具','屏幕录制','文件分割','批量重命名'],
+en:['online tools','PDF converter','image compressor','video editor','format converter','file compressor','text processor','image editor','audio converter','QR code generator','OCR tool','video to GIF','JSON formatter','password generator','unit converter','online calculator','screenshot tool','screen recorder','file splitter','batch rename'],
+ja:['オンラインツール','PDF変換','画像圧縮','動画編集','形式変換','ファイル圧縮','テキスト処理','画像編集','音声変換','QRコード生成','OCRツール','動画からGIF','JSONフォーマット','パスワード生成','単位変換','オンライン計算機','スクリーンショット','画面録画','ファイル分割','一括名前変更'],
+vi:['công cụ trực tuyến','chuyển đổi PDF','nén ảnh','chỉnh sửa video','chuyển đổi định dạng','nén file','xử lý văn bản','chỉnh sửa ảnh','chuyển đổi âm thanh','tạo mã QR','công cụ OCR','video sang GIF','định dạng JSON','tạo mật khẩu','chuyển đổi đơn vị','máy tính trực tuyến','chụp màn hình','ghi màn hình','tách file','đổi tên hàng loạt']
+};
+function genKeywords(seed){const lang=localStorage.getItem('zentools_lang')||'zh';const base=KW_DATABASE[lang]||KW_DATABASE.zh;const results=[];for(let i=0;i<base.length;i++){const kw=base[i];if(kw===seed)continue;const vol=Math.floor(Math.random()*50000)+100;const diff=Math.floor(Math.random()*100);const trend=Math.floor(Math.random()*100);results.push({keyword:seed+' '+kw,volume:vol,difficulty:diff,trend:trend});}return results.slice(0,20);}
+function getDiffClass(d){if(d<30)return'diff-low';if(d<60)return'diff-med';return'diff-high';}
+function getDiffLabel(d){const l=localStorage.getItem('zentools_lang')||'zh';if(d<30)return l==='zh'?'容易':l==='en'?'Easy':l==='ja'?'簡単':'Dễ';if(d<60)return l==='zh'?'中等':l==='en'?'Medium':l==='ja'?'普通':'Trung bình';return l==='zh'?'困难':l==='en'?'Hard':l==='ja'?'難しい':'Khó';}
+function renderResults(kws){const body=document.getElementById('resultBody');let html='';kws.forEach(k=>{html+=`<tr><td>${k.keyword}</td><td>${k.volume.toLocaleString()}</td><td><span class="difficulty ${getDiffClass(k.difficulty)}">${k.difficulty}</span></td><td>${k.trend}%</td></tr>`;});body.innerHTML=html;const avg=kws.reduce((s,k)=>s+k.volume,0)/kws.length;document.getElementById('avgVolume').textContent=getMsg('avgVol')+': '+Math.round(avg).toLocaleString();document.getElementById('resultArea').style.display='block';document.querySelector('[data-i18n="resultCount"]').textContent=getMsg('resultCount')+': '+kws.length;}
+function researchKeywords(){const seed=document.getElementById('seedInput').value.trim();if(!seed){showMsg(getMsg('msgEmpty'),'error');return;}const kws=genKeywords(seed);if(kws.length===0){showMsg(getMsg('msgNoResult'),'error');return;}renderResults(kws);showMsg('','');}
+function showMsg(m,type){const e=document.getElementById('errorMsg');e.textContent=m;e.className='tool-msg'+(type?' '+type:'');}
+function clearAll(){document.getElementById('seedInput').value='';document.getElementById('resultArea').style.display='none';showMsg('','');}
+function exportCSV(){const rows=[['Keyword','Volume','Difficulty','Trend']];document.querySelectorAll('#resultBody tr').forEach(r=>{const cells=r.querySelectorAll('td');rows.push([cells[0].textContent,cells[1].textContent,cells[2].textContent,cells[3].textContent]);});const csv=rows.map(r=>r.map(c=>'"'+c.replace(/"/g,'""')+'"').join(',')).join('\n');const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='keywords.csv';a.click();}
+</script>
+<script>
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }); }</script>
+</body>
+</html>

@@ -17,7 +17,7 @@
 <meta name="keywords" content="json对比 json差异 json diff" />
 <link rel="canonical" href="https://zentools.xyz/dev/diff.html"/>
 <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+  <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
 <style>
 .split-panel { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
 @media(max-width:768px) { .split-panel { grid-template-columns:1fr; } }
@@ -85,7 +85,7 @@ ja:{pageTitle:'JSON 差分ツール - ZenTools',crumbCur:'JSON 差分',h1Grad:'J
 vi:{pageTitle:'So sánh JSON - ZenTools',crumbCur:'So sánh JSON',h1Grad:'So sánh JSON',h1Sub:'Phát hiện khác biệt',pageDesc:'So sánh cấu trúc hai JSON, làm nổi bật các trường thêm, xóa và sửa.',panelA:'JSON gốc (A)',panelB:'So sánh JSON (B)',btnCompare:'So sánh',btnClear:'Xóa',btnSwap:'Hoán đổi',waiting:'Nhấn So sánh',msgEmpty:'Vui lòng nhập cả hai JSON',msgParseError:'Lỗi phân tích JSON: ',msgIdentical:'✅ Hai JSON hoàn toàn giống nhau',recTitle:'🔗 Công cụ đề xuất',recFmt:'Định dạng JSON',recViewer:'Xem cây JSON'}
 };
 </script>
-<script src="../assets/js/tool-ui.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 <script>
 function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
 function compareJSON(){const a=document.getElementById('jsonA').value.trim(),b=document.getElementById('jsonB').value.trim();if(!a||!b){showErr(getMsg('msgEmpty'));return;}try{const oa=JSON.parse(a),ob=JSON.parse(b);const d=getDiff(oa,ob);displayDiff(d);hideErr();}catch(e){showErr(getMsg('msgParseError')+e.message);}}

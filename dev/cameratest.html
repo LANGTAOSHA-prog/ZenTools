@@ -17,7 +17,7 @@
 <meta name="keywords" content="摄像头测试 摄像头检测 camera test" />
 <link rel="canonical" href="https://zentools.xyz/dev/cameratest.html"/>
 <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+  <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
 <style>
 .video-preview { margin-top:16px; border-radius:12px; overflow:hidden; background:rgba(0,0,0,0.3); border:1px solid var(--border); }
 .video-preview video { width:100%; max-height:460px; display:block; object-fit:contain; }
@@ -66,7 +66,7 @@ ja:{pageTitle:'カメラテスト - ZenTools',crumbCur:'カメラテスト',h1Gr
 vi:{pageTitle:'Kiểm tra camera - ZenTools',crumbCur:'Kiểm tra camera',h1Grad:'Kiểm tra camera',h1Sub:'Kiểm tra phần cứng',toolTitle:'Kiểm tra camera',btnStart:'Mở camera',btnStop:'Tắt',hint:'Nhấn "Mở camera" để bắt đầu',ok:'✅ Camera hoạt động tốt',fail:'❌ Không thể mở camera. Vui lòng kiểm tra quyền.'}
 };
 </script>
-<script src="../assets/js/tool-ui.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 <script>
 let stream=null;
 async function startCamera(){const el=document.getElementById('status');try{stream=await navigator.mediaDevices.getUserMedia({video:true,audio:false});document.getElementById('video').srcObject=stream;el.textContent=getMsg('ok');el.className='status-text active';}catch(e){el.textContent=getMsg('fail');el.className='status-text error';}}

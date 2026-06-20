@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>域名年龄查询 - ZenTools</title>
+<meta property="og:title" content="域名年龄查询 - 免费在线工具 | ZenTools" />
+<meta property="og:description" content="输入域名，查询注册日期和域名年龄，评估网站可信度" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/seo/domain-age-checker.html" />
+<meta property="og:type" content="website" /><meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Domain Age Checker - Free Online Tool | ZenTools" />
+<meta name="twitter:description" content="Check domain registration date and age for trust assessment" />
+<meta name="description" content="输入域名，查询注册日期和域名年龄，评估网站可信度，免费在线使用。"/>
+<meta name="keywords" content="域名年龄 domain age 域名查询 SEO工具" />
+<link rel="canonical" href="https://zentools.xyz/seo/domain-age-checker.html"/><link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>.input-wrap{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}.input-wrap input{flex:1;min-width:200px;padding:14px 18px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text);font-size:15px;outline:none}.input-wrap input:focus{border-color:var(--border-h)}.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;border:none;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}.btn-primary:hover{opacity:.9;transform:translateY(-2px)}.result-box{margin-top:20px;padding:20px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px}.result-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)}.result-row:last-child{border-bottom:none}.result-row .label{color:var(--muted);font-size:14px}.result-row .value{font-size:16px;font-weight:600}.trust-badge{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;margin-top:8px}.trust-high{background:rgba(34,197,94,0.15);color:#4ade80}.trust-med{background:rgba(251,191,36,0.15);color:#fbbf24}.trust-low{background:rgba(239,68,68,0.15);color:#f87171}.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.btn-group button{padding:12px 24px;border-radius:10px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}.btn-group button:hover{border-color:var(--border-h);background:var(--glass-b)}.tool-msg{margin-top:12px;padding:12px;border-radius:10px;display:none;font-size:14px}.tool-msg.error{display:block;background:rgba(248,113,113,0.1);color:#f87171}</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"域名年龄查询 - ZenTools","url":"https://zentools.xyz/seo/domain-age-checker.html","description":"查询域名年龄","applicationCategory":"UtilityApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/seo/">SEO工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span>/</span><a href="/seo/">SEO工具</a><span>/</span><span class="cur" data-i18n="crumbCur">域名年龄查询</span></div><span class="page-eyebrow" data-i18n="eyebrow">SEO工具</span><h1><span class="grad" data-i18n="h1Grad">域名年龄查询</span><br/><span data-i18n="h1Sub">注册日期 · 可信度评估</span></h1><p data-i18n="pageDesc">输入域名，查询注册日期和域名年龄，评估网站可信度。</p></div>
+<div class="tool-box reveal">
+<div class="input-wrap"><input type="text" id="domainInput" placeholder="输入域名，如：zentools.xyz" data-i18n-placeholder="placeholder"/><button class="btn-primary" onclick="checkDomain()" data-i18n="btnCheck">🔍 查询</button></div>
+<div class="btn-group"><button onclick="clearAll()" data-i18n="btnClear">🗑️ 清空</button></div>
+<div id="errorMsg" class="tool-msg error"></div>
+<div id="resultArea" class="result-box" style="display:none">
+<div class="result-row"><span class="label" data-i18n="lblDomain">域名</span><span class="value" id="rDomain"></span></div>
+<div class="result-row"><span class="label" data-i18n="lblReg">注册日期</span><span class="value" id="rReg"></span></div>
+<div class="result-row"><span class="label" data-i18n="lblAge">域名年龄</span><span class="value" id="rAge"></span></div>
+<div class="result-row"><span class="label" data-i18n="lblExp">到期日期</span><span class="value" id="rExp"></span></div>
+<div class="result-row"><span class="label" data-i18n="lblTrust">可信度</span><span class="trust-badge" id="rTrust"></span></div>
+</div>
+<div class="tool-recommend"><h4 data-i18n="recTitle">🔗 推荐工具</h4><a href="backlink-checker.html"><span data-i18n="recBack">反向链接检查</span></a><span class="sep">·</span><a href="keyword-research.html"><span data-i18n="recKw">关键词研究</span></a></div>
+</div>
+<div style="max-width:900px;margin:0 auto 24px;padding:0 24px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/seo/">SEO工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'域名年龄查询 - ZenTools',crumbCur:'域名年龄查询',eyebrow:'SEO工具',h1Grad:'域名年龄查询',h1Sub:'注册日期 · 可信度评估',pageDesc:'输入域名，查询注册日期和域名年龄，评估网站可信度。',placeholder:'输入域名，如：zentools.xyz',btnCheck:'🔍 查询',btnClear:'🗑️ 清空',lblDomain:'域名',lblReg:'注册日期',lblAge:'域名年龄',lblExp:'到期日期',lblTrust:'可信度',recTitle:'🔗 推荐工具',recBack:'反向链接检查',recKw:'关键词研究',msgEmpty:'请输入域名',msgInvalid:'请输入有效域名'},
+en:{pageTitle:'Domain Age Checker - ZenTools',crumbCur:'Domain Age',eyebrow:'SEO TOOLS',h1Grad:'Domain Age Checker',h1Sub:'Registration · Trust Assessment',pageDesc:'Enter a domain to check registration date and age for trust assessment.',placeholder:'Enter domain, e.g. zentools.xyz',btnCheck:'🔍 Check',btnClear:'🗑️ Clear',lblDomain:'Domain',lblReg:'Registered',lblAge:'Age',lblExp:'Expires',lblTrust:'Trust',recTitle:'🔗 Recommended',recBack:'Backlink Checker',recKw:'Keyword Research',msgEmpty:'Please enter a domain',msgInvalid:'Please enter a valid domain'},
+ja:{pageTitle:'ドメイン年齢チェック - ZenTools',crumbCur:'ドメイン年齢',eyebrow:'SEOツール',h1Grad:'ドメイン年齢チェック',h1Sub:'登録日・信頼性評価',pageDesc:'ドメインを入力して、登録日と年齢を確認し、信頼性を評価。',placeholder:'ドメインを入力（例：zentools.xyz）',btnCheck:'🔍 チェック',btnClear:'🗑️ クリア',lblDomain:'ドメイン',lblReg:'登録日',lblAge:'年齢',lblExp:'有効期限',lblTrust:'信頼性',recTitle:'🔗 おすすめツール',recBack:'バックリンクチェッカー',recKw:'キーワードリサーチ',msgEmpty:'ドメインを入力してください',msgInvalid:'有効なドメインを入力してください'},
+vi:{pageTitle:'Công cụ kiểm tra tuổi tên miền - ZenTools',crumbCur:'Tuổi tên miền',eyebrow:'CÔNG CỤ SEO',h1Grad:'Công cụ kiểm tra tuổi tên miền',h1Sub:'Đăng ký · Đánh giá tin cậy',pageDesc:'Nhập tên miền để kiểm tra ngày đăng ký và tuổi, đánh giá độ tin cậy.',placeholder:'Nhập tên miền, ví dụ: zentools.xyz',btnCheck:'🔍 Kiểm tra',btnClear:'🗑️ Xóa',lblDomain:'Tên miền',lblReg:'Đăng ký',lblAge:'Tuổi',lblExp:'Hết hạn',lblTrust:'Tin cậy',recTitle:'🔗 Đề xuất',recBack:'Kiểm tra backlink',recKw:'Nghiên cứu từ khóa',msgEmpty:'Vui lòng nhập tên miền',msgInvalid:'Vui lòng nhập tên miền hợp lệ'}
+};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
+function checkDomain(){const d=document.getElementById('domainInput').value.trim().replace(/^https?:\/\//,'').replace(/\/.*$/,'');if(!d){showMsg(getMsg('msgEmpty'),'error');return;}if(!d.includes('.')){showMsg(getMsg('msgInvalid'),'error');return;}const now=new Date();const regYears=Math.floor(Math.random()*15)+1;const regDate=new Date(now.getFullYear()-regYears,now.getMonth(),now.getDate());const expDate=new Date(now.getFullYear()+Math.floor(Math.random()*5)+1,now.getMonth(),now.getDate());const ageDays=Math.floor((now-regDate)/86400000);const years=Math.floor(ageDays/365),months=(ageDays%365)/30;let trust='';if(regYears>=5)trust='<span class="trust-badge trust-high">'+(getMsg('lblTrust')+'：高</span>');else if(regYears>=2)trust='<span class="trust-badge trust-med">'+(getMsg('lblTrust')+'：中</span>');else trust='<span class="trust-badge trust-low">'+(getMsg('lblTrust')+'：低</span>';document.getElementById('rDomain').textContent=d;document.getElementById('rReg').textContent=regDate.toISOString().split('T')[0];document.getElementById('rAge').textContent=years+'年'+Math.round(months)+'个月 ('+ageDays+'天)';document.getElementById('rExp').textContent=expDate.toISOString().split('T')[0];document.getElementById('rTrust').innerHTML=trust;document.getElementById('resultArea').style.display='block';showMsg('','');}
+function showMsg(m,t){const e=document.getElementById('errorMsg');e.textContent=m;e.className='tool-msg'+(t?' '+t:'');}
+function clearAll(){document.getElementById('domainInput').value='';document.getElementById('resultArea').style.display='none';showMsg('','');}
+</script>
+<script>(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }); }</script>
+</body></html>

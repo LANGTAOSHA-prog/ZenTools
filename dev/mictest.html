@@ -17,7 +17,7 @@
 <meta name="keywords" content="麦克风测试 麦克风检测 mic test" />
 <link rel="canonical" href="https://zentools.xyz/dev/mictest.html"/>
 <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+  <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
 <style>
 .volume-display { text-align:center; padding:24px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; margin:16px 0; }
 .volume-display .vol-label { font-size:13px; color:var(--muted); margin-bottom:8px; }
@@ -73,7 +73,7 @@ ja:{pageTitle:'マイクテスト - ZenTools',crumbCur:'マイクテスト',h1Gr
 vi:{pageTitle:'Kiểm tra micro - ZenTools',crumbCur:'Kiểm tra micro',h1Grad:'Kiểm tra micro',h1Sub:'Phát hiện âm lượng',toolTitle:'Kiểm tra micro',btnStart:'Bắt đầu',btnStop:'Dừng',volume:'Âm lượng',hint:'Nhấn "Bắt đầu" để kiểm tra',ok:'✅ Micro hoạt động tốt',fail:'❌ Không thể mở micro. Vui lòng kiểm tra quyền.'}
 };
 </script>
-<script src="../assets/js/tool-ui.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 <script>
 let audioCtx,analyser,micStream,raf;
 async function startMic(){const el=document.getElementById('status');try{micStream=await navigator.mediaDevices.getUserMedia({audio:true});audioCtx=new(window.AudioContext||window.webkitAudioContext)();const source=audioCtx.createMediaStreamSource(micStream);analyser=audioCtx.createAnalyser();analyser.fftSize=256;source.connect(analyser);const data=new Uint8Array(analyser.frequencyBinCount);const loop=()=>{analyser.getByteFrequencyData(data);const avg=data.reduce((a,b)=>a+b,0)/data.length;const pct=Math.min(100,Math.round(avg));document.getElementById('level').textContent=pct;document.getElementById('bar').style.width=pct+'%';raf=requestAnimationFrame(loop);};loop();el.textContent=getMsg('ok');el.className='status-text active';}catch(e){el.textContent=getMsg('fail');el.className='status-text error';}}

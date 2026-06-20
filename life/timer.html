@@ -14,7 +14,7 @@
   <meta name="twitter:description" content="Online timer with start, pause, reset." />
 <meta name="description" content="在线计时器，支持开始、暂停、重置操作。">
 <meta name="keywords" content="计时器,秒表,在线计时,倒计时">
-<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
 <style>
 .tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
 label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
@@ -51,7 +51,7 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
 </div>
   </div>
 </div>
-<script src="../assets/js/tool-ui.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 <script>
 var _tm=0,_tId=null,_tr=false;
 function startTimer(){if(!_tr){_tr=true;var s=Date.now()-_tm;_tId=setInterval(function(){_tm=Date.now()-s;var m=Math.floor(_tm/60000),sec=(_tm%60000)/1000;document.getElementById('timerDisplay').textContent=String(m).padStart(2,'0')+':'+sec.toFixed(1).padStart(4,'0');},100);document.getElementById('timerStartBtn').textContent='▶ 运行中';}}

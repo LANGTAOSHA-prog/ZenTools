@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>XML Sitemap生成器 - ZenTools</title>
+<meta property="og:title" content="XML Sitemap生成器 - 免费在线工具 | ZenTools" />
+<meta property="og:description" content="输入网站URL列表，生成符合标准的XML Sitemap文件" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/seo/xml-sitemap-generator.html" />
+<meta property="og:type" content="website" /><meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="XML Sitemap Generator - Free Online Tool | ZenTools" />
+<meta name="twitter:description" content="Generate standards-compliant XML Sitemap from URL list" />
+<meta name="description" content="输入网站URL列表，生成符合标准的XML Sitemap文件，免费在线使用。"/>
+<meta name="keywords" content="sitemap XML Sitemap 站点地图 SEO sitemap生成" />
+<link rel="canonical" href="https://zentools.xyz/seo/xml-sitemap-generator.html"/><link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>textarea{width:100%;min-height:200px;padding:16px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.03);color:var(--text);font-size:14px;line-height:1.6;resize:vertical;outline:none;font-family:Consolas,monospace}textarea:focus{border-color:var(--border-h)}.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.btn-group button{padding:12px 24px;border-radius:10px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}.btn-group button:hover{border-color:var(--border-h);background:var(--glass-b)}.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;border:none;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}.btn-primary:hover{opacity:.9;transform:translateY(-2px)}.result-box{margin-top:20px;padding:20px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px}.result-box pre{background:rgba(0,0,0,0.2);border-radius:8px;padding:16px;overflow:auto;max-height:400px;font-size:12px;color:#a5b4fc}.result-box .count{font-size:14px;color:var(--muted);margin-bottom:12px}.tool-msg{margin-top:12px;padding:12px;border-radius:10px;display:none;font-size:14px}.tool-msg.error{display:block;background:rgba(248,113,113,0.1);color:#f87171}</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"XML Sitemap生成器 - ZenTools","url":"https://zentools.xyz/seo/xml-sitemap-generator.html","description":"生成XML Sitemap文件","applicationCategory":"UtilityApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/seo/">SEO工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span>/</span><a href="/seo/">SEO工具</a><span>/</span><span class="cur" data-i18n="crumbCur">XML Sitemap生成</span></div><span class="page-eyebrow" data-i18n="eyebrow">SEO工具</span><h1><span class="grad" data-i18n="h1Grad">XML Sitemap生成器</span><br/><span data-i18n="h1Sub">站点地图 · SEO优化</span></h1><p data-i18n="pageDesc">输入URL列表（每行一个），生成标准XML Sitemap文件。</p></div>
+<div class="tool-box reveal">
+<textarea id="urlInput" placeholder="每行输入一个URL&#10;https://zentools.xyz/&#10;https://zentools.xyz/seo/&#10;https://zentools.xyz/pdf/" data-i18n-placeholder="placeholder"></textarea>
+<div class="btn-group"><button class="btn-primary" onclick="generateSitemap()" data-i18n="btnGenerate">📄 生成Sitemap</button><button onclick="downloadSitemap()" data-i18n="btnDownload">📥 下载XML</button><button onclick="clearAll()" data-i18n="btnClear">🗑️ 清空</button></div>
+<div id="errorMsg" class="tool-msg error"></div>
+<div id="resultArea" class="result-box" style="display:none">
+<div class="count" id="urlCount"></div>
+<pre id="xmlOutput"></pre>
+</div>
+<div class="tool-recommend"><h4 data-i18n="recTitle">🔗 推荐工具</h4><a href="keyword-research.html"><span data-i18n="recKw">关键词研究</span></a><span class="sep">·</span><a href="robots-generator.html"><span data-i18n="recRobots">Robots.txt生成</span></a></div>
+</div>
+<div style="max-width:900px;margin:0 auto 24px;padding:0 24px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/seo/">SEO工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'XML Sitemap生成器 - ZenTools',crumbCur:'XML Sitemap生成',eyebrow:'SEO工具',h1Grad:'XML Sitemap生成器',h1Sub:'站点地图 · SEO优化',pageDesc:'输入URL列表（每行一个），生成标准XML Sitemap文件。',placeholder:'每行输入一个URL\nhttps://zentools.xyz/\nhttps://zentools.xyz/seo/',btnGenerate:'📄 生成Sitemap',btnDownload:'📥 下载XML',btnClear:'🗑️ 清空',recTitle:'🔗 推荐工具',recKw:'关键词研究',recRobots:'Robots.txt生成',msgEmpty:'请输入至少一个URL',msgInvalid:'请检查URL格式'},
+en:{pageTitle:'XML Sitemap Generator - ZenTools',crumbCur:'XML Sitemap',eyebrow:'SEO TOOLS',h1Grad:'XML Sitemap Generator',h1Sub:'Sitemap · SEO Optimization',pageDesc:'Enter URL list (one per line) to generate a standard XML Sitemap file.',placeholder:'Enter one URL per line\nhttps://zentools.xyz/\nhttps://zentools.xyz/seo/',btnGenerate:'📄 Generate',btnDownload:'📥 Download',btnClear:'🗑️ Clear',recTitle:'🔗 Recommended',recKw:'Keyword Research',recRobots:'Robots.txt Generator',msgEmpty:'Please enter at least one URL',msgInvalid:'Please check URL format'},
+ja:{pageTitle:'XML Sitemap生成ツール - ZenTools',crumbCur:'XML Sitemap生成',eyebrow:'SEOツール',h1Grad:'XML Sitemap生成ツール',h1Sub:'サイトマップ・SEO最適化',pageDesc:'URLリスト（1行に1つ）を入力して、標準XML Sitemapファイルを生成。',placeholder:'1行に1つのURL\nhttps://zentools.xyz/\nhttps://zentools.xyz/seo/',btnGenerate:'📄 生成',btnDownload:'📥 ダウンロード',btnClear:'🗑️ クリア',recTitle:'🔗 おすすめツール',recKw:'キーワードリサーチ',recRobots:'Robots.txt生成',msgEmpty:'少なくとも1つのURLを入力してください',msgInvalid:'URL形式を確認してください'},
+vi:{pageTitle:'Công cụ tạo XML Sitemap - ZenTools',crumbCur:'Tạo XML Sitemap',eyebrow:'CÔNG CỤ SEO',h1Grad:'Công cụ tạo XML Sitemap',h1Sub:'Sitemap · Tối ưu SEO',pageDesc:'Nhập danh sách URL (mỗi dòng một URL) để tạo tệp XML Sitemap chuẩn.',placeholder:'Mỗi dòng một URL\nhttps://zentools.xyz/\nhttps://zentools.xyz/seo/',btnGenerate:'📄 Tạo',btnDownload:'📥 Tải xuống',btnClear:'🗑️ Xóa',recTitle:'🔗 Đề xuất',recKw:'Nghiên cứu từ khóa',recRobots:'Tạo Robots.txt',msgEmpty:'Vui lòng nhập ít nhất một URL',msgInvalid:'Vui lòng kiểm tra định dạng URL'}
+};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
+let currentXml='';
+function generateSitemap(){const raw=document.getElementById('urlInput').value.trim();if(!raw){showMsg(getMsg('msgEmpty'),'error');return;}const urls=raw.split('\n').map(u=>u.trim()).filter(u=>u.length>0&&/^https?:\/\//.test(u));if(urls.length===0){showMsg(getMsg('msgInvalid'),'error');return;}const now=new Date().toISOString().split('T')[0];let xml='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';urls.forEach(u=>{xml+='  <url>\n    <loc>'+u+'</loc>\n    <lastmod>'+now+'</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>\n';});xml+='</urlset>';currentXml=xml;document.getElementById('urlCount').textContent=urls.length+' URL(s)';document.getElementById('xmlOutput').textContent=xml;document.getElementById('resultArea').style.display='block';showMsg('','');}
+function showMsg(m,t){const e=document.getElementById('errorMsg');e.textContent=m;e.className='tool-msg'+(t?' '+t:'');}
+function clearAll(){document.getElementById('urlInput').value='';document.getElementById('resultArea').style.display='none';showMsg('','');currentXml='';}
+function downloadSitemap(){if(!currentXml){showMsg('先生成Sitemap','error');return;}const blob=new Blob(['\ufeff'+currentXml],{type:'text/xml;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sitemap.xml';a.click();}
+</script>
+<script>(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }); }</script>
+</body></html>

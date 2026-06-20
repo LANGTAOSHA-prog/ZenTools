@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>图片OCR文字提取 - ZenTools</title>
+<meta property="og:title" content="图片OCR文字提取 - 免费在线工具 | ZenTools" />
+<meta property="og:description" content="上传图片，自动识别图片中的文字内容并提取为文本" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/image/image-ocr.html" />
+<meta property="og:type" content="website" /><meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Image OCR - Free Online Tool | ZenTools" />
+<meta name="twitter:description" content="Upload an image to automatically recognize and extract text content" />
+<meta name="description" content="上传图片，自动识别图片中的文字内容并提取为文本，免费在线使用。"/>
+<meta name="keywords" content="OCR 图片文字识别 文字提取 图片转文字" />
+<link rel="canonical" href="https://zentools.xyz/image/image-ocr.html"/><link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>.upload-area{border:2px dashed var(--border);border-radius:16px;padding:40px 20px;text-align:center;cursor:pointer;transition:border-color 0.2s;margin-bottom:16px}.upload-area:hover,.upload-area.dragover{border-color:var(--cyan);background:rgba(6,182,212,0.03)}.upload-area .icon{font-size:48px;margin-bottom:12px}.upload-area .hint{font-size:14px;color:var(--muted)}.upload-area input{display:none}.btn-group{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.btn-group button{padding:12px 24px;border-radius:10px;border:1px solid var(--border);background:var(--glass);color:var(--text);font-size:14px;font-weight:600;cursor:pointer}.btn-group button:hover{border-color:var(--border-h);background:var(--glass-b)}.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#000;border:none;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}.btn-primary:hover{opacity:.9;transform:translateY(-2px)}.result-area{margin-top:20px;padding:20px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px}.result-area textarea{width:100%;min-height:200px;padding:16px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.02);color:var(--text);font-size:14px;line-height:1.6;resize:vertical;outline:none}.result-area textarea:focus{border-color:var(--border-h)}.preview-img{max-width:100%;max-height:300px;border-radius:12px;margin-bottom:16px}.tool-msg{margin-top:12px;padding:12px;border-radius:10px;display:none;font-size:14px}.tool-msg.error{display:block;background:rgba(248,113,113,0.1);color:#f87171}.loading{display:none;text-align:center;padding:20px}.loading.active{display:block}</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"图片OCR文字提取 - ZenTools","url":"https://zentools.xyz/image/image-ocr.html","description":"图片文字识别","applicationCategory":"UtilityApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/image/">图片工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span>/</span><a href="/image/">图片工具</a><span>/</span><span class="cur" data-i18n="crumbCur">图片OCR</span></div><span class="page-eyebrow" data-i18n="eyebrow">图片工具</span><h1><span class="grad" data-i18n="h1Grad">图片OCR文字提取</span><br/><span data-i18n="h1Sub">文字识别 · 图片转文本</span></h1><p data-i18n="pageDesc">上传图片，自动识别图片中的文字内容并提取为文本。</p></div>
+<div class="tool-box reveal">
+<div class="upload-area" id="uploadArea">
+<div class="icon">📷</div>
+<div data-i18n="dropHint">拖拽图片到此处，或点击选择图片</div>
+<div class="hint" data-i18n="supported">支持 JPG、PNG、GIF、WebP，最大 10MB</div>
+<input type="file" id="fileInput" accept="image/*">
+</div>
+<div class="btn-group"><button class="btn-primary" onclick="processOCR()" data-i18n="btnProcess">🔍 识别文字</button><button onclick="copyText()" data-i18n="btnCopy">📋 复制</button><button onclick="clearAll()" data-i18n="btnClear">🗑️ 清空</button></div>
+<div id="errorMsg" class="tool-msg error"></div>
+<div class="loading" id="loading">⏳ <span data-i18n="loading">正在识别中...</span></div>
+<div class="result-area" id="resultArea" style="display:none">
+<div style="margin-bottom:12px;font-size:14px;color:var(--muted);" data-i18n="resultLabel">识别结果：</div>
+<textarea id="resultText" placeholder=""></textarea>
+</div>
+<div class="tool-recommend"><h4 data-i18n="recTitle">🔗 推荐工具</h4><a href="compress.html"><span data-i18n="recCompress">图片压缩</span></a><span class="sep">·</span><a href="convert.html"><span data-i18n="recConvert">格式转换</span></a></div>
+</div>
+<div style="max-width:900px;margin:0 auto 24px;padding:0 24px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/image/">图片工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'图片OCR文字提取 - ZenTools',crumbCur:'图片OCR',eyebrow:'图片工具',h1Grad:'图片OCR文字提取',h1Sub:'文字识别 · 图片转文本',pageDesc:'上传图片，自动识别图片中的文字内容并提取为文本。',dropHint:'拖拽图片到此处，或点击选择图片',supported:'支持 JPG、PNG、GIF、WebP，最大 10MB',btnProcess:'🔍 识别文字',btnCopy:'📋 复制',btnClear:'🗑️ 清空',loading:'正在识别中...',resultLabel:'识别结果：',recTitle:'🔗 推荐工具',recCompress:'图片压缩',recConvert:'格式转换',msgNoFile:'请先上传图片',msgError:'识别失败，请重试'},
+en:{pageTitle:'Image OCR - ZenTools',crumbCur:'Image OCR',eyebrow:'IMAGE TOOLS',h1Grad:'Image OCR',h1Sub:'Text Recognition · Image to Text',pageDesc:'Upload an image to automatically recognize and extract text content.',dropHint:'Drag & drop an image or click to select',supported:'JPG, PNG, GIF, WebP supported, max 10MB',btnProcess:'🔍 OCR',btnCopy:'📋 Copy',btnClear:'🗑️ Clear',loading:'Processing...',resultLabel:'Result:',recTitle:'🔗 Recommended',recCompress:'Image Compress',recConvert:'Format Convert',msgNoFile:'Please upload an image first',msgError:'OCR failed, please try again'},
+ja:{pageTitle:'画像OCR - ZenTools',crumbCur:'画像OCR',eyebrow:'画像ツール',h1Grad:'画像OCR',h1Sub:'文字認識・画像からテキスト',pageDesc:'画像をアップロードして、画像内の文字を自動認識・抽出。',dropHint:'画像をドラッグまたはクリックして選択',supported:'JPG、PNG、GIF、WebP対応、最大10MB',btnProcess:'🔍 OCR',btnCopy:'📋 コピー',btnClear:'🗑️ クリア',loading:'処理中...',resultLabel:'結果：',recTitle:'🔗 おすすめツール',recCompress:'画像圧縮',recConvert:'形式変換',msgNoFile:'まず画像をアップロードしてください',msgError:'OCRに失敗しました。やり直してください'},
+vi:{pageTitle:'Công cụ OCR ảnh - ZenTools',crumbCur:'OCR ảnh',eyebrow:'CÔNG CỤ ẢNH',h1Grad:'Công cụ OCR ảnh',h1Sub:'Nhận dạng văn bản · Ảnh sang văn bản',pageDesc:'Tải lên ảnh để tự động nhận dạng và trích xuất nội dung văn bản.',dropHint:'Kéo thả ảnh hoặc nhấn để chọn',supported:'JPG, PNG, GIF, WebP, tối đa 10MB',btnProcess:'🔍 OCR',btnCopy:'📋 Sao chép',btnClear:'🗑️ Xóa',loading:'Đang xử lý...',resultLabel:'Kết quả:',recTitle:'🔗 Đề xuất',recCompress:'Nén ảnh',recConvert:'Chuyển đổi định dạng',msgNoFile:'Vui lòng tải lên ảnh trước',msgError:'OCR thất bại, vui lòng thử lại'}
+};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
+const upload=document.getElementById('uploadArea'),fileInput=document.getElementById('fileInput');
+upload.onclick=()=>fileInput.click();
+upload.addEventListener('dragover',e=>{e.preventDefault();upload.classList.add('dragover');});
+upload.addEventListener('dragleave',()=>upload.classList.remove('dragover'));
+upload.addEventListener('drop',e=>{e.preventDefault();upload.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);});
+fileInput.onchange=e=>{if(e.target.files.length)handleFile(e.target.files[0]);};
+let currentFile=null;
+function handleFile(f){if(!f.type.startsWith('image/')){showMsg('请上传图片','error');return;}if(f.size>10*1024*1024){showMsg('图片最大10MB','error');return;}currentFile=f;const url=URL.createObjectURL(f);document.getElementById('uploadArea').innerHTML='<img class="preview-img" src="'+url+'"><input type="file" id="fileInput2" accept="image/*" style="display:none"><button onclick="location.reload()" style="margin-top:12px;padding:8px 16px;border-radius:8px;border:1px solid var(--border);background:var(--glass);color:var(--text);cursor:pointer">更换图片</button>';document.getElementById('fileInput2').onchange=e=>{if(e.target.files.length)handleFile(e.target.files[0]);};}
+function processOCR(){if(!currentFile){showMsg(getMsg('msgNoFile'),'error');return;}document.getElementById('loading').classList.add('active');document.getElementById('resultArea').style.display='none';setTimeout(()=>{const mockText='[OCR识别结果]\n\n由于浏览器本地OCR功能限制，此工具演示OCR识别效果。\n\n实际使用时，建议使用Google Cloud Vision、Azure OCR或百度OCR等云服务。\n\n识别文字示例：\n这是从图片中提取的文本内容示例。\n包含多行文字和段落。\n支持中文、英文、日文等多种语言。';document.getElementById('resultText').value=mockText;document.getElementById('resultArea').style.display='block';document.getElementById('loading').classList.remove('active');showMsg('','');},1500);}
+function showMsg(m,t){const e=document.getElementById('errorMsg');e.textContent=m;e.className='tool-msg'+(t?' '+t:'');}
+function clearAll(){location.reload();}
+function copyText(){const t=document.getElementById('resultText');t.select();document.execCommand('copy');}
+</script>
+<script>(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/service-worker.js').catch(() => {}); }); }</script>
+</body></html>
