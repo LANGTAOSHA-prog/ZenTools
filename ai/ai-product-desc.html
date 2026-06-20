@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 产品描述生成 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI 产品描述生成 | ZenTools" />
+  <meta property="og:description" content="生成电商产品描述，适用于淘宝、京东、亚马逊等平台。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-product-desc.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 产品描述生成 | ZenTools" />
+  <meta name="twitter:description" content="Generate e-commerce product descriptions." />
+<meta name="description" content="生成电商产品描述，适用于淘宝、京东、亚马逊等平台。">
+<meta name="keywords" content="ai产品描述,电商文案,产品介绍,商品描述,ai电商">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI 产品描述生成</span></h1>
+    <p>生成电商产品描述，适用于淘宝、京东、亚马逊等平台。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>产品名称</label><input type="text" id="pdName" placeholder="例如：智能保温杯" /></div>
+  <div><label>类别</label><input type="text" id="pdCat" placeholder="例如：家居用品" /></div>
+</div>
+<label>产品特点（每行一个）</label>
+<textarea id="pdFeatures" rows="4" placeholder="304不锈钢
+12小时保温
+500ml容量"></textarea>
+<label>目标平台</label>
+<select id="pdPlatform" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+  <option value="淘宝">淘宝</option><option value="京东">京东</option><option value="亚马逊">亚马逊</option>
+</select>
+<button class="btn" onclick="genPD()" style="margin-top:12px;">生成描述</button>
+<div class="result" id="pdResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genPD(){
+  var n=document.getElementById('pdName').value.trim(),c=document.getElementById('pdCat').value.trim(),f=document.getElementById('pdFeatures').value.trim(),p=document.getElementById('pdPlatform').value;
+  if(!n){alert('请输入产品名称');return;}
+  var prompt='请为产品“'+n+'”写一段'+p+'类型的产品描述。';
+  if(c)prompt+='\n类别：'+c;
+  if(f)prompt+='\n特点：\n'+f;
+  prompt+='\n\n要求：突出卖点、包含关键词、提到使用场景、解决痛点。';
+  document.getElementById('pdResult').style.display='block';document.getElementById('pdResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

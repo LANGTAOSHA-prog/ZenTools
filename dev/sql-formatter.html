@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SQL 格式化 - 开发工具 | ZenTools</title>
+  <meta property="og:title" content="SQL 格式化 | ZenTools" />
+  <meta property="og:description" content="格式化 SQL 查询语句，支持关键字高亮和缩进。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/sql-formatter.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SQL 格式化 | ZenTools" />
+  <meta name="twitter:description" content="Format SQL queries with proper indentation." />
+<meta name="description" content="格式化 SQL 查询语句，支持关键字高亮和缩进。">
+<meta name="keywords" content="sql格式化,sql美化,sql在线,sql工具,数据库">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:monospace; resize:vertical; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; font-family:monospace; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">开发工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">SQL 格式化</span></h1>
+    <p>格式化 SQL 查询语句，支持关键字高亮和缩进。</p>
+  </div>
+  <div class="tool-box">
+    
+<label>输入 SQL 语句</label>
+<textarea id="sqlInput" rows="8" placeholder="SELECT * FROM users WHERE id = 1"></textarea>
+<div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+  <button class="btn" onclick="formatSQL()">格式化</button>
+  <button class="btn btn2" onclick="minifySQL()">压缩</button>
+  <button class="btn btn2" onclick="copySQL()">复制</button>
+</div>
+<div class="result" id="sqlResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+var K = 'SELECT|FROM|WHERE|AND|OR|NOT|IN|LIKE|BETWEEN|JOIN|LEFT|RIGHT|INNER|OUTER|ON|INSERT|INTO|VALUES|UPDATE|SET|DELETE|CREATE|TABLE|DROP|ALTER|INDEX|VIEW|GROUP|BY|ORDER|ASC|DESC|HAVING|LIMIT|OFFSET|UNION|ALL|DISTINCT|AS|CASE|WHEN|THEN|ELSE|END|NULL|IS|EXISTS|COUNT|SUM|AVG|MIN|MAX|CAST|COALESCE|IFNULL';
+var KW = K.split('|');
+function formatSQL() {
+  var v = document.getElementById('sqlInput').value.trim(); if(!v) return;
+  var r = v.replace(/\s+/g,' ').replace(/,\s*/g,', ');
+  KW.forEach(function(w){ r = r.replace(new RegExp('\\b'+w+'\\b','gi'),'\n'+w+'\n'); });
+  r = r.replace(/\n{2,}/g,'\n').replace(/\n,/g,',').replace(/,/g,', ');
+  var lines = r.split('\n'), out='', indent=0;
+  lines.forEach(function(l){
+    l=l.trim(); if(!l) return;
+    var u=l.toUpperCase();
+    if(u===')') indent=Math.max(0,indent-1);
+    out += '  '.repeat(indent) + l + '\n';
+    if(u==='('||KW.some(function(w){return u.endsWith(w)&&w!=='AS'&&w!='ON'&&w!='IN'})||u.endsWith('SELECT')||u.endsWith('FROM')||u.endsWith('WHERE')||u.endsWith('HAVING')||u.endsWith('ORDER BY')||u.endsWith('GROUP BY')||u.includes('JOIN')) indent++;
+  });
+  showSQL(out);
+}
+function minifySQL() {
+  var v=document.getElementById('sqlInput').value; if(!v) return;
+  showSQL(v.replace(/\s+/g,' ').trim());
+}
+function showSQL(t) { var el=document.getElementById('sqlResult'); el.style.display='block'; el.textContent=t||'(空)'; }
+function copySQL() { var el=document.getElementById('sqlResult'); if(el.textContent) navigator.clipboard.writeText(el.textContent).then(function(){el.textContent+='\n\n✅ 已复制';}); }
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

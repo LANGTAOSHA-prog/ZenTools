@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>年龄计算器 - 生活工具 | ZenTools</title>
+  <meta property="og:title" content="年龄计算器 | ZenTools" />
+  <meta property="og:description" content="精确计算年龄，显示年、月、日以及下一个生日倒计时。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/life/age-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="年龄计算器 | ZenTools" />
+  <meta name="twitter:description" content="Calculate exact age in years, months, days." />
+<meta name="description" content="精确计算年龄，显示年、月、日以及下一个生日倒计时。">
+<meta name="keywords" content="年龄计算,岁数计算,生日计算,年龄,周岁">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">年龄计算器</span></h1>
+    <p>精确计算年龄，显示年、月、日以及下一个生日倒计时。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>出生日期</label><input type="date" id="birthDate" /></div>
+  <div><label>目标日期</label><input type="date" id="targetDate" /></div>
+</div>
+<div style="margin-top:16px;">
+  <button class="btn" onclick="calcAge()">计算年龄</button>
+  <button class="btn btn2" onclick="document.getElementById('birthDate').valueAsDate=new Date();calcAge()">今天</button>
+</div>
+<div class="result" id="ageResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function calcAge(){
+  var b=document.getElementById('birthDate').value;if(!b){alert('请选择出生日期');return;}
+  var t=document.getElementById('targetDate').value||new Date().toISOString().slice(0,10);
+  var bd=new Date(b),td=new Date(t);
+  if(bd>td){alert('出生日期不能晚于目标日期');return;}
+  var y=td.getFullYear()-bd.getFullYear(),m=td.getMonth()-bd.getMonth(),d=td.getDate()-bd.getDate();
+  if(d<0){m--;var pm=new Date(td.getFullYear(),td.getMonth(),0);d+=pm.getDate();}
+  if(m<0){y--;m+=12;}
+  var totalD=Math.floor((td-bd)/86400000);
+  // Next birthday
+  var nb=new Date(td.getFullYear(),bd.getMonth(),bd.getDate());
+  if(nb<=td)nb.setFullYear(nb.getFullYear()+1);
+  var days2bd=Math.ceil((nb-td)/86400000);
+  document.getElementById('ageResult').style.display='block';
+  document.getElementById('ageResult').innerHTML='<div class="row"><div><div style="color:var(--muted);font-size:12px;">年龄</div><div class="highlight">'+y+'岁 '+m+'个月 '+d+'天</div></div><div><div style="color:var(--muted);font-size:12px;">总天数</div><div class="highlight">'+totalD+' 天</div></div><div><div style="color:var(--muted);font-size:12px;">下个生日</div><div class="highlight" style="color:#10b981;">'+days2bd+' 天后</div></div></div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

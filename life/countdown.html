@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>倒计时器 - 生活工具 | ZenTools</title>
+  <meta property="og:title" content="倒计时器 | ZenTools" />
+  <meta property="og:description" content="设置目标日期，实时显示倒计时天数、小时、分钟和秒。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/life/countdown.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="倒计时器 | ZenTools" />
+  <meta name="twitter:description" content="Countdown timer showing days, hours, minutes, seconds." />
+<meta name="description" content="设置目标日期，实时显示倒计时天数、小时、分钟和秒。">
+<meta name="keywords" content="倒计时,倒计时器,计时,倒数日,纪念日">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">倒计时器</span></h1>
+    <p>设置目标日期，实时显示倒计时天数、小时、分钟和秒。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>目标日期</label><input type="date" id="cdDate" /></div>
+  <div><label>目标时间</label><input type="time" id="cdTime" value="00:00" /></div>
+</div>
+<label>事件名称（可选）</label>
+<input type="text" id="cdName" placeholder="例如：生日、项目截止日" />
+<div style="display:flex;gap:10px;margin-top:16px;">
+  <button class="btn" onclick="startCD()">开始倒计时</button>
+  <button class="btn btn2" onclick="localStorage.removeItem('zt_countdown');document.getElementById('cdResult').style.display='none';">清除</button>
+</div>
+<div class="result" id="cdResult" style="display:none;">
+  <div style="display:flex;gap:16px;justify-content:center;text-align:center;flex-wrap:wrap;">
+    <div><div class="highlight" id="cdDays">0</div><div style="font-size:12px;color:var(--muted);">天</div></div>
+    <div><div class="highlight" id="cdHours">0</div><div style="font-size:12px;color:var(--muted);">时</div></div>
+    <div><div class="highlight" id="cdMins">0</div><div style="font-size:12px;color:var(--muted);">分</div></div>
+    <div><div class="highlight" id="cdSecs">0</div><div style="font-size:12px;color:var(--muted);">秒</div></div>
+  </div>
+  <div style="text-align:center;margin-top:8px;" id="cdLabel"></div>
+</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+var _cdInterval;
+function startCD(){
+  var date=document.getElementById('cdDate').value, time=document.getElementById('cdTime').value||'00:00';
+  if(!date){alert('请选择日期');return;}
+  var target=new Date(date+'T'+time+':00').getTime();
+  _cdInterval&&clearInterval(_cdInterval);
+  _cdInterval=setInterval(function(){
+    var now=Date.now(), diff=target-now;
+    if(diff<=0){document.getElementById('cdDays').textContent='0';document.getElementById('cdHours').textContent='0';document.getElementById('cdMins').textContent='0';document.getElementById('cdSecs').textContent='0';document.getElementById('cdResult').style.display='block';document.getElementById('cdLabel').textContent='✅ 时间已到！';clearInterval(_cdInterval);return;}
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    document.getElementById('cdDays').textContent=d;document.getElementById('cdHours').textContent=h;document.getElementById('cdMins').textContent=m;document.getElementById('cdSecs').textContent=s;
+  },1000);
+  var n=document.getElementById('cdName').value;document.getElementById('cdLabel').textContent=n?'⏰ '+n:'';
+  document.getElementById('cdResult').style.display='block';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 文案写作 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI 文案写作 | ZenTools" />
+  <meta property="og:description" content="生成营销文案、广告语、产品描述，适用于电商和社交媒体。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-copywriting.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 文案写作 | ZenTools" />
+  <meta name="twitter:description" content="Generate marketing copy, ads, product descriptions." />
+<meta name="description" content="生成营销文案、广告语、产品描述，适用于电商和社交媒体。">
+<meta name="keywords" content="ai文案,营销文案,广告语,产品描述,ai写作">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI 文案写作</span></h1>
+    <p>生成营销文案、广告语、产品描述，适用于电商和社交媒体。</p>
+  </div>
+  <div class="tool-box">
+    <label>产品/服务名称</label>
+<input type="text" id="cwProduct" placeholder="例如：ZenTools 在线工具箱" />
+<label>目标客户</label>
+<input type="text" id="cwAudience" placeholder="例如：办公白领、学生、设计师" />
+<label>核心卖点</label>
+<textarea id="cwSell" rows="3" placeholder="例如：免费、本地处理、无需注册"></textarea>
+<label>文案风格</label>
+<select id="cwStyle" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+  <option value="简洁">简洁</option>
+  <option value="专业">专业</option>
+  <option value="亲切">亲切</option>
+  <option value="促销">促销</option>
+</select>
+<button class="btn" onclick="genCW()" style="margin-top:16px;">生成文案</button>
+<div class="result" id="cwResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genCW(){
+  var p=document.getElementById('cwProduct').value.trim(),a=document.getElementById('cwAudience').value.trim(),s=document.getElementById('cwSell').value.trim(),st=document.getElementById('cwStyle').value;
+  if(!p){alert('请输入产品名称');return;}
+  var prompt='请为以下产品写一段营销文案：\n\n产品：'+p;
+  if(a)prompt+='\n目标客户：'+a;
+  if(s)prompt+='\n核心卖点：'+s;
+  prompt+='\n文案风格：'+st+'\n语言：中文\n\n请给出 3 个不同版本。';
+  document.getElementById('cwResult').style.display='block';document.getElementById('cwResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

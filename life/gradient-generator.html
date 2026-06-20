@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>渐变色生成器 - 生活工具 | ZenTools</title>
+  <meta property="og:title" content="渐变色生成器 | ZenTools" />
+  <meta property="og:description" content="在线生成 CSS 渐变色，挑选颜色和角度，实时预览。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/life/gradient-generator.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="渐变色生成器 | ZenTools" />
+  <meta name="twitter:description" content="Generate CSS gradients with live preview." />
+<meta name="description" content="在线生成 CSS 渐变色，挑选颜色和角度，实时预览。">
+<meta name="keywords" content="渐变色,渐变,颜色,调色,色卡,gradient">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">渐变色生成器</span></h1>
+    <p>在线生成 CSS 渐变色，挑选颜色和角度，实时预览。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>颜色 1</label><input type="color" id="ggColor1" value="#00e5ff" onchange="updateGG()" /></div>
+  <div><label>颜色 2</label><input type="color" id="ggColor2" value="#a855f7" onchange="updateGG()" /></div>
+  <div><label>角度 (deg)</label><input type="number" id="ggAngle" value="135" min="0" max="360" onchange="updateGG()" /></div>
+</div>
+<div id="ggPreview" style="width:100%;height:120px;border-radius:12px;margin-top:12px;border:1px solid var(--border);background:linear-gradient(135deg,#00e5ff,#a855f7);"></div>
+<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+  <button class="btn" onclick="copyGradient()">复制 CSS</button>
+  <button class="btn btn2" onclick="randomGG()">随机</button>
+</div>
+<div class="result" id="ggResult"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function updateGG(){
+  var c1=document.getElementById('ggColor1').value,c2=document.getElementById('ggColor2').value,a=document.getElementById('ggAngle').value||135;
+  document.getElementById('ggPreview').style.background='linear-gradient('+a+'deg,'+c1+','+c2+')';
+  var css='background: linear-gradient('+a+'deg, '+c1+', '+c2+');';
+  document.getElementById('ggResult').textContent=css;
+}
+function copyGradient(){navigator.clipboard.writeText(document.getElementById('ggResult').textContent).then(function(){document.getElementById('ggResult').textContent+='\n\n✅ 已复制';});}
+function randomGG(){
+  var r=function(){return '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');};
+  document.getElementById('ggColor1').value=r();document.getElementById('ggColor2').value=r();
+  document.getElementById('ggAngle').value=Math.floor(Math.random()*360);
+  updateGG();
+}
+updateGG();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

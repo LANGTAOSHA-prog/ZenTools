@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HTML 实体编解码 - 开发工具 | ZenTools</title>
+  <meta property="og:title" content="HTML 实体编解码 | ZenTools" />
+  <meta property="og:description" content="HTML 特殊字符编码与解码，防止 XSS 和转义处理。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/html-entities.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="HTML 实体编解码 | ZenTools" />
+  <meta name="twitter:description" content="Encode/decode HTML entities for XSS prevention." />
+<meta name="description" content="HTML 特殊字符编码与解码，防止 XSS 和转义处理。">
+<meta name="keywords" content="html实体,html编码,html解码,html转义,xss防护">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:monospace; resize:vertical; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; font-family:monospace; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">开发工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">HTML 实体编解码</span></h1>
+    <p>HTML 特殊字符编码与解码，防止 XSS 和转义处理。</p>
+  </div>
+  <div class="tool-box">
+    
+<label>输入文本</label>
+<textarea id="heInput" rows="6" placeholder="输入要编码或解码的文本...">&lt;script&gt;alert('test')&lt;/script&gt;</textarea>
+<div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+  <button class="btn" onclick="encodeHE()">编码</button>
+  <button class="btn btn2" onclick="decodeHE()">解码</button>
+  <button class="btn btn2" onclick="copyHE()">复制结果</button>
+</div>
+<div class="result" id="heResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function encodeHE(){var v=document.getElementById('heInput').value;showHE(v.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'));}
+function decodeHE(){var v=document.getElementById('heInput').value;showHE(v.replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").replace(/&amp;/g,'&'));}
+function showHE(t){var el=document.getElementById('heResult');el.style.display='block';el.textContent=t;}
+function copyHE(){var el=document.getElementById('heResult');if(el.textContent)navigator.clipboard.writeText(el.textContent);}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

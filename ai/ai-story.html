@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 故事创作 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI 故事创作 | ZenTools" />
+  <meta property="og:description" content="生成短篇故事、寓言、童话或微小说，发挥 AI 创意。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-story.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 故事创作 | ZenTools" />
+  <meta name="twitter:description" content="Generate short stories, fables, fairy tales." />
+<meta name="description" content="生成短篇故事、寓言、童话或微小说，发挥 AI 创意。">
+<meta name="keywords" content="ai故事,故事创作,微小说,童话,创意写作">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI 故事创作</span></h1>
+    <p>生成短篇故事、寓言、童话或微小说，发挥 AI 创意。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>主题</label><input type="text" id="stTheme" placeholder="例如：友情、冒险" /></div>
+  <div><label>角色</label><input type="text" id="stChar" placeholder="例如：一只小猫" /></div>
+</div>
+<div class="row">
+  <div><label>场景</label><input type="text" id="stSetting" placeholder="例如：魔法森林" /></div>
+  <div><label>篇幅</label>
+  <select id="stLength" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+    <option value="短篇">短篇（200字）</option>
+    <option value="中篇">中篇（500字）</option>
+  </select></div>
+</div>
+<button class="btn" onclick="genST()" style="margin-top:12px;">生成故事</button>
+<div class="result" id="stResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genST(){
+  var th=document.getElementById('stTheme').value.trim(),ch=document.getElementById('stChar').value.trim(),se=document.getElementById('stSetting').value.trim(),le=document.getElementById('stLength').value;
+  if(!th){alert('请输入主题');return;}
+  var prompt='请创作一篇'+le+'故事。\n主题：'+th;
+  if(ch)prompt+='\n主角：'+ch;
+  if(se)prompt+='\n场景：'+se;
+  prompt+='\n\n要求：故事完整、有起承转合、语言生动、用中文写作。';
+  document.getElementById('stResult').style.display='block';document.getElementById('stResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 社交媒体文案 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI 社交媒体文案 | ZenTools" />
+  <meta property="og:description" content="生成适合微信、微博、小红书等平台的社交媒体文案。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-social.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 社交媒体文案 | ZenTools" />
+  <meta name="twitter:description" content="Generate social media posts for various platforms." />
+<meta name="description" content="生成适合微信、微博、小红书等平台的社交媒体文案。">
+<meta name="keywords" content="ai社交媒体,小红书文案,微信文案,微博文案,社交文案">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI 社交媒体文案</span></h1>
+    <p>生成适合微信、微博、小红书等平台的社交媒体文案。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>主题</label><input type="text" id="ssTopic" placeholder="例如：推荐5个免费在线工具" /></div>
+  <div><label>平台</label>
+  <select id="ssPlatform" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+    <option value="小红书">小红书</option>
+    <option value="微信公众号">微信公众号</option>
+    <option value="微博">微博</option>
+    <option value="抖音">抖音</option>
+  </select></div>
+</div>
+<label>核心内容（可选）</label>
+<textarea id="ssContent" rows="4" placeholder="输入要分享的核心内容..."></textarea>
+<button class="btn" onclick="genSS()" style="margin-top:12px;">生成文案</button>
+<div class="result" id="ssResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genSS(){
+  var t=document.getElementById('ssTopic').value.trim(),p=document.getElementById('ssPlatform').value,c=document.getElementById('ssContent').value.trim();
+  if(!t){alert('请输入主题');return;}
+  var prompt='请为 ' + p + ' 平台写一篇社交媒体文案。\n主题：' + t;
+  if(c)prompt+='\n内容：'+c;
+  prompt+='\n\n要求：' + (p==='小红书'?'用情感化语言，加·表情符号':p==='微信公众号'?'专业有深度':'短小精汗') + '，100-200字。';
+  document.getElementById('ssResult').style.display='block';document.getElementById('ssResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

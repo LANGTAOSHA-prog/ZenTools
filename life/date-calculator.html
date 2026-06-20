@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日期计算器 - 生活工具 | ZenTools</title>
+  <meta property="og:title" content="日期计算器 | ZenTools" />
+  <meta property="og:description" content="计算两个日期之间的天数差，或给指定日期加减天数。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/life/date-calculator.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="日期计算器 | ZenTools" />
+  <meta name="twitter:description" content="Calculate days between dates or add days to a date." />
+<meta name="description" content="计算两个日期之间的天数差，或给指定日期加减天数。">
+<meta name="keywords" content="日期计算,天数计算,日期差,日期加减,计算器">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:14px; line-height:1.8; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">日期计算器</span></h1>
+    <p>计算两个日期之间的天数差，或给指定日期加减天数。</p>
+  </div>
+  <div class="tool-box">
+    <label>计算模式</label>
+<select id="dcMode" onchange="toggleDCMode()" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+  <option value="diff">计算日期差</option>
+  <option value="add">日期加减天数</option>
+</select>
+<div id="dcDiff">
+  <div class="row"><div><label>开始日期</label><input type="date" id="dcStart" /></div><div><label>结束日期</label><input type="date" id="dcEnd" /></div></div>
+  <button class="btn" onclick="calcDateDiff()" style="margin-top:12px;">计算天数差</button>
+</div>
+<div id="dcAdd" style="display:none;">
+  <div class="row"><div><label>基准日期</label><input type="date" id="dcBase" /></div><div><label>天数</label><input type="number" id="dcDays" value="30" /></div></div>
+  <button class="btn" onclick="calcDateAdd()" style="margin-top:12px;">计算</button>
+</div>
+<div class="result" id="dcResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function toggleDCMode(){var v=document.getElementById('dcMode').value;document.getElementById('dcDiff').style.display=v==='diff'?'':'none';document.getElementById('dcAdd').style.display=v==='add'?'':'none';}
+function calcDateDiff(){var s=document.getElementById('dcStart').value,e=document.getElementById('dcEnd').value;if(!s||!e)return;var d=Math.round((new Date(e)-new Date(s))/86400000);showDC('★ 日期差: <span class=highlight>'+Math.abs(d)+' 天</span><br>'+(!d?'同一天':d>0?'结束日在开始日之后':'结束日在开始日之前'));}
+function calcDateAdd(){var b=document.getElementById('dcBase').value,d=parseInt(document.getElementById('dcDays').value);if(!b||isNaN(d))return;var r=new Date(b);r.setDate(r.getDate()+d);showDC('★ '+b+' + '+d+' 天 = <span class=highlight>'+r.toISOString().slice(0,10)+'</span>');}
+function showDC(t){var el=document.getElementById('dcResult');el.style.display='block';el.innerHTML=t;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

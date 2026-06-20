@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 学习计划生成 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI 学习计划生成 | ZenTools" />
+  <meta property="og:description" content="生成个性化的学习计划，帮助高效学习新技能。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-study-plan.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 学习计划生成 | ZenTools" />
+  <meta name="twitter:description" content="Generate personalized study plans for learning new skills." />
+<meta name="description" content="生成个性化的学习计划，帮助高效学习新技能。">
+<meta name="keywords" content="ai学习计划,学习规划,学习路线,技能学习,ai教育">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI 学习计划生成</span></h1>
+    <p>生成个性化的学习计划，帮助高效学习新技能。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>学习目标</label><input type="text" id="spGoal" placeholder="例如：学会 Python 编程" /></div>
+  <div><label>学习周期</label>
+  <select id="spDuration" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+    <option value="1个月">1个月</option>
+    <option value="3个月">3个月</option>
+    <option value="6个月" selected>6个月</option>
+    <option value="1年">1年</option>
+  </select></div>
+</div>
+<label>当前基础</label>
+<select id="spLevel" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+  <option value="零基础">零基础</option>
+  <option value="初级">初级</option>
+  <option value="中级">中级</option>
+</select>
+<label>每周可投入时间</label>
+<select id="spTime" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+  <option value="5小时">5小时</option>
+  <option value="10小时" selected>10小时</option>
+  <option value="20小时">20小时</option>
+</select>
+<button class="btn" onclick="genSP()" style="margin-top:12px;">生成学习计划</button>
+<div class="result" id="spResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genSP(){
+  var g=document.getElementById('spGoal').value.trim(),d=document.getElementById('spDuration').value,l=document.getElementById('spLevel').value,t=document.getElementById('spTime').value;
+  if(!g){alert('请输入学习目标');return;}
+  var prompt='请为目标“'+g+'”生成一份学习计划。\n学习周期：'+d+'\n当前基础：'+l+'\n每周投入：'+t+'\n\n要求：\n1. 按月分阶段\n2. 每阶段列出学习目标和学习内容\n3. 建议学习资源和练习项目\n4. 提供评估方法\n5. 用中文回答';
+  document.getElementById('spResult').style.display='block';document.getElementById('spResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

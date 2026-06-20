@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI SEO 文章生成 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI SEO 文章生成 | ZenTools" />
+  <meta property="og:description" content="生成 SEO 优化的博客文章大纲和标题，提升搜索引擎排名。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-seo-article.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI SEO 文章生成 | ZenTools" />
+  <meta name="twitter:description" content="Generate SEO-optimized blog outlines and titles." />
+<meta name="description" content="生成 SEO 优化的博客文章大纲和标题，提升搜索引擎排名。">
+<meta name="keywords" content="ai文章,seo文章,博客写作,内容营销,文章大纲">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI SEO 文章生成</span></h1>
+    <p>生成 SEO 优化的博客文章大纲和标题，提升搜索引擎排名。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>核心关键词</label><input type="text" id="saKeyword" placeholder="例如：免费PDF工具" /></div>
+  <div><label>目标读者</label><input type="text" id="saReader" placeholder="例如：办公白领" /></div>
+</div>
+<label>补充信息（可选）</label>
+<textarea id="saExtra" rows="3" placeholder="需要包含的内容点..."></textarea>
+<button class="btn" onclick="genSA()" style="margin-top:12px;">生成文章大纲</button>
+<div class="result" id="saResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genSA(){
+  var kw=document.getElementById('saKeyword').value.trim(),rd=document.getElementById('saReader').value.trim(),ex=document.getElementById('saExtra').value.trim();
+  if(!kw){alert('请输入关键词');return;}
+  var prompt='请为关键词“'+kw+'”写一篇 SEO 优化的博客文章大纲。';
+  if(rd)prompt+='\n目标读者：'+rd;
+  prompt+='\n\n要求：\n1. 包含 H1-H3 标题结构\n2. 自然插入相关 LSI 关键词\n3. 每个部分简述内容要点\n4. 建议文章长度 1500-2000 字';
+  if(ex)prompt+='\n需包含：'+ex;
+  document.getElementById('saResult').style.display='block';document.getElementById('saResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

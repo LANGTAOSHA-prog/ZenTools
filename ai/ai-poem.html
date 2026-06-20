@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 诗歌生成 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI 诗歌生成 | ZenTools" />
+  <meta property="og:description" content="生成现代诗、古诗词或藏头诗，激发诗歌创作灵感。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-poem.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 诗歌生成 | ZenTools" />
+  <meta name="twitter:description" content="Generate modern poems, classical poems, acrostic poems." />
+<meta name="description" content="生成现代诗、古诗词或藏头诗，激发诗歌创作灵感。">
+<meta name="keywords" content="ai诗歌,诗生成,现代诗,古诗,藏头诗">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI 诗歌生成</span></h1>
+    <p>生成现代诗、古诗词或藏头诗，激发诗歌创作灵感。</p>
+  </div>
+  <div class="tool-box">
+    <div class="row">
+  <div><label>主题</label><input type="text" id="pmTopic" placeholder="例如：春天、离别" /></div>
+  <div><label>类型</label>
+  <select id="pmType" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+    <option value="现代诗">现代诗</option>
+    <option value="五言绝句">五言绝句</option>
+    <option value="七言绝句">七言绝句</option>
+    <option value="藏头诗">藏头诗</option>
+  </select></div>
+</div>
+<label>藏头字（藏头诗时填写）</label>
+<input type="text" id="pmAcrostic" placeholder="例如：我爱你" />
+<button class="btn" onclick="genPM()" style="margin-top:12px;">生成诗歌</button>
+<div class="result" id="pmResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genPM(){
+  var tp=document.getElementById('pmTopic').value.trim(),ty=document.getElementById('pmType').value,ac=document.getElementById('pmAcrostic').value.trim();
+  if(!tp){alert('请输入主题');return;}
+  var prompt='请写一首'+ty+'\n主题：'+tp;
+  if(ty==='藏头诗'&&ac)prompt+='\n藏头字：'+ac;
+  prompt+='\n\n要求：意境优美、韵律和贐、用中文写作。';
+  document.getElementById('pmResult').style.display='block';document.getElementById('pmResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

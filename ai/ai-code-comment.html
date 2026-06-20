@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 代码注释生成 - AI工具 | ZenTools</title>
+  <meta property="og:title" content="AI 代码注释生成 | ZenTools" />
+  <meta property="og:description" content="为代码自动生成注释和文档说明，支持多种编程语言。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/ai/ai-code-comment.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="AI 代码注释生成 | ZenTools" />
+  <meta name="twitter:description" content="Generate code comments and documentation automatically." />
+<meta name="description" content="为代码自动生成注释和文档说明，支持多种编程语言。">
+<meta name="keywords" content="ai代码注释,代码文档,代码注释,代码说明,ai代码">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+.hint { font-size:12px; color:var(--muted); margin-top:4px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">AI工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">AI 代码注释生成</span></h1>
+    <p>为代码自动生成注释和文档说明，支持多种编程语言。</p>
+  </div>
+  <div class="tool-box">
+    <label>编程语言</label>
+<select id="ccLang" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+  <option value="Python">Python</option>
+  <option value="JavaScript">JavaScript</option>
+  <option value="Java">Java</option>
+  <option value="C++">C++</option>
+  <option value="TypeScript">TypeScript</option>
+</select>
+<label>粘贴代码</label>
+<textarea id="ccCode" rows="8" placeholder="粘贴需要添加注释的代码..."></textarea>
+<label>注释风格</label>
+<select id="ccStyle" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+  <option value="详细">详细（每行注释）</option>
+  <option value="函数级">函数级（仅函数头注释）</option>
+</select>
+<button class="btn" onclick="genCC()" style="margin-top:12px;">生成注释</button>
+<div class="result" id="ccResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+function genCC(){
+  var lang=document.getElementById('ccLang').value,code=document.getElementById('ccCode').value.trim(),style=document.getElementById('ccStyle').value;
+  if(!code){alert('请粘贴代码');return;}
+  var prompt='请为以下 '+lang+' 代码添加'+style+'注释：\n\n```'+lang+'\n'+code+'\n```\n\n要求：用中文注释，解释代码逻辑和函数用途。';
+  document.getElementById('ccResult').style.display='block';document.getElementById('ccResult').textContent=prompt;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JS 压缩美化 - 开发工具 | ZenTools</title>
+  <meta property="og:title" content="JS 压缩美化 | ZenTools" />
+  <meta property="og:description" content="压缩或美化 JavaScript 代码，移除注释和多余空格。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/js-minifier.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="JS 压缩美化 | ZenTools" />
+  <meta name="twitter:description" content="Minify or beautify JavaScript code." />
+<meta name="description" content="压缩或美化 JavaScript 代码，移除注释和多余空格。">
+<meta name="keywords" content="js压缩,js美化,js格式化,javascript,代码压缩">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:monospace; resize:vertical; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; font-family:monospace; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">开发工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">JS 压缩美化</span></h1>
+    <p>压缩或美化 JavaScript 代码，移除注释和多余空格。</p>
+  </div>
+  <div class="tool-box">
+    
+<label>输入 JavaScript 代码</label>
+<textarea id="jsInput" rows="8" placeholder="粘贴 JavaScript 代码..."></textarea>
+<div style="display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;">
+  <button class="btn" onclick="beautifyJS()">美化</button>
+  <button class="btn btn2" onclick="minifyJS()">压缩</button>
+  <button class="btn btn2" onclick="copyJS()">复制</button>
+</div>
+<div class="result" id="jsResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function beautifyJS() {
+  var v=document.getElementById('jsInput').value;if(!v)return;
+  var r=v.replace(/\/\/[^\n]*\n/g,'\n').replace(/\/\*[\s\S]*?\*\//g,'');
+  r=r.replace(/{/g,'{\n').replace(/}/g,'\n}\n').replace(/;/g,';\n').replace(/,/g,', ').replace(/\n{3,}/g,'\n\n');
+  var lines=r.split('\n'),out='',ind=0;
+  lines.forEach(function(l){l=l.trim();if(!l)return;if(l.startsWith('}'))ind=Math.max(0,ind-1);out+='  '.repeat(ind)+l+'\n';if(l.endsWith('{'))ind++;});
+  showJS(out);
+}
+function minifyJS() {
+  var v=document.getElementById('jsInput').value;if(!v)return;
+  showJS(v.replace(/\/\/[^\n]*\n/g,'').replace(/\/\*[\s\S]*?\*\//g,'').replace(/\s+/g,' ').replace(/\s*([{}();,:])\s*/g,'$1').trim());
+}
+function showJS(t){var el=document.getElementById('jsResult');el.style.display='block';el.textContent=t||'(空)';}
+function copyJS(){var el=document.getElementById('jsResult');if(el.textContent)navigator.clipboard.writeText(el.textContent);}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

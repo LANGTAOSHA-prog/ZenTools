@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown 预览 - 开发工具 | ZenTools</title>
+  <meta property="og:title" content="Markdown 预览 | ZenTools" />
+  <meta property="og:description" content="实时预览 Markdown 文本渲染效果。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/dev/markdown-preview.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Markdown 预览 | ZenTools" />
+  <meta name="twitter:description" content="Live Markdown preview with HTML rendering." />
+<meta name="description" content="实时预览 Markdown 文本渲染效果，支持标题、列表、代码块等语法。">
+<meta name="keywords" content="markdown预览,markdown编辑器,md预览,markdown在线">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding: 24px; background: var(--surface); border-radius: var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:monospace; resize:vertical; }
+textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; font-family:monospace; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">开发工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">Markdown 预览</span></h1>
+    <p>实时预览 Markdown 文本渲染效果，支持标题、列表、代码块等语法。</p>
+  </div>
+  <div class="tool-box">
+    
+<label>输入 Markdown</label>
+<textarea id="mdInput" rows="10" oninput="previewMD()" placeholder="# Markdown 预览
+
+支持:
+- **粗体** *斜体*
+- 列表 1. 有序列表
+- [链接](https://zentools.xyz)
+- `代码`"># Markdown 预览
+
+输入 Markdown 文本，右侧实时预览。</textarea>
+<div style="display:flex;gap:10px;margin-top:16px;">
+  <button class="btn" onclick="previewMD()">刷新预览</button>
+  <button class="btn btn2" onclick="copyMD()">复制 HTML</button>
+</div>
+<div class="result" id="mdResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+function previewMD() {
+  var t=document.getElementById('mdInput').value; if(!t) return;
+  var h=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  h=h.replace(/^### (.+)$/gm,'<h3>$1</h3>').replace(/^## (.+)$/gm,'<h2>$1</h2>').replace(/^# (.+)$/gm,'<h1>$1</h1>');
+  h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>').replace(/`(.+?)`/g,'<code>$1</code>');
+  h=h.replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank">$1</a>');
+  h=h.replace(/^\* (.+)$/gm,'<li>$1</li>').replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
+  h=h.replace(/(<li>.*<\/li>\n?)+/g,'<ul>$&<\/ul>');
+  h=h.replace(/```([\s\S]*?)```/g,'<pre><code>$1<\/code><\/pre>');
+  h=h.replace(/\n\n/g,'<p>');
+  var el=document.getElementById('mdResult'); el.style.display='block';
+  el.innerHTML='<div style="border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:12px;color:var(--muted);font-size:12px;font-family:sans-serif;">预览</div><div style="line-height:1.8;">'+h+'</div>';
+}
+function copyMD() { var el=document.getElementById('mdResult'); if(el.innerHTML) navigator.clipboard.writeText(el.innerHTML).then(function(){ }); }
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>
