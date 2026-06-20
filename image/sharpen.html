@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="pageTitle">图片锐化工具 - 免费在线工具 | ZenTools</title>
+<meta name="description" content="免费在线图片锐化工具，调整清晰度，让模糊图片变清晰。" />
+<meta name="keywords" content="图片锐化,锐化工具,清晰度调整,图片增强,ZenTools" />
+<link rel="canonical" href="https://zentools.xyz/image/sharpen.html" />
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444;--radius:20px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
+.container{max-width:1000px;margin:auto;padding:40px 20px}
+a{color:#60a5fa;text-decoration:none}
+.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.lang-select{background:#111827;color:white;border:1px solid #334155;border-radius:10px;padding:10px 12px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:28px}
+h1{margin-bottom:15px}.desc{color:var(--muted);margin-bottom:25px}
+.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
+input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#3b82f6}
+button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0;transition:opacity .2s}
+button:hover{opacity:.85}
+.download-btn{background:var(--green)}.clear-btn{background:var(--red)}
+.preview{margin-top:20px}
+.preview canvas{max-width:100%;border-radius:14px;border:1px solid #334155;margin-top:12px}
+.result{margin-top:20px;color:#cbd5e1;white-space:pre-line}
+.slider-group{display:flex;align-items:center;gap:12px;margin:12px 0}
+.slider-group label{min-width:80px;color:var(--muted);font-size:14px}
+.slider-group input[type=range]{flex:1;margin:0}
+.slider-group span{min-width:40px;text-align:right;color:var(--text);font-size:14px}
+.info{margin-top:35px}.info h2{margin-top:25px}.info p{color:#cbd5e1;white-space:pre-line;line-height:1.8}
+footer{margin-top:50px;text-align:center;color:#94a3b8}
+@media(max-width:768px){button,.lang-select{width:100%}}
+.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}
+.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}
+.bookmark-float:active{transform:scale(0.96)}
+@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。所有处理在浏览器本地完成。"}},{"@type":"Question","name":"锐化会影响图片质量吗？","acceptedAnswer":{"@type":"Answer","text":"适量锐化可提升清晰度，过度锐化可能产生噪点。"}},{"@type":"Question","name":"支持哪些格式？","acceptedAnswer":{"@type":"Answer","text":"支持 JPG、PNG、WebP。"}}]}</script>
+</head>
+<body>
+<div class="container">
+  <div class="top-bar">
+    <a href="index.html" data-i18n="back">← 返回首页</a>
+    <select id="languageSelect" class="lang-select">
+      <option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option>
+    </select>
+  </div>
+  <div class="card">
+    <h1 data-i18n="title">图片锐化</h1>
+    <p class="desc" data-i18n="desc">调整图片清晰度，让模糊图片更清晰。</p>
+    <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+    <input type="file" id="imageInput" accept="image/*" />
+    <div class="slider-group">
+      <label data-i18n="strength">强度</label>
+      <input type="range" id="strength" min="0" max="200" value="80" />
+      <span id="strengthVal">80</span>
+    </div>
+    <button onclick="processSharpen()" data-i18n="process">开始锐化</button>
+    <button onclick="downloadResult()" class="download-btn" data-i18n="download">下载图片</button>
+    <button onclick="clearAll()" class="clear-btn" data-i18n="clear">清空</button>
+    <div class="preview">
+      <h2 data-i18n="previewTitle">预览</h2>
+      <canvas id="canvas" style="display:none"></canvas>
+    </div>
+    <div class="result" id="result"></div>
+    <div class="info">
+      <h2 data-i18n="guideTitle">使用说明</h2>
+      <p data-i18n="guideText">1. 上传图片。\n2. 调节锐化强度。\n3. 点击开始锐化。\n4. 下载处理后的图片。</p>
+      <h2 data-i18n="privacyTitle">隐私说明</h2>
+      <p data-i18n="privacyText">所有处理在浏览器本地完成，图片不会上传到服务器。</p>
+    </div>
+  </div>
+  <footer>© 2026 ZenTools</footer>
+</div>
+<script>
+const T={zh:{pageTitle:"图片锐化工具 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"图片锐化",desc:"调整图片清晰度，让模糊图片更清晰。",ad:"广告位（Google AdSense）",strength:"强度",process:"开始锐化",download:"下载图片",clear:"清空",previewTitle:"预览",done:"锐化完成",guideTitle:"使用说明",guideText:"1. 上传图片。\n2. 调节锐化强度。\n3. 点击开始锐化。\n4. 下载处理后的图片。",privacyTitle:"隐私说明",privacyText:"所有处理在浏览器本地完成，图片不会上传到服务器。",empty:"请先选择图片"},ja:{pageTitle:"画像シャープ化ツール - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"画像シャープ化",desc:"画像のシャープネスを調整します。",ad:"広告スペース",strength:"強さ",process:"シャープ化",download:"ダウンロード",clear:"クリア",previewTitle:"プレビュー",done:"完了",guideTitle:"使い方",guideText:"1. 画像をアップロード。\n2. 強さを調整。\n3. シャープ化を実行。\n4. ダウンロード。",privacyTitle:"プライバシー",privacyText:"すべてブラウザ内で処理されます。",empty:"画像を選択してください"},en:{pageTitle:"Image Sharpen Tool - Free Online Tool | ZenTools",back:"← Back to Home",title:"Sharpen Image",desc:"Make blurry images clearer.",ad:"Ad Space",strength:"Strength",process:"Sharpen",download:"Download",clear:"Clear",previewTitle:"Preview",done:"Done",guideTitle:"Guide",guideText:"1. Upload an image.\n2. Adjust strength.\n3. Click Sharpen.\n4. Download result.",privacyTitle:"Privacy",privacyText:"All processing is done locally.",empty:"Please select an image"},vi:{pageTitle:"Công cụ làm sắc nét ảnh - Công cụ miễn phí | ZenTools",back:"← Quay lại",title:"Làm sắc nét",desc:"Làm rõ ảnh mờ.",ad:"Vị trí QC",strength:"Cường độ",process:"Làm sắc nét",download:"Tải xuống",clear:"Xóa",previewTitle:"Xem trước",done:"Hoàn tất",guideTitle:"Hướng dẫn",guideText:"1. Tải ảnh lên.\n2. Điều chỉnh cường độ.\n3. Nhấn Làm sắc nét.\n4. Tải xuống.",privacyTitle:"Quyền riêng tư",privacyText:"Xử lý trong trình duyệt.",empty:"Vui lòng chọn ảnh"}};
+let curLang="zh",originalData=null,canvas,ctx,imgW,imgH;
+const $=(id)=>document.getElementById(id);
+function applyLang(lang){const d=T[lang]||T.zh;curLang=lang;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});localStorage.setItem('zentools_lang',lang)}
+document.addEventListener('DOMContentLoaded',()=>{const sl=localStorage.getItem('zentools_lang')||'zh';$('languageSelect').value=sl;applyLang(sl);$('languageSelect').addEventListener('change',e=>applyLang(e.target.value));$('strength').addEventListener('input',e=>$('strengthVal').textContent=e.target.value);canvas=$('canvas');ctx=canvas.getContext('2d');$('imageInput').addEventListener('change',loadImage)});
+function loadImage(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){imgW=Math.min(img.width,800);imgH=img.height*(imgW/img.width);canvas.style.display='block';canvas.width=imgW;canvas.height=imgH;ctx.drawImage(img,0,0,imgW,imgH);originalData=ctx.getImageData(0,0,imgW,imgH);$('result').textContent=''};img.src=ev.target.result};r.readAsDataURL(f)}
+function processSharpen(){if(!originalData){$('result').textContent=T[curLang].empty;return}const w=imgW,h=imgH,src=originalData.data,dst=new Uint8ClampedArray(src);const s=parseInt($('strength').value)/100;const kernel=[0,-1*s,0,-1*s,1+4*s, -1*s,0,-1*s,0];const idx=function(x,y){return(y*w+x)*4};for(let y=1;y<h-1;y++){for(let x=1;x<w-1;x++){for(let c=0;c<3;c++){let v=0;v+=src[idx(x-1,y-1)+c]*kernel[0];v+=src[idx(x,y-1)+c]*kernel[1];v+=src[idx(x+1,y-1)+c]*kernel[2];v+=src[idx(x-1,y)+c]*kernel[3];v+=src[idx(x,y)+c]*kernel[4];v+=src[idx(x+1,y)+c]*kernel[5];v+=src[idx(x-1,y+1)+c]*kernel[6];v+=src[idx(x,y+1)+c]*kernel[7];v+=src[idx(x+1,y+1)+c]*kernel[8];dst[idx(x,y)+c]=Math.max(0,Math.min(255,v))}dst[idx(x,y)+3]=src[idx(x,y)+3]}}const id=new ImageData(dst,w,h);ctx.putImageData(id,0,0);$('result').textContent=T[curLang].done}
+function downloadResult(){const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='sharpen.png';a.click()}
+function clearAll(){$('imageInput').value='';originalData=null;canvas.style.display='none';ctx.clearRect(0,0,canvas.width,canvas.height);$('result').textContent=''}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ <span data-i18n="bookmark">收藏本站</span></button>
+</body>
+</html>
