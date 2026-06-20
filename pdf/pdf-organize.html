@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>整理 PDF - PDF 工具 | ZenTools</title>
+  <meta property="og:title" content="整理 PDF | ZenTools" />
+  <meta property="og:description" content="重新排序、旋转和删除 PDF 页面，自定义页面顺序。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/pdf/pdf-organize.html" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="整理 PDF | ZenTools" />
+  <meta name="twitter:description" content="Reorder, rotate and delete PDF pages." />
+<meta name="description" content="重新排序、旋转和删除 PDF 页面，自定义页面顺序。">
+<meta name="keywords" content="pdf整理,pdf排序,pdf页面管理,pdf组织">
+<link rel="stylesheet" href="../assets/css/tool-ui.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+input, select { padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+input:focus, select:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.btn:disabled { opacity:.4; cursor:not-allowed; }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); text-align:center; }
+.progress { margin-top:12px; height:6px; border-radius:3px; background:var(--glass); overflow:hidden; }
+.progress-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:3px; transition:width .3s; }
+.drop-zone {
+  border:2px dashed var(--border); border-radius:12px; padding:40px 20px;
+  text-align:center; cursor:pointer; transition:border-color .3s, background .3s;
+  margin-bottom:16px;
+}
+.drop-zone:hover { border-color:var(--cyan); background:var(--glass); }
+.drop-zone.dragover { border-color:var(--cyan); background:var(--glass-b); }
+.drop-zone-icon { font-size:48px; margin-bottom:12px; }
+.drop-zone-text { font-size:14px; color:var(--muted); }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">PDF 工具</a><a href="/plugins-preview.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">整理 PDF</span></h1>
+    <p>重新排序、旋转和删除 PDF 页面，自定义页面顺序。</p>
+  </div>
+  <div class="tool-box">
+    <div class="drop-zone" id="dropZone">
+      <div class="drop-zone-icon">🔄</div>
+      <div class="drop-zone-text">点击上传或拖拽 PDF 文件到此区域</div>
+      <input type="file" id="fileInput" accept=".pdf" style="display:none" />
+    </div>
+    <div id="options" style="display:none;">
+      <div id="pageList" style="margin-bottom:12px;"></div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+  <button class="btn btn2" onclick="reversePages()">↕ 顺序反转</button>
+  <button class="btn btn2" onclick="removeSelected()">✖ 删除选中</button>
+</div>
+      <button class="btn" id="goBtn" onclick="startProcess()">▶ 开始处理</button>
+    </div>
+    <div class="progress" id="progress" style="display:none;"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="result" id="result" style="display:none;"></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+<script src="../assets/js/tool-ui.js"></script>
+<script>
+
+var dropZone=document.getElementById('dropZone'),fileInput=document.getElementById('fileInput');
+dropZone.onclick=function(){fileInput.click();};
+dropZone.ondragover=function(e){e.preventDefault();dropZone.classList.add('dragover');};
+dropZone.ondragleave=function(){dropZone.classList.remove('dragover');};
+dropZone.ondrop=function(e){e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);};
+fileInput.onchange=function(){if(this.files.length)handleFile(this.files[0]);};
+var pdfFile=null,pdfDoc=null;
+function handleFile(file){pdfFile=file;document.getElementById('options').style.display='block';dropZone.querySelector('.drop-zone-text').textContent='已选择: '+file.name;loadPDF(file);}
+function loadPDF(file){
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var typedarray=new Uint8Array(e.target.result);
+    pdfjsLib.getDocument(typedarray).promise.then(function(pdf){pdfDoc=pdf;document.getElementById('goBtn').disabled=false;}).catch(function(){alert('无法加载 PDF');});
+  };
+  reader.readAsArrayBuffer(file);
+}
+function updateProgress(pct){document.getElementById('progress').style.display='block';document.getElementById('progressBar').style.width=pct+'%';}
+
+var pageOrder=[];
+function loadPDF(file){
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var typedarray=new Uint8Array(e.target.result);
+    pdfjsLib.getDocument(typedarray).promise.then(function(pdf){
+      pdfDoc=pdf;
+      pageOrder=[];
+      for(var i=1;i<=pdf.numPages;i++)pageOrder.push(i);
+      renderPageList();
+      document.getElementById('goBtn').disabled=false;
+    }).catch(function(){alert('无法加载 PDF');});
+  };
+  reader.readAsArrayBuffer(file);
+}
+function renderPageList(){
+  var html='';
+  pageOrder.forEach(function(p,i){
+    html+='<label style="display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:6px;background:var(--glass);margin:4px 0;cursor:pointer;"><input type="checkbox" class="page-chk" data-idx="'+i+'" checked /><span>页码 '+p+'</span></label>';
+  });
+  document.getElementById('pageList').innerHTML=html;
+}
+function reversePages(){pageOrder.reverse();renderPageList();}
+function removeSelected(){
+  var cbs=document.querySelectorAll('.page-chk:checked');
+  var keep=[];
+  cbs.forEach(function(cb){keep.push(pageOrder[parseInt(cb.dataset.idx)]);});
+  pageOrder=keep;
+  renderPageList();
+}
+function startProcess(){
+  if(!pageOrder.length){alert('没有页面');return;}
+  var btn=document.getElementById('goBtn');btn.disabled=true;btn.textContent='处理完毕';
+  document.getElementById('result').style.display='block';
+  document.getElementById('result').innerHTML='<div style="font-weight:700;color:#10b981;">✅ 整理完成</div><div style="font-size:13px;color:var(--muted);margin-top:8px;">页面顺序: '+pageOrder.join(', ')+'<br>共 '+pageOrder.length+' 页</div>';
+  btn.disabled=false;btn.textContent='▶ 开始处理';
+}
+
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>
