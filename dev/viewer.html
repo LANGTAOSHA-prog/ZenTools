@@ -26,6 +26,11 @@ textarea.tool-input:focus { border-color:var(--border-h); }
 .collapsed>.tree-children { display:none; }
 .tool-msg { margin-top:12px; padding:12px; border-radius:10px; display:none; font-size:14px; }
 .tool-msg.error { display:block; background:rgba(248,113,113,0.1); color:#f87171; }
+.tool-recommend { margin:24px 0 8px; padding:18px 20px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; }
+.tool-recommend h4 { font-size:14px; font-weight:700; color:var(--text); margin-bottom:10px; }
+.tool-recommend a { display:inline-block; color:var(--cyan); text-decoration:none; font-weight:600; font-size:14px; margin:4px 0; }
+.tool-recommend a:hover { color:var(--purple); text-decoration:underline; }
+.tool-recommend .sep { color:var(--muted); margin:0 10px; }
 @media(max-width:640px) { textarea.tool-input { min-height:180px; } .tree-node { margin-left:12px; } }
 </style>
 <meta name="google-adsense-account" content="ca-pub-1955887568822472">
@@ -48,6 +53,11 @@ textarea.tool-input:focus { border-color:var(--border-h); }
 </div>
 <div id="treeContainer" class="tree-view"><span style="color:var(--muted);" data-i18n="waiting">等待输入 JSON...</span></div>
 <div id="errorMsg" class="tool-msg"></div>
+<div class="tool-recommend">
+<h4 data-i18n="recTitle">🔗 推荐工具</h4>
+<a href="formatter.html">🧩 <span data-i18n="recFmt">JSON 格式化</span></a><span class="sep">·</span>
+<a href="diff.html">📊 <span data-i18n="recDiff">JSON 对比</span></a>
+</div>
 </div>
 <!-- Google AdSense -->
 <div style="max-width:900px;margin:0 auto 24px;padding:0 24px;">
@@ -58,10 +68,10 @@ textarea.tool-input:focus { border-color:var(--border-h); }
 </div>
 <script>
 window.ZT_PAGE={
-zh:{pageTitle:'JSON 树形视图 - ZenTools',crumbCur:'JSON 树形视图',eyebrow:'开发工具',h1Grad:'JSON 树形视图',h1Sub:'交互式树形结构 · 语法高亮',pageDesc:'交互式树形结构，支持展开/折叠节点，语法高亮显示。',toolTitle:'输入 JSON',btnRender:'生成树形视图',btnClear:'清空',btnExpand:'全部展开',btnCollapse:'全部折叠',waiting:'等待输入 JSON...',msgEmpty:'请输入 JSON 数据',msgParseError:'JSON 解析错误: '},
-en:{pageTitle:'JSON Tree View - ZenTools',crumbCur:'JSON Tree View',eyebrow:'DEV TOOLS',h1Grad:'JSON Tree View',h1Sub:'Interactive Tree · Syntax Highlight',pageDesc:'Interactive tree view with expand/collapse and syntax highlighting.',toolTitle:'Enter JSON',btnRender:'Render Tree',btnClear:'Clear',btnExpand:'Expand All',btnCollapse:'Collapse All',waiting:'Waiting for JSON input...',msgEmpty:'Please enter JSON data',msgParseError:'JSON parse error: '},
-ja:{pageTitle:'JSON ツリービュー - ZenTools',crumbCur:'JSON ツリービュー',h1Grad:'JSON ツリービュー',h1Sub:'インタラクティブツリー',btnRender:'ツリー表示',btnClear:'クリア',btnExpand:'すべて展開',btnCollapse:'すべて折りたたむ',waiting:'JSONを入力...',msgEmpty:'JSONデータを入力してください',msgParseError:'JSON解析エラー: '},
-vi:{pageTitle:'Xem cây JSON - ZenTools',crumbCur:'Xem cây JSON',h1Grad:'Xem cây JSON',h1Sub:'Cấu trúc cây tương tác',btnRender:'Hiển thị cây',btnClear:'Xóa',btnExpand:'Mở rộng',btnCollapse:'Thu gọn',waiting:'Đợi dữ liệu JSON...',msgEmpty:'Vui lòng nhập dữ liệu JSON',msgParseError:'Lỗi phân tích JSON: '}
+zh:{pageTitle:'JSON 树形视图 - ZenTools',crumbCur:'JSON 树形视图',eyebrow:'开发工具',h1Grad:'JSON 树形视图',h1Sub:'交互式树形结构 · 语法高亮',pageDesc:'交互式树形结构，支持展开/折叠节点，语法高亮显示。',toolTitle:'输入 JSON',btnRender:'生成树形视图',btnClear:'清空',btnExpand:'全部展开',btnCollapse:'全部折叠',waiting:'等待输入 JSON...',msgEmpty:'请输入 JSON 数据',msgParseError:'JSON 解析错误: ',recTitle:'🔗 推荐工具',recFmt:'JSON 格式化',recDiff:'JSON 对比'},
+en:{pageTitle:'JSON Tree View - ZenTools',crumbCur:'JSON Tree View',eyebrow:'DEV TOOLS',h1Grad:'JSON Tree View',h1Sub:'Interactive Tree · Syntax Highlight',pageDesc:'Interactive tree view with expand/collapse and syntax highlighting.',toolTitle:'Enter JSON',btnRender:'Render Tree',btnClear:'Clear',btnExpand:'Expand All',btnCollapse:'Collapse All',waiting:'Waiting for JSON input...',msgEmpty:'Please enter JSON data',msgParseError:'JSON parse error: ',recTitle:'🔗 Recommended Tools',recFmt:'JSON Formatter',recDiff:'JSON Diff'},
+ja:{pageTitle:'JSON ツリービュー - ZenTools',crumbCur:'JSON ツリービュー',h1Grad:'JSON ツリービュー',h1Sub:'インタラクティブツリー',btnRender:'ツリー表示',btnClear:'クリア',btnExpand:'すべて展開',btnCollapse:'すべて折りたたむ',waiting:'JSONを入力...',msgEmpty:'JSONデータを入力してください',msgParseError:'JSON解析エラー: ',recTitle:'🔗 おすすめツール',recFmt:'JSON フォーマッター',recDiff:'JSON 差分'},
+vi:{pageTitle:'Xem cây JSON - ZenTools',crumbCur:'Xem cây JSON',h1Grad:'Xem cây JSON',h1Sub:'Cấu trúc cây tương tác',btnRender:'Hiển thị cây',btnClear:'Xóa',btnExpand:'Mở rộng',btnCollapse:'Thu gọn',waiting:'Đợi dữ liệu JSON...',msgEmpty:'Vui lòng nhập dữ liệu JSON',msgParseError:'Lỗi phân tích JSON: ',recTitle:'🔗 Công cụ đề xuất',recFmt:'Định dạng JSON',recDiff:'So sánh JSON'}
 };
 </script>
 <script src="../assets/js/tool-ui.js"></script>
