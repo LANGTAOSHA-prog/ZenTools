@@ -1,355 +1,51 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>开发者工具 | 江湖小站-ZenTools</title>
-  <meta name="description" content="½­ºþÐ¡Õ¾-ZenTools å¼åèå·¥å·éåï¼JSONæ ¼å¼åãå·®å¼å¯¹æ¯ãæ å½¢è§å¾ãæåå¤´æµè¯ãé®çæµè¯ãéº¦åé£æµè¯ãé¼ æ æµè¯ãå±å¹æ£æµç­ã? />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #071026;
-      --surface: #0c1320;
-      --surface2: #0f1a2a;
-      --border: rgba(255,255,255,0.05);
-      --border-bright: rgba(255,255,255,0.1);
-      --text: #eef2ff;
-      --text-secondary: #9ca3cf;
-      --muted: #6c7a9e;
-      --accent: #06b6d4;
-      --accent-glow: rgba(6,182,212,0.25);
-      --purple: #a855f7;
-      --orange: #fb923c;
-      --green: #10b981;
-      --radius-lg: 24px;
-      --radius-md: 16px;
-      --radius-sm: 12px;
-    }
-    [data-theme="light"] {
-      --bg: #f1f5f9;
-      --surface: #ffffff;
-      --surface2: #f8fafc;
-      --border: rgba(0,0,0,0.06);
-      --border-bright: rgba(0,0,0,0.12);
-      --text: #0f172a;
-      --text-secondary: #334155;
-      --muted: #64748b;
-      --accent: #0891b2;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background 0.2s, color 0.2s;
-      padding: 40px 24px;
-    }
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-    }
-
-    /* å¤´é¨æ ·å¼ */
-    .section-head {
-      margin-bottom: 36px;
-      text-align: center;
-    }
-    .s-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(6,182,212,0.1);
-      backdrop-filter: blur(4px);
-      padding: 6px 16px;
-      border-radius: 100px;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: var(--accent);
-      border: 1px solid rgba(6,182,212,0.2);
-      margin-bottom: 16px;
-    }
-    .s-chip::before {
-      content: "â?;
-      font-size: 10px;
-    }
-    .s-title {
-      font-size: 2.4rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--text) 30%, var(--accent) 80%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 8px;
-    }
-    .s-sub {
-      color: var(--text-secondary);
-      font-size: 1rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    /* åç±»æ ç­¾ */
-    .category-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .category-btn {
-      background: transparent;
-      border: 1px solid var(--border-bright);
-      padding: 8px 22px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .category-btn.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #fff;
-      box-shadow: 0 4px 12px var(--accent-glow);
-    }
-    .category-btn:hover:not(.active) {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* ç½æ ¼å¸å± */
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 24px;
-      margin-top: 12px;
-    }
-
-    /* å¡çæ ·å¼ */
-    .tool-card {
-      background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-    }
-    .tool-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--purple), var(--orange));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .tool-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent);
-      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.4), 0 0 0 1px rgba(6,182,212,0.1);
-    }
-    .tool-card:hover::before {
-      opacity: 1;
-    }
-    .tool-icon {
-      font-size: 2.2rem;
-      line-height: 1;
-      width: 52px;
-      height: 52px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(6,182,212,0.08);
-      border-radius: 14px;
-      border: 1px solid rgba(6,182,212,0.15);
-    }
-    .tool-name {
-      font-size: 1.2rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      color: var(--text);
-    }
-    .tool-desc {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.5;
-      flex: 1;
-    }
-    .tool-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 40px;
-      width: fit-content;
-      background: rgba(6,182,212,0.12);
-      color: var(--accent);
-      border: 1px solid rgba(6,182,212,0.2);
-      transition: all 0.2s;
-    }
-    .tool-card:hover .tool-tag {
-      background: rgba(6,182,212,0.2);
-      gap: 8px;
-    }
-
-    /* ååºå¼?*/
-    @media (max-width: 640px) {
-      body { padding: 24px 16px; }
-      .s-title { font-size: 1.8rem; }
-      .tools-grid { gap: 16px; }
-      .tool-card { padding: 1.2rem; }
-    }
-
-    .footer-note {
-      text-align: center;
-      margin-top: 60px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 0.8rem;
-    }
-  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}</style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>JSON 工具集 - ZenTools</title>
+<meta name="description" content="JSON 格式化、对比、树形视图等在线 JSON 工具集合，完全本地运行，免费使用。"/>
+<link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/json-index.html"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<style>
+.tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin-top:24px; }
+.tool-card { display:flex; flex-direction:column; gap:10px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; padding:24px; text-align:center; transition:border-color 0.25s,transform 0.25s; text-decoration:none; }
+.tool-card:hover { border-color:var(--border-h); transform:translateY(-4px); }
+.tool-card .icon { font-size:32px; }
+.tool-card .name { font-size:15px; font-weight:700; color:var(--text); }
+.tool-card .desc { font-size:13px; color:var(--muted); line-height:1.5; }
+.tool-card .tag { display:inline-block; font-size:11px; font-weight:700; padding:4px 10px; border-radius:6px; background:rgba(0,229,255,0.1); color:var(--cyan); align-self:center; }
+.tool-box h2 { margin-bottom:8px; }
+.tool-box .sub { color:var(--muted); font-size:15px; }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。所有工具在浏览器本地运行，无需注册，无需安装。"}},{"@type":"Question","name":"我的文件会上传到服务器吗？","acceptedAnswer":{"@type":"Answer","text":"不会。所有工具在您的浏览器本地运行，文件不会上传到任何服务器，保护您的隐私安全。"}},{"@type":"Question","name":"支持哪些浏览器？","acceptedAnswer":{"@type":"Answer","text":"推荐使用最新版 Chrome、Edge、Firefox 或 Safari。部分工具需要浏览器支持相关 Web API。"}},{"@type":"Question","name":"如何使用这个工具？","acceptedAnswer":{"@type":"Answer","text":"打开页面后，按照界面提示输入内容或上传文件，即可获得处理结果。操作简单，即开即用。"}}]}</script>
 </head>
 <body>
-<div class="container">
-  <div class="section-head">
-    <div class="s-chip">å¼åèå·¥å·é</div>
-    <div class="s-title">/dev å·¥å·ç®?/div>
-    <div class="s-sub">JSON å·¥å· Â· ç¡¬ä»¶æµè¯ Â· å¼åè¾å?/div>
-  </div>
-
-  <div class="category-tabs">
-    <button class="category-btn active" data-cat="all">ð å¨é¨å·¥å·</button>
-    <button class="category-btn" data-cat="json">ð JSON å·¥å·</button>
-    <button class="category-btn" data-cat="hardware">ð¥ï¸?ç¡¬ä»¶æµè¯</button>
-  </div>
-
-  <div class="tools-grid" id="toolsGrid">
-    <!-- ========= JSON å·¥å·ç»?(æ ¹æ®å¾çä¸­ç diff.html, formatter.html, viewer.html) ========= -->
-    <a class="tool-card" href="formatter.html" data-category="json">
-      <div class="tool-icon">{ }</div>
-      <div class="tool-name">JSON æ ¼å¼å?/div>
-      <div class="tool-desc">æ ¼å¼åãåç¼©ãéªè¯?JSON æ°æ®ï¼æ¯æè¯­æ³é«äº®åéè¯¯æç¤º</div>
-      <span class="tool-tag">JSON å·¥å·</span>
-    </a>
-
-    <a class="tool-card" href="diff.html" data-category="json">
-      <div class="tool-icon">ð</div>
-      <div class="tool-name">JSON å¯¹æ¯</div>
-      <div class="tool-desc">å¯¹æ¯ä¸¤ä¸ª JSON ç»æå·®å¼ï¼é«äº®æ°å¢ãå é¤åä¿®æ¹çå­æ®?/div>
-      <span class="tool-tag">JSON å·¥å·</span>
-    </a>
-
-    <a class="tool-card" href="viewer.html" data-category="json">
-      <div class="tool-icon">ð³</div>
-      <div class="tool-name">JSON æ å½¢è§å¾</div>
-      <div class="tool-desc">äº¤äºå¼æ å½¢ç»æï¼æ¯æå±å¼/æå èç¹ï¼è¯­æ³é«äº?/div>
-      <span class="tool-tag">JSON å·¥å·</span>
-    </a>
-
-    <!-- ========= ç¡¬ä»¶æµè¯å·¥å· (æ ¹æ®å¾çä¸­ç cameratest, keyboardtest, mictest, mousetest, screencheck) ========= -->
-    <a class="tool-card" href="cameratest.html" data-category="hardware">
-      <div class="tool-icon">ð¹</div>
-      <div class="tool-name">æåå¤´æµè¯?/div>
-      <div class="tool-desc">æ£æµæåå¤´æ¯å¦æ­£å¸¸å·¥ä½ï¼å®æ¶é¢è§ç»é¢ï¼æµè¯æç§åè½</div>
-      <span class="tool-tag">ç¡¬ä»¶æµè¯</span>
-    </a>
-
-    <a class="tool-card" href="keyboardtest.html" data-category="hardware">
-      <div class="tool-icon">â¨ï¸</div>
-      <div class="tool-name">é®çæµè¯</div>
-      <div class="tool-desc">æä¸ä»»ææé®ï¼å®æ¶æ¾ç¤ºæé®åç§°ä¸ç¶æï¼æ£æµé®çååº?/div>
-      <span class="tool-tag">ç¡¬ä»¶æµè¯</span>
-    </a>
-
-    <a class="tool-card" href="mictest.html" data-category="hardware">
-      <div class="tool-icon">ðï¸?/div>
-      <div class="tool-name">éº¦åé£æµè¯?/div>
-      <div class="tool-desc">æµè¯éº¦åé£è¾å¥é³éï¼å®æ¶é³é¢æ³¢å½¢åé¦</div>
-      <span class="tool-tag">ç¡¬ä»¶æµè¯</span>
-    </a>
-
-    <a class="tool-card" href="mousetest.html" data-category="hardware">
-      <div class="tool-icon">ð±ï¸?/div>
-      <div class="tool-name">é¼ æ æµè¯</div>
-      <div class="tool-desc">æ£æµé¼ æ å·¦å³é®ãæ»è½®åç§»å¨è½¨è¿¹ï¼ç¡®è®¤åé¡¹åè?/div>
-      <span class="tool-tag">ç¡¬ä»¶æµè¯</span>
-    </a>
-
-    <a class="tool-card" href="screencheck.html" data-category="hardware">
-      <div class="tool-icon">ð¥ï¸?/div>
-      <div class="tool-name">å±å¹æ£æµ?/div>
-      <div class="tool-desc">å¨å±æµè¯åç¹ãäº®ç¹ãè²å½©è¿æ¸¡åæ¼åæåµ</div>
-      <span class="tool-tag">ç¡¬ä»¶æµè¯</span>
-    </a>
-  </div>
-
-  <div class="footer-note">
-    <p>â?ææå·¥å·åå¨æµè§å¨æ¬å°è¿è¡ï¼æ éä¸ä¼ æ°æ®ï¼ä¿æ¤éç§?/p>
-    <p style="margin-top: 8px;">ð å½åç®å½: /dev/ | å?8 ä¸ªå·¥å?/p>
-  </div>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/dev/">开发工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">JSON 工具集</span></div><span class="page-eyebrow" data-i18n="eyebrow">开发工具</span><h1><span class="grad" data-i18n="h1Grad">JSON 工具集</span><br/><span data-i18n="h1Sub">格式化 · 对比 · 树形视图</span></h1><p data-i18n="pageDesc">3 款常用 JSON 工具，格式化、对比差异、树形可视化，全部免费本地使用。</p></div>
+<div class="tool-box reveal">
+<h2 data-i18n="toolTitle">JSON 工具</h2>
+<p class="sub" data-i18n="toolSub">选择下方工具开始使用</p>
+<div class="tools-grid">
+<a class="tool-card" href="formatter.html"><div class="icon">{ }</div><div class="name" data-i18n="name1">JSON 格式化</div><div class="desc" data-i18n="desc1">格式化、压缩、验证 JSON 数据</div><span class="tag">JSON</span></a>
+<a class="tool-card" href="diff.html"><div class="icon">🔍</div><div class="name" data-i18n="name2">JSON 对比</div><div class="desc" data-i18n="desc2">对比两个 JSON 的结构差异</div><span class="tag">JSON</span></a>
+<a class="tool-card" href="viewer.html"><div class="icon">🌳</div><div class="name" data-i18n="name3">JSON 树形视图</div><div class="desc" data-i18n="desc3">交互式树形结构可视化</div><span class="tag">JSON</span></a>
 </div>
-
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-  // åç±»è¿æ»¤åè½
-  const filterButtons = document.querySelectorAll('.category-btn');
-  const cards = document.querySelectorAll('.tool-card');
-
-  function filterTools(category) {
-    let visibleCount = 0;
-    cards.forEach(card => {
-      const cardCat = card.getAttribute('data-category');
-      if (category === 'all' || cardCat === category) {
-        card.style.display = 'flex';
-        visibleCount++;
-      } else {
-        card.style.display = 'none';
-      }
-    });
-  }
-
-  filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const category = btn.getAttribute('data-cat');
-      filterTools(category);
-    });
-  });
-
-  // åå§æ¾ç¤ºå¨é¨
-  filterTools('all');
-
-  // ä¸»é¢åæ¢æ¯æï¼ä¸å¨å±ä¸è´ï¼
-  function initTheme() {
-    const stored = localStorage.getItem('zt_theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', stored);
-  }
-  initTheme();
+window.ZT_PAGE={
+zh:{pageTitle:'JSON 工具集 - ZenTools',crumbCur:'JSON 工具集',eyebrow:'开发工具',h1Grad:'JSON 工具集',h1Sub:'格式化 · 对比 · 树形视图',pageDesc:'3 款常用 JSON 工具，格式化、对比差异、树形可视化，全部免费本地使用。',toolTitle:'JSON 工具',toolSub:'选择下方工具开始使用',name1:'JSON 格式化',desc1:'格式化、压缩、验证 JSON 数据',name2:'JSON 对比',desc2:'对比两个 JSON 的结构差异',name3:'JSON 树形视图',desc3:'交互式树形结构可视化'},
+en:{pageTitle:'JSON Tools - ZenTools',crumbCur:'JSON Tools',eyebrow:'DEV TOOLS',h1Grad:'JSON Tools',h1Sub:'Format · Diff · Tree View',pageDesc:'3 JSON utilities: formatter, diff checker, and tree view.',toolTitle:'JSON Tools',toolSub:'Select a tool to start',name1:'JSON Formatter',desc1:'Format, minify & validate JSON',name2:'JSON Diff',desc2:'Compare two JSON structures',name3:'JSON Tree View',desc3:'Interactive tree visualization'},
+ja:{pageTitle:'JSON ツール - ZenTools',crumbCur:'JSON ツール',h1Grad:'JSON ツール',h1Sub:'フォーマット · 差分 · ツリー',toolTitle:'JSON ツール',name1:'JSON フォーマッター',desc1:'JSONを整形・圧縮・検証',name2:'JSON 差分',desc2:'2つのJSONを比較',name3:'JSON ツリービュー',desc3:'インタラクティブなツリー表示'},
+vi:{pageTitle:'Công cụ JSON - ZenTools',crumbCur:'Công cụ JSON',h1Grad:'Công cụ JSON',h1Sub:'Định dạng · So sánh · Cây',toolTitle:'Công cụ JSON',name1:'Định dạng JSON',desc1:'Định dạng, nén, xác thực JSON',name2:'So sánh JSON',desc2:'So sánh cấu trúc hai JSON',name3:'Xem cây JSON',desc3:'Trực quan hóa cấu trúc cây'}
+};
 </script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
+<script src="../assets/js/tool-ui.js"></script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 </body>
 </html>

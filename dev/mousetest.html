@@ -1,161 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>鼠标测试 - ZenTools</title>
-<meta name="description" content="ZenTools 免费在线鼠标测试工具。">
-
+<meta name="description" content="在线鼠标测试工具，检测鼠标点击、滚轮和移动坐标，确认各项功能正常。"/>
+<link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/mousetest.html"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
 <style>
-:root{--bg:#0f172a;--card:#111827;--card2:#0b1220;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444;--gold:#f59e0b}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
-.container{max-width:1000px;margin:auto;padding:40px 20px}
-a{color:#60a5fa;text-decoration:none}
-.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
-.lang-select{background:#111827;color:white;border:1px solid #334155;border-radius:10px;padding:10px 12px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px}
-h1{margin-bottom:15px}.desc{color:var(--muted);margin-bottom:25px}
-.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
-input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px}
-textarea{min-height:190px;resize:vertical}
-button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
-.copy-btn,.download-btn{background:var(--green)}.clear-btn{background:var(--red)}
-.result,.info{margin-top:28px}.info h2{margin-top:25px}.info p,.result{color:#cbd5e1;white-space:pre-line}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.box{background:#0b1220;border:1px solid #334155;border-radius:16px;padding:18px;margin-top:15px}
-.big{font-size:28px;font-weight:900}
-.preview img,.preview video{max-width:100%;border-radius:14px;border:1px solid #334155;margin-top:15px}
-.download-link{display:inline-block;margin-top:15px;background:var(--green);color:white;padding:12px 18px;border-radius:12px}
-footer{margin-top:50px;text-align:center;color:#94a3b8}
-@media(max-width:768px){button,.lang-select{width:100%}.top-bar{align-items:stretch}}
-.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}</style>
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这个工具免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "是的，完全免费。所有工具在浏览器本地运行，无需注册，无需安装。"}}, {"@type": "Question", "name": "我的文件会上传到服务器吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。所有工具在您的浏览器本地运行，文件不会上传到任何服务器，保护您的隐私安全。"}}, {"@type": "Question", "name": "支持哪些浏览器？", "acceptedAnswer": {"@type": "Answer", "text": "推荐使用最新版 Chrome、Edge、Firefox 或 Safari。部分工具需要浏览器支持相关 Web API。"}}, {"@type": "Question", "name": "如何使用这个工具？", "acceptedAnswer": {"@type": "Answer", "text": "打开页面后，按照界面提示输入内容或上传文件，即可获得处理结果。操作简单，即开即用。"}}]}</script>
+.test-area { min-height:280px; display:flex; align-items:center; justify-content:center; text-align:center; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; margin:16px 0; cursor:crosshair; transition:border-color 0.2s; padding:24px; }
+.test-area:hover { border-color:var(--border-h); }
+.test-area .area-text { font-size:16px; color:var(--muted); pointer-events:none; }
+.coord-display { text-align:center; padding:20px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; margin-top:12px; }
+.coord-display .coord-label { font-size:13px; color:var(--muted); margin-bottom:8px; }
+.coord-display .coord-value { font-size:28px; font-weight:800; color:var(--cyan); font-family:Consolas,monospace; }
+.coord-display .coord-detail { font-size:14px; color:var(--muted); margin-top:6px; }
+.info-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px; }
+.info-cell { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; }
+.info-cell .ic-label { font-size:12px; color:var(--muted); margin-bottom:4px; }
+.info-cell .ic-value { font-size:20px; font-weight:700; color:var(--text); }
+@media(max-width:640px){ .info-grid { grid-template-columns:1fr; } }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。所有工具在浏览器本地运行，无需注册，无需安装。"}},{"@type":"Question","name":"我的文件会上传到服务器吗？","acceptedAnswer":{"@type":"Answer","text":"不会。所有工具在您的浏览器本地运行，文件不会上传到任何服务器，保护您的隐私安全。"}},{"@type":"Question","name":"支持哪些浏览器？","acceptedAnswer":{"@type":"Answer","text":"推荐使用最新版 Chrome、Edge、Firefox 或 Safari。部分工具需要浏览器支持相关 Web API。"}},{"@type":"Question","name":"如何使用这个工具？","acceptedAnswer":{"@type":"Answer","text":"打开页面后，按照界面提示输入内容或上传文件，即可获得处理结果。操作简单，即开即用。"}}]}</script>
 </head>
 <body>
-<div class="container">
-  <div class="top-bar">
-    <a href="index.html" data-i18n="back">← 返回首页</a>
-    <select id="languageSelect" class="lang-select">
-      <option value="zh">中文</option>
-      <option value="ja">日本語</option>
-      <option value="en">English</option>
-      <option value="vi">Tiếng Việt</option>
-    </select>
-  </div>
-  <div class="card">
-
-<h1 data-i18n="title">鼠标测试</h1>
-<p class="desc" data-i18n="desc">测试鼠标点击、滚轮和移动坐标。</p>
-<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
-<div class="box" id="area" style="min-height:260px;display:flex;align-items:center;justify-content:center;text-align:center;" data-i18n="areaText">在这里移动、点击或滚动鼠标</div>
-<div class="result" id="result"></div>
-
-  </div>
-  <footer>© 2026 ZenTools</footer>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/dev/">开发工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">鼠标测试</span></div><span class="page-eyebrow" data-i18n="eyebrow">开发工具</span><h1><span class="grad" data-i18n="h1Grad">鼠标测试</span><br/><span data-i18n="h1Sub">点击 · 滚轮 · 坐标</span></h1><p data-i18n="pageDesc">检测鼠标左右键、滚轮和移动轨迹，确认各项功能正常。</p></div>
+<div class="tool-box reveal">
+<h2 data-i18n="toolTitle">鼠标检测</h2>
+<div class="test-area" id="area"><span class="area-text" id="areaText" data-i18n="areaText">在这里移动、点击或滚动鼠标</span></div>
+<div class="coord-display">
+<div class="coord-label" data-i18n="coordLabel">鼠标信息</div>
+<div class="coord-value" id="coord">X: 0, Y: 0</div>
+<div class="coord-detail" id="detail" data-i18n="detailHint">移动鼠标查看坐标</div>
+</div>
+<div class="info-grid">
+<div class="info-cell"><div class="ic-label" data-i18n="clicks">点击次数</div><div class="ic-value" id="clickCount">0</div></div>
+<div class="info-cell"><div class="ic-label" data-i18n="scroll">滚轮</div><div class="ic-value" id="scrollCount">0</div></div>
+<div class="info-cell"><div class="ic-label" data-i18n="lastBtn">最后按键</div><div class="ic-value" id="lastBtn">-</div></div>
+</div>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
 </div>
 <script>
-
-const translations={
- zh:{pageTitle:"鼠标测试 - ZenTools",back:"← 返回首页",title:"鼠标测试",desc:"测试鼠标点击、滚轮和移动坐标。",ad:"广告位（Google AdSense）",areaText:"在这里移动、点击或滚动鼠标"},
- ja:{pageTitle:"マウステスト - ZenTools",back:"← ホームに戻る",title:"マウステスト",desc:"クリック、ホイール、座標をテスト。",ad:"広告スペース",areaText:"ここでマウスを動かす、クリック、スクロール"},
- en:{pageTitle:"Mouse Test - ZenTools",back:"← Back to Home",title:"Mouse Test",desc:"Test mouse clicks, wheel, and movement coordinates.",ad:"Ad Space",areaText:"Move, click, or scroll your mouse here"},
- vi:{pageTitle:"Kiểm tra chuột - ZenTools",back:"← Quay lại trang chủ",title:"Kiểm tra chuột",desc:"Kiểm tra nhấp chuột, cuộn và tọa độ.",ad:"Vị trí quảng cáo",areaText:"Di chuyển, nhấp hoặc cuộn chuột tại đây"}
+window.ZT_PAGE={
+zh:{pageTitle:'鼠标测试 - ZenTools',crumbCur:'鼠标测试',eyebrow:'开发工具',h1Grad:'鼠标测试',h1Sub:'点击 · 滚轮 · 坐标',pageDesc:'检测鼠标左右键、滚轮和移动轨迹。',toolTitle:'鼠标检测',areaText:'在这里移动、点击或滚动鼠标',coordLabel:'鼠标信息',detailHint:'移动鼠标查看坐标',clicks:'点击次数',scroll:'滚轮',lastBtn:'最后按键'},
+en:{pageTitle:'Mouse Test - ZenTools',crumbCur:'Mouse Test',eyebrow:'DEV TOOLS',h1Grad:'Mouse Test',h1Sub:'Click · Scroll · Coordinates',pageDesc:'Test mouse clicks, wheel and movement.',toolTitle:'Mouse Test',areaText:'Move, click, or scroll your mouse here',coordLabel:'Mouse Info',detailHint:'Move mouse to see coordinates',clicks:'Clicks',scroll:'Scroll',lastBtn:'Last Button'},
+ja:{pageTitle:'マウステスト - ZenTools',crumbCur:'マウステスト',h1Grad:'マウステスト',h1Sub:'クリック · スクロール · 座標',toolTitle:'マウステスト',areaText:'ここでマウスを動かす、クリック、スクロール',coordLabel:'マウス情報',detailHint:'マウスを動かして座標確認',clicks:'クリック数',scroll:'スクロール',lastBtn:'最後のボタン'},
+vi:{pageTitle:'Kiểm tra chuột - ZenTools',crumbCur:'Kiểm tra chuột',h1Grad:'Kiểm tra chuột',h1Sub:'Nhấp · Cuộn · Tọa độ',toolTitle:'Kiểm tra chuột',areaText:'Di chuyển, nhấp hoặc cuộn chuột tại đây',coordLabel:'Thông tin chuột',detailHint:'Di chuyển chuột để xem tọa độ',clicks:'Số lần nhấp',scroll:'Cuộn',lastBtn:'Nút cuối'}
 };
-
-const languageSelect=document.getElementById("languageSelect");
-let currentLang="zh";
-function setLanguage(lang){
- currentLang=lang;
- const data=translations[lang]||translations.zh;
- document.documentElement.lang=lang;
- document.title=data.pageTitle||document.title;
- document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
- document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
- localStorage.setItem("siteLanguage",lang);
-}
-languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("siteLanguage")||"zh";
-languageSelect.value=savedLang;
-
-setLanguage(savedLang);
-const area=document.getElementById("area"),res=document.getElementById("result");
-area.addEventListener("mousemove",e=>res.textContent=`X: ${e.offsetX}, Y: ${e.offsetY}`);
-area.addEventListener("click",e=>res.textContent=`Click button: ${e.button}, X: ${e.offsetX}, Y: ${e.offsetY}`);
-area.addEventListener("wheel",e=>{e.preventDefault();res.textContent=`Wheel delta: ${e.deltaY}`;});
-
-<script>
-const seoData = {
-  title: "工具名称 - 免费在线工具 | ZenTools",
-  description: "免费在线工具名称，支持手机与电脑，无需安装软件。",
-  keywords: "工具名称,在线工具,免费工具,ZenTools",
-  url: "https://www.zentools.xyz/tool.html",
-  image: "https://www.zentools.xyz/logo.png"
-};
-
-function setMeta(name, content){
-  let meta = document.querySelector(`meta[name="${name}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("name", name);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setProperty(property, content){
-  let meta = document.querySelector(`meta[property="${property}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("property", property);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setCanonical(url){
-  let link = document.querySelector('link[rel="canonical"]');
-  if(!link){
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-  link.setAttribute("href", url);
-}
-
-function applySEO(){
-  document.title = seoData.title;
-
-  setMeta("description", seoData.description);
-  setMeta("keywords", seoData.keywords);
-  setMeta("author", "ZenTools");
-
-  setCanonical(seoData.url);
-
-  setProperty("og:title", seoData.title);
-  setProperty("og:description", seoData.description);
-  setProperty("og:type", "website");
-  setProperty("og:url", seoData.url);
-  setProperty("og:image", seoData.image);
-
-  setMeta("twitter:card", "summary_large_image");
-  setMeta("twitter:title", seoData.title);
-  setMeta("twitter:description", seoData.description);
-}
-
-applySEO();
 </script>
-
+<script src="../assets/js/tool-ui.js"></script>
 <script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+let clickCnt=0,scrollCnt=0;
+const area=document.getElementById('area'),coord=document.getElementById('coord'),detail=document.getElementById('detail');
+area.addEventListener('mousemove',function(e){coord.textContent='X: '+e.offsetX+', Y: '+e.offsetY;document.getElementById('detail').textContent='button: '+e.buttons;});
+area.addEventListener('click',function(e){clickCnt++;document.getElementById('clickCount').textContent=clickCnt;document.getElementById('lastBtn').textContent='button '+e.button;coord.textContent='X: '+e.offsetX+', Y: '+e.offsetY;});
+area.addEventListener('wheel',function(e){e.preventDefault();scrollCnt++;document.getElementById('scrollCount').textContent=scrollCnt;detail.textContent='deltaY: '+(e.deltaY>0?'↓':'↑');},{passive:false});
 </script>
-
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 </body>
 </html>

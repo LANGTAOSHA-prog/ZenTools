@@ -1,131 +1,78 @@
-<!-- JSON æ ¼å¼åå·¥å?2: é«çº§çï¼è¯­æ³é«äº® + æ å½¢è§å¾ï¼?-->
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>JSON 可视化工具 - 树形视图 | 江湖小站-ZenTools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #071026;
-      --surface: #0c1320;
-      --surface2: #0f1a2a;
-      --border: rgba(255,255,255,0.04);
-      --border-bright: rgba(255,255,255,0.08);
-      --text: #e6eef8;
-      --muted: #93a3b8;
-      --accent: #06b6d4;
-      --accent2: #fb923c;
-      --radius: 12px;
-      --radius-pill: 999px;
-      --key-color: #7e9eff;
-      --string-color: #c3e88d;
-      --number-color: #f78c6c;
-      --bool-color: #ffcb6b;
-    }
-    [data-theme="light"] {
-      --bg: #f0f4f8;
-      --surface: #ffffff;
-      --surface2: #f5f7fa;
-      --border: rgba(0,0,0,0.07);
-      --border-bright: rgba(0,0,0,0.12);
-      --text: #0d1117;
-      --muted: #556070;
-      --key-color: #0969da;
-      --string-color: #0a7e3c;
-      --number-color: #b35900;
-      --bool-color: #b35900;
-    }
-    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); transition: background .3s; }
-    .container { max-width: 1280px; margin: 0 auto; padding: 80px 24px 40px; }
-    .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); margin-bottom: 20px; text-decoration: none; font-size: 14px; }
-    h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
-    .sub { color: var(--muted); margin-bottom: 24px; }
-    .toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
-    button { background: var(--surface2); border: 1px solid var(--border-bright); color: var(--text); padding: 8px 20px; border-radius: var(--radius-pill); cursor: pointer; font-weight: 600; transition: all .2s; }
-    button:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
-    textarea { width: 100%; height: 240px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; color: var(--text); font-family: monospace; font-size: 13px; resize: vertical; }
-    .tree-view { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 20px; min-height: 280px; overflow: auto; font-family: monospace; font-size: 13px; line-height: 1.6; }
-    .tree-node { margin-left: 20px; }
-    .tree-toggle { cursor: pointer; user-select: none; display: inline-block; width: 18px; color: var(--accent); }
-    .tree-key { color: var(--key-color); font-weight: 600; }
-    .tree-string { color: var(--string-color); }
-    .tree-number { color: var(--number-color); }
-    .tree-boolean { color: var(--bool-color); }
-    .tree-null { color: var(--muted); font-style: italic; }
-    .collapsed > .tree-children { display: none; }
-    .error { color: #f87171; background: rgba(248,113,113,0.1); padding: 12px; border-radius: 10px; margin-top: 12px; }
-    .footer { text-align: center; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; }
-    @media (max-width: 640px) { .container { padding: 70px 16px 30px; } .tree-node { margin-left: 12px; } }
-  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}</style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这个工具免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "是的，完全免费。所有工具在浏览器本地运行，无需注册，无需安装。"}}, {"@type": "Question", "name": "我的文件会上传到服务器吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。所有工具在您的浏览器本地运行，文件不会上传到任何服务器，保护您的隐私安全。"}}, {"@type": "Question", "name": "支持哪些浏览器？", "acceptedAnswer": {"@type": "Answer", "text": "推荐使用最新版 Chrome、Edge、Firefox 或 Safari。部分工具需要浏览器支持相关 Web API。"}}, {"@type": "Question", "name": "如何使用这个工具？", "acceptedAnswer": {"@type": "Answer", "text": "打开页面后，按照界面提示输入内容或上传文件，即可获得处理结果。操作简单，即开即用。"}}]}</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>JSON 树形视图 - ZenTools</title>
+<meta name="description" content="在线 JSON 可视化工具，交互式树形结构，支持展开/折叠节点，语法高亮，完全本地运行。"/>
+<link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/dev/viewer.html"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.css"/>
+<style>
+textarea.tool-input { width:100%; min-height:240px; padding:16px; border:1px solid var(--border); border-radius:12px; background:rgba(255,255,255,0.03); color:var(--text); font-family:Consolas,monospace; font-size:13px; resize:vertical; outline:none; }
+textarea.tool-input:focus { border-color:var(--border-h); }
+.btn-group { display:flex; gap:10px; flex-wrap:wrap; margin:16px 0; }
+.btn-group button { padding:10px 22px; border-radius:10px; border:1px solid var(--border); background:var(--glass); color:var(--text); font-size:14px; font-weight:600; cursor:pointer; transition:all 0.2s; }
+.btn-group button:hover { border-color:var(--border-h); background:var(--glass-b); }
+.btn-primary { background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#000; border:none; padding:10px 22px; border-radius:10px; font-size:14px; font-weight:700; cursor:pointer; transition:opacity 0.2s,transform 0.2s; }
+.btn-primary:hover { opacity:0.9; transform:translateY(-2px); }
+.tree-view { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; padding:20px; margin-top:16px; min-height:260px; overflow:auto; font-family:Consolas,monospace; font-size:13px; line-height:1.7; }
+.tree-node { margin-left:20px; }
+.tree-toggle { cursor:pointer; user-select:none; display:inline-block; width:18px; color:var(--cyan); }
+.tree-key { color:#7e9eff; font-weight:600; }
+.tree-string { color:#c3e88d; }
+.tree-number { color:#f78c6c; }
+.tree-bool { color:#ffcb6b; }
+.tree-null { color:var(--muted); font-style:italic; }
+.collapsed>.tree-children { display:none; }
+.tool-msg { margin-top:12px; padding:12px; border-radius:10px; display:none; font-size:14px; }
+.tool-msg.error { display:block; background:rgba(248,113,113,0.1); color:#f87171; }
+@media(max-width:640px) { textarea.tool-input { min-height:180px; } .tree-node { margin-left:12px; } }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。所有工具在浏览器本地运行，无需注册，无需安装。"}},{"@type":"Question","name":"我的文件会上传到服务器吗？","acceptedAnswer":{"@type":"Answer","text":"不会。所有工具在您的浏览器本地运行，文件不会上传到任何服务器，保护您的隐私安全。"}},{"@type":"Question","name":"支持哪些浏览器？","acceptedAnswer":{"@type":"Answer","text":"推荐使用最新版 Chrome、Edge、Firefox 或 Safari。部分工具需要浏览器支持相关 Web API。"}},{"@type":"Question","name":"如何使用这个工具？","acceptedAnswer":{"@type":"Answer","text":"打开页面后，按照界面提示输入内容或上传文件，即可获得处理结果。操作简单，即开即用。"}}]}</script>
 </head>
 <body>
-<div class="container">
-  <a href="/dev/json-index.html" class="back-link">â?è¿åå·¥å·ç®?/a>
-  <div class="header">
-    <h1>ð³ JSON å¯è§åå·¥å?Â· æ å½¢è§å¾</h1>
-    <div class="sub">äº¤äºå¼æ å½¢ç»æï¼æ¯æå±å¼/æå èç¹ï¼è¯­æ³é«äº?/div>
-  </div>
-  <div class="toolbar">
-    <button onclick="renderTree()">ð² çææ å½¢è§å¾</button>
-    <button onclick="clearAll()">ðï¸?æ¸ç©º</button>
-    <button onclick="expandAll()">ð å¨é¨å±å¼</button>
-    <button onclick="collapseAll()">ð å¨é¨æå </button>
-  </div>
-  <textarea id="jsonInput" placeholder='{"tool":"½­ºþÐ¡Õ¾-ZenTools","features":["æ ¼å¼å?,"æ å½¢è§å¾","é«äº®"],"info":{"version":"2.0","free":true}}'></textarea>
-  <div id="treeContainer" class="tree-view"><span style="color:var(--muted);">ç­å¾è¾å¥ JSON...</span></div>
-  <div id="errorMsg" class="error" style="display:none;"></div>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/dev/">开发工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">JSON 树形视图</span></div><span class="page-eyebrow" data-i18n="eyebrow">开发工具</span><h1><span class="grad" data-i18n="h1Grad">JSON 树形视图</span><br/><span data-i18n="h1Sub">交互式树形结构 · 语法高亮</span></h1><p data-i18n="pageDesc">交互式树形结构，支持展开/折叠节点，语法高亮显示，完全本地运行。</p></div>
+<div class="tool-box reveal">
+<h2 data-i18n="toolTitle">输入 JSON</h2>
+<textarea id="jsonInput" class="tool-input" placeholder='{"name":"ZenTools","features":["树形视图","高亮"],"info":{"version":"2.0","free":true}}'></textarea>
+<div class="btn-group">
+<button class="btn-primary" onclick="renderTree()">🌲 <span data-i18n="btnRender">生成树形视图</span></button>
+<button onclick="clearAll()">🗑️ <span data-i18n="btnClear">清空</span></button>
+<button onclick="expandAll()">📂 <span data-i18n="btnExpand">全部展开</span></button>
+<button onclick="collapseAll()">📁 <span data-i18n="btnCollapse">全部折叠</span></button>
 </div>
-<div class="footer">Â© ½­ºþÐ¡Õ¾-ZenTools Â· æ¬å°è§£æï¼æ°æ®ä¸ä¸ä¼ </div>
+<div id="treeContainer" class="tree-view"><span style="color:var(--muted);" data-i18n="waiting">等待输入 JSON...</span></div>
+<div id="errorMsg" class="tool-msg"></div>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-  function renderTree() {
-    const input = document.getElementById('jsonInput').value.trim();
-    if (!input) { showError('è¯·è¾å?JSON æ°æ®'); return; }
-    try { const obj = JSON.parse(input); const html = buildTree(obj); document.getElementById('treeContainer').innerHTML = html; hideError(); attachToggleEvents(); }
-    catch(e) { showError('JSON è§£æéè¯¯: ' + e.message); }
-  }
-  function buildTree(data, key = null, isLast = true) {
-    let type = typeof data;
-    if (data === null) return `<span class="tree-null">null</span>`;
-    if (type === 'string') return `<span class="tree-string">"${escapeHtml(data)}"</span>`;
-    if (type === 'number') return `<span class="tree-number">${data}</span>`;
-    if (type === 'boolean') return `<span class="tree-boolean">${data}</span>`;
-    if (Array.isArray(data)) {
-      if (data.length === 0) return `<span class="tree-null">[]</span>`;
-      let children = '';
-      data.forEach((item, idx) => { children += `<div class="tree-node">${buildTree(item, idx, idx === data.length-1)}${idx !== data.length-1 ? ',' : ''}</div>`; });
-      return `<span class="tree-toggle">â?/span><span class="tree-key">[${key !== null ? key : ''}]</span><div class="tree-children">${children}</div>`;
-    }
-    if (type === 'object') {
-      const keys = Object.keys(data);
-      if (keys.length === 0) return `<span class="tree-null">{}</span>`;
-      let children = '';
-      keys.forEach((k, idx) => { children += `<div class="tree-node"><span class="tree-toggle">â?/span><span class="tree-key">"${escapeHtml(k)}"</span>: ${buildTree(data[k], k, idx === keys.length-1)}${idx !== keys.length-1 ? ',' : ''}</div>`; });
-      return `<div class="tree-children">${children}</div>`;
-    }
-    return String(data);
-  }
-  function attachToggleEvents() { document.querySelectorAll('.tree-toggle').forEach(toggle => { toggle.onclick = function(e) { e.stopPropagation(); const parent = this.parentElement; parent.classList.toggle('collapsed'); this.textContent = parent.classList.contains('collapsed') ? 'â? : 'â?; }; }); }
-  function expandAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(p.classList.contains('collapsed')){ p.classList.remove('collapsed'); t.textContent='â?; } }); }
-  function collapseAll() { document.querySelectorAll('.tree-toggle').forEach(t => { const p = t.parentElement; if(!p.classList.contains('collapsed')){ p.classList.add('collapsed'); t.textContent='â?; } }); }
-  function clearAll() { document.getElementById('jsonInput').value = ''; document.getElementById('treeContainer').innerHTML = '<span style="color:var(--muted);">ç­å¾è¾å¥ JSON...</span>'; hideError(); }
-  function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
-  function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
-  function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){if(m==='&')return '&amp;';if(m==='<')return '&lt;';if(m==='>')return '&gt;';return m;}); }
+window.ZT_PAGE={
+zh:{pageTitle:'JSON 树形视图 - ZenTools',crumbCur:'JSON 树形视图',eyebrow:'开发工具',h1Grad:'JSON 树形视图',h1Sub:'交互式树形结构 · 语法高亮',pageDesc:'交互式树形结构，支持展开/折叠节点，语法高亮显示。',toolTitle:'输入 JSON',btnRender:'生成树形视图',btnClear:'清空',btnExpand:'全部展开',btnCollapse:'全部折叠',waiting:'等待输入 JSON...',msgEmpty:'请输入 JSON 数据',msgParseError:'JSON 解析错误: '},
+en:{pageTitle:'JSON Tree View - ZenTools',crumbCur:'JSON Tree View',eyebrow:'DEV TOOLS',h1Grad:'JSON Tree View',h1Sub:'Interactive Tree · Syntax Highlight',pageDesc:'Interactive tree view with expand/collapse and syntax highlighting.',toolTitle:'Enter JSON',btnRender:'Render Tree',btnClear:'Clear',btnExpand:'Expand All',btnCollapse:'Collapse All',waiting:'Waiting for JSON input...',msgEmpty:'Please enter JSON data',msgParseError:'JSON parse error: '},
+ja:{pageTitle:'JSON ツリービュー - ZenTools',crumbCur:'JSON ツリービュー',h1Grad:'JSON ツリービュー',h1Sub:'インタラクティブツリー',btnRender:'ツリー表示',btnClear:'クリア',btnExpand:'すべて展開',btnCollapse:'すべて折りたたむ',waiting:'JSONを入力...',msgEmpty:'JSONデータを入力してください',msgParseError:'JSON解析エラー: '},
+vi:{pageTitle:'Xem cây JSON - ZenTools',crumbCur:'Xem cây JSON',h1Grad:'Xem cây JSON',h1Sub:'Cấu trúc cây tương tác',btnRender:'Hiển thị cây',btnClear:'Xóa',btnExpand:'Mở rộng',btnCollapse:'Thu gọn',waiting:'Đợi dữ liệu JSON...',msgEmpty:'Vui lòng nhập dữ liệu JSON',msgParseError:'Lỗi phân tích JSON: '}
+};
 </script>
-
+<script src="../assets/js/tool-ui.js"></script>
 <script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+function getMsg(k){const l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
+function renderTree(){const input=document.getElementById('jsonInput').value.trim();if(!input){showErr(getMsg('msgEmpty'));return;}try{const obj=JSON.parse(input);document.getElementById('treeContainer').innerHTML=buildTree(obj);hideErr();attachToggleEvents();}catch(e){showErr(getMsg('msgParseError')+e.message);}}
+function buildTree(data,key=null){const t=typeof data;if(data===null)return'<span class="tree-null">null</span>';if(t==='string')return'<span class="tree-string">"'+esc(data)+'"</span>';if(t==='number')return'<span class="tree-number">'+data+'</span>';if(t==='boolean')return'<span class="tree-bool">'+data+'</span>';if(Array.isArray(data)){if(data.length===0)return'<span class="tree-null">[]</span>';let c='';data.forEach((item,i)=>{c+='<div class="tree-node">'+buildTree(item,i)+(i!==data.length-1?',':'')+'</div>';});return'<span class="tree-toggle">▶</span><span class="tree-key">['+(key!==null?key:'')+']</span><div class="tree-children">'+c+'</div>';}
+if(t==='object'){const keys=Object.keys(data);if(keys.length===0)return'<span class="tree-null">{}</span>';let c='';keys.forEach((k,i)=>{c+='<div class="tree-node"><span class="tree-toggle">▶</span><span class="tree-key">"'+esc(k)+'"</span>: '+buildTree(data[k],k)+(i!==keys.length-1?',':'')+'</div>';});return'<div class="tree-children">'+c+'</div>';}
+return String(data);}
+function attachToggleEvents(){document.querySelectorAll('.tree-toggle').forEach(t=>{t.onclick=function(e){e.stopPropagation();const p=this.parentElement;p.classList.toggle('collapsed');this.textContent=p.classList.contains('collapsed')?'▶':'▼';};});}
+function expandAll(){document.querySelectorAll('.tree-toggle').forEach(t=>{const p=t.parentElement;if(p.classList.contains('collapsed')){p.classList.remove('collapsed');t.textContent='▼';}});}
+function collapseAll(){document.querySelectorAll('.tree-toggle').forEach(t=>{const p=t.parentElement;if(!p.classList.contains('collapsed')){p.classList.add('collapsed');t.textContent='▶';}});}
+function clearAll(){document.getElementById('jsonInput').value='';document.getElementById('treeContainer').innerHTML='<span style="color:var(--muted);">'+getMsg('waiting')+'</span>';hideErr();}
+function showErr(m){const e=document.getElementById('errorMsg');e.textContent=m;e.className='tool-msg error';}
+function hideErr(){document.getElementById('errorMsg').className='tool-msg';}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 </script>
-
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 </body>
 </html>
