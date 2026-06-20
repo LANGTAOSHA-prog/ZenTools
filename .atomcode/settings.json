@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Edit",
+      "Write",
+      "Bash(python:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": {
+      "validate_json": {
+        "glob": "data/*.json",
+        "command": "python -c \"import json,sys; f=open(sys.argv[1],encoding='utf-8'); json.load(f); f.close(); print('JSON OK')\"",
+        "description": "JSON 数据文件格式校验"
+      }
+    },
+    "PreToolUse": {
+      "block_images": {
+        "glob": ["*.svg", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.ico", "*.woff", "*.woff2"],
+        "description": "阻止直接编辑图片和字体文件"
+      }
+    }
+  }
+}
