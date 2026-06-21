@@ -1,255 +1,943 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF 页码删除 - ZenTools 免费在线工具箱</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/tool-ui.css">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF 页码删除 - 免费在线工具 | ZenTools</title>
+  <meta property="og:title" content="PDF 页码删除 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="移除 PDF 文件中的页码，支持自定义页码区域和智能检测。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/pdf/pdf-remove-page-numbers.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PDF 页码删除 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Remove page numbers from PDF files with smart detection." />
+  <meta name="description" content="免费在线 PDF 页码删除工具，智能检测并移除 PDF 中的页码，支持自定义删除区域，纯本地处理不上传服务器。" />
+  <meta name="keywords" content="PDF页码删除,PDF去页码,PDF页码移除,PDF页码,PDF编辑,ZenTools" />
+  <link rel="canonical" href="https://zentools.xyz/pdf/pdf-remove-page-numbers.html" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
+  <style>
+    /* 工具专用样式 */
+    .preview-area {
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.3);
+      min-height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .preview-area canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .preview-placeholder {
+      color: var(--muted);
+      font-size: 15px;
+      text-align: center;
+      padding: 40px;
+    }
+    .preview-placeholder .icon { font-size: 48px; display: block; margin-bottom: 12px; }
+
+    .zone-overlay {
+      position: absolute;
+      border: 2px dashed #f43f5e;
+      background: rgba(244,63,94,0.08);
+      cursor: move;
+      transition: border-color 0.2s;
+      z-index: 10;
+    }
+    .zone-overlay:hover { border-color: #00e5ff; background: rgba(0,229,255,0.08); }
+    .zone-overlay .zone-label {
+      position: absolute;
+      top: -24px;
+      left: 0;
+      font-size: 11px;
+      font-weight: 700;
+      color: #f43f5e;
+      white-space: nowrap;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .setting-item label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .setting-item select,
+    .setting-item input[type="number"] {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .setting-item select:focus,
+    .setting-item input:focus {
+      outline: none;
+      border-color: var(--border-h);
+    }
+    .setting-item select option { background: #06070d; color: #f0f4ff; }
+
+    .preset-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .preset-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .preset-btn:hover { border-color: var(--border-h); color: var(--text); background: rgba(0,229,255,0.06); }
+    .preset-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,229,255,0.1); }
+    .preset-btn .p-icon { font-size: 16px; margin-right: 4px; }
+
+    .action-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .page-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .page-indicator .nav-btn {
+      padding: 4px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.03);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+    .page-indicator .nav-btn:hover { color: var(--text); background: var(--glass-b); }
+    .page-indicator .nav-btn:disabled { opacity: 0.3; cursor: default; }
+
+    .result-info {
+      margin-top: 16px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: rgba(0,229,255,0.04);
+      border: 1px solid rgba(0,229,255,0.12);
+      display: none;
+    }
+    .result-info.visible { display: block; }
+    .result-info h4 { color: #00e5ff; font-size: 15px; margin-bottom: 6px; }
+    .result-info p { color: var(--muted); font-size: 14px; }
+
+    .download-btn {
+      display: none;
+      margin-top: 16px;
+      padding: 14px 32px; border-radius: 12px; border: none;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
+      text-align: center; transition: opacity 0.2s, transform 0.2s;
+    }
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    /* 滚动渐入动画 */
+    .reveal { opacity: 0; transform: translateY(24px); transition: all 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-stagger > * { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
+    .reveal-stagger > *.visible { opacity: 1; transform: translateY(0); }
+    .reveal-stagger > *:nth-child(1) { transition-delay: 0.05s; }
+    .reveal-stagger > *:nth-child(2) { transition-delay: 0.15s; }
+    .reveal-stagger > *:nth-child(3) { transition-delay: 0.25s; }
+
+  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+
+    @media (max-width: 640px) {
+      .settings-grid { grid-template-columns: 1fr; }
+      .action-row { flex-direction: column; }
+      .preset-btns { justify-content: center; }
+    }
+  </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这个工具能删除所有PDF中的页码吗？", "acceptedAnswer": {"@type": "Answer", "text": "对于标准页码（底部或顶部居中/左右排列），本工具可以有效识别和删除。对于特殊格式的页码，可以使用自定义区域模式手动框选删除区域。"}}, {"@type": "Question", "name": "我的文件会被上传到服务器吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。所有处理在您的浏览器本地完成，文件不会离开您的设备。"}}, {"@type": "Question", "name": "支持批量处理吗？", "acceptedAnswer": {"@type": "Answer", "text": "目前每次处理一个 PDF 文件，处理完成后您可以下载结果再处理下一个。"}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "PDF 页码删除 - ZenTools", "url": "https://zentools.xyz/pdf/pdf-remove-page-numbers.html", "description": "移除 PDF 文件中的页码，支持自定义页码区域", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <a href="../index.html" class="logo">
-                <span class="logo-icon">⚡</span>
-                <span class="logo-text">ZenTools</span>
-            </a>
-            <nav class="nav-menu">
-                <a href="../index.html" data-i18n="nav_home">首页</a>
-                <a href="../categories.html" data-i18n="nav_categories">分类</a>
-                <a href="../about.html" data-i18n="nav_about">关于</a>
-            </nav>
-            <div class="lang-selector">
-                <select id="langSelect">
-                    <option value="zh">中文</option>
-                    <option value="en">English</option>
-                    <option value="ja">日本語</option>
-                    <option value="vi">Tiếng Việt</option>
-                </select>
-            </div>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="z-wrap">
+
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
+          <a href="/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
         </div>
-    </header>
+      </div>
+    </nav>
 
-    <main class="tool-page">
-        <div class="container">
-            <div class="tool-header">
-                <h1 data-i18n="title">PDF 页码删除</h1>
-                <p data-i18n="subtitle">移除 PDF 文件中的页码，支持自定义页码区域</p>
-            </div>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n="crumbHome">首页</a>
+        <span class="breadcrumb-sep">/</span>
+        <a href="/pdf/" data-i18n="crumbPdf">PDF工具</a>
+        <span class="breadcrumb-sep">/</span>
+        <span class="cur" data-i18n="crumbCur">PDF 页码删除</span>
+      </div>
+      <span class="page-eyebrow" data-i18n="eyebrow">PDF 工具</span>
+      <h1><span class="grad" data-i18n="h1Grad">PDF 页码删除</span><br /><span data-i18n="h1Sub">智能去除页码</span></h1>
+      <p data-i18n="pageDesc">智能检测并移除 PDF 文件中的页码，支持自定义删除区域，一键处理所有页面。</p>
+    </div>
 
-            <div class="tool-ui">
-                <div class="upload-zone" id="uploadZone">
-                    <input type="file" id="fileInput" accept=".pdf" hidden>
-                    <div class="upload-icon">🔢</div>
-                    <p data-i18n="drop_hint">拖拽 PDF 文件到此处，或点击上传</p>
-                    <p class="upload-note" data-i18n="local_note">文件仅在浏览器本地处理，不会上传到服务器</p>
-                </div>
+    <div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">上传 PDF 文件</h2>
+      <p class="note" data-i18n="toolNote">选择你要删除页码的 PDF 文件，工具会智能识别页码位置。</p>
+      <div class="file-input-row">
+        <input type="file" id="pdfInput" accept=".pdf" />
+        <button class="btn-primary" id="processBtn" type="button" data-i18n="processBtn">开始删除页码</button>
+      </div>
 
-                <div class="settings-panel" id="settingsPanel" style="display: none;">
-                    <h3 data-i18n="settings_title">页码设置</h3>
-                    <div class="form-group">
-                        <label data-i18n="label_position">页码位置</label>
-                        <select id="positionSelect">
-                            <option value="bottom-center" data-i18n="opt_bottom_center">底部居中</option>
-                            <option value="bottom-left" data-i18n="opt_bottom_left">底部左侧</option>
-                            <option value="bottom-right" data-i18n="opt_bottom_right">底部右侧</option>
-                            <option value="top-center" data-i18n="opt_top_center">顶部居中</option>
-                            <option value="top-left" data-i18n="opt_top_left">顶部左侧</option>
-                            <option value="top-right" data-i18n="opt_top_right">顶部右侧</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="label_margin">边距 (像素)</label>
-                        <input type="number" id="marginInput" value="50" min="0" max="200">
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="label_height">页码高度范围 (像素)</label>
-                        <div class="range-inputs">
-                            <input type="number" id="minHeight" value="0" min="0" placeholder="最小">
-                            <input type="number" id="maxHeight" value="30" min="0" placeholder="最大">
-                        </div>
-                    </div>
-                    <div class="form-group checkbox">
-                        <label>
-                            <input type="checkbox" id="allPagesCheck" checked>
-                            <span data-i18n="opt_all_pages">所有页面</span>
-                        </label>
-                    </div>
-                    <div class="form-group" id="pageRangeGroup" style="display: none;">
-                        <label data-i18n="label_page_range">指定页面</label>
-                        <input type="text" id="pageRange" placeholder="例如: 1-5, 10, 15-20">
-                    </div>
-                </div>
-
-                <div class="action-area" id="actionArea" style="display: none;">
-                    <button class="tool-btn btn-primary" id="processBtn" data-i18n="btn_process">开始删除页码</button>
-                </div>
-
-                <div class="result-area" id="resultArea" style="display: none;">
-                    <div class="result-status" id="resultStatus"></div>
-                    <button class="tool-btn btn-primary" id="downloadBtn" data-i18n="btn_download">下载处理后的 PDF</button>
-                </div>
-            </div>
+      <!-- 预览区 -->
+      <div class="preview-area" id="previewArea">
+        <div class="preview-placeholder" id="previewPlaceholder">
+          <span class="icon">🔢</span>
+          <span data-i18n="previewHint">上传 PDF 后此处显示页面预览</span>
         </div>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
+        <canvas id="previewCanvas" style="display:none;"></canvas>
+        <!-- 页码删除区域覆盖层 -->
+        <div class="zone-overlay" id="zoneOverlay" style="display:none;">
+          <span class="zone-label" id="zoneLabel" data-i18n="zoneLabel">📐 删除区域</span>
         </div>
+      </div>
+
+      <!-- 页面导航 -->
+      <div class="page-indicator" id="pageIndicator" style="display:none;">
+        <button class="nav-btn" id="prevPage" disabled>◀</button>
+        <span id="pageInfo">1 / 1</span>
+        <button class="nav-btn" id="nextPage">▶</button>
+        <span style="margin-left:12px;font-size:12px;color:var(--muted);" data-i18n="pageNavHint">预览查看页码位置</span>
+      </div>
+
+      <!-- 设置 -->
+      <div class="settings-grid" id="settingsArea" style="margin-top:20px;display:none;">
+        <div class="setting-item">
+          <label data-i18n="labelMode">删除模式</label>
+          <select id="modeSelect">
+            <option value="preset" data-i18n="optPreset">预设位置</option>
+            <option value="custom" data-i18n="optCustom">自定义区域</option>
+            <option value="smart" data-i18n="optSmart">智能检测</option>
+          </select>
+        </div>
+        <div class="setting-item" id="positionGroup">
+          <label data-i18n="labelPosition">预设位置</label>
+          <div class="preset-btns" id="presetBtns">
+            <button class="preset-btn active" data-pos="bottom-center"><span class="p-icon">⬇️</span>底部居中</button>
+            <button class="preset-btn" data-pos="bottom-right"><span class="p-icon">↘️</span>底部右侧</button>
+            <button class="preset-btn" data-pos="bottom-left"><span class="p-icon">↙️</span>底部左侧</button>
+            <button class="preset-btn" data-pos="top-center"><span class="p-icon">⬆️</span>顶部居中</button>
+            <button class="preset-btn" data-pos="top-right"><span class="p-icon">↗️</span>顶部右侧</button>
+            <button class="preset-btn" data-pos="top-left"><span class="p-icon">↖️</span>顶部左侧</button>
+          </div>
+        </div>
+        <div class="setting-item">
+          <label data-i18n="labelMargin">边距 (像素)</label>
+          <input type="number" id="marginInput" value="40" min="0" max="200" />
+        </div>
+        <div class="setting-item">
+          <label data-i18n="labelAreaHeight">高度范围 (像素)</label>
+          <input type="number" id="heightInput" value="36" min="10" max="120" />
+        </div>
+      </div>
+
+      <!-- 状态 & 进度 -->
+      <div class="status" id="status"></div>
+
+      <!-- 结果信息 -->
+      <div class="result-info" id="resultInfo">
+        <h4 id="resultTitle">✅ 页码删除完成</h4>
+        <p id="resultDesc">已处理所有页面，点击下方按钮下载。</p>
+      </div>
+
+      <button class="download-btn" id="downloadBtn" data-i18n="downloadBtn">📥 下载处理后的 PDF</button>
+    </div>
+
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解 PDF 页码删除工具</h2>
+      </div>
+
+      <div class="info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">三种删除模式</h4>
+          <p data-i18n="info1D">支持预设位置一键删除、自定义区域手动框选、智能检测自动识别页码位置，灵活应对各种 PDF。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">实时预览</h4>
+          <p data-i18n="info2D">上传后即显示 PDF 页面预览，可翻页查看页码位置，删除区域清晰可见，确认后再处理。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">隐私安全</h4>
+          <p data-i18n="info3D">所有处理在浏览器本地完成，文件不上传任何服务器，保护你的文档隐私和数据安全。</p>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n="footerHome">首页</a>
+          <a href="/pdf/" data-i18n="footerPdf">PDF工具</a>
+          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <script src="../assets/js/i18n.js"></script>
-    <script src="../assets/js/anti-crash.js"></script>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  </div>
 
-        const uploadZone = document.getElementById('uploadZone');
-        const fileInput = document.getElementById('fileInput');
-        const settingsPanel = document.getElementById('settingsPanel');
-        const actionArea = document.getElementById('actionArea');
-        const resultArea = document.getElementById('resultArea');
-        const resultStatus = document.getElementById('resultStatus');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const allPagesCheck = document.getElementById('allPagesCheck');
-        const pageRangeGroup = document.getElementById('pageRangeGroup');
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: 'PDF 页码删除 - 免费在线工具 | ZenTools',
+        navHome: '首页', navPdf: 'PDF工具', navAll: '全部工具',
+        crumbHome: '首页', crumbPdf: 'PDF工具', crumbCur: 'PDF 页码删除',
+        eyebrow: 'PDF 工具',
+        h1Grad: 'PDF 页码删除', h1Sub: '智能去除页码',
+        pageDesc: '智能检测并移除 PDF 文件中的页码，支持自定义删除区域，一键处理所有页面。',
+        toolTitle: '上传 PDF 文件',
+        toolNote: '选择你要删除页码的 PDF 文件，工具会智能识别页码位置。',
+        processBtn: '开始删除页码',
+        previewHint: '上传 PDF 后此处显示页面预览',
+        zoneLabel: '📐 删除区域',
+        pageNavHint: '预览查看页码位置',
+        labelMode: '删除模式',
+        optPreset: '预设位置',
+        optCustom: '自定义区域',
+        optSmart: '智能检测',
+        labelPosition: '预设位置',
+        labelMargin: '边距 (像素)',
+        labelAreaHeight: '高度范围 (像素)',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解 PDF 页码删除工具',
+        info1T: '三种删除模式', info1D: '支持预设位置一键删除、自定义区域手动框选、智能检测自动识别页码位置，灵活应对各种 PDF。',
+        info2T: '实时预览', info2D: '上传后即显示 PDF 页面预览，可翻页查看页码位置，删除区域清晰可见，确认后再处理。',
+        info3T: '隐私安全', info3D: '所有处理在浏览器本地完成，文件不上传任何服务器，保护你的文档隐私和数据安全。',
+        footerHome: '首页', footerPdf: 'PDF工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusUpload: '已加载 PDF：{n} 页',
+        statusWorking: '🔄 正在删除页码，请稍候……',
+        statusComplete: '✅ 删除完成！共处理 {n} 页',
+        statusError: '❌ 处理失败，请更换文件或刷新页面后重试。',
+        alertNoFile: '⚠️ 请先选择 PDF 文件',
+        resultTitle: '✅ 页码删除完成',
+        resultDesc: '已处理所有页面，点击下方按钮下载。',
+        downloadBtn: '📥 下载处理后的 PDF',
+        totalPages: '共 {n} 页',
+        smartDetected: '已智能检测到页码区域',
+        customHint: '在预览图上拖动红色框调整删除区域'
+      },
+      en: {
+        pageTitle: 'Remove Page Numbers - Free Online Tool | ZenTools',
+        navHome: 'Home', navPdf: 'PDF Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbPdf: 'PDF Tools', crumbCur: 'Remove Page Numbers',
+        eyebrow: 'PDF TOOLS',
+        h1Grad: 'Remove Page Numbers', h1Sub: 'Smart Removal',
+        pageDesc: 'Smartly detect and remove page numbers from PDF files. Customize the removal area for any layout.',
+        toolTitle: 'Upload PDF File',
+        toolNote: 'Choose a PDF file and the tool will automatically detect page number locations.',
+        processBtn: 'Remove Page Numbers',
+        previewHint: 'Page preview will appear here after upload',
+        zoneLabel: '📐 Removal Area',
+        pageNavHint: 'Navigate to check page number positions',
+        labelMode: 'Removal Mode',
+        optPreset: 'Preset Position',
+        optCustom: 'Custom Area',
+        optSmart: 'Smart Detection',
+        labelPosition: 'Preset Position',
+        labelMargin: 'Margin (px)',
+        labelAreaHeight: 'Height Range (px)',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About This Tool',
+        info1T: 'Three Removal Modes', info1D: 'Preset positions for quick removal, custom area for precise control, smart detection for automatic identification.',
+        info2T: 'Live Preview', info2D: 'Preview PDF pages after upload. Navigate through pages to verify the removal area before processing.',
+        info3T: 'Privacy Safe', info3D: 'All processing is done locally in your browser. No files are uploaded to any server.',
+        footerHome: 'Home', footerPdf: 'PDF Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusUpload: 'Loaded PDF: {n} pages',
+        statusWorking: '🔄 Removing page numbers, please wait…',
+        statusComplete: '✅ Done! Processed {n} pages',
+        statusError: '❌ Processing failed. Please try a different file or refresh the page.',
+        alertNoFile: '⚠️ Please select a PDF file first',
+        resultTitle: '✅ Page Numbers Removed',
+        resultDesc: 'All pages processed. Click the button below to download.',
+        downloadBtn: '📥 Download Processed PDF',
+        totalPages: '{n} pages total',
+        smartDetected: 'Smart detection found page number area',
+        customHint: 'Drag the red box on the preview to adjust the removal area'
+      },
+      ja: {
+        pageTitle: 'ページ番号削除 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navPdf: 'PDFツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbPdf: 'PDFツール', crumbCur: 'ページ番号削除',
+        eyebrow: 'PDFツール',
+        h1Grad: 'ページ番号削除', h1Sub: 'スマート削除',
+        pageDesc: 'PDF からページ番号をスマートに検出・削除。カスタムエリアにも対応。',
+        toolTitle: 'PDF ファイルをアップロード',
+        toolNote: 'PDF ファイルを選択すると、ツールが自動的にページ番号を検出します。',
+        processBtn: 'ページ番号を削除',
+        previewHint: 'アップロード後にページプレビューを表示',
+        zoneLabel: '📐 削除エリア',
+        pageNavHint: 'ページ番号の位置を確認',
+        labelMode: '削除モード',
+        optPreset: 'プリセット位置',
+        optCustom: 'カスタムエリア',
+        optSmart: 'スマート検出',
+        labelPosition: 'プリセット位置',
+        labelMargin: 'マージン (px)',
+        labelAreaHeight: '高さ範囲 (px)',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: 'ページ番号削除ツールについて',
+        info1T: '3つの削除モード', info1D: 'プリセット位置で素早く削除、カスタムエリアで正確に制御、スマート検出で自動識別。',
+        info2T: 'ライブプレビュー', info2D: 'アップロード後にページをプレビュー。削除エリアを確認してから処理できます。',
+        info3T: 'プライバシー保護', info3D: 'すべての処理はブラウザ内で完了。サーバーにアップロードされません。',
+        footerHome: 'ホーム', footerPdf: 'PDFツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusUpload: 'PDF を読み込みました：{n} ページ',
+        statusWorking: '🔄 ページ番号を削除中…',
+        statusComplete: '✅ 完了！{n} ページを処理しました',
+        statusError: '❌ 処理に失敗しました。ファイルを変更するかページを再読み込みしてください。',
+        alertNoFile: '⚠️ PDF ファイルを選択してください',
+        resultTitle: '✅ ページ番号を削除しました',
+        resultDesc: 'すべてのページを処理しました。ダウンロードボタンをクリックしてください。',
+        downloadBtn: '📥 処理後の PDF をダウンロード',
+        totalPages: '全 {n} ページ',
+        smartDetected: 'スマート検出がページ番号エリアを検出しました',
+        customHint: 'プレビュー上の赤い枠をドラッグして削除エリアを調整'
+      },
+      vi: {
+        pageTitle: 'Xóa số trang PDF - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navPdf: 'Công cụ PDF', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbPdf: 'Công cụ PDF', crumbCur: 'Xóa số trang PDF',
+        eyebrow: 'CÔNG CỤ PDF',
+        h1Grad: 'Xóa số trang', h1Sub: 'Xóa thông minh',
+        pageDesc: 'Phát hiện và xóa số trang khỏi tệp PDF. Hỗ trợ tùy chỉnh vùng xóa.',
+        toolTitle: 'Tải lên tệp PDF',
+        toolNote: 'Chọn tệp PDF, công cụ sẽ tự động phát hiện vị trí số trang.',
+        processBtn: 'Xóa số trang',
+        previewHint: 'Xem trước trang sau khi tải lên',
+        zoneLabel: '📐 Vùng xóa',
+        pageNavHint: 'Xem trước để kiểm tra vị trí số trang',
+        labelMode: 'Chế độ xóa',
+        optPreset: 'Vị trí đặt sẵn',
+        optCustom: 'Vùng tùy chỉnh',
+        optSmart: 'Phát hiện thông minh',
+        labelPosition: 'Vị trí đặt sẵn',
+        labelMargin: 'Lề (px)',
+        labelAreaHeight: 'Chiều cao (px)',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ xóa số trang PDF',
+        info1T: 'Ba chế độ xóa', info1D: 'Vị trí đặt sẵn để xóa nhanh, vùng tùy chỉnh để kiểm soát chính xác, phát hiện thông minh để tự động nhận dạng.',
+        info2T: 'Xem trước trực tiếp', info2D: 'Xem trước trang PDF sau khi tải lên. Điều hướng qua các trang để xác nhận vùng xóa.',
+        info3T: 'Bảo mật', info3D: 'Tất cả xử lý đều hoàn tất trong trình duyệt. Không tệp nào được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerPdf: 'Công cụ PDF', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusUpload: 'Đã tải PDF: {n} trang',
+        statusWorking: '🔄 Đang xóa số trang, vui lòng chờ…',
+        statusComplete: '✅ Hoàn tất! Đã xử lý {n} trang',
+        statusError: '❌ Xử lý thất bại. Vui lòng thử tệp khác hoặc tải lại trang.',
+        alertNoFile: '⚠️ Vui lòng chọn tệp PDF trước',
+        resultTitle: '✅ Đã xóa số trang',
+        resultDesc: 'Đã xử lý tất cả các trang. Nhấn nút bên dưới để tải xuống.',
+        downloadBtn: '📥 Tải PDF đã xử lý',
+        totalPages: 'Tổng số {n} trang',
+        smartDetected: 'Phát hiện thông minh đã tìm thấy vùng số trang',
+        customHint: 'Kéo hộp màu đỏ trên bản xem trước để điều chỉnh vùng xóa'
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="../assets/js/tool-ui.min.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-        let pdfDoc = null;
-        let originalArrayBuffer = null;
+    // ===== DOM 引用 =====
+    const pdfInput = document.getElementById('pdfInput');
+    const processBtn = document.getElementById('processBtn');
+    const status = document.getElementById('status');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resultInfo = document.getElementById('resultInfo');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultDesc = document.getElementById('resultDesc');
 
-        uploadZone.addEventListener('click', () => fileInput.click());
-        uploadZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadZone.classList.add('drag-over');
-        });
-        uploadZone.addEventListener('dragleave', () => {
-            uploadZone.classList.remove('drag-over');
-        });
-        uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadZone.classList.remove('drag-over');
-            const file = e.dataTransfer.files[0];
-            if (file && file.type === 'application/pdf') {
-                loadPdf(file);
-            }
-        });
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) loadPdf(file);
-        });
+    // 预览
+    const previewArea = document.getElementById('previewArea');
+    const previewCanvas = document.getElementById('previewCanvas');
+    const previewPlaceholder = document.getElementById('previewPlaceholder');
+    const ctx = previewCanvas.getContext('2d');
+    const zoneOverlay = document.getElementById('zoneOverlay');
 
-        allPagesCheck.addEventListener('change', () => {
-            pageRangeGroup.style.display = allPagesCheck.checked ? 'none' : 'block';
-        });
+    // 翻页
+    const prevPage = document.getElementById('prevPage');
+    const nextPage = document.getElementById('nextPage');
+    const pageInfo = document.getElementById('pageInfo');
+    const pageIndicator = document.getElementById('pageIndicator');
 
-        async function loadPdf(file) {
-            originalArrayBuffer = await file.arrayBuffer();
-            pdfDoc = await pdfjsLib.getDocument({ data: originalArrayBuffer }).promise;
-            settingsPanel.style.display = 'block';
-            actionArea.style.display = 'block';
+    // 设置
+    const settingsArea = document.getElementById('settingsArea');
+    const modeSelect = document.getElementById('modeSelect');
+    const marginInput = document.getElementById('marginInput');
+    const heightInput = document.getElementById('heightInput');
+
+    // ===== 状态 =====
+    let pdfDoc = null;
+    let pdfLibDoc = null;
+    let originalArrayBuffer = null;
+    let currentPage = 1;
+    let totalPages = 0;
+    let modifiedPdfBytes = null;
+    let zoneX1 = 0, zoneY1 = 0, zoneX2 = 0, zoneY2 = 0;
+    let canvasScale = 1;
+    let isDragging = false;
+    let dragStartX = 0, dragStartY = 0;
+    let zoneOffsetX = 0, zoneOffsetY = 0;
+
+    // ===== 预设位置 =====
+    let currentPreset = 'bottom-center';
+    document.querySelectorAll('.preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentPreset = btn.dataset.pos;
+        if (modeSelect.value === 'preset') {
+          updateZoneFromPreset();
+        }
+      });
+    });
+
+    // ===== 模式切换 =====
+    modeSelect.addEventListener('change', () => {
+      const mode = modeSelect.value;
+      document.getElementById('positionGroup').style.display = mode === 'preset' ? 'block' : 'none';
+      document.getElementById('marginInput').parentElement.style.display = mode !== 'smart' ? 'block' : 'none';
+      document.getElementById('heightInput').parentElement.style.display = mode !== 'smart' ? 'block' : 'none';
+      
+      if (mode === 'custom') {
+        zoneOverlay.style.display = 'block';
+        zoneOverlay.style.cursor = 'move';
+        status.textContent = getText('customHint');
+      } else if (mode === 'smart') {
+        zoneOverlay.style.display = 'none';
+        smartDetectAndUpdate();
+      } else {
+        updateZoneFromPreset();
+      }
+    });
+
+    // ===== 文件上传 =====
+    pdfInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      await loadPdf(file);
+    });
+
+    // ===== 拖拽上传 =====
+    previewArea.addEventListener('dragover', (e) => { e.preventDefault(); previewArea.style.borderColor = 'var(--cyan)'; });
+    previewArea.addEventListener('dragleave', () => { previewArea.style.borderColor = ''; });
+    previewArea.addEventListener('drop', async (e) => {
+      e.preventDefault();
+      previewArea.style.borderColor = '';
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'application/pdf') {
+        pdfInput.files = e.dataTransfer;
+        await loadPdf(file);
+      }
+    });
+
+    // ===== 加载 PDF =====
+    async function loadPdf(file) {
+      try {
+        originalArrayBuffer = await file.arrayBuffer();
+        pdfDoc = await pdfjsLib.getDocument({ data: originalArrayBuffer }).promise;
+        pdfLibDoc = await PDFLib.PDFDocument.load(originalArrayBuffer);
+        totalPages = pdfDoc.numPages;
+        currentPage = 1;
+
+        settingsArea.style.display = 'block';
+        pageIndicator.style.display = 'flex';
+        
+        const dict = getDict();
+        status.textContent = dict.statusUpload.replace('{n}', totalPages);
+
+        // 渲染第一页
+        await renderPage(1);
+        updatePageNav();
+        
+        // 根据模式更新区域
+        modeSelect.dispatchEvent(new Event('change'));
+      } catch (err) {
+        console.error(err);
+        status.textContent = '❌ PDF 加载失败，请确认文件格式正确。';
+      }
+    }
+
+    // ===== 渲染页面 =====
+    async function renderPage(pageNum) {
+      if (!pdfDoc) return;
+      const page = await pdfDoc.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 1.5 });
+      
+      const containerWidth = previewArea.clientWidth - 4;
+      canvasScale = containerWidth / viewport.width;
+      const displayWidth = containerWidth;
+      const displayHeight = viewport.height * canvasScale;
+
+      previewCanvas.style.display = 'block';
+      previewCanvas.width = viewport.width;
+      previewCanvas.height = viewport.height;
+      previewCanvas.style.width = displayWidth + 'px';
+      previewCanvas.style.height = displayHeight + 'px';
+      previewPlaceholder.style.display = 'none';
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      // 更新叠加层
+      zoneOverlay.style.display = modeSelect.value !== 'smart' ? 'block' : 'none';
+      updateOverlaySize(displayWidth, displayHeight);
+    }
+
+    function updateOverlaySize(displayW, displayH) {
+      const margin = parseInt(marginInput.value) || 40;
+      const height = parseInt(heightInput.value) || 36;
+      const w = displayW || previewCanvas.style.width.replace('px','') || 600;
+      const h = displayH || previewCanvas.style.height.replace('px','') || 400;
+      const wNum = parseFloat(w);
+      const hNum = parseFloat(h);
+
+      if (modeSelect.value === 'custom') {
+        // 默认覆盖底部居中区域
+        zoneX1 = wNum * 0.25;
+        zoneX2 = wNum * 0.75;
+        zoneY1 = hNum - (height * canvasScale * 1.5) - (margin * canvasScale * 1.5);
+        zoneY2 = hNum - (margin * canvasScale * 1.5) + 8;
+      } else {
+        const [posX, posY] = currentPreset.split('-');
+        const marginScaled = margin * canvasScale * 1.5;
+        const heightScaled = height * canvasScale * 1.5;
+        
+        if (posY === 'bottom') {
+          zoneY1 = hNum - marginScaled - heightScaled;
+          zoneY2 = hNum - marginScaled + 8;
+        } else {
+          zoneY1 = marginScaled - 8;
+          zoneY2 = marginScaled + heightScaled;
+        }
+        if (posX === 'center') {
+          zoneX1 = wNum * 0.25;
+          zoneX2 = wNum * 0.75;
+        } else if (posX === 'left') {
+          zoneX1 = marginScaled;
+          zoneX2 = marginScaled + wNum * 0.2;
+        } else {
+          zoneX1 = wNum * 0.8 - marginScaled;
+          zoneX2 = wNum - marginScaled;
+        }
+      }
+
+      applyZonePosition();
+    }
+
+    function applyZonePosition() {
+      zoneOverlay.style.left = Math.min(zoneX1, zoneX2) + 'px';
+      zoneOverlay.style.top = Math.min(zoneY1, zoneY2) + 'px';
+      zoneOverlay.style.width = Math.abs(zoneX2 - zoneX1) + 'px';
+      zoneOverlay.style.height = Math.abs(zoneY2 - zoneY1) + 'px';
+    }
+
+    function updateZoneFromPreset() {
+      updateOverlaySize();
+    }
+
+    // ===== 智能检测 =====
+    async function smartDetectAndUpdate() {
+      if (!pdfDoc) return;
+      status.textContent = '🔍 正在智能检测页码位置…';
+      try {
+        const page = await pdfDoc.getPage(1);
+        const viewport = page.getViewport({ scale: 1.0 });
+        const tempCanvas = document.createElement('canvas');
+        tempCanvas.width = viewport.width;
+        tempCanvas.height = viewport.height;
+        const tempCtx = tempCanvas.getContext('2d');
+        await page.render({ canvasContext: tempCtx, viewport }).promise;
+
+        const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height);
+        const data = imageData.data;
+        const w = tempCanvas.width;
+        const h = tempCanvas.height;
+
+        // 简单智能检测：扫描底部和顶部区域的像素变化找数字位置
+        let detectedY = h - 60; // 默认底部
+        let detectedX1 = w * 0.3;
+        let detectedX2 = w * 0.7;
+
+        // 扫描底部 80px 范围内找非背景像素密集区
+        const bottomZone = h - 80;
+        let maxDensity = 0;
+        for (let y = bottomZone; y < h; y += 2) {
+          let count = 0;
+          for (let x = 0; x < w; x += 2) {
+            const idx = (y * w + x) * 4;
+            const brightness = (data[idx] + data[idx+1] + data[idx+2]) / 3;
+            if (brightness < 128) count++;
+          }
+          if (count > maxDensity) {
+            maxDensity = count;
+            detectedY = y;
+          }
         }
 
-        document.getElementById('processBtn').addEventListener('click', async () => {
-            resultArea.style.display = 'block';
-            resultStatus.className = 'result-status loading';
-            resultStatus.textContent = '正在处理...';
-
-            try {
-                const position = document.getElementById('positionSelect').value;
-                const margin = parseInt(document.getElementById('marginInput').value) || 50;
-                const minHeight = parseInt(document.getElementById('minHeight').value) || 0;
-                const maxHeight = parseInt(document.getElementById('maxHeight').value) || 30;
-                const useAllPages = allPagesCheck.checked;
-                const pageRangeText = document.getElementById('pageRange').value;
-
-                const pdfLibDoc = await PDFLib.PDFDocument.load(originalArrayBuffer);
-                const pageCount = pdfLibDoc.getPages().length;
-
-                let pagesToProcess = [];
-                if (useAllPages) {
-                    pagesToProcess = Array.from({ length: pageCount }, (_, i) => i);
-                } else {
-                    pagesToProcess = parsePageRange(pageRangeText, pageCount);
-                }
-
-                for (const pageIndex of pagesToProcess) {
-                    if (pageIndex >= 0 && pageIndex < pageCount) {
-                        const page = pdfLibDoc.getPages()[pageIndex];
-                        const { width, height } = page.getSize();
-                        
-                        let x1, y1, x2, y2;
-                        const [posX, posY] = position.split('-');
-                        
-                        if (posY === 'bottom') {
-                            y1 = 0;
-                            y2 = Math.min(maxHeight, height * 0.1);
-                        } else {
-                            y1 = height - Math.min(maxHeight, height * 0.1);
-                            y2 = height;
-                        }
-
-                        if (posX === 'center') {
-                            x1 = width * 0.3;
-                            x2 = width * 0.7;
-                        } else if (posX === 'left') {
-                            x1 = 0;
-                            x2 = width * 0.3;
-                        } else {
-                            x1 = width * 0.7;
-                            x2 = width;
-                        }
-
-                        page.drawRectangle({
-                            x: x1,
-                            y: y1,
-                            width: x2 - x1,
-                            height: y2 - y1,
-                            color: PDFLib.rgb(1, 1, 1),
-                        });
-                    }
-                }
-
-                const modifiedPdf = await pdfLibDoc.save();
-                const blob = new Blob([modifiedPdf], { type: 'application/pdf' });
-                const url = URL.createObjectURL(blob);
-
-                resultStatus.className = 'result-status success';
-                resultStatus.textContent = `✅ 成功处理 ${pagesToProcess.length} 页`;
-                
-                downloadBtn.onclick = () => {
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'no_pagenums_' + (uploadZone.dataset.filename || 'document.pdf');
-                    a.click();
-                };
-            } catch (error) {
-                resultStatus.className = 'result-status error';
-                resultStatus.textContent = `❌ 处理失败: ${error.message}`;
+        // 如果底部没找到，扫描顶部
+        if (maxDensity < 50) {
+          for (let y = 0; y < 80; y += 2) {
+            let count = 0;
+            for (let x = 0; x < w; x += 2) {
+              const idx = (y * w + x) * 4;
+              const brightness = (data[idx] + data[idx+1] + data[idx+2]) / 3;
+              if (brightness < 128) count++;
             }
-        });
-
-        function parsePageRange(rangeText, totalPages) {
-            const pages = new Set();
-            const parts = rangeText.split(',').map(s => s.trim()).filter(Boolean);
-            
-            for (const part of parts) {
-                if (part.includes('-')) {
-                    const [start, end] = part.split('-').map(Number);
-                    for (let i = start - 1; i < end; i++) {
-                        if (i >= 0 && i < totalPages) pages.add(i);
-                    }
-                } else {
-                    const num = parseInt(part) - 1;
-                    if (num >= 0 && num < totalPages) pages.add(num);
-                }
+            if (count > maxDensity) {
+              maxDensity = count;
+              detectedY = y;
             }
-            return Array.from(pages);
+          }
         }
 
-        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
-    </script>
+        // 设置检测到的区域
+        const dw = parseFloat(previewCanvas.style.width);
+        const dh = parseFloat(previewCanvas.style.height);
+        const scaleX = dw / w;
+        const scaleY = dh / h;
+
+        zoneY1 = detectedY * scaleY - 10;
+        zoneY2 = (detectedY + 30) * scaleY + 10;
+        zoneX1 = detectedX1 * scaleX - 20;
+        zoneX2 = detectedX2 * scaleX + 20;
+
+        applyZonePosition();
+        zoneOverlay.style.display = 'block';
+        status.textContent = getText('smartDetected');
+      } catch (e) {
+        status.textContent = '⚠️ 智能检测失败，请使用预设位置或自定义模式。';
+        updateZoneFromPreset();
+      }
+    }
+
+    // ===== 翻页 =====
+    prevPage.addEventListener('click', () => { if (currentPage > 1) { currentPage--; renderPage(currentPage); updatePageNav(); } });
+    nextPage.addEventListener('click', () => { if (currentPage < totalPages) { currentPage++; renderPage(currentPage); updatePageNav(); } });
+
+    function updatePageNav() {
+      pageInfo.textContent = `${currentPage} / ${totalPages}`;
+      prevPage.disabled = currentPage <= 1;
+      nextPage.disabled = currentPage >= totalPages;
+    }
+
+    // ===== 叠加层拖拽 =====
+    zoneOverlay.addEventListener('mousedown', (e) => {
+      if (modeSelect.value !== 'custom') return;
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      zoneOffsetX = zoneOverlay.offsetLeft;
+      zoneOffsetY = zoneOverlay.offsetTop;
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - dragStartX;
+      const dy = e.clientY - dragStartY;
+      zoneX1 = zoneOffsetX + dx;
+      zoneY1 = zoneOffsetY + dy;
+      zoneX2 = zoneX1 + parseFloat(zoneOverlay.style.width);
+      zoneY2 = zoneY1 + parseFloat(zoneOverlay.style.height);
+      applyZonePosition();
+    });
+    document.addEventListener('mouseup', () => { isDragging = false; });
+
+    // ===== 处理逻辑 =====
+    processBtn.addEventListener('click', async () => {
+      if (!pdfLibDoc) {
+        status.textContent = getText('alertNoFile');
+        return;
+      }
+
+      const dict = getDict();
+      status.textContent = dict.statusWorking;
+      processBtn.disabled = true;
+      downloadBtn.style.display = 'none';
+      resultInfo.classList.remove('visible');
+
+      try {
+        const pages = pdfLibDoc.getPages();
+        const pageCount = pages.length;
+        const mode = modeSelect.value;
+
+        // 计算实际坐标比例
+        const displayW = parseFloat(previewCanvas.style.width);
+        const displayH = parseFloat(previewCanvas.style.height);
+        const actualW = previewCanvas.width;
+        const actualH = previewCanvas.height;
+
+        for (let i = 0; i < pageCount; i++) {
+          const page = pages[i];
+          const { width, height } = page.getSize();
+          
+          let rx1, ry1, rx2, ry2;
+
+          if (mode === 'preset') {
+            const margin = parseInt(marginInput.value) || 40;
+            const hVal = parseInt(heightInput.value) || 36;
+            const [posX, posY] = currentPreset.split('-');
+            const mPt = margin * (height / 600);
+            const hPt = hVal * (height / 600);
+
+            if (posY === 'bottom') {
+              ry1 = 0;
+              ry2 = mPt + hPt;
+            } else {
+              ry1 = height - mPt - hPt;
+              ry2 = height;
+            }
+            if (posX === 'center') {
+              rx1 = width * 0.2;
+              rx2 = width * 0.8;
+            } else if (posX === 'left') {
+              rx1 = 0;
+              rx2 = width * 0.3;
+            } else {
+              rx1 = width * 0.7;
+              rx2 = width;
+            }
+          } else {
+            // custom 或 smart：将屏幕坐标映射到PDF坐标
+            const scaleX = width / actualW;
+            const scaleY = height / actualH;
+            rx1 = (zoneX1 / displayW) * width * (actualW / displayW) * scaleX;
+            ry1 = (zoneY1 / displayH) * height * (actualH / displayH) * scaleY;
+            rx2 = (zoneX2 / displayW) * width * (actualW / displayW) * scaleX;
+            ry2 = (zoneY2 / displayH) * height * (actualH / displayH) * scaleY;
+          }
+
+          page.drawRectangle({
+            x: Math.min(rx1, rx2),
+            y: Math.min(ry1, ry2),
+            width: Math.abs(rx2 - rx1),
+            height: Math.abs(ry2 - ry1),
+            color: PDFLib.rgb(1, 1, 1),
+          });
+        }
+
+        modifiedPdfBytes = await pdfLibDoc.save();
+        const blob = new Blob([modifiedPdfBytes], { type: 'application/pdf' });
+        const url = URL.createObjectURL(blob);
+
+        status.textContent = dict.statusComplete.replace('{n}', pageCount);
+        resultInfo.classList.add('visible');
+        resultTitle.textContent = dict.resultTitle;
+        resultDesc.textContent = dict.resultDesc;
+        downloadBtn.style.display = 'block';
+        downloadBtn.onclick = () => {
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'no_pagenums_' + (pdfInput.files[0]?.name || 'document.pdf');
+          a.click();
+        };
+
+      } catch (err) {
+        console.error(err);
+        status.textContent = dict.statusError;
+      } finally {
+        processBtn.disabled = false;
+      }
+    });
+
+    // ===== 工具函数 =====
+    function getDict() {
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      return (window.ZT_PAGE || {})[lang] || window.ZT_PAGE.zh;
+    }
+
+    function getText(key) {
+      const dict = getDict();
+      return dict[key] || key;
+    }
+
+    // ===== 响应式：窗口变化时重绘 =====
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (pdfDoc) renderPage(currentPage);
+      }, 300);
+    });
+  </script>
+
+
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__l']||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px"> 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 </body>
 </html>
