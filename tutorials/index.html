@@ -20,7 +20,9 @@
 .article-card .summary { font-size:14px; color:var(--muted); line-height:1.7; }
 .article-card .tags { display:flex; gap:6px; flex-wrap:wrap; }
 .article-card .tags span { font-size:11px; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid var(--border); color:var(--muted); }
-.article-body { max-width:860px; margin:0 auto; }
+.article-card-clickable { cursor:pointer; }
+.article-card-clickable .click-hint { font-size:12px; color:var(--cyan); opacity:0.6; font-weight:600; }
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:0 0 16px 16px; }
 .article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
 .article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
 .article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
@@ -68,12 +70,75 @@
 </div>
 
 <!-- Article 2: Image Compress -->
-<div class="article-card" id="image-compress">
+<div class="article-card article-card-clickable" id="image-compress" onclick="toggleArticle('imgBody')">
 <div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3><a href="#image-compress" data-i18n="a2Title">图片压缩教程：在线压缩 JPG 和 PNG 图片</a></h3>
+<h3><a href="#image-compress" onclick="toggleArticle('imgBody');return false;" data-i18n="a2Title">图片压缩教程：在线压缩 JPG 和 PNG 图片</a></h3>
 <div class="meta"><span data-i18n="a2Date">📅 2026-06-18</span><span data-i18n="a2Read">⏱ 2 分钟阅读</span></div>
 <div class="summary" data-i18n="a2Sum">学会使用在线图片压缩工具，大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。</div>
 <div class="tags"><span data-i18n="tagImg">图片压缩</span><span>JPG</span><span>PNG</span></div>
+<div class="click-hint" id="imgBodyHint">📖 点击展开详细教程</div>
+</div>
+
+<div id="imgBody" class="article-body" style="display:none;">
+
+<h2>为什么要压缩图片？</h2>
+<p>一张手机拍的照片动辄 3~5 MB，直接上传到网页或通过邮件发送，不仅加载慢，还可能超出附件大小限制。图片压缩可以在<strong>尽量保持视觉质量</strong>的前提下，大幅减小文件体积，让网页打开更快、邮件发送更顺畅、存储空间更充裕。</p>
+
+<h2>打开工具</h2>
+<p>访问 <a href="/image/compress.html" target="_blank">图片压缩工具</a>，所有处理在浏览器本地完成，文件不会上传到任何服务器。</p>
+
+<h2>操作步骤</h2>
+
+<h3>① 上传图片</h3>
+<p>点击「选择文件」按钮，从电脑中选择要压缩的 JPG、PNG 或 WebP 图片。你也可以直接拖拽图片到文件选择区域（如果浏览器支持）。</p>
+
+<h3>② 选择压缩质量</h3>
+<p>根据你的需求选择合适的压缩级别：</p>
+<ul>
+  <li><strong>高清压缩 90%</strong> — 画质几乎无损，适合摄影作品、设计稿等对画质要求高的场景。</li>
+  <li><strong>推荐压缩 75%</strong> — 平衡画质与体积，适合大多数网页配图和日常使用。</li>
+  <li><strong>强力压缩 55%</strong> — 体积明显减小，适合缩略图、预览图或对画质要求不高的场景。</li>
+  <li><strong>极限压缩 35%</strong> — 体积最小，适合做占位图或快速预览。</li>
+</ul>
+
+<h3>③ 点击「开始压缩」</h3>
+<p>工具会立即在浏览器本地对图片进行压缩处理。处理速度取决于图片大小，一般几秒内完成。</p>
+
+<h3>④ 预览效果</h3>
+<p>压缩完成后，下方会显示压缩前后的文件大小对比，同时展示压缩后的图片预览。你可以直观地判断画质是否满足要求。</p>
+
+<h3>⑤ 下载保存</h3>
+<p>如果对压缩结果满意，点击「下载图片」即可保存到本地。如果效果不理想，可以返回第②步调整压缩质量重新压缩。</p>
+
+<h2>实用技巧</h2>
+<div class="tip">
+<strong>批量压缩多张图片：</strong>如果你需要一次压缩多张图片，推荐使用 <a href="/image/image-compressor.html" target="_blank">批量图片压缩工具</a>，支持同时上传多张图片，并能打包为 ZIP 下载。
+</div>
+<div class="tip">
+<strong>先压缩再上传：</strong>无论是做网站配图、发公众号文章还是邮件附件，建议先压缩再上传。一张压缩后的图片（100~300 KB）与原始图片（3~5 MB）在屏幕上肉眼几乎看不出差别，但加载速度可以提升 10 倍以上。
+</div>
+<div class="tip">
+<strong>选择合适的格式：</strong>照片类内容用 JPG，图标/截图用 PNG，需要动图用 WebP。选择合适的格式本身就是一种"压缩"。
+</div>
+
+<h2>常见问题</h2>
+<p><strong>Q：支持哪些图片格式？</strong><br/>
+A：支持 JPG、PNG、WebP 三种常见格式。</p>
+<p><strong>Q：压缩后图片质量会明显下降吗？</strong><br/>
+A：采用智能压缩算法，在推荐模式（75%）下，视觉质量几乎不受影响。你可以通过预览功能对比压缩前后的效果。</p>
+<p><strong>Q：支持批量压缩吗？</strong><br/>
+A：本工具支持单张压缩。如需批量处理多张图片，请使用 <a href="/image/image-compressor.html" target="_blank">批量图片压缩工具</a>。</p>
+<p><strong>Q：我的图片会上传到服务器吗？</strong><br/>
+A：不会。所有压缩处理都在你的浏览器本地完成，图片不会离开你的电脑。</p>
+
+<div class="rel-tools">
+🔗 <strong>相关工具：</strong>
+<a href="/image/compress.html">图片压缩</a> ·
+<a href="/image/image-compressor.html">批量压缩</a> ·
+<a href="/image/convert.html">格式转换</a> ·
+<a href="/image/resize.html">尺寸调整</a>
+</div>
+
 </div>
 
 <!-- Article 3: Video to GIF -->
@@ -130,14 +195,35 @@
 <script>
 window.ZT_PAGE={
 zh:{pageTitle:'在线工具教程 - ZenTools',crumbHome:'首页',crumbCur:'教程中心',eyebrow:'学习指南',h1Grad:'在线工具教程',h1Sub:'从入门到精通',pageDesc:'掌握 ZenTools 免费在线工具的使用技巧，提高工作效率。',navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',secAll:'📖 全部教程',secSub:'专题教程持续更新，帮助你充分发挥每个工具的效用。',catPdf:'📄 PDF 工具',catImg:'🖼️ 图片工具',catVideo:'🎬 视频工具',catAI:'🤖 AI 工具',catDev:'💻 开发工具',a1Title:'PDF 合并工具使用教程：三步合并多个 PDF 文件',a1Date:'📅 2026-06-18',a1Read:'⏱ 3 分钟阅读',a1Sum:'学会使用 ZenTools 在线 PDF 合并工具，无需安装软件，直接在浏览器中完成多个 PDF 文件的合并，保护你的文件隐私。',a2Title:'图片压缩教程：在线压缩 JPG 和 PNG 图片',a2Date:'📅 2026-06-18',a2Read:'⏱ 2 分钟阅读',a2Sum:'学会使用在线图片压缩工具，大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。',a3Title:'视频转 GIF 教程：将视频片段转换为 GIF 动图',a3Date:'📅 2026-06-18',a3Read:'⏱ 3 分钟阅读',a3Sum:'将有趣的视频片段转换成 GIF 动图，用于社交媒体分享、产品展示和内容创作。',a4Title:'AI 写作助手教程：用 AI 快速生成文章',a4Date:'📅 2026-06-20',a4Read:'⏱ 3 分钟阅读',a4Sum:'使用 ZenTools AI 写作辅助工具，输入主题即可生成文章大纲和正文草稿，提高写作效率。',a5Title:'JSON 格式化与校验教程',a5Date:'📅 2026-06-20',a5Read:'⏱ 2 分钟阅读',a5Sum:'学会使用在线 JSON 格式化工具，快速格式化、压缩和验证 JSON 数据，提高开发效率。',a6Title:'OCR 文字识别教程：从扫描 PDF 中提取文字',a6Date:'📅 2026-06-20',a6Read:'⏱ 3 分钟阅读',a6Sum:'使用在线 PDF OCR 工具，识别扫描件和图片型 PDF 中的文字内容，支持中英文，无需安装软件。',tagPdf:'PDF',tagMerge:'合并',tagImg:'图片压缩',tagGif:'视频转GIF',tagGif2:'动图',tagAI:'AI写作',tagContent:'内容创作',tagDev:'开发工具',tagOcr:'文字识别',faqTitle:'❓ 常见问题',faq1Q:'这些教程对应的工具都是免费的吗？',faq1A:'是的，所有教程中介绍的工具都是完全免费的。在浏览器本地运行，无需注册，无需安装。',faq2Q:'教程会持续更新吗？',faq2A:'会的，我们会持续添加新的教程内容，覆盖更多工具的使用技巧和最佳实践。',faq3Q:'我的操作记录或文件会被保存吗？',faq3A:'不会。所有工具在完成操作后不会保存你的任何文件或数据，关闭页面即自动清除。',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'},
-en:{pageTitle:'Tutorials - ZenTools',crumbHome:'Home',crumbCur:'Tutorials',eyebrow:'HOW-TO GUIDES',h1Grad:'Online Tool Tutorials',h1Sub:'Learn by Doing',pageDesc:'Wondering how to use ZenTools? These guides walk you through it step by step.',navHome:'Home',navDev:'Dev Tools',navAll:'All Tools',navPrivacy:'Privacy',secAll:'📖 All Tutorials',secSub:'New guides added regularly. Each one comes with real steps and practical tips.',catPdf:'📄 PDF Tools',catImg:'🖼️ Image Tools',catVideo:'🎬 Video Tools',catAI:'🤖 AI Tools',catDev:'💻 Dev Tools',a1Title:'Merge PDFs in 3 Simple Steps',a1Date:'📅 2026-06-18',a1Read:'⏱ 3 min',a1Sum:'Need to combine a few PDFs into one? No need to install anything — just drag, drop, and click in your browser. Your files stay private too.',a2Title:'Images Too Big? Compress Them Online',a2Date:'📅 2026-06-18',a2Read:'⏱ 2 min',a2Sum:'Photos taking up too much space? Run them through this tool and they\'ll shrink by a lot — quality stays good enough you won\'t notice.',a3Title:'Turn a Video Clip into a GIF',a3Date:'📅 2026-06-18',a3Read:'⏱ 3 min',a3Sum:'Cut a short clip, turn it into a GIF, drop it in a chat or a blog post. Way easier than sending a full video, and no extra software needed.',a4Title:'Let AI Help You Write',a4Date:'📅 2026-06-20',a4Read:'⏱ 3 min',a4Sum:'Staring at a blank page? Let AI generate a rough draft and outline first, then just tweak it. Way faster than staring at the screen.',a5Title:'Format JSON Without the Headache',a5Date:'📅 2026-06-20',a5Read:'⏱ 2 min',a5Sum:'Got a blob of minified JSON that hurts to look at? Paste it in, click format, and bam — nice and readable.',a6Title:'Extract Text from Scanned PDFs (OCR)',a6Date:'📅 2026-06-20',a6Read:'⏱ 3 min',a6Sum:'Got a scanned document where you can\'t select or copy text? OCR pulls it out and turns it into real text. Works for English and Chinese.',tagPdf:'PDF',tagMerge:'Merge',tagImg:'Image Compress',tagGif:'Video to GIF',tagGif2:'Animated GIF',tagAI:'AI Writing',tagContent:'Content Creation',tagDev:'Dev Tools',tagOcr:'OCR',faqTitle:'❓ FAQ',faq1Q:'Do I have to pay for any of these tools?',faq1A:'Nope, all free. Just open your browser and use them — no signup, no download.',faq2Q:'Will there be more tutorials later?',faq2A:'Yeah, I\'ll keep adding more as the tools grow.',faq3Q:'Do you save my files when I use these tools?',faq3A:'No. Everything runs locally in your browser. Close the tab, it\'s all gone. Nothing to worry about.',footerCopy:'© 2026 ZenTools. Free Online Toolbox.'},
+en:{pageTitle:'Tutorials - ZenTools',crumbHome:'Home',crumbCur:'Tutorials',eyebrow:'HOW-TO GUIDES',h1Grad:'Online Tool Tutorials',h1Sub:'Learn by Doing',pageDesc:'Wondering how to use ZenTools? These guides walk you through it step by step.',navHome:'Home',navDev:'Dev Tools',navAll:'All Tools',navPrivacy:'Privacy',secAll:'📖 All Tutorials',secSub:'New guides added regularly. Each one comes with real steps and practical tips.',catPdf:'📄 PDF Tools',catImg:'🖼️ Image Tools',catVideo:'🎬 Video Tools',catAI:'🤖 AI Tools',catDev:'💻 Dev Tools',a1Title:'Merge PDFs in 3 Simple Steps',a1Date:'📅 2026-06-18',a1Read:'⏱ 3 min',a1Sum:'Need to combine a few PDFs into one? No need to install anything — just drag, drop, and click in your browser. Your files stay private too.',a2Title:'Images Too Big? Compress Them Online',a2Date:'📅 2026-06-18',a2Read:'⏱ 2 min',a2Sum:'Photos taking up too much space? Run them through this tool and they\'ll shrink by a lot — quality stays good enough you won\'t notice.',a3Title:'Turn a Video Clip into a GIF',a3Date:'📅 2026-06-18',a3Read:'⏱ 3 min',a3Sum:'Cut a short clip, turn it into a GIF, drop it in a chat or a blog post. Way easier than sending a full video, and no extra software needed.',a4Title:'Let AI Help You Write',a4Date:'📅 2026-06-20',a4Read:'⏱ 3 min',a4Sum:'Staring at a blank page? Let AI generate a rough draft and outline first, then just tweak it. Way faster than staring at the screen.',a5Title:'Format JSON Without the Headache',a5Date:'📅 2026-06-20',a5Read:'⏱ 2 min',a5Sum:'Got a blob of minified JSON that hurts to look at? Paste it in, click format, and bam — nice and readable.',a6Title:'Extract Text from Scanned PDFs (OCR)',a6Date:'📅 2026-06-20',a6Read:'⏱ 3 min',a6Sum:'Got a scanned document where you can\'t select or copy text? OCR pulls it out and turns it into real text. Works for English and Chinese.',tagPdf:'PDF',tagMerge:'Merge',tagImg:'Image Compress',tagGif:'Video to GIF',tagGif2:'Animated GIF',tagAI:'AI Writing',tagContent:'Content Creation',tagDev:'Dev Tools',tagOcr:'OCR',faqTitle:'❓ FAQ',faq1Q:'Are all tools free?',faq1A:'Yes. Every tool is completely free — no sign-up, no download, just open and use.',faq2Q:'Will tutorials be updated?',faq2A:'Yes, we add new tutorials regularly as more tools are released.',faq3Q:'Do you save my files or data?',faq3A:'Nope. Everything stays in your browser. Close the tab and it\'s gone.',footerCopy:'© 2026 ZenTools. Free Online Toolbox.'},
 ja:{pageTitle:'チュートリアル - ZenTools',crumbHome:'ホーム',crumbCur:'チュートリアル',eyebrow:'使い方ガイド',h1Grad:'オンラインツールの使い方',h1Sub:'やってみよう',pageDesc:'ZenTools の使い方が知りたい？ここでひと通り説明してます。',navHome:'ホーム',navDev:'開発ツール',navAll:'すべてのツール',navPrivacy:'プライバシー',secAll:'📖 チュートリアル一覧',secSub:'順次追加中。各ツールの操作手順とコツをまとめてます。',catPdf:'📄 PDFツール',catImg:'🖼️ 画像ツール',catVideo:'🎬 動画ツール',catAI:'🤖 AIツール',catDev:'💻 開発ツール',a1Title:'PDF 結合、3ステップでカンタン',a1Date:'📅 2026-06-18',a1Read:'⏱ 3分',a1Sum:'いくつかのPDFをひとつにまとめたい？ソフト要らず、ブラウザでファイルをドラッグしてポチッとするだけ。ファイルが外に出る心配もなし。',a2Title:'画像が重すぎる？オンラインで軽くしよう',a2Date:'📅 2026-06-18',a2Read:'⏱ 2分',a2Sum:'写真1枚で何MBもあってアップロードが遅い…。このツールにかければ画質はそのままでファイルサイズだけぐっと減ります。',a3Title:'動画の一部をGIFにする',a3Date:'📅 2026-06-18',a3Read:'⏱ 3分',a3Sum:'ちょっとした動画をGIFにしてチャットやブログに貼る。わざわざ動画を送るより気軽で、余計なソフトもいりません。',a4Title:'AI に文章を書かせてみる',a4Date:'📅 2026-06-20',a4Read:'⏱ 3分',a4Sum:'何を書いていいかわからないときは、AI に下書きと構成を出してもらってから直すほうが、ゼロから書くよりずっと早い。',a5Title:'JSON を見やすく整形',a5Date:'📅 2026-06-20',a5Read:'⏱ 2分',a5Sum:'ぎゅっと詰まった JSON、目がチカチカする。コピペしてポチッとすれば一発で見やすい形に。',a6Title:'スキャンPDFから文字を抽出（OCR）',a6Date:'📅 2026-06-20',a6Read:'⏱ 3分',a6Sum:'スキャンした書類や写真PDF、文字を選べなくて困ってる？OCRにかければテキストとして取り出せます。日本語も英語もOK。',tagPdf:'PDF',tagMerge:'結合',tagImg:'画像圧縮',tagGif:'動画→GIF',tagGif2:'GIFアニメ',tagAI:'AIライティング',tagContent:'コンテンツ作成',tagDev:'開発ツール',tagOcr:'OCR',faqTitle:'❓ よくある質問',faq1Q:'これらのツールは無料ですか？',faq1A:'はい、全部無料です。ブラウザさえあればすぐ使えます。登録もダウンロードも不要。',faq2Q:'今後もチュートリアルは増えますか？',faq2A:'はい、ツールが増えるたびに追加していく予定です。',faq3Q:'ツールを使ったときにファイルは保存されますか？',faq3A:'されません。処理は全部あなたのブラウザの中で完結します。タブを閉じれば全て消えます。',footerCopy:'© 2026 ZenTools. 無料オンラインツールボックス。'},
-vi:{pageTitle:'Hướng dẫn - ZenTools',crumbHome:'Trang chủ',crumbCur:'Hướng dẫn',eyebrow:'HƯỚNG DẪN SỬ DỤNG',h1Grad:'Hướng dẫn công cụ online',h1Sub:'Làm theo là xong',pageDesc:'Không biết dùng ZenTools thế nào? Mấy bài hướng dẫn này chỉ bạn từng bước một.',navHome:'Trang chủ',navDev:'Công cụ Dev',navAll:'Tất cả công cụ',navPrivacy:'Chính sách',secAll:'📖 Tất cả hướng dẫn',secSub:'Đang cập nhật dần. Mỗi bài đều có các bước làm và mẹo nhỏ hữu ích.',catPdf:'📄 Công cụ PDF',catImg:'🖼️ Công cụ ảnh',catVideo:'🎬 Công cụ video',catAI:'🤖 Công cụ AI',catDev:'💻 Công cụ Dev',a1Title:'Gộp PDF chỉ trong 3 bước',a1Date:'📅 2026-06-18',a1Read:'⏱ 3 phút',a1Sum:'Cần gộp mấy cái PDF làm một? Không cần cài gì hết, kéo thả file vào trình duyệt rồi bấm phát là xong. File của bạn cũng không bị gửi đi đâu.',a2Title:'Ảnh to quá? Nén online ngay',a2Date:'📅 2026-06-18',a2Read:'⏱ 2 phút',a2Sum:'Ảnh chụp xong mấy MB, up lên đâu cũng chậm. Cho qua tool này nén lại, dung lượng giảm hẳn mà nhìn chẳng thấy khác gì.',a3Title:'Cắt video thành ảnh động GIF',a3Date:'📅 2026-06-18',a3Read:'⏱ 3 phút',a3Sum:'Cắt một đoạn video ngắn, biến thành GIF rồi gửi lên nhóm hay chèn vào bài viết. Tiện hơn gửi cả video, cũng chẳng cần cài phần mềm.',a4Title:'Nhờ AI viết bài giùm, đỡ công hơn hẳn',a4Date:'📅 2026-06-20',a4Read:'⏱ 3 phút',a4Sum:'Bí ý tưởng không biết viết gì? Để AI ra một bản nháp với dàn ý trước, bạn sửa lại tí là xong. Nhanh hơn ngồi gãi đầu gãi tai nhiều.',a5Title:'Định dạng JSON, nhìn là mê',a5Date:'📅 2026-06-20',a5Read:'⏱ 2 phút',a5Sum:'Nhận được một đống JSON dồn dồn lại, nhìn hoa hết mắt. Dán vào bấm phát là dàn hàng ngay ngắn.',a6Title:'Lấy chữ từ file PDF quét (OCR)',a6Date:'📅 2026-06-20',a6Read:'⏱ 3 phút',a6Sum:'File PDF quét từ sách hay chụp màn hình, không copy được chữ? Dùng OCR nhận dạng ra văn bản, tiếng Anh tiếng Trung đều được.',tagPdf:'PDF',tagMerge:'Gộp',tagImg:'Nén ảnh',tagGif:'Video -> GIF',tagGif2:'Ảnh động',tagAI:'Viết AI',tagContent:'Sáng tạo nội dung',tagDev:'Công cụ Dev',tagOcr:'OCR',faqTitle:'❓ Câu hỏi thường gặp',faq1Q:'Mấy công cụ trong bài hướng dẫn này có mất phí không?',faq1A:'Không, toàn bộ miễn phí. Mở trình duyệt lên dùng được luôn, không cần đăng ký hay cài đặt gì cả.',faq2Q:'Sau này có thêm hướng dẫn nữa không?',faq2A:'Có, mình sẽ bổ sung dần thêm nhiều hướng dẫn cho các công cụ khác.',faq3Q:'Tôi dùng tool thì file có bị lưu lại không?',faq3A:'Không. Mọi thứ đều xử lý ngay trên máy bạn, tắt trang đi là sạch, không lo vấn đề riêng tư.',footerCopy:'© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.'}
+vi:{pageTitle:'Hướng dẫn - ZenTools',crumbHome:'Trang chủ',crumbCur:'Hướng dẫn',eyebrow:'HƯỚNG DẪN SỬ DỤNG',h1Grad:'Hướng dẫn công cụ online',h1Sub:'Làm theo là xong',pageDesc:'Không biết dùng ZenTools thế nào? Mấy bài hướng dẫn này chỉ bạn từng bước một.',navHome:'Trang chủ',navDev:'Công cụ Dev',navAll:'Tất cả công cụ',navPrivacy:'Chính sách',secAll:'📖 Tất cả hướng dẫn',secSub:'Đang cập nhật dần. Mỗi bài đều có các bước làm và mẹo nhỏ hữu ích.',catPdf:'📄 Công cụ PDF',catImg:'🖼️ Công cụ ảnh',catVideo:'🎬 Công cụ video',catAI:'🤖 Công cụ AI',catDev:'💻 Công cụ Dev',a1Title:'Gộp PDF chỉ trong 3 bước',a1Date:'📅 2026-06-18',a1Read:'⏱ 3 phút',a1Sum:'Cần gộp mấy cái PDF làm một? Không cần cài gì hết, kéo thả file vào trình duyệt rồi bấm phát là xong. File của bạn cũng không bị gửi đi đâu.',a2Title:'Ảnh to quá? Nén online ngay',a2Date:'📅 2026-06-18',a2Read:'⏱ 2 phút',a2Sum:'Ảnh chụp xong mấy MB, up lên đâu cũng chậm. Cho qua tool này nén lại, dung lượng giảm hẳn mà nhìn chẳng thấy khác gì.',a3Title:'Cắt video thành ảnh động GIF',a3Date:'📅 2026-06-18',a3Read:'⏱ 3 phút',a3Sum:'Cắt một đoạn video ngắn, biến thành GIF rồi gửi lên nhóm hay chèn vào bài viết. Tiện hơn gửi cả video, cũng chẳng cần cài phần mềm.',a4Title:'Nhờ AI viết bài giùm, đỡ công hơn hẳn',a4Date:'📅 2026-06-20',a4Read:'⏱ 3 phút',a4Sum:'Bí ý tưởng không biết viết gì? Để AI ra một bản nháp với dàn ý trước, bạn sửa lại tí là xong. Nhanh hơn ngồi gãi đầu gãi tai nhiều.',a5Title:'Định dạng JSON, nhìn là mê',a5Date:'📅 2026-06-20',a5Read:'⏱ 2 phút',a5Sum:'Nhận được một đống JSON dồn dồn lại, nhìn hoa hết mắt. Dán vào bấm phát là dàn hàng ngay ngắn.',a6Title:'Lấy chữ từ file PDF quét (OCR)',a6Date:'📅 2026-06-20',a6Read:'⏱ 3 phút',a6Sum:'File PDF quét từ sách hay chụp màn hình, không copy được chữ? Dùng OCR nhận dạng ra văn bản, tiếng Anh tiếng Trung đều được.',tagPdf:'PDF',tagMerge:'Gộp',tagImg:'Nén ảnh',tagGif:'Video -> GIF',tagGif2:'Ảnh động',tagAI:'Viết AI',tagContent:'Sáng tạo nội dung',tagDev:'Công cụ Dev',tagOcr:'O... (line truncated to 2000 chars)
 </script>
 <script src="../assets/js/tool-ui.min.js"></script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 
 <script>
+// Article toggle function
+function toggleArticle(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var isVisible = el.style.display !== 'none';
+  el.style.display = isVisible ? 'none' : 'block';
+  var hint = document.getElementById(id + 'Hint');
+  if (hint) {
+    hint.textContent = isVisible ? '📖 点击展开详细教程' : '📕 点击收起教程';
+  }
+  // Smooth scroll to the card after opening
+  if (!isVisible) {
+    setTimeout(function() {
+      var card = el.previousElementSibling;
+      if (card && card.id) {
+        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  }
+}
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/service-worker.js').catch(() => {});
