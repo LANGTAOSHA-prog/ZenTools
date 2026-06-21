@@ -125,15 +125,36 @@
       position: relative; max-width: 480px; margin-top: 24px;
     }
     .search-wrap .search-icon {
-      position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+      position: absolute; left: 16px; top: 63%; transform: translateY(-50%);
       font-size: 16px; opacity: 0.5; pointer-events: none;
     }
+    .search-label {
+      display: block; font-size: 12px; font-weight: 700; color: var(--cyan);
+      margin-bottom: 8px; letter-spacing: 0.5px;
+    }
     .search-wrap .search-clear {
-      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+      position: absolute; right: 14px; top: 63%; transform: translateY(-50%);
       background: none; border: none; color: var(--muted); cursor: pointer;
       font-size: 14px; padding: 4px; display: none;
     }
     .search-wrap .search-clear:hover { color: var(--text); }
+    .sd-history { border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 4px; }
+    .sd-history .sd-h-title { font-size: 11px; font-weight: 700; color: var(--muted); padding: 10px 16px 6px; letter-spacing: 0.3px; opacity: 0.6; display: flex; align-items: center; justify-content: space-between; }
+    .sd-history .sd-h-title .sd-h-clear { cursor: pointer; font-size: 11px; color: var(--muted); opacity: 0.5; background:none; border:none; padding:0; }
+    .sd-history .sd-h-title .sd-h-clear:hover { opacity:1; color:var(--cyan); }
+    .sd-history .sd-h-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 8px 16px; cursor: pointer; transition: background 0.15s;
+      border-radius: 6px; margin: 0 4px;
+    }
+    .sd-history .sd-h-item:hover { background: rgba(0,229,255,0.08); }
+    .sd-history .sd-h-item .sd-h-icon { font-size: 14px; opacity: 0.5; flex-shrink: 0; }
+    .sd-history .sd-h-item .sd-h-text { font-size: 13px; color: var(--muted); flex: 1; }
+    .sd-history .sd-h-item .sd-h-del {
+      font-size: 11px; color: var(--muted); opacity: 0.3; cursor: pointer;
+      background: none; border: none; padding: 2px 6px; border-radius: 4px;
+    }
+    .sd-history .sd-h-item .sd-h-del:hover { opacity: 0.8; color: #ef4444; background: rgba(239,68,68,0.1); }
     #toolSearch {
       width: 100%; padding: 14px 38px 14px 42px;
       border: 1px solid var(--border); border-radius: 14px;
@@ -440,6 +461,7 @@
           <div class="stats-bar" id="statsBar"></div>
         </div>
         <div class="search-wrap">
+          <span class="search-label">站内搜索</span>
           <span class="search-icon">🔍</span>
           <input type="text" id="toolSearch" placeholder="搜索工具，例如：PDF、图片压缩、AI写作..." autocomplete="off">
           <button class="search-clear" id="searchClear">✕</button>
@@ -644,6 +666,8 @@
       }
     };
   </script>
+  <!-- 拼音搜索支持 -->
+  <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.2/dist/index.browser.min.js"></script>
   <script src="assets/js/tool-ui.min.js"></script>
   <script>
     // ===== 缓存数据 =====
@@ -928,27 +952,114 @@
     loadAndRender(initLang);
   </script>
   <script>
-    // ===== 工具搜索（下拉即时搜索） =====
+    // ===== 工具搜索（下拉即时搜索）——拼音 + 搜索历史 =====
     const searchInput = document.getElementById('toolSearch');
     const searchClear = document.getElementById('searchClear');
     const searchStats = document.getElementById('searchStats');
     const searchDropdown = document.getElementById('searchDropdown');
     let sdIndex = -1;
 
+    // ---- 拼音缓存 ----
+    let _pinyinCache = {};
+    function getPinyin(text) {
+      if (!text) return '';
+      if (_pinyinCache[text]) return _pinyinCache[text];
+      try {
+        if (typeof pinyinPro !== 'undefined' && pinyinPro.pinyin) {
+          var full = pinyinPro.pinyin(text, { toneType: 'none' });
+          var first = pinyinPro.pinyin(text, { pattern: 'first' });
+          _pinyinCache[text] = { full: full.toLowerCase(), first: first.toLowerCase() };
+          return _pinyinCache[text];
+        }
+      } catch(e) {}
+      _pinyinCache[text] = { full: '', first: '' };
+      return _pinyinCache[text];
+    }
+
+    // ---- 搜索历史 ----
+    var STORAGE_KEY = 'zt_search_history';
+    function getHistory() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; }
+    }
+    function addToHistory(query) {
+      var q = query.trim();
+      if (!q || q.length < 2) return;
+      var h = getHistory();
+      var idx = h.indexOf(q);
+      if (idx > -1) h.splice(idx, 1);
+      h.unshift(q);
+      if (h.length > 10) h = h.slice(0, 10);
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(h)); } catch(e) {}
+    }
+    function clearHistory() {
+      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+      renderDropdown('');
+    }
+    function removeHistoryItem(query) {
+      var h = getHistory();
+      var idx = h.indexOf(query);
+      if (idx > -1) { h.splice(idx, 1); try { localStorage.setItem(STORAGE_KEY, JSON.stringify(h)); } catch(e) {} }
+      renderDropdown(searchInput.value);
+    }
+
+    // ---- 渲染搜索历史（空输入时显示）----
+    function renderHistory() {
+      var h = getHistory();
+      if (!h.length) { searchDropdown.classList.remove('show'); return; }
+      var html = '<div class="sd-history"><div class="sd-h-title"><span>⏰ 最近搜索</span><button class="sd-h-clear" onclick="clearHistory()">清除全部</button></div>';
+      h.forEach(function(item) {
+        var safe = item.replace(/'/g, "\\'");
+        html += '<div class="sd-h-item" onclick="document.getElementById(\'toolSearch\').value=\'" + safe + "\';renderDropdown(\'" + safe + "\');addToHistory(\'" + safe + "\');searchClear.style.display=\'block\'"><span class="sd-h-icon">🔍</span><span class="sd-h-text">' + item + '</span><button class="sd-h-del" onclick="event.stopPropagation();removeHistoryItem(\'" + safe + "\')">✕</button></div>';
+      });
+      html += '</div><div class="sd-footer">输入关键词搜索 · ↑↓ 选择 · Enter 打开</div>';
+      searchDropdown.innerHTML = html;
+      searchDropdown.classList.add('show');
+    }
+
+    // ---- 获取工具可供拼音搜索的文本 ----
+    function toolPinyinText(t) {
+      var texts = [t.name, t.description, t.keywords || ''];
+      var py = { full: '', first: '' };
+      texts.forEach(function(txt) {
+        if (txt) {
+          var p = getPinyin(txt);
+          py.full += ' ' + p.full;
+          py.first += ' ' + p.first;
+        }
+      });
+      return py;
+    }
+
+    // ---- 渲染下拉结果 ----
     function renderDropdown(query) {
-      const q = query.trim().toLowerCase();
-      if (!q || !_toolsData || !_toolsData.tools) {
+      var q = query.trim().toLowerCase();
+      if (!q) {
+        if (searchInput === document.activeElement) {
+          renderHistory();
+        } else {
+          searchDropdown.classList.remove('show');
+        }
+        return;
+      }
+      if (!_toolsData || !_toolsData.tools) {
         searchDropdown.classList.remove('show');
         return;
       }
-      const lang = localStorage.getItem('zentools_lang') || 'zh';
-      const results = _toolsData.tools.filter(function(t) {
-        const fields = [
+      var lang = localStorage.getItem('zentools_lang') || 'zh';
+      var results = _toolsData.tools.filter(function(t) {
+        var fields = [
           t.name, t.name__en, t.name__ja, t.name__vi,
           t.description, t.description__en, t.description__ja, t.description__vi,
           t.keywords || '', t.slug, t.category || ''
         ];
-        return fields.some(function(f) { return f && f.toLowerCase().includes(q); });
+        var textMatch = fields.some(function(f) { return f && f.toLowerCase().includes(q); });
+        if (textMatch) return true;
+        try {
+          var py = toolPinyinText(t);
+          if (py.full && py.full.includes(q)) return true;
+          if (py.first && py.first.includes(q)) return true;
+        } catch(e) {}
+        return false;
       }).slice(0, 12);
 
       if (!results.length) {
@@ -987,8 +1098,9 @@
     }
 
     searchInput.addEventListener('input', function() {
-      renderDropdown(this.value);
-      searchClear.style.display = this.value.trim() ? 'block' : 'none';
+      var v = this.value;
+      renderDropdown(v);
+      searchClear.style.display = v.trim() ? 'block' : 'none';
     });
     searchInput.addEventListener('keydown', function(e) {
       var items = searchDropdown.querySelectorAll('.sd-item');
@@ -1005,9 +1117,11 @@
         sdIndex = Math.max(sdIndex - 1, 0);
         items[sdIndex].classList.add('sd-highlight');
         items[sdIndex].scrollIntoView({ block: 'nearest' });
-      } else if (e.key === 'Enter' && sdIndex >= 0) {
-        e.preventDefault();
-        items[sdIndex].click();
+      } else if (e.key === 'Enter') {
+        if (sdIndex >= 0) {
+          e.preventDefault();
+          items[sdIndex].click();
+        }
       } else if (e.key === 'Escape') {
         searchDropdown.classList.remove('show');
         searchInput.blur();
@@ -1020,20 +1134,32 @@
       }, 200);
     });
     searchInput.addEventListener('focus', function() {
-      if (this.value.trim()) {
-        renderDropdown(this.value);
+      var v = this.value.trim();
+      if (v) {
+        renderDropdown(v);
         searchClear.style.display = 'block';
+      } else {
+        renderHistory();
       }
     });
     searchClear.addEventListener('click', function() {
       searchInput.value = ''; searchInput.focus(); searchDropdown.classList.remove('show');
       searchClear.style.display = 'none';
+      setTimeout(function() { if (searchInput === document.activeElement) renderHistory(); }, 100);
     });
 
     // 点击外部关闭下拉
     document.addEventListener('click', function(e) {
       var wrap = document.querySelector('.search-wrap');
       if (wrap && !wrap.contains(e.target)) searchDropdown.classList.remove('show');
+    });
+
+    // 点击搜索结果时保存记录
+    searchDropdown.addEventListener('mousedown', function(e) {
+      var item = e.target.closest('.sd-item');
+      if (item && item.href) {
+        addToHistory(searchInput.value.trim());
+      }
     });
 
     const searchPlaceholders = {
@@ -1044,10 +1170,7 @@
     };
     document.getElementById('langSelect').addEventListener('change', function() {
       searchInput.placeholder = searchPlaceholders[this.value] || searchPlaceholders.zh;
-    });
-  </script>
-  <script>
-    // ===== 移动端侧滑菜单 =====
+    });    // ===== 移动端侧滑菜单 =====
     const overlay = document.getElementById('mobileOverlay');
     const drawer = document.getElementById('mobileDrawer');
     const hamBtn = document.getElementById('hamburgerBtn');
