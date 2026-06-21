@@ -667,7 +667,7 @@
     };
   </script>
   <!-- 拼音搜索支持 -->
-  <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.26.2/dist/index.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.28.1/dist/index.min.js"></script>
   <script src="assets/js/tool-ui.min.js"></script>
   <script>
     // ===== 缓存数据 =====
@@ -962,10 +962,10 @@
     // ---- 拼音缓存 ----
     let _pinyinCache = {};
     function getPinyin(text) {
-      if (!text) return '';
+      if (!text) return { full: '', first: '' };
       if (_pinyinCache[text]) return _pinyinCache[text];
       try {
-        if (typeof pinyinPro !== 'undefined' && pinyinPro.pinyin) {
+        if (typeof pinyinPro !== 'undefined' && typeof pinyinPro.pinyin === 'function') {
           var full = pinyinPro.pinyin(text, { toneType: 'none' });
           var first = pinyinPro.pinyin(text, { pattern: 'first' });
           _pinyinCache[text] = { full: full.toLowerCase(), first: first.toLowerCase() };
