@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="manifest" href="/manifest.json" />
   <title>AI 工具箱 - 江湖小站-ZenTools</title>
-  <meta name="description" content="在线 AI 工具集合，支持 AI 写作、翻译、总结、简历优化等操作" />
+  <meta name="description" content="在线 AI 工具集合，支持 AI 聊天、写作、改写、总结、翻译、代码生成、图片生成等 39 款工具" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --glass-border: rgba(255,255,255,0.08); }
@@ -68,7 +68,38 @@
   const CATEGORY_KEY = 'AI工具';
   const PAGE_TITLE = 'AI';
   const PAGE_DESC = '在线 AI 工具集合，支持 AI 写作、翻译、总结、简历优化等操作';
-  const fallbackTools = [];
+  const fallbackTools = [
+    { name: 'AI 聊天', url: '/ai/ai-chat.html', icon: '💬', description: '与AI智能对话，支持多轮问答、知识查询和创意讨论', category: 'AI工具' },
+    { name: 'AI 写作', url: '/ai/ai-writing.html', icon: '✍️', description: '根据主题生成文章大纲和正文草稿', category: 'AI工具' },
+    { name: 'AI 改写', url: '/ai/ai-paraphrase.html', icon: '🔄', description: 'AI智能改写文本，支持同义改写、扩写、缩写、风格转换', category: 'AI工具' },
+    { name: 'AI 总结', url: '/ai/ai-summarize.html', icon: '📝', description: 'AI智能总结长文本，生成简洁摘要和要点提炼', category: 'AI工具' },
+    { name: 'AI 翻译', url: '/ai/ai-translate.html', icon: '🌐', description: 'AI翻译辅助工具，生成多语言翻译参考', category: 'AI工具' },
+    { name: 'AI 润色', url: '/ai/ai-polish.html', icon: '✨', description: 'AI润色工具，优化文本表达', category: 'AI工具' },
+    { name: 'AI 代码生成', url: '/ai/ai-code-generator.html', icon: '💻', description: 'AI根据需求描述生成代码，支持多种编程语言', category: 'AI工具' },
+    { name: 'AI 代码解释', url: '/ai/ai-code-explain.html', icon: '💻', description: '免费在线 AI 代码解释工具，帮助理解代码结构', category: 'AI工具' },
+    { name: 'AI 代码修复', url: '/ai/ai-code-fix.html', icon: '🔧', description: 'AI智能分析代码错误并提供修复方案', category: 'AI工具' },
+    { name: 'AI 正则生成', url: '/ai/ai-regex-generator.html', icon: '🔍', description: 'AI根据描述生成正则表达式，支持解释和测试', category: 'AI工具' },
+    { name: 'AI 邮件生成', url: '/ai/ai-email.html', icon: '📧', description: '免费在线 AI 邮件生成工具，快速生成商务邮件', category: 'AI工具' },
+    { name: 'AI 简历生成', url: '/ai/ai-resume.html', icon: '📄', description: '免费在线 AI 简历生成工具，快速生成简历结构', category: 'AI工具' },
+    { name: 'AI 面试助手', url: '/ai/ai-interview.html', icon: '🎯', description: '免费在线 AI 面试问答工具，生成常见面试问题和回答', category: 'AI工具' },
+    { name: 'AI 提示词生成', url: '/ai/ai-prompt-generator.html', icon: '💬', description: '生成高质量 AI 提示词（Prompt），提升对话效果', category: 'AI工具' },
+    { name: 'AI 广告文案', url: '/ai/ai-ad-copy.html', icon: '📢', description: 'AI生成高转化广告文案，支持多平台多风格', category: 'AI工具' },
+    { name: 'AI 标题生成', url: '/ai/ai-title.html', icon: '🏷️', description: '根据关键词生成多个标题', category: 'AI工具' },
+    { name: 'AI 关键词提取', url: '/ai/ai-keyword-extractor.html', icon: '🏷️', description: 'AI智能提取文本关键词和标签，支持SEO优化', category: 'AI工具' },
+    { name: 'AI 思维导图', url: '/ai/ai-mind-map.html', icon: '🧠', description: 'AI根据主题生成思维导图结构，支持导出多种格式', category: 'AI工具' },
+    { name: 'AI 问答', url: '/ai/ai-qa.html', icon: '❓', description: 'AI智能问答助手，支持知识库检索和开放域问答', category: 'AI工具' },
+    { name: 'AI 论文助手', url: '/ai/ai-paper-assistant.html', icon: '📚', description: 'AI辅助论文写作，支持选题、大纲、文献综述和润色', category: 'AI工具' },
+    { name: 'AI 脚本生成', url: '/ai/ai-script-generator.html', icon: '🎬', description: 'AI生成视频脚本、演讲脚本、直播脚本等', category: 'AI工具' },
+    { name: 'AI 小说生成', url: '/ai/ai-novel-generator.html', icon: '📖', description: 'AI辅助小说创作，支持情节构思、角色设定和章节生成', category: 'AI工具' },
+    { name: 'AI 图片生成', url: '/ai/ai-image-generator.html', icon: '🎨', description: 'AI根据文字描述生成高质量图片，支持多种艺术风格', category: 'AI工具' },
+    { name: 'AI 图片提示词', url: '/ai/ai-image-prompt.html', icon: '✨', description: 'AI生成和优化图片生成提示词，提升AI绘画效果', category: 'AI工具' },
+    { name: 'AI 视频脚本', url: '/ai/ai-video-script.html', icon: '🎥', description: 'AI生成短视频脚本，支持分镜、台词和拍摄建议', category: 'AI工具' },
+    { name: 'AI 产品描述', url: '/ai/ai-product-desc.html', icon: '🏷️', description: '生成电商产品描述，适用于淘宝、京东、亚马逊等平台', category: 'AI工具' },
+    { name: 'AI 社媒文案', url: '/ai/ai-social.html', icon: '📱', description: '生成适合微信、微博、小红书等平台的社交媒体文案', category: 'AI工具' },
+    { name: 'AI 会议纪要', url: '/ai/ai-meeting-minutes.html', icon: '📋', description: 'AI整理会议录音转文字，生成会议纪要和待办事项', category: 'AI工具' },
+    { name: 'AI OCR 识别', url: '/ai/ai-ocr.html', icon: '👁️', description: 'AI高精度OCR文字识别，支持多语言、表格和公式识别', category: 'AI工具' },
+    { name: 'AI 知识库', url: '/ai/ai-knowledge-base.html', icon: '🗂️', description: 'AI知识库问答系统，上传文档后基于内容智能问答', category: 'AI工具' }
+  ];
   function renderTools(tools) {
     const c = document.getElementById('toolsGrid'); if (!c) return;
     const f = tools.filter(t => t.category === CATEGORY_KEY);
