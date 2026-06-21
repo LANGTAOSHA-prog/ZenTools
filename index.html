@@ -154,6 +154,53 @@
     .search-empty .empty-text { font-size: 15px; }
     .search-empty .empty-hint { font-size: 12px; margin-top: 6px; opacity: 0.6; }
     .cat-section.search-hidden { display: none; }
+    /* 搜索下拉框 */
+    .search-dropdown {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 300;
+      margin-top: 6px; max-height: 420px; overflow-y: auto;
+      background: rgba(10,12,20,0.96); backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--border); border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      display: none;
+    }
+    .search-dropdown.show { display: block; }
+    .search-dropdown .sd-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 16px; cursor: pointer; transition: background 0.15s;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .search-dropdown .sd-item:last-child { border-bottom: none; }
+    .search-dropdown .sd-item:hover,
+    .search-dropdown .sd-item.sd-highlight { background: rgba(0,229,255,0.08); }
+    .search-dropdown .sd-icon {
+      flex-shrink: 0; width: 36px; height: 36px; display: flex;
+      align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.05); border-radius: 10px;
+      font-size: 18px;
+    }
+    .search-dropdown .sd-info { flex: 1; min-width: 0; }
+    .search-dropdown .sd-info .sd-name {
+      font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3;
+    }
+    .search-dropdown .sd-info .sd-desc {
+      font-size: 12px; color: var(--muted); line-height: 1.4;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .search-dropdown .sd-cat {
+      flex-shrink: 0; font-size: 11px; color: var(--muted);
+      background: rgba(255,255,255,0.05); padding: 4px 10px;
+      border-radius: 6px; white-space: nowrap;
+    }
+    .search-dropdown .sd-empty {
+      padding: 32px 16px; text-align: center; color: var(--muted); font-size: 14px;
+    }
+    .search-dropdown .sd-empty .sd-empty-icon { font-size: 28px; margin-bottom: 8px; }
+    .search-dropdown .sd-footer {
+      padding: 10px 16px; text-align: center; font-size: 11px;
+      color: var(--muted); border-top: 1px solid rgba(255,255,255,0.04);
+      opacity: 0.6;
+    }
+
 
     /* 统计条 */
     .stats-bar {
@@ -387,6 +434,7 @@
           <input type="text" id="toolSearch" placeholder="搜索工具，例如：PDF、图片压缩、AI写作..." autocomplete="off">
           <button class="search-clear" id="searchClear">✕</button>
           <div class="search-stats" id="searchStats"></div>
+          <div class="search-dropdown" id="searchDropdown"></div>
         </div>
         <div class="stats-bar" id="statsBar"></div>
       </div>
@@ -847,54 +895,102 @@
     loadAndRender(initLang);
   </script>
   <script>
-    // ===== 工具搜索 =====
+    // ===== 工具搜索（下拉即时搜索） =====
     const searchInput = document.getElementById('toolSearch');
     const searchClear = document.getElementById('searchClear');
     const searchStats = document.getElementById('searchStats');
+    const searchDropdown = document.getElementById('searchDropdown');
+    let sdIndex = -1;
 
-    function filterTools(query) {
+    function renderDropdown(query) {
       const q = query.trim().toLowerCase();
-      const cats = document.querySelectorAll('.cat-section');
-      let visibleCount = 0;
-
-      cats.forEach(function(cat) {
-        const cards = cat.querySelectorAll('.mini-card');
-        let catVisible = false;
-
-        if (!q) {
-          cards.forEach(function(c) { c.style.display = ''; });
-          catVisible = true;
-        } else {
-          cards.forEach(function(c) {
-            const name = c.querySelector('.mc-name');
-            const desc = c.querySelector('.mc-desc');
-            const text = (name ? name.textContent : '') + ' ' +
-                        (desc ? desc.textContent : '') + ' ' +
-                        (c.getAttribute('data-keywords') || '');
-            const match = text.toLowerCase().includes(q);
-            c.style.display = match ? '' : 'none';
-            if (match) catVisible = true;
-          });
-        }
-        cat.style.display = catVisible ? '' : 'none';
-        if (catVisible) {
-          visibleCount += cat.querySelectorAll('.mini-card:not([style*="display: none"])').length;
-        }
-      });
-
-      if (q) {
-        searchStats.style.display = 'block';
-        searchStats.textContent = '🔍 找到 ' + visibleCount + ' 个工具';
-        searchClear.style.display = 'block';
-      } else {
-        searchStats.style.display = 'none';
-        searchClear.style.display = 'none';
+      if (!q || !_toolsData || !_toolsData.tools) {
+        searchDropdown.classList.remove('show');
+        return;
       }
+      const lang = localStorage.getItem('zentools_lang') || 'zh';
+      const results = _toolsData.tools.filter(function(t) {
+        const fields = [
+          t.name, t.name__en, t.name__ja, t.name__vi,
+          t.description, t.description__en, t.description__ja, t.description__vi,
+          t.keywords || '', t.slug, t.category || ''
+        ];
+        return fields.some(function(f) { return f && f.toLowerCase().includes(q); });
+      }).slice(0, 12);
+
+      if (!results.length) {
+        searchDropdown.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">🔍</div>没有找到匹配的工具</div><div class="sd-footer">试试其他关键词</div>';
+        searchDropdown.classList.add('show');
+        return;
+      }
+      sdIndex = -1;
+      var re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+      searchDropdown.innerHTML = results.map(function(t) {
+        var name = tName(t, lang);
+        var desc = tDesc(t, lang);
+        var cat = t.category || '';
+        var icon = t.icon || '🔧';
+        var nameHtml = name.replace(re, '<em>$1</em>');
+        var descHtml = desc.replace(re, '<em>$1</em>');
+        var catLabel = tCatLocal(cat, lang);
+        return '<a class="sd-item" href="' + t.url + '">' +
+          '<div class="sd-icon">' + icon + '</div>' +
+          '<div class="sd-info"><div class="sd-name">' + nameHtml + '</div><div class="sd-desc">' + descHtml + '</div></div>' +
+          '<span class="sd-cat">' + catLabel + '</span></a>';
+      }).join('') + '<div class="sd-footer">共 ' + results.length + ' 个结果，按 ↑↓ 键选择，按 Enter 打开</div>';
+      searchDropdown.classList.add('show');
     }
 
-    searchInput.addEventListener('input', function() { filterTools(this.value); });
+    function tCatLocal(cat, lang) {
+      if (lang === 'zh' || !_toolsData || !_toolsData.categories) return cat;
+      var key = 'categories__' + lang;
+      var arr = _toolsData[key];
+      var zhArr = _toolsData.categories;
+      if (arr && zhArr) {
+        var idx = zhArr.indexOf(cat);
+        if (idx >= 0 && idx < arr.length) return arr[idx];
+      }
+      return cat;
+    }
+
+    searchInput.addEventListener('input', function() { renderDropdown(this.value); });
+    searchInput.addEventListener('keydown', function(e) {
+      var items = searchDropdown.querySelectorAll('.sd-item');
+      if (!items.length) return;
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (sdIndex >= 0) items[sdIndex].classList.remove('sd-highlight');
+        sdIndex = Math.min(sdIndex + 1, items.length - 1);
+        items[sdIndex].classList.add('sd-highlight');
+        items[sdIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (sdIndex >= 0) items[sdIndex].classList.remove('sd-highlight');
+        sdIndex = Math.max(sdIndex - 1, 0);
+        items[sdIndex].classList.add('sd-highlight');
+        items[sdIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter' && sdIndex >= 0) {
+        e.preventDefault();
+        items[sdIndex].click();
+      } else if (e.key === 'Escape') {
+        searchDropdown.classList.remove('show');
+        searchInput.blur();
+      }
+    });
+    searchInput.addEventListener('blur', function() {
+      setTimeout(function() { searchDropdown.classList.remove('show'); }, 200);
+    });
+    searchInput.addEventListener('focus', function() {
+      if (this.value.trim()) renderDropdown(this.value);
+    });
     searchClear.addEventListener('click', function() {
-      searchInput.value = ''; searchInput.focus(); filterTools('');
+      searchInput.value = ''; searchInput.focus(); searchDropdown.classList.remove('show');
+    });
+
+    // 点击外部关闭下拉
+    document.addEventListener('click', function(e) {
+      var wrap = document.querySelector('.search-wrap');
+      if (wrap && !wrap.contains(e.target)) searchDropdown.classList.remove('show');
     });
 
     const searchPlaceholders = {
