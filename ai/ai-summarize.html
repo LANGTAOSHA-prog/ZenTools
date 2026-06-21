@@ -3,50 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="/manifest.json" />
   <title>AI 总结 - 江湖小站-ZenTools</title>
   <meta name="description" content="AI 智能总结长文本，生成简洁摘要和要点提炼" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; }
+    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --radius: 14px; --radius-pill: 999px; --error: #ef4444; }
     [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { max-width: 800px; width: 100%; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; }
-    .card h1 { font-size: 24px; margin-bottom: 12px; }
-    .card .icon { font-size: 64px; margin-bottom: 20px; }
-    .card p { color: var(--muted); margin-bottom: 30px; line-height: 1.6; }
-    .placeholder { background: var(--surface2); border: 2px dashed var(--border); border-radius: var(--radius); padding: 60px 20px; margin-bottom: 30px; }
-    .placeholder .emoji { font-size: 48px; margin-bottom: 16px; }
-    .placeholder h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .placeholder p { font-size: 14px; }
-    .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; margin: 8px; transition: all .3s; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .header .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+    .header .logo .mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    
+    .main { flex: 1; display: flex; flex-direction: column; max-width: 1000px; width: 100%; margin: 0 auto; padding: 20px; gap: 20px; }
+    
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .panel-header h2 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
+    
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: var(--muted); }
+    .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; }
+    .form-group textarea { min-height: 250px; resize: vertical; }
+    .form-group input { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    
+    .btn { padding: 10px 20px; border-radius: var(--radius-pill); border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: all .3s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
+    
+    .output { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; overflow-y: auto; font-size: 15px; line-height: 1.8; }
+    .output h3 { color: var(--accent); margin: 20px 0 10px; }
+    .output ul { padding-left: 24px; }
+    .output li { margin-bottom: 8px; }
+    
+    .typing { display: flex; gap: 4px; padding: 20px; justify-content: center; }
+    .typing span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: bounce 1.4s infinite; }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
+    
     .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
+    
+    @media (max-width: 640px) {
+      .header { padding: 12px 16px; }
+      .main { padding: 12px; }
+      .panel { padding: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="card">
-    <div class="icon">📝</div>
-    <h1>AI 总结</h1>
-    <p>AI 智能总结长文本，生成简洁摘要和要点提炼</p>
-    <div class="placeholder">
-      <div class="emoji">🚧</div>
-      <h2>开发中</h2>
-      <p>此工具正在开发中，敬请期待！</p>
+
+<header class="header">
+  <div class="logo"><span class="mark">⛵</span><span>AI 总结</span></div>
+  <div style="display: flex; gap: 8px;">
+    <a href="/ai/ai-chat.html" class="btn btn-secondary" style="padding: 8px 16px;">AI 聊天</a>
+    <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
+  </div>
+</header>
+
+<main class="main">
+  <div class="panel">
+    <div class="panel-header">
+      <h2>📄 文本总结</h2>
     </div>
-    <div>
-      <a href="/" class="btn btn-secondary">返回首页</a>
-      <a href="/plugins-preview.html" class="btn">浏览其他工具</a>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label>总结类型</label>
+        <select id="sumType">
+          <option value="summary">摘要总结 - 提炼核心内容</option>
+          <option value="keypoints">要点提炼 - 提取关键要点</option>
+          <option value="bullet">要点列表 - 生成项目符号列表</option>
+          <option value="oneparagraph">一段话总结 - 极简概括</option>
+          <option value="tl;dr">TL;DR - 超简短总结</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>语言</label>
+        <select id="lang">
+          <option value="中文">中文</option>
+          <option value="英文">英文</option>
+          <option value="日文">日文</option>
+          <option value="越南语">越南语</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>待总结文本</label>
+      <textarea id="inputText" placeholder="粘贴或输入需要总结的长文本..."></textarea>
+    </div>
+    
+    <div style="display: flex; gap: 10px;">
+      <button class="btn btn-primary" id="sumBtn" onclick="summarize()">
+        <span>📝</span><span>开始总结</span>
+      </button>
+      <button class="btn btn-secondary" onclick="clearAll()">清空</button>
+      <button class="btn btn-secondary" onclick="pasteFromClipboard()">粘贴</button>
     </div>
   </div>
-  <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构
+  
+  <div class="panel">
+    <div class="panel-header">
+      <h2>✨ 总结结果</h2>
+      <div style="display: flex; gap: 6px;">
+        <button class="btn btn-icon btn-secondary" onclick="copyResult()" title="复制">📋</button>
+        <button class="btn btn-icon btn-secondary" onclick="downloadResult()" title="下载">💾</button>
+      </div>
+    </div>
+    <div class="output" id="output">
+      <p style="color: var(--muted); text-align: center; padding: 40px 20px;">总结结果将显示在这里</p>
+    </div>
   </div>
-</div>
+</main>
+
+<footer style="text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);">
+  © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有处理均在本地完成
+</footer>
+
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+let settings = { apiKey: '' };
+
+async function summarize() {
+  const input = document.getElementById('inputText');
+  const output = document.getElementById('output');
+  const type = document.getElementById('sumType').value;
+  const lang = document.getElementById('lang').value;
+  const text = input.value.trim();
+  
+  if (!text) { alert('请输入需要总结的文本'); return; }
+  if (!settings.apiKey) {
+    const key = prompt('请输入 API Key（仅保存在本地浏览器）:');
+    if (!key) return;
+    settings.apiKey = key;
+  }
+  
+  const btn = document.getElementById('sumBtn');
+  btn.disabled = true;
+  output.innerHTML = '<div class="typing"><span></span><span></span><span></span></div><p style="text-align:center;color:var(--muted);">正在总结...</p>';
+  
+  const typePrompts = {
+    summary: '请为以下文本写一个简洁的摘要，提炼核心内容，保持原意：',
+    keypoints: '请从以下文本中提取关键要点，用中文列出最重要的几点：',
+    bullet: '请将以下文本总结为项目符号列表，每行一个要点：',
+    oneparagraph: '请用一段话（不超过100字）总结以下文本的核心内容：',
+    tldr: '请用一句话总结以下文本（TL;DR）：'
+  };
+  
+  try {
+    const response = await fetchChat(typePrompts[type] + '\n\n' + text);
+    output.innerHTML = formatText(response);
+  } catch (error) {
+    output.innerHTML = '<p style="color:var(--error);text-align:center;padding:40px;">总结失败：' + error.message + '</p>';
+  }
+  
+  btn.disabled = false;
+}
+
+async function fetchChat(prompt) {
+  const url = 'https://api.openai.com/v1/chat/completions';
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + settings.apiKey
+    },
+    body: JSON.stringify({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: '你是一个专业的文本总结助手。' },
+        { role: 'user', content: prompt }
+      ],
+      temperature: 0.5,
+      max_tokens: 4096
+    })
+  });
+  
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error?.message || '请求失败');
+  }
+  
+  const data = await response.json();
+  return data.choices[0].message.content;
+}
+
+function formatText(text) {
+  let html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
+  html = html.replace(/^- (.*$)/gm, '<li>$1</li>');
+  html = html.replace(/^\* (.*$)/gm, '<li>$1</li>');
+  html = html.replace(/^\d+\. (.*$)/gm, '<li>$1</li>');
+  html = html.replace(/\n\n/g, '</p><p>');
+  html = html.replace(/\n/g, '<br>');
+  if (!html.startsWith('<h') && !html.startsWith('<p') && !html.startsWith('<ul') && !html.startsWith('<li')) {
+    html = '<p>' + html;
+  }
+  if (!html.endsWith('</p>') && !html.endsWith('</ul>') && !html.endsWith('</li>')) {
+    html = html + '</p>';
+  }
+  if (html.includes('<li>')) {
+    html = '<ul>' + html + '</ul>';
+  }
+  return html;
+}
+
+function clearAll() {
+  document.getElementById('inputText').value = '';
+  document.getElementById('output').innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px 20px;">总结结果将显示在这里</p>';
+}
+
+async function pasteFromClipboard() {
+  try {
+    const text = await navigator.clipboard.readText();
+    document.getElementById('inputText').value = text;
+  } catch (e) { alert('无法读取剪贴板，请手动粘贴'); }
+}
+
+function copyResult() {
+  const text = document.getElementById('output').innerText;
+  navigator.clipboard.writeText(text).then(() => alert('已复制')).catch(() => alert('复制失败'));
+}
+
+function downloadResult() {
+  const text = document.getElementById('output').innerText;
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'AI总结-' + new Date().toISOString().slice(0,10) + '.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
+
 </body>
 </html>

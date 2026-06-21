@@ -3,50 +3,182 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="/manifest.json" />
   <title>AI 代码生成 - 江湖小站-ZenTools</title>
-  <meta name="description" content="AI 根据需求描述生成代码，支持多种编程语言和框架" />
+  <meta name="description" content="AI 根据需求描述生成代码，支持多种编程语言" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; }
+    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --radius: 14px; --radius-pill: 999px; --error: #ef4444; }
     [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { max-width: 800px; width: 100%; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; }
-    .card h1 { font-size: 24px; margin-bottom: 12px; }
-    .card .icon { font-size: 64px; margin-bottom: 20px; }
-    .card p { color: var(--muted); margin-bottom: 30px; line-height: 1.6; }
-    .placeholder { background: var(--surface2); border: 2px dashed var(--border); border-radius: var(--radius); padding: 60px 20px; margin-bottom: 30px; }
-    .placeholder .emoji { font-size: 48px; margin-bottom: 16px; }
-    .placeholder h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .placeholder p { font-size: 14px; }
-    .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; margin: 8px; transition: all .3s; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .header .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+    .header .logo .mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .main { flex: 1; display: flex; flex-direction: column; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px; gap: 20px; }
+    .grid { display: grid; grid-template-columns: 320px 1fr; gap: 20px; flex: 1; min-height: 0; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; }
+    .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .panel-header h2 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: var(--muted); }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; }
+    .form-group textarea { min-height: 150px; resize: vertical; }
+    .form-group textarea:focus, .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+    .btn { padding: 10px 20px; border-radius: var(--radius-pill); border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: all .3s; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
+    .output { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; overflow-y: auto; font-family: 'Fira Code', 'Consolas', monospace; font-size: 14px; line-height: 1.6; }
+    .output pre { margin: 0; white-space: pre-wrap; }
+    .typing { display: flex; gap: 4px; padding: 20px; justify-content: center; }
+    .typing span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: bounce 1.4s infinite; }
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
     .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
+    @media (max-width: 640px) { .header { padding: 12px 16px; } .main { padding: 12px; } .panel { padding: 16px; } }
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="card">
-    <div class="icon">💻</div>
-    <h1>AI 代码生成</h1>
-    <p>AI 根据需求描述生成代码，支持多种编程语言和框架</p>
-    <div class="placeholder">
-      <div class="emoji">🚧</div>
-      <h2>开发中</h2>
-      <p>此工具正在开发中，敬请期待！</p>
+<header class="header">
+  <div class="logo"><span class="mark">⛵</span><span>AI 代码生成</span></div>
+  <div style="display: flex; gap: 8px;">
+    <a href="/ai/ai-chat.html" class="btn btn-secondary" style="padding: 8px 16px;">AI 聊天</a>
+    <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
+  </div>
+</header>
+<main class="main">
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-header"><h2>💻 代码需求</h2></div>
+      <div class="form-group">
+        <label>编程语言</label>
+        <select id="language">
+          <option value="python">Python</option>
+          <option value="javascript">JavaScript</option>
+          <option value="typescript">TypeScript</option>
+          <option value="java">Java</option>
+          <option value="cpp">C++</option>
+          <option value="csharp">C#</option>
+          <option value="go">Go</option>
+          <option value="rust">Rust</option>
+          <option value="php">PHP</option>
+          <option value="sql">SQL</option>
+          <option value="html">HTML/CSS</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>需求描述</label>
+        <textarea id="prompt" placeholder="例如：写一个快速排序算法，支持自定义比较函数..."></textarea>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn btn-primary" id="genBtn" onclick="generateCode()">
+          <span>🚀</span><span>生成代码</span>
+        </button>
+        <button class="btn btn-secondary" onclick="clearAll()">清空</button>
+      </div>
     </div>
-    <div>
-      <a href="/" class="btn btn-secondary">返回首页</a>
-      <a href="/plugins-preview.html" class="btn">浏览其他工具</a>
+    <div class="panel">
+      <div class="panel-header">
+        <h2>📄 生成代码</h2>
+        <div style="display: flex; gap: 6px;">
+          <button class="btn btn-icon btn-secondary" onclick="copyCode()" title="复制">📋</button>
+          <button class="btn btn-icon btn-secondary" onclick="downloadCode()" title="下载">💾</button>
+        </div>
+      </div>
+      <div class="output" id="output">
+        <p style="color: var(--muted); text-align: center; padding: 40px 20px;">生成的代码将显示在这里</p>
+      </div>
     </div>
   </div>
-  <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构
-  </div>
-</div>
+</main>
+<footer style="text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);">
+  © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有代码生成均在本地处理
+</footer>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<script>
+let settings = { apiKey: '' };
+const langExt = { python: 'py', javascript: 'js', typescript: 'ts', java: 'java', cpp: 'cpp', csharp: 'cs', go: 'go', rust: 'rs', php: 'php', sql: 'sql', html: 'html' };
+
+async function generateCode() {
+  const prompt = document.getElementById('prompt').value.trim();
+  const language = document.getElementById('language').value;
+  const output = document.getElementById('output');
+  const btn = document.getElementById('genBtn');
+  
+  if (!prompt) { alert('请输入需求描述'); return; }
+  if (!settings.apiKey) {
+    const key = prompt('请输入 API Key（仅保存在本地浏览器）:');
+    if (!key) return;
+    settings.apiKey = key;
+    saveSettings();
+  }
+  
+  btn.disabled = true;
+  output.innerHTML = '<div class="typing"><span></span><span></span><span></span></div><p style="text-align:center;color:var(--muted);">正在生成代码...</p>';
+  
+  try {
+    const response = await fetchChat(language, prompt);
+    output.innerHTML = '<pre><code>' + escapeHtml(response) + '</code></pre>';
+  } catch (error) {
+    output.innerHTML = '<p style="color:var(--error);text-align:center;padding:40px;">生成失败：' + error.message + '</p>';
+  }
+  btn.disabled = false;
+}
+
+async function fetchChat(language, prompt) {
+  const url = 'https://api.openai.com/v1/chat/completions';
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + settings.apiKey },
+    body: JSON.stringify({
+      model: 'gpt-4o',
+      messages: [
+        { role: 'system', content: '你是一个专业的编程助手，擅长多种编程语言的代码生成。请提供清晰、完整、可运行的代码，并包含必要的注释。' },
+        { role: 'user', content: '请用 ' + language + ' 编写以下代码：\n\n' + prompt + '\n\n请直接输出代码，不要添加额外的说明文字。' }
+      ],
+      temperature: 0.5,
+      max_tokens: 8192
+    })
+  });
+  
+  if (!response.ok) {
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error?.message || '请求失败');
+  }
+  
+  const data = await response.json();
+  return data.choices[0].message.content;
+}
+
+function escapeHtml(text) {
+  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;');
+}
+
+function clearAll() {
+  document.getElementById('prompt').value = '';
+  document.getElementById('output').innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px 20px;">生成的代码将显示在这里</p>';
+}
+
+function copyCode() {
+  const text = document.getElementById('output').innerText;
+  if (text.includes('生成的代码将显示')) { alert('没有可复制的内容'); return; }
+  navigator.clipboard.writeText(text).then(() => alert('已复制')).catch(() => alert('复制失败'));
+}
+
+function downloadCode() {
+  const text = document.getElementById('output').innerText;
+  if (text.includes('生成的代码将显示')) { alert('没有可下载的内容'); return; }
+  const ext = langExt[document.getElementById('language').value] || 'txt';
+  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'code.' + ext;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+</script>
 </body>
 </html>
