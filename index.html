@@ -647,8 +647,8 @@
     let _toolsData = null;
 
     // ===== 获取当前语言的翻译 =====
-    function getDict() {
-      const lang = localStorage.getItem('zentools_lang') || 'zh';
+    function getDict(lang) {
+      if (!lang) lang = localStorage.getItem('zentools_lang') || 'zh';
       return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
     }
 
@@ -697,7 +697,7 @@
       const catsEn = data.categories__en || [];
       const catsJa = data.categories__ja || [];
       const catsVi = data.categories__vi || [];
-      const dict = getDict();
+      const dict = getDict(lang);
 
       // 按分类分组
       const grouped = {};
@@ -1040,10 +1040,7 @@
       vi: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
     };
     document.getElementById('langSelect').addEventListener('change', function() {
-      var lang = this.value;
-      searchInput.placeholder = searchPlaceholders[lang] || searchPlaceholders.zh;
-      localStorage.setItem('zentools_lang', lang);
-      window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang } }));
+      searchInput.placeholder = searchPlaceholders[this.value] || searchPlaceholders.zh;
     });
   </script>
   <script>
