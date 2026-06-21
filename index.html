@@ -1040,7 +1040,10 @@
       vi: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
     };
     document.getElementById('langSelect').addEventListener('change', function() {
-      searchInput.placeholder = searchPlaceholders[this.value] || searchPlaceholders.zh;
+      var lang = this.value;
+      searchInput.placeholder = searchPlaceholders[lang] || searchPlaceholders.zh;
+      localStorage.setItem('zentools_lang', lang);
+      window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang } }));
     });
   </script>
   <script>
