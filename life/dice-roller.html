@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>骰子工具 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="骰子工具 | ZenTools" />
+<meta property="og:description" content="在线骰子工具，支持1-6面骰子，模拟掷骰子，随机出点数。" />
+<meta name="description" content="在线骰子工具，模拟掷骰子，支持1-6面骰子，点击掷出随机点数。">
+<meta name="keywords" content="骰子,掷骰子,随机骰子,骰子工具,在线骰子,Dice">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.dice-face{width:120px;height:120px;margin:20px auto;background:#fff;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:60px;font-weight:900;color:#1e293b;box-shadow:0 8px 32px rgba(0,0,0,0.3);transition:transform 0.2s}.dice-face.rolling{animation:shake 0.3s infinite}.dice-dot{font-size:50px}@keyframes shake{0%{transform:rotate(-5deg)}50%{transform:rotate(5deg)}100%{transform:rotate(-5deg)}}.dice-info{text-align:center;font-size:16px;color:var(--muted);margin-bottom:16px}.dice-history{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px}.dice-history span{width:32px;height:32px;border-radius:6px;background:var(--glass-b);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">骰子工具</span></h1><p>在线掷骰子，支持1-6面，点击掷出随机点数。</p></div>
+  <div class="tool-box" style="text-align:center;">
+    <div class="dice-info">🎲 点击按钮掷骰子</div>
+    <div class="dice-face" id="diceFace">⚀</div>
+    <div style="font-size:32px;font-weight:900;color:var(--cyan);" id="diceValue">1</div>
+    <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;">
+      <button class="btn" onclick="rollDice()">🎲 掷骰子</button>
+      <button class="btn btn2" onclick="clearDiceHistory()">清除记录</button>
+    </div>
+    <div class="dice-history" id="diceHistory"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var diceFaces=['⚀','⚁','⚂','⚃','⚄','⚅'];
+var diceHistory=[];
+function rollDice(){
+  var el=document.getElementById('diceFace');
+  el.classList.add('rolling');
+  setTimeout(function(){
+    var v=Math.floor(Math.random()*6)+1;
+    el.textContent=diceFaces[v-1];
+    el.classList.remove('rolling');
+    document.getElementById('diceValue').textContent=v;
+    diceHistory.unshift(v);
+    if(diceHistory.length>30)diceHistory.pop();
+    renderHistory();
+  },300);
+}
+function renderHistory(){
+  document.getElementById('diceHistory').innerHTML=diceHistory.map(function(v){return '<span>'+v+'</span>';}).join('');
+}
+function clearDiceHistory(){diceHistory=[];renderHistory();}
+rollDice();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

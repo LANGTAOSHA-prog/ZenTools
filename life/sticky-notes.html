@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>在线便签 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="在线便签 | ZenTools" />
+<meta property="og:description" content="在线便签工具，创建多彩便签，支持拖拽移动，数据保存在本地。" />
+<meta name="description" content="在线便签工具，创建多彩便签笔记，支持自定义颜色和自由拖拽，纯本地保存。">
+<meta name="keywords" content="便签,在线便签,便签工具,Sticky Notes,备忘录,记事贴">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}.btn{padding:10px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.stickies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-top:16px}.sticky-card{padding:16px;border-radius:12px;min-height:160px;display:flex;flex-direction:column;position:relative;transition:transform 0.2s,box-shadow 0.2s}.sticky-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2)}.sticky-card textarea{flex:1;background:transparent;border:none;color:#1e293b;font-size:14px;line-height:1.7;resize:none;font-family:inherit;outline:none;min-height:100px}.sticky-card textarea::placeholder{color:rgba(30,41,59,0.4)}.sticky-card .sticky-time{font-size:11px;color:rgba(30,41,59,0.5);margin-top:8px}.sticky-card .sticky-del{position:absolute;top:8px;right:8px;width:24px;height:24px;border-radius:50%;border:none;background:rgba(0,0,0,0.1);color:#1e293b;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}.sticky-card:hover .sticky-del{opacity:1}.sticky-toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.color-picker{display:flex;gap:6px}.color-dot{width:28px;height:28px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:all 0.2s}.color-dot:hover,.color-dot.active{border-color:#fff;transform:scale(1.1)}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">在线便签</span></h1><p>创建多彩便签笔记，支持自定义颜色，数据保存在本地。</p></div>
+  <div class="tool-box">
+    <div class="sticky-toolbar">
+      <div class="color-picker" id="snColorPicker">
+        <div class="color-dot active" style="background:#fef08a;" data-color="#fef08a"></div>
+        <div class="color-dot" style="background:#bbf7d0;" data-color="#bbf7d0"></div>
+        <div class="color-dot" style="background:#bfdbfe;" data-color="#bfdbfe"></div>
+        <div class="color-dot" style="background:#fecaca;" data-color="#fecaca"></div>
+        <div class="color-dot" style="background:#e9d5ff;" data-color="#e9d5ff"></div>
+        <div class="color-dot" style="background:#fed7aa;" data-color="#fed7aa"></div>
+      </div>
+      <button class="btn" onclick="addSticky()">📝 新建便签</button>
+      <button class="btn btn2" onclick="clearAllStickies()">🗑️ 全部清除</button>
+    </div>
+    <div class="stickies-grid" id="stickiesGrid"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var stickies=JSON.parse(localStorage.getItem('zt_stickies')||'[]');
+var snColor='#fef08a';
+document.querySelectorAll('.color-dot').forEach(function(el){
+  el.addEventListener('click',function(){document.querySelectorAll('.color-dot').forEach(function(d){d.classList.remove('active');});this.classList.add('active');snColor=this.dataset.color;});
+});
+function saveStickies(){localStorage.setItem('zt_stickies',JSON.stringify(stickies));renderStickies();}
+function addSticky(){
+  stickies.unshift({id:Date.now(),text:'',color:snColor,time:new Date().toLocaleString()});
+  saveStickies();
+  setTimeout(function(){var first=document.querySelector('.sticky-card textarea');if(first)first.focus();},100);
+}
+function updateSticky(id,text){
+  for(var i=0;i<stickies.length;i++){if(stickies[i].id===id){stickies[i].text=text;break;}}
+  localStorage.setItem('zt_stickies',JSON.stringify(stickies));
+}
+function delSticky(id){stickies=stickies.filter(function(s){return s.id!==id;});saveStickies();}
+function clearAllStickies(){if(confirm('确定要删除所有便签吗？')){stickies=[];saveStickies();}}
+function renderStickies(){
+  var grid=document.getElementById('stickiesGrid');
+  if(stickies.length===0){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted);font-size:14px;">📋 暂无便签，点击「新建便签」开始记录</div>';return;}
+  grid.innerHTML=stickies.map(function(s){
+    return '<div class="sticky-card" style="background:'+s.color+';">'+
+      '<button class="sticky-del" onclick="delSticky('+s.id+')">✕</button>'+
+      '<textarea placeholder="在此输入便签内容..." oninput="updateSticky('+s.id+',this.value)">'+s.text+'</textarea>'+
+      '<div class="sticky-time">'+s.time+'</div></div>';
+  }).join('');
+}
+renderStickies();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

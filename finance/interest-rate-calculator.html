@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>利率计算器 - 金融工具 | ZenTools</title>
+<meta property="og:title" content="利率计算器 | ZenTools" />
+<meta property="og:description" content="在线利率计算器，计算单利和复利，支持月利率、年利率换算。" />
+<meta name="description" content="利率计算器，计算单利和复利收益，支持月利率、年利率互相换算，适合理财参考。">
+<meta name="keywords" content="利率计算,利息计算,单利,复利,年利率,月利率,收益率计算">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }input:focus, select:focus { outline:none; border-color:var(--cyan); }.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }.btn:hover { opacity:.85; }.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); }.row { display:flex; gap:12px; }.row > * { flex:1; }.highlight { color:var(--cyan); font-weight:700; }</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">金融工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">利率计算器</span></h1><p>计算单利和复利收益，支持年利率、月利率换算。</p></div>
+  <div class="tool-box">
+    <div class="row">
+      <div><label>本金 (元)</label><input type="number" id="rPrincipal" value="10000" /></div>
+      <div><label>年利率 (%)</label><input type="number" id="rRate" value="3.5" step="0.1" /></div>
+    </div>
+    <div class="row">
+      <div><label>期限 (年)</label><input type="number" id="rYears" value="3" /></div>
+      <div><label>计算方式</label><select id="rType"><option value="simple">单利</option><option value="compound" selected>复利</option></select></div>
+    </div>
+    <div style="margin-top:16px;"><button class="btn" onclick="calcRate()">计算</button></div>
+    <div class="result" id="rResult" style="line-height:2;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function calcRate(){
+  var p=parseFloat(document.getElementById('rPrincipal').value)||0;
+  var r=parseFloat(document.getElementById('rRate').value)||0;
+  var n=parseFloat(document.getElementById('rYears').value)||0;
+  var type=document.getElementById('rType').value;
+  var total,interest;
+  if(type==='simple'){
+    interest=p*r/100*n;
+    total=p+interest;
+  }else{
+    total=p*Math.pow(1+r/100,n);
+    interest=total-p;
+  }
+  document.getElementById('rResult').innerHTML=
+    '<div>本金: <span class="highlight">'+p.toFixed(2)+'</span> 元</div>'+
+    '<div>年利率: <span class="highlight">'+r+'%</span></div>'+
+    '<div>期限: <span class="highlight">'+n+'</span> 年 ('+(type==='simple'?'单利':'复利')+')</div>'+
+    '<div style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px;">利息总额: <span class="highlight">'+interest.toFixed(2)+'</span> 元</div>'+
+    '<div>本息合计: <span class="highlight">'+total.toFixed(2)+'</span> 元</div>'+
+    '<div style="margin-top:8px;font-size:12px;color:var(--muted);">月利率: '+(r/12).toFixed(3)+'% | 日利率: '+(r/365).toFixed(4)+'%</div>';
+}
+calcRate();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星座查询 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="星座查询 | ZenTools" />
+<meta property="og:description" content="在线星座查询工具，根据出生日期查询星座和星座特点。" />
+<meta name="description" content="在线星座查询工具，输入出生日期查询对应星座，查看星座日期范围、性格特点和幸运信息。">
+<meta name="keywords" content="星座查询,星座,十二星座,星座日期,星座性格,星座运势">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600;color:var(--muted)}input,select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px}input:focus,select:focus{outline:none;border-color:var(--cyan)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.result-card{margin-top:20px;padding:24px;border-radius:12px;background:var(--glass);border:1px solid var(--border);display:none;text-align:center}.result-card .zodiac-icon{font-size:64px;margin-bottom:8px}.result-card .zodiac-name{font-size:24px;font-weight:800}.result-card .zodiac-date{font-size:14px;color:var(--muted);margin:4px 0 12px}.result-card .zodiac-info{font-size:14px;line-height:1.8;text-align:left;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">星座查询</span></h1><p>输入出生日期，查询对应星座和星座特点。</p></div>
+  <div class="tool-box">
+    <label>出生日期</label>
+    <input type="date" id="zodiacDate" />
+    <div style="margin-top:12px;"><button class="btn" onclick="queryZodiac()">查询星座</button></div>
+    <div class="result-card" id="zodiacResult">
+      <div class="zodiac-icon" id="zodiacIcon">♈</div>
+      <div class="zodiac-name" id="zodiacName">白羊座</div>
+      <div class="zodiac-date" id="zodiacDateRange">3月21日 - 4月19日</div>
+      <div class="zodiac-info" id="zodiacInfo"></div>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var zodiacs=[
+  {name:'白羊座',icon:'♈',start:'3-21',end:'4-19',info:'热情、勇敢、自信。白羊座的人充满活力，做事积极主动，有领导力。缺点是容易冲动、缺乏耐心。幸运色：红色，幸运数字：1，幸运花：玫瑰。'},
+  {name:'金牛座',icon:'♉',start:'4-20',end:'5-20',info:'稳重、务实、忠诚。金牛座的人踏实可靠，有耐心，对美和艺术有很好的品味。缺点是固执、有时过于保守。幸运色：绿色，幸运数字：6，幸运花：百合。'},
+  {name:'双子座',icon:'♊',start:'5-21',end:'6-21',info:'聪明、灵活、好奇。双子座的人思维敏捷，善于沟通交流，适应能力强。缺点是容易三心二意、不够专注。幸运色：黄色，幸运数字：5，幸运花：薰衣草。'},
+  {name:'巨蟹座',icon:'♋',start:'6-22',end:'7-22',info:'温柔、顾家、敏感。巨蟹座的人情感丰富，重视家庭和友情，有很强的直觉。缺点是容易情绪化、缺乏安全感。幸运色：银色，幸运数字：2，幸运花：荷花。'},
+  {name:'狮子座',icon:'♌',start:'7-23',end:'8-22',info:'自信、大方、热情。狮子座的人天生具有领导气质，慷慨大方，喜欢被关注和赞美。缺点是自负、有时过于强势。幸运色：金色，幸运数字：1，幸运花：向日葵。'},
+  {name:'处女座',icon:'♍',start:'8-23',end:'9-22',info:'细心、理性、完美主义。处女座的人做事认真细致，追求完美，有很强的分析能力。缺点是有时过于挑剔、焦虑。幸运色：灰色，幸运数字：5，幸运花：铃兰。'},
+  {name:'天秤座',icon:'♎',start:'9-23',end:'10-23',info:'优雅、公正、社交能力强。天秤座的人注重平衡与和谐，有很高的审美品位，善于交际。缺点是优柔寡断、容易妥协。幸运色：蓝色，幸运数字：6，幸运花：玫瑰。'},
+  {name:'天蝎座',icon:'♏',start:'10-24',end:'11-22',info:'深沉、专注、有洞察力。天蝎座的人意志坚定，有很强的直觉和洞察力，做事执着。缺点是占有欲强、有时过于神秘。幸运色：黑色，幸运数字：8，幸运花：菊花。'},
+  {name:'射手座',icon:'♐',start:'11-23',end:'12-21',info:'乐观、自由、热爱冒险。射手座的人天性乐观，喜欢自由和旅行，有哲学思想。缺点是不够细致、容易半途而废。幸运色：紫色，幸运数字：3，幸运花：康乃馨。'},
+  {name:'摩羯座',icon:'♑',start:'12-22',end:'1-19',info:'稳重、勤奋、有野心。摩羯座的人踏实努力，有很强的事业心和责任感。缺点是严肃、有时过于功利。幸运色：棕色，幸运数字：8，幸运花：紫丁香。'},
+  {name:'水瓶座',icon:'♒',start:'1-20',end:'2-18',info:'创新、独立、友善。水瓶座的人思想前卫，有创新精神，重视友情和平等。缺点是叛逆、有时过于理想化。幸运色：天蓝色，幸运数字：4，幸运花：兰花。'},
+  {name:'双鱼座',icon:'♓',start:'2-19',end:'3-20',info:'温柔、善良、富有想象力。双鱼座的人感情丰富，有很强的艺术天赋和同情心。缺点是有时过于感性、容易逃避现实。幸运色：海蓝色，幸运数字：7，幸运花：樱花。'}
+];
+function getZodiac(month,day){
+  for(var i=0;i<zodiacs.length;i++){
+    var s=zodiacs[i].start.split('-'),e=zodiacs[i].end.split('-');
+    var sm=parseInt(s[0]),sd=parseInt(s[1]),em=parseInt(e[0]),ed=parseInt(e[1]);
+    if(sm<em){
+      if((month===sm&&day>=sd)||(month>sm&&month<em)||(month===em&&day<=ed))return zodiacs[i];
+    }else{
+      if((month===sm&&day>=sd)||month>sm||month<em||(month===em&&day<=ed))return zodiacs[i];
+    }
+  }
+  return zodiacs[0];
+}
+function queryZodiac(){
+  var val=document.getElementById('zodiacDate').value;
+  if(!val){alert('请选择出生日期');return;}
+  var parts=val.split('-');
+  var year=parseInt(parts[0]),month=parseInt(parts[1]),day=parseInt(parts[2]);
+  var z=getZodiac(month,day);
+  document.getElementById('zodiacIcon').textContent=z.icon;
+  document.getElementById('zodiacName').textContent=z.name;
+  document.getElementById('zodiacDateRange').textContent=z.start+' 至 '+z.end;
+  document.getElementById('zodiacInfo').textContent=z.info;
+  document.getElementById('zodiacResult').style.display='block';
+}
+// Set default date to today
+var now=new Date();document.getElementById('zodiacDate').value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

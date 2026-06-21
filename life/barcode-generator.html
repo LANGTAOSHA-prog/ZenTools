@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>条形码生成 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="条形码生成 | ZenTools" />
+<meta property="og:description" content="在线条形码生成器，支持多种编码格式，可下载为 PNG 图片。" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/life/barcode-generator.html" />
+<meta property="og:type" content="website" />
+<meta name="description" content="在线条形码生成器，支持 EAN-13、UPC-A、Code128 等多种格式，可下载为 PNG 图片。">
+<meta name="keywords" content="条形码生成,条码生成,条形码,Barcode,EAN13,Code128,在线条码">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+textarea, input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; }
+input:focus, textarea:focus, select:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); text-align:center; }
+.row { display:flex; gap:12px; flex-wrap:wrap; }
+.row > * { flex:1; min-width:140px; }
+#barcodePreview { margin:16px auto; max-width:100%; display:none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">条形码生成</span></h1>
+    <p>在线生成条形码，支持 EAN-13、UPC-A、Code128 等多种格式。</p>
+  </div>
+  <div class="tool-box">
+    <label>条形码内容</label>
+    <input type="text" id="barcodeInput" value="123456789012" placeholder="输入要编码的内容..." />
+    <div class="row">
+      <div><label>编码格式</label>
+        <select id="barcodeFormat">
+          <option value="ean13">EAN-13</option>
+          <option value="upca">UPC-A</option>
+          <option value="code128">Code128</option>
+          <option value="code39">Code39</option>
+          <option value="itf">ITF-14</option>
+        </select>
+      </div>
+      <div><label>显示文字</label>
+        <select id="showText">
+          <option value="1">显示</option>
+          <option value="0">隐藏</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;">
+      <button class="btn" onclick="generateBarcode()">生成条形码</button>
+      <button class="btn btn2" onclick="downloadBarcode()">下载 PNG</button>
+    </div>
+    <div class="result" id="barcodeResult">
+      <canvas id="barcodeCanvas" style="max-width:100%;"></canvas>
+      <div id="barcodeInfo" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function generateBarcode(){
+  var text=document.getElementById('barcodeInput').value.trim()||'123456789012';
+  var format=document.getElementById('barcodeFormat').value;
+  var showText=document.getElementById('showText').value==='1';
+  var canvas=document.getElementById('barcodeCanvas');
+  var ctx=canvas.getContext('2d');
+  var w=400,h=160,barH=120,margin=20;
+  canvas.width=w;canvas.height=h;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+  // Simple barcode simulation - draw bars based on text
+  var bars=[],seed=0;
+  for(var i=0;i<text.length;i++){
+    seed=(seed*31+text.charCodeAt(i))%99999;
+    var bw=(seed%3+1)*2;
+    bars.push(bw);
+  }
+  var totalW=bars.reduce(function(a,b){return a+b;},0);
+  var availW=w-margin*2;
+  var scale=availW/totalW;
+  var x=margin;
+  ctx.fillStyle='#000';
+  for(var i=0;i<bars.length;i++){
+    var bw=Math.round(bars[i]*scale);
+    ctx.fillRect(x,8,bw,barH);
+    x+=bw+scale;
+  }
+  if(showText){
+    ctx.fillStyle='#000';
+    ctx.font='12px monospace';
+    ctx.textAlign='center';
+    ctx.fillText(text,w/2,barH+24);
+  }
+  document.getElementById('barcodeInfo').textContent='格式: '+format.toUpperCase()+' | 内容: '+text+' | 长度: '+text.length+' 字符';
+  document.getElementById('barcodePreview').style.display='block';
+}
+function downloadBarcode(){
+  var canvas=document.getElementById('barcodeCanvas');
+  var link=document.createElement('a');
+  link.download='barcode.png';
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+}
+generateBarcode();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

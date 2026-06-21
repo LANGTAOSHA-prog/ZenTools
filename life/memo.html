@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>备忘录 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="备忘录 | ZenTools" />
+<meta property="og:description" content="在线备忘录工具，记录待办事项，支持添加、完成和删除操作。" />
+<meta name="description" content="在线备忘录工具，记录待办事项和笔记，支持增删改操作，数据保存在本地浏览器。">
+<meta name="keywords" content="备忘录,待办事项,记事本,ToDo,待办列表,笔记工具">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600;color:var(--muted)}input{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px}input:focus{outline:none;border-color:var(--cyan)}.btn{padding:10px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.btn-danger{background:#ef4444}.memo-item{display:flex;align-items:center;gap:12px;padding:12px 14px;margin:6px 0;border-radius:8px;background:var(--glass);border:1px solid var(--border);transition:all 0.2s}.memo-item:hover{border-color:var(--border-h)}.memo-item.done{opacity:0.5}.memo-item.done .memo-text{text-decoration:line-through}.memo-text{flex:1;font-size:14px;line-height:1.5}.memo-time{font-size:11px;color:var(--muted);flex-shrink:0}.memo-actions{display:flex;gap:6px;flex-shrink:0}.memo-actions button{width:32px;height:32px;border-radius:6px;border:none;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}.memo-actions .done-btn{background:rgba(16,185,129,0.15);color:#34d399}.memo-actions .del-btn{background:rgba(239,68,68,0.15);color:#f87171}.memo-stats{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:8px 0;font-size:13px;color:var(--muted);border-top:1px solid var(--border)}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">备忘录</span></h1><p>记录待办事项，支持添加、完成和删除，数据保存在本地。</p></div>
+  <div class="tool-box">
+    <div style="display:flex;gap:10px;">
+      <input type="text" id="memoInput" placeholder="输入新的待办事项..." onkeydown="if(event.key==='Enter')addMemo()" />
+      <button class="btn" onclick="addMemo()" style="white-space:nowrap;">添加</button>
+    </div>
+    <div id="memoList" style="margin-top:16px;"></div>
+    <div class="memo-stats">
+      <span id="memoStats">共 0 项，已完成 0 项</span>
+      <div>
+        <button class="btn btn2" onclick="clearDoneMemo()" style="font-size:12px;padding:6px 12px;">清除已完成</button>
+        <button class="btn btn2" onclick="clearAllMemo()" style="font-size:12px;padding:6px 12px;">全部清除</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var memos=JSON.parse(localStorage.getItem('zt_memos')||'[]');
+function saveMemos(){localStorage.setItem('zt_memos',JSON.stringify(memos));renderMemos();}
+function addMemo(){
+  var text=document.getElementById('memoInput').value.trim();
+  if(!text)return;
+  memos.unshift({id:Date.now(),text:text,done:false,time:new Date().toLocaleString()});
+  document.getElementById('memoInput').value='';
+  saveMemos();
+}
+function toggleMemo(id){
+  for(var i=0;i<memos.length;i++){if(memos[i].id===id){memos[i].done=!memos[i].done;break;}}
+  saveMemos();
+}
+function delMemo(id){memos=memos.filter(function(m){return m.id!==id;});saveMemos();}
+function clearDoneMemo(){memos=memos.filter(function(m){return!m.done;});saveMemos();}
+function clearAllMemo(){if(confirm('确定要删除所有备忘录吗？')){memos=[];saveMemos();}}
+function renderMemos(){
+  var list=document.getElementById('memoList');
+  var total=memos.length,done=memos.filter(function(m){return m.done;}).length;
+  document.getElementById('memoStats').textContent='共 '+total+' 项，已完成 '+done+' 项';
+  if(total===0){list.innerHTML='<div style="text-align:center;padding:40px 20px;color:var(--muted);font-size:14px;">📝 暂无备忘录，添加一条吧</div>';return;}
+  list.innerHTML=memos.map(function(m){
+    return '<div class="memo-item'+(m.done?' done':'')+'">'+
+      '<div class="memo-text">'+m.text+'</div>'+
+      '<div class="memo-time">'+m.time+'</div>'+
+      '<div class="memo-actions">'+
+        '<button class="done-btn" onclick="toggleMemo('+m.id+')">'+(m.done?'↩️':'✅')+'</button>'+
+        '<button class="del-btn" onclick="delMemo('+m.id+')">🗑️</button>'+
+      '</div></div>';
+  }).join('');
+}
+renderMemos();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

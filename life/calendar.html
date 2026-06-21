@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日历工具 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="日历工具 | ZenTools" />
+<meta property="og:description" content="在线日历工具，查看年月日历，标记节假日，支持日期跳转。" />
+<meta name="description" content="在线日历工具，查看任意年月的日历，标注节假日，支持前后月份切换。">
+<meta name="keywords" content="日历,日历工具,在线日历,月份查看,日期,节假日">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}.btn{padding:10px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.cal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.cal-header h2{font-size:20px;font-weight:700}.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}.cal-weekday{padding:10px 4px;font-size:12px;font-weight:600;color:var(--muted);background:var(--glass);border-radius:4px}.cal-day{padding:10px 4px;font-size:14px;border-radius:6px;cursor:pointer;transition:all 0.15s;min-height:40px}.cal-day:hover{background:var(--glass-b)}.cal-day.today{background:rgba(59,130,246,0.2);color:#60a5fa;font-weight:700;border:1px solid rgba(59,130,246,0.3)}.cal-day.other{color:var(--muted);opacity:0.4}.cal-day.sunday{color:#f87171}.cal-day.holiday{color:#f87171;font-weight:600}.cal-day .lunar{font-size:9px;color:var(--muted);display:block;margin-top:2px}.cal-info{margin-top:16px;padding:12px;border-radius:8px;background:var(--glass);border:1px solid var(--border);font-size:13px;color:var(--muted);text-align:center}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">日历工具</span></h1><p>查看年月日历，标注节假日，支持日期跳转。</p></div>
+  <div class="tool-box">
+    <div class="cal-header">
+      <button class="btn btn2" onclick="calChange(-1)">◀ 上月</button>
+      <h2 id="calTitle">2026年 6月</h2>
+      <button class="btn btn2" onclick="calChange(1)">下月 ▶</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:12px;justify-content:center;">
+      <input type="number" id="calYearInput" value="2026" style="width:80px;padding:8px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;text-align:center;" />
+      <select id="calMonthInput" style="padding:8px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+        <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option><option value="4">4月</option><option value="5">5月</option><option value="6">6月</option><option value="7">7月</option><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
+      </select>
+      <button class="btn" onclick="calJump()">跳转</button>
+      <button class="btn btn2" onclick="calToday()">今天</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-info" id="calInfo">📅 选择一个日期查看信息</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var calYear=2026,calMonth=6;
+var weekDays=['日','一','二','三','四','五','六'];
+var holidays={'1-1':'元旦','5-1':'劳动节','6-1':'儿童节','10-1':'国庆节','10-2':'国庆节','10-3':'国庆节','1-28':'除夕','1-29':'春节','1-30':'春节','1-31':'春节','4-5':'清明节','5-31':'端午节','8-15':'中秋节','12-25':'圣诞节'};
+function calRender(){
+  var grid=document.getElementById('calGrid');
+  document.getElementById('calTitle').textContent=calYear+'年 '+calMonth+'月';
+  var html='';
+  for(var i=0;i<7;i++)html+='<div class="cal-weekday">'+weekDays[i]+'</div>';
+  var first=new Date(calYear,calMonth-1,1).getDay();
+  var days=new Date(calYear,calMonth,0).getDate();
+  var prevDays=new Date(calYear,calMonth-1,0).getDate();
+  var today=new Date();
+  for(var i=0;i<first;i++){
+    var d=prevDays-first+1+i;
+    html+='<div class="cal-day other">'+d+'<span class="lunar"></span></div>';
+  }
+  for(var d=1;d<=days;d++){
+    var cls='cal-day';
+    if(calYear===today.getFullYear()&&calMonth===today.getMonth()+1&&d===today.getDate())cls+=' today';
+    if((first+d-1)%7===0)cls+=' sunday';
+    var key=calMonth+'-'+d;
+    var h=holidays[key]||'';
+    if(h)cls+=' holiday';
+    html+='<div class="'+cls+'" onclick="calSelect('+d+')">'+d+'<span class="lunar">'+h+'</span></div>';
+  }
+  var totalCells=first+days;
+  var remain=42-totalCells;
+  for(var d=1;d<=remain;d++){
+    html+='<div class="cal-day other">'+d+'<span class="lunar"></span></div>';
+  }
+  grid.innerHTML=html;
+  document.getElementById('calInfo').textContent='📅 '+calYear+'年'+calMonth+'月 共 '+days+' 天';
+}
+function calChange(d){calMonth+=d;if(calMonth>12){calMonth=1;calYear++;}if(calMonth<1){calMonth=12;calYear--;}calRender();document.getElementById('calYearInput').value=calYear;document.getElementById('calMonthInput').value=calMonth;}
+function calJump(){calYear=parseInt(document.getElementById('calYearInput').value)||2026;calMonth=parseInt(document.getElementById('calMonthInput').value)||1;calRender();}
+function calToday(){var t=new Date();calYear=t.getFullYear();calMonth=t.getMonth()+1;calRender();document.getElementById('calYearInput').value=calYear;document.getElementById('calMonthInput').value=calMonth;}
+function calSelect(d){document.getElementById('calInfo').textContent='📅 选中日期: '+calYear+'年'+calMonth+'月'+d+'日'+(holidays[calMonth+'-'+d]?' ('+holidays[calMonth+'-'+d]+')':'');}
+calRender();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

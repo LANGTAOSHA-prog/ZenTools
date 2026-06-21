@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>长度转换 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="长度转换 | ZenTools" />
+<meta property="og:description" content="在线长度单位转换，支持米、厘米、毫米、公里、英寸、英尺、码、英里等。" />
+<meta name="description" content="在线长度单位转换器，支持米、厘米、毫米、公里、英寸、英尺、码、英里等常见单位互相转换。">
+<meta name="keywords" content="长度转换,长度单位,米换算,厘米换算,英寸换算,英尺换算,在线换算">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+input:focus, select:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); text-align:center; font-size:18px; }
+.row { display:flex; gap:12px; }
+.row > * { flex:1; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">长度转换</span></h1>
+    <p>在线长度单位转换，米、厘米、毫米、公里、英寸、英尺、码、英里互相转换。</p>
+  </div>
+  <div class="tool-box">
+    <label>数值</label>
+    <input type="number" id="lenValue" value="1" step="any" oninput="convertLength()" />
+    <div class="row">
+      <div><label>从</label><select id="lenFrom" onchange="convertLength()"><option value="m">米 (m)</option><option value="km">公里 (km)</option><option value="cm" selected>厘米 (cm)</option><option value="mm">毫米 (mm)</option><option value="inch">英寸 (in)</option><option value="ft">英尺 (ft)</option><option value="yd">码 (yd)</option><option value="mile">英里 (mi)</option></select></div>
+      <div><label>到</label><select id="lenTo" onchange="convertLength()"><option value="m">米 (m)</option><option value="km">公里 (km)</option><option value="cm">厘米 (cm)</option><option value="mm">毫米 (mm)</option><option value="inch" selected>英寸 (in)</option><option value="ft">英尺 (ft)</option><option value="yd">码 (yd)</option><option value="mile">英里 (mi)</option></select></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;">
+      <button class="btn" onclick="convertLength()">转换</button>
+      <button class="btn btn2" onclick="swapLen()">⇄ 互换</button>
+    </div>
+    <div class="result" id="lenResult">1 厘米 = 0.393701 英寸</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var lenUnits={m:1,km:1000,cm:0.01,mm:0.001,inch:0.0254,ft:0.3048,yd:0.9144,mile:1609.344};
+function convertLength(){
+  var v=parseFloat(document.getElementById('lenValue').value)||0;
+  var f=document.getElementById('lenFrom').value,t=document.getElementById('lenTo').value;
+  var r=v*lenUnits[f]/lenUnits[t];
+  document.getElementById('lenResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;
+}
+function swapLen(){
+  var f=document.getElementById('lenFrom'),t=document.getElementById('lenTo');
+  var tmp=f.value;f.value=t.value;t.value=tmp;
+  convertLength();
+}
+convertLength();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

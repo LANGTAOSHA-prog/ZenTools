@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>决策转盘 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="决策转盘 | ZenTools" />
+<meta property="og:description" content="在线决策转盘工具，输入选项，随机选择一个结果，适合日常决策。" />
+<meta name="description" content="在线决策转盘工具，自定义选项，随机选择结果，解决选择困难症。">
+<meta name="keywords" content="决策转盘,随机选择,转盘工具,抽奖转盘,决策工具,转盘抽奖">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600;color:var(--muted)}textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;min-height:100px}textarea:focus{outline:none;border-color:var(--cyan)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.result-box{margin-top:16px;padding:20px;border-radius:8px;background:var(--glass);border:1px solid var(--border);text-align:center}.wheel-result{font-size:28px;font-weight:900;color:var(--cyan);padding:16px;animation:pulse 0.5s ease-in-out}@keyframes pulse{0%{transform:scale(0.8);opacity:0}50%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}.preset-btn{display:inline-block;margin:4px;padding:6px 12px;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;cursor:pointer}.preset-btn:hover{background:var(--glass-b);color:var(--text)}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">决策转盘</span></h1><p>输入选项，随机选择结果，解决选择困难症。</p></div>
+  <div class="tool-box">
+    <label>选项（每行一个）</label>
+    <textarea id="wheelOptions">吃饭
+睡觉
+学习
+运动
+看电影
+逛街</textarea>
+    <div style="margin:8px 0;font-size:12px;color:var(--muted);">
+      <span class="preset-btn" onclick="setPreset('吃什么')">🍔 吃什么</span>
+      <span class="preset-btn" onclick="setPreset('去哪儿玩')">📍 去哪儿</span>
+      <span class="preset-btn" onclick="setPreset('周末干啥')">🎯 周末干啥</span>
+    </div>
+    <button class="btn" onclick="spinWheel()">🎰 转一次</button>
+    <div class="result-box" id="wheelResult"><div class="wheel-result">👆 点击转盘开始</div></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var presets={'吃什么':'火锅\n烤肉\n日料\n川菜\n粤菜\n西餐\n麻辣烫\n烧烤','去哪儿玩':'公园\n商场\n电影院\n博物馆\n图书馆\n咖啡厅\n游乐园','周末干啥':'看书\n追剧\n运动\n做饭\n学新技能\n大扫除\n睡懒觉'};
+function setPreset(k){document.getElementById('wheelOptions').value=presets[k]||'';}
+function spinWheel(){
+  var text=document.getElementById('wheelOptions').value.trim();
+  var items=text.split('\n').filter(function(s){return s.trim();});
+  if(items.length===0){document.getElementById('wheelResult').innerHTML='<div class="wheel-result" style="color:#ef4444;">⚠️ 请先输入选项</div>';return;}
+  var el=document.getElementById('wheelResult');
+  el.innerHTML='<div class="wheel-result" style="color:var(--muted);">🎰 转盘中...</div>';
+  var count=0,totalTicks=10+Math.floor(Math.random()*10);
+  var interval=setInterval(function(){
+    count++;
+    var idx=Math.floor(Math.random()*items.length);
+    el.innerHTML='<div class="wheel-result" style="font-size:18px;color:var(--muted);">'+items[idx]+'</div>';
+    if(count>=totalTicks){
+      clearInterval(interval);
+      var finalIdx=Math.floor(Math.random()*items.length);
+      el.innerHTML='<div class="wheel-result">🎉 '+items[finalIdx]+'</div>';
+    }
+  },80);
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

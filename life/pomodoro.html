@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>番茄钟 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="番茄钟 | ZenTools" />
+<meta property="og:description" content="在线番茄钟（Pomodoro）计时器，帮助专注工作和学习，支持自定义时间。" />
+<meta name="description" content="在线番茄钟计时器，25分钟专注工作，5分钟休息，提高工作效率，支持自定义工作时间。">
+<meta name="keywords" content="番茄钟,番茄工作法,Pomodoro,专注计时,时间管理,效率工具">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.timer-display{font-size:72px;font-weight:900;font-family:monospace;text-align:center;color:var(--cyan);padding:20px;letter-spacing:2px;font-variant-numeric:tabular-nums}.phase{text-align:center;font-size:16px;font-weight:600;padding:8px 16px;border-radius:999px;display:inline-block;margin:0 auto}.phase.work{background:rgba(59,130,246,0.15);color:#60a5fa}.phase.break{background:rgba(16,185,129,0.15);color:#34d399}.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}.settings{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px;padding:12px;background:var(--glass);border-radius:8px;border:1px solid var(--border)}.settings label{font-size:12px;color:var(--muted)}.settings input{width:60px;padding:6px 8px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;text-align:center}.stats{text-align:center;margin-top:12px;font-size:13px;color:var(--muted)}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">番茄钟</span></h1><p>番茄工作法计时器，专注25分钟，休息5分钟，提高工作效率。</p></div>
+  <div class="tool-box" style="text-align:center;">
+    <div style="text-align:center;margin-bottom:12px;">
+      <span class="phase work" id="pomodoroPhase">🍅 工作中</span>
+    </div>
+    <div class="timer-display" id="pomodoroDisplay">25:00</div>
+    <div class="controls">
+      <button class="btn" id="pomodoroStartBtn" onclick="pomodoroStart()">▶ 开始</button>
+      <button class="btn btn2" onclick="pomodoroPause()">⏸️ 暂停</button>
+      <button class="btn btn2" onclick="pomodoroReset()">↺ 重置</button>
+    </div>
+    <div class="settings">
+      <div><label>工作 (分)</label><input type="number" id="pomodoroWork" value="25" min="1" max="120" onchange="pomodoroReset()" /></div>
+      <div><label>休息 (分)</label><input type="number" id="pomodoroBreak" value="5" min="1" max="60" onchange="pomodoroReset()" /></div>
+    </div>
+    <div class="stats" id="pomodoroStats">已完成 0 个番茄</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var pTime=1500,pTotal=1500,pRunning=false,pInterval=null,pPhase='work',pCount=0;
+function pomodoroUpdate(){
+  if(pTime<=0){
+    if(pPhase==='work'){
+      pPhase='break';pTime=parseInt(document.getElementById('pomodoroBreak').value)*60;pTotal=pTime;
+      document.getElementById('pomodoroPhase').textContent='☕ 休息中';document.getElementById('pomodoroPhase').className='phase break';
+      pCount++;document.getElementById('pomodoroStats').textContent='已完成 '+pCount+' 个番茄';
+      playBeep();
+    }else{
+      pPhase='work';pTime=parseInt(document.getElementById('pomodoroWork').value)*60;pTotal=pTime;
+      document.getElementById('pomodoroPhase').textContent='🍅 工作中';document.getElementById('pomodoroPhase').className='phase work';
+      playBeep();
+    }
+  }
+  var m=Math.floor(pTime/60),s=pTime%60;
+  document.getElementById('pomodoroDisplay').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  pTime--;
+}
+function pomodoroStart(){
+  if(pRunning)return;
+  pRunning=true;
+  pInterval=setInterval(pomodoroUpdate,1000);
+  document.getElementById('pomodoroStartBtn').textContent='▶ 运行中';
+  // Set initial values
+  var w=parseInt(document.getElementById('pomodoroWork').value)*60;
+  var b=parseInt(document.getElementById('pomodoroBreak').value)*60;
+  if(pPhase==='work'&&pTime===w)pTotal=w;
+}
+function pomodoroPause(){pRunning=false;clearInterval(pInterval);document.getElementById('pomodoroStartBtn').textContent='▶ 继续';}
+function pomodoroReset(){
+  pRunning=false;clearInterval(pInterval);
+  pPhase='work';pTime=parseInt(document.getElementById('pomodoroWork').value)*60;pTotal=pTime;
+  document.getElementById('pomodoroDisplay').textContent=String(Math.floor(pTime/60)).padStart(2,'0')+':00';
+  document.getElementById('pomodoroPhase').textContent='🍅 工作中';document.getElementById('pomodoroPhase').className='phase work';
+  document.getElementById('pomodoroStartBtn').textContent='▶ 开始';
+}
+function playBeep(){try{var ctx=new(window.AudioContext||window.webkitAudioContext)();var o=ctx.createOscillator();o.type='sine';o.frequency.value=880;o.connect(ctx.destination);o.start();o.stop(ctx.currentTime+0.3);}catch(e){}}
+pomodoroReset();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

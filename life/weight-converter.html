@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>重量转换 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="重量转换 | ZenTools" />
+<meta property="og:description" content="在线重量单位转换，支持千克、克、毫克、磅、盎司、吨等。" />
+<meta name="description" content="在线重量单位转换器，支持千克、克、毫克、磅、盎司、吨、斤等常见单位互相转换。">
+<meta name="keywords" content="重量转换,重量单位,千克换算,克换算,磅换算,盎司,斤换算">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
+input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
+input:focus, select:focus { outline:none; border-color:var(--cyan); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); text-align:center; font-size:18px; }
+.row { display:flex; gap:12px; }.row > * { flex:1; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">重量转换</span></h1><p>在线重量单位转换，千克、克、毫克、磅、盎司、吨等互相转换。</p></div>
+  <div class="tool-box">
+    <label>数值</label>
+    <input type="number" id="wValue" value="1" step="any" oninput="convertW()" />
+    <div class="row">
+      <div><label>从</label><select id="wFrom" onchange="convertW()"><option value="kg">千克 (kg)</option><option value="g" selected>克 (g)</option><option value="mg">毫克 (mg)</option><option value="ton">吨 (t)</option><option value="lb">磅 (lb)</option><option value="oz">盎司 (oz)</option><option value="jin">斤</option><option value="st">英石 (st)</option></select></div>
+      <div><label>到</label><select id="wTo" onchange="convertW()"><option value="kg">千克 (kg)</option><option value="g">克 (g)</option><option value="mg">毫克 (mg)</option><option value="ton">吨 (t)</option><option value="lb" selected>磅 (lb)</option><option value="oz">盎司 (oz)</option><option value="jin">斤</option><option value="st">英石 (st)</option></select></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;"><button class="btn" onclick="convertW()">转换</button><button class="btn btn2" onclick="swapW()">⇄ 互换</button></div>
+    <div class="result" id="wResult">1 克 = 0.002205 磅</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var wU={kg:1,g:0.001,mg:0.000001,ton:1000,lb:0.453592,oz:0.0283495,jin:0.5,st:6.35029};
+function convertW(){var v=parseFloat(document.getElementById('wValue').value)||0,f=document.getElementById('wFrom').value,t=document.getElementById('wTo').value;var r=v*wU[f]/wU[t];document.getElementById('wResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;}
+function swapW(){var f=document.getElementById('wFrom'),t=document.getElementById('wTo');var tmp=f.value;f.value=t.value;t.value=tmp;convertW();}
+convertW();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

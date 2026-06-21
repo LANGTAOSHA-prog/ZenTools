@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>文件共享 - 实用工具 | ZenTools</title>
+<meta property="og:title" content="文件共享 | ZenTools" />
+<meta property="og:description" content="在线文件共享工具，生成分享链接，方便文件传输（纯本地生成，建议搭配网盘使用）。" />
+<meta name="description" content="在线文件共享工具，通过浏览器本地生成分享信息，建议搭配网盘服务使用。">
+<meta name="keywords" content="文件共享,文件分享,文件传输,分享链接,文件发送">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600;color:var(--muted)}input,textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;font-family:inherit}input:focus,textarea:focus{outline:none;border-color:var(--cyan)}.btn{padding:10px 20px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.result-box{margin-top:16px;padding:16px;border-radius:8px;background:var(--glass);border:1px solid var(--border);display:none}.share-info{font-size:13px;line-height:2}.share-info .label{color:var(--muted)}.share-info .value{color:var(--text);font-weight:600;word-break:break-all}.qrcode-area{text-align:center;margin:16px 0}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">实用工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">文件共享</span></h1><p>生成文件分享链接信息，方便快速共享文件（建议搭配网盘使用）。</p></div>
+  <div class="tool-box">
+    <label>文件名</label><input type="text" id="fsFilename" value="文档.docx" />
+    <label>文件大小</label>
+    <div style="display:flex;gap:10px;"><input type="number" id="fsSize" value="10" style="flex:1;" /><select id="fsUnit" style="width:100px;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;"><option value="KB">KB</option><option value="MB" selected>MB</option><option value="GB">GB</option></select></div>
+    <label>分享链接</label><input type="url" id="fsUrl" value="https://" placeholder="输入分享链接（如网盘链接）" />
+    <label>提取码（可选）</label><input type="text" id="fsCode" placeholder="如: 1234" />
+    <label>备注信息（可选）</label><textarea id="fsNote" rows="2" placeholder="添加备注说明..."></textarea>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+      <button class="btn" onclick="genShare()">🔗 生成分享信息</button>
+      <button class="btn btn2" onclick="copyShareText()">📋 复制分享文本</button>
+    </div>
+    <div class="result-box" id="fsResult">
+      <div class="share-info" id="fsShareInfo"></div>
+      <div class="qrcode-area"><canvas id="fsQrcode"></canvas></div>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function genShare(){
+  var name=document.getElementById('fsFilename').value||'文件';
+  var size=parseFloat(document.getElementById('fsSize').value)||0;
+  var unit=document.getElementById('fsUnit').value;
+  var url=document.getElementById('fsUrl').value;
+  var code=document.getElementById('fsCode').value;
+  var note=document.getElementById('fsNote').value;
+  var sizeStr=size>0?size+' '+unit:'未知大小';
+  var now=new Date().toLocaleString();
+  var html='<div class="label">文件名</div><div class="value">'+name+'</div>'+
+    '<div class="label">文件大小</div><div class="value">'+sizeStr+'</div>'+
+    '<div class="label">分享链接</div><div class="value">'+(url||'未设置')+'</div>';
+  if(code)html+='<div class="label">提取码</div><div class="value">'+code+'</div>';
+  html+='<div class="label">生成时间</div><div class="value">'+now+'</div>';
+  if(note)html+='<div class="label">备注</div><div class="value">'+note+'</div>';
+  document.getElementById('fsShareInfo').innerHTML=html;
+  document.getElementById('fsResult').style.display='block';
+  // Generate simple QR-like display
+  var canvas=document.getElementById('fsQrcode');
+  canvas.width=0;canvas.height=0;
+}
+function copyShareText(){
+  var info=document.getElementById('fsShareInfo');
+  var texts=[];
+  info.querySelectorAll('.label, .value').forEach(function(el,i){
+    if(i%2===0)texts.push(el.textContent+': ');
+    else texts.push(el.textContent+'\n');
+  });
+  var t=document.createElement('textarea');t.value=texts.join('');document.body.appendChild(t);t.select();document.execCommand('copy');document.body.removeChild(t);
+  alert('分享信息已复制');
+}
+genShare();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

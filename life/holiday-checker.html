@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>节假日查询 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="节假日查询 | ZenTools" />
+<meta property="og:description" content="在线节假日查询工具，查看中国法定节假日和重要纪念日。" />
+<meta name="description" content="在线节假日查询工具，查看中国法定节假日（春节、国庆、中秋等）和重要纪念日的日期。">
+<meta name="keywords" content="节假日查询,法定节假日,春节,国庆,中秋,端午,清明,放假安排">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600;color:var(--muted)}input,select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px}input:focus,select:focus{outline:none;border-color:var(--cyan)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.holiday-card{display:flex;align-items:center;gap:16px;padding:14px 16px;margin:8px 0;border-radius:10px;background:var(--glass);border:1px solid var(--border);transition:all 0.2s}.holiday-card:hover{border-color:var(--border-h)}.holiday-icon{font-size:32px;flex-shrink:0}.holiday-info{flex:1}.holiday-name{font-size:15px;font-weight:700}.holiday-date{font-size:13px;color:var(--muted);margin-top:2px}.holiday-days{font-size:12px;color:var(--cyan);font-weight:600}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">节假日查询</span></h1><p>查看中国法定节假日和重要纪念日的日期。</p></div>
+  <div class="tool-box">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px;">
+      <label style="margin:0;">选择年份</label>
+      <select id="hYear" style="width:100px;padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;"></select>
+      <button class="btn" onclick="loadHolidays()">查询</button>
+    </div>
+    <div id="holidayList"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var holidaysBase=[
+  {name:'元旦',icon:'🎉',month:1,day:1,days:1},
+  {name:'春节',icon:'🧧',month:1,day:29,days:7,note:'农历正月初一'},
+  {name:'元宵节',icon:'🏮',month:2,day:12,days:1,note:'农历正月十五'},
+  {name:'清明节',icon:'🌿',month:4,day:5,days:3},
+  {name:'劳动节',icon:'⚒️',month:5,day:1,days:5},
+  {name:'端午节',icon:'🛶',month:5,day:31,days:3,note:'农历五月初五'},
+  {name:'儿童节',icon:'🎈',month:6,day:1,days:1},
+  {name:'建党节',icon:'🚩',month:7,day:1,days:1},
+  {name:'建军节',icon:'🎖️',month:8,day:1,days:1},
+  {name:'七夕节',icon:'💕',month:8,day:29,days:1,note:'农历七月初七'},
+  {name:'中元节',icon:'🕯️',month:9,day:5,days:1,note:'农历七月十五'},
+  {name:'中秋节',icon:'🌙',month:10,day:6,days:3,note:'农历八月十五'},
+  {name:'国庆节',icon:'🇨🇳',month:10,day:1,days:7},
+  {name:'重阳节',icon:'🌺',month:10,day:29,days:1,note:'农历九月初九'},
+  {name:'下元节',icon:'🏮',month:11,day:15,days:1,note:'农历十月十五'},
+  {name:'圣诞节',icon:'🎄',month:12,day:25,days:1}
+];
+function initYearSelect(){
+  var sel=document.getElementById('hYear');
+  var y=new Date().getFullYear();
+  for(var i=y-2;i<=y+3;i++){
+    var opt=document.createElement('option');
+    opt.value=i;opt.textContent=i+'年';
+    if(i===y)opt.selected=true;
+    sel.appendChild(opt);
+  }
+}
+function getWeekDay(year,month,day){
+  var days=['日','一','二','三','四','五','六'];
+  return '周'+days[new Date(year,month-1,day).getDay()];
+}
+function loadHolidays(){
+  var year=parseInt(document.getElementById('hYear').value);
+  var list=document.getElementById('holidayList');
+  list.innerHTML='';
+  holidaysBase.forEach(function(h){
+    var d=new Date(year,h.month-1,h.day);
+    var wd=getWeekDay(year,h.month,h.day);
+    var div=document.createElement('div');div.className='holiday-card';
+    var daysText=h.days>1?'放假 '+h.days+' 天':'放假 1 天';
+    div.innerHTML='<div class="holiday-icon">'+h.icon+'</div><div class="holiday-info"><div class="holiday-name">'+h.name+'</div><div class="holiday-date">'+year+'年'+h.month+'月'+h.day+'日 '+wd+(h.note?' · '+h.note:'')+'</div></div><div class="holiday-days">'+daysText+'</div>';
+    list.appendChild(div);
+  });
+}
+initYearSelect();loadHolidays();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

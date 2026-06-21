@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>温度转换 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="温度转换 | ZenTools" />
+<meta property="og:description" content="在线温度单位转换，支持摄氏度、华氏度、开尔文互相转换。" />
+<meta name="description" content="在线温度单位转换器，摄氏度、华氏度、开尔文互相转换，实时计算。">
+<meta name="keywords" content="温度转换,摄氏度,华氏度,开尔文,温度换算,温度单位">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }input:focus, select:focus { outline:none; border-color:var(--cyan); }.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }.btn:hover { opacity:.85; }.btn2 { background:var(--glass-b); color:var(--text); }.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); text-align:center; font-size:18px; }.row { display:flex; gap:12px; }.row > * { flex:1; }</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">温度转换</span></h1><p>在线温度单位转换，摄氏度、华氏度、开尔文互相转换。</p></div>
+  <div class="tool-box">
+    <label>数值</label>
+    <input type="number" id="tValue" value="25" step="any" oninput="convertT()" />
+    <div class="row">
+      <div><label>从</label><select id="tFrom" onchange="convertT()"><option value="c" selected>摄氏度 (°C)</option><option value="f">华氏度 (°F)</option><option value="k">开尔文 (K)</option></select></div>
+      <div><label>到</label><select id="tTo" onchange="convertT()"><option value="c">摄氏度 (°C)</option><option value="f" selected>华氏度 (°F)</option><option value="k">开尔文 (K)</option></select></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;"><button class="btn" onclick="convertT()">转换</button><button class="btn btn2" onclick="swapT()">⇄ 互换</button></div>
+    <div class="result" id="tResult">25 °C = 77 °F</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function toBase(v,f){if(f==='c')return v;if(f==='f')return(v-32)*5/9;if(f==='k')return v-273.15;}
+function fromBase(v,t){if(t==='c')return v;if(t==='f')return v*9/5+32;if(t==='k')return v+273.15;}
+function convertT(){var v=parseFloat(document.getElementById('tValue').value)||0,f=document.getElementById('tFrom').value,t=document.getElementById('tTo').value;var base=toBase(v,f);var r=fromBase(base,t);document.getElementById('tResult').textContent=v+' °'+f.toUpperCase()+' = '+r.toFixed(2)+' °'+t.toUpperCase();}
+function swapT(){var f=document.getElementById('tFrom'),t=document.getElementById('tTo');var tmp=f.value;f.value=t.value;t.value=tmp;convertT();}
+convertT();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

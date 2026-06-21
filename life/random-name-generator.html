@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>随机姓名生成 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="随机姓名生成 | ZenTools" />
+<meta property="og:description" content="在线随机姓名生成器，支持中文姓名和英文姓名，可用于测试和创作。" />
+<meta name="description" content="随机姓名生成器，支持中文和英文姓名，可用于测试数据、角色创作和用户名生成。">
+<meta name="keywords" content="随机姓名,名字生成,中文姓名,英文姓名,随机名字,用户名生成">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.result{margin-top:16px;padding:20px;border-radius:8px;background:var(--glass);border:1px solid var(--border);text-align:center}.name-list{font-size:18px;line-height:2.2;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.name-item{padding:8px 18px;background:rgba(59,130,246,0.1);border-radius:8px;border:1px solid rgba(59,130,246,0.2);font-weight:600}</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">随机姓名生成</span></h1><p>在线随机姓名生成器，支持中文和英文姓名。</p></div>
+  <div class="tool-box">
+    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
+      <select id="nameType" style="padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+        <option value="zh">中文姓名</option><option value="en">英文姓名</option>
+      </select>
+      <select id="nameGender" style="padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+        <option value="all">不限性别</option><option value="male">男性</option><option value="female">女性</option>
+      </select>
+      <select id="nameCount" style="padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
+        <option value="5">5 个</option><option value="10" selected>10 个</option><option value="20">20 个</option>
+      </select>
+      <button class="btn" onclick="genNames()">生成</button>
+    </div>
+    <div class="result"><div class="name-list" id="nameResult"></div></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var zhSurnames='赵钱孙李周吴郑王冯陈褚卫蒋沈韩杨朱秦许何吕施张孔曹严华金魏陶姜戚谢邹苏潘葛范彭鲁韦昌马苗凤花方俞任袁柳鲍史唐费廉薛雷贺倪汤滕殷罗毕郝邬安常乐于时傅齐康伍余元卜顾孟平黄穆萧姚邵湛汪祁毛禹狄米贝明臧计伏成戴谈宋茅庞熊纪舒屈项祝董梁杜阮蓝闵席季麻强贾路娄危江童颜郭梅盛林钟徐邱骆高夏蔡田胡凌霍万柯卢莫房缪干解应宗丁宣贲邓郁单杭洪包诸左石崔吉龚程邢滑裴陆荣荀惠甄曲封芮储靳井段富巫乌焦巴弓牧隗山谷车侯宓蓬全郗班仰秋仲伊宫宁仇栾暴甘戎祖武符刘景詹束龙叶幸司韶黎蓟薄印宿白怀蒲邰从索赖卓蔺屠蒙池乔阴郁胥能苍双闻莘党翟谭贡劳逄姬申扶堵冉宰郦雍郤璩桑桂濮牛寿通边扈燕冀郏浦尚农温别庄晏柴瞿阎充慕连茹习宦艾鱼容向古易慎戈廖庾终暨居衡步都耿满弘匡国文寇广禄阙东欧殳沃利蔚越夔隆师巩厍聂晁勾敖融冷訾辛阚那简饶空曾毋沙乜养鞠须丰巢关蒯相查后荆红游竺权逯盖益桓公俟'.split('');
+var zhMale='伟强磊军勇杰涛明建华志国平斌鹏飞旭文辉海峰林宇浩阳俊凯鑫晨昊哲博超坤龙威毅勇琪彬良胜涛峰俊成武宁远安民宏政奇力诚达荣亮振清刚峰贤德福贵友广才文元宝利茂盛发和顺泰安'.split('');
+var zhFemale='芳娟秀英华娜丽珍萍红莲艳玲琴桂玉霞雪梅静慧雅琳颖春洁莹蕾敏佳倩婷琳茜颖璐珊淑琦婉然瑶悦馨蕊怡璇艺桐诺汐瑶珂玫'.split('');
+var enFirst='JamesJohnRobertMichaelWilliamDavidRichardJosephThomasCharlesChristopherDanielMatthewAnthonyMarkDonaldStevenPaulAndrewJoshuaKennethKevinBrianGeorgeEdwardRonaldTimothyJasonJeffreyRyanJacobGaryNicholasEricJonathanStephenLarryJustinScottBrandonBenjaminSamuelRaymondGregoryFrankAlexanderPatrickJackDennisJerryTylerAaronJoseNathanHenryDouglasAdamPeter'.split(' ');
+var enLast='SmithJohnsonWilliamsBrownJonesGarciaMillerDavisRodriguezMartinezHernandezLopezGonzalezWilsonAndersonThomasTaylorMooreJacksonMartinLeePerezThompsonWhiteHarrisSanchezClarkRamirezLewisRobinsonWalkerYoungAllenKingWrightScottTorresNguyenHillFloresGreenAdamsNelsonBakerHallRiveraCampbellMitchellCarterRoberts'.split(' ');
+function pick(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function genNames(){
+  var type=document.getElementById('nameType').value;
+  var gender=document.getElementById('nameGender').value;
+  var count=parseInt(document.getElementById('nameCount').value)||10;
+  var names=[];
+  for(var i=0;i<count;i++){
+    if(type==='zh'){
+      var surname=pick(zhSurnames);
+      var given;
+      if(gender==='all')given=Math.random()>0.5?pick(zhMale):pick(zhFemale);
+      else if(gender==='male')given=pick(zhMale);
+      else given=pick(zhFemale);
+      var g2=Math.random()>0.3?pick(gender==='female'?zhFemale:zhMale):'';
+      names.push(surname+given+g2);
+    }else{
+      var first=pick(enFirst);
+      var last=pick(enLast);
+      names.push(first+' '+last);
+    }
+  }
+  document.getElementById('nameResult').innerHTML=names.map(function(n){return '<span class="name-item">'+n+'</span>';}).join('');
+}
+genNames();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

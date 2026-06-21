@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>科学计算器 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="科学计算器 | ZenTools" />
+<meta property="og:description" content="在线科学计算器，支持三角函数、对数、指数、平方根等高级运算。" />
+<meta name="description" content="在线科学计算器，支持三角函数（sin、cos、tan）、对数、指数、平方根、幂运算等高级数学计算。">
+<meta name="keywords" content="科学计算器,三角函数,对数,指数计算,数学计算,在线计算器">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+.display { width:100%; padding:16px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:28px; font-weight:700; text-align:right; font-family:monospace; margin-bottom:12px; }
+.btns { display:grid; grid-template-columns:repeat(5,1fr); gap:6px; }
+.btns button { padding:14px 6px; border-radius:8px; border:none; background:var(--glass-b); color:var(--text); font-size:15px; font-weight:600; cursor:pointer; transition:all 0.15s; font-family:monospace; }
+.btns button:hover { background:var(--border-h); }
+.btns .op { background:rgba(59,130,246,0.15); color:#60a5fa; }
+.btns .op:hover { background:rgba(59,130,246,0.25); }
+.btns .fn { background:rgba(139,92,246,0.15); color:#a78bfa; font-size:12px; }
+.btns .fn:hover { background:rgba(139,92,246,0.25); }
+.btns .eq { background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; }
+.btns .eq:hover { opacity:.85; }
+.btns .clr { background:rgba(239,68,68,0.15); color:#f87171; }
+.btns .clr:hover { background:rgba(239,68,68,0.25); }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header"><h1><span class="hl">科学计算器</span></h1><p>在线科学计算器，支持三角函数、对数、指数等高级运算。</p></div>
+  <div class="tool-box">
+    <input type="text" class="display" id="calcDisplay" readonly value="0" />
+    <div class="btns">
+      <button class="fn" onclick="scCalc('sin')">sin</button><button class="fn" onclick="scCalc('cos')">cos</button><button class="fn" onclick="scCalc('tan')">tan</button><button class="fn" onclick="scCalc('log')">log</button><button class="fn" onclick="scCalc('ln')">ln</button>
+      <button class="fn" onclick="scCalc('sqrt')">√</button><button class="fn" onclick="scCalc('sq')">x²</button><button class="fn" onclick="scCalc('cube')">x³</button><button class="fn" onclick="scCalc('inv')">1/x</button><button class="fn" onclick="scCalc('fact')">n!</button>
+      <button class="op" onclick="scInput('(')">(</button><button class="op" onclick="scInput(')')">)</button><button class="op" onclick="scInput('%')">%</button><button class="clr" onclick="scClear()">C</button><button class="clr" onclick="scBack()">⌫</button>
+      <button onclick="scInput('7')">7</button><button onclick="scInput('8')">8</button><button onclick="scInput('9')">9</button><button class="op" onclick="scInput('/')">÷</button><button class="fn" onclick="scCalc('pi')">π</button>
+      <button onclick="scInput('4')">4</button><button onclick="scInput('5')">5</button><button onclick="scInput('6')">6</button><button class="op" onclick="scInput('*')">×</button><button class="fn" onclick="scCalc('e')">e</button>
+      <button onclick="scInput('1')">1</button><button onclick="scInput('2')">2</button><button onclick="scInput('3')">3</button><button class="op" onclick="scInput('-')">−</button><button class="fn" onclick="scCalc('pow')">xʸ</button>
+      <button onclick="scInput('0')">0</button><button onclick="scInput('00')">00</button><button onclick="scInput('.')">.</button><button class="op" onclick="scInput('+')">+</button><button class="eq" onclick="scEqual()">=</button>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var scExpr='',scResult=null;
+function scDisplay(){document.getElementById('calcDisplay').value=scExpr||'0';}
+function scInput(v){scExpr+=v;scDisplay();}
+function scClear(){scExpr='';scResult=null;scDisplay();}
+function scBack(){scExpr=scExpr.slice(0,-1);scDisplay();}
+function scCalc(fn){
+  var d=document.getElementById('calcDisplay');
+  var v=parseFloat(d.value)||0;
+  var r=0;
+  switch(fn){
+    case 'sin':r=Math.sin(v*Math.PI/180);break;
+    case 'cos':r=Math.cos(v*Math.PI/180);break;
+    case 'tan':r=Math.tan(v*Math.PI/180);break;
+    case 'log':r=Math.log10(v);break;
+    case 'ln':r=Math.log(v);break;
+    case 'sqrt':r=Math.sqrt(v);break;
+    case 'sq':r=v*v;break;
+    case 'cube':r=v*v*v;break;
+    case 'inv':r=v!==0?1/v:0;break;
+    case 'fact':r=1;for(var i=2;i<=v;i++)r*=i;break;
+    case 'pi':r=Math.PI;break;
+    case 'e':r=Math.E;break;
+    case 'pow':scExpr+='**';scDisplay();return;
+  }
+  scExpr=String(Math.round(r*1e10)/1e10);
+  scDisplay();
+}
+function scEqual(){
+  try{scExpr=String(Math.round(eval(scExpr.replace('×','*').replace('÷','/').replace('−','-'))*1e10)/1e10);}catch(e){scExpr='Error';}
+  scDisplay();
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>

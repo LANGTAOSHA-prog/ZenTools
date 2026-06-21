@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>秒表 - 生活工具 | ZenTools</title>
+<meta property="og:title" content="秒表 | ZenTools" />
+<meta property="og:description" content="在线秒表，支持开始、暂停、计次和重置功能。" />
+<meta property="og:url" content="https://zentools.xyz/life/stopwatch.html" />
+<meta name="description" content="在线秒表，支持开始、暂停、计次（Lap）和重置功能。">
+<meta name="keywords" content="秒表,计时器,计次,秒表在线,计时工具">
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<style>
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--text); }
+.btn-danger { background:#ef4444; }
+.display { font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:2px;text-align:center;color:var(--cyan);padding:20px;font-family:monospace; }
+.controls { display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px; }
+.lap-list { margin-top:16px;max-height:200px;overflow-y:auto; }
+.lap-item { display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px; }
+.lap-item .lap-num { color:var(--muted); }
+.lap-item .lap-time { font-family:monospace;font-weight:600; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav class="nav-bar">
+    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
+    <div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <div class="page-header">
+    <h1><span class="hl">秒表</span></h1>
+    <p>在线秒表，支持开始、暂停、计次和重置，精确到百分之一秒。</p>
+  </div>
+  <div class="tool-box">
+    <div class="display" id="swDisplay">00:00.00</div>
+    <div class="controls">
+      <button class="btn" id="swStartBtn" onclick="swStart()">▶ 开始</button>
+      <button class="btn btn2" onclick="swLap()">⏱️ 计次</button>
+      <button class="btn btn2" onclick="swPause()">⏸️ 暂停</button>
+      <button class="btn btn-danger" onclick="swReset()">↺ 重置</button>
+    </div>
+    <div class="lap-list" id="swLapList"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var swTime=0,swInterval=null,swRunning=false,swLapCount=0;
+function swFormat(t){
+  var m=Math.floor(t/60000),s=Math.floor((t%60000)/1000),ms=Math.floor((t%1000)/10);
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+'.'+String(ms).padStart(2,'0');
+}
+function swUpdate(){
+  swTime+=10;
+  document.getElementById('swDisplay').textContent=swFormat(swTime);
+}
+function swStart(){
+  if(swRunning) return;
+  swRunning=true;
+  swInterval=setInterval(swUpdate,10);
+  document.getElementById('swStartBtn').textContent='▶ 运行中';
+}
+function swPause(){
+  swRunning=false;
+  clearInterval(swInterval);
+  document.getElementById('swStartBtn').textContent='▶ 继续';
+}
+function swLap(){
+  if(!swRunning) return;
+  swLapCount++;
+  var list=document.getElementById('swLapList');
+  var div=document.createElement('div');div.className='lap-item';
+  div.innerHTML='<span class="lap-num">计次 '+(swLapCount)+'</span><span class="lap-time">'+swFormat(swTime)+'</span>';
+  list.appendChild(div);
+  list.scrollTop=list.scrollHeight;
+}
+function swReset(){
+  swRunning=false;clearInterval(swInterval);swTime=0;swLapCount=0;
+  document.getElementById('swDisplay').textContent='00:00.00';
+  document.getElementById('swStartBtn').textContent='▶ 开始';
+  document.getElementById('swLapList').innerHTML='';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+</body>
+</html>
