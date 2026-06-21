@@ -8,45 +8,185 @@
   <meta name="description" content="批量检测图片重复，找出相似或完全相同的图片" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { max-width: 800px; width: 100%; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; }
-    .card h1 { font-size: 24px; margin-bottom: 12px; }
-    .card .icon { font-size: 64px; margin-bottom: 20px; }
-    .card p { color: var(--muted); margin-bottom: 30px; line-height: 1.6; }
-    .placeholder { background: var(--surface2); border: 2px dashed var(--border); border-radius: var(--radius); padding: 60px 20px; margin-bottom: 30px; }
-    .placeholder .emoji { font-size: 48px; margin-bottom: 16px; }
-    .placeholder h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .placeholder p { font-size: 14px; }
-    .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; margin: 8px; transition: all .3s; }
+    :root {
+      --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9);
+      --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb;
+      --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2);
+      --radius: 14px; --radius-pill: 999px;
+    }
+    body {
+      font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: var(--bg); color: var(--text); min-height: 100vh; padding: 20px;
+    }
+    .container { max-width: 960px; width: 100%; margin: 0 auto; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 40px;
+    }
+    .card h1 { font-size: 24px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+    .card .icon { font-size: 36px; }
+    .card .desc { color: var(--muted); margin-bottom: 24px; line-height: 1.6; }
+    .tool-area { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+    .upload-zone {
+      border: 2px dashed var(--border); border-radius: var(--radius); padding: 40px;
+      text-align: center; cursor: pointer; transition: all .3s;
+    }
+    .upload-zone:hover { border-color: var(--accent); background: rgba(59,130,246,0.05); }
+    .upload-zone.has-image { border-style: solid; border-color: var(--accent); padding: 16px; }
+    .upload-zone .icon-big { font-size: 48px; margin-bottom: 12px; }
+    .upload-zone .hint { color: var(--muted); font-size: 14px; }
+    .upload-zone input[type="file"] { display: none; }
+    .preview-area { margin-top: 16px; text-align: center; }
+    .preview-area img, .preview-area canvas {
+      max-width: 100%; max-height: 450px; border-radius: 10px; background: #0a0e1a;
+    }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; align-items: center; }
+    .controls label { font-size: 13px; color: var(--muted); min-width: 60px; }
+    .controls input, .controls select {
+      background: #0a0e1a; border: 1px solid var(--border); color: var(--text);
+      padding: 8px 12px; border-radius: 8px; font-size: 14px;
+    }
+    .controls input[type="number"] { width: 80px; }
+    .controls input[type="range"] { width: 140px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
+      border: none; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: all .3s;
+    }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
     .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-sm { padding: 6px 16px; font-size: 12px; }
+    .result-area { margin-top: 16px; text-align: center; }
+    .result-area a.download-btn {
+      display: inline-block; margin-top: 12px; padding: 12px 28px;
+      background: linear-gradient(135deg, #10b981, #059669); color: #fff;
+      border-radius: var(--radius-pill); text-decoration: none; font-weight: 600;
+    }
+    .result-area a.download-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16,185,129,0.4); }
     .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
-    .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
+    .bookmark-float{
+      position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;
+      background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;
+      border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;
+      box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;
+      text-decoration:none;
+    }
+    .bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}
+    .flex-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .info-grid { display: grid; grid-template-columns: auto 1fr; gap: 6px 16px; font-size: 13px; }
+    .info-grid dt { color: var(--muted); }
+    .info-grid dd { color: var(--text); }
+    @media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
   </style>
 </head>
 <body>
 <div class="container">
   <div class="card">
-    <div class="icon">🔍</div>
-    <h1>图片查重</h1>
-    <p>批量检测图片重复，找出相似或完全相同的图片</p>
-    <div class="placeholder">
-      <div class="emoji">🚧</div>
-      <h2>开发中</h2>
-      <p>此工具正在开发中，敬请期待！</p>
+    <h1><span class="icon">🔍</span> 图片查重</h1>
+    <p class="desc">批量检测图片重复，找出相似或完全相同的图片</p>
+    
+    <div class="tool-area">
+      <div class="upload-zone" id="dropZone" style="padding:24px;">
+        <div class="icon-big">📁</div>
+        <p>上传两张图片进行相似度对比</p>
+        <p class="hint">选取两张图片，计算感知哈希相似度</p>
+        <input type="file" id="fileInput1" accept="image/*" style="display:block;margin:8px auto;" />
+        <input type="file" id="fileInput2" accept="image/*" style="display:block;margin:8px auto;" />
+      </div>
+      <div class="flex-row">
+        <button class="btn" id="compareBtn" disabled>计算相似度</button>
+      </div>
+      <div class="result-area" id="resultArea" style="display:none">
+        <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;">
+          <div><img id="img1" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid var(--border);" /></div>
+          <div><img id="img2" style="max-width:200px;max-height:200px;border-radius:8px;border:1px solid var(--border);" /></div>
+        </div>
+        <div id="similarityResult" style="font-size:24px;font-weight:bold;margin:12px 0;text-align:center;"></div>
+      </div>
     </div>
-    <div>
-      <a href="/" class="btn btn-secondary">返回首页</a>
-      <a href="/plugins-preview.html" class="btn">浏览其他工具</a>
-    </div>
+    
   </div>
   <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构
+    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 所有处理在浏览器本地完成
   </div>
 </div>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<script>
+
+    const fileInput1 = document.getElementById('fileInput1');
+    const fileInput2 = document.getElementById('fileInput2');
+    const compareBtn = document.getElementById('compareBtn');
+    const resultArea = document.getElementById('resultArea');
+    const img1 = document.getElementById('img1');
+    const img2 = document.getElementById('img2');
+    const similarityResult = document.getElementById('similarityResult');
+    let dataUrl1 = null, dataUrl2 = null;
+
+    fileInput1.addEventListener('change', e => { if(e.target.files.length) { const r = new FileReader(); r.onload = ev => { dataUrl1 = ev.target.result; img1.src = dataUrl1; checkReady(); }; r.readAsDataURL(e.target.files[0]); }});
+    fileInput2.addEventListener('change', e => { if(e.target.files.length) { const r = new FileReader(); r.onload = ev => { dataUrl2 = ev.target.result; img2.src = dataUrl2; checkReady(); }; r.readAsDataURL(e.target.files[0]); }});
+
+    function checkReady() {
+      compareBtn.disabled = !(dataUrl1 && dataUrl2);
+    }
+
+    function averageHash(img, size) {
+      size = size || 8;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, size, size);
+      const data = ctx.getImageData(0, 0, size, size).data;
+      let sum = 0;
+      for(let i = 0; i < data.length; i += 4) {
+        sum += data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114;
+      }
+      const avg = sum / (size * size);
+      let hash = '';
+      for(let i = 0; i < data.length; i += 4) {
+        const gray = data[i] * 0.299 + data[i+1] * 0.587 + data[i+2] * 0.114;
+        hash += gray > avg ? '1' : '0';
+      }
+      return hash;
+    }
+
+    function hammingDistance(h1, h2) {
+      let dist = 0;
+      for(let i = 0; i < h1.length; i++) {
+        if(h1[i] !== h2[i]) dist++;
+      }
+      return dist;
+    }
+
+    compareBtn.addEventListener('click', function() {
+      if(!dataUrl1 || !dataUrl2) return;
+      const imgA = new Image();
+      const imgB = new Image();
+      let loaded = 0;
+      imgA.onload = imgB.onload = function() {
+        loaded++;
+        if(loaded === 2) {
+          const h1 = averageHash(imgA);
+          const h2 = averageHash(imgB);
+          const dist = hammingDistance(h1, h2);
+          const maxDist = 64;
+          const similarity = Math.max(0, Math.round((1 - dist/maxDist) * 100));
+          let resultText = '相似度: ' + similarity + '%';
+          let color = '#ef4444';
+          if(similarity > 80) { resultText += ' ⚠️ 非常相似!'; color = '#ef4444'; }
+          else if(similarity > 50) { resultText += ' 🔍 部分相似'; color = '#f59e0b'; }
+          else { resultText += ' ✅ 不相似'; color = '#10b981'; }
+          similarityResult.textContent = resultText;
+          similarityResult.style.color = color;
+          resultArea.style.display = 'block';
+        }
+      };
+      imgA.src = dataUrl1;
+      imgB.src = dataUrl2;
+    });
+    
+</script>
 </body>
 </html>
