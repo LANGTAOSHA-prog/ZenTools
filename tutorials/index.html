@@ -501,6 +501,22 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js').catch(() => {});
   });
 }
+
+// ===== 语言切换 =====
+(function() {
+  var sel = document.getElementById('langSelect');
+  if (!sel) return;
+  sel.addEventListener('change', function() {
+    var lang = this.value;
+    localStorage.setItem('zentools_lang', lang);
+    window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang } }));
+  });
+  var saved = localStorage.getItem('zentools_lang');
+  if (saved && sel.value !== saved) {
+    sel.value = saved;
+    window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: saved } }));
+  }
+})();
 </script>
 </body>
 </html>
