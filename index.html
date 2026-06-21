@@ -204,16 +204,19 @@
 
     /* 统计条 */
     .stats-bar {
-      display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      margin: 32px auto 0; max-width: 620px;
+      border: 1px solid var(--border); border-radius: 14px;
+      overflow: hidden; background: rgba(255,255,255,0.02);
     }
-    .stat-item { text-align: center; }
-    .stat-num {
-      font-size: 28px; font-weight: 900;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; }
-    .stat-num-lg { font-size: 36px !important; }
+    .stat-item { text-align: center; padding: 20px 8px; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 26px; font-weight: 800; line-height: 1.2; color: var(--text); }
+    .stat-num.color-cyan { color: var(--cyan); }
+    .stat-num.color-purple { color: var(--purple); }
+    .stat-num.color-green { color: #34d399; }
+    .stat-num.color-orange { color: #fb923c; }
+    .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; letter-spacing: 0.3px; }
 
     /* 工具分类区 */
     .cat-section { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
@@ -363,7 +366,9 @@
       .records-grid { grid-template-columns: 1fr; }
       .tools-mini-grid { grid-template-columns: 1fr; }
       .cat-section, .section-records, .section-about { padding: 40px 16px; }
-      .stats-bar { gap: 20px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid var(--border); }
       .stat-num { font-size: 22px; }
       .nav-links a:not(:first-child):not(:last-child) { display: none; }
       .nav-group { display: none; }
@@ -706,10 +711,10 @@
       const statsBar = document.getElementById('statsBar');
       if (statsBar) {
         statsBar.innerHTML = `
-          <div class="stat-item"><div class="stat-num">${tools.length}</div><div class="stat-label">${dict.statTools}</div></div>
-          <div class="stat-item"><div class="stat-num">${Object.keys(grouped).length}</div><div class="stat-label">${dict.statCats}</div></div>
-          <div class="stat-item stat-tutorials" id="statTutorials" style="display:none"><div class="stat-num stat-num-lg" id="tutorialCount">0</div><div class="stat-label">${dict.statTutorials}</div></div>
-          <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">${dict.statLocal}</div></div>
+          <div class="stat-item"><div class="stat-num color-cyan">${tools.length}</div><div class="stat-label">${dict.statTools}</div></div>
+          <div class="stat-item"><div class="stat-num color-purple">${Object.keys(grouped).length}</div><div class="stat-label">${dict.statCats}</div></div>
+          <div class="stat-item stat-tutorials" id="statTutorials" style="display:none"><div class="stat-num color-green" id="tutorialCount">0</div><div class="stat-label">${dict.statTutorials}</div></div>
+          <div class="stat-item"><div class="stat-num color-orange">100%</div><div class="stat-label">${dict.statLocal}</div></div>
         `;
       }
 
