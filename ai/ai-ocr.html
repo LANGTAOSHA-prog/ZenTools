@@ -1,52 +1,68 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="/manifest.json" />
-  <title>AI OCR 识别 - 江湖小站-ZenTools</title>
-  <meta name="description" content="AI 高精度 OCR 文字识别，支持多语言、表格和公式识别" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { max-width: 800px; width: 100%; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; }
-    .card h1 { font-size: 24px; margin-bottom: 12px; }
-    .card .icon { font-size: 64px; margin-bottom: 20px; }
-    .card p { color: var(--muted); margin-bottom: 30px; line-height: 1.6; }
-    .placeholder { background: var(--surface2); border: 2px dashed var(--border); border-radius: var(--radius); padding: 60px 20px; margin-bottom: 30px; }
-    .placeholder .emoji { font-size: 48px; margin-bottom: 16px; }
-    .placeholder h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .placeholder p { font-size: 14px; }
-    .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; margin: 8px; transition: all .3s; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
-    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
-    .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-  </style>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
+<title>AI OCR 识别 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI 智能识别图片中的文字，支持多语言和手写体" />
+<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
+body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
+.main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.upload-area{border:2px dashed var(--border);border-radius:var(--radius);padding:40px;text-align:center;cursor:pointer;transition:all .3s;margin-bottom:16px}.upload-area:hover{border-color:var(--accent);background:rgba(59,130,246,0.05)}.upload-area.dragover{border-color:var(--accent);background:rgba(59,130,246,0.1)}.upload-area .icon{font-size:48px;margin-bottom:12px}.upload-area p{color:var(--muted)}.upload-area .hint{font-size:12px;color:var(--muted);margin-top:8px}
+#previewArea{display:none;margin-bottom:16px}#previewArea img{max-width:100%;max-height:300px;border-radius:8px;border:1px solid var(--border)}
+select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px}select:focus{outline:none;border-color:var(--accent)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}
+.result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}.result-box.show{display:block}.result-content{font-size:14px;line-height:1.9;white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:16px;border-radius:8px;margin-top:10px;max-height:400px;overflow-y:auto}
+.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
+.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}</style>
 </head>
 <body>
-<div class="container">
+<div class="header"><a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">🔍</span> AI OCR 识别</a><div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div></div>
+<div class="main">
   <div class="card">
-    <div class="icon">👁️</div>
-    <h1>AI OCR 识别</h1>
-    <p>AI 高精度 OCR 文字识别，支持多语言、表格和公式识别</p>
-    <div class="placeholder">
-      <div class="emoji">🚧</div>
-      <h2>开发中</h2>
-      <p>此工具正在开发中，敬请期待！</p>
+    <h2>📤 上传图片</h2>
+    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+      <div class="icon">📄</div>
+      <p>点击上传图片或拖拽图片到此处</p>
+      <div class="hint">支持 JPG、PNG、WebP、BMP 格式</div>
     </div>
-    <div>
-      <a href="/" class="btn btn-secondary">返回首页</a>
-      <a href="/plugins-preview.html" class="btn">浏览其他工具</a>
+    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFile(this.files[0])" />
+    <div id="previewArea"><img id="previewImg" /></div>
+    <div class="toolbar">
+      <select id="ocrLang"><option value="mixed">多语言自动识别</option><option value="zh">中文简体</option><option value="en">English</option><option value="ja">日本語</option><option value="ko">한국어</option></select>
     </div>
+    <button class="btn btn-primary" id="ocrBtn" onclick="doOCR()" disabled>🔍 识别文字</button>
   </div>
-  <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构
-  </div>
+  <div class="loading" id="loading"><div class="spinner"></div> AI 正在识别文字...</div>
+  <div class="result-box" id="resultBox"><h2>📝 识别结果</h2><div id="ocrResult" class="result-content"></div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="copyOCR()">📋 复制</button></div></div>
 </div>
+<div class="modal-overlay" id="settingsModal" style="display:none">
+  <div class="modal"><h3>⚙️ API 设置</h3><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o (推荐，支持图片理解)</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option></select></div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()">取消</button><button class="btn btn-primary" onclick="saveSettings()">保存</button></div></div>
+</div>
+<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
+<script>const SK='zentools_ai_settings';let selectedFile=null;
+function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
+function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
+function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+const uploadArea=document.getElementById('uploadArea');
+uploadArea.addEventListener('dragover',e=>{e.preventDefault();uploadArea.classList.add('dragover')});
+uploadArea.addEventListener('dragleave',()=>uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop',e=>{e.preventDefault();uploadArea.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0])});
+function handleFile(file){if(!file)return;selectedFile=file;const reader=new FileReader();reader.onload=function(e){document.getElementById('previewImg').src=e.target.result;document.getElementById('previewArea').style.display='block';document.getElementById('ocrBtn').disabled=false};reader.readAsDataURL(file)}
+function doOCR(){if(!selectedFile){alert('请先上传图片');return}const s=gs();if(!s.apiKey){ts();return}
+const lang=document.getElementById('ocrLang');const langLabels={mixed:'多语言自动识别',zh:'中文简体',en:'英语',ja:'日语',ko:'韩语'};
+const btn=document.getElementById('ocrBtn');const l=document.getElementById('loading');const r=document.getElementById('resultBox');btn.disabled=true;l.classList.add('show');r.classList.remove('show')
+const reader=new FileReader();reader.onload=function(e){const base64=e.target.result.split(',')[1];
+const p='请识别这张图片中的所有文字。语言：'+langLabels[lang.value]+'。请直接输出识别到的文字内容，保持原始格式。';
+fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:[{type:'text',text:p},{type:'image_url',image_url:{url:'data:image/jpeg;base64,'+base64}}]}],max_tokens:2048})})
+.then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(d=>{document.getElementById('ocrResult').textContent=d.choices[0].message.content;r.classList.add('show')})
+.catch(e=>{document.getElementById('ocrResult').textContent='识别失败：'+e.message+'\n\n提示：请确保使用支持视觉能力的模型（如 GPT-4o）';r.classList.add('show')})
+.finally(()=>{btn.disabled=false;l.classList.remove('show')})};reader.readAsDataURL(selectedFile)}
+function copyOCR(){const t=document.getElementById('ocrResult').textContent;if(t)navigator.clipboard.writeText(t).then(()=>alert('已复制'))}
+ls();</script>
 </body>
 </html>

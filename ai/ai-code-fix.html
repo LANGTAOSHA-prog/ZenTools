@@ -7,46 +7,261 @@
   <title>AI 代码修复 - 江湖小站-ZenTools</title>
   <meta name="description" content="AI 智能分析代码错误并提供修复方案，支持调试建议" />
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { max-width: 800px; width: 100%; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; }
-    .card h1 { font-size: 24px; margin-bottom: 12px; }
-    .card .icon { font-size: 64px; margin-bottom: 20px; }
-    .card p { color: var(--muted); margin-bottom: 30px; line-height: 1.6; }
-    .placeholder { background: var(--surface2); border: 2px dashed var(--border); border-radius: var(--radius); padding: 60px 20px; margin-bottom: 30px; }
-    .placeholder .emoji { font-size: 48px; margin-bottom: 16px; }
-    .placeholder h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .placeholder p { font-size: 14px; }
-    .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; margin: 8px; transition: all .3s; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
-    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--accent-glow:rgba(59,130,246,0.2);--radius:14px;--radius-pill:999px;--success:#22c55e;--error:#ef4444}
+    [data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
+    body{font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+    .header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+    .header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}
+    .header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}
+    .header .actions{display:flex;gap:8px}
+    .main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
+    .card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    textarea{width:100%;min-height:180px;padding:16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:'Fira Code','Cascadia Code','Consolas',monospace;resize:vertical;transition:border-color .3s;line-height:1.6}
+    textarea:focus{outline:none;border-color:var(--accent)}
+    textarea::placeholder{color:var(--muted)}
+    select,input[type="text"]{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;transition:border-color .3s}
+    select:focus,input:focus{outline:none;border-color:var(--accent)}
+    .btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+    .btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}
+    .btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+    .btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+    .btn-secondary:hover{border-color:var(--accent)}
+    .btn-sm{padding:6px 14px;font-size:12px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+    .result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}
+    .result-box.show{display:block}
+    .result-box pre{font-family:'Fira Code','Cascadia Code','Consolas',monospace;font-size:13px;line-height:1.7;white-space:pre-wrap;word-break:break-all;background:rgba(0,0,0,0.3);padding:16px;border-radius:8px;margin-top:10px;max-height:400px;overflow-y:auto}
+    .error-msg{color:var(--error);font-size:13px;margin-top:8px;display:none}
+    .error-msg.show{display:block}
+    .loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}
+    .loading.show{display:flex}
+    .loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .badge{display:inline-block;padding:2px 8px;border-radius:var(--radius-pill);font-size:11px;font-weight:600}
+    .badge-error{background:rgba(239,68,68,0.15);color:var(--error)}
+    .badge-warning{background:rgba(234,179,8,0.15);color:#eab308}
+    .badge-success{background:rgba(34,197,94,0.15);color:var(--success)}
+    .split-pane{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:768px){.split-pane{grid-template-columns:1fr}.main{padding:16px}}
+    .lang-select{min-width:140px}
+    .footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
     .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="card">
-    <div class="icon">🔧</div>
-    <h1>AI 代码修复</h1>
-    <p>AI 智能分析代码错误并提供修复方案，支持调试建议</p>
-    <div class="placeholder">
-      <div class="emoji">🚧</div>
-      <h2>开发中</h2>
-      <p>此工具正在开发中，敬请期待！</p>
-    </div>
-    <div>
-      <a href="/" class="btn btn-secondary">返回首页</a>
-      <a href="/plugins-preview.html" class="btn">浏览其他工具</a>
-    </div>
-  </div>
-  <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构
+<div class="header">
+  <a href="/" class="logo" style="text-decoration:none;color:inherit">
+    <span class="mark">🔧</span> AI 代码修复
+  </a>
+  <div class="actions">
+    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()">⚙️ 设置</button>
+    <a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a>
   </div>
 </div>
+<div class="main">
+  <div class="card">
+    <h2>📝 粘贴你的代码</h2>
+    <div class="toolbar">
+      <select id="langSelect" class="lang-select">
+        <option value="python">Python</option>
+        <option value="javascript">JavaScript</option>
+        <option value="typescript">TypeScript</option>
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="java">Java</option>
+        <option value="cpp">C++</option>
+        <option value="csharp">C#</option>
+        <option value="go">Go</option>
+        <option value="rust">Rust</option>
+        <option value="php">PHP</option>
+        <option value="sql">SQL</option>
+        <option value="bash">Bash</option>
+      </select>
+      <select id="errorType">
+        <option value="auto">自动检测错误</option>
+        <option value="syntax">语法错误</option>
+        <option value="logic">逻辑错误</option>
+        <option value="runtime">运行时错误</option>
+        <option value="performance">性能优化</option>
+        <option value="security">安全漏洞</option>
+        <option value="bestpractice">代码规范</option>
+      </select>
+    </div>
+    <textarea id="codeInput" placeholder="在此粘贴你的代码，描述出现的错误信息..."></textarea>
+    <div class="toolbar" style="margin-top:12px">
+      <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeCode()">🔍 分析修复</button>
+      <button class="btn btn-secondary btn-sm" onclick="clearInput()">清空</button>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spinner"></div> AI 正在分析代码，请稍候...
+  </div>
+
+  <div class="result-box" id="resultBox">
+    <h2>💡 修复建议</h2>
+    <div id="resultContent"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="settingsModal" style="display:none">
+  <div class="modal">
+    <h3>⚙️ API 设置</h3>
+    <div style="margin:16px 0">
+      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Endpoint</label>
+      <input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%">
+    </div>
+    <div style="margin:16px 0">
+      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Key</label>
+      <input type="password" id="apiKey" placeholder="sk-..." style="width:100%">
+    </div>
+    <div style="margin:16px 0">
+      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">模型</label>
+      <select id="modelSelect" style="width:100%">
+        <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+        <option value="gpt-4">GPT-4</option>
+        <option value="gpt-4-turbo">GPT-4 Turbo</option>
+        <option value="deepseek-chat">DeepSeek Chat</option>
+      </select>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn btn-secondary" onclick="toggleSettings()">取消</button>
+      <button class="btn btn-primary" onclick="saveSettings()">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a>
+</div>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<style>
+  .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}
+  .modal h3{font-size:18px;margin-bottom:8px}
+</style>
+
+<script>
+const STORAGE_KEY = 'zentools_ai_settings';
+
+function loadSettings() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const s = JSON.parse(saved);
+      document.getElementById('apiEndpoint').value = s.endpoint || 'https://api.openai.com/v1/chat/completions';
+      document.getElementById('apiKey').value = s.apiKey || '';
+      document.getElementById('modelSelect').value = s.model || 'gpt-3.5-turbo';
+    }
+  } catch(e) {}
+}
+
+function saveSettings() {
+  const settings = {
+    endpoint: document.getElementById('apiEndpoint').value,
+    apiKey: document.getElementById('apiKey').value,
+    model: document.getElementById('modelSelect').value
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+  toggleSettings();
+}
+
+function toggleSettings() {
+  const modal = document.getElementById('settingsModal');
+  modal.style.display = modal.style.display === 'none' ? 'flex' : 'none';
+  if (modal.style.display === 'flex') loadSettings();
+}
+
+function getSettings() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved ? JSON.parse(saved) : { endpoint: 'https://api.openai.com/v1/chat/completions', apiKey: '', model: 'gpt-3.5-turbo' };
+  } catch(e) {
+    return { endpoint: 'https://api.openai.com/v1/chat/completions', apiKey: '', model: 'gpt-3.5-turbo' };
+  }
+}
+
+function clearInput() {
+  document.getElementById('codeInput').value = '';
+  document.getElementById('resultBox').classList.remove('show');
+}
+
+function analyzeCode() {
+  const code = document.getElementById('codeInput').value.trim();
+  if (!code) { alert('请先粘贴代码'); return; }
+
+  const settings = getSettings();
+  if (!settings.apiKey) {
+    toggleSettings();
+    return;
+  }
+
+  const lang = document.getElementById('langSelect').value;
+  const errorType = document.getElementById('errorType').value;
+  const btn = document.getElementById('analyzeBtn');
+  const loading = document.getElementById('loading');
+  const resultBox = document.getElementById('resultBox');
+  const resultContent = document.getElementById('resultContent');
+
+  btn.disabled = true;
+  loading.classList.add('show');
+  resultBox.classList.remove('show');
+
+  const errorTypeLabels = {
+    auto: '自动检测错误类型', syntax: '语法错误', logic: '逻辑错误',
+    runtime: '运行时错误', performance: '性能优化', security: '安全漏洞', bestpractice: '代码规范'
+  };
+
+  const prompt = `你是一个代码调试专家。请分析以下 ${lang} 代码，重点关注 ${errorTypeLabels[errorType]}。
+
+代码：
+\`\`\`${lang}
+${code}
+\`\`\`
+
+请按以下格式回复：
+## 问题分析
+列出发现的问题（如果有）
+
+## 修复方案
+给出修复后的代码
+
+## 修改说明
+逐条解释修改了什么以及为什么
+
+## 预防建议
+如何避免此类问题`;
+
+  fetch(settings.endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + settings.apiKey },
+    body: JSON.stringify({ model: settings.model, messages: [{ role: 'user', content: prompt }], max_tokens: 2048 })
+  })
+  .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  .then(data => {
+    const content = data.choices[0].message.content;
+    resultContent.innerHTML = marked(content);
+    resultBox.classList.add('show');
+  })
+  .catch(err => {
+    resultContent.innerHTML = '<div class="error-msg show">请求失败：' + err.message + '</div>';
+    resultBox.classList.add('show');
+  })
+  .finally(() => {
+    btn.disabled = false;
+    loading.classList.remove('show');
+  });
+}
+
+function marked(text) {
+  return '<pre>' + text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</pre>';
+}
+
+loadSettings();
+</script>
 </body>
 </html>

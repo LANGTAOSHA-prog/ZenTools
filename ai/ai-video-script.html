@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="/manifest.json" />
-  <title>AI 视频脚本 - 江湖小站-ZenTools</title>
-  <meta name="description" content="AI 生成短视频脚本，支持分镜、台词和拍摄建议" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { max-width: 800px; width: 100%; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; }
-    .card h1 { font-size: 24px; margin-bottom: 12px; }
-    .card .icon { font-size: 64px; margin-bottom: 20px; }
-    .card p { color: var(--muted); margin-bottom: 30px; line-height: 1.6; }
-    .placeholder { background: var(--surface2); border: 2px dashed var(--border); border-radius: var(--radius); padding: 60px 20px; margin-bottom: 30px; }
-    .placeholder .emoji { font-size: 48px; margin-bottom: 16px; }
-    .placeholder h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .placeholder p { font-size: 14px; }
-    .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; margin: 8px; transition: all .3s; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
-    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
-    .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-  </style>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
+<title>AI 视频脚本 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI 智能生成短视频脚本，支持抖音、快手、YouTube等平台" />
+<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
+body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
+.main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+textarea{width:100%;min-height:120px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;resize:vertical;line-height:1.6;margin-bottom:12px}textarea:focus{outline:none;border-color:var(--accent)}input{width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;margin-bottom:12px}input:focus{outline:none;border-color:var(--accent)}select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px}select:focus{outline:none;border-color:var(--accent)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}
+.result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}.result-box.show{display:block}.result-content{font-size:14px;line-height:1.9;white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:16px;border-radius:8px;margin-top:10px;max-height:600px;overflow-y:auto}
+.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}</style>
 </head>
 <body>
-<div class="container">
+<div class="header"><a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">🎥</span> AI 视频脚本</a><div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div></div>
+<div class="main">
   <div class="card">
-    <div class="icon">🎥</div>
-    <h1>AI 视频脚本</h1>
-    <p>AI 生成短视频脚本，支持分镜、台词和拍摄建议</p>
-    <div class="placeholder">
-      <div class="emoji">🚧</div>
-      <h2>开发中</h2>
-      <p>此工具正在开发中，敬请期待！</p>
+    <h2>🎬 视频信息</h2>
+    <input type="text" id="videoTopic" placeholder="视频主题 / 标题">
+    <div class="toolbar">
+      <select id="videoPlatform"><option value="douyin">抖音</option><option value="kuaishou">快手</option><option value="bilibili">B站</option><option value="youtube">YouTube</option><option value="xiaohongshu">小红书</option></select>
+      <select id="videoLength"><option value="15s">15秒</option><option value="30s">30秒</option><option value="60s" selected>60秒</option><option value="3min">3分钟</option><option value="5min">5分钟</option></select>
+      <select id="videoType"><option value="tutorial">教程类</option><option value="vlog">Vlog</option><option value="review">评测类</option><option value="story">剧情类</option><option value="knowledge">知识科普</option><option value="product">产品展示</option></select>
     </div>
-    <div>
-      <a href="/" class="btn btn-secondary">返回首页</a>
-      <a href="/plugins-preview.html" class="btn">浏览其他工具</a>
-    </div>
+    <textarea id="videoInput" placeholder="补充信息：目标受众、核心卖点、参考风格、需要包含的关键词等"></textarea>
+    <button class="btn btn-primary" onclick="generateVideoScript()">🎬 生成脚本</button>
   </div>
-  <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构
-  </div>
+  <div class="loading" id="loading"><div class="spinner"></div> AI 正在创作视频脚本...</div>
+  <div class="result-box" id="resultBox"><h2>📜 视频脚本</h2><div id="scriptResult" class="result-content"></div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="copyVideoScript()">📋 复制</button></div></div>
 </div>
+<div class="modal-overlay" id="settingsModal" style="display:none">
+  <div class="modal"><h3>⚙️ API 设置</h3><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()">取消</button><button class="btn btn-primary" onclick="saveSettings()">保存</button></div></div>
+</div>
+<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
+<script>const SK='zentools_ai_settings';
+function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}}catch(e){}}
+function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
+function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
+function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}}
+let lastResult='';
+function generateVideoScript(){const t=document.getElementById('videoTopic').value.trim();if(!t){alert('请输入视频主题');return}const s=gs();if(!s.apiKey){ts();return}
+const pl=document.getElementById('videoPlatform');const vl=document.getElementById('videoLength');const vt=document.getElementById('videoType');
+const platNames={douyin:'抖音',kuaishou:'快手',bilibili:'B站',youtube:'YouTube',xiaohongshu:'小红书'};
+const lenNames={15s:'15秒',30s:'30秒',60s:'60秒',3min:'3分钟',5min:'5分钟'};
+const typeNames={tutorial:'教程类',vlog:'Vlog',review:'评测类',story:'剧情类',knowledge:'知识科普',product:'产品展示'};
+const extra=document.getElementById('videoInput').value.trim();const btn=event.target;const l=document.getElementById('loading');const r=document.getElementById('resultBox');btn.disabled=true;l.classList.add('show');r.classList.remove('show')
+const p='你是一个短视频脚本创作专家。请为以下视频创作完整脚本：\n\n平台：'+platNames[pl.value]+'\n时长：'+lenNames[vl.value]+'\n类型：'+typeNames[vt.value]+'\n主题：'+t+(extra?'\n补充要求：'+extra:'')+'\n\n请包含：开场钩子、正文内容、画面描述、口播台词、结尾引导。直接输出脚本内容。'
+fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:2048})})
+.then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(d=>{lastResult=d.choices[0].message.content;document.getElementById('scriptResult').textContent=lastResult;r.classList.add('show')})
+.catch(e=>{document.getElementById('scriptResult').textContent='请求失败：'+e;r.classList.add('show')}).finally(()=>{btn.disabled=false;l.classList.remove('show')})}
+function copyVideoScript(){if(lastResult)navigator.clipboard.writeText(lastResult).then(()=>alert('已复制'))}
+ls();</script>
 </body>
 </html>
