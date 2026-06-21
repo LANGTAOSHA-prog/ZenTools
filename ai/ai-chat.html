@@ -3,50 +3,513 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="/manifest.json" />
   <title>AI 聊天 - 江湖小站-ZenTools</title>
   <meta name="description" content="与 AI 智能对话，支持多轮问答、知识查询和创意讨论" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; }
+    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --success: #22c55e; --error: #ef4444; }
     [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .container { max-width: 800px; width: 100%; }
-    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; text-align: center; }
-    .card h1 { font-size: 24px; margin-bottom: 12px; }
-    .card .icon { font-size: 64px; margin-bottom: 20px; }
-    .card p { color: var(--muted); margin-bottom: 30px; line-height: 1.6; }
-    .placeholder { background: var(--surface2); border: 2px dashed var(--border); border-radius: var(--radius); padding: 60px 20px; margin-bottom: 30px; }
-    .placeholder .emoji { font-size: 48px; margin-bottom: 16px; }
-    .placeholder h2 { font-size: 18px; margin-bottom: 8px; color: var(--text); }
-    .placeholder p { font-size: 14px; }
-    .btn { display: inline-block; padding: 12px 28px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; margin: 8px; transition: all .3s; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    
+    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
+    .header .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
+    .header .logo .mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .header .actions { display: flex; gap: 8px; align-items: center; }
+    
+    .main { flex: 1; display: flex; flex-direction: column; max-width: 900px; width: 100%; margin: 0 auto; }
+    .chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; scroll-behavior: smooth; }
+    
+    .message { display: flex; gap: 12px; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .message.user { flex-direction: row-reverse; }
+    .message-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .message.user .message-avatar { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
+    .message.assistant .message-avatar { background: var(--surface2); border: 1px solid var(--border); }
+    
+    .message-content { max-width: 70%; padding: 14px 18px; border-radius: var(--radius); line-height: 1.6; }
+    .message.user .message-content { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius) var(--radius) 0 var(--radius); }
+    .message.assistant .message-content { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius) var(--radius) var(--radius) 0; }
+    .message-content p { margin-bottom: 10px; }
+    .message-content p:last-child { margin-bottom: 0; }
+    .message-content code { background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+    .message.user .message-content code { background: rgba(0,0,0,0.15); }
+    .message-content pre { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; overflow-x: auto; margin: 10px 0; }
+    .message-content pre code { background: none; padding: 0; }
+    
+    .typing-indicator { display: flex; gap: 4px; padding: 4px; }
+    .typing-indicator span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: bounce 1.4s infinite; }
+    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
+    
+    .input-area { background: var(--surface); border-top: 1px solid var(--border); padding: 16px 24px; display: flex; gap: 12px; align-items: flex-end; }
+    .input-wrapper { flex: 1; position: relative; }
+    .input-wrapper textarea { width: 100%; min-height: 50px; max-height: 200px; padding: 12px 48px 12px 16px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 15px; font-family: inherit; resize: none; transition: border-color .3s; }
+    .input-wrapper textarea:focus { outline: none; border-color: var(--accent); }
+    .input-wrapper textarea::placeholder { color: var(--muted); }
+    .char-count { position: absolute; bottom: -20px; right: 0; font-size: 11px; color: var(--muted); }
+    
+    .btn { padding: 10px 20px; border-radius: var(--radius-pill); border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: all .3s; display: flex; align-items: center; gap: 6px; }
+    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
+    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
     .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--muted); }
+    .btn-secondary:hover { border-color: var(--accent); }
+    .btn-icon { padding: 10px 14px; border-radius: 50%; }
+    
+    .settings-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px); }
+    .settings-modal.active { display: flex; }
+    .settings-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+    .settings-content h2 { margin-bottom: 20px; font-size: 20px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: var(--muted); }
+    .form-group input, .form-group select { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 14px; }
+    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
+    .form-group small { color: var(--muted); font-size: 12px; margin-top: 4px; display: block; }
+    .settings-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+    
+    .welcome-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
+    .welcome-screen .icon { font-size: 64px; margin-bottom: 20px; }
+    .welcome-screen h1 { font-size: 28px; margin-bottom: 12px; }
+    .welcome-screen p { color: var(--muted); max-width: 400px; margin-bottom: 30px; line-height: 1.6; }
+    .suggestions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 600px; }
+    .suggestion { padding: 10px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: 13px; cursor: pointer; transition: all .3s; }
+    .suggestion:hover { border-color: var(--accent); background: rgba(59,130,246,0.1); }
+    
+    .clear-btn { position: fixed; bottom: 100px; right: 24px; z-index: 50; }
+    
     .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
+    
+    @media (max-width: 640px) {
+      .message-content { max-width: 85%; }
+      .input-area { padding: 12px; }
+      .btn { padding: 8px 16px; font-size: 13px; }
+      .header { padding: 12px 16px; }
+    }
   </style>
 </head>
 <body>
-<div class="container">
-  <div class="card">
+
+<!-- Header -->
+<header class="header">
+  <div class="logo">
+    <span class="mark">⛵</span>
+    <span>AI 聊天</span>
+  </div>
+  <div class="actions">
+    <button class="btn btn-icon btn-secondary" onclick="clearChat()" title="清空对话">🗑️</button>
+    <button class="btn btn-icon btn-secondary" onclick="openSettings()" title="设置">⚙️</button>
+    <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="main">
+  <!-- Welcome Screen -->
+  <div class="welcome-screen" id="welcomeScreen">
     <div class="icon">💬</div>
-    <h1>AI 聊天</h1>
-    <p>与 AI 智能对话，支持多轮问答、知识查询和创意讨论</p>
-    <div class="placeholder">
-      <div class="emoji">🚧</div>
-      <h2>开发中</h2>
-      <p>此工具正在开发中，敬请期待！</p>
-    </div>
-    <div>
-      <a href="/" class="btn btn-secondary">返回首页</a>
-      <a href="/plugins-preview.html" class="btn">浏览其他工具</a>
+    <h1>AI 智能聊天</h1>
+    <p>与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等</p>
+    <div class="suggestions">
+      <div class="suggestion" onclick="useSuggestion('请帮我写一段 Python 代码，实现快速排序算法')">🐍 写一段快速排序代码</div>
+      <div class="suggestion" onclick="useSuggestion('解释一下量子纠缠的原理')">⚛️ 解释量子纠缠</div>
+      <div class="suggestion" onclick="useSuggestion('帮我写一封求职信，申请产品经理岗位')">💼 写一封求职信</div>
+      <div class="suggestion" onclick="useSuggestion('用中文写一首关于春天的诗')">🌸 写一首春天的诗</div>
     </div>
   </div>
-  <div class="footer">
-    © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a> · 数据驱动分类架构
+
+  <!-- Chat Container -->
+  <div class="chat-container" id="chatContainer" style="display: none;"></div>
+
+  <!-- Input Area -->
+  <div class="input-area" id="inputArea" style="display: none;">
+    <div class="input-wrapper">
+      <textarea id="userInput" placeholder="输入消息...（Shift+Enter 换行，Enter 发送）" rows="1" onkeydown="handleKeyDown(event)"></textarea>
+      <div class="char-count"><span id="charCount">0</span>/4000</div>
+    </div>
+    <button class="btn btn-primary" id="sendBtn" onclick="sendMessage()">
+      <span>发送</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</main>
+
+<!-- Settings Modal -->
+<div class="settings-modal" id="settingsModal">
+  <div class="settings-content">
+    <h2>⚙️ API 设置</h2>
+    <div class="form-group">
+      <label>API 提供商</label>
+      <select id="apiProvider" onchange="updateProviderFields()">
+        <option value="openai">OpenAI</option>
+        <option value="anthropic">Anthropic (Claude)</option>
+        <option value="deepseek">DeepSeek</option>
+        <option value="custom">自定义</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>API Key <span style="color: var(--error);">*</span></label>
+      <input type="password" id="apiKey" placeholder="sk-..." />
+      <small>密钥仅保存在本地浏览器，不会上传到任何服务器</small>
+    </div>
+    <div class="form-group" id="baseUrlGroup" style="display: none;">
+      <label>API Base URL</label>
+      <input type="text" id="baseUrl" placeholder="https://api.openai.com/v1" />
+    </div>
+    <div class="form-group">
+      <label>模型名称</label>
+      <input type="text" id="modelName" placeholder="gpt-4o" />
+      <small>留空使用默认模型</small>
+    </div>
+    <div class="settings-actions">
+      <button class="btn btn-secondary" onclick="closeSettings()">取消</button>
+      <button class="btn btn-primary" onclick="saveSettings()">保存</button>
+    </div>
   </div>
 </div>
+
+<!-- Footer -->
+<footer style="text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);">
+  © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有对话均在本地处理，不会上传服务器
+</footer>
+
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+<script>
+// ============ State ============
+let messages = [];
+let isGenerating = false;
+let settings = {
+  provider: 'openai',
+  apiKey: '',
+  baseUrl: '',
+  model: 'gpt-4o'
+};
+
+// ============ Init ============
+function init() {
+  loadSettings();
+  loadChat();
+  if (messages.length > 0) {
+    showChat();
+    renderMessages();
+  }
+}
+
+// ============ Settings ============
+function loadSettings() {
+  const saved = localStorage.getItem('ai-chat-settings');
+  if (saved) {
+    settings = { ...settings, ...JSON.parse(saved) };
+    document.getElementById('apiProvider').value = settings.provider;
+    document.getElementById('apiKey').value = settings.apiKey;
+    document.getElementById('baseUrl').value = settings.baseUrl;
+    document.getElementById('modelName').value = settings.model;
+    updateProviderFields();
+  }
+}
+
+function saveSettings() {
+  settings.provider = document.getElementById('apiProvider').value;
+  settings.apiKey = document.getElementById('apiKey').value.trim();
+  settings.baseUrl = document.getElementById('baseUrl').value.trim();
+  settings.model = document.getElementById('modelName').value.trim() || getDefaultModel();
+  
+  if (!settings.apiKey) {
+    alert('请输入 API Key');
+    return;
+  }
+  
+  localStorage.setItem('ai-chat-settings', JSON.stringify(settings));
+  closeSettings();
+  alert('设置已保存！');
+}
+
+function updateProviderFields() {
+  const provider = document.getElementById('apiProvider').value;
+  const baseUrlGroup = document.getElementById('baseUrlGroup');
+  const modelInput = document.getElementById('modelName');
+  
+  const defaults = {
+    openai: { baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o' },
+    anthropic: { baseUrl: 'https://api.anthropic.com/v1', model: 'claude-3-5-sonnet-20241022' },
+    deepseek: { baseUrl: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
+    custom: { baseUrl: '', model: '' }
+  };
+  
+  const d = defaults[provider] || defaults.openai;
+  
+  if (provider === 'custom') {
+    baseUrlGroup.style.display = 'block';
+    modelInput.placeholder = '模型名称';
+  } else {
+    baseUrlGroup.style.display = 'none';
+    document.getElementById('baseUrl').value = d.baseUrl;
+    if (!settings.model) modelInput.placeholder = d.model;
+  }
+}
+
+function getDefaultModel() {
+  const provider = document.getElementById('apiProvider').value;
+  const defaults = {
+    openai: 'gpt-4o',
+    anthropic: 'claude-3-5-sonnet-20241022',
+    deepseek: 'deepseek-chat',
+    custom: 'gpt-4o'
+  };
+  return defaults[provider] || 'gpt-4o';
+}
+
+function openSettings() {
+  document.getElementById('settingsModal').classList.add('active');
+}
+
+function closeSettings() {
+  document.getElementById('settingsModal').classList.remove('active');
+}
+
+// ============ Chat ============
+function showChat() {
+  document.getElementById('welcomeScreen').style.display = 'none';
+  document.getElementById('chatContainer').style.display = 'flex';
+  document.getElementById('inputArea').style.display = 'flex';
+}
+
+function hideChat() {
+  document.getElementById('welcomeScreen').style.display = 'flex';
+  document.getElementById('chatContainer').style.display = 'none';
+  document.getElementById('inputArea').style.display = 'none';
+}
+
+function renderMessages() {
+  const container = document.getElementById('chatContainer');
+  container.innerHTML = '';
+  
+  messages.forEach(msg => {
+    const div = document.createElement('div');
+    div.className = `message ${msg.role}`;
+    div.innerHTML = `
+      <div class="message-avatar">${msg.role === 'user' ? '👤' : '🤖'}</div>
+      <div class="message-content">${formatMessage(msg.content)}</div>
+    `;
+    container.appendChild(div);
+  });
+  
+  container.scrollTop = container.scrollHeight;
+}
+
+function formatMessage(text) {
+  if (!text) return '';
+  // Escape HTML
+  let html = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  
+  // Code blocks
+  html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (m, lang, code) => {
+    return `<pre><code class="language-${lang||''}">${code.trim()}</code></pre>`;
+  });
+  
+  // Inline code
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  
+  // Bold
+  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  
+  // Line breaks
+  html = html.replace(/\n/g, '<br>');
+  
+  return html;
+}
+
+function handleKeyDown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+  
+  const target = e.target;
+  target.style.height = 'auto';
+  target.style.height = Math.min(target.scrollHeight, 200) + 'px';
+  document.getElementById('charCount').textContent = target.value.length;
+}
+
+function useSuggestion(text) {
+  document.getElementById('userInput').value = text;
+  document.getElementById('charCount').textContent = text.length;
+  sendMessage();
+}
+
+function clearChat() {
+  if (confirm('确定要清空所有对话记录吗？')) {
+    messages = [];
+    localStorage.removeItem('ai-chat-history');
+    hideChat();
+    renderMessages();
+  }
+}
+
+function loadChat() {
+  const saved = localStorage.getItem('ai-chat-history');
+  if (saved) {
+    try {
+      messages = JSON.parse(saved);
+    } catch (e) {
+      messages = [];
+    }
+  }
+}
+
+function saveChat() {
+  localStorage.setItem('ai-chat-history', JSON.stringify(messages));
+}
+
+// ============ Send Message ============
+async function sendMessage() {
+  const input = document.getElementById('userInput');
+  const text = input.value.trim();
+  
+  if (!text || isGenerating) return;
+  
+  if (!settings.apiKey) {
+    openSettings();
+    return;
+  }
+  
+  // Show chat UI
+  showChat();
+  
+  // Add user message
+  messages.push({ role: 'user', content: text });
+  saveChat();
+  renderMessages();
+  
+  // Clear input
+  input.value = '';
+  input.style.height = 'auto';
+  document.getElementById('charCount').textContent = '0';
+  
+  // Set generating state
+  isGenerating = true;
+  document.getElementById('sendBtn').disabled = true;
+  
+  // Add placeholder for assistant
+  const container = document.getElementById('chatContainer');
+  const assistantDiv = document.createElement('div');
+  assistantDiv.className = 'message assistant';
+  assistantDiv.innerHTML = `
+    <div class="message-avatar">🤖</div>
+    <div class="message-content">
+      <div class="typing-indicator">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  `;
+  container.appendChild(assistantDiv);
+  container.scrollTop = container.scrollHeight;
+  
+  try {
+    const response = await fetchChatResponse(messages);
+    
+    // Remove typing indicator
+    assistantDiv.remove();
+    
+    // Add assistant message
+    messages.push({ role: 'assistant', content: response });
+    saveChat();
+    renderMessages();
+  } catch (error) {
+    // Remove typing indicator
+    assistantDiv.remove();
+    
+    // Show error
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'message assistant';
+    errorDiv.innerHTML = `
+      <div class="message-avatar">⚠️</div>
+      <div class="message-content" style="color: var(--error);">
+        请求失败：${error.message}<br>
+        <small>请检查 API Key 和网络连接</small>
+      </div>
+    `;
+    container.appendChild(errorDiv);
+    container.scrollTop = container.scrollHeight;
+  }
+  
+  isGenerating = false;
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
+}
+
+async function fetchChatResponse(history) {
+  const { provider, apiKey, baseUrl, model } = settings;
+  
+  // Prepare messages (system prompt)
+  const messages = [
+    { role: 'system', content: '你是一个有用、无害的 AI 助手。请用简洁、准确的语言回答用户问题。支持中文、英文、日文、越南语等多种语言。' },
+    ...history.map(m => ({ role: m.role, content: m.content }))
+  ];
+  
+  let url, headers, body;
+  
+  if (provider === 'anthropic') {
+    // Anthropic API
+    url = baseUrl || 'https://api.anthropic.com/v1/messages';
+    headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': apiKey,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    };
+    body = {
+      model: model || 'claude-3-5-sonnet-20241022',
+      max_tokens: 4096,
+      messages: history.filter(m => m.role !== 'system'),
+      system: '你是一个有用、无害的 AI 助手。'
+    };
+  } else {
+    // OpenAI compatible API
+    url = (baseUrl || 'https://api.openai.com/v1') + '/chat/completions';
+    headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    };
+    body = {
+      model: model || 'gpt-4o',
+      messages: messages,
+      stream: false,
+      temperature: 0.7,
+      max_tokens: 4096
+    };
+  }
+  
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(body)
+  });
+  
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.error?.message || `HTTP ${response.status}: ${response.statusText}`);
+  }
+  
+  const data = await response.json();
+  
+  if (provider === 'anthropic') {
+    return data.content[0].text;
+  } else {
+    return data.choices[0].message.content;
+  }
+}
+
+// ============ Bookmark ============
+// Already handled by HTML button
+
+// Initialize
+init();
+</script>
+
 </body>
 </html>
