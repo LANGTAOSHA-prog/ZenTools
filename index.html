@@ -666,8 +666,6 @@
       }
     };
   </script>
-  <!-- 拼音搜索支持 -->
-  <script src="https://cdn.jsdelivr.net/npm/pinyin-pro@3.28.1/dist/index.min.js"></script>
   <script src="assets/js/tool-ui.min.js"></script>
   <script>
     // ===== 缓存数据 =====
@@ -952,29 +950,12 @@
     loadAndRender(initLang);
   </script>
   <script>
-    // ===== 工具搜索（下拉即时搜索）——拼音 + 搜索历史 =====
+    // ===== 工具搜索（下拉即时搜索）——带搜索历史 =====
     const searchInput = document.getElementById('toolSearch');
     const searchClear = document.getElementById('searchClear');
     const searchStats = document.getElementById('searchStats');
     const searchDropdown = document.getElementById('searchDropdown');
     let sdIndex = -1;
-
-    // ---- 拼音缓存 ----
-    let _pinyinCache = {};
-    function getPinyin(text) {
-      if (!text) return { full: '', first: '' };
-      if (_pinyinCache[text]) return _pinyinCache[text];
-      try {
-        if (typeof pinyinPro !== 'undefined' && typeof pinyinPro.pinyin === 'function') {
-          var full = pinyinPro.pinyin(text, { toneType: 'none' });
-          var first = pinyinPro.pinyin(text, { pattern: 'first' });
-          _pinyinCache[text] = { full: full.toLowerCase(), first: first.toLowerCase() };
-          return _pinyinCache[text];
-        }
-      } catch(e) {}
-      _pinyinCache[text] = { full: '', first: '' };
-      return _pinyinCache[text];
-    }
 
     // ---- 搜索历史 ----
     var STORAGE_KEY = 'zt_search_history';
@@ -1016,20 +997,6 @@
       searchDropdown.classList.add('show');
     }
 
-    // ---- 获取工具可供拼音搜索的文本 ----
-    function toolPinyinText(t) {
-      var texts = [t.name, t.description, t.keywords || ''];
-      var py = { full: '', first: '' };
-      texts.forEach(function(txt) {
-        if (txt) {
-          var p = getPinyin(txt);
-          py.full += ' ' + p.full;
-          py.first += ' ' + p.first;
-        }
-      });
-      return py;
-    }
-
     // ---- 渲染下拉结果 ----
     function renderDropdown(query) {
       var q = query.trim().toLowerCase();
@@ -1068,20 +1035,28 @@
         return;
       }
       sdIndex = -1;
-      var re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-      searchDropdown.innerHTML = results.map(function(t) {
-        var name = tName(t, lang);
-        var desc = tDesc(t, lang);
-        var cat = t.category || '';
-        var icon = t.icon || '🔧';
-        var nameHtml = name.replace(re, '<em>$1</em>');
-        var descHtml = desc.replace(re, '<em>$1</em>');
-        var catLabel = tCatLocal(cat, lang);
-        return '<a class="sd-item" href="' + t.url + '">' +
-          '<div class="sd-icon">' + icon + '</div>' +
-          '<div class="sd-info"><div class="sd-name">' + nameHtml + '</div><div class="sd-desc">' + descHtml + '</div></div>' +
-          '<span class="sd-cat">' + catLabel + '</span></a>';
-      }).join('') + '<div class="sd-footer">共 ' + results.length + ' 个结果，按 ↑↓ 键选择，按 Enter 打开</div>';
+      try {
+        var re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+        searchDropdown.innerHTML = results.map(function(t) {
+          try {
+            var name = tName(t, lang);
+            var desc = tDesc(t, lang);
+            var cat = t.category || '';
+            var icon = t.icon || '🔧';
+            var nameHtml = name.replace(re, '<em>$1</em>');
+            var descHtml = desc.replace(re, '<em>$1</em>');
+            var catLabel = tCatLocal(cat, lang);
+            return '<a class="sd-item" href="' + (t.url || '#') + '">' +
+              '<div class="sd-icon">' + icon + '</div>' +
+              '<div class="sd-info"><div class="sd-name">' + nameHtml + '</div><div class="sd-desc">' + descHtml + '</div></div>' +
+              '<span class="sd-cat">' + catLabel + '</span></a>';
+          } catch(e) {
+            return '<a class="sd-item" href="' + (t.url || '#') + '"><div class="sd-icon">🔧</div><div class="sd-info"><div class="sd-name">' + (t.name || '') + '</div></div></a>';
+          }
+        }).join('') + '<div class="sd-footer">共 ' + results.length + ' 个结果，按 ↑↓ 键选择，按 Enter 打开</div>';
+      } catch(e) {
+        searchDropdown.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">⚠️</div>加载结果时出错</div>';
+      }
       searchDropdown.classList.add('show');
     }
 
@@ -1159,6 +1134,13 @@
       var item = e.target.closest('.sd-item');
       if (item && item.href) {
         addToHistory(searchInput.value.trim());
+        return;
+      }
+      // 点击历史项时也保存
+      var hItem = e.target.closest('.sd-h-item');
+      if (hItem) {
+        var textEl = hItem.querySelector('.sd-h-text');
+        if (textEl) addToHistory(textEl.textContent);
       }
     });
 
