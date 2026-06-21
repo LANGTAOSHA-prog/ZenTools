@@ -553,7 +553,7 @@
         aboutP1: '本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。',
         aboutP2: '所有内容均为个人日常整理，仅供学习和参考使用。',
         aboutNotice: '本站内容仅供学习参考，不涉及经营性互联网信息服务。',
-        statTools: '在线工具', statCats: '工具分类', statLocal: '纯本地处理',
+        statTools: '在线工具', statCats: '工具分类', statLocal: '纯本地处理', statTutorials: '教程',
         toolCount: '个工具', favTitle: '⭐ 收藏的工具', recentTitle: '🕐 最近使用', hotTitle: '🔥 热门工具', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
         records: [
           { title:'我的第一个 PDF 工具', desc:'记录从零开始使用 VS Code 编写 PDF 工具的过程、问题和解决方法。', link:'查看内容 →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -576,7 +576,7 @@
         aboutP1: 'A personal site documenting my learning journey with computers, web development, documents, images and more.',
         aboutP2: 'All content is personal notes for learning and reference only.',
         aboutNotice: 'This site is for learning purposes only and does not involve commercial internet services.',
-        statTools: 'Online Tools', statCats: 'Categories', statLocal: 'Browser Local',
+        statTools: 'Online Tools', statCats: 'Categories', statLocal: 'Browser Local', statTutorials: 'Tutorials',
         toolCount: 'tools', footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
         records: [
           { title:'My First PDF Tool', desc:'From scratch to building a PDF tool with VS Code.', link:'Read more →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -599,7 +599,7 @@
         aboutP1: 'パソコンやウェブ、書類、画像などの学習過程で出会った問題と解決方法を記録しています。',
         aboutP2: 'すべての内容は個人の学習と参考用です。',
         aboutNotice: '当サイトは学習目的のみで、営利目的の情報サービスは提供しておりません。',
-        statTools: '無料ツール', statCats: 'カテゴリー', statLocal: 'ローカル処理',
+        statTools: '無料ツール', statCats: 'カテゴリー', statLocal: 'ローカル処理', statTutorials: 'ガイド',
         toolCount: 'ツール', footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
         records: [
           { title:'初めてのPDFツール', desc:'VS Code で PDF ツールを作った記録。', link:'読む →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -622,7 +622,7 @@
         aboutP1: 'Trang web ghi lại hành trình học tập về máy tính, phát triển web, tài liệu, hình ảnh và nhiều hơn nữa.',
         aboutP2: 'Tất cả nội dung là ghi chép cá nhân cho mục đích học tập và tham khảo.',
         aboutNotice: 'Trang web này chỉ dành cho mục đích học tập, không liên quan đến dịch vụ thương mại.',
-        statTools: 'Công cụ miễn phí', statCats: 'Danh mục', statLocal: 'Xử lý local',
+        statTools: 'Công cụ miễn phí', statCats: 'Danh mục', statLocal: 'Xử lý local', statTutorials: 'Hướng dẫn',
         toolCount: 'công cụ', footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
         records: [
           { title:'Công cụ PDF đầu tiên', desc:'Xây dựng công cụ PDF từ đầu với VS Code.', link:'Xem thêm →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -708,9 +708,13 @@
           <div class="stat-item"><div class="stat-num">${tools.length}</div><div class="stat-label">${dict.statTools}</div></div>
           <div class="stat-item"><div class="stat-num">${Object.keys(grouped).length}</div><div class="stat-label">${dict.statCats}</div></div>
           <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">${dict.statLocal}</div></div>
+          <div class="stat-item stat-tutorials" id="statTutorials" style="display:none"><div class="stat-num" id="tutorialCount">0</div><div class="stat-label">${dict.statTutorials}</div></div>
         `;
       }
 
+      // 加载教程数量
+      loadTutorialCount(dict);
+      
       // 最近使用 & 收藏
       try {
         const recent = JSON.parse(localStorage.getItem('zt_recent')) || [];
@@ -885,6 +889,26 @@
       renderHome(_toolsData, lang);
     }
 
+    // ===== 异步加载教程数量 =====
+    async function loadTutorialCount(dict) {
+      try {
+        const res = await fetch('/tutorials/');
+        if (!res.ok) throw new Error('Failed');
+        const html = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const cards = doc.querySelectorAll('.article-card');
+        const count = cards.length;
+        if (count > 0) {
+          document.getElementById('tutorialCount').textContent = count;
+          document.getElementById('statTutorials').style.display = '';
+        }
+      } catch(e) {
+        // silently fail - tutorial count is non-critical
+        console.warn('Tutorial count load failed:', e.message);
+      }
+    }
+    
     // ===== 监听语言切换 =====
     window.addEventListener('zt-langchange', function(e) {
       loadAndRender(e.detail.lang);
