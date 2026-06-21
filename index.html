@@ -953,7 +953,10 @@
       return cat;
     }
 
-    searchInput.addEventListener('input', function() { renderDropdown(this.value); });
+    searchInput.addEventListener('input', function() {
+      renderDropdown(this.value);
+      searchClear.style.display = this.value.trim() ? 'block' : 'none';
+    });
     searchInput.addEventListener('keydown', function(e) {
       var items = searchDropdown.querySelectorAll('.sd-item');
       if (!items.length) return;
@@ -978,13 +981,20 @@
       }
     });
     searchInput.addEventListener('blur', function() {
-      setTimeout(function() { searchDropdown.classList.remove('show'); }, 200);
+      setTimeout(function() {
+        searchDropdown.classList.remove('show');
+        if (!searchInput.value.trim()) searchClear.style.display = 'none';
+      }, 200);
     });
     searchInput.addEventListener('focus', function() {
-      if (this.value.trim()) renderDropdown(this.value);
+      if (this.value.trim()) {
+        renderDropdown(this.value);
+        searchClear.style.display = 'block';
+      }
     });
     searchClear.addEventListener('click', function() {
       searchInput.value = ''; searchInput.focus(); searchDropdown.classList.remove('show');
+      searchClear.style.display = 'none';
     });
 
     // 点击外部关闭下拉
