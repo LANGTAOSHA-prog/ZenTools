@@ -12,7 +12,7 @@
 .article-list { display:flex; flex-direction:column; gap:24px; max-width:900px; margin:0 auto; padding:20px 0; }
 .article-card { display:flex; flex-direction:column; gap:12px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; padding:28px; transition:border-color 0.25s,transform 0.25s; }
 .article-card:hover { border-color:var(--border-h); transform:translateY(-2px); }
-.article-card-expanded { border-color:var(--cyan) !important; box-shadow:0 0 0 1px var(--cyan), 0 8px 32px rgba(0,229,255,0.12); }
+
 
 .article-card .cat { font-size:11px; font-weight:700; color:var(--cyan); letter-spacing:0.5px; text-transform:uppercase; }
 .article-card h3 { font-size:18px; font-weight:700; color:var(--text); margin:0; }
@@ -24,7 +24,8 @@
 .article-card .tags span { font-size:11px; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid var(--border); color:var(--muted); }
 .article-card-clickable { cursor:pointer; }
 .article-card-clickable .click-hint { font-size:12px; color:var(--cyan); opacity:0.6; font-weight:600; }
-.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:0 0 16px 16px; }
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:0 0 16px 16px; transition:border-color 0.3s,box-shadow 0.3s; }
+.article-body-expanded { border-color:var(--cyan) !important; box-shadow:0 0 0 1px var(--cyan), 0 8px 32px rgba(0,229,255,0.12); }
 .article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
 .article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
 .article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
@@ -3507,13 +3508,12 @@ function toggleArticle(id) {
   if (hint) {
     hint.textContent = isVisible ? '📖 点击展开详细教程' : '📕 点击收起教程';
   }
-  // Highlight the card border when expanded
-  var card = el.previousElementSibling;
-  if (card && card.classList) {
+  // Highlight expanded article body
+  if (el && el.classList) {
     if (isVisible) {
-      card.classList.remove('article-card-expanded');
+      el.classList.remove('article-body-expanded');
     } else {
-      card.classList.add('article-card-expanded');
+      el.classList.add('article-body-expanded');
     }
   }
   // Smooth scroll to the card after opening
