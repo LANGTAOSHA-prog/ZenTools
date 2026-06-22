@@ -451,7 +451,7 @@
       <div class="blob-hero blob-h2"></div>
       <div class="hero-inner">
         <div class="hero-badge"><span class="badge-dot"></span> <span data-i18n="badge">300+ 免费工具 · 纯本地处理 · 无需注册</span></div>
-        <h1><span class="grad">江湖小站 ZenTools</span><br data-i18n="heroBr" /><span data-i18n="heroSubtitle">免费在线工具箱</span></h1>
+        <h1><span class="grad">江湖小站 ZenTools</span><br /><span data-i18n="heroSubtitle">免费在线工具箱</span></h1>
         <p class="hero-sub" data-i18n="heroDesc">免费 · 安全 · 无需上传，所有工具在浏览器本地运行，保护你的隐私。</p>
         <div class="hero-actions-row">
           <div class="hero-actions">
@@ -752,6 +752,8 @@
         const favs = JSON.parse(localStorage.getItem('zt_favorites')) || [];
         const container2 = document.getElementById('toolsContainer');
         if (container2 && (recent.length || favs.length)) {
+          // 语言切换时清除旧区块，避免重复插入
+          document.querySelectorAll('.fav-section').forEach(el => el.remove());
           let html = '<div class="fav-section">';
           if (favs.length) {
             html += '<div class="section-head reveal" style="margin-top:40px;"><span class="section-eyebrow">\u2b50</span><h2>' + (dict.favTitle || '\u6536\u85cf\u7684\u5de5\u5177') + '</h2></div><div class="fav-grid">';
@@ -942,7 +944,19 @@
     
     // ===== 监听语言切换 =====
     window.addEventListener('zt-langchange', function(e) {
-      loadAndRender(e.detail.lang);
+      const lang = e.detail.lang;
+      loadAndRender(lang);
+      // 同步更新搜索框占位符
+      const searchInput = document.getElementById('toolSearch');
+      if (searchInput) {
+        const ph = {
+          zh: '搜索工具，例如：PDF、图片压缩、AI写作...',
+          en: 'Search tools, e.g. PDF, image compress, AI writing...',
+          ja: 'ツールを検索（例：PDF、画像圧縮、AI作成...）',
+          vi: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
+        };
+        searchInput.placeholder = ph[lang] || ph.zh;
+      }
     });
 
     // ===== 初始加载 =====
@@ -1150,9 +1164,8 @@
       ja: 'ツールを検索（例：PDF、画像圧縮、AI作成...）',
       vi: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
     };
-    document.getElementById('langSelect').addEventListener('change', function() {
-      searchInput.placeholder = searchPlaceholders[this.value] || searchPlaceholders.zh;
-    });    // ===== 移动端侧滑菜单 =====
+    // 语言切换 → 同步更新搜索占位符（主流程在 tool-ui.js ZT.applyLanguage + zt-langchange 中处理）
+    // ===== 移动端侧滑菜单 =====
     const overlay = document.getElementById('mobileOverlay');
     const drawer = document.getElementById('mobileDrawer');
     const hamBtn = document.getElementById('hamburgerBtn');
@@ -1193,8 +1206,8 @@
           });
         });
         mobileTools.innerHTML = html;
-        // 重新应用 i18n
-        document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        // 重新应用 i18n（仅更新抽屉内的文本节点）
+        mobileTools.querySelectorAll('[data-i18n]').forEach(function(el) {
           const dict = window.ZT_PAGE && window.ZT_PAGE[lang];
           if (dict) {
             const key = el.getAttribute('data-i18n');

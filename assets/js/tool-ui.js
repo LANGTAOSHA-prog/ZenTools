@@ -49,6 +49,10 @@
       const key = el.getAttribute('data-i18n');
       if (dict[key] != null) el.textContent = dict[key];
     });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if (dict[key] != null) el.placeholder = dict[key];
+    });
     localStorage.setItem('zentools_lang', lang);
     window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang, dict: dict } }));
   };
