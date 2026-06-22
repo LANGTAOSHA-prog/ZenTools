@@ -40,3 +40,26 @@ function applyLanguage(lang){
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const key=el.getAttribute('data-i18n-placeholder'); if(dict[key]) el.placeholder=dict[key];});
   localStorage.setItem('zentools_lang', lang);
 }
+
+// 从 URL 参数 (?lang=) 或 localStorage 获取语言
+function getLang() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('lang') || localStorage.getItem('zentools_lang') || 'zh';
+}
+
+// 初始化：应用语言 + 绑定下拉框事件
+function initI18n() {
+  const lang = getLang();
+  applyLanguage(lang);
+
+  const sel = document.getElementById('langSelect');
+  if (sel) {
+    sel.value = translations[lang] ? lang : 'zh';
+    sel.addEventListener('change', function() {
+      applyLanguage(this.value);
+    });
+  }
+}
+
+// 页面加载时自动执行
+initI18n();
