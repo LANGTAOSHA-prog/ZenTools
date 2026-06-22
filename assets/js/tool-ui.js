@@ -14,7 +14,7 @@
   if (GA_ID && !window.gtag) {
     var s = document.createElement('script');
     s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    s.src = 'https:' + '/www.googletagmanager.com/gtag/js?id=' + GA_ID;
     document.head.appendChild(s);
     window.dataLayer = window.dataLayer || [];
     window.gtag = function(){ dataLayer.push(arguments); };
