@@ -1,8 +1,8 @@
-fix: 修复 tool-ui.js 中正则包含 // 导致 minify 后 JS 语法错误
+统一 theme key：将两套主题系统统一为 zentools_theme
 
-- tool-ui.js L267 中 /^\// 和 /\//g 包含 // 序列
-- 简易 minifier 的 //.* 将其误当作单行注释，吃掉后半行代码
-- 改为 /^[/]/（字符类）和 .split('/').join('-')（字符串替换）
-- 重新生成 tool-ui.min.js
+- loader.js: zh_theme → zentools_theme
+- anti-crash.js 备份列表: zh_theme → zentools_theme
+- tool-ui.js 已使用 zentools_theme，无需改动
+- 重建 tool-ui.min.js / anti-crash.min.js
 
 Co-Authored-By: AtomCode (deepseek-v4-flash) <noreply@atomgit.com>

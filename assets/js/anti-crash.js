@@ -330,7 +330,7 @@
   // ============================================================
   C.backupLocalStorage = function() {
     var keys = [
-      'zentools_lang', 'zh_theme',
+      'zentools_lang', 'zentools_theme',
       'zt_error_log', CONFIG.FALLBACK_KEY,
       'zt_fallback_reason', 'zt_fallback_time'
     ];

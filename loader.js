@@ -4,7 +4,7 @@
  * Theme handling (dark / light)
  */
 function initTheme() {
-  const theme = localStorage.getItem('zh_theme') || 'dark';
+  const theme = localStorage.getItem('zentools_theme') || 'dark';
   document.documentElement.setAttribute('data-theme', theme);
   const btn = document.getElementById('themeBtn');
   if (btn) btn.textContent = theme === 'dark' ? '☀️' : '🌙';
@@ -13,7 +13,7 @@ function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
   const next = cur === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('zh_theme', next);
+  localStorage.setItem('zentools_theme', next);
   const btn = document.getElementById('themeBtn');
   if (btn) btn.textContent = next === 'dark' ? '☀️' : '🌙';
 }
