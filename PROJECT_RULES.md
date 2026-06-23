@@ -14,7 +14,7 @@ ZenTools 是一个免费在线工具箱和 AI 工具导航网站。
 * 教程系统
 * 多语言支持
 
-⸻
+---
 
 开发原则
 
@@ -24,7 +24,7 @@ ZenTools 是一个免费在线工具箱和 AI 工具导航网站。
 4. 不允许创建临时测试文件
 5. 保持现有目录结构
 
-⸻
+---
 
 多语言规则
 
@@ -32,16 +32,18 @@ ZenTools 是一个免费在线工具箱和 AI 工具导航网站。
 
 必须使用：
 
-* assets/js/common-i18n.js
-* locales/common.json
-* 页面专属语言文件
+* assets/js/common-i18n.js（公共翻译数据）
+* 内联 window.ZT_PAGE（页面专属翻译）
+* tool-ui.js 中的 ZT.applyLanguage() 引擎
+
+数据合并规则：ZT_PAGE 的 key 会覆盖 ZT_COMMON 的同名 key。
 
 禁止：
 
 * 页面内硬编码文本
 * 创建新的翻译系统
 
-⸻
+---
 
 教程规则
 
@@ -55,7 +57,7 @@ ZenTools 是一个免费在线工具箱和 AI 工具导航网站。
 /blog/
 /posts/
 
-⸻
+---
 
 修改代码前
 
@@ -74,7 +76,7 @@ ZenTools 是一个免费在线工具箱和 AI 工具导航网站。
 
 禁止重写。
 
-⸻
+---
 
 输出要求
 
