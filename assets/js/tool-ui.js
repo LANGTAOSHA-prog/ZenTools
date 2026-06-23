@@ -39,18 +39,23 @@
     } catch(e) {}
   })();
 
-  // ===== i18n 多语言引擎 =====
+  // ===== i18n 多语言引擎 (公共翻译 + 页面翻译 合并) =====
   ZT.applyLanguage = function(lang) {
-    const dict = (window.ZT_PAGE && window.ZT_PAGE[lang]) || (window.ZT_PAGE && window.ZT_PAGE.zh);
-    if (!dict) return;
+    const common = (window.ZT_COMMON && window.ZT_COMMON[lang]) || {};
+    const page = (window.ZT_PAGE && window.ZT_PAGE[lang]) || (window.ZT_PAGE && window.ZT_PAGE.zh) || {};
+    var dict = {};
+    var k;
+    for (k in common) { if (common.hasOwnProperty(k)) dict[k] = common[k]; }
+    for (k in page) { if (page.hasOwnProperty(k)) dict[k] = page[k]; }
+    if (!Object.keys(dict).length) return;
     document.documentElement.lang = lang === 'zh' ? 'zh-CN' : lang;
     if (dict.pageTitle) document.title = dict.pageTitle;
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
       if (dict[key] != null) el.textContent = dict[key];
     });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n-placeholder');
       if (dict[key] != null) el.placeholder = dict[key];
     });
     localStorage.setItem('zentools_lang', lang);
