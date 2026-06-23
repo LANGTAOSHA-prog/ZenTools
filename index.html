@@ -463,7 +463,7 @@
         <div class="search-wrap">
           <span class="search-label">站内搜索</span>
           <span class="search-icon">🔍</span>
-          <input type="text" id="toolSearch" placeholder="搜索工具，例如：PDF、图片压缩、AI写作..." autocomplete="off">
+          <input type="text" id="toolSearch" placeholder="搜索工具，例如：PDF、图片压缩、AI写作..." data-i18n-placeholder="searchPlaceholder" autocomplete="off">
           <button class="search-clear" id="searchClear">✕</button>
           <div class="search-stats" id="searchStats"></div>
           <div class="search-dropdown" id="searchDropdown"></div>
@@ -947,17 +947,6 @@
     window.addEventListener('zt-langchange', function(e) {
       const lang = e.detail.lang;
       loadAndRender(lang);
-      // 同步更新搜索框占位符
-      const searchInput = document.getElementById('toolSearch');
-      if (searchInput) {
-        const ph = {
-          zh: '搜索工具，例如：PDF、图片压缩、AI写作...',
-          en: 'Search tools, e.g. PDF, image compress, AI writing...',
-          ja: 'ツールを検索（例：PDF、画像圧縮、AI作成...）',
-          vi: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
-        };
-        searchInput.placeholder = ph[lang] || ph.zh;
-      }
     });
 
     // ===== 初始加载 =====
