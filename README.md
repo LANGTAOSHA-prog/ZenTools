@@ -58,7 +58,7 @@ ZenTools 是一个功能全面的免费在线工具箱，提供 PDF 处理、图
 │       ├── main.js         # 首页渲染逻辑
 │       ├── tool-ui.js      # 工具页面共享组件
 │       ├── anti-crash.js   # 防崩容错机制
-│       └── i18n.js         # 国际化引擎
+│       └── common-i18n.js   # 国际化引擎（公共翻译数据）
 ├── pdf/                    # PDF 工具页面
 ├── image/                  # 图片工具页面
 ├── audio/                  # 音频工具页面

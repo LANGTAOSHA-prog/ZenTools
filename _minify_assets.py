@@ -31,7 +31,7 @@ for path in css_files:
     print(f"  -> {min_path}")
 
 # Minify JS files
-js_files = ['assets/js/tool-ui.js', 'assets/js/anti-crash.js', 'assets/js/i18n.js']
+js_files = ['assets/js/tool-ui.js', 'assets/js/anti-crash.js', 'assets/js/common-i18n.js']
 for path in js_files:
     if not os.path.exists(path):
         print(f"SKIP: {path} not found")

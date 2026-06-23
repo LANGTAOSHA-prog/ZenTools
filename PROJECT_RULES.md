@@ -32,7 +32,7 @@ ZenTools 是一个免费在线工具箱和 AI 工具导航网站。
 
 必须使用：
 
-* assets/js/i18n.js
+* assets/js/common-i18n.js
 * locales/common.json
 * 页面专属语言文件
 

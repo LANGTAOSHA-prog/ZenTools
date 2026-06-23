@@ -45,7 +45,7 @@ else:
 html = html.replace('assets/css/tool-ui.css', 'assets/css/tool-ui.min.css')
 html = html.replace('assets/css/style.css', 'assets/css/style.min.css')
 html = html.replace('assets/js/tool-ui.js', 'assets/js/tool-ui.min.js')
-html = html.replace('assets/js/i18n.js', 'assets/js/i18n.min.js')
+html = html.replace('assets/js/common-i18n.js', 'assets/js/common-i18n.min.js')
 
 # 3. Add loading="lazy" to images
 html = html.replace('<img src=', '<img loading="lazy" src=')
