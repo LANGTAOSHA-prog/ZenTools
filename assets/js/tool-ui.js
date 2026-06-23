@@ -264,7 +264,7 @@
       'stock-fee': ['loan-calculator']
     };
     var path = window.location.pathname;
-    var slug = path.replace(/^\//, '').replace(/\.html$/, '').replace(/\//g, '-');
+    var slug = path.replace(/^[/]/, '').replace(/\.html$/, '').split('/').join('-');
     // Try to match from various patterns
     var related = null;
     for (var key in relatedMap) {

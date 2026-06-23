@@ -1,10 +1,8 @@
-统一 i18n 系统：删除旧版 i18n.js，统一使用 common-i18n.js + tool-ui.js
+fix: 修复 tool-ui.js 中正则包含 // 导致 minify 后 JS 语法错误
 
-- 删除 assets/js/i18n.js, i18n.min.js, i18n/ 目录（旧版独立 i18n 引擎）
-- 更新 _minify_assets.py / _opt_index.py 引用 common-i18n.js
-- 更新 PROJECT_RULES.md / README.md / service-worker.js / 开发守则
-- 修复 contact 页面：添加 ZT_PAGE 翻译数据 + tool-ui.min.js
-- 生成 common-i18n.min.js（压缩比 22%）
-- 重建 tool-ui.min.js
+- tool-ui.js L267 中 /^\// 和 /\//g 包含 // 序列
+- 简易 minifier 的 //.* 将其误当作单行注释，吃掉后半行代码
+- 改为 /^[/]/（字符类）和 .split('/').join('-')（字符串替换）
+- 重新生成 tool-ui.min.js
 
 Co-Authored-By: AtomCode (deepseek-v4-flash) <noreply@atomgit.com>
