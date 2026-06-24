@@ -1,4 +1,4 @@
-<!Da25Title:'Phóng to ảnh—Giữ nguyên chất lượng',a25Date:'📅 2026-06-21',a25Read:'⏱ 2 phút',a25Sum:'Phóng to ảnh lên đến 4x bằng thuật toán thông minh, giữ chi tiết sắc nét.',a26Title:'Chuyển ảnh thành ASCII—Nghệ thuật ký tự',a26Date:'📅 2026-06-21',a26Read:'⏱ 2 phút',a26Sum:'Chuyển ảnh thành nghệ thuật ký tự ASCII. Điều chỉnh mật độ và bộ ký tự.',tagEnlarge:'Phóng to',tagASCII:'ASCII',a25Title:'画像を拡大—高画質で拡大処理',a25Date:'📅 2026-06-21',a25Read:'⏱ 2分',a25Sum:'スマート補間で画像を最大4倍まで拡大。エッジを保ちながら高画質を維持。',a26Title:'画像をASCIIアートに変換',a26Date:'📅 2026-06-21',a26Read:'⏱ 2分',a26Sum:'画像を文字で表現するASCIIアートに変換。密度や文字セットを調整可能。',tagEnlarge:'拡大',tagASCII:'ASCII',a25Title:'Enlarge Image — Upscale Photos Without Losing Quality',a25Date:'📅 2026-06-21',a25Read:'⏱ 2 min',a25Sum:'Upscale images intelligently up to 4x while preserving sharp edges and rich detail. Great for printing and large displays.',a26Title:'Image to ASCII — Turn Photos into Character Art',a26Date:'📅 2026-06-21',a26Read:'⏱ 2 min',a26Sum:'Convert images into ASCII character art. Adjust density and character sets, copy text or download as SVG.',tagEnlarge:'Enlarge',tagASCII:'ASCII',OCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"/>
@@ -6,802 +6,484 @@
 <title data-i18n="pageTitle">在线工具教程 - ZenTools</title>
 <meta name="description" content="ZenTools 在线工具使用教程：PDF合并、图片压缩、视频转GIF、AI写作等实用技巧，助你高效办公。"/>
 <link rel="canonical" href="https://zentools.xyz/tutorials/"/>
-<link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
 <style>
-.article-card { display:flex; flex-direction:column; gap:12px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:16px; padding:28px; transition:border-color 0.25s,transform 0.25s; color:inherit; text-decoration:none; }
-.article-card:hover { border-color:var(--border-h); transform:translateY(-2px); }
-.article-card .cat { font-size:11px; font-weight:700; color:var(--cyan); letter-spacing:0.5px; text-transform:uppercase; }
-.article-card h3 { font-size:18px; font-weight:700; color:var(--text); margin:0; }
-.article-card h3 a { color:var(--text); text-decoration:none; }
-.article-card h3 a:hover { color:var(--cyan); }
-.article-card .meta { font-size:12px; color:var(--muted); display:flex; gap:16px; }
-.article-card .summary { font-size:14px; color:var(--muted); line-height:1.7; }
-.article-card .tags { display:flex; gap:6px; flex-wrap:wrap; }
-.article-card .tags span { font-size:11px; padding:4px 10px; border-radius:6px; background:rgba(255,255,255,0.04); border:1px solid var(--border); color:var(--muted); }
-.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:0 0 16px 16px; transition:border-color 0.3s,box-shadow 0.3s; }
-.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
-.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
-.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
-.article-body ul, .article-body ol { padding-left:20px; }
-.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
-.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
-.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
-.article-body .rel-tools a:hover { text-decoration:underline; }
-.faq-list { margin-top:40px; padding-top:30px; border-top:1px solid var(--border); }
-.faq-list h2 { font-size:18px; font-weight:700; margin-bottom:16px; }
-.faq-item { background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin-bottom:14px; }
-.faq-item h3 { font-size:14px; font-weight:700; color:var(--text); margin-bottom:6px; }
-.faq-item p { font-size:14px; color:var(--muted); }
+.article-card{display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color 0.25s,transform 0.25s;position:relative;}
+.article-card:hover{border-color:var(--border-h);transform:translateY(-3px);}
+.article-card .cat{font-size:11px;font-weight:700;color:var(--cyan);letter-spacing:0.5px;}
+.article-card h3{font-size:17px;font-weight:700;color:var(--text);margin:0;line-height:1.4;}
+.article-card h3 a{color:var(--text);text-decoration:none;}
+.article-card h3 a:hover{color:var(--cyan);}
+.article-card .meta{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;}
+.article-card .summary{font-size:13px;color:var(--muted);line-height:1.7;}
+.article-card .tags{display:flex;gap:6px;flex-wrap:wrap;}
+.article-card .tags span{font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted);}
+.article-card .tool-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--purple);text-decoration:none;margin-top:4px;font-weight:600;transition:color 0.2s;}
+.article-card .tool-link:hover{color:var(--cyan);}
+.article-card .tool-link .arrow{transition:transform 0.2s;}
+.article-card .tool-link:hover .arrow{transform:translateX(3px);}
+.cat-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;padding:4px 0;position:sticky;top:0;z-index:50;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--border);}
+.cat-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--border);background:rgba(255,255,255,0.02);transition:all 0.2s;white-space:nowrap;}
+.cat-nav a:hover,.cat-nav a.active{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,0.08);}
+.cat-nav .cat-icon{font-size:16px;}
+.cat-section{margin-bottom:48px;scroll-margin-top:100px;}
+.cat-section h2{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.cat-section h2 .icon{font-size:24px;}
+.cat-section .cat-count{font-size:13px;color:var(--muted);margin-left:6px;font-weight:400;}
+.cat-section .cat-desc{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.article-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
+.faq-list{margin-top:40px;padding-top:30px;border-top:1px solid var(--border);}
+.faq-list h2{font-size:18px;font-weight:700;margin-bottom:16px;}
+.faq-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+.faq-item h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.faq-item p{font-size:14px;color:var(--muted);}
+.hero-stats{display:flex;gap:24px;flex-wrap:wrap;margin-top:16px;}
+.hero-stats .hs-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);}
+.hero-stats .hs-num{font-size:22px;font-weight:800;color:var(--cyan);}
+@media(max-width:640px){.article-grid{grid-template-columns:1fr;}}
 </style>
 <meta name="google-adsense-account" content="ca-pub-1955887568822472">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"ZenTools 在线工具教程","description":"免费在线工具使用教程合集","url":"https://zentools.xyz/tutorials/","author":{"@type":"Organization","name":"ZenTools"}}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"PDF合并工具使用教程：三步合并多个PDF文件","description":"学会使用 ZenTools 在线 PDF 合并工具，三步完成 PDF 文件合并。","datePublished":"2026-06-18","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/#pdf-merge"},"about":"PDF合并"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"图片压缩教程：在线压缩JPG和PNG图片","description":"学会使用在线图片压缩工具，批量压缩 JPG、PNG 图片。","datePublished":"2026-06-18","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/#image-compress"},"about":"图片压缩"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"视频转GIF教程：将视频片段转换为GIF动图","description":"在线将 MP4 视频转为 GIF 动图，自定义尺寸和帧率。","datePublished":"2026-06-18","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/#video-to-gif"},"about":"视频转GIF"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"AI写作助手教程：用AI快速生成文章","description":"使用 AI 写作辅助工具，输入主题即可生成文章大纲和正文草稿。","datePublished":"2026-06-20","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/#ai-writing"},"about":"AI写作"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"JSON格式化与校验教程","description":"学会使用在线 JSON 格式化工具，快速格式化、压缩和验证 JSON 数据。","datePublished":"2026-06-20","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/#json-formatter"},"about":"JSON工具"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"OCR文字识别教程：从扫描PDF中提取文字","description":"使用在线 PDF OCR 工具，识别扫描件和图片型 PDF 中的文字内容。","datePublished":"2026-06-20","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/#pdf-ocr"},"about":"PDF OCR"}</script>
 </head>
 <body>
 <div class="blob blob-1"></div><div class="blob blob-2"></div>
 <div class="z-wrap">
-<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
-<div class="page-header reveal"><div class="breadcrumb"><a href="/" data-i18n="crumbHome">首页</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">教程中心</span></div><span class="page-eyebrow" data-i18n="eyebrow">学习指南</span><h1><span class="grad" data-i18n="h1Grad">在线工具教程</span><br/><span data-i18n="h1Sub">从入门到精通</span></h1><p data-i18n="pageDesc">掌握 ZenTools 免费在线工具的使用技巧，提高工作效率。</p></div>
 
-<div class="tool-box reveal">
-<h2 data-i18n="secAll">📖 全部教程</h2>
-<p class="sub" style="color:var(--muted);font-size:14px;margin-bottom:20px;" data-i18n="secSub">专题教程持续更新，帮助你充分发挥每个工具的效用。</p>
-
-<div class="article-list">
-
-
-<!-- Article 1: PDF Merge -->
-<a class="article-card" href="/tutorials/pdf-merge.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a1Title">PDF 合并工具使用教程：三步合并多个 PDF 文件</h3>
-<div class="meta"><span data-i18n="a1Date">📅 2026-06-18</span><span data-i18n="a1Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a1Sum">学会使用 ZenTools 在线 PDF 合并工具，无需安装软件，直接在浏览器中完成多个 PDF 文件的合并，保护你的文件隐私。</div>
-<div class="tags"><span data-i18n="tagPdf">PDF</span><span data-i18n="tagMerge">合并</span></div>
-</a>
-
-
-
-<!-- Article 2: Image Compress -->
-<a class="article-card" href="/tutorials/image-compress.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a2Title">图片压缩教程：在线压缩 JPG 和 PNG 图片</h3>
-<div class="meta"><span data-i18n="a2Date">📅 2026-06-18</span><span data-i18n="a2Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a2Sum">学会使用在线图片压缩工具，大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。</div>
-<div class="tags"><span data-i18n="tagImg">图片压缩</span><span>JPG</span><span>PNG</span></div>
-</a>
-
-
-
-<!-- Article 3: Video to GIF -->
-<a class="article-card" href="/tutorials/video-to-gif.html">
-<div class="cat" data-i18n="catVideo">🎬 视频工具</div>
-<h3 data-i18n="a3Title">视频转 GIF 教程：将视频片段转换为 GIF 动图</h3>
-<div class="meta"><span data-i18n="a3Date">📅 2026-06-18</span><span data-i18n="a3Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a3Sum">将有趣的视频片段转换成 GIF 动图，用于社交媒体分享、产品展示和内容创作。</div>
-<div class="tags"><span data-i18n="tagGif">视频转GIF</span><span data-i18n="tagGif2">动图</span></div>
-</a>
-
-
-
-
-<!-- Article 4: AI Writing -->
-<a class="article-card" href="/tutorials/ai-writing.html">
-<div class="cat" data-i18n="catAI">🤖 AI 工具</div>
-<h3 data-i18n="a4Title">AI 写作助手教程：用 AI 快速生成文章</h3>
-<div class="meta"><span data-i18n="a4Date">📅 2026-06-20</span><span data-i18n="a4Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a4Sum">使用 ZenTools AI 写作辅助工具，输入主题即可生成文章大纲和正文草稿，提高写作效率。</div>
-<div class="tags"><span data-i18n="tagAI">AI写作</span><span data-i18n="tagContent">内容创作</span></div>
-</a>
-
-
-
-
-<!-- Article 5: JSON Formatter -->
-<a class="article-card" href="/tutorials/json-formatter.html">
-<div class="cat" data-i18n="catDev">💻 开发工具</div>
-<h3 data-i18n="a5Title">JSON 格式化与校验教程</h3>
-<div class="meta"><span data-i18n="a5Date">📅 2026-06-20</span><span data-i18n="a5Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a5Sum">学会使用在线 JSON 格式化工具，快速格式化、压缩和验证 JSON 数据，提高开发效率。</div>
-<div class="tags"><span>JSON</span><span data-i18n="tagDev">开发工具</span></div>
-</a>
-
-
-
-
-<!-- Article 6: PDF OCR -->
-<a class="article-card" href="/tutorials/pdf-ocr.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a6Title">OCR 文字识别教程：从扫描 PDF 中提取文字</h3>
-<div class="meta"><span data-i18n="a6Date">📅 2026-06-20</span><span data-i18n="a6Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a6Sum">使用在线 PDF OCR 工具，识别扫描件和图片型 PDF 中的文字内容，支持中英文，无需安装软件。</div>
-<div class="tags"><span>OCR</span><span data-i18n="tagOcr">文字识别</span><span>PDF</span></div>
-</a>
-
-
-
-
-<!-- Article 7: PDF Split -->
-<a class="article-card" href="/tutorials/pdf-split.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a7Title">PDF 拆分教程：提取指定页面或按范围拆分</h3>
-<div class="meta"><span data-i18n="a7Date">📅 2026-06-21</span><span data-i18n="a7Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a7Sum">学会使用在线 PDF 拆分工具，从 PDF 中提取指定页面，或将多页 PDF 拆分为多个独立文件。</div>
-<div class="tags"><span data-i18n="tagPdf">PDF</span><span data-i18n="tagSplit">拆分</span></div>
-</a>
-
-
-
-<!-- Article 8: PDF Compress -->
-<a class="article-card" href="/tutorials/pdf-compress.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a8Title">PDF 压缩教程：减小 PDF 文件体积</h3>
-<div class="meta"><span data-i18n="a8Date">📅 2026-06-21</span><span data-i18n="a8Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a8Sum">使用在线 PDF 压缩工具，大幅减小 PDF 文件体积，方便邮件附件、网站上传和存储优化。</div>
-<div class="tags"><span data-i18n="tagPdf">PDF</span><span data-i18n="tagCompress">压缩</span></div>
-</a>
-
-
-
-<!-- Article 9: PDF to Word -->
-<a class="article-card" href="/tutorials/pdf-to-word.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a9Title">PDF 转 Word 教程：提取 PDF 中的文字</h3>
-<div class="meta"><span data-i18n="a9Date">📅 2026-06-21</span><span data-i18n="a9Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a9Sum">从 PDF 文件中提取文字内容保存为可编辑的 TXT 格式，方便复制、编辑和引用。</div>
-<div class="tags"><span data-i18n="tagPdf">PDF</span><span data-i18n="tagWord">转 Word</span></div>
-</a>
-
-
-
-<!-- Article 10: PDF to Image -->
-<a class="article-card" href="/tutorials/pdf-to-image.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a10Title">PDF 转图片教程：将 PDF 页面转换为 PNG/JPG 图片</h3>
-<div class="meta"><span data-i18n="a10Date">📅 2026-06-21</span><span data-i18n="a10Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a10Sum">将 PDF 文件的每一页转换为独立的 PNG 或 JPG 图片，方便在文档、PPT 和社交媒体中使用。</div>
-<div class="tags"><span data-i18n="tagPdf">PDF</span><span data-i18n="tagImgConvert">转图片</span></div>
-</a>
-
-
-
-<!-- Article 11: PDF Encrypt / Decrypt -->
-<a class="article-card" href="/tutorials/pdf-encrypt.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a11Title">PDF 加密与解密教程：保护你的文档安全</h3>
-<div class="meta"><span data-i18n="a11Date">📅 2026-06-21</span><span data-i18n="a11Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a11Sum">学会使用 PDF 加密工具为文档添加密码保护，以及使用解密工具去除密码限制。</div>
-<div class="tags"><span data-i18n="tagPdf">PDF</span><span data-i18n="tagEncrypt">加密</span></div>
-</a>
-
-
-
-<!-- Article 12: Image to PDF -->
-<a class="article-card" href="/tutorials/image-to-pdf.html">
-<div class="cat" data-i18n="catPdf">📄 PDF 工具</div>
-<h3 data-i18n="a12Title">图片转 PDF 教程：将多张图片合成为 PDF 文件</h3>
-<div class="meta"><span data-i18n="a12Date">📅 2026-06-21</span><span data-i18n="a12Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a12Sum">将多张 JPG、PNG 图片按顺序合成为一个 PDF 文件，适合整理扫描件、照片和截图。</div>
-<div class="tags"><span data-i18n="tagImgToPdf">图片转PDF</span><span data-i18n="tagPdf">PDF</span></div>
-</a>
-
-
-</a>
-
-
-<!-- Article 13: Audio Cutter -->
-<a class="article-card" href="/tutorials/audio-cutter.html">
-<div class="cat" data-i18n="catAudio">🎵 音频工具</div>
-<h3 data-i18n="a13Title">音频裁剪教程：在线截取音频片段</h3>
-<div class="meta"><span data-i18n="a13Date">📅 2026-06-21</span><span data-i18n="a13Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a13Sum">使用在线音频裁剪工具，从音频文件中截取你需要的片段，支持 MP3、WAV、OGG 等格式。</div>
-<div class="tags"><span data-i18n="tagAudio">音频</span><span data-i18n="tagCutter">裁剪</span></div>
-</a>
-
-
-
-<!-- Article 14: Text to Speech -->
-<a class="article-card" href="/tutorials/text-to-speech.html">
-<div class="cat" data-i18n="catAudio">🎵 音频工具</div>
-<h3 data-i18n="a14Title">文字转语音教程：将文字转换为朗读音频</h3>
-<div class="meta"><span data-i18n="a14Date">📅 2026-06-21</span><span data-i18n="a14Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a14Sum">输入文字内容，在线生成朗读音频，支持多种语言和语速调节，可下载为 MP3 格式。</div>
-<div class="tags"><span data-i18n="tagAudio">音频</span><span data-i18n="tagTTS">文字转语音</span></div>
-</a>
-
-
-
-<!-- Article 15: Text Diff -->
-<a class="article-card" href="/tutorials/text-diff.html">
-<div class="cat" data-i18n="catDev">💻 开发工具</div>
-<h3 data-i18n="a15Title">文本对比教程：快速查找文本差异</h3>
-<div class="meta"><span data-i18n="a15Date">📅 2026-06-21</span><span data-i18n="a15Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a15Sum">对比两段文本的差异，新增、删除和修改内容以不同颜色高亮显示，方便校对和版本对比。</div>
-<div class="tags"><span data-i18n="tagDev">开发工具</span><span data-i18n="tagDiff">文本对比</span></div>
-</a>
-
-
-
-<!-- Article 16: Loan Calculator -->
-<a class="article-card" href="/tutorials/loan-calculator.html">
-<div class="cat" data-i18n="catFinance">🏦 金融工具</div>
-<h3 data-i18n="a16Title">贷款计算器教程：计算月供和利息</h3>
-<div class="meta"><span data-i18n="a16Date">📅 2026-06-21</span><span data-i18n="a16Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a16Sum">使用贷款计算器计算贷款月供、总利息和还款总额，支持等额本息和等额本金两种方式。</div>
-<div class="tags"><span data-i18n="tagFinance">金融</span><span data-i18n="tagLoan">贷款计算</span></div>
-</a>
-
-
-
-<!-- Article 17: SERP Preview -->
-<a class="article-card" href="/tutorials/serp-preview.html">
-<div class="cat" data-i18n="catSEO">🌐 SEO 工具</div>
-<h3 data-i18n="a17Title">SERP 预览教程：优化搜索结果展示</h3>
-<div class="meta"><span data-i18n="a17Date">📅 2026-06-21</span><span data-i18n="a17Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a17Sum">使用 SERP 预览工具模拟 Google 搜索结果展示效果，优化标题和描述以提升点击率。</div>
-<div class="tags"><span data-i18n="tagSEO">SEO</span><span data-i18n="tagSERP">搜索结果</span></div>
-</a>
-
-
-
-
-<!-- Article 19: Format Convert -->
-<a class="article-card" href="/tutorials/format-convert.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a19Title">图片格式转换教程：JPG、PNG、WebP 互转</h3>
-<div class="meta"><span data-i18n="a19Date">📅 2026-06-21</span><span data-i18n="a19Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a19Sum">在 JPG、PNG、WebP 等图片格式之间互相转换，支持批量处理，满足不同场景的需求。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagConvert">格式转换</span></div>
-</a>
-
-
-
-<!-- Article 20: Video Compress -->
-<a class="article-card" href="/tutorials/video-compress.html">
-<div class="cat" data-i18n="catVideo">🎬 视频工具</div>
-<h3 data-i18n="a20Title">视频压缩教程：减小视频文件体积</h3>
-<div class="meta"><span data-i18n="a20Date">📅 2026-06-21</span><span data-i18n="a20Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a20Sum">使用在线视频压缩工具，在不明显影响画质的前提下减小视频文件体积，便于存储和分享。</div>
-<div class="tags"><span data-i18n="tagVideo">视频</span><span data-i18n="tagVideoCompress">压缩</span></div>
-</a>
-
-
-
-<!-- Article 21: AI Chat -->
-<a class="article-card" href="/tutorials/ai-chat.html">
-<div class="cat" data-i18n="catAI">🤖 AI 工具</div>
-<h3 data-i18n="a21Title">AI 聊天教程：与 AI 智能对话</h3>
-<div class="meta"><span data-i18n="a21Date">📅 2026-06-21</span><span data-i18n="a21Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a21Sum">使用 AI 聊天工具进行多轮智能对话，支持知识问答、创意讨论、代码辅助等多种场景。</div>
-<div class="tags"><span data-i18n="tagAI">AI</span><span data-i18n="tagChat">聊天</span></div>
-</a>
-
-
-
-<!-- Article 22: Audio Merge -->
-<a class="article-card" href="/tutorials/audio-merge.html">
-<div class="cat" data-i18n="catAudio">🎵 音频工具</div>
-<h3 data-i18n="a22Title">音频合并教程：将多个音频拼接为一个文件</h3>
-<div class="meta"><span data-i18n="a22Date">📅 2026-06-21</span><span data-i18n="a22Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a22Sum">将多个音频文件按顺序合并拼接为一个完整的文件，支持拖拽排序和多种格式混搭。</div>
-<div class="tags"><span data-i18n="tagAudio">音频</span><span data-i18n="tagMerge">合并</span></div>
-</a>
-
-
-
-<!-- Article 23: Grayscale -->
-<a class="article-card" href="/tutorials/grayscale.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a23Title">图片灰度处理教程：将彩色图片转为黑白</h3>
-<div class="meta"><span data-i18n="a23Date">📅 2026-06-21</span><span data-i18n="a23Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a23Sum">将彩色图片转换为黑白灰度效果，适合打印、证件照和艺术创作。支持批量处理。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagGray">灰度</span></div>
-</a>
-
-
-
-<!-- Article 24: Image Blur -->
-<a class="article-card" href="/tutorials/image-blur.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a24Title">图片模糊教程：为图片添加模糊特效</h3>
-<div class="meta"><span data-i18n="a24Date">📅 2026-06-21</span><span data-i18n="a24Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a24Sum">为图片添加高斯模糊效果，适合保护隐私、背景虚化和创意设计。支持调节模糊强度。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagBlur">模糊</span></div>
-</a>
-
-
-
-
-<!-- Article 25: Image Enlarge -->
-<a class="article-card" href="/tutorials/image-enlarge.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a25Title">图片放大教程：无损放大图片保持清晰</h3>
-<div class="meta"><span data-i18n="a25Date">📅 2026-06-21</span><span data-i18n="a25Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a25Sum">使用智能算法无损放大图片，支持最高 4x 放大，保持边缘清晰和细节丰富。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagEnlarge">放大</span></div>
-</a>
-
-
-
-<!-- Article 26: Image to ASCII -->
-<a class="article-card" href="/tutorials/image-to-ascii.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a26Title">图片转 ASCII 教程：将图片转换为字符画</h3>
-<div class="meta"><span data-i18n="a26Date">📅 2026-06-21</span><span data-i18n="a26Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a26Sum">将图片转换为 ASCII 字符画，复古艺术效果。支持调节字符密度和字符集，可复制文本或下载 SVG。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagASCII">ASCII</span></div>
-</a>
-
-
-
-
-<!-- Article 27: Image to Pixel Art -->
-<a class="article-card" href="/tutorials/image-to-pixel-art.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a27Title">图片转像素画教程：将图片转为 8-bit 像素风格</h3>
-<div class="meta"><span data-i18n="a27Date">📅 2026-06-21</span><span data-i18n="a27Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a27Sum">将图片转换为 8-bit 像素风格艺术画，支持调节像素大小和调色板，生成复古游戏风格效果。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagPixel">像素画</span></div>
-</a>
-
-
-
-<!-- Article 28: Add Text to Image -->
-<a class="article-card" href="/tutorials/add-text-to-image.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a28Title">图片添加文字教程：在图片上添加水印或标注</h3>
-<div class="meta"><span data-i18n="a28Date">📅 2026-06-21</span><span data-i18n="a28Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a28Sum">在图片上添加自定义文字，支持调节字体大小、颜色、位置和透明度，适合水印和标注。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagText">文字</span></div>
-</a>
-
-
-
-
-<!-- Article 29: EXIF Viewer -->
-<a class="article-card" href="/tutorials/exif-viewer.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a29Title">EXIF 查看教程：读取照片的元数据信息</h3>
-<div class="meta"><span data-i18n="a29Date">📅 2026-06-21</span><span data-i18n="a29Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a29Sum">查看图片的 EXIF 元数据，包括相机型号、光圈、快门、ISO、GPS 位置和拍摄时间等信息。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagEXIF">EXIF</span></div>
-</a>
-
-
-
-<!-- Article 30: QR Reader -->
-<a class="article-card" href="/tutorials/qr-reader.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a30Title">二维码识别教程：从图片中读取二维码内容</h3>
-<div class="meta"><span data-i18n="a30Date">📅 2026-06-21</span><span data-i18n="a30Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a30Sum">识别图片中的二维码，提取 URL、文本、联系方式等信息。支持 JPG、PNG 和屏幕截图。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagQR">二维码</span></div>
-</a>
-
-
-
-
-<!-- Article 31: ICO Generator -->
-<a class="article-card" href="/tutorials/ico-generator.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a31Title">ICO 图标生成教程：将图片转为 Windows 图标</h3>
-<div class="meta"><span data-i18n="a31Date">📅 2026-06-21</span><span data-i18n="a31Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a31Sum">将 PNG、JPG 等图片转换为 Windows ICO 图标格式，支持 16x16 到 256x256 多种尺寸。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagICO">ICO</span></div>
-</a>
-
-
-
-<!-- Article 32: Format Detector -->
-<a class="article-card" href="/tutorials/image-format-detector.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a32Title">图片格式检测教程：识别图片的真实格式</h3>
-<div class="meta"><span data-i18n="a32Date">📅 2026-06-21</span><span data-i18n="a32Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a32Sum">检测图片的真实文件格式、色彩空间、位深度和编码信息，识别伪装扩展名的图片文件。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagDetect">检测</span></div>
-</a>
-
-
-
-
-<!-- Article 33: PNG to SVG -->
-<a class="article-card" href="/tutorials/png-to-svg.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a33Title">PNG 转 SVG 教程：将位图转换为矢量图</h3>
-<div class="meta"><span data-i18n="a33Date">📅 2026-06-21</span><span data-i18n="a33Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a33Sum">将 PNG 等位图图片转换为可无限放大的 SVG 矢量图，基于颜色聚类进行矢量化处理。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagVector">矢量</span></div>
-</a>
-
-
-
-<!-- Article 34: Image Dedup -->
-<a class="article-card" href="/tutorials/image-dedup.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a34Title">图片去重教程：查找并清理重复图片</h3>
-<div class="meta"><span data-i18n="a34Date">📅 2026-06-21</span><span data-i18n="a34Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a34Sum">批量检测并标记重复或相似的图片，帮助你清理存储空间，整理照片库。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagDedup">去重</span></div>
-</a>
-
-
-
-
-<!-- Article 35: GIF Compress -->
-<a class="article-card" href="/tutorials/gif-compress.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a35Title">GIF 压缩教程：减小 GIF 动图文件大小</h3>
-<div class="meta"><span data-i18n="a35Date">📅 2026-06-21</span><span data-i18n="a35Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a35Sum">压缩 GIF 动图，减小文件体积，适合社交媒体分享和网页加载优化。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagGIF">GIF</span><span data-i18n="tagZip">压缩</span></div>
-</a>
-
-<!-- Article 36: GIF Crop -->
-<a class="article-card" href="/tutorials/gif-crop.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a36Title">GIF 裁剪教程：裁切 GIF 动图的尺寸</h3>
-<div class="meta"><span data-i18n="a36Date">📅 2026-06-21</span><span data-i18n="a36Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a36Sum">裁剪 GIF 动图的画面尺寸，去除不需要的边缘区域或调整宽高比。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagGIF">GIF</span><span data-i18n="tagCrop">裁剪</span></div>
-</a>
-
-<!-- Article 37: AI Super Resolution -->
-<a class="article-card" href="/tutorials/ai-super-resolution.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a37Title">AI 超分辨率教程：用 AI 提升图片清晰度</h3>
-<div class="meta"><span data-i18n="a37Date">📅 2026-06-21</span><span data-i18n="a37Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a37Sum">利用 AI 算法提升低分辨率图片的清晰度和细节，修复模糊的老照片和截图。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagAI">AI</span></div>
-</a>
-
-<!-- Article 38: EXIF Stripper -->
-<a class="article-card" href="/tutorials/exif-stripper.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a38Title">EXIF 清除教程：移除照片中的隐私元数据</h3>
-<div class="meta"><span data-i18n="a38Date">📅 2026-06-21</span><span data-i18n="a38Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a38Sum">清除图片中的 EXIF 元数据（GPS 位置、相机信息等），保护你的个人隐私。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagPrivacy">隐私</span></div>
-</a>
-
-<!-- Article 39: Base64 to Image -->
-<a class="article-card" href="/tutorials/base64-to-image.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a39Title">Base64 转图片教程：将 Base64 编码还原为图片</h3>
-<div class="meta"><span data-i18n="a39Date">📅 2026-06-21</span><span data-i18n="a39Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a39Sum">将 Base64 编码的图片数据还原为可视化的图片文件，支持多种图片格式。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagDev">开发</span></div>
-</a>
-
-<!-- Article 40: Image to ICO -->
-<a class="article-card" href="/tutorials/image-to-ico.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a40Title">图片转 ICO 教程：创建 Windows 图标文件</h3>
-<div class="meta"><span data-i18n="a40Date">📅 2026-06-21</span><span data-i18n="a40Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a40Sum">将常见图片格式快速转换为 ICO 图标文件，适合桌面应用和文件夹图标。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagICO">ICO</span></div>
-</a>
-
-
-<!-- Article 41: Filters -->
-<a class="article-card" href="/tutorials/filters.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a41Title">图片滤镜教程：一键为照片添加滤镜效果</h3>
-<div class="meta"><span data-i18n="a41Date">📅 2026-06-21</span><span data-i18n="a41Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a41Sum">为图片添加多种滤镜效果，包括灰度、暖色、冷色、复古、胶片等风格，一键改变照片氛围。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagFilter">滤镜</span></div>
-</a>
-
-<!-- Article 42: Collage -->
-<a class="article-card" href="/tutorials/collage.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a42Title">图片拼贴教程：将多张图片组合为一张</h3>
-<div class="meta"><span data-i18n="a42Date">📅 2026-06-21</span><span data-i18n="a42Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a42Sum">将多张图片拼贴为一张组合图，支持多种布局模板、间距调节和自定义背景色。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagCollage">拼贴</span></div>
-</a>
-
-<!-- Article 43: Sharpen -->
-<a class="article-card" href="/tutorials/sharpen.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a43Title">图片锐化教程：让模糊图片变清晰</h3>
-<div class="meta"><span data-i18n="a43Date">📅 2026-06-21</span><span data-i18n="a43Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a43Sum">增强图片边缘清晰度，让模糊的照片变得更加清晰锐利，适合修复失焦照片和提升图片质量。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagSharpen">锐化</span></div>
-</a>
-
-
-<!-- Article 44: Color Tune -->
-<a class="article-card" href="/tutorials/color-tune.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a44Title">图片调色教程：调整照片的亮度、对比度和饱和度</h3>
-<div class="meta"><span data-i18n="a44Date">📅 2026-06-21</span><span data-i18n="a44Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a44Sum">调整图片的亮度、对比度、饱和度和色相，修复曝光问题或创造特定色调风格。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagTune">调色</span></div>
-</a>
-
-<!-- Article 45: Rotate -->
-<a class="article-card" href="/tutorials/rotate.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a45Title">图片旋转教程：旋转和翻转图片方向</h3>
-<div class="meta"><span data-i18n="a45Date">📅 2026-06-21</span><span data-i18n="a45Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a45Sum">旋转图片角度、左右翻转、上下翻转，修正拍摄方向或创造镜像效果。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagRotate">旋转</span></div>
-</a>
-
-<!-- Article 46: Mosaic -->
-<a class="article-card" href="/tutorials/mosaic.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a46Title">图片马赛克教程：为图片添加马赛克遮挡</h3>
-<div class="meta"><span data-i18n="a46Date">📅 2026-06-21</span><span data-i18n="a46Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a46Sum">在图片上添加马赛克效果，遮挡敏感信息（人脸、车牌、文字等），保护隐私。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagMosaic">马赛克</span></div>
-</a>
-
-<!-- Article 47: Sketch -->
-<a class="article-card" href="/tutorials/sketch.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a47Title">图片素描教程：将照片转换为素描画效果</h3>
-<div class="meta"><span data-i18n="a47Date">📅 2026-06-21</span><span data-i18n="a47Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a47Sum">将照片自动转换为铅笔素描风格，适合制作艺术头像、创意设计和打印素材。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagSketch">素描</span></div>
-</a>
-
-<!-- Article 48: Drop Shadow -->
-<a class="article-card" href="/tutorials/drop-shadow.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a48Title">图片投影教程：为图片添加阴影效果</h3>
-<div class="meta"><span data-i18n="a48Date">📅 2026-06-21</span><span data-i18n="a48Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a48Sum">为透明背景的 PNG 图片添加投影效果，让物体看起来更立体、更真实。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagShadow">投影</span></div>
-</a>
-
-<!-- Article 49: Image Border -->
-<a class="article-card" href="/tutorials/image-border.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a49Title">图片边框教程：为图片添加边框装饰</h3>
-<div class="meta"><span data-i18n="a49Date">📅 2026-06-21</span><span data-i18n="a49Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a49Sum">为图片添加各种样式的边框，支持自定义颜色、宽度和圆角。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagBorder">边框</span></div>
-</a>
-
-<!-- Article 50: Rounded Corners -->
-<a class="article-card" href="/tutorials/rounded-corners.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a50Title">图片圆角教程：为图片添加圆角效果</h3>
-<div class="meta"><span data-i18n="a50Date">📅 2026-06-21</span><span data-i18n="a50Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a50Sum">为图片添加圆角效果，使边角更柔和、更现代，适合头像、卡片设计和 UI 元素。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagRound">圆角</span></div>
-</a>
-
-
-<!-- Article 51: Colorpicker -->
-<a class="article-card" href="/tutorials/colorpicker.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a51Title">在线取色器教程：从图片中提取颜色值</h3>
-<div class="meta"><span data-i18n="a51Date">📅 2026-06-21</span><span data-i18n="a51Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a51Sum">从图片任意位置取色，获取 HEX 和 RGB 颜色值，支持色板管理和颜色历史记录。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagColor">取色</span></div>
-</a>
-
-<!-- Article 52: Gridsplit -->
-<a class="article-card" href="/tutorials/gridsplit.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a52Title">九宫格切图教程：将图片切分为九宫格</h3>
-<div class="meta"><span data-i18n="a52Date">📅 2026-06-21</span><span data-i18n="a52Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a52Sum">将图片切割为 3×3 九宫格，适合在社交媒体发布引人注目的多图帖子。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagGrid">九宫格</span></div>
-</a>
-
-<!-- Article 53: Image Compare -->
-<a class="article-card" href="/tutorials/image-compare.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a53Title">图片对比教程：对比两张图片的差异</h3>
-<div class="meta"><span data-i18n="a53Date">📅 2026-06-21</span><span data-i18n="a53Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a53Sum">使用拖拽滑块对比两张图片的差异，适合对比处理前后的效果或设计稿的版本变化。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagCompare">对比</span></div>
-</a>
-
-<!-- Article 54: Watermark -->
-<a class="article-card" href="/tutorials/watermark.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a54Title">图片水印教程：为图片添加平铺水印</h3>
-<div class="meta"><span data-i18n="a54Date">📅 2026-06-21</span><span data-i18n="a54Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a54Sum">为图片添加平铺或居中的水印图片或文字，保护你的作品版权。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagWM">水印</span></div>
-</a>
-
-<!-- Article 55: Image to Base64 -->
-<a class="article-card" href="/tutorials/imagebase64.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a55Title">图片转 Base64 教程：将图片编码为 Base64</h3>
-<div class="meta"><span data-i18n="a55Date">📅 2026-06-21</span><span data-i18n="a55Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a55Sum">将图片文件转换为 Base64 编码字符串，方便嵌入到 HTML、CSS 或程序中。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagDev">开发</span></div>
-</a>
-
-<!-- Article 56: Image to PDF -->
-<a class="article-card" href="/tutorials/imgtopdf.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a56Title">图片转 PDF 教程：将图片转换为 PDF 文件</h3>
-<div class="meta"><span data-i18n="a56Date">📅 2026-06-21</span><span data-i18n="a56Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a56Sum">将单张或多张图片快速转换为 PDF 文件，支持批量处理和页面排序。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagPDF">PDF</span></div>
-</a>
-
-<!-- Article 57: Annotate -->
-<a class="article-card" href="/tutorials/annotate.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a57Title">图片标注教程：在图片上添加箭头和标注框</h3>
-<div class="meta"><span data-i18n="a57Date">📅 2026-06-21</span><span data-i18n="a57Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a57Sum">在图片上添加箭头、方框、文字标注等元素，适合做教程截图、产品说明和错误反馈。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagAnnotate">标注</span></div>
-</a>
-
-<!-- Article 58: Video Thumbnail -->
-<a class="article-card" href="/tutorials/video-thumbnail.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a58Title">视频缩略图教程：从视频中提取封面图</h3>
-<div class="meta"><span data-i18n="a58Date">📅 2026-06-21</span><span data-i18n="a58Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a58Sum">从视频文件中截取指定时间点的画面作为缩略图或封面图。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagVideo">视频</span></div>
-</a>
-
-
-<!-- Article 51: Colorpicker -->
-<a class="article-card" href="/tutorials/colorpicker.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a51Title">在线取色器教程：从图片中提取颜色值</h3>
-<div class="meta"><span data-i18n="a51Date">📅 2026-06-21</span><span data-i18n="a51Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a51Sum">从图片任意位置取色，获取 HEX 和 RGB 颜色值，支持色板管理和颜色历史记录。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagColor">取色</span></div>
-</a>
-
-<!-- Article 52: Gridsplit -->
-<a class="article-card" href="/tutorials/gridsplit.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a52Title">九宫格切图教程：将图片切分为九宫格</h3>
-<div class="meta"><span data-i18n="a52Date">📅 2026-06-21</span><span data-i18n="a52Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a52Sum">将图片切割为 3×3 九宫格，适合在社交媒体发布引人注目的多图帖子。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagGrid">九宫格</span></div>
-</a>
-
-<!-- Article 53: Image Compare -->
-<a class="article-card" href="/tutorials/image-compare.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a53Title">图片对比教程：对比两张图片的差异</h3>
-<div class="meta"><span data-i18n="a53Date">📅 2026-06-21</span><span data-i18n="a53Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a53Sum">使用拖拽滑块对比两张图片的差异，适合对比处理前后的效果或设计稿的版本变化。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagCompare">对比</span></div>
-</a>
-
-<!-- Article 54: Watermark -->
-<a class="article-card" href="/tutorials/watermark.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a54Title">图片水印教程：为图片添加平铺水印</h3>
-<div class="meta"><span data-i18n="a54Date">📅 2026-06-21</span><span data-i18n="a54Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a54Sum">为图片添加平铺或居中的水印图片或文字，保护你的作品版权。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagWM">水印</span></div>
-</a>
-
-<!-- Article 55: Image to Base64 -->
-<a class="article-card" href="/tutorials/imagebase64.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a55Title">图片转 Base64 教程：将图片编码为 Base64</h3>
-<div class="meta"><span data-i18n="a55Date">📅 2026-06-21</span><span data-i18n="a55Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a55Sum">将图片文件转换为 Base64 编码字符串，方便嵌入到 HTML、CSS 或程序中。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagDev">开发</span></div>
-</a>
-
-<!-- Article 56: Image to PDF -->
-<a class="article-card" href="/tutorials/imgtopdf.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a56Title">图片转 PDF 教程：将图片转换为 PDF 文件</h3>
-<div class="meta"><span data-i18n="a56Date">📅 2026-06-21</span><span data-i18n="a56Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a56Sum">将单张或多张图片快速转换为 PDF 文件，支持批量处理和页面排序。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagPDF">PDF</span></div>
-</a>
-
-<!-- Article 57: Annotate -->
-<a class="article-card" href="/tutorials/annotate.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a57Title">图片标注教程：在图片上添加箭头和标注框</h3>
-<div class="meta"><span data-i18n="a57Date">📅 2026-06-21</span><span data-i18n="a57Read">⏱ 2 分钟阅读</span></div>
-<div class="summary" data-i18n="a57Sum">在图片上添加箭头、方框、文字标注等元素，适合做教程截图、产品说明和错误反馈。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagAnnotate">标注</span></div>
-</a>
-
-<!-- Article 58: Video Thumbnail -->
-<a class="article-card" href="/tutorials/video-thumbnail.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a58Title">视频缩略图教程：从视频中提取封面图</h3>
-<div class="meta"><span data-i18n="a58Date">📅 2026-06-21</span><span data-i18n="a58Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a58Sum">从视频文件中截取指定时间点的画面作为缩略图或封面图。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagVideo">视频</span></div>
-</a>
-
-
-<!-- Article 59: Batch Rename -->
-<a class="article-card" href="/tutorials/batch-rename.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a59Title">批量重命名教程：一键批量重命名图片文件</h3>
-<div class="meta"><span data-i18n="a59Date">📅 2026-06-21</span><span data-i18n="a59Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a59Sum">批量重命名图片文件，支持前缀、序号、日期等命名规则，轻松整理照片库。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagRename">重命名</span></div>
-</a>
-
-<!-- Article 60: Image Organize -->
-<a class="article-card" href="/tutorials/image-organize.html">
-<div class="cat" data-i18n="catImg">🖼️ 图片工具</div>
-<h3 data-i18n="a60Title">图片整理教程：按日期和尺寸整理图片</h3>
-<div class="meta"><span data-i18n="a60Date">📅 2026-06-21</span><span data-i18n="a60Read">⏱ 1 分钟阅读</span></div>
-<div class="summary" data-i18n="a60Sum">按拍摄日期、文件大小或图片尺寸对图片进行分类整理，让照片库井井有条。</div>
-<div class="tags"><span data-i18n="tagImg">图片</span><span data-i18n="tagOrganize">整理</span></div>
-</a>
-
-<!-- Article 61: QR Generator -->
-<a class="article-card" href="/tutorials/qr-generator.html">
-<div class="cat" data-i18n="catQR">🔗 二维码工具</div>
-<h3 data-i18n="a61Title">二维码生成器教程：生成专属精美二维码</h3>
-<div class="meta"><span data-i18n="a61Date">📅 2026-06-23</span><span data-i18n="a61Read">⏱ 3 分钟阅读</span></div>
-<div class="summary" data-i18n="a61Sum">在线生成精美二维码，支持6种渐变色主题、圆角边框、Logo嵌入，告别传统黑白丑码，让二维码成为品牌亮点。</div>
-<div class="tags"><span data-i18n="tagQR">二维码</span><span data-i18n="tagGenerate">生成</span></div>
-</a>
+<nav><div class="nav-inner">
+<a class="logo" href="/">ZenTools<span>2.0</span></a>
+<div class="nav-links">
+<a href="/" data-i18n="navHome">首页</a>
+<a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+<a href="/tools.html" data-i18n="navAll">全部工具</a>
+<select id="langSelect" class="lang-select">
+<option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
+</select>
+</div>
+</div></nav>
+
+<div class="page-header reveal">
+<div class="breadcrumb"><a href="/" data-i18n="breadcrumbHome">首页</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">教程中心</span></div>
+<span class="page-eyebrow" data-i18n="eyebrow">学习指南</span>
+<h1><span class="grad" data-i18n="h1Grad">在线工具教程</span><br/><span data-i18n="h1Sub">从入门到精通</span></h1>
+<p data-i18n="pageDesc">掌握 ZenTools 免费在线工具的使用技巧，提高工作效率。</p>
+<div class="hero-stats" id="heroStats"></div>
 </div>
 
+<div class="cat-nav reveal" id="catNav"></div>
 
-<!-- FAQ Section -->
+<div id="tutorialContent"></div>
+
 <div class="faq-list">
-<h2 data-i18n="faqTitle">❓ 常见问题</h2>
+<h2 data-i18n="faqTitle">常见问题</h2>
 <div class="faq-item"><h3 data-i18n="faq1Q">这些教程对应的工具都是免费的吗？</h3><p data-i18n="faq1A">是的，所有教程中介绍的工具都是完全免费的。在浏览器本地运行，无需注册，无需安装。</p></div>
 <div class="faq-item"><h3 data-i18n="faq2Q">教程会持续更新吗？</h3><p data-i18n="faq2A">会的，我们会持续添加新的教程内容，覆盖更多工具的使用技巧和最佳实践。</p></div>
 <div class="faq-item"><h3 data-i18n="faq3Q">我的操作记录或文件会被保存吗？</h3><p data-i18n="faq3A">不会。所有工具在完成操作后不会保存你的任何文件或数据，关闭页面即自动清除。</p></div>
 </div>
 
-</div>
-
-<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/tutorials/" data-i18n="navArticles">教程中心</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
 </div>
 
 <script>
-window.ZT_PAGE={
-zh:{a1Title:'PDF 合并工具使用教程：三步合并多个 PDF 文件',a1:'学会使用 ZenTools 在线 PDF 合并工具，无需安装软件，直接在浏览器中完成多个 PDF 文件的合并，保护你的文件隐私。',catPdf:'📄 PDF 工具',a2Title:'图片压缩教程：在线压缩 JPG 和 PNG 图片',a2:'学会使用在线图片压缩工具，大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。',catImg:'🖼️ 图片工具',a3Title:'视频转 GIF 教程：将视频片段转换为 GIF 动图',a3:'将有趣的视频片段转换成 GIF 动图，用于社交媒体分享、产品展示和内容创作。',catVideo:'🎬 视频工具',a4Title:'AI 写作助手教程：用 AI 快速生成文章',a4:'使用 ZenTools AI 写作辅助工具，输入主题即可生成文章大纲和正文草稿，提高写作效率。',catAI:'🤖 AI 工具',a5Title:'JSON 格式化与校验教程',a5:'学会使用在线 JSON 格式化工具，快速格式化、压缩和验证 JSON 数据，提高开发效率。',catDev:'💻 开发工具',a6Title:'OCR 文字识别教程：从扫描 PDF 中提取文字',a6:'使用在线 PDF OCR 工具，识别扫描件和图片型 PDF 中的文字内容，支持中英文，无需安装软件。',a7Title:'PDF 拆分教程：提取指定页面或按范围拆分',a7:'学会使用在线 PDF 拆分工具，从 PDF 中提取指定页面，或将多页 PDF 拆分为多个独立文件。',a8Title:'PDF 压缩教程：减小 PDF 文件体积',a8:'使用在线 PDF 压缩工具，大幅减小 PDF 文件体积，方便邮件附件、网站上传和存储优化。',a9Title:'PDF 转 Word 教程：提取 PDF 中的文字',a9:'从 PDF 文件中提取文字内容保存为可编辑的 TXT 格式，方便复制、编辑和引用。',a10Title:'PDF 转图片教程：将 PDF 页面转换为 PNG/JPG 图片',a10:'将 PDF 文件的每一页转换为独立的 PNG 或 JPG 图片，方便在文档、PPT 和社交媒体中使用。',a11Title:'PDF 加密与解密教程：保护你的文档安全',a11:'学会使用 PDF 加密工具为文档添加密码保护，以及使用解密工具去除密码限制。',a12Title:'图片转 PDF 教程：将多张图片合成为 PDF 文件',a12:'将多张 JPG、PNG 图片按顺序合成为一个 PDF 文件，适合整理扫描件、照片和截图。',a13Title:'音频裁剪教程：在线截取音频片段',a13:'使用在线音频裁剪工具，从音频文件中截取你需要的片段，支持 MP3、WAV、OGG 等格式。',catAudio:'🎵 音频工具',a14Title:'文字转语音教程：将文字转换为朗读音频',a14:'输入文字内容，在线生成朗读音频，支持多种语言和语速调节，可下载为 MP3 格式。',a15Title:'文本对比教程：快速查找文本差异',a15:'对比两段文本的差异，新增、删除和修改内容以不同颜色高亮显示，方便校对和版本对比。',a16Title:'贷款计算器教程：计算月供和利息',a16:'使用贷款计算器计算贷款月供、总利息和还款总额，支持等额本息和等额本金两种方式。',catFinance:'🏦 金融工具',a17Title:'SERP 预览教程：优化搜索结果展示',a17:'使用 SERP 预览工具模拟 Google 搜索结果展示效果，优化标题和描述以提升点击率。',catSEO:'🌐 SEO 工具',a19Title:'图片格式转换教程：JPG、PNG、WebP 互转',a19:'在 JPG、PNG、WebP 等图片格式之间互相转换，支持批量处理，满足不同场景的需求。',a20Title:'视频压缩教程：减小视频文件体积',a20:'使用在线视频压缩工具，在不明显影响画质的前提下减小视频文件体积，便于存储和分享。',a21Title:'AI 聊天教程：与 AI 智能对话',a21:'使用 AI 聊天工具进行多轮智能对话，支持知识问答、创意讨论、代码辅助等多种场景。',a22Title:'音频合并教程：将多个音频拼接为一个文件',a22:'将多个音频文件按顺序合并拼接为一个完整的文件，支持拖拽排序和多种格式混搭。',a23Title:'图片灰度处理教程：将彩色图片转为黑白',a23:'将彩色图片转换为黑白灰度效果，适合打印、证件照和艺术创作。支持批量处理。',a24Title:'图片模糊教程：为图片添加模糊特效',a24:'为图片添加高斯模糊效果，适合保护隐私、背景虚化和创意设计。支持调节模糊强度。',a25Title:'图片放大教程：无损放大图片保持清晰',a25:'使用智能算法无损放大图片，支持最高 4x 放大，保持边缘清晰和细节丰富。',a26Title:'图片转 ASCII 教程：将图片转换为字符画',a26:'将图片转换为 ASCII 字符画，复古艺术效果。支持调节字符密度和字符集，可复制文本或下载 SVG。',a27Title:'图片转像素画教程：将图片转为 8-bit 像素风格',a27:'将图片转换为 8-bit 像素风格艺术画，支持调节像素大小和调色板，生成复古游戏风格效果。',a28Title:'图片添加文字教程：在图片上添加水印或标注',a28:'在图片上添加自定义文字，支持调节字体大小、颜色、位置和透明度，适合水印和标注。',a29Title:'EXIF 查看教程：读取照片的元数据信息',a29:'查看图片的 EXIF 元数据，包括相机型号、光圈、快门、ISO、GPS 位置和拍摄时间等信息。',a30Title:'二维码识别教程：从图片中读取二维码内容',a30:'识别图片中的二维码，提取 URL、文本、联系方式等信息。支持 JPG、PNG 和屏幕截图。',a31Title:'ICO 图标生成教程：将图片转为 Windows 图标',a31:'将 PNG、JPG 等图片转换为 Windows ICO 图标格式，支持 16x16 到 256x256 多种尺寸。',a32Title:'图片格式检测教程：识别图片的真实格式',a32:'检测图片的真实文件格式、色彩空间、位深度和编码信息，识别伪装扩展名的图片文件。',a33Title:'PNG 转 SVG 教程：将位图转换为矢量图',a33:'将 PNG 等位图图片转换为可无限放大的 SVG 矢量图，基于颜色聚类进行矢量化处理。',a34Title:'图片去重教程：查找并清理重复图片',a34:'批量检测并标记重复或相似的图片，帮助你清理存储空间，整理照片库。',a35Title:'GIF 压缩教程：减小 GIF 动图文件大小',a35:'压缩 GIF 动图，减小文件体积，适合社交媒体分享和网页加载优化。',a36Title:'GIF 裁剪教程：裁切 GIF 动图的尺寸',a36:'裁剪 GIF 动图的画面尺寸，去除不需要的边缘区域或调整宽高比。',a37Title:'AI 超分辨率教程：用 AI 提升图片清晰度',a37:'利用 AI 算法提升低分辨率图片的清晰度和细节，修复模糊的老照片和截图。',a38Title:'EXIF 清除教程：移除照片中的隐私元数据',a38:'清除图片中的 EXIF 元数据（GPS 位置、相机信息等），保护你的个人隐私。',a39Title:'Base64 转图片教程：将 Base64 编码还原为图片',a39:'将 Base64 编码的图片数据还原为可视化的图片文件，支持多种图片格式。',a40Title:'图片转 ICO 教程：创建 Windows 图标文件',a40:'将常见图片格式快速转换为 ICO 图标文件，适合桌面应用和文件夹图标。',a41Title:'图片滤镜教程：一键为照片添加滤镜效果',a41:'为图片添加多种滤镜效果，包括灰度、暖色、冷色、复古、胶片等风格，一键改变照片氛围。',a42Title:'图片拼贴教程：将多张图片组合为一张',a42:'将多张图片拼贴为一张组合图，支持多种布局模板、间距调节和自定义背景色。',a43Title:'图片锐化教程：让模糊图片变清晰',a43:'增强图片边缘清晰度，让模糊的照片变得更加清晰锐利，适合修复失焦照片和提升图片质量。',a44Title:'图片调色教程：调整照片的亮度、对比度和饱和度',a44:'调整图片的亮度、对比度、饱和度和色相，修复曝光问题或创造特定色调风格。',a45Title:'图片旋转教程：旋转和翻转图片方向',a45:'旋转图片角度、左右翻转、上下翻转，修正拍摄方向或创造镜像效果。',a46Title:'图片马赛克教程：为图片添加马赛克遮挡',a46:'在图片上添加马赛克效果，遮挡敏感信息（人脸、车牌、文字等），保护隐私。',a47Title:'图片素描教程：将照片转换为素描画效果',a47:'将照片自动转换为铅笔素描风格，适合制作艺术头像、创意设计和打印素材。',a48Title:'图片投影教程：为图片添加阴影效果',a48:'为透明背景的 PNG 图片添加投影效果，让物体看起来更立体、更真实。',a49Title:'图片边框教程：为图片添加边框装饰',a49:'为图片添加各种样式的边框，支持自定义颜色、宽度和圆角。',a50Title:'图片圆角教程：为图片添加圆角效果',a50:'为图片添加圆角效果，使边角更柔和、更现代，适合头像、卡片设计和 UI 元素。',a51Title:'在线取色器教程：从图片中提取颜色值',a51:'从图片任意位置取色，获取 HEX 和 RGB 颜色值，支持色板管理和颜色历史记录。',a52Title:'九宫格切图教程：将图片切分为九宫格',a52:'将图片切割为 3×3 九宫格，适合在社交媒体发布引人注目的多图帖子。',a53Title:'图片对比教程：对比两张图片的差异',a53:'使用拖拽滑块对比两张图片的差异，适合对比处理前后的效果或设计稿的版本变化。',a54Title:'图片水印教程：为图片添加平铺水印',a54:'为图片添加平铺或居中的水印图片或文字，保护你的作品版权。',a55Title:'图片转 Base64 教程：将图片编码为 Base64',a55:'将图片文件转换为 Base64 编码字符串，方便嵌入到 HTML、CSS 或程序中。',a56Title:'图片转 PDF 教程：将图片转换为 PDF 文件',a56:'将单张或多张图片快速转换为 PDF 文件，支持批量处理和页面排序。',a57Title:'图片标注教程：在图片上添加箭头和标注框',a57:'在图片上添加箭头、方框、文字标注等元素，适合做教程截图、产品说明和错误反馈。',a58Title:'视频缩略图教程：从视频中提取封面图',a58:'从视频文件中截取指定时间点的画面作为缩略图或封面图。',a59Title:'批量重命名教程：一键批量重命名图片文件',a59:'批量重命名图片文件，支持前缀、序号、日期等命名规则，轻松整理照片库。',a60Title:'图片整理教程：按日期和尺寸整理图片',a60:'按拍摄日期、文件大小或图片尺寸对图片进行分类整理，让照片库井井有条。',a61Title:'二维码生成器教程：生成专属精美二维码',a61:'在线生成精美二维码，支持6种渐变色主题、圆角边框、Logo嵌入，告别传统黑白丑码，让二维码成为品牌亮点。',catQR:'🔗 二维码工具',tagPdf:'PDF',tagMerge:'合并',tagImg:'图片压缩',tagGif:'视频转GIF',tagGif2:'动图',tagAI:'AI写作',tagContent:'内容创作',tagDev:'开发工具',tagOcr:'文字识别',tagSplit:'拆分',tagCompress:'压缩',tagWord:'转 Word',tagImgConvert:'转图片',tagEncrypt:'加密',tagImgToPdf:'图片转PDF',tagAudio:'音频',tagCutter:'裁剪',tagTTS:'文字转语音',tagDiff:'文本对比',tagFinance:'金融',tagLoan:'贷款计算',tagSEO:'SEO',tagSERP:'搜索结果',tagConvert:'格式转换',tagVideo:'视频',tagVideoCompress:'压缩',tagChat:'聊天',tagGray:'灰度',tagBlur:'模糊',tagEnlarge:'放大',tagASCII:'ASCII',tagPixel:'像素画',tagText:'文字',tagEXIF:'EXIF',tagQR:'二维码',tagICO:'ICO',tagDetect:'检测',tagVector:'矢量',tagDedup:'去重',tagGIF:'GIF',tagZip:'压缩',tagCrop:'裁剪',tagPrivacy:'隐私',tagFilter:'滤镜',tagCollage:'拼贴',tagSharpen:'锐化',tagTune:'调色',tagRotate:'旋转',tagMosaic:'马赛克',tagSketch:'素描',tagShadow:'投影',tagBorder:'边框',tagRound:'圆角',tagColor:'取色',tagGrid:'九宫格',tagCompare:'对比',tagWM:'水印',tagPDF:'PDF',tagAnnotate:'标注',tagRename:'重命名',tagOrganize:'整理',tagGenerate:'生成'},
-en:{a1Title:'Merge PDFs in 3 Simple Steps',a1:'学会使用 ZenTools 在线 PDF 合并工具，无需安装软件，直接在浏览器中完成多个 PDF 文件的合并，保护你的文件隐私。',catPdf:'📄 PDF Tools',a2Title:'Images Too Big? Compress Them Online',a2:'学会使用在线图片压缩工具，大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。',catImg:'🖼️ Image Tools',a3Title:'Turn a Video Clip into a GIF',a3:'将有趣的视频片段转换成 GIF 动图，用于社交媒体分享、产品展示和内容创作。',catVideo:'🎬 Video Tools',a4Title:'Let AI Help You Write',a4:'使用 ZenTools AI 写作辅助工具，输入主题即可生成文章大纲和正文草稿，提高写作效率。',catAI:'🤖 AI Tools',a5Title:'Format JSON Without the Headache',a5:'学会使用在线 JSON 格式化工具，快速格式化、压缩和验证 JSON 数据，提高开发效率。',catDev:'💻 Dev Tools',a6Title:'Extract Text from Scanned PDFs (OCR)',a6:'使用在线 PDF OCR 工具，识别扫描件和图片型 PDF 中的文字内容，支持中英文，无需安装软件。',a7Title:'Split PDFs — Extract or Separate Pages',a7:'学会使用在线 PDF 拆分工具，从 PDF 中提取指定页面，或将多页 PDF 拆分为多个独立文件。',a8Title:'Compress PDF Files to Make Them Smaller',a8:'使用在线 PDF 压缩工具，大幅减小 PDF 文件体积，方便邮件附件、网站上传和存储优化。',a9Title:'Extract Text from PDFs',a9:'从 PDF 文件中提取文字内容保存为可编辑的 TXT 格式，方便复制、编辑和引用。',a10Title:'Convert PDF Pages to PNG or JPG Images',a10:'将 PDF 文件的每一页转换为独立的 PNG 或 JPG 图片，方便在文档、PPT 和社交媒体中使用。',a11Title:'Protect Your PDFs with Encryption (and Remove It)',a11:'学会使用 PDF 加密工具为文档添加密码保护，以及使用解密工具去除密码限制。',a12Title:'Combine Images into a Single PDF',a12:'将多张 JPG、PNG 图片按顺序合成为一个 PDF 文件，适合整理扫描件、照片和截图。',a13Title:'Cut Audio Clips Online — Trim MP3, WAV, OGG',a13:'使用在线音频裁剪工具，从音频文件中截取你需要的片段，支持 MP3、WAV、OGG 等格式。',catAudio:'🎵 Audio Tools',a14Title:'Text to Speech — Turn Words into Audio',a14:'输入文字内容，在线生成朗读音频，支持多种语言和语速调节，可下载为 MP3 格式。',a15Title:'Compare Two Texts and See the Difference',a15:'对比两段文本的差异，新增、删除和修改内容以不同颜色高亮显示，方便校对和版本对比。',a16Title:'Loan Calculator — Estimate Monthly Payments',a16:'使用贷款计算器计算贷款月供、总利息和还款总额，支持等额本息和等额本金两种方式。',catFinance:'🏦 Finance Tools',a17Title:'SERP Preview Tool — Preview Google Search Results',a17:'使用 SERP 预览工具模拟 Google 搜索结果展示效果，优化标题和描述以提升点击率。',catSEO:'🌐 SEO Tools',a19Title:'Convert Images Between JPG, PNG & WebP',a19:'在 JPG、PNG、WebP 等图片格式之间互相转换，支持批量处理，满足不同场景的需求。',a20Title:'Compress Video Files — Shrink Size, Keep Quality',a20:'使用在线视频压缩工具，在不明显影响画质的前提下减小视频文件体积，便于存储和分享。',a21Title:'Chat with AI — Ask Questions, Get Answers',a21:'使用 AI 聊天工具进行多轮智能对话，支持知识问答、创意讨论、代码辅助等多种场景。',a22Title:'Merge Audio Files into One',a22:'将多个音频文件按顺序合并拼接为一个完整的文件，支持拖拽排序和多种格式混搭。',a23Title:'Grayscale Image — Convert Color Photos to Black \x26 White',a23:'将彩色图片转换为黑白灰度效果，适合打印、证件照和艺术创作。支持批量处理。',a24Title:'Blur Image — Add Blur Effects to Your Photos',a24:'为图片添加高斯模糊效果，适合保护隐私、背景虚化和创意设计。支持调节模糊强度。',a25Title:'图片放大教程：无损放大图片保持清晰',a25:'使用智能算法无损放大图片，支持最高 4x 放大，保持边缘清晰和细节丰富。',a26Title:'图片转 ASCII 教程：将图片转换为字符画',a26:'将图片转换为 ASCII 字符画，复古艺术效果。支持调节字符密度和字符集，可复制文本或下载 SVG。',a27Title:'Image to Pixel Art — Turn Photos into 8-bit Style',a27:'将图片转换为 8-bit 像素风格艺术画，支持调节像素大小和调色板，生成复古游戏风格效果。',a28Title:'Add Text to Image — Watermark or Annotate Photos',a28:'在图片上添加自定义文字，支持调节字体大小、颜色、位置和透明度，适合水印和标注。',a29Title:'EXIF Viewer — Read Photo Metadata',a29:'查看图片的 EXIF 元数据，包括相机型号、光圈、快门、ISO、GPS 位置和拍摄时间等信息。',a30Title:'QR Code Reader — Decode QR Codes from Images',a30:'识别图片中的二维码，提取 URL、文本、联系方式等信息。支持 JPG、PNG 和屏幕截图。',a31Title:'ICO Generator — Create Windows Icons from Images',a31:'将 PNG、JPG 等图片转换为 Windows ICO 图标格式，支持 16x16 到 256x256 多种尺寸。',a32Title:'Image Format Detector — Identify True File Type',a32:'检测图片的真实文件格式、色彩空间、位深度和编码信息，识别伪装扩展名的图片文件。',a33Title:'PNG to SVG — Convert Bitmap to Vector Graphics',a33:'将 PNG 等位图图片转换为可无限放大的 SVG 矢量图，基于颜色聚类进行矢量化处理。',a34Title:'Image Dedup — Find and Remove Duplicate Photos',a34:'批量检测并标记重复或相似的图片，帮助你清理存储空间，整理照片库。',a35Title:'GIF Compress — Reduce Animated GIF File Size',a35:'压缩 GIF 动图，减小文件体积，适合社交媒体分享和网页加载优化。',a36Title:'GIF Crop — Trim Animated GIF Dimensions',a36:'裁剪 GIF 动图的画面尺寸，去除不需要的边缘区域或调整宽高比。',a37Title:'AI Super Resolution — Enhance Image Clarity with AI',a37:'利用 AI 算法提升低分辨率图片的清晰度和细节，修复模糊的老照片和截图。',a38Title:'EXIF Stripper — Remove Private Metadata from Photos',a38:'清除图片中的 EXIF 元数据（GPS 位置、相机信息等），保护你的个人隐私。',a39Title:'Base64 to Image — Decode Base64 to Picture',a39:'将 Base64 编码的图片数据还原为可视化的图片文件，支持多种图片格式。',a40Title:'Image to ICO — Create Windows Icon Files',a40:'将常见图片格式快速转换为 ICO 图标文件，适合桌面应用和文件夹图标。',a41Title:'Image Filters — Apply Photo Effects in One Click',a41:'为图片添加多种滤镜效果，包括灰度、暖色、冷色、复古、胶片等风格，一键改变照片氛围。',a42Title:'Collage Maker — Combine Multiple Photos',a42:'将多张图片拼贴为一张组合图，支持多种布局模板、间距调节和自定义背景色。',a43Title:'Sharpen Image — Make Blurry Photos Clear',a43:'增强图片边缘清晰度，让模糊的照片变得更加清晰锐利，适合修复失焦照片和提升图片质量。',a44Title:'Color Tune — Adjust Brightness, Contrast & Saturation',a44:'调整图片的亮度、对比度、饱和度和色相，修复曝光问题或创造特定色调风格。',a45Title:'Rotate Image — Flip and Spin Photos',a45:'旋转图片角度、左右翻转、上下翻转，修正拍摄方向或创造镜像效果。',a46Title:'Mosaic — Blur Sensitive Areas with Pixelation',a46:'在图片上添加马赛克效果，遮挡敏感信息（人脸、车牌、文字等），保护隐私。',a47Title:'Sketch Effect — Turn Photos into Pencil Drawings',a47:'将照片自动转换为铅笔素描风格，适合制作艺术头像、创意设计和打印素材。',a48Title:'Drop Shadow — Add Realistic Shadows to Images',a48:'为透明背景的 PNG 图片添加投影效果，让物体看起来更立体、更真实。',a49Title:'Image Border — Decorate Photos with Borders',a49:'为图片添加各种样式的边框，支持自定义颜色、宽度和圆角。',a50Title:'Rounded Corners — Soften Image Edges',a50:'为图片添加圆角效果，使边角更柔和、更现代，适合头像、卡片设计和 UI 元素。',a51Title:'Color Picker — Pick Colors from Images',a51:'从图片任意位置取色，获取 HEX 和 RGB 颜色值，支持色板管理和颜色历史记录。',a52Title:'Grid Split — Cut Images into 3x3 Grid',a52:'将图片切割为 3×3 九宫格，适合在社交媒体发布引人注目的多图帖子。',a53Title:'Image Compare — Compare Two Images Side by Side',a53:'使用拖拽滑块对比两张图片的差异，适合对比处理前后的效果或设计稿的版本变化。',a54Title:'Watermark — Protect Your Images',a54:'为图片添加平铺或居中的水印图片或文字，保护你的作品版权。',a55Title:'Image to Base64 — Encode Images to Base64',a55:'将图片文件转换为 Base64 编码字符串，方便嵌入到 HTML、CSS 或程序中。',a56Title:'Image to PDF — Convert Pictures to PDF',a56:'将单张或多张图片快速转换为 PDF 文件，支持批量处理和页面排序。',a57Title:'Annotate Image — Add Arrows and Labels',a57:'在图片上添加箭头、方框、文字标注等元素，适合做教程截图、产品说明和错误反馈。',a58Title:'Video Thumbnail — Extract Frames from Video',a58:'从视频文件中截取指定时间点的画面作为缩略图或封面图。',a59Title:'Batch Rename — Rename Multiple Images at Once',a59:'批量重命名图片文件，支持前缀、序号、日期等命名规则，轻松整理照片库。',a60Title:'Image Organize — Sort Photos by Date & Size',a60:'按拍摄日期、文件大小或图片尺寸对图片进行分类整理，让照片库井井有条。',a61Title:'二维码生成器教程：生成专属精美二维码',a61:'在线生成精美二维码，支持6种渐变色主题、圆角边框、Logo嵌入，告别传统黑白丑码，让二维码成为品牌亮点。',catQR:'🔗 二维码工具',tagPdf:'PDF',tagMerge:'Merge',tagImg:'Image Compress',tagGif:'Video to GIF',tagGif2:'Animated GIF',tagAI:'AI Writing',tagContent:'Content Creation',tagDev:'Dev Tools',tagOcr:'OCR',tagSplit:'Split',tagCompress:'Compress',tagWord:'to Word',tagImgConvert:'to Image',tagEncrypt:'Encrypt',tagImgToPdf:'Image to PDF',tagAudio:'Audio',tagCutter:'Cutter',tagTTS:'Text to Speech',tagDiff:'Diff',tagFinance:'Finance',tagLoan:'Loan',tagSEO:'SEO',tagSERP:'Search Results',tagConvert:'Convert',tagVideo:'Video',tagVideoCompress:'Compress',tagChat:'Chat',tagGray:'Grayscale',tagBlur:'Blur',tagEnlarge:'放大',tagASCII:'ASCII',tagPixel:'Pixel Art',tagText:'Text',tagEXIF:'EXIF',tagQR:'QR Code',tagICO:'ICO',tagDetect:'Detect',tagVector:'Vector',tagDedup:'Dedup',tagGIF:'GIF',tagZip:'Compress',tagCrop:'Crop',tagPrivacy:'Privacy',tagFilter:'Filters',tagCollage:'Collage',tagSharpen:'Sharpen',tagTune:'Color',tagRotate:'Rotate',tagMosaic:'Mosaic',tagSketch:'Sketch',tagShadow:'Shadow',tagBorder:'Border',tagRound:'Round',tagColor:'Color',tagGrid:'Grid',tagCompare:'Compare',tagWM:'Watermark',tagPDF:'PDF',tagAnnotate:'Annotate',tagRename:'Rename',tagOrganize:'Organize',tagGenerate:'生成'},
-ja:{a1Title:'PDF 合并工具使用教程：三步合并多个 PDF 文件',a1:'学会使用 ZenTools 在线 PDF 合并工具，无需安装软件，直接在浏览器中完成多个 PDF 文件的合并，保护你的文件隐私。',catPdf:'📄 PDFツール',a2Title:'画像が重すぎる？オンラインで軽くしよう',a2:'学会使用在线图片压缩工具，大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。',catImg:'🖼️ 画像ツール',a3Title:'動画の一部をGIFにする',a3:'将有趣的视频片段转换成 GIF 动图，用于社交媒体分享、产品展示和内容创作。',catVideo:'🎬 動画ツール',a4Title:'AI に文章を書かせてみる',a4:'使用 ZenTools AI 写作辅助工具，输入主题即可生成文章大纲和正文草稿，提高写作效率。',catAI:'🤖 AIツール',a5Title:'JSON を見やすく整形',a5:'学会使用在线 JSON 格式化工具，快速格式化、压缩和验证 JSON 数据，提高开发效率。',catDev:'💻 開発ツール',a6Title:'スキャンPDFから文字を抽出（OCR）',a6:'使用在线 PDF OCR 工具，识别扫描件和图片型 PDF 中的文字内容，支持中英文，无需安装软件。',a7Title:'PDF 分割 — 必要なページだけを取り出す',a7:'学会使用在线 PDF 拆分工具，从 PDF 中提取指定页面，或将多页 PDF 拆分为多个独立文件。',a8Title:'PDF を圧縮してファイルサイズを削減',a8:'使用在线 PDF 压缩工具，大幅减小 PDF 文件体积，方便邮件附件、网站上传和存储优化。',a9Title:'PDF からテキストを抽出',a9:'从 PDF 文件中提取文字内容保存为可编辑的 TXT 格式，方便复制、编辑和引用。',a10Title:'PDF のページを画像（PNG/JPG）に変換',a10:'将 PDF 文件的每一页转换为独立的 PNG 或 JPG 图片，方便在文档、PPT 和社交媒体中使用。',a11Title:'PDF の暗号化と解除 — 文書を安全に',a11:'学会使用 PDF 加密工具为文档添加密码保护，以及使用解密工具去除密码限制。',a12Title:'複数の画像を1つのPDFにまとめる',a12:'将多张 JPG、PNG 图片按顺序合成为一个 PDF 文件，适合整理扫描件、照片和截图。',a13Title:'音声ファイルをカット — 必要な部分だけ切り出す',a13:'使用在线音频裁剪工具，从音频文件中截取你需要的片段，支持 MP3、WAV、OGG 等格式。',catAudio:'🎵 オーディオツール',a14Title:'テキストを音声に変換（TTS）',a14:'输入文字内容，在线生成朗读音频，支持多种语言和语速调节，可下载为 MP3 格式。',a15Title:'テキスト比較 — 差分を色分け表示',a15:'对比两段文本的差异，新增、删除和修改内容以不同颜色高亮显示，方便校对和版本对比。',a16Title:'ローン計算機 — 月々の返済額を試算',a16:'使用贷款计算器计算贷款月供、总利息和还款总额，支持等额本息和等额本金两种方式。',catFinance:'🏦 金融ツール',a17Title:'SERP プレビュー — 検索結果の表示を最適化',a17:'使用 SERP 预览工具模拟 Google 搜索结果展示效果，优化标题和描述以提升点击率。',catSEO:'🌐 SEOツール',a19Title:'画像フォーマット変換 — JPG/PNG/WebP相互変換',a19:'在 JPG、PNG、WebP 等图片格式之间互相转换，支持批量处理，满足不同场景的需求。',a20Title:'動画を圧縮してファイルサイズを削減',a20:'使用在线视频压缩工具，在不明显影响画质的前提下减小视频文件体积，便于存储和分享。',a21Title:'AIとチャット — 質問して回答を得る',a21:'使用 AI 聊天工具进行多轮智能对话，支持知识问答、创意讨论、代码辅助等多种场景。',a22Title:'複数の音声ファイルを結合',a22:'将多个音频文件按顺序合并拼接为一个完整的文件，支持拖拽排序和多种格式混搭。',a23Title:'画像をグレースケールに変換—白黒写真作成',a23:'将彩色图片转换为黑白灰度效果，适合打印、证件照和艺术创作。支持批量处理。',a24Title:'画像をぼかす—ぼかし効果の追加',a24:'为图片添加高斯模糊效果，适合保护隐私、背景虚化和创意设计。支持调节模糊强度。',a25Title:'图片放大教程：无损放大图片保持清晰',a25:'使用智能算法无损放大图片，支持最高 4x 放大，保持边缘清晰和细节丰富。',a26Title:'图片转 ASCII 教程：将图片转换为字符画',a26:'将图片转换为 ASCII 字符画，复古艺术效果。支持调节字符密度和字符集，可复制文本或下载 SVG。',a27Title:'画像をピクセルアートに変換—8-bit 風',a27:'将图片转换为 8-bit 像素风格艺术画，支持调节像素大小和调色板，生成复古游戏风格效果。',a28Title:'画像にテキストを追加—透かしや注釈',a28:'在图片上添加自定义文字，支持调节字体大小、颜色、位置和透明度，适合水印和标注。',a29Title:'EXIF ビューア—写真メタデータ表示',a29:'查看图片的 EXIF 元数据，包括相机型号、光圈、快门、ISO、GPS 位置和拍摄时间等信息。',a30Title:'QRコードリーダー—画像からQRを解読',a30:'识别图片中的二维码，提取 URL、文本、联系方式等信息。支持 JPG、PNG 和屏幕截图。',a31Title:'ICO 生成—画像から Windows アイコン作成',a31:'将 PNG、JPG 等图片转换为 Windows ICO 图标格式，支持 16x16 到 256x256 多种尺寸。',a32Title:'画像フォーマット検出—本当の形式を識別',a32:'检测图片的真实文件格式、色彩空间、位深度和编码信息，识别伪装扩展名的图片文件。',a33Title:'PNG → SVG—ビットマップをベクターに変換',a33:'将 PNG 等位图图片转换为可无限放大的 SVG 矢量图，基于颜色聚类进行矢量化处理。',a34Title:'画像重複検出—重複写真を削除',a34:'批量检测并标记重复或相似的图片，帮助你清理存储空间，整理照片库。',a35Title:'GIF 圧縮—アニメーションGIFのファイルサイズ削減',a35:'压缩 GIF 动图，减小文件体积，适合社交媒体分享和网页加载优化。',a36Title:'GIF 切り抜き—GIFのサイズを調整',a36:'裁剪 GIF 动图的画面尺寸，去除不需要的边缘区域或调整宽高比。',a37Title:'AI超解像—AIで画像の解像度を向上',a37:'利用 AI 算法提升低分辨率图片的清晰度和细节，修复模糊的老照片和截图。',a38Title:'EXIF削除—写真からプライバシーデータを除去',a38:'清除图片中的 EXIF 元数据（GPS 位置、相机信息等），保护你的个人隐私。',a39Title:'Base64→画像—Base64データを画像に変換',a39:'将 Base64 编码的图片数据还原为可视化的图片文件，支持多种图片格式。',a40Title:'画像→ICO—Windowsアイコンファイル作成',a40:'将常见图片格式快速转换为 ICO 图标文件，适合桌面应用和文件夹图标。',a41Title:'画像フィルター—写真にエフェクトを追加',a41:'为图片添加多种滤镜效果，包括灰度、暖色、冷色、复古、胶片等风格，一键改变照片氛围。',a42Title:'コラージュ作成—複数写真を1枚に結合',a42:'将多张图片拼贴为一张组合图，支持多种布局模板、间距调节和自定义背景色。',a43Title:'画像シャープ化—ぼやけた写真をくっきり',a43:'增强图片边缘清晰度，让模糊的照片变得更加清晰锐利，适合修复失焦照片和提升图片质量。',a44Title:'カラーチューン—明るさ・コントラスト・彩度調整',a44:'调整图片的亮度、对比度、饱和度和色相，修复曝光问题或创造特定色调风格。',a45Title:'画像回転—写真の向きを調整',a45:'旋转图片角度、左右翻转、上下翻转，修正拍摄方向或创造镜像效果。',a46Title:'モザイク—画像にモザイク処理',a46:'在图片上添加马赛克效果，遮挡敏感信息（人脸、车牌、文字等），保护隐私。',a47Title:'スケッチ風—写真を鉛筆画に変換',a47:'将照片自动转换为铅笔素描风格，适合制作艺术头像、创意设计和打印素材。',a48Title:'ドロップシャドウ—画像に影を追加',a48:'为透明背景的 PNG 图片添加投影效果，让物体看起来更立体、更真实。',a49Title:'画像フチ—写真に枠線を追加',a49:'为图片添加各种样式的边框，支持自定义颜色、宽度和圆角。',a50Title:'角丸—画像の角を丸くする',a50:'为图片添加圆角效果，使边角更柔和、更现代，适合头像、卡片设计和 UI 元素。',a51Title:'カラーピッカー—画像から色を抽出',a51:'从图片任意位置取色，获取 HEX 和 RGB 颜色值，支持色板管理和颜色历史记录。',a52Title:'グリッド分割—画像を3x3に分割',a52:'将图片切割为 3×3 九宫格，适合在社交媒体发布引人注目的多图帖子。',a53Title:'画像比較—スライダーで差分確認',a53:'使用拖拽滑块对比两张图片的差异，适合对比处理前后的效果或设计稿的版本变化。',a54Title:'ウォーターマーク—画像を保護',a54:'为图片添加平铺或居中的水印图片或文字，保护你的作品版权。',a55Title:'画像→Base64—画像をエンコード',a55:'将图片文件转换为 Base64 编码字符串，方便嵌入到 HTML、CSS 或程序中。',a56Title:'画像→PDF—写真をPDFに変換',a56:'将单张或多张图片快速转换为 PDF 文件，支持批量处理和页面排序。',a57Title:'画像注釈—矢印やラベルを追加',a57:'在图片上添加箭头、方框、文字标注等元素，适合做教程截图、产品说明和错误反馈。',a58Title:'動画サムネイル—フレームを抽出',a58:'从视频文件中截取指定时间点的画面作为缩略图或封面图。',a59Title:'一括リネーム—複数画像を一度にリネーム',a59:'批量重命名图片文件，支持前缀、序号、日期等命名规则，轻松整理照片库。',a60Title:'画像整理—日付やサイズで整理',a60:'按拍摄日期、文件大小或图片尺寸对图片进行分类整理，让照片库井井有条。',a61Title:'二维码生成器教程：生成专属精美二维码',a61:'在线生成精美二维码，支持6种渐变色主题、圆角边框、Logo嵌入，告别传统黑白丑码，让二维码成为品牌亮点。',catQR:'🔗 二维码工具',tagPdf:'PDF',tagMerge:'結合',tagImg:'画像圧縮',tagGif:'動画→GIF',tagGif2:'GIFアニメ',tagAI:'AIライティング',tagContent:'コンテンツ作成',tagDev:'開発ツール',tagOcr:'OCR',tagSplit:'分割',tagCompress:'圧縮',tagWord:'Wordへ',tagImgConvert:'画像へ',tagEncrypt:'暗号化',tagImgToPdf:'画像→PDF',tagAudio:'オーディオ',tagCutter:'カット',tagTTS:'TTS',tagDiff:'差分',tagFinance:'金融',tagLoan:'ローン計算',tagSEO:'SEO',tagSERP:'検索結果',tagConvert:'変換',tagVideo:'動画',tagVideoCompress:'圧縮',tagChat:'チャット',tagGray:'グレースケール',tagBlur:'ぼかし',tagEnlarge:'放大',tagASCII:'ASCII',tagPixel:'ピクセルアート',tagText:'テキスト',tagEXIF:'EXIF',tagQR:'QRコード',tagICO:'ICO',tagDetect:'検出',tagVector:'ベクター',tagDedup:'重複検出',tagGIF:'GIF',tagZip:'圧縮',tagCrop:'切り抜き',tagPrivacy:'プライバシー',tagFilter:'フィルター',tagCollage:'コラージュ',tagSharpen:'シャープ',tagTune:'カラー',tagRotate:'回転',tagMosaic:'モザイク',tagSketch:'スケッチ',tagShadow:'シャドウ',tagBorder:'枠線',tagRound:'角丸',tagColor:'カラー',tagGrid:'グリッド',tagCompare:'比較',tagWM:'透かし',tagPDF:'PDF',tagAnnotate:'注釈',tagRename:'リネーム',tagOrganize:'整理',tagGenerate:'生成'},
-vi:{a1Title:'PDF 合并工具使用教程：三步合并多个 PDF 文件',a1:'学会使用 ZenTools 在线 PDF 合并工具，无需安装软件，直接在浏览器中完成多个 PDF 文件的合并，保护你的文件隐私。',catPdf:'📄 PDF 工具',a2Title:'图片压缩教程：在线压缩 JPG 和 PNG 图片',a2:'学会使用在线图片压缩工具，大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。',catImg:'🖼️ 图片工具',a3Title:'视频转 GIF 教程：将视频片段转换为 GIF 动图',a3:'将有趣的视频片段转换成 GIF 动图，用于社交媒体分享、产品展示和内容创作。',catVideo:'🎬 视频工具',a4Title:'AI 写作助手教程：用 AI 快速生成文章',a4:'使用 ZenTools AI 写作辅助工具，输入主题即可生成文章大纲和正文草稿，提高写作效率。',catAI:'🤖 AI 工具',a5Title:'JSON 格式化与校验教程',a5:'学会使用在线 JSON 格式化工具，快速格式化、压缩和验证 JSON 数据，提高开发效率。',catDev:'💻 开发工具',a6Title:'OCR 文字识别教程：从扫描 PDF 中提取文字',a6:'使用在线 PDF OCR 工具，识别扫描件和图片型 PDF 中的文字内容，支持中英文，无需安装软件。',a7Title:'PDF 拆分教程：提取指定页面或按范围拆分',a7:'学会使用在线 PDF 拆分工具，从 PDF 中提取指定页面，或将多页 PDF 拆分为多个独立文件。',a8Title:'PDF 压缩教程：减小 PDF 文件体积',a8:'使用在线 PDF 压缩工具，大幅减小 PDF 文件体积，方便邮件附件、网站上传和存储优化。',a9Title:'PDF 转 Word 教程：提取 PDF 中的文字',a9:'从 PDF 文件中提取文字内容保存为可编辑的 TXT 格式，方便复制、编辑和引用。',a10Title:'PDF 转图片教程：将 PDF 页面转换为 PNG/JPG 图片',a10:'将 PDF 文件的每一页转换为独立的 PNG 或 JPG 图片，方便在文档、PPT 和社交媒体中使用。',a11Title:'PDF 加密与解密教程：保护你的文档安全',a11:'学会使用 PDF 加密工具为文档添加密码保护，以及使用解密工具去除密码限制。',a12Title:'图片转 PDF 教程：将多张图片合成为 PDF 文件',a12:'将多张 JPG、PNG 图片按顺序合成为一个 PDF 文件，适合整理扫描件、照片和截图。',a13Title:'音频裁剪教程：在线截取音频片段',a13:'使用在线音频裁剪工具，从音频文件中截取你需要的片段，支持 MP3、WAV、OGG 等格式。',catAudio:'🎵 音频工具',a14Title:'文字转语音教程：将文字转换为朗读音频',a14:'输入文字内容，在线生成朗读音频，支持多种语言和语速调节，可下载为 MP3 格式。',a15Title:'文本对比教程：快速查找文本差异',a15:'对比两段文本的差异，新增、删除和修改内容以不同颜色高亮显示，方便校对和版本对比。',a16Title:'贷款计算器教程：计算月供和利息',a16:'使用贷款计算器计算贷款月供、总利息和还款总额，支持等额本息和等额本金两种方式。',catFinance:'🏦 金融工具',a17Title:'SERP 预览教程：优化搜索结果展示',a17:'使用 SERP 预览工具模拟 Google 搜索结果展示效果，优化标题和描述以提升点击率。',catSEO:'🌐 SEO 工具',a19Title:'图片格式转换教程：JPG、PNG、WebP 互转',a19:'在 JPG、PNG、WebP 等图片格式之间互相转换，支持批量处理，满足不同场景的需求。',a20Title:'视频压缩教程：减小视频文件体积',a20:'使用在线视频压缩工具，在不明显影响画质的前提下减小视频文件体积，便于存储和分享。',a21Title:'AI 聊天教程：与 AI 智能对话',a21:'使用 AI 聊天工具进行多轮智能对话，支持知识问答、创意讨论、代码辅助等多种场景。',a22Title:'音频合并教程：将多个音频拼接为一个文件',a22:'将多个音频文件按顺序合并拼接为一个完整的文件，支持拖拽排序和多种格式混搭。',a23Title:'图片灰度处理教程：将彩色图片转为黑白',a23:'将彩色图片转换为黑白灰度效果，适合打印、证件照和艺术创作。支持批量处理。',a24Title:'图片模糊教程：为图片添加模糊特效',a24:'为图片添加高斯模糊效果，适合保护隐私、背景虚化和创意设计。支持调节模糊强度。',a25Title:'图片放大教程：无损放大图片保持清晰',a25:'使用智能算法无损放大图片，支持最高 4x 放大，保持边缘清晰和细节丰富。',a26Title:'图片转 ASCII 教程：将图片转换为字符画',a26:'将图片转换为 ASCII 字符画，复古艺术效果。支持调节字符密度和字符集，可复制文本或下载 SVG。',a27Title:'图片转像素画教程：将图片转为 8-bit 像素风格',a27:'将图片转换为 8-bit 像素风格艺术画，支持调节像素大小和调色板，生成复古游戏风格效果。',a28Title:'图片添加文字教程：在图片上添加水印或标注',a28:'在图片上添加自定义文字，支持调节字体大小、颜色、位置和透明度，适合水印和标注。',a29Title:'EXIF 查看教程：读取照片的元数据信息',a29:'查看图片的 EXIF 元数据，包括相机型号、光圈、快门、ISO、GPS 位置和拍摄时间等信息。',a30Title:'二维码识别教程：从图片中读取二维码内容',a30:'识别图片中的二维码，提取 URL、文本、联系方式等信息。支持 JPG、PNG 和屏幕截图。',a31Title:'ICO 图标生成教程：将图片转为 Windows 图标',a31:'将 PNG、JPG 等图片转换为 Windows ICO 图标格式，支持 16x16 到 256x256 多种尺寸。',a32Title:'图片格式检测教程：识别图片的真实格式',a32:'检测图片的真实文件格式、色彩空间、位深度和编码信息，识别伪装扩展名的图片文件。',a33Title:'PNG 转 SVG 教程：将位图转换为矢量图',a33:'将 PNG 等位图图片转换为可无限放大的 SVG 矢量图，基于颜色聚类进行矢量化处理。',a34Title:'图片去重教程：查找并清理重复图片',a34:'批量检测并标记重复或相似的图片，帮助你清理存储空间，整理照片库。',a35Title:'GIF 压缩教程：减小 GIF 动图文件大小',a35:'压缩 GIF 动图，减小文件体积，适合社交媒体分享和网页加载优化。',a36Title:'GIF 裁剪教程：裁切 GIF 动图的尺寸',a36:'裁剪 GIF 动图的画面尺寸，去除不需要的边缘区域或调整宽高比。',a37Title:'AI 超分辨率教程：用 AI 提升图片清晰度',a37:'利用 AI 算法提升低分辨率图片的清晰度和细节，修复模糊的老照片和截图。',a38Title:'EXIF 清除教程：移除照片中的隐私元数据',a38:'清除图片中的 EXIF 元数据（GPS 位置、相机信息等），保护你的个人隐私。',a39Title:'Base64 转图片教程：将 Base64 编码还原为图片',a39:'将 Base64 编码的图片数据还原为可视化的图片文件，支持多种图片格式。',a40Title:'图片转 ICO 教程：创建 Windows 图标文件',a40:'将常见图片格式快速转换为 ICO 图标文件，适合桌面应用和文件夹图标。',a41Title:'图片滤镜教程：一键为照片添加滤镜效果',a41:'为图片添加多种滤镜效果，包括灰度、暖色、冷色、复古、胶片等风格，一键改变照片氛围。',a42Title:'图片拼贴教程：将多张图片组合为一张',a42:'将多张图片拼贴为一张组合图，支持多种布局模板、间距调节和自定义背景色。',a43Title:'图片锐化教程：让模糊图片变清晰',a43:'增强图片边缘清晰度，让模糊的照片变得更加清晰锐利，适合修复失焦照片和提升图片质量。',a44Title:'图片调色教程：调整照片的亮度、对比度和饱和度',a44:'调整图片的亮度、对比度、饱和度和色相，修复曝光问题或创造特定色调风格。',a45Title:'图片旋转教程：旋转和翻转图片方向',a45:'旋转图片角度、左右翻转、上下翻转，修正拍摄方向或创造镜像效果。',a46Title:'图片马赛克教程：为图片添加马赛克遮挡',a46:'在图片上添加马赛克效果，遮挡敏感信息（人脸、车牌、文字等），保护隐私。',a47Title:'图片素描教程：将照片转换为素描画效果',a47:'将照片自动转换为铅笔素描风格，适合制作艺术头像、创意设计和打印素材。',a48Title:'图片投影教程：为图片添加阴影效果',a48:'为透明背景的 PNG 图片添加投影效果，让物体看起来更立体、更真实。',a49Title:'图片边框教程：为图片添加边框装饰',a49:'为图片添加各种样式的边框，支持自定义颜色、宽度和圆角。',a50Title:'图片圆角教程：为图片添加圆角效果',a50:'为图片添加圆角效果，使边角更柔和、更现代，适合头像、卡片设计和 UI 元素。',a51Title:'在线取色器教程：从图片中提取颜色值',a51:'从图片任意位置取色，获取 HEX 和 RGB 颜色值，支持色板管理和颜色历史记录。',a52Title:'九宫格切图教程：将图片切分为九宫格',a52:'将图片切割为 3×3 九宫格，适合在社交媒体发布引人注目的多图帖子。',a53Title:'图片对比教程：对比两张图片的差异',a53:'使用拖拽滑块对比两张图片的差异，适合对比处理前后的效果或设计稿的版本变化。',a54Title:'图片水印教程：为图片添加平铺水印',a54:'为图片添加平铺或居中的水印图片或文字，保护你的作品版权。',a55Title:'图片转 Base64 教程：将图片编码为 Base64',a55:'将图片文件转换为 Base64 编码字符串，方便嵌入到 HTML、CSS 或程序中。',a56Title:'图片转 PDF 教程：将图片转换为 PDF 文件',a56:'将单张或多张图片快速转换为 PDF 文件，支持批量处理和页面排序。',a57Title:'图片标注教程：在图片上添加箭头和标注框',a57:'在图片上添加箭头、方框、文字标注等元素，适合做教程截图、产品说明和错误反馈。',a58Title:'视频缩略图教程：从视频中提取封面图',a58:'从视频文件中截取指定时间点的画面作为缩略图或封面图。',a59Title:'批量重命名教程：一键批量重命名图片文件',a59:'批量重命名图片文件，支持前缀、序号、日期等命名规则，轻松整理照片库。',a60Title:'图片整理教程：按日期和尺寸整理图片',a60:'按拍摄日期、文件大小或图片尺寸对图片进行分类整理，让照片库井井有条。',a61Title:'二维码生成器教程：生成专属精美二维码',a61:'在线生成精美二维码，支持6种渐变色主题、圆角边框、Logo嵌入，告别传统黑白丑码，让二维码成为品牌亮点。',catQR:'🔗 二维码工具',tagPdf:'PDF',tagMerge:'合并',tagImg:'图片压缩',tagGif:'视频转GIF',tagGif2:'动图',tagAI:'AI写作',tagContent:'内容创作',tagDev:'开发工具',tagOcr:'文字识别',tagSplit:'拆分',tagCompress:'压缩',tagWord:'转 Word',tagImgConvert:'转图片',tagEncrypt:'加密',tagImgToPdf:'图片转PDF',tagAudio:'音频',tagCutter:'裁剪',tagTTS:'文字转语音',tagDiff:'文本对比',tagFinance:'金融',tagLoan:'贷款计算',tagSEO:'SEO',tagSERP:'搜索结果',tagConvert:'格式转换',tagVideo:'视频',tagVideoCompress:'压缩',tagChat:'聊天',tagGray:'灰度',tagBlur:'模糊',tagEnlarge:'放大',tagASCII:'ASCII',tagPixel:'像素画',tagText:'文字',tagEXIF:'EXIF',tagQR:'二维码',tagICO:'ICO',tagDetect:'检测',tagVector:'矢量',tagDedup:'去重',tagGIF:'GIF',tagZip:'压缩',tagCrop:'裁剪',tagPrivacy:'隐私',tagFilter:'滤镜',tagCollage:'拼贴',tagSharpen:'锐化',tagTune:'调色',tagRotate:'旋转',tagMosaic:'马赛克',tagSketch:'素描',tagShadow:'投影',tagBorder:'边框',tagRound:'圆角',tagColor:'取色',tagGrid:'九宫格',tagCompare:'对比',tagWM:'水印',tagPDF:'PDF',tagAnnotate:'标注',tagRename:'重命名',tagOrganize:'整理',tagGenerate:'生成'}
+window.ZT_COMMON = { /* loaded from common-i18n.js */ };
+</script>
+<script>
+window.ZT_PAGE = {
+zh: {
+  pageTitle:'在线工具教程 - ZenTools',
+  breadcrumbHome:'首页',crumbCur:'教程中心',eyebrow:'学习指南',
+  h1Grad:'在线工具教程',h1Sub:'从入门到精通',
+  pageDesc:'掌握 ZenTools 免费在线工具的使用技巧，提高工作效率。',
+  navHome:'首页',navArticles:'教程中心',navAll:'全部工具',
+  catAll:'全部',catPdf:'PDF工具',catImg:'图片工具',catVideo:'视频工具',
+  catAI:'AI工具',catDev:'开发工具',catAudio:'音频工具',catFinance:'金融工具',
+  catSEO:'SEO工具',catQR:'二维码工具',
+  statArticles:'篇教程',statCategories:'个分类',
+  toolLabel:'使用工具',allTutorials:'全部教程',
+  faqTitle:'常见问题',
+  faq1Q:'这些教程对应的工具都是免费的吗？',
+  faq1A:'是的，所有教程中介绍的工具都是完全免费的。在浏览器本地运行，无需注册，无需安装。',
+  faq2Q:'教程会持续更新吗？',
+  faq2A:'会的，我们会持续添加新的教程内容，覆盖更多工具的使用技巧和最佳实践。',
+  faq3Q:'我的操作记录或文件会被保存吗？',
+  faq3A:'不会。所有工具在完成操作后不会保存你的任何文件或数据，关闭页面即自动清除。',
+  navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。',
+  bookmarkFloat:'⭐ 收藏本站，下次办公快人一步'
+},
+en: {
+  pageTitle:'Online Tool Tutorials - ZenTools',
+  breadcrumbHome:'Home',crumbCur:'Tutorials',eyebrow:'LEARNING GUIDES',
+  h1Grad:'Online Tool Tutorials',h1Sub:'From Beginner to Expert',
+  pageDesc:'Master ZenTools free online tools with step-by-step tutorials.',
+  navHome:'Home',navArticles:'Tutorials',navAll:'All Tools',
+  catAll:'All',catPdf:'PDF Tools',catImg:'Image Tools',catVideo:'Video Tools',
+  catAI:'AI Tools',catDev:'Dev Tools',catAudio:'Audio Tools',catFinance:'Finance Tools',
+  catSEO:'SEO Tools',catQR:'QR Tools',
+  statArticles:'tutorials',statCategories:'categories',
+  toolLabel:'Use Tool',allTutorials:'All Tutorials',
+  faqTitle:'FAQ',
+  faq1Q:'Are the tools in these tutorials free?',
+  faq1A:'Yes, all tools introduced are completely free. They run locally in your browser, no registration or installation required.',
+  faq2Q:'Will tutorials be updated regularly?',
+  faq2A:'Yes, we continuously add new tutorials covering more tool usage tips and best practices.',
+  faq3Q:'Will my operation records or files be saved?',
+  faq3A:'No. All tools do not save any of your files or data after completion. They are automatically cleared when you close the page.',
+  navPrivacy:'Privacy',footerCopy:'© 2026 ZenTools. Free online toolbox.',
+  bookmarkFloat:'⭐ Bookmark ZenTools for Quick Access'
+},
+ja: {
+  pageTitle:'オンラインツールチュートリアル - ZenTools',
+  breadcrumbHome:'ホーム',crumbCur:'チュートリアル',eyebrow:'学習ガイド',
+  h1Grad:'オンラインツールチュートリアル',h1Sub:'初心者から上級者まで',
+  pageDesc:'ZenTools の無料オンラインツールの使い方をステップバイステップで学びましょう。',
+  navHome:'ホーム',navArticles:'チュートリアル',navAll:'すべてのツール',
+  catAll:'すべて',catPdf:'PDFツール',catImg:'画像ツール',catVideo:'動画ツール',
+  catAI:'AIツール',catDev:'開発ツール',catAudio:'音声ツール',catFinance:'金融ツール',
+  catSEO:'SEOツール',catQR:'QRツール',
+  statArticles:'チュートリアル',statCategories:'カテゴリー',
+  toolLabel:'ツールを使う',allTutorials:'すべてのチュートリアル',
+  faqTitle:'よくある質問',
+  faq1Q:'チュートリアルのツールは無料ですか？',
+  faq1A:'はい、紹介されているツールはすべて完全無料です。ブラウザ上でローカル実行され、登録やインストールは不要です。',
+  faq2Q:'チュートリアルは定期的に更新されますか？',
+  faq2A:'はい、新しいチュートリアルを継続的に追加し、より多くのツールの使用ヒントやベストプラクティスをカバーします。',
+  faq3Q:'操作記録やファイルは保存されますか？',
+  faq3A:'いいえ。すべてのツールは操作完了後にファイルやデータを一切保存しません。ページを閉じると自動的にクリアされます。',
+  navPrivacy:'プライバシー',footerCopy:'© 2026 ZenTools. 無料オンラインツールボックス。',
+  bookmarkFloat:'⭐ ブックマークしてすぐアクセス'
+},
+vi: {
+  pageTitle:'Hướng dẫn công cụ trực tuyến - ZenTools',
+  breadcrumbHome:'Trang chủ',crumbCur:'Hướng dẫn',eyebrow:'HƯỚNG DẪN',
+  h1Grad:'Hướng dẫn công cụ trực tuyến',h1Sub:'Từ cơ bản đến nâng cao',
+  pageDesc:'Nắm vững các công cụ trực tuyến miễn phí của ZenTools với hướng dẫn từng bước.',
+  navHome:'Trang chủ',navArticles:'Hướng dẫn',navAll:'Tất cả công cụ',
+  catAll:'Tất cả',catPdf:'Công cụ PDF',catImg:'Công cụ ảnh',catVideo:'Công cụ video',
+  catAI:'Công cụ AI',catDev:'Công cụ Dev',catAudio:'Công cụ âm thanh',catFinance:'Công cụ tài chính',
+  catSEO:'Công cụ SEO',catQR:'Công cụ QR',
+  statArticles:'hướng dẫn',statCategories:'danh mục',
+  toolLabel:'Dùng công cụ',allTutorials:'Tất cả hướng dẫn',
+  faqTitle:'Câu hỏi thường gặp',
+  faq1Q:'Các công cụ trong hướng dẫn có miễn phí không?',
+  faq1A:'Có, tất cả công cụ được giới thiệu đều hoàn toàn miễn phí. Chúng chạy cục bộ trong trình duyệt, không cần đăng ký hay cài đặt.',
+  faq2Q:'Hướng dẫn có được cập nhật thường xuyên không?',
+  faq2A:'Có, chúng tôi liên tục thêm hướng dẫn mới bao gồm nhiều mẹo sử dụng và thực hành tốt nhất.',
+  faq3Q:'Hồ sơ hoạt động hoặc tệp của tôi có được lưu không?',
+  faq3A:'Không. Tất cả công cụ không lưu bất kỳ tệp hoặc dữ liệu nào sau khi hoàn thành. Chúng tự động bị xóa khi bạn đóng trang.',
+  navPrivacy:'Riêng tư',footerCopy:'© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+  bookmarkFloat:'⭐ Đánh dấu ZenTools để truy cập nhanh'
+}
 };
 </script>
+<script src="../assets/js/common-i18n.js"></script>
 <script src="../assets/js/tool-ui.min.js"></script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="bookmarkFloat">⭐ 收藏本站，下次办公快人一步</button>
 
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+'use strict';
+
+var toolUrlMap = {
+  'add-text-to-image':'/image/add-text-to-image.html',
+  'ai-chat':'/ai/ai-chat.html',
+  'ai-super-resolution':'/image/ai-super-resolution.html',
+  'ai-writing':'/ai/ai-writing.html',
+  'annotate':'/image/annotate.html',
+  'audio-cutter':'/audio/audio-cutter.html',
+  'audio-merge':'/audio/audio-merger.html',
+  'base64-to-image':'/image/base64-to-image.html',
+  'batch-rename':'/image/batch-rename.html',
+  'collage':'/image/collage.html',
+  'color-tune':'/image/color-tune.html',
+  'colorpicker':'/image/colorpicker.html',
+  'drop-shadow':'/image/drop-shadow.html',
+  'exif-stripper':'/image/exif-stripper.html',
+  'exif-viewer':'/image/exif-viewer.html',
+  'filters':'/image/filters.html',
+  'format-convert':'/image/convert.html',
+  'gif-compress':'/image/gif-compress.html',
+  'gif-crop':'/image/gif-crop.html',
+  'grayscale':'/image/grayscale.html',
+  'gridsplit':'/image/gridsplit.html',
+  'ico-generator':'/image/ico-generator.html',
+  'image-blur':'/image/image-blur.html',
+  'image-border':'/image/image-border.html',
+  'image-compare':'/image/image-compare.html',
+  'image-compress':'/image/compress.html',
+  'image-dedup':'/image/image-dedup.html',
+  'image-enlarge':'/image/image-enlarge.html',
+  'image-format-detector':'/image/image-format-detector.html',
+  'image-organize':'/image/image-organize.html',
+  'image-to-ascii':'/image/image-to-ascii.html',
+  'image-to-ico':'/image/image-to-ico.html',
+  'image-to-pdf':'/pdf/image-to-pdf.html',
+  'image-to-pixel-art':'/image/image-to-pixel-art.html',
+  'imagebase64':'/image/imagebase64.html',
+  'imgtopdf':'/image/imgtopdf.html',
+  'json-formatter':'/json/json-formatter.html',
+  'loan-calculator':'/finance/loan.html',
+  'mosaic':'/image/mosaic.html',
+  'pdf-compress':'/pdf/pdf-compress.html',
+  'pdf-encrypt':'/pdf/pdf-encrypt.html',
+  'pdf-merge':'/pdf/pdf-merge.html',
+  'pdf-ocr':'/pdf/pdf-ocr.html',
+  'pdf-split':'/pdf/pdf-split.html',
+  'pdf-to-image':'/pdf/pdf-to-image.html',
+  'pdf-to-word':'/pdf/pdf-to-word.html',
+  'png-to-svg':'/image/png-to-svg.html',
+  'qr-generator':'/qr/qr-generator.html',
+  'qr-reader':'/image/qr-reader.html',
+  'rotate':'/image/rotate.html',
+  'rounded-corners':'/image/rounded-corners.html',
+  'serp-preview':'/seo/serp-preview.html',
+  'sharpen':'/image/sharpen.html',
+  'sketch':'/image/sketch.html',
+  'text-diff':'/text/textdiff.html',
+  'text-to-speech':'/audio/text-to-speech.html',
+  'video-compress':'/video/compress-video.html',
+  'video-thumbnail':'/image/video-thumbnail.html',
+  'video-to-gif':'/video/video-to-gif.html',
+  'watermark':'/image/watermark.html'
+};
+
+var categories = [
+  { id:'pdf', icon:'📄', zh:'PDF工具', en:'PDF Tools', ja:'PDFツール', vi:'Công cụ PDF' },
+  { id:'image', icon:'🖼️', zh:'图片工具', en:'Image Tools', ja:'画像ツール', vi:'Công cụ ảnh' },
+  { id:'video', icon:'🎬', zh:'视频工具', en:'Video Tools', ja:'動画ツール', vi:'Công cụ video' },
+  { id:'ai', icon:'🤖', zh:'AI工具', en:'AI Tools', ja:'AIツール', vi:'Công cụ AI' },
+  { id:'dev', icon:'💻', zh:'开发工具', en:'Dev Tools', ja:'開発ツール', vi:'Công cụ Dev' },
+  { id:'audio', icon:'🎵', zh:'音频工具', en:'Audio Tools', ja:'音声ツール', vi:'Công cụ âm thanh' },
+  { id:'finance', icon:'🏦', zh:'金融工具', en:'Finance Tools', ja:'金融ツール', vi:'Công cụ tài chính' },
+  { id:'seo', icon:'🌐', zh:'SEO工具', en:'SEO Tools', ja:'SEOツール', vi:'Công cụ SEO' },
+  { id:'qr', icon:'🔗', zh:'二维码工具', en:'QR Tools', ja:'QRツール', vi:'Công cụ QR' }
+];
+
+var tutorials = [
+  /* ===== PDF工具 ===== */
+  { slug:'pdf-merge', cat:'pdf', titleZh:'PDF 合并工具使用教程：三步合并多个 PDF 文件', titleEn:'Merge PDFs in 3 Simple Steps', titleJa:'PDF 結合チュートリアル：3ステップでPDFを結合', titleVi:'Hướng dẫn gộp PDF: 3 bước gộp nhiều file PDF', date:'2026-06-18', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'无需安装软件，直接在浏览器中完成多个PDF文件的合并，保护文件隐私。', sumEn:'Combine multiple PDFs directly in your browser. No software, no uploads, privacy protected.', sumJa:'ソフト不要。ブラウザで直接PDFを結合。プライバシー保護。', sumVi:'Gộp nhiều file PDF trực tiếp trong trình duyệt, bảo vệ quyền riêng tư.', tagsZh:['PDF','合并'],tagsEn:['PDF','Merge'],tagsJa:['PDF','結合'],tagsVi:['PDF','Gộp'] },
+  { slug:'pdf-split', cat:'pdf', titleZh:'PDF 拆分教程：提取指定页面或按范围拆分', titleEn:'Split PDFs — Extract or Separate Pages', titleJa:'PDF 分割 — 必要なページだけを取り出す', titleVi:'Hướng dẫn tách PDF: Trích xuất trang theo phạm vi', date:'2026-06-21', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'从PDF中提取指定页面，或将多页PDF拆分为多个独立文件。', sumEn:'Extract specific pages from PDFs or split into separate files.', sumJa:'PDFから指定ページを抽出、または複数ファイルに分割。', sumVi:'Trích xuất trang cụ thể từ PDF hoặc tách thành nhiều file.', tagsZh:['PDF','拆分'],tagsEn:['PDF','Split'],tagsJa:['PDF','分割'],tagsVi:['PDF','Tách'] },
+  { slug:'pdf-compress', cat:'pdf', titleZh:'PDF 压缩教程：减小 PDF 文件体积', titleEn:'Compress PDF Files to Make Them Smaller', titleJa:'PDF を圧縮してファイルサイズを削減', titleVi:'Hướng dẫn nén PDF: Giảm kích thước file PDF', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'大幅减小PDF文件体积，方便邮件附件、网站上传和存储优化。', sumEn:'Reduce PDF file size significantly for email, upload and storage.', sumJa:'PDFファイルサイズを大幅に削減。メール添付や保存に最適。', sumVi:'Giảm đáng kể kích thước file PDF cho email, upload và lưu trữ.', tagsZh:['PDF','压缩'],tagsEn:['PDF','Compress'],tagsJa:['PDF','圧縮'],tagsVi:['PDF','Nén'] },
+  { slug:'pdf-to-word', cat:'pdf', titleZh:'PDF 转 Word 教程：提取 PDF 中的文字', titleEn:'Extract Text from PDFs', titleJa:'PDF からテキストを抽出', titleVi:'Hướng dẫn PDF sang Word: Trích xuất văn bản từ PDF', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'从PDF文件中提取文字内容保存为可编辑的TXT格式，方便复制编辑。', sumEn:'Extract text from PDF files and save as editable TXT format.', sumJa:'PDFからテキストを抽出し、編集可能なTXT形式で保存。', sumVi:'Trích xuất văn bản từ PDF và lưu dưới dạng TXT có thể chỉnh sửa.', tagsZh:['PDF','转Word'],tagsEn:['PDF','to Word'],tagsJa:['PDF','Word変換'],tagsVi:['PDF','sang Word'] },
+  { slug:'pdf-to-image', cat:'pdf', titleZh:'PDF 转图片教程：将 PDF 页面转换为 PNG/JPG 图片', titleEn:'Convert PDF Pages to PNG or JPG Images', titleJa:'PDF のページを画像（PNG/JPG）に変換', titleVi:'Hướng dẫn PDF sang ảnh: Chuyển trang PDF thành PNG/JPG', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将PDF文件的每一页转换为独立的PNG或JPG图片。', sumEn:'Convert each page of a PDF into individual PNG or JPG images.', sumJa:'PDFの各ページを個別のPNG/JPG画像に変換。', sumVi:'Chuyển mỗi trang PDF thành ảnh PNG hoặc JPG riêng biệt.', tagsZh:['PDF','转图片'],tagsEn:['PDF','to Image'],tagsJa:['PDF','画像変換'],tagsVi:['PDF','sang ảnh'] },
+  { slug:'pdf-encrypt', cat:'pdf', titleZh:'PDF 加密与解密教程：保护你的文档安全', titleEn:'Protect Your PDFs with Encryption (and Remove It)', titleJa:'PDF の暗号化と解除 — 文書を安全に', titleVi:'Hướng dẫn mã hóa PDF: Bảo vệ tài liệu của bạn', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'为文档添加密码保护，以及使用解密工具去除密码限制。', sumEn:'Add password protection to documents and remove password restrictions.', sumJa:'文書にパスワード保護を追加、または解除。', sumVi:'Thêm bảo vệ mật khẩu cho tài liệu và gỡ bỏ hạn chế mật khẩu.', tagsZh:['PDF','加密'],tagsEn:['PDF','Encrypt'],tagsJa:['PDF','暗号化'],tagsVi:['PDF','Mã hóa'] },
+  { slug:'pdf-ocr', cat:'pdf', titleZh:'OCR 文字识别教程：从扫描 PDF 中提取文字', titleEn:'Extract Text from Scanned PDFs (OCR)', titleJa:'スキャンPDFから文字を抽出（OCR）', titleVi:'Hướng dẫn OCR: Trích xuất văn bản từ PDF scan', date:'2026-06-20', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'识别扫描件和图片型PDF中的文字内容，支持中英文。', sumEn:'Recognize text from scanned and image-based PDFs. Supports Chinese and English.', sumJa:'スキャンPDFや画像PDFから文字を認識。中国語・英語対応。', sumVi:'Nhận dạng văn bản từ PDF scan và PDF ảnh. Hỗ trợ tiếng Trung và Anh.', tagsZh:['OCR','PDF','文字识别'],tagsEn:['OCR','PDF','Text Recognition'],tagsJa:['OCR','PDF','文字認識'],tagsVi:['OCR','PDF','Nhận dạng'] },
+  { slug:'image-to-pdf', cat:'pdf', titleZh:'图片转 PDF 教程：将多张图片合成为 PDF 文件', titleEn:'Combine Images into a Single PDF', titleJa:'複数の画像を1つのPDFにまとめる', titleVi:'Hướng dẫn ảnh sang PDF: Gộp nhiều ảnh thành một PDF', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将多张JPG、PNG图片按顺序合成为一个PDF文件。', sumEn:'Combine multiple JPG, PNG images into a single PDF in order.', sumJa:'複数のJPG/PNG画像を順番に1つのPDFに結合。', sumVi:'Gộp nhiều ảnh JPG, PNG thành một file PDF theo thứ tự.', tagsZh:['图片转PDF','PDF'],tagsEn:['Image to PDF','PDF'],tagsJa:['画像→PDF','PDF'],tagsVi:['Ảnh sang PDF','PDF'] },
+  /* ===== 图片工具 ===== */
+  { slug:'image-compress', cat:'image', titleZh:'图片压缩教程：在线压缩 JPG 和 PNG 图片', titleEn:'Compress Images Online — JPG and PNG', titleJa:'画像圧縮チュートリアル：JPGとPNGをオンライン圧縮', titleVi:'Hướng dẫn nén ảnh: Nén JPG và PNG trực tuyến', date:'2026-06-18', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'大幅减小图片文件体积，适合网页上传、邮件附件和存储优化。', sumEn:'Reduce image file size for web uploads, email attachments and storage.', sumJa:'画像ファイルサイズを大幅に削減。ウェブ、メール、保存に最適。', sumVi:'Giảm kích thước file ảnh cho upload web, đính kèm email và lưu trữ.', tagsZh:['图片压缩','JPG','PNG'],tagsEn:['Image Compress','JPG','PNG'],tagsJa:['画像圧縮','JPG','PNG'],tagsVi:['Nén ảnh','JPG','PNG'] },
+  { slug:'format-convert', cat:'image', titleZh:'图片格式转换教程：JPG、PNG、WebP 互转', titleEn:'Convert Images Between JPG, PNG & WebP', titleJa:'画像フォーマット変換 — JPG/PNG/WebP相互変換', titleVi:'Hướng dẫn chuyển đổi định dạng: JPG, PNG, WebP', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'在JPG、PNG、WebP等格式之间互相转换，支持批量处理。', sumEn:'Convert between JPG, PNG, WebP formats with batch processing support.', sumJa:'JPG/PNG/WebP間の相互変換、バッチ処理対応。', sumVi:'Chuyển đổi giữa JPG, PNG, WebP với hỗ trợ xử lý hàng loạt.', tagsZh:['图片','格式转换'],tagsEn:['Image','Format Convert'],tagsJa:['画像','フォーマット変換'],tagsVi:['Ảnh','Chuyển đổi'] },
+  { slug:'grayscale', cat:'image', titleZh:'图片灰度处理教程：将彩色图片转为黑白', titleEn:'Convert Images to Grayscale — Black & White Photos', titleJa:'画像をグレースケールに変換—白黒写真作成', titleVi:'Hướng dẫn xám hóa: Chuyển ảnh màu thành đen trắng', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将彩色图片转为黑白灰度效果，适合打印、证件照和艺术创作。', sumEn:'Convert color images to grayscale. Ideal for printing, ID photos and art.', sumJa:'カラー画像を白黒に変換。印刷や証明写真、アートに最適。', sumVi:'Chuyển ảnh màu thành đen trắng. Phù hợp in ấn, ảnh thẻ và nghệ thuật.', tagsZh:['图片','灰度'],tagsEn:['Image','Grayscale'],tagsJa:['画像','グレースケール'],tagsVi:['Ảnh','Xám hóa'] },
+  { slug:'image-blur', cat:'image', titleZh:'图片模糊教程：为图片添加模糊特效', titleEn:'Blur Images — Add Gaussian Blur Effect', titleJa:'画像をぼかす—ぼかし効果の追加', titleVi:'Hướng dẫn làm mờ ảnh: Thêm hiệu ứng mờ', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'为图片添加高斯模糊效果，适合保护隐私、背景虚化和创意设计。', sumEn:'Add Gaussian blur effect. Perfect for privacy protection and creative designs.', sumJa:'ガウスぼかし効果を追加。プライバシー保護や背景ぼかしに。', sumVi:'Thêm hiệu ứng làm mờ Gaussian. Bảo vệ quyền riêng tư và thiết kế sáng tạo.', tagsZh:['图片','模糊'],tagsEn:['Image','Blur'],tagsJa:['画像','ぼかし'],tagsVi:['Ảnh','Làm mờ'] },
+  { slug:'image-enlarge', cat:'image', titleZh:'图片放大教程：无损放大图片保持清晰', titleEn:'Enlarge Images — Upscale Without Losing Quality', titleJa:'画像を拡大—高画質で拡大処理', titleVi:'Hướng dẫn phóng to ảnh: Phóng to không mất chất lượng', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'使用智能算法无损放大图片，支持最高4x放大，保持边缘清晰。', sumEn:'Upscale images up to 4x with intelligent algorithms. Keep edges sharp.', sumJa:'スマート補間で最大4倍まで拡大。エッジを保ちながら高画質を維持。', sumVi:'Phóng to ảnh lên đến 4x bằng thuật toán thông minh, giữ chi tiết sắc nét.', tagsZh:['图片','放大'],tagsEn:['Image','Enlarge'],tagsJa:['画像','拡大'],tagsVi:['Ảnh','Phóng to'] },
+  { slug:'image-to-ascii', cat:'image', titleZh:'图片转 ASCII 教程：将图片转换为字符画', titleEn:'Image to ASCII — Turn Photos into Character Art', titleJa:'画像をASCIIアートに変換', titleVi:'Hướng dẫn ảnh sang ASCII: Chuyển ảnh thành nghệ thuật ký tự', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将图片转换为ASCII字符画，复古艺术效果。可调节字符密度和字符集。', sumEn:'Convert images into ASCII character art. Adjust density and character sets.', sumJa:'画像をASCII文字アートに変換。密度や文字セットを調整可能。', sumVi:'Chuyển ảnh thành nghệ thuật ký tự ASCII. Điều chỉnh mật độ và bộ ký tự.', tagsZh:['图片','ASCII'],tagsEn:['Image','ASCII'],tagsJa:['画像','ASCII'],tagsVi:['Ảnh','ASCII'] },
+  { slug:'image-to-pixel-art', cat:'image', titleZh:'图片转像素画教程：将图片转为 8-bit 像素风格', titleEn:'Image to Pixel Art — 8-Bit Style', titleJa:'画像をピクセルアートに—8ビット風', titleVi:'Hướng dẫn ảnh pixel: Chuyển ảnh thành phong cách 8-bit', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将图片转换为8-bit像素风格艺术画，支持调节像素大小和调色板。', sumEn:'Convert images to 8-bit pixel art style. Adjust pixel size and palette.', sumJa:'画像を8ビットピクセルスタイルに変換。サイズとパレット調整可能。', sumVi:'Chuyển ảnh thành phong cách pixel 8-bit. Điều chỉnh kích thước và bảng màu.', tagsZh:['图片','像素画'],tagsEn:['Image','Pixel Art'],tagsJa:['画像','ピクセル'],tagsVi:['Ảnh','Pixel'] },
+  { slug:'add-text-to-image', cat:'image', titleZh:'图片添加文字教程：在图片上添加水印或标注', titleEn:'Add Text to Images — Watermarks & Annotations', titleJa:'画像にテキスト追加—透かし・注釈', titleVi:'Hướng dẫn thêm chữ vào ảnh: Watermark và chú thích', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'在图片上自定义文字，支持调节字体、颜色、位置和透明度。', sumEn:'Add custom text on images. Adjust font, color, position and opacity.', sumJa:'画像にテキスト追加。フォント、色、位置、透明度を調整可能。', sumVi:'Thêm chữ tùy chỉnh lên ảnh. Điều chỉnh font, màu, vị trí và độ trong suốt.', tagsZh:['图片','文字'],tagsEn:['Image','Text'],tagsJa:['画像','テキスト'],tagsVi:['Ảnh','Chữ'] },
+  { slug:'exif-viewer', cat:'image', titleZh:'EXIF 查看教程：读取照片的元数据信息', titleEn:'EXIF Viewer — Read Photo Metadata', titleJa:'EXIFビューアー—写真のメタデータ表示', titleVi:'Hướng dẫn xem EXIF: Đọc metadata của ảnh', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'查看相机型号、光圈、快门、ISO、GPS位置和拍摄时间等信息。', sumEn:'View camera model, aperture, shutter speed, ISO, GPS and shooting time.', sumJa:'カメラ機種、絞り、シャッター、ISO、GPS位置情報を表示。', sumVi:'Xem model máy ảnh, khẩu độ, tốc độ, ISO, GPS và thời gian chụp.', tagsZh:['图片','EXIF'],tagsEn:['Image','EXIF'],tagsJa:['画像','EXIF'],tagsVi:['Ảnh','EXIF'] },
+  { slug:'qr-reader', cat:'image', titleZh:'二维码识别教程：从图片中读取二维码内容', titleEn:'QR Code Reader — Scan QR from Images', titleJa:'QRコードリーダー—画像からQR読み取り', titleVi:'Hướng dẫn đọc mã QR: Quét QR từ ảnh', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'识别图片中的二维码，提取URL、文本、联系方式等信息。', sumEn:'Recognize QR codes from images. Extract URLs, text and contact info.', sumJa:'画像からQRコードを認識。URLやテキスト、連絡先情報を抽出。', sumVi:'Nhận dạng mã QR từ ảnh. Trích xuất URL, văn bản và thông tin liên hệ.', tagsZh:['图片','二维码'],tagsEn:['Image','QR Code'],tagsJa:['画像','QRコード'],tagsVi:['Ảnh','Mã QR'] },
+  { slug:'ico-generator', cat:'image', titleZh:'ICO 图标生成教程：将图片转为 Windows 图标', titleEn:'ICO Generator — Create Windows Icons', titleJa:'ICOジェネレーター—Windowsアイコン作成', titleVi:'Hướng dẫn tạo ICO: Chuyển ảnh thành icon Windows', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将PNG、JPG等图片转为Windows ICO图标格式，支持多种尺寸。', sumEn:'Convert PNG, JPG images to Windows ICO format. Multiple sizes supported.', sumJa:'PNG/JPG画像をWindows ICO形式に変換。複数サイズ対応。', sumVi:'Chuyển PNG, JPG thành định dạng ICO Windows. Hỗ trợ nhiều kích thước.', tagsZh:['图片','ICO'],tagsEn:['Image','ICO'],tagsJa:['画像','ICO'],tagsVi:['Ảnh','ICO'] },
+  { slug:'image-format-detector', cat:'image', titleZh:'图片格式检测教程：识别图片的真实格式', titleEn:'Image Format Detector — Identify Real Formats', titleJa:'画像フォーマット検出—本当の形式を識別', titleVi:'Hướng dẫn phát hiện định dạng: Nhận dạng định dạng thật', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'检测图片的真实格式、色彩空间、位深度和编码信息。', sumEn:'Detect real format, color space, bit depth and encoding of images.', sumJa:'画像の本当の形式、色空間、ビット深度、エンコード情報を検出。', sumVi:'Phát hiện định dạng thật, không gian màu, độ sâu bit và mã hóa.', tagsZh:['图片','检测'],tagsEn:['Image','Detect'],tagsJa:['画像','検出'],tagsVi:['Ảnh','Phát hiện'] },
+  { slug:'png-to-svg', cat:'image', titleZh:'PNG 转 SVG 教程：将位图转换为矢量图', titleEn:'PNG to SVG — Convert Bitmap to Vector', titleJa:'PNG→SVG—ビットマップをベクターに変換', titleVi:'Hướng dẫn PNG sang SVG: Chuyển bitmap thành vector', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将PNG等位图图片转换为可无限放大的SVG矢量图。', sumEn:'Convert PNG bitmap images to infinitely scalable SVG vector graphics.', sumJa:'PNGビットマップ画像を無限拡大可能なSVGベクターに変換。', sumVi:'Chuyển ảnh bitmap PNG thành đồ họa vector SVG có thể phóng to vô hạn.', tagsZh:['图片','矢量'],tagsEn:['Image','Vector'],tagsJa:['画像','ベクター'],tagsVi:['Ảnh','Vector'] },
+  { slug:'image-dedup', cat:'image', titleZh:'图片去重教程：查找并清理重复图片', titleEn:'Image Dedup — Find & Clean Duplicates', titleJa:'画像重複検出—重複画像の検索と削除', titleVi:'Hướng dẫn loại bỏ trùng lặp: Tìm và xóa ảnh trùng', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'批量检测并标记重复或相似图片，清理存储空间。', sumEn:'Batch detect and mark duplicate or similar images. Clean storage space.', sumJa:'重複・類似画像をバッチ検出。ストレージ整理に。', sumVi:'Phát hiện hàng loạt ảnh trùng lặp hoặc tương tự. Dọn dẹp không gian lưu trữ.', tagsZh:['图片','去重'],tagsEn:['Image','Dedup'],tagsJa:['画像','重複検出'],tagsVi:['Ảnh','Loại trùng'] },
+  { slug:'gif-compress', cat:'image', titleZh:'GIF 压缩教程：减小 GIF 动图文件大小', titleEn:'GIF Compress — Reduce GIF File Size', titleJa:'GIF圧縮—GIFファイルサイズ削減', titleVi:'Hướng dẫn nén GIF: Giảm kích thước file GIF', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'压缩GIF动图，减小文件体积，适合社交媒体分享和网页优化。', sumEn:'Compress GIF animations. Reduce file size for social media and web.', sumJa:'GIFアニメを圧縮。SNS共有やウェブ最適化に。', sumVi:'Nén ảnh động GIF. Giảm kích thước cho mạng xã hội và web.', tagsZh:['GIF','压缩'],tagsEn:['GIF','Compress'],tagsJa:['GIF','圧縮'],tagsVi:['GIF','Nén'] },
+  { slug:'gif-crop', cat:'image', titleZh:'GIF 裁剪教程：裁切 GIF 动图的尺寸', titleEn:'GIF Crop — Trim GIF Dimensions', titleJa:'GIFクロップ—GIFサイズ切り抜き', titleVi:'Hướng dẫn cắt GIF: Cắt kích thước ảnh động GIF', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'裁剪GIF动图的画面尺寸，去除不需要的边缘区域。', sumEn:'Crop GIF animation dimensions. Remove unwanted edge areas.', sumJa:'GIFアニメのサイズを切り抜き。不要な縁を除去。', sumVi:'Cắt kích thước ảnh động GIF. Loại bỏ vùng rìa không cần thiết.', tagsZh:['GIF','裁剪'],tagsEn:['GIF','Crop'],tagsJa:['GIF','クロップ'],tagsVi:['GIF','Cắt'] },
+  { slug:'ai-super-resolution', cat:'image', titleZh:'AI 超分辨率教程：用 AI 提升图片清晰度', titleEn:'AI Super Resolution — Enhance Image Clarity', titleJa:'AI超解像—AIで画像の鮮明さを向上', titleVi:'Hướng dẫn siêu phân giải AI: Nâng cao độ rõ nét ảnh', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'利用AI算法提升低分辨率图片的清晰度和细节。', sumEn:'Enhance clarity and detail of low-res images using AI algorithms.', sumJa:'AIアルゴリズムで低解像度画像の鮮明さと詳細を向上。', sumVi:'Nâng cao độ rõ nét và chi tiết của ảnh độ phân giải thấp bằng AI.', tagsZh:['图片','AI'],tagsEn:['Image','AI'],tagsJa:['画像','AI'],tagsVi:['Ảnh','AI'] },
+  { slug:'exif-stripper', cat:'image', titleZh:'EXIF 清除教程：移除照片中的隐私元数据', titleEn:'EXIF Stripper — Remove Photo Metadata', titleJa:'EXIF削除—写真メタデータの除去', titleVi:'Hướng dẫn xóa EXIF: Xóa metadata quyền riêng tư', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'清除图片EXIF元数据（GPS位置、相机信息等），保护隐私。', sumEn:'Remove EXIF metadata (GPS, camera info) from images. Protect privacy.', sumJa:'画像からEXIFメタデータ（GPS、カメラ情報）を削除。プライバシー保護。', sumVi:'Xóa metadata EXIF (GPS, thông tin máy ảnh) khỏi ảnh. Bảo vệ quyền riêng tư.', tagsZh:['图片','隐私'],tagsEn:['Image','Privacy'],tagsJa:['画像','プライバシー'],tagsVi:['Ảnh','Riêng tư'] },
+  { slug:'base64-to-image', cat:'image', titleZh:'Base64 转图片教程：将 Base64 编码还原为图片', titleEn:'Base64 to Image — Decode Base64', titleJa:'Base64→画像—Base64エンコードを画像に復元', titleVi:'Hướng dẫn Base64 sang ảnh: Giải mã Base64', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'将Base64编码的图片数据还原为可视化的图片文件。', sumEn:'Restore Base64-encoded image data to viewable image files.', sumJa:'Base64エンコードされた画像データを表示可能な画像に復元。', sumVi:'Khôi phục dữ liệu ảnh mã hóa Base64 thành file ảnh có thể xem.', tagsZh:['图片','Base64'],tagsEn:['Image','Base64'],tagsJa:['画像','Base64'],tagsVi:['Ảnh','Base64'] },
+  { slug:'image-to-ico', cat:'image', titleZh:'图片转 ICO 教程：创建 Windows 图标文件', titleEn:'Image to ICO — Create Windows Icon Files', titleJa:'画像→ICO—Windowsアイコンファイル作成', titleVi:'Hướng dẫn ảnh sang ICO: Tạo file icon Windows', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'将常见图片格式快速转换为ICO图标文件，适合桌面应用和文件夹。', sumEn:'Quickly convert common image formats to ICO icon files.', sumJa:'一般的な画像形式をICOアイコンに素早く変換。', sumVi:'Chuyển đổi nhanh các định dạng ảnh phổ biến thành file ICO.', tagsZh:['图片','ICO'],tagsEn:['Image','ICO'],tagsJa:['画像','ICO'],tagsVi:['Ảnh','ICO'] },
+  { slug:'filters', cat:'image', titleZh:'图片滤镜教程：一键为照片添加滤镜效果', titleEn:'Image Filters — One-Click Photo Filters', titleJa:'画像フィルター—ワンクリックで写真に効果', titleVi:'Hướng dẫn bộ lọc ảnh: Thêm hiệu ứng lọc một chạm', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'多种滤镜效果：灰度、暖色、冷色、复古、胶片等风格。', sumEn:'Multiple filters: grayscale, warm, cool, vintage, film styles.', sumJa:'グレースケール、暖色、寒色、ビンテージ、フィルム風など多彩な効果。', sumVi:'Nhiều bộ lọc: xám, ấm, lạnh, cổ điển, phim. Thay đổi phong cách ảnh.', tagsZh:['图片','滤镜'],tagsEn:['Image','Filter'],tagsJa:['画像','フィルター'],tagsVi:['Ảnh','Bộ lọc'] },
+  { slug:'collage', cat:'image', titleZh:'图片拼贴教程：将多张图片组合为一张', titleEn:'Photo Collage — Combine Multiple Images', titleJa:'写真コラージュ—複数画像を組み合わせ', titleVi:'Hướng dẫn ghép ảnh: Kết hợp nhiều ảnh thành một', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将多张图片拼贴为一张组合图，支持多种布局模板。', sumEn:'Combine multiple images into one collage. Multiple layout templates.', sumJa:'複数画像を1枚にコラージュ。複数レイアウトテンプレート対応。', sumVi:'Kết hợp nhiều ảnh thành một ảnh ghép. Hỗ trợ nhiều mẫu bố cục.', tagsZh:['图片','拼贴'],tagsEn:['Image','Collage'],tagsJa:['画像','コラージュ'],tagsVi:['Ảnh','Ghép'] },
+  { slug:'sharpen', cat:'image', titleZh:'图片锐化教程：让模糊图片变清晰', titleEn:'Sharpen Images — Make Blurry Photos Clear', titleJa:'画像シャープ化—ぼやけた写真を鮮明に', titleVi:'Hướng dẫn làm nét ảnh: Làm rõ ảnh mờ', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'增强图片边缘清晰度，让模糊照片更加清晰锐利。', sumEn:'Enhance image edge sharpness. Make blurry photos clearer and crisper.', sumJa:'画像エッジの鮮明さを向上。ぼやけた写真をクリアに。', sumVi:'Tăng cường độ sắc nét cạnh ảnh. Làm ảnh mờ trở nên rõ ràng hơn.', tagsZh:['图片','锐化'],tagsEn:['Image','Sharpen'],tagsJa:['画像','シャープ'],tagsVi:['Ảnh','Làm nét'] },
+  { slug:'color-tune', cat:'image', titleZh:'图片调色教程：调整亮度、对比度和饱和度', titleEn:'Color Tune — Adjust Brightness & Contrast', titleJa:'色調調整—明るさ・コントラスト調整', titleVi:'Hướng dẫn chỉnh màu: Điều chỉnh độ sáng và tương phản', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'调整图片亮度、对比度、饱和度和色相，修复曝光问题。', sumEn:'Adjust brightness, contrast, saturation and hue. Fix exposure issues.', sumJa:'明るさ、コントラスト、彩度、色相を調整。露出問題を修正。', sumVi:'Điều chỉnh độ sáng, tương phản, bão hòa và sắc độ. Sửa vấn đề phơi sáng.', tagsZh:['图片','调色'],tagsEn:['Image','Color'],tagsJa:['画像','色調'],tagsVi:['Ảnh','Chỉnh màu'] },
+  { slug:'rotate', cat:'image', titleZh:'图片旋转教程：旋转和翻转图片方向', titleEn:'Rotate Images — Flip & Rotate', titleJa:'画像回転—画像の向きを回転・反転', titleVi:'Hướng dẫn xoay ảnh: Xoay và lật ảnh', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'旋转角度、左右翻转、上下翻转，修正拍摄方向或创造镜像效果。', sumEn:'Rotate, flip horizontally or vertically. Fix orientation or create mirror effects.', sumJa:'角度回転、左右反転、上下反転。向き修正やミラー効果に。', sumVi:'Xoay góc, lật ngang hoặc dọc. Sửa hướng chụp hoặc tạo hiệu ứng gương.', tagsZh:['图片','旋转'],tagsEn:['Image','Rotate'],tagsJa:['画像','回転'],tagsVi:['Ảnh','Xoay'] },
+  { slug:'mosaic', cat:'image', titleZh:'图片马赛克教程：为图片添加马赛克遮挡', titleEn:'Mosaic Effect — Pixelate Sensitive Areas', titleJa:'モザイク効果—プライバシー保護', titleVi:'Hướng dẫn mosaic: Che vùng nhạy cảm trên ảnh', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'在图片上添加马赛克效果，遮挡敏感信息（人脸、车牌等）。', sumEn:'Add mosaic pixelation to cover sensitive info (faces, license plates).', sumJa:'モザイク効果を追加して顔やナンバープレートなどの個人情報を保護。', sumVi:'Thêm hiệu ứng mosaic để che thông tin nhạy cảm (khuôn mặt, biển số).', tagsZh:['图片','马赛克'],tagsEn:['Image','Mosaic'],tagsJa:['画像','モザイク'],tagsVi:['Ảnh','Mosaic'] },
+  { slug:'sketch', cat:'image', titleZh:'图片素描教程：将照片转换为素描画效果', titleEn:'Sketch Effect — Turn Photos into Pencil Drawings', titleJa:'スケッチ効果—写真を鉛筆画に', titleVi:'Hướng dẫn phác thảo: Chuyển ảnh thành tranh bút chì', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将照片自动转换为铅笔素描风格，适合艺术创作和打印素材。', sumEn:'Auto-convert photos to pencil sketch style. Great for art and prints.', sumJa:'写真を鉛筆スケッチ風に自動変換。アートや印刷に最適。', sumVi:'Tự động chuyển ảnh thành phong cách phác thảo bút chì. Tuyệt cho nghệ thuật.', tagsZh:['图片','素描'],tagsEn:['Image','Sketch'],tagsJa:['画像','スケッチ'],tagsVi:['Ảnh','Phác thảo'] },
+  { slug:'drop-shadow', cat:'image', titleZh:'图片投影教程：为图片添加阴影效果', titleEn:'Drop Shadow — Add Shadow to Images', titleJa:'ドロップシャドウ—画像に影を追加', titleVi:'Hướng dẫn đổ bóng: Thêm bóng cho ảnh', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'为透明背景PNG添加投影效果，让物体更立体真实。', sumEn:'Add drop shadow to transparent PNG images. Make objects look 3D.', sumJa:'透明背景PNGに影効果を追加。立体感を演出。', sumVi:'Thêm hiệu ứng đổ bóng cho ảnh PNG nền trong suốt. Tạo cảm giác 3D.', tagsZh:['图片','投影'],tagsEn:['Image','Shadow'],tagsJa:['画像','シャドウ'],tagsVi:['Ảnh','Đổ bóng'] },
+  { slug:'image-border', cat:'image', titleZh:'图片边框教程：为图片添加边框装饰', titleEn:'Image Border — Add Decorative Frames', titleJa:'画像フレーム—装飾枠の追加', titleVi:'Hướng dẫn viền ảnh: Thêm khung trang trí', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'为图片添加各种样式边框，支持自定义颜色、宽度和圆角。', sumEn:'Add various border styles. Custom colors, width and rounded corners.', sumJa:'様々な枠スタイルを追加。色、幅、角丸をカスタマイズ可能。', sumVi:'Thêm nhiều kiểu viền. Tùy chỉnh màu sắc, độ rộng và góc bo tròn.', tagsZh:['图片','边框'],tagsEn:['Image','Border'],tagsJa:['画像','フレーム'],tagsVi:['Ảnh','Viền'] },
+  { slug:'rounded-corners', cat:'image', titleZh:'图片圆角教程：为图片添加圆角效果', titleEn:'Rounded Corners — Soften Image Edges', titleJa:'角丸加工—画像の角を丸く', titleVi:'Hướng dẫn bo góc: Thêm hiệu ứng bo tròn', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'为图片添加圆角效果，使边角更柔和现代。适合头像和卡片设计。', sumEn:'Add rounded corners. Softer, modern look for avatars and card designs.', sumJa:'角を丸く加工。アバターやカードデザインにモダンな印象。', sumVi:'Thêm góc bo tròn. Góc mềm mại, hiện đại cho avatar và thiết kế card.', tagsZh:['图片','圆角'],tagsEn:['Image','Rounded'],tagsJa:['画像','角丸'],tagsVi:['Ảnh','Bo góc'] },
+  { slug:'colorpicker', cat:'image', titleZh:'在线取色器教程：从图片中提取颜色值', titleEn:'Online Color Picker — Extract Colors', titleJa:'オンラインカラーピッカー—色抽出', titleVi:'Hướng dẫn chọn màu: Trích xuất màu từ ảnh', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'从图片任意位置取色，获取HEX和RGB颜色值，支持色板管理。', sumEn:'Pick colors from any image position. Get HEX and RGB values.', sumJa:'画像の任意の位置から色を抽出。HEXとRGB値を取得。', sumVi:'Chọn màu từ bất kỳ vị trí nào trên ảnh. Lấy giá trị HEX và RGB.', tagsZh:['图片','取色'],tagsEn:['Image','Color Picker'],tagsJa:['画像','カラーピック'],tagsVi:['Ảnh','Chọn màu'] },
+  { slug:'gridsplit', cat:'image', titleZh:'九宫格切图教程：将图片切分为九宫格', titleEn:'Grid Split — Cut Images into 3×3 Grid', titleJa:'9グリッド分割—3×3グリッドにカット', titleVi:'Hướng dẫn chia lưới: Cắt ảnh thành lưới 3×3', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'将图片切割为3×3九宫格，适合社交媒体多图帖子发布。', sumEn:'Cut images into 3×3 grid. Perfect for social media multi-image posts.', sumJa:'画像を3×3グリッドにカット。SNSマルチ画像投稿に最適。', sumVi:'Cắt ảnh thành lưới 3×3. Phù hợp đăng bài nhiều ảnh trên mạng xã hội.', tagsZh:['图片','九宫格'],tagsEn:['Image','Grid'],tagsJa:['画像','グリッド'],tagsVi:['Ảnh','Lưới'] },
+  { slug:'image-compare', cat:'image', titleZh:'图片对比教程：对比两张图片的差异', titleEn:'Image Compare — Side-by-Side Comparison', titleJa:'画像比較—2枚の画像の違いを比較', titleVi:'Hướng dẫn so sánh ảnh: So sánh hai ảnh', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'使用拖拽滑块对比两张图片的差异，适合对比处理前后效果。', sumEn:'Compare two images with a drag slider. Ideal for before/after comparisons.', sumJa:'スライダーで2枚の画像を比較。処理前後の効果確認に。', sumVi:'So sánh hai ảnh bằng thanh trượt. Lý tưởng để so sánh trước/sau xử lý.', tagsZh:['图片','对比'],tagsEn:['Image','Compare'],tagsJa:['画像','比較'],tagsVi:['Ảnh','So sánh'] },
+  { slug:'watermark', cat:'image', titleZh:'图片水印教程：为图片添加平铺水印', titleEn:'Watermark — Protect Your Images', titleJa:'透かし—画像を保護', titleVi:'Hướng dẫn watermark: Bảo vệ ảnh của bạn', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'为图片添加平铺或居中的水印图片或文字，保护作品版权。', sumEn:'Add tiled or centered watermark images or text. Protect your copyright.', sumJa:'タイル状または中央に透かし画像・テキストを追加。著作権保護に。', sumVi:'Thêm watermark ảnh hoặc chữ dạng lặp hoặc căn giữa. Bảo vệ bản quyền.', tagsZh:['图片','水印'],tagsEn:['Image','Watermark'],tagsJa:['画像','透かし'],tagsVi:['Ảnh','Watermark'] },
+  { slug:'imagebase64', cat:'image', titleZh:'图片转 Base64 教程：将图片编码为 Base64', titleEn:'Image to Base64 — Encode Images', titleJa:'画像→Base64—画像エンコード', titleVi:'Hướng dẫn ảnh sang Base64: Mã hóa ảnh', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'将图片文件转为Base64编码字符串，方便嵌入HTML、CSS中。', sumEn:'Convert image files to Base64 strings. Embed in HTML, CSS easily.', sumJa:'画像ファイルをBase64文字列に変換。HTML/CSS埋め込みに便利。', sumVi:'Chuyển file ảnh thành chuỗi Base64. Nhúng vào HTML, CSS dễ dàng.', tagsZh:['图片','Base64'],tagsEn:['Image','Base64'],tagsJa:['画像','Base64'],tagsVi:['Ảnh','Base64'] },
+  { slug:'imgtopdf', cat:'image', titleZh:'图片转 PDF 教程：将图片转换为 PDF 文件', titleEn:'Image to PDF — Convert Images to PDF', titleJa:'画像→PDF—画像をPDFに変換', titleVi:'Hướng dẫn ảnh sang PDF: Chuyển ảnh thành PDF', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'将单张或多张图片快速转换为PDF文件，支持批量处理和页面排序。', sumEn:'Quickly convert single or multiple images to PDF. Batch processing supported.', sumJa:'1枚または複数画像をPDFに素早く変換。バッチ処理対応。', sumVi:'Chuyển nhanh một hoặc nhiều ảnh thành PDF. Hỗ trợ xử lý hàng loạt.', tagsZh:['图片','PDF'],tagsEn:['Image','PDF'],tagsJa:['画像','PDF'],tagsVi:['Ảnh','PDF'] },
+  { slug:'annotate', cat:'image', titleZh:'图片标注教程：在图片上添加箭头和标注框', titleEn:'Annotate Images — Arrows & Markers', titleJa:'画像注釈—矢印・マーカー追加', titleVi:'Hướng dẫn chú thích: Thêm mũi tên và khung chú thích', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'添加箭头、方框、文字标注，适合做教程截图和错误反馈。', sumEn:'Add arrows, boxes and text annotations. Perfect for tutorials and feedback.', sumJa:'矢印、枠、テキスト注釈を追加。チュートリアルやフィードバックに。', sumVi:'Thêm mũi tên, khung, chú thích văn bản. Phù hợp hướng dẫn và phản hồi.', tagsZh:['图片','标注'],tagsEn:['Image','Annotate'],tagsJa:['画像','注釈'],tagsVi:['Ảnh','Chú thích'] },
+  { slug:'video-thumbnail', cat:'image', titleZh:'视频缩略图教程：从视频中提取封面图', titleEn:'Video Thumbnail — Extract Cover Images', titleJa:'動画サムネイル—カバー画像抽出', titleVi:'Hướng dẫn thumbnail video: Trích xuất ảnh bìa', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'从视频文件中截取指定时间点的画面作为缩略图或封面图。', sumEn:'Capture frames at specific time points as thumbnails or cover images.', sumJa:'指定時間のフレームをサムネイルやカバー画像として抽出。', sumVi:'Chụp khung hình tại thời điểm cụ thể làm thumbnail hoặc ảnh bìa.', tagsZh:['图片','视频'],tagsEn:['Image','Video'],tagsJa:['画像','動画'],tagsVi:['Ảnh','Video'] },
+  { slug:'batch-rename', cat:'image', titleZh:'批量重命名教程：一键批量重命名图片文件', titleEn:'Batch Rename — Rename Files in Bulk', titleJa:'一括リネーム—ファイル名の一括変更', titleVi:'Hướng dẫn đổi tên hàng loạt: Đổi tên file ảnh', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'批量重命名图片文件，支持前缀、序号、日期等命名规则。', sumEn:'Rename image files in bulk. Prefix, sequence number, date naming patterns.', sumJa:'画像ファイルを一括リネーム。接頭辞、連番、日付ルールに対応。', sumVi:'Đổi tên hàng loạt file ảnh. Hỗ trợ tiền tố, số thứ tự, ngày tháng.', tagsZh:['图片','重命名'],tagsEn:['Image','Rename'],tagsJa:['画像','リネーム'],tagsVi:['Ảnh','Đổi tên'] },
+  { slug:'image-organize', cat:'image', titleZh:'图片整理教程：按日期和尺寸整理图片', titleEn:'Image Organize — Sort by Date & Size', titleJa:'画像整理—日付・サイズで整理', titleVi:'Hướng dẫn sắp xếp ảnh: Sắp xếp theo ngày và kích thước', date:'2026-06-21', read:'1 分钟阅读', readEn:'1 min', readJa:'1分', readVi:'1 phút', sumZh:'按拍摄日期、文件大小或尺寸对图片进行分类整理。', sumEn:'Sort images by date taken, file size or dimensions. Organize your library.', sumJa:'撮影日、ファイルサイズ、寸法で画像を分類整理。', sumVi:'Sắp xếp ảnh theo ngày chụp, kích thước file hoặc kích thước ảnh.', tagsZh:['图片','整理'],tagsEn:['Image','Organize'],tagsJa:['画像','整理'],tagsVi:['Ảnh','Sắp xếp'] },
+  /* ===== 视频工具 ===== */
+  { slug:'video-to-gif', cat:'video', titleZh:'视频转 GIF 教程：将视频片段转换为 GIF 动图', titleEn:'Turn a Video Clip into a GIF', titleJa:'動画の一部をGIFにする', titleVi:'Hướng dẫn video sang GIF: Chuyển video thành ảnh động', date:'2026-06-18', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'将视频片段转换成GIF动图，用于社交媒体分享和产品展示。', sumEn:'Convert video clips to GIFs for social media sharing and product demos.', sumJa:'動画クリップをGIFに変換。SNS共有や製品デモに。', sumVi:'Chuyển clip video thành GIF cho chia sẻ mạng xã hội và demo sản phẩm.', tagsZh:['视频转GIF','动图'],tagsEn:['Video to GIF','Animation'],tagsJa:['動画→GIF','アニメ'],tagsVi:['Video sang GIF','Ảnh động'] },
+  { slug:'video-compress', cat:'video', titleZh:'视频压缩教程：减小视频文件体积', titleEn:'Video Compress — Reduce File Size', titleJa:'動画圧縮—ファイルサイズ削減', titleVi:'Hướng dẫn nén video: Giảm kích thước file video', date:'2026-06-21', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'在不明显影响画质的前提下减小视频文件体积，便于存储和分享。', sumEn:'Reduce video file size without noticeably affecting quality.', sumJa:'画質を大きく損なわずに動画サイズを削減。保存・共有に便利。', sumVi:'Giảm kích thước video mà không ảnh hưởng đáng kể đến chất lượng.', tagsZh:['视频','压缩'],tagsEn:['Video','Compress'],tagsJa:['動画','圧縮'],tagsVi:['Video','Nén'] },
+  /* ===== AI工具 ===== */
+  { slug:'ai-writing', cat:'ai', titleZh:'AI 写作助手教程：用 AI 快速生成文章', titleEn:'AI Writing Assistant — Generate Articles Fast', titleJa:'AI文章作成—AIで素早く記事を作成', titleVi:'Hướng dẫn viết AI: Tạo bài viết nhanh với AI', date:'2026-06-20', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'输入主题即可生成文章大纲和正文草稿，提高写作效率。', sumEn:'Enter a topic and AI generates article outlines and drafts. Boost writing productivity.', sumJa:'テーマを入力するだけでAIが記事のアウトラインと草稿を生成。', sumVi:'Nhập chủ đề và AI tạo dàn ý và bản nháp. Tăng năng suất viết.', tagsZh:['AI写作','内容创作'],tagsEn:['AI Writing','Content'],tagsJa:['AI文章','コンテンツ'],tagsVi:['Viết AI','Nội dung'] },
+  { slug:'ai-chat', cat:'ai', titleZh:'AI 聊天教程：与 AI 智能对话', titleEn:'AI Chat — Intelligent Conversations', titleJa:'AIチャット—AIと対話', titleVi:'Hướng dẫn chat AI: Trò chuyện thông minh với AI', date:'2026-06-21', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'与AI进行多轮智能对话，支持知识问答、创意讨论和代码辅助。', sumEn:'Multi-turn conversations with AI. Q&A, creative brainstorming and code assistance.', sumJa:'AIと多ターン対話。知識Q&A、創造的議論、コード支援に対応。', sumVi:'Trò chuyện nhiều lượt với AI. Hỏi đáp kiến thức, thảo luận sáng tạo và hỗ trợ code.', tagsZh:['AI','聊天'],tagsEn:['AI','Chat'],tagsJa:['AI','チャット'],tagsVi:['AI','Chat'] },
+  /* ===== 开发工具 ===== */
+  { slug:'json-formatter', cat:'dev', titleZh:'JSON 格式化与校验教程', titleEn:'JSON Formatter & Validator Tutorial', titleJa:'JSONフォーマッターチュートリアル', titleVi:'Hướng dẫn định dạng JSON', date:'2026-06-20', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'快速格式化、压缩和验证JSON数据，提高开发效率。', sumEn:'Format, compress and validate JSON data quickly. Boost dev efficiency.', sumJa:'JSONデータを素早く整形、圧縮、検証。開発効率向上。', sumVi:'Định dạng, nén và xác thực dữ liệu JSON nhanh chóng. Tăng hiệu suất dev.', tagsZh:['JSON','开发工具'],tagsEn:['JSON','Dev Tools'],tagsJa:['JSON','開発ツール'],tagsVi:['JSON','Công cụ Dev'] },
+  { slug:'text-diff', cat:'dev', titleZh:'文本对比教程：快速查找文本差异', titleEn:'Text Diff — Compare Two Texts', titleJa:'テキスト比較—差分を色分け表示', titleVi:'Hướng dẫn so sánh văn bản: Tìm sự khác biệt', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'对比两段文本差异，新增、删除和修改内容以不同颜色高亮。', sumEn:'Compare two texts. Additions, deletions and changes highlighted in different colors.', sumJa:'2つのテキストを比較。追加・削除・変更を色分け表示。', sumVi:'So sánh hai văn bản. Thêm, xóa và sửa được tô màu khác nhau.', tagsZh:['开发工具','文本对比'],tagsEn:['Dev Tools','Text Diff'],tagsJa:['開発ツール','テキスト比較'],tagsVi:['Công cụ Dev','So sánh'] },
+  /* ===== 音频工具 ===== */
+  { slug:'audio-cutter', cat:'audio', titleZh:'音频裁剪教程：在线截取音频片段', titleEn:'Cut Audio Clips Online — Trim MP3, WAV', titleJa:'音声カット—MP3/WAVをオンラインでトリミング', titleVi:'Hướng dẫn cắt audio: Cắt đoạn âm thanh trực tuyến', date:'2026-06-21', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'从音频文件中截取需要的片段，支持MP3、WAV、OGG等格式。', sumEn:'Trim audio files to extract needed segments. Supports MP3, WAV, OGG.', sumJa:'音声ファイルから必要な部分を切り出し。MP3/WAV/OGG対応。', sumVi:'Cắt file âm thanh để trích xuất đoạn cần. Hỗ trợ MP3, WAV, OGG.', tagsZh:['音频','裁剪'],tagsEn:['Audio','Cut'],tagsJa:['音声','カット'],tagsVi:['Audio','Cắt'] },
+  { slug:'text-to-speech', cat:'audio', titleZh:'文字转语音教程：将文字转换为朗读音频', titleEn:'Text to Speech — Turn Words into Audio', titleJa:'テキスト読み上げ—文字を音声に変換', titleVi:'Hướng dẫn text-to-speech: Chuyển văn bản thành giọng nói', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'输入文字内容，在线生成朗读音频，支持多语言和语速调节。', sumEn:'Enter text and generate spoken audio online. Multi-language and speed control.', sumJa:'テキスト入力で音声を生成。多言語・速度調整対応。', sumVi:'Nhập văn bản và tạo audio giọng nói trực tuyến. Đa ngôn ngữ, điều chỉnh tốc độ.', tagsZh:['音频','文字转语音'],tagsEn:['Audio','TTS'],tagsJa:['音声','TTS'],tagsVi:['Audio','TTS'] },
+  { slug:'audio-merge', cat:'audio', titleZh:'音频合并教程：将多个音频拼接为一个文件', titleEn:'Merge Audio Files — Combine Multiple Tracks', titleJa:'音声結合—複数トラックを統合', titleVi:'Hướng dẫn ghép audio: Nối nhiều file âm thanh', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'将多个音频文件按顺序合并拼接为一个完整文件。', sumEn:'Merge multiple audio files in order into one complete file.', sumJa:'複数の音声ファイルを順番に1つの完全なファイルに結合。', sumVi:'Ghép nhiều file âm thanh theo thứ tự thành một file hoàn chỉnh.', tagsZh:['音频','合并'],tagsEn:['Audio','Merge'],tagsJa:['音声','結合'],tagsVi:['Audio','Ghép'] },
+  /* ===== 金融工具 ===== */
+  { slug:'loan-calculator', cat:'finance', titleZh:'贷款计算器教程：计算月供和利息', titleEn:'Loan Calculator — Calculate Monthly Payments', titleJa:'ローン計算機—月々の返済額を試算', titleVi:'Hướng dẫn tính khoản vay: Tính tiền góp hàng tháng', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'计算贷款月供、总利息和还款总额，支持等额本息和等额本金。', sumEn:'Calculate monthly payments, total interest and repayment amount.', sumJa:'月々の返済額、総利息、返済総額を計算。元利均等・元金均等に対応。', sumVi:'Tính tiền góp hàng tháng, tổng lãi và tổng trả. Hỗ trợ trả đều và trả gốc.', tagsZh:['金融','贷款计算'],tagsEn:['Finance','Loan'],tagsJa:['金融','ローン'],tagsVi:['Tài chính','Khoản vay'] },
+  /* ===== SEO工具 ===== */
+  { slug:'serp-preview', cat:'seo', titleZh:'SERP 预览教程：优化搜索结果展示', titleEn:'SERP Preview — Optimize Search Results', titleJa:'SERPプレビュー—検索結果の表示を最適化', titleVi:'Hướng dẫn SERP Preview: Tối ưu kết quả tìm kiếm', date:'2026-06-21', read:'2 分钟阅读', readEn:'2 min', readJa:'2分', readVi:'2 phút', sumZh:'模拟Google搜索结果展示效果，优化标题和描述以提升点击率。', sumEn:'Simulate Google search result display. Optimize titles and descriptions for CTR.', sumJa:'Google検索結果の表示をシミュレート。タイトルと説明を最適化。', sumVi:'Mô phỏng kết quả tìm kiếm Google. Tối ưu tiêu đề và mô tả để tăng CTR.', tagsZh:['SEO','搜索结果'],tagsEn:['SEO','SERP'],tagsJa:['SEO','検索結果'],tagsVi:['SEO','Kết quả'] },
+  /* ===== 二维码工具 ===== */
+  { slug:'qr-generator', cat:'qr', titleZh:'二维码生成器教程：生成专属精美二维码', titleEn:'QR Generator — Create Beautiful QR Codes', titleJa:'QRジェネレーター—美しいQRコード作成', titleVi:'Hướng dẫn tạo mã QR: Tạo mã QR đẹp', date:'2026-06-23', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'在线生成精美二维码，支持6种渐变色主题、圆角边框、Logo嵌入。', sumEn:'Generate beautiful QR codes online. 6 gradient themes, rounded corners, logo embed.', sumJa:'美しいQRコードをオンライン生成。6種のグラデーションテーマ、角丸、ロゴ埋め込み。', sumVi:'Tạo mã QR đẹp trực tuyến. 6 chủ đề gradient, góc bo, nhúng logo.', tagsZh:['二维码','生成'],tagsEn:['QR','Generate'],tagsJa:['QR','生成'],tagsVi:['QR','Tạo'] }
+];
+
+function getDict(lang) {
+  if (!lang) lang = localStorage.getItem('zentools_lang') || 'zh';
+  return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
+}
+
+function tTitle(t, lang) {
+  if (lang === 'en') return t.titleEn;
+  if (lang === 'ja') return t.titleJa;
+  if (lang === 'vi') return t.titleVi;
+  return t.titleZh;
+}
+
+function tSum(t, lang) {
+  if (lang === 'en') return t.sumEn;
+  if (lang === 'ja') return t.sumJa;
+  if (lang === 'vi') return t.sumVi;
+  return t.sumZh;
+}
+
+function tTags(t, lang) {
+  if (lang === 'en') return t.tagsEn;
+  if (lang === 'ja') return t.tagsJa;
+  if (lang === 'vi') return t.tagsVi;
+  return t.tagsZh;
+}
+
+function tRead(t, lang) {
+  if (lang === 'en') return t.readEn;
+  if (lang === 'ja') return t.readJa;
+  if (lang === 'vi') return t.readVi;
+  return t.read;
+}
+
+function renderPage(lang) {
+  var dict = getDict(lang);
+  var catKey = 'cat' + lang.charAt(0).toUpperCase() + lang.slice(1);
+
+  // Stats
+  var catCount = 0;
+  var catSet = {};
+  tutorials.forEach(function(t){ catSet[t.cat] = true; });
+  catCount = Object.keys(catSet).length;
+  document.getElementById('heroStats').innerHTML =
+    '<div class="hs-item"><span class="hs-num">' + tutorials.length + '</span> ' + dict.statArticles + '</div>' +
+    '<div class="hs-item"><span class="hs-num">' + catCount + '</span> ' + dict.statCategories + '</div>';
+
+  // Category navigation
+  var navHtml = '<a href="#all" class="active" onclick="scrollToSection(\'all\')"><span class="cat-icon">📖</span>' + dict.allTutorials + '</a>';
+  categories.forEach(function(c) {
+    var name = c[lang] || c.zh;
+    navHtml += '<a href="#' + c.id + '" onclick="scrollToSection(\'' + c.id + '\')"><span class="cat-icon">' + c.icon + '</span>' + name + '</a>';
+  });
+  document.getElementById('catNav').innerHTML = navHtml;
+
+  // Tutorial content
+  var content = '';
+  var tutByCat = {};
+  tutorials.forEach(function(t) {
+    if (!tutByCat[t.cat]) tutByCat[t.cat] = [];
+    tutByCat[t.cat].push(t);
+  });
+
+  // All tutorials section (when clicking "全部教程")
+  // Render by category order
+  categories.forEach(function(c) {
+    var tuts = tutByCat[c.id] || [];
+    if (!tuts.length) return;
+    var cname = c[lang] || c.zh;
+    content += '<div class="cat-section" id="' + c.id + '"><h2 class="reveal"><span class="icon">' + c.icon + '</span>' + cname + '<span class="cat-count">(' + tuts.length + ')</span></h2><div class="article-grid">';
+    tuts.forEach(function(t) {
+      content += renderCard(t, lang, dict);
+    });
+    content += '</div></div>';
+  });
+
+  document.getElementById('tutorialContent').innerHTML = content;
+
+  // Highlight active nav
+  updateActiveNav();
+
+  // Re-observe reveals
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    el.classList.add('visible');
   });
 }
 
-// ===== 语言切换 =====
-(function() {
-  var sel = document.getElementById('langSelect');
-  if (!sel) return;
-  sel.addEventListener('change', function() {
-    var lang = this.value;
-    localStorage.setItem('zentools_lang', lang);
-    window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang } }));
-  });
-  var saved = localStorage.getItem('zentools_lang');
-  if (saved && sel.value !== saved) {
-    sel.value = saved;
-    window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: saved } }));
+function renderCard(t, lang, dict) {
+  var toolUrl = toolUrlMap[t.slug] || '';
+  var tags = tTags(t, lang);
+  var tagsHtml = tags.map(function(tag){ return '<span>' + tag + '</span>'; }).join('');
+  return '<a class="article-card reveal" href="/tutorials/' + t.slug + '.html">' +
+    '<div class="cat">' + (categories.find(function(c){return c.id===t.cat;})||{}).icon + ' ' + t.cat.toUpperCase() + '</div>' +
+    '<h3>' + tTitle(t, lang) + '</h3>' +
+    '<div class="meta"><span>' + t.date + '</span><span>' + tRead(t, lang) + '</span></div>' +
+    '<div class="summary">' + tSum(t, lang) + '</div>' +
+    '<div class="tags">' + tagsHtml + '</div>' +
+    (toolUrl ? '<span class="tool-link" onclick="event.preventDefault();event.stopPropagation();window.open(\'' + toolUrl + '\',\'_blank\');">' + dict.toolLabel + ' <span class="arrow">→</span></span>' : '') +
+    '</a>';
+}
+
+function scrollToSection(id) {
+  if (id === 'all') {
+    document.getElementById('tutorialContent').scrollIntoView({ behavior: 'smooth' });
+  } else {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
   }
+}
+
+function updateActiveNav() {
+  var navLinks = document.querySelectorAll('#catNav a');
+  navLinks.forEach(function(a){ a.classList.remove('active'); });
+}
+
+// Highlight active nav on scroll
+var scrollTimeout;
+window.addEventListener('scroll', function() {
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(function() {
+    var sections = document.querySelectorAll('.cat-section');
+    var navLinks = document.querySelectorAll('#catNav a');
+    var current = 'all';
+    sections.forEach(function(sec) {
+      var rect = sec.getBoundingClientRect();
+      if (rect.top <= 160) current = sec.id;
+    });
+    navLinks.forEach(function(a) {
+      a.classList.remove('active');
+      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+    });
+    if (current === 'all' || window.scrollY < 200) {
+      navLinks[0] && navLinks[0].classList.add('active');
+    }
+  }, 100);
+});
+
+// Listen for language changes
+window.addEventListener('zt-langchange', function(e) {
+  renderPage(e.detail.lang);
+});
+
+// Initial render
+(function() {
+  var saved = localStorage.getItem('zentools_lang') || 'zh';
+  if (document.getElementById('langSelect')) {
+    document.getElementById('langSelect').value = saved;
+  }
+  renderPage(saved);
 })();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js').catch(function(){});
+  });
+}
 </script>
 </body>
 </html>
