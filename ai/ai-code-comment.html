@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 代码注释生成 - AI工具 | ZenTools</title>
+<title data-i18n="pageTitle">AI 代码注释生成 - AI工具 | ZenTools</title>
   <meta property="og:title" content="AI 代码注释生成 | ZenTools" />
   <meta property="og:description" content="为代码自动生成注释和文档说明，支持多种编程语言。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,7 +27,10 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
 .hint { font-size:12px; color:var(--muted); margin-top:4px; }
+
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
 </style>
+<script>var pageTranslations={zh: {pageTitle: 'AI 代码注释生成 - AI工具 | ZenTools', metaDesc: '为代码自动生成注释和文档说明，支持多种编程语言。', btn: '⭐ 收藏本站', : '为代码自动生成注释和文档说明，支持多种编程语言。', placeholder_: '粘贴需要添加注释的代码...', ai: 'AI 代码注释生成'}, en: {pageTitle: 'AI 代码注释生成 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', btn: '⭐ 收藏本站', : '为代码自动生成注释和文档说明，支持多种编程语言。', placeholder_: '粘贴需要添加注释的代码...', ai: 'AI 代码注释生成'}, ja: {pageTitle: 'AI 代码注释生成 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', btn: '⭐ 收藏本站', : '为代码自动生成注释和文档说明，支持多种编程语言。', placeholder_: '粘贴需要添加注释的代码...', ai: 'AI 代码注释生成'}, vi: {pageTitle: 'AI 代码注释生成 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn: '⭐ 收藏本站', : '为代码自动生成注释和文档说明，支持多种编程语言。', placeholder_: '粘贴需要添加注释的代码...', ai: 'AI 代码注释生成'};</script>
 </head>
 <body>
 <div class="container">
@@ -37,11 +40,11 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   </nav>
   <a href="/" class="back-home">← 返回首页</a>
   <div class="page-header">
-    <h1><span class="hl">AI 代码注释生成</span></h1>
-    <p>为代码自动生成注释和文档说明，支持多种编程语言。</p>
+    <h1><span class="hl" data-i18n="ai">AI 代码注释生成</span></h1>
+    <p data-i18n="">为代码自动生成注释和文档说明，支持多种编程语言。</p>
   </div>
   <div class="tool-box">
-    <label>编程语言</label>
+    <label data-i18n="">编程语言</label>
 <select id="ccLang" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="Python">Python</option>
   <option value="JavaScript">JavaScript</option>
@@ -49,14 +52,14 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   <option value="C++">C++</option>
   <option value="TypeScript">TypeScript</option>
 </select>
-<label>粘贴代码</label>
-<textarea id="ccCode" rows="8" placeholder="粘贴需要添加注释的代码..."></textarea>
-<label>注释风格</label>
+<label data-i18n="">粘贴代码</label>
+<textarea id="ccCode" rows="8" placeholder="粘贴需要添加注释的代码..." data-i18n-placeholder="placeholder_"></textarea>
+<label data-i18n="">注释风格</label>
 <select id="ccStyle" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="详细">详细（每行注释）</option>
   <option value="函数级">函数级（仅函数头注释）</option>
 </select>
-<button class="btn" onclick="genCC()" style="margin-top:12px;">生成注释</button>
+<button class="btn" onclick="genCC()" style="margin-top:12px;" data-i18n="btn">生成注释</button>
 <div class="result" id="ccResult" style="display:none;"></div>
   </div>
 </div>
@@ -68,6 +71,10 @@ function genCC(){
   var prompt='请为以下 '+lang+' 代码添加'+style+'注释：\n\n```'+lang+'\n'+code+'\n```\n\n要求：用中文注释，解释代码逻辑和函数用途。';
   document.getElementById('ccResult').style.display='block';document.getElementById('ccResult').textContent=prompt;}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
+
+<script>
+(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+</script>
 </body>
 </html>

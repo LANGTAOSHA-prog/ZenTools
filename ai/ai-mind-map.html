@@ -2,7 +2,7 @@
 <html lang="zh-CN" data-theme="dark">
 <head>
 <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
-<title>AI 思维导图 - 江湖小站-ZenTools</title>
+<title data-i18n="pageTitle">AI 思维导图 - 江湖小站-ZenTools</title>
 <meta name="description" content="AI 智能生成思维导图结构，支持多种主题和导出格式" />
 <style>*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
 body{font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
@@ -17,24 +17,28 @@ select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--bord
 .mindmap-level1{margin-left:24px;border-left:2px solid var(--accent);padding-left:16px}.mindmap-level1>.node-title{font-size:15px;font-weight:600;color:var(--text);padding:6px 0;display:flex;align-items:center;gap:6px}.mindmap-level1>.node-title::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
 .mindmap-level2{margin-left:24px;border-left:1px dashed var(--border);padding-left:14px}.mindmap-level2>.node-title{font-size:13px;color:var(--muted);padding:4px 0;display:flex;align-items:center;gap:6px}.mindmap-level2>.node-title::before{content:'•';color:var(--accent2);font-size:16px}
 .mindmap-level3{margin-left:20px}.mindmap-level3>.node-title{font-size:12px;color:var(--muted);padding:2px 0;opacity:0.7}.mindmap-level3>.node-title::before{content:'- ';color:var(--muted)}
-.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}
 .footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
-.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}</style>
+.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+</style>
+<script>var pageTranslations={zh: {pageTitle: 'AI 思维导图 - 江湖小站-ZenTools', metaDesc: 'AI 智能生成思维导图结构，支持多种主题和导出格式', _💡_输入主题: '💡 输入主题', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\'+e.message+\''}, en: {pageTitle: 'AI 思维导图 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _输入主题: '💡 输入主题', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\\'}, ja: {pageTitle: 'AI 思维导图 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _💡_输入主题: '💡 输入主题', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\'+e.message+\''}, vi: {pageTitle: 'AI 思维导图 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _💡_输入主题: '💡 输入主题', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\'+e.message+\''};</script>
 </head>
 <body>
 <div class="header">
   <a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">🧠</span> AI 思维导图</a>
-  <div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div>
+  <div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div>
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
 </div>
 <div class="main">
   <div class="card">
-    <h2>💡 输入主题</h2>
-    <input type="text" id="topicInput" placeholder="例如：量子计算入门、Python学习路线、项目管理方法论" />
+    <h2 data-i18n="_💡_输入主题">💡 输入主题</h2>
+    <input type="text" id="topicInput" placeholder="例如：量子计算入门、Python学习路线、项目管理方法论" data-i18n-placeholder="placeholder_" />
     <div class="toolbar">
       <select id="depth"><option value="2">浅层（2级）</option><option value="3" selected>中等（3级）</option><option value="4">深入（4级）</option></select>
       <select id="style"><option value="general">通用知识</option><option value="academic">学术研究</option><option value="business">商业分析</option><option value="learning">学习规划</option><option value="project">项目管理</option></select>
     </div>
-    <button class="btn btn-primary" id="generateBtn" onclick="generateMindMap()">🧠 生成思维导图</button>
+    <button class="btn btn-primary" id="generateBtn" onclick="generateMindMap()" data-i18n="btn">🧠 生成思维导图</button>
   </div>
 
   <div class="loading" id="loading"><div class="spinner"></div> AI 正在生成思维导图...</div>
@@ -42,30 +46,30 @@ select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--bord
   <div class="mindmap-container" id="mindmapContainer">
     <div id="mindmapContent"></div>
     <div class="toolbar" style="margin-top:16px">
-      <button class="btn btn-secondary btn-sm" onclick="copyAsMarkdown()">📋 复制为 Markdown</button>
+      <button class="btn btn-secondary btn-sm" onclick="copyAsMarkdown()" data-i18n="markdown">📋 复制为 Markdown</button>
     </div>
   </div>
 </div>
 
 <div class="modal-overlay" id="settingsModal" style="display:none">
   <div class="modal">
-    <h3>⚙️ API 设置</h3>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()">取消</button><button class="btn btn-primary" onclick="saveSettings()">保存</button></div>
+    <h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3>
+    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%"></div>
+    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button></div>
   </div>
 </div>
 <div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
 <style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
 
 <script>
 const SK='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}}catch(e){}}
+function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
 function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
 function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}}
+function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
 let lastRaw='';
 
 function generateMindMap(){
@@ -81,7 +85,7 @@ function generateMindMap(){
   fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:1500})})
   .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
   .then(d=>{lastRaw=d.choices[0].message.content;renderMindMap(lastRaw);mc.classList.add('show')})
-  .catch(e=>{document.getElementById('mindmapContent').innerHTML='<span style="color:var(--error)">请求失败：'+e.message+'</span>';mc.classList.add('show')})
+  .catch(e=>{document.getElementById('mindmapContent').innerHTML='<span style="color:var(--error)" data-i18n="e_messag">请求失败：'+e.message+'</span>';mc.classList.add('show')})
   .finally(()=>{btn.disabled=false;l.classList.remove('show')})
 }
 
@@ -104,6 +108,10 @@ function renderMindMap(md){
 function copyAsMarkdown(){if(lastRaw)navigator.clipboard.writeText(lastRaw).then(()=>alert('已复制为 Markdown'))}
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 ls();
+</script>
+
+<script>
+(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
 </script>
 </body>
 </html>

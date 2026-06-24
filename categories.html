@@ -1,9 +1,114 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tool Categories | ZenTools</title><meta name="description" content="Explore ZenTools categories including AI tools, PDF tools, image tools and more."><link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="assets/css/style.min.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="tools.html">Tools</a><a href="plugins-preview.html">Plugins</a><a href="categories.html">Categories</a><a href="articles.html">Articles</a><a href="about.html">About</a></nav></header><main><section class="section"><h1>Tool Categories</h1><div id="categoryGrid" class="category-grid"></div></section></main><footer class="footer"><p>© 2026 ZenTools.</p></footer><script src="assets/js/tools-data.js"></script><script src="assets/js/main.js"></script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n="pageTitle">工具分类 - ZenTools 免费在线工具</title><meta name="description" content="" id="metaDesc"><link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="assets/css/style.min.css">
+  <link rel="stylesheet" href="assets/css/tool-ui.min.css"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+  <script>
+    var pageTranslations = {
+      zh: {
+        pageTitle: '工具分类 - ZenTools 免费在线工具',
+        metaDesc: '浏览 ZenTools 工具分类，包括 AI 工具、PDF 工具、图片工具、视频工具、音频工具等。',
+        h1: '工具分类',
+        navTools: '工具大全',
+        navPlugins: '插件预览',
+        navCategories: '工具分类',
+        navArticles: '教程文章',
+        navAbout: '关于我们',
+        footerText: '© 2026 ZenTools. 中文免费在线工具箱。',
+        bookmark: '⭐ 收藏本站，下次办公快人一步'
+      },
+      en: {
+        pageTitle: 'Categories - ZenTools Free Online Tools',
+        metaDesc: 'Browse ZenTools categories including AI tools, PDF tools, image tools, video tools, audio tools and more.',
+        h1: 'Categories',
+        navTools: 'Tools',
+        navPlugins: 'Plugins',
+        navCategories: 'Categories',
+        navArticles: 'Articles',
+        navAbout: 'About',
+        footerText: '© 2026 ZenTools. Free Online Toolbox.',
+        bookmark: '⭐ Bookmark us for quick access'
+      },
+      ja: {
+        pageTitle: 'カテゴリー - ZenTools 無料オンラインツール',
+        metaDesc: 'ZenTools のカテゴリー一覧。AI ツール、PDF ツール、画像ツール、動画ツールなど。',
+        h1: 'カテゴリー',
+        navTools: 'ツール一覧',
+        navPlugins: 'プラグイン',
+        navCategories: 'カテゴリー',
+        navArticles: '記事',
+        navAbout: '概要',
+        footerText: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        bookmark: '⭐ ブックマークしてすぐにアクセス'
+      },
+      vi: {
+        pageTitle: 'Danh mục - ZenTools Công cụ Online Miễn phí',
+        metaDesc: 'Duyệt danh mục ZenTools bao gồm công cụ AI, PDF, ảnh, video, âm thanh v.v.',
+        h1: 'Danh mục',
+        navTools: 'Tất cả công cụ',
+        navPlugins: 'Plugin',
+        navCategories: 'Danh mục',
+        navArticles: 'Bài viết',
+        navAbout: 'Giới thiệu',
+        footerText: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        bookmark: '⭐ Đánh dấu để truy cập nhanh'
+      }
+    };
+    window.ZT_PAGE = pageTranslations;
+  </script>
+</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="tools.html" data-i18n="navTools">工具大全</a><a href="plugins-preview.html" data-i18n="navPlugins">插件预览</a><a href="categories.html" data-i18n="navCategories">工具分类</a><a href="articles.html" data-i18n="navArticles">教程文章</a><a href="about.html" data-i18n="navAbout">关于我们</a></nav></header><main><section class="section"><h1 data-i18n="h1">工具分类</h1><div id="categoryGrid" class="category-grid"></div></section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
+<script src="assets/js/tools-data.js"></script>
+<script src="assets/js/common-i18n.js"></script>
+<script>
+function tCatLocal(cat, lang, cats, catsEn, catsJa, catsVi) {
+  if (lang === 'zh' || !cats) return cat;
+  var map = { en: catsEn, ja: catsJa, vi: catsVi };
+  var arr = map[lang];
+  if (arr && cats) {
+    var idx = cats.indexOf(cat);
+    if (idx >= 0 && idx < arr.length) return arr[idx];
+  }
+  return cat;
+}
+function renderCategories(lang) {
+  var cats = window.categoriesData || [];
+  var catsEn = window.categoriesData__en || [];
+  var catsJa = window.categoriesData__ja || [];
+  var catsVi = window.categoriesData__vi || [];
+  var tools = window.toolsData || [];
+  var grouped = {};
+  tools.forEach(function(t) {
+    var cat = t.category || '其他';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(t);
+  });
+  var grid = document.getElementById('categoryGrid');
+  grid.innerHTML = cats.map(function(cat) {
+    var count = (grouped[cat] || []).length;
+    var catName = tCatLocal(cat, lang, cats, catsEn, catsJa, catsVi);
+    var slug = cat.replace(/[^\w\u4e00-\u9fff]/g, '').toLowerCase();
+    return '<a class="tool-card" href="tools/' + slug + '-tools.html"><h3>' + catName + '</h3><p>' + count + ' 个工具</p></a>';
+  }).join('');
+}
+function applyPageLang(lang) {
+  var d = window.ZT_PAGE && window.ZT_PAGE[lang];
+  if (!d) return;
+  document.title = d.pageTitle || document.title;
+  document.getElementById('metaDesc').content = d.metaDesc || '';
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (d[key]) el.textContent = d[key];
+  });
+  renderCategories(lang);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  var lang = localStorage.getItem('zentools_lang') || 'zh';
+  applyPageLang(lang);
+});
+window.addEventListener('zt-langchange', function(e) {
+  applyPageLang(e.detail.lang);
+});
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="bookmark">⭐ 收藏本站，下次办公快人一步</button>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

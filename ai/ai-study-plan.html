@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 学习计划生成 - AI工具 | ZenTools</title>
+<title data-i18n="pageTitle">AI 学习计划生成 - AI工具 | ZenTools</title>
   <meta property="og:title" content="AI 学习计划生成 | ZenTools" />
   <meta property="og:description" content="生成个性化的学习计划，帮助高效学习新技能。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,7 +27,9 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
 .hint { font-size:12px; color:var(--muted); margin-top:4px; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
 </style>
+<script>var pageTranslations={"zh":{pageTitle: 'AI 学习计划生成 - AI工具 | ZenTools', metaDesc: '生成个性化的学习计划，帮助高效学习新技能。', 生成学习计划: '生成学习计划', 收藏本站: '⭐ 收藏本站', label_学习目标: '学习目标', label_学习周期: '学习周期', label_当前基础: '当前基础', label_每周可投入时间: '每周可投入时间', ph_例如_学会_py: '例如：学会 Python 编程'},"en":{pageTitle: 'AI 学习计划生成 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', label_学习目标: 'Learning Goal', label_学习周期: 'Learning Period', label_当前基础: 'Current Level', label_每周可投入时间: 'Hours per Week', ph_例如_学会_py: 'e.g., Learn Python'},"ja":{pageTitle: 'AI 学习计划生成 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', 生成学习计划: '生成学习计划', 收藏本站: '⭐ 收藏本站', label_学习目标: '学习目标', label_学习周期: '学习周期', label_当前基础: '当前基础', label_每周可投入时间: '每周可投入时间', ph_例如_学会_py: '例如：学会 Python 编程'},"vi":{pageTitle: 'AI 学习计划生成 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', 生成学习计划: '生成学习计划', 收藏本站: '⭐ 收藏本站', label_学习目标: '学习目标', label_学习周期: '学习周期', label_当前基础: '当前基础', label_每周可投入时间: '每周可投入时间', ph_例如_学会_py: '例如：学会 Python 编程'};</script>
 </head>
 <body>
 <div class="container">
@@ -42,8 +44,8 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   </div>
   <div class="tool-box">
     <div class="row">
-  <div><label>学习目标</label><input type="text" id="spGoal" placeholder="例如：学会 Python 编程" /></div>
-  <div><label>学习周期</label>
+  <div><label data-i18n="label_学习目标">学习目标</label><input type="text" id="spGoal" placeholder="例如：学会 Python 编程" data-i18n-placeholder="ph_例如_学会_py" /></div>
+  <div><label data-i18n="label_学习周期">学习周期</label>
   <select id="spDuration" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
     <option value="1个月">1个月</option>
     <option value="3个月">3个月</option>
@@ -51,19 +53,19 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
     <option value="1年">1年</option>
   </select></div>
 </div>
-<label>当前基础</label>
+<label data-i18n="label_当前基础">当前基础</label>
 <select id="spLevel" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="零基础">零基础</option>
   <option value="初级">初级</option>
   <option value="中级">中级</option>
 </select>
-<label>每周可投入时间</label>
+<label data-i18n="label_每周可投入时间">每周可投入时间</label>
 <select id="spTime" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="5小时">5小时</option>
   <option value="10小时" selected>10小时</option>
   <option value="20小时">20小时</option>
 </select>
-<button class="btn" onclick="genSP()" style="margin-top:12px;">生成学习计划</button>
+<button class="btn" onclick="genSP()" style="margin-top:12px;" data-i18n="生成学习计划">生成学习计划</button>
 <div class="result" id="spResult" style="display:none;"></div>
   </div>
 </div>
@@ -75,6 +77,7 @@ function genSP(){
   var prompt='请为目标“'+g+'”生成一份学习计划。\n学习周期：'+d+'\n当前基础：'+l+'\n每周投入：'+t+'\n\n要求：\n1. 按月分阶段\n2. 每阶段列出学习目标和学习内容\n3. 建议学习资源和练习项目\n4. 提供评估方法\n5. 用中文回答';
   document.getElementById('spResult').style.display='block';document.getElementById('spResult').textContent=prompt;}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
 </body>
 </html>

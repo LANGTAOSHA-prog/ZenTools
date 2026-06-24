@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI 代码生成 - 江湖小站-ZenTools</title>
+  <title data-i18n="pageTitle">AI 代码生成 - 江湖小站-ZenTools</title>
   <meta name="description" content="AI 根据需求描述生成代码，支持多种编程语言" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -38,22 +38,26 @@
     @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
     .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
     @media (max-width: 640px) { .header { padding: 12px 16px; } .main { padding: 12px; } .panel { padding: 16px; } }
-  </style>
+  
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+</style>
+<script>var pageTranslations={zh: {pageTitle: 'AI 代码生成 - 江湖小站-ZenTools', metaDesc: 'AI 根据需求描述生成代码，支持多种编程语言', _💻_代码需求: '💻 代码需求', _📄_生成代码: '📄 生成代码', btn: '⭐ 收藏本站', : '正在生成代码...', placeholder_: '例如：写一个快速排序算法，支持自定义比较函数...', ai: 'AI 代码生成', error: '生成失败：\' + error.message + \''}, en: {pageTitle: 'AI 代码生成 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _💻_代码需求: '💻 代码需求', _📄_生成代码: '📄 生成代码', btn: '⭐ 收藏本站', : '正在生成代码...', placeholder_: '例如：写一个快速排序算法，支持自定义比较函数...', ai: 'AI 代码生成', error: '生成失败：\' + error.message + \''}, ja: {pageTitle: 'AI 代码生成 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _💻_代码需求: '💻 代码需求', _📄_生成代码: '📄 生成代码', btn: '⭐ 收藏本站', : '正在生成代码...', placeholder_: '例如：写一个快速排序算法，支持自定义比较函数...', ai: 'AI 代码生成', error: '生成失败：\' + error.message + \''}, vi: {pageTitle: 'AI 代码生成 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _💻_代码需求: '💻 代码需求', _📄_生成代码: '📄 生成代码', btn: '⭐ 收藏本站', : '正在生成代码...', placeholder_: '例如：写一个快速排序算法，支持自定义比较函数...', ai: 'AI 代码生成', error: '生成失败：\' + error.message + \''};</script>
 </head>
 <body>
 <header class="header">
-  <div class="logo"><span class="mark">⛵</span><span>AI 代码生成</span></div>
+  <div class="logo"><span class="mark">⛵</span><span data-i18n="ai">AI 代码生成</span></div>
   <div style="display: flex; gap: 8px;">
     <a href="/ai/ai-chat.html" class="btn btn-secondary" style="padding: 8px 16px;">AI 聊天</a>
     <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
   </div>
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
 </header>
 <main class="main">
   <div class="grid">
     <div class="panel">
-      <div class="panel-header"><h2>💻 代码需求</h2></div>
+      <div class="panel-header"><h2 data-i18n="_💻_代码需求">💻 代码需求</h2></div>
       <div class="form-group">
-        <label>编程语言</label>
+        <label data-i18n="">编程语言</label>
         <select id="language">
           <option value="python">Python</option>
           <option value="javascript">JavaScript</option>
@@ -69,26 +73,26 @@
         </select>
       </div>
       <div class="form-group">
-        <label>需求描述</label>
-        <textarea id="prompt" placeholder="例如：写一个快速排序算法，支持自定义比较函数..."></textarea>
+        <label data-i18n="">需求描述</label>
+        <textarea id="prompt" placeholder="例如：写一个快速排序算法，支持自定义比较函数..." data-i18n-placeholder="placeholder_"></textarea>
       </div>
       <div style="display: flex; gap: 10px;">
         <button class="btn btn-primary" id="genBtn" onclick="generateCode()">
-          <span>🚀</span><span>生成代码</span>
+          <span>🚀</span><span data-i18n="">生成代码</span>
         </button>
-        <button class="btn btn-secondary" onclick="clearAll()">清空</button>
+        <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btn">清空</button>
       </div>
     </div>
     <div class="panel">
       <div class="panel-header">
-        <h2>📄 生成代码</h2>
+        <h2 data-i18n="_📄_生成代码">📄 生成代码</h2>
         <div style="display: flex; gap: 6px;">
           <button class="btn btn-icon btn-secondary" onclick="copyCode()" title="复制">📋</button>
           <button class="btn btn-icon btn-secondary" onclick="downloadCode()" title="下载">💾</button>
         </div>
       </div>
       <div class="output" id="output">
-        <p style="color: var(--muted); text-align: center; padding: 40px 20px;">生成的代码将显示在这里</p>
+        <p style="color: var(--muted); text-align: center; padding: 40px 20px;" data-i18n="">生成的代码将显示在这里</p>
       </div>
     </div>
   </div>
@@ -96,7 +100,7 @@
 <footer style="text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);">
   © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有代码生成均在本地处理
 </footer>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
 <script>
 let settings = { apiKey: '' };
 const langExt = { python: 'py', javascript: 'js', typescript: 'ts', java: 'java', cpp: 'cpp', csharp: 'cs', go: 'go', rust: 'rs', php: 'php', sql: 'sql', html: 'html' };
@@ -116,13 +120,13 @@ async function generateCode() {
   }
   
   btn.disabled = true;
-  output.innerHTML = '<div class="typing"><span></span><span></span><span></span></div><p style="text-align:center;color:var(--muted);">正在生成代码...</p>';
+  output.innerHTML = '<div class="typing"><span></span><span></span><span></span></div><p style="text-align:center;color:var(--muted);" data-i18n="">正在生成代码...</p>';
   
   try {
     const response = await fetchChat(language, prompt);
     output.innerHTML = '<pre><code>' + escapeHtml(response) + '</code></pre>';
   } catch (error) {
-    output.innerHTML = '<p style="color:var(--error);text-align:center;padding:40px;">生成失败：' + error.message + '</p>';
+    output.innerHTML = '<p style="color:var(--error);text-align:center;padding:40px;" data-i18n="error">生成失败：' + error.message + '</p>';
   }
   btn.disabled = false;
 }
@@ -179,6 +183,10 @@ function downloadCode() {
   a.click();
   URL.revokeObjectURL(url);
 }
+</script>
+
+<script>
+(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
 </script>
 </body>
 </html>

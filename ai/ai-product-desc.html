@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 产品描述生成 - AI工具 | ZenTools</title>
+<title data-i18n="pageTitle">AI 产品描述生成 - AI工具 | ZenTools</title>
   <meta property="og:title" content="AI 产品描述生成 | ZenTools" />
   <meta property="og:description" content="生成电商产品描述，适用于淘宝、京东、亚马逊等平台。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,7 +27,9 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
 .hint { font-size:12px; color:var(--muted); margin-top:4px; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
 </style>
+<script>var pageTranslations={"zh":{pageTitle: 'AI 产品描述生成 - AI工具 | ZenTools', metaDesc: '生成电商产品描述，适用于淘宝、京东、亚马逊等平台。', 生成描述: '生成描述', 收藏本站: '⭐ 收藏本站', label_产品名称: '产品名称', label_类别: '类别', label_产品特点_每行一个: '产品特点（每行一个）', label_目标平台: '目标平台', ph_例如_智能保温杯: '例如：智能保温杯', ph_例如_家居用品: '例如：家居用品', ph_304不锈钢_1: '304不锈钢\n12小时保温\n500ml容量'},"en":{pageTitle: 'AI 产品描述生成 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', label_产品名称: 'Product Name', label_类别: 'Category', label_产品特点_每行一个: 'Features (one per line)', label_目标平台: 'Target Platform', ph_例如_智能保温杯: 'e.g., Smart insulated cup', ph_例如_家居用品: 'e.g., Home products', ph_304不锈钢_1: '304不锈钢\\n12小时保温\\n500ml容量'},"ja":{pageTitle: 'AI 产品描述生成 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', 生成描述: '生成描述', 收藏本站: '⭐ 收藏本站', label_产品名称: '产品名称', label_类别: '类别', label_产品特点_每行一个: '产品特点（每行一个）', label_目标平台: '目标平台', ph_例如_智能保温杯: '例如：智能保温杯', ph_例如_家居用品: '例如：家居用品', ph_304不锈钢_1: '304不锈钢\n12小时保温\n500ml容量'},"vi":{pageTitle: 'AI 产品描述生成 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', 生成描述: '生成描述', 收藏本站: '⭐ 收藏本站', label_产品名称: '产品名称', label_类别: '类别', label_产品特点_每行一个: '产品特点（每行一个）', label_目标平台: '目标平台', ph_例如_智能保温杯: '例如：智能保温杯', ph_例如_家居用品: '例如：家居用品', ph_304不锈钢_1: '304不锈钢\n12小时保温\n500ml容量'};</script>
 </head>
 <body>
 <div class="container">
@@ -42,18 +44,18 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   </div>
   <div class="tool-box">
     <div class="row">
-  <div><label>产品名称</label><input type="text" id="pdName" placeholder="例如：智能保温杯" /></div>
-  <div><label>类别</label><input type="text" id="pdCat" placeholder="例如：家居用品" /></div>
+  <div><label data-i18n="label_产品名称">产品名称</label><input type="text" id="pdName" placeholder="例如：智能保温杯" data-i18n-placeholder="ph_例如_智能保温杯" /></div>
+  <div><label data-i18n="label_类别">类别</label><input type="text" id="pdCat" placeholder="例如：家居用品" data-i18n-placeholder="ph_例如_家居用品" /></div>
 </div>
-<label>产品特点（每行一个）</label>
+<label data-i18n="label_产品特点_每行一个">产品特点（每行一个）</label>
 <textarea id="pdFeatures" rows="4" placeholder="304不锈钢
 12小时保温
-500ml容量"></textarea>
-<label>目标平台</label>
+500ml容量" data-i18n-placeholder="ph_304不锈钢_1"></textarea>
+<label data-i18n="label_目标平台">目标平台</label>
 <select id="pdPlatform" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="淘宝">淘宝</option><option value="京东">京东</option><option value="亚马逊">亚马逊</option>
 </select>
-<button class="btn" onclick="genPD()" style="margin-top:12px;">生成描述</button>
+<button class="btn" onclick="genPD()" style="margin-top:12px;" data-i18n="生成描述">生成描述</button>
 <div class="result" id="pdResult" style="display:none;"></div>
   </div>
 </div>
@@ -68,6 +70,7 @@ function genPD(){
   prompt+='\n\n要求：突出卖点、包含关键词、提到使用场景、解决痛点。';
   document.getElementById('pdResult').style.display='block';document.getElementById('pdResult').textContent=prompt;}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
 </body>
 </html>

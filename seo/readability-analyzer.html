@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>内容可读性分析 - SEO 工具 | ZenTools</title>
+<title data-i18n="pageTitle">内容可读性分析 - SEO 工具 | ZenTools</title>
   <meta property="og:title" content="内容可读性分析 - 免费在线工具 | ZenTools" />
   <meta property="og:description" content="分析文本的可读性，评估句子长度、段落结构等指标。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,11 +27,14 @@
   .btn-secondary { background:var(--glass-b); color:var(--text); }
   .result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.6; }
   .stat { display:inline-block; padding:4px 12px; border-radius:6px; background:var(--glass); margin:4px; font-size:13px; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
 </style>
+<script>window.pageTranslations={"zh":{pageTitle: '内容可读性分析 - SEO 工具 | ZenTools', metaDesc: '分析文本的可读性，评估句子长度、段落结构等指标。', btn_分析: '分析', btn_清除: '清除', btn_收藏本站: '⭐ 收藏本站', lbl_输入文本内容: '输入文本内容', ph_粘贴文章内容: '粘贴文章内容...'},"en":{pageTitle: '内容可读性分析 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_分析: '分析', btn_清除: '清除', btn_收藏本站: '⭐ 收藏本站', lbl_输入文本内容: '输入文本内容', ph_粘贴文章内容: '粘贴文章内容...'},"ja":{pageTitle: '内容可读性分析 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_分析: '分析', btn_清除: '清除', btn_收藏本站: '⭐ 收藏本站', lbl_输入文本内容: '输入文本内容', ph_粘贴文章内容: '粘贴文章内容...'},"vi":{pageTitle: '内容可读性分析 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_分析: '分析', btn_清除: '清除', btn_收藏本站: '⭐ 收藏本站', lbl_输入文本内容: '输入文本内容', ph_粘贴文章内容: '粘贴文章内容...'}};</script>
 </head>
 <body>
 <div class="container">
   <nav class="nav-bar">
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
     <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
     <div class="links">
       <a href="/">首页</a>
@@ -46,11 +49,11 @@
   </div>
   <div class="tool-box">
     
-  <label>输入文本内容</label>
-  <textarea id="readText" rows="8" placeholder="粘贴文章内容..."></textarea>
+  <label data-i18n="lbl_输入文本内容">输入文本内容</label>
+  <textarea id="readText" rows="8" placeholder="粘贴文章内容..." data-i18n-placeholder="ph_粘贴文章内容"></textarea>
   <div style="display:flex;gap:10px;margin-top:16px;">
-    <button class="btn" onclick="analyzeReadability()">分析</button>
-    <button class="btn btn-secondary" onclick="document.getElementById('readText').value='';document.getElementById('readResult').style.display='none';">清除</button>
+    <button class="btn" onclick="analyzeReadability()" data-i18n="btn_分析">分析</button>
+    <button class="btn btn-secondary" onclick="document.getElementById('readText').value='';document.getElementById('readResult').style.display='none';" data-i18n="btn_清除">清除</button>
   </div>
   <div class="result" id="readResult" style="display:none;"></div>
   </div>
@@ -86,7 +89,7 @@ function analyzeReadability() {
   el.textContent = result;
 }
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
 
 <script>
 if ('serviceWorker' in navigator) {
@@ -95,5 +98,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

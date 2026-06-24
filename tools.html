@@ -1,9 +1,136 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>工具大全 - 免费在线工具 | ZenTools</title><meta name="description" content="浏览 ZenTools 免费在线工具大全，包括 PDF 工具、图片工具、AI 工具、文字工具、办公工具和生活工具。"><link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="assets/css/style.min.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="tools.html">工具大全</a><a href="plugins-preview.html">插件预览</a><a href="categories.html">工具分类</a><a href="articles.html">教程文章</a><a href="about.html">关于我们</a></nav></header><main><section class="section"><h1>工具大全</h1><p class="section-desc">这里收录 ZenTools 已上线的免费在线工具，后续可以继续批量添加更多工具页面。</p><div id="featuredTools" class="tool-grid"></div></section></main><footer class="footer"><p>© 2026 ZenTools. 中文免费在线工具箱。</p></footer><script src="assets/js/tools-data.js"></script><script>document.addEventListener('DOMContentLoaded',()=>{document.getElementById('featuredTools').innerHTML=toolsData.map(tool=>`<a class="tool-card" href="${tool.url}"><div class="icon">${tool.icon}</div><h3>${tool.name}</h3><p>${tool.description}</p><span class="tag">${tool.category}</span></a>`).join('')})</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n="pageTitle">工具大全 - 免费在线工具 | ZenTools</title><meta name="description" content="" id="metaDesc"><link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="assets/css/style.min.css">
+  <link rel="stylesheet" href="assets/css/tool-ui.min.css"/>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+  <script>
+    var pageTranslations = {
+      zh: {
+        pageTitle: '工具大全 - 免费在线工具 | ZenTools',
+        metaDesc: '浏览 ZenTools 免费在线工具大全，包括 PDF 工具、图片工具、AI 工具、文字工具、办公工具和生活工具。',
+        h1: '工具大全',
+        desc: '这里收录 ZenTools 已上线的免费在线工具。',
+        navTools: '工具大全',
+        navPlugins: '插件预览',
+        navCategories: '工具分类',
+        navArticles: '教程文章',
+        navAbout: '关于我们',
+        footerText: '© 2026 ZenTools. 中文免费在线工具箱。',
+        bookmark: '⭐ 收藏本站，下次办公快人一步',
+        searchPlaceholder: '搜索工具，例如：PDF、图片压缩...'
+      },
+      en: {
+        pageTitle: 'All Tools - Free Online Tools | ZenTools',
+        metaDesc: 'Browse all ZenTools free online tools, including PDF tools, image tools, AI tools, text tools, office tools and life tools.',
+        h1: 'All Tools',
+        desc: 'Here are all free online tools available on ZenTools.',
+        navTools: 'Tools',
+        navPlugins: 'Plugins',
+        navCategories: 'Categories',
+        navArticles: 'Tutorials',
+        navAbout: 'About',
+        footerText: '© 2026 ZenTools. Free Online Toolbox.',
+        bookmark: '⭐ Bookmark us for quick access',
+        searchPlaceholder: 'Search tools, e.g. PDF, image compress...'
+      },
+      ja: {
+        pageTitle: '全ツール - 無料オンラインツール | ZenTools',
+        metaDesc: 'ZenTools の無料オンラインツール一覧。PDF ツール、画像ツール、AI ツール、テキストツール、オフィスツール、生活ツール。',
+        h1: '全ツール',
+        desc: 'ZenTools で利用可能な無料オンラインツールです。',
+        navTools: 'ツール',
+        navPlugins: 'プラグイン',
+        navCategories: 'カテゴリ',
+        navArticles: 'チュートリアル',
+        navAbout: 'について',
+        footerText: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        bookmark: '⭐ ブックマークしてすぐにアクセス',
+        searchPlaceholder: 'ツールを検索（例：PDF、画像圧縮...）'
+      },
+      vi: {
+        pageTitle: 'Tất cả công cụ - Công cụ trực tuyến miễn phí | ZenTools',
+        metaDesc: 'Duyệt tất cả công cụ trực tuyến miễn phí ZenTools, bao gồm công cụ PDF, công cụ ảnh, công cụ AI, công cụ văn bản, công cụ văn phòng và công cụ đời sống.',
+        h1: 'Tất cả công cụ',
+        desc: 'Đây là tất cả công cụ trực tuyến miễn phí có sẵn trên ZenTools.',
+        navTools: 'Công cụ',
+        navPlugins: 'Plugin',
+        navCategories: 'Danh mục',
+        navArticles: 'Hướng dẫn',
+        navAbout: 'Giới thiệu',
+        footerText: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        bookmark: '⭐ Đánh dấu để truy cập nhanh',
+        searchPlaceholder: 'Tìm công cụ, vd: PDF, nén ảnh...'
+      }
+    };
+    window.ZT_PAGE = pageTranslations;
+  </script>
+</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="tools.html" data-i18n="navTools">工具大全</a><a href="plugins-preview.html" data-i18n="navPlugins">插件预览</a><a href="categories.html" data-i18n="navCategories">工具分类</a><a href="articles.html" data-i18n="navArticles">教程文章</a><a href="about.html" data-i18n="navAbout">关于我们</a></nav></header><main><section class="section"><h1 data-i18n="h1">工具大全</h1><p class="section-desc" data-i18n="desc">这里收录 ZenTools 已上线的免费在线工具。</p><div class="search-wrap"><input type="text" id="toolSearch" class="search-input" placeholder="搜索工具，例如：PDF、图片压缩..." autocomplete="off"/><button id="searchClear" class="search-clear" style="display:none">✕</button><div id="searchDropdown" class="search-dropdown"></div></div><div id="featuredTools" class="tool-grid"></div></section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
+<script src="assets/js/tools-data.js"></script>
+<script src="assets/js/common-i18n.js"></script>
+<script>
+function tName(t, lang) {
+  return t['name__' + lang] || t['name__en'] || t.name;
+}
+function tDesc(t, lang) {
+  return t['description__' + lang] || t['description__en'] || t.description;
+}
+function tCatLocal(cat, lang, cats, catsEn, catsJa, catsVi) {
+  if (lang === 'zh' || !cats) return cat;
+  var map = { en: catsEn, ja: catsJa, vi: catsVi };
+  var arr = map[lang];
+  if (arr && cats) {
+    var idx = cats.indexOf(cat);
+    if (idx >= 0 && idx < arr.length) return arr[idx];
+  }
+  return cat;
+}
+function renderToolGrid(lang) {
+  var cats = window.categoriesData || [];
+  var catsEn = window.categoriesData__en || [];
+  var catsJa = window.categoriesData__ja || [];
+  var catsVi = window.categoriesData__vi || [];
+  var container = document.getElementById('featuredTools');
+  container.innerHTML = toolsData.map(function(tool) {
+    var name = tName(tool, lang);
+    var desc = tDesc(tool, lang);
+    var cat = tCatLocal(tool.category, lang, cats, catsEn, catsJa, catsVi);
+    return '<a class="tool-card" href="' + tool.url + '"><div class="icon">' + tool.icon + '</div><h3>' + name + '</h3><p>' + desc + '</p><span class="tag">' + cat + '</span></a>';
+  }).join('');
+}
+function applyPageLang(lang) {
+  var d = window.ZT_PAGE && window.ZT_PAGE[lang];
+  if (!d) return;
+  document.querySelector('[data-i18n="pageTitle"]').textContent = d.pageTitle;
+  document.getElementById('metaDesc').content = d.metaDesc;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (d[key]) el.textContent = d[key];
+  });
+  document.querySelector('.search-input').placeholder = d.searchPlaceholder || searchPlaceholderDefault;
+  renderToolGrid(lang);
+}
+var searchPlaceholderDefault;
+document.addEventListener('DOMContentLoaded', function() {
+  var input = document.querySelector('.search-input');
+  searchPlaceholderDefault = input.placeholder;
+  var lang = localStorage.getItem('zentools_lang') || 'zh';
+  applyPageLang(lang);
+  // Apply nav i18n after common-i18n processes
+  setTimeout(function() {
+    var d = window.ZT_PAGE && window.ZT_PAGE[lang];
+    if (d) {
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (d[key]) el.textContent = d[key];
+      });
+    }
+  }, 50);
+});
+window.addEventListener('zt-langchange', function(e) {
+  var lang = e.detail.lang;
+  applyPageLang(lang);
+});
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="bookmark">⭐ 收藏本站，下次办公快人一步</button>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

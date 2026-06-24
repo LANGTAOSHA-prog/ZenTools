@@ -48,7 +48,7 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <div class="container">
   <div class="top-bar">
     <a href="index.html" data-i18n="back">← 返回首页</a>
-    <select id="languageSelect" class="lang-select">
+    <select id="langSelect" class="lang-select">
       <option value="zh">中文</option>
       <option value="ja">日本語</option>
       <option value="en">English</option>
@@ -75,13 +75,15 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <script>
 
 const translations={
+window.pageTranslations = translations;
+
  zh:{pageTitle:"视频提取封面 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"视频提取封面",desc:"从本地视频中截取封面图片。",ad:"广告位（Google AdSense）",load:"加载视频",capture:"提取封面",download:"下载封面",empty:"请选择视频文件",loaded:"视频已加载。",done:"封面已生成。",timePlaceholder:"截图秒数",guideTitle:"使用说明",guideText:"1. 选择本地视频。\n2. 输入要截取的秒数。\n3. 点击提取封面。\n4. 下载 PNG 图片。",privacyTitle:"隐私说明",privacyText:"视频在浏览器本地读取，正常情况下不会上传到服务器。"},
  ja:{pageTitle:"動画サムネイル抽出 - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"動画サムネイル抽出",desc:"動画からサムネイル画像を抽出。",ad:"広告スペース",load:"動画を読み込む",capture:"抽出",download:"画像をダウンロード",empty:"動画を選択してください",loaded:"動画を読み込みました。",done:"サムネイルを作成しました。",timePlaceholder:"秒数",guideTitle:"使い方",guideText:"1. 動画を選択します。\n2. 秒数を入力します。\n3. 抽出をクリックします。\n4. PNG画像を保存します。",privacyTitle:"プライバシーについて",privacyText:"動画はブラウザ内で読み込まれます。"},
  en:{pageTitle:"Video Thumbnail Extractor - Free Online Tool | ZenTools",back:"← Back to Home",title:"Video Thumbnail Extractor",desc:"Capture a thumbnail image from a local video.",ad:"Ad Space",load:"Load Video",capture:"Extract Thumbnail",download:"Download Thumbnail",empty:"Please select a video file",loaded:"Video loaded.",done:"Thumbnail generated.",timePlaceholder:"Capture seconds",guideTitle:"How to Use",guideText:"1. Select a local video.\n2. Enter the capture time in seconds.\n3. Click Extract Thumbnail.\n4. Download the PNG image.",privacyTitle:"Privacy Notice",privacyText:"Video is read locally in your browser and normally does not upload to a server."},
  vi:{pageTitle:"Trích xuất ảnh bìa video - Công cụ miễn phí | ZenTools",back:"← Quay lại trang chủ",title:"Trích xuất ảnh bìa video",desc:"Chụp ảnh bìa từ video cục bộ.",ad:"Vị trí quảng cáo",load:"Tải video",capture:"Trích xuất",download:"Tải ảnh bìa",empty:"Vui lòng chọn video",loaded:"Video đã tải.",done:"Đã tạo ảnh bìa.",timePlaceholder:"Giây chụp",guideTitle:"Hướng dẫn",guideText:"1. Chọn video.\n2. Nhập giây cần chụp.\n3. Nhấn trích xuất.\n4. Tải ảnh PNG.",privacyTitle:"Quyền riêng tư",privacyText:"Video được đọc trong trình duyệt và không tải lên máy chủ."}
 };
 
-const languageSelect=document.getElementById("languageSelect");
+const languageSelect=document.getElementById("langSelect");
 let currentLang="zh";
 function setLanguage(lang){
  currentLang=lang;
@@ -90,10 +92,10 @@ function setLanguage(lang){
  document.title=data.pageTitle;
  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(data[k])el.textContent=data[k];});
  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder");if(data[k])el.placeholder=data[k];});
- localStorage.setItem("siteLanguage",lang);
+ localStorage.setItem("zentools_lang",lang);
 }
 languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("siteLanguage")||"zh";
+const savedLang=localStorage.getItem("zentools_lang")||"zh";
 languageSelect.value=savedLang;
 setLanguage(savedLang);
 

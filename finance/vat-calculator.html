@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>增值税计算器 - 金融工具 | ZenTools</title>
+<title data-i18n="pageTitle">增值税计算器 - 金融工具 | ZenTools</title>
   <meta property="og:title" content="增值税计算器 - 免费在线工具 | ZenTools" />
   <meta property="og:description" content="计算增值税（VAT），支持含税价与不含税价互相转换。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -30,11 +30,14 @@
   .row { display:flex; gap:16px; flex-wrap:wrap; }
   .row > * { flex:1; min-width:150px; }
   .highlight { color:var(--cyan); font-weight:700; font-size:18px; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
 </style>
+<script>window.pageTranslations={"zh":{pageTitle: '增值税计算器 - 金融工具 | ZenTools', metaDesc: '计算增值税（VAT），支持含税价与不含税价互相转换。', btn_计算: '计算', btn_收藏本站: '⭐ 收藏本站', lbl_金额_元: '金额 (元)', lbl_增值税率: '增值税率 (%)', lbl_金额类型: '金额类型'},"en":{pageTitle: '增值税计算器 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_计算: '计算', btn_收藏本站: '⭐ 收藏本站', lbl_金额_元: '金额 (元)', lbl_增值税率: '增值税率 (%)', lbl_金额类型: '金额类型'},"ja":{pageTitle: '增值税计算器 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_计算: '计算', btn_收藏本站: '⭐ 收藏本站', lbl_金额_元: '金额 (元)', lbl_增值税率: '增值税率 (%)', lbl_金额类型: '金额类型'},"vi":{pageTitle: '增值税计算器 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_计算: '计算', btn_收藏本站: '⭐ 收藏本站', lbl_金额_元: '金额 (元)', lbl_增值税率: '增值税率 (%)', lbl_金额类型: '金额类型'}};</script>
 </head>
 <body>
 <div class="container">
   <nav class="nav-bar">
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
     <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
     <div class="links">
       <a href="/">首页</a>
@@ -50,8 +53,8 @@
   <div class="tool-box">
     
   <div class="row">
-    <div><label>金额 (元)</label><input type="number" id="vatAmount" value="10000" /></div>
-    <div><label>增值税率 (%)</label>
+    <div><label data-i18n="lbl_金额_元">金额 (元)</label><input type="number" id="vatAmount" value="10000" /></div>
+    <div><label data-i18n="lbl_增值税率">增值税率 (%)</label>
       <select id="vatRate">
         <option value="13">13% - 一般货物</option>
         <option value="9">9% - 农产品/图书</option>
@@ -61,13 +64,13 @@
       </select>
     </div>
   </div>
-  <label>金额类型</label>
+  <label data-i18n="lbl_金额类型">金额类型</label>
   <select id="vatType">
     <option value="exclude">不含税价 → 计算含税价</option>
     <option value="include">含税价 → 计算不含税价</option>
   </select>
   <div style="margin-top:16px;">
-    <button class="btn" onclick="calcVAT()">计算</button>
+    <button class="btn" onclick="calcVAT()" data-i18n="btn_计算">计算</button>
   </div>
   <div class="result" id="vatResult" style="display:none;"></div>
   </div>
@@ -99,7 +102,7 @@ function calcVAT() {
     '</div>';
 }
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
 
 <script>
 if ('serviceWorker' in navigator) {
@@ -108,5 +111,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

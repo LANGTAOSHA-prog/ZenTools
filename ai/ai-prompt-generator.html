@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 提示词生成器 - AI工具 | ZenTools</title>
+<title data-i18n="pageTitle">AI 提示词生成器 - AI工具 | ZenTools</title>
   <meta property="og:title" content="AI 提示词生成 | ZenTools" />
   <meta property="og:description" content="生成高质量 AI 提示词（Prompt），提升与 ChatGPT 等 AI 的对话效果。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,7 +27,9 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
 .hint { font-size:12px; color:var(--muted); margin-top:4px; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
 </style>
+<script>var pageTranslations={"zh":{pageTitle: 'AI 提示词生成器 - AI工具 | ZenTools', metaDesc: '生成高质量 AI 提示词（Prompt），提升与 ChatGPT 等 AI 的对话效果。', 生成提示词: '生成提示词', 复制: '复制', 收藏本站: '⭐ 收藏本站', label_任务描述: '任务描述', label_风格_语气: '风格/语气', label_输出语言: '输出语言', label_额外要求_可选: '额外要求（可选）', ph_例如_写一篇关于: '例如：写一篇关于环保的博客文章', ph_例如_列出要点: '例如：列出要点、给出例子'},"en":{pageTitle: 'AI 提示词生成器 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', label_任务描述: 'Task Description', label_风格_语气: 'Style / Tone', label_输出语言: 'Output Language', label_额外要求_可选: 'Extra (Optional)', ph_例如_写一篇关于: 'e.g., Write a blog post about environment', ph_例如_列出要点: 'e.g., List key points with examples'},"ja":{pageTitle: 'AI 提示词生成器 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', 生成提示词: '生成提示词', 复制: '复制', 收藏本站: '⭐ 收藏本站', label_任务描述: '任务描述', label_风格_语气: '风格/语气', label_输出语言: '输出语言', label_额外要求_可选: '额外要求（可选）', ph_例如_写一篇关于: '例如：写一篇关于环保的博客文章', ph_例如_列出要点: '例如：列出要点、给出例子'},"vi":{pageTitle: 'AI 提示词生成器 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', 生成提示词: '生成提示词', 复制: '复制', 收藏本站: '⭐ 收藏本站', label_任务描述: '任务描述', label_风格_语气: '风格/语气', label_输出语言: '输出语言', label_额外要求_可选: '额外要求（可选）', ph_例如_写一篇关于: '例如：写一篇关于环保的博客文章', ph_例如_列出要点: '例如：列出要点、给出例子'};</script>
 </head>
 <body>
 <div class="container">
@@ -41,9 +43,9 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
     <p>生成高质量 AI 提示词（Prompt），提升与 ChatGPT 等 AI 的对话效果。</p>
   </div>
   <div class="tool-box">
-    <label>任务描述</label>
-<textarea id="pgTask" rows="3" placeholder="例如：写一篇关于环保的博客文章"></textarea>
-<label>风格/语气</label>
+    <label data-i18n="label_任务描述">任务描述</label>
+<textarea id="pgTask" rows="3" placeholder="例如：写一篇关于环保的博客文章" data-i18n-placeholder="ph_例如_写一篇关于"></textarea>
+<label data-i18n="label_风格_语气">风格/语气</label>
 <select id="pgStyle" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="专业">专业</option>
   <option value="友好">友好</option>
@@ -51,17 +53,17 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   <option value="详细">详细</option>
   <option value="幽默">幽默</option>
 </select>
-<label>输出语言</label>
+<label data-i18n="label_输出语言">输出语言</label>
 <select id="pgLang" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="中文">中文</option>
   <option value="English">English</option>
   <option value="日本語">日本語</option>
 </select>
-<label>额外要求（可选）</label>
-<textarea id="pgExtra" rows="2" placeholder="例如：列出要点、给出例子"></textarea>
+<label data-i18n="label_额外要求_可选">额外要求（可选）</label>
+<textarea id="pgExtra" rows="2" placeholder="例如：列出要点、给出例子" data-i18n-placeholder="ph_例如_列出要点"></textarea>
 <div style="display:flex;gap:10px;margin-top:16px;">
-  <button class="btn" onclick="genPrompt()">生成提示词</button>
-  <button class="btn btn2" onclick="copyPrompt()">复制</button>
+  <button class="btn" onclick="genPrompt()" data-i18n="生成提示词">生成提示词</button>
+  <button class="btn btn2" onclick="copyPrompt()" data-i18n="复制">复制</button>
 </div>
 <div class="result" id="pgResult" style="display:none;"></div>
 <div class="hint">▶ 将生成的提示词复制到 ChatGPT、Claude 等 AI 工具中使用</div>
@@ -79,6 +81,7 @@ function genPrompt(){
 }
 function copyPrompt(){navigator.clipboard.writeText(document.getElementById('pgResult').textContent);}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
 </body>
 </html>

@@ -47,7 +47,7 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <div class="container">
 <div class="top-bar">
 <a href="index.html" data-i18n="back">← 返回首页</a>
-<select id="languageSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option></select>
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option></select>
 </div>
 <div class="card">
 <h1 data-i18n="title">图片滤镜</h1>
@@ -70,14 +70,16 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <footer>© 2026 ZenTools</footer>
 </div>
 <script>
-const translations={zh:{back:"← 返回首页",title:"图片滤镜",desc:"为图片添加多种滤镜效果，所有处理在浏览器本地完成。",ad:"广告位（Google AdSense）",download:"下载图片",original:"原图",choose:"请先选择一张图片"},en:{back:"← Back to Home",title:"Image Filters",desc:"Apply filters to images, all processing is done locally.",ad:"Ad Space",download:"Download",original:"Original",choose:"Please select an image first"}};
+const translations={
+window.pageTranslations = translations;
+zh:{back:"← 返回首页",title:"图片滤镜",desc:"为图片添加多种滤镜效果，所有处理在浏览器本地完成。",ad:"广告位（Google AdSense）",download:"下载图片",original:"原图",choose:"请先选择一张图片"},en:{back:"← Back to Home",title:"Image Filters",desc:"Apply filters to images, all processing is done locally.",ad:"Ad Space",download:"Download",original:"Original",choose:"Please select an image first"}};
 let currentLang="zh",currentFilter="none",imgFile=null;
 const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
 document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){cs.width=Math.min(img.width,800);cs.height=img.height*(cs.width/img.width);applyFilter();};img.src=ev.target.result;};r.readAsDataURL(f);});
 document.querySelectorAll(".filter-btn").forEach(b=>{b.addEventListener("click",function(){document.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));this.classList.add("active");currentFilter=this.dataset.filter;if(imgFile)applyFilter();});});
 function applyFilter(){const img=new Image();const r=new FileReader();r.onload=function(ev){img.onload=function(){ctx.clearRect(0,0,cs.width,cs.height);ctx.drawImage(img,0,0,cs.width,cs.height);const d=currentFilter;if(d==="grayscale"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){const g=i.data[p]*.299+i.data[p+1]*.587+i.data[p+2]*.114;i.data[p]=i.data[p+1]=i.data[p+2]=g;}ctx.putImageData(i,0,0);}else if(d==="sepia"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){const r=i.data[p],g=i.data[p+1],b=i.data[p+2];i.data[p]=Math.min(255,r*.393+g*.769+b*.189);i.data[p+1]=Math.min(255,r*.349+g*.686+b*.168);i.data[p+2]=Math.min(255,r*.272+g*.534+b*.131);}ctx.putImageData(i,0,0);}else if(d==="invert"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){i.data[p]=255-i.data[p];i.data[p+1]=255-i.data[p+1];i.data[p+2]=255-i.data[p+2];}ctx.putImageData(i,0,0);}else if(d==="blur"){ctx.filter="blur(5px)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="bright"){ctx.filter="brightness(1.4)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="contrast"){ctx.filter="contrast(1.8)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="saturate"){ctx.filter="saturate(2)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else{ctx.drawImage(img,0,0,cs.width,cs.height);}};img.src=ev.target.result;};r.readAsDataURL(imgFile);}
 function downloadImage(){if(!imgFile){alert(translations[currentLang].choose);return;}const link=document.createElement("a");link.download="filtered-"+imgFile.name;link.href=cs.toDataURL("image/png");link.click();}
-const ls=document.getElementById("languageSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
+const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
 </script>
 
 <script>

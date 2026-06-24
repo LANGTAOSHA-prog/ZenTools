@@ -39,7 +39,7 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <div class="container">
   <div class="top-bar">
     <a href="index.html" data-i18n="back">← 返回首页</a>
-    <select id="languageSelect" class="lang-select">
+    <select id="langSelect" class="lang-select">
       <option value="zh">中文</option>
       <option value="ja">日本語</option>
       <option value="en">English</option>
@@ -60,23 +60,25 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 </div>
 <script>
 const translations={
+window.pageTranslations = translations;
+
  zh:{pageTitle:"短链接生成器 - ZenTools",back:"← 返回首页",title:"短链接生成器",desc:"生成浏览器本地短链接代码。",ad:"广告位（Google AdSense）",placeholder:"输入长链接...",make:"生成短链接",copy:"复制",empty:"请输入链接",copied:"已复制",noteTitle:"说明",noteText:"GitHub Pages 纯前端无法真正创建可跳转的服务器短链接。本工具会生成本地短链接样式代码，适合展示、记录或后续接入短链接服务。"},
  ja:{pageTitle:"短縮URL生成 - ZenTools",back:"← ホームに戻る",title:"短縮URL生成",desc:"ブラウザ内で短縮URL風コードを生成。",ad:"広告スペース",placeholder:"長いURLを入力...",make:"生成",copy:"コピー",empty:"URLを入力してください",copied:"コピーしました",noteTitle:"説明",noteText:"GitHub Pagesのみでは実際の短縮URLサーバーは作成できません。このツールは表示・記録用コードを生成します。"},
  en:{pageTitle:"Short URL Generator - ZenTools",back:"← Back to Home",title:"Short URL Generator",desc:"Generate local short-link style codes.",ad:"Ad Space",placeholder:"Enter long URL...",make:"Generate Short Link",copy:"Copy",empty:"Please enter a URL",copied:"Copied",noteTitle:"Notice",noteText:"A pure GitHub Pages frontend cannot create real server-side redirect short links. This tool generates local short-link style codes for display, notes, or later integration."},
  vi:{pageTitle:"Tạo link rút gọn - ZenTools",back:"← Quay lại trang chủ",title:"Tạo link rút gọn",desc:"Tạo mã link rút gọn dạng cục bộ.",ad:"Vị trí quảng cáo",placeholder:"Nhập liên kết dài...",make:"Tạo link",copy:"Sao chép",empty:"Vui lòng nhập liên kết",copied:"Đã sao chép",noteTitle:"Lưu ý",noteText:"GitHub Pages thuần frontend không thể tạo link rút gọn chuyển hướng thật. Công cụ này tạo mã dạng link rút gọn để hiển thị hoặc tích hợp sau."}
 };
 
-const languageSelect=document.getElementById("languageSelect");
+const languageSelect=document.getElementById("langSelect");
 let currentLang="zh";
 function applyI18n(data){
  document.documentElement.lang=currentLang; document.title=data.pageTitle||document.title;
  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
- localStorage.setItem("siteLanguage",currentLang);
+ localStorage.setItem("zentools_lang",currentLang);
 }
 function setLanguage(lang){currentLang=lang; applyI18n(translations[lang]||translations.zh);}
 languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("siteLanguage")||"zh"; languageSelect.value=savedLang;
+const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang;
 
 setLanguage(savedLang);
 function hash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h).toString(36);}

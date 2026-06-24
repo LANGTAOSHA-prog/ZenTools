@@ -2,25 +2,28 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>抛硬币工具 - 生活工具 | ZenTools</title>
+<title data-i18n="pageTitle">抛硬币工具 - 生活工具 | ZenTools</title>
 <meta property="og:title" content="抛硬币 | ZenTools" />
 <meta property="og:description" content="在线抛硬币工具，模拟抛硬币，随机出正面或反面。" />
 <meta name="description" content="在线抛硬币工具，模拟抛硬币随机性，支持正面/反面统计。">
 <meta name="keywords" content="抛硬币,硬币,正面反面,随机决策,抛硬币工具,Coin Toss">
 <link rel="stylesheet" href="../assets/css/tool-ui.min.css">
-<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.coin{width:140px;height:140px;margin:20px auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:900;transition:all 0.4s;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;box-shadow:0 8px 32px rgba(245,158,11,0.3);user-select:none}.coin.flipping{animation:flipCoin 0.6s ease-in-out}@keyframes flipCoin{0%{transform:rotateY(0)}50%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}.result-text{text-align:center;font-size:24px;font-weight:800;color:var(--cyan);margin:12px 0}.stats{display:flex;justify-content:center;gap:32px;margin-top:16px;font-size:14px}.stats div{text-align:center}.stats .num{font-size:28px;font-weight:800;color:var(--text)}.stats .label{color:var(--muted);font-size:12px}</style>
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.btn2{background:var(--glass-b);color:var(--text)}.coin{width:140px;height:140px;margin:20px auto;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:50px;font-weight:900;transition:all 0.4s;background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;box-shadow:0 8px 32px rgba(245,158,11,0.3);user-select:none}.coin.flipping{animation:flipCoin 0.6s ease-in-out}@keyframes flipCoin{0%{transform:rotateY(0)}50%{transform:rotateY(180deg)}100%{transform:rotateY(360deg)}}.result-text{text-align:center;font-size:24px;font-weight:800;color:var(--cyan);margin:12px 0}.stats{display:flex;justify-content:center;gap:32px;margin-top:16px;font-size:14px}.stats div{text-align:center}.stats .num{font-size:28px;font-weight:800;color:var(--text)}.stats .label{color:var(--muted);font-size:12px}.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+</style>
+<script>window.pageTranslations={"zh":{pageTitle: '抛硬币工具 - 生活工具 | ZenTools', metaDesc: '在线抛硬币工具，模拟抛硬币随机性，支持正面/反面统计。', btn_抛硬币: '🪙 抛硬币', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"en":{pageTitle: '抛硬币工具 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_抛硬币: '🪙 抛硬币', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"ja":{pageTitle: '抛硬币工具 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_抛硬币: '🪙 抛硬币', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"vi":{pageTitle: '抛硬币工具 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_抛硬币: '🪙 抛硬币', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'}};</script>
 </head>
 <body>
 <div class="container">
-  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <nav class="nav-bar">
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
   <a href="/" class="back-home">← 返回首页</a>
   <div class="page-header"><h1><span class="hl">抛硬币</span></h1><p>在线抛硬币，随机出正面或反面，附带统计记录。</p></div>
   <div class="tool-box" style="text-align:center;">
     <div class="coin" id="coinFace">👑</div>
     <div class="result-text" id="coinResult">正面</div>
     <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;">
-      <button class="btn" onclick="tossCoin()">🪙 抛硬币</button>
-      <button class="btn btn2" onclick="resetCoin()">↺ 重置</button>
+      <button class="btn" onclick="tossCoin()" data-i18n="btn_抛硬币">🪙 抛硬币</button>
+      <button class="btn btn2" onclick="resetCoin()" data-i18n="btn_重置">↺ 重置</button>
     </div>
     <div class="stats"><div><div class="num" id="headsCount">0</div><div class="label">正面</div></div><div><div class="num" id="tailsCount">0</div><div class="label">反面</div></div><div><div class="num" id="totalCount">0</div><div class="label">总计</div></div></div>
   </div>
@@ -43,6 +46,7 @@ function tossCoin(){
 }
 function resetCoin(){heads=0;tails=0;total=0;document.getElementById('headsCount').textContent='0';document.getElementById('tailsCount').textContent='0';document.getElementById('totalCount').textContent='0';document.getElementById('coinResult').textContent='正面';document.getElementById('coinFace').textContent='👑';}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

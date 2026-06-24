@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI 聊天 - 江湖小站-ZenTools</title>
+  <title data-i18n="pageTitle">AI 聊天 - 江湖小站-ZenTools</title>
   <meta name="description" content="与 AI 智能对话，支持多轮问答、知识查询和创意讨论" />
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -86,7 +86,10 @@
       .btn { padding: 8px 16px; font-size: 13px; }
       .header { padding: 12px 16px; }
     }
-  </style>
+  
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+</style>
+<script>var pageTranslations={zh: {pageTitle: 'AI 聊天 - 江湖小站-ZenTools', metaDesc: '与 AI 智能对话，支持多轮问答、知识查询和创意讨论', _AI_智能聊天: 'AI 智能聊天', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', : '发送', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'}, en: {pageTitle: 'AI 聊天 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _AI_智能聊天: 'AI 智能聊天', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'}, ja: {pageTitle: 'AI 聊天 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _AI_智能聊天: 'AI 智能聊天', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', : '发送', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'}, vi: {pageTitle: 'AI 聊天 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _AI_智能聊天: 'AI 智能聊天', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', : '发送', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'};</script>
 </head>
 <body>
 
@@ -94,13 +97,14 @@
 <header class="header">
   <div class="logo">
     <span class="mark">⛵</span>
-    <span>AI 聊天</span>
+    <span data-i18n="ai">AI 聊天</span>
   </div>
   <div class="actions">
-    <button class="btn btn-icon btn-secondary" onclick="clearChat()" title="清空对话">🗑️</button>
-    <button class="btn btn-icon btn-secondary" onclick="openSettings()" title="设置">⚙️</button>
+    <button class="btn btn-icon btn-secondary" onclick="clearChat()" title="清空对话" data-i18n="btn">🗑️</button>
+    <button class="btn btn-icon btn-secondary" onclick="openSettings()" title="设置" data-i18n="btn">⚙️</button>
     <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
   </div>
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
 </header>
 
 <!-- Main Content -->
@@ -108,8 +112,8 @@
   <!-- Welcome Screen -->
   <div class="welcome-screen" id="welcomeScreen">
     <div class="icon">💬</div>
-    <h1>AI 智能聊天</h1>
-    <p>与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等</p>
+    <h1 data-i18n="_AI_智能聊天">AI 智能聊天</h1>
+    <p data-i18n="ai">与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等</p>
     <div class="suggestions">
       <div class="suggestion" onclick="useSuggestion('请帮我写一段 Python 代码，实现快速排序算法')">🐍 写一段快速排序代码</div>
       <div class="suggestion" onclick="useSuggestion('解释一下量子纠缠的原理')">⚛️ 解释量子纠缠</div>
@@ -124,11 +128,11 @@
   <!-- Input Area -->
   <div class="input-area" id="inputArea" style="display: none;">
     <div class="input-wrapper">
-      <textarea id="userInput" placeholder="输入消息...（Shift+Enter 换行，Enter 发送）" rows="1" onkeydown="handleKeyDown(event)"></textarea>
+      <textarea id="userInput" placeholder="输入消息...（Shift+Enter 换行，Enter 发送）" data-i18n-placeholder="placeholder_sh" rows="1" onkeydown="handleKeyDown(event)"></textarea>
       <div class="char-count"><span id="charCount">0</span>/4000</div>
     </div>
     <button class="btn btn-primary" id="sendBtn" onclick="sendMessage()">
-      <span>发送</span>
+      <span data-i18n="">发送</span>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
     </button>
   </div>
@@ -137,9 +141,9 @@
 <!-- Settings Modal -->
 <div class="settings-modal" id="settingsModal">
   <div class="settings-content">
-    <h2>⚙️ API 设置</h2>
+    <h2 data-i18n="_⚙️_API_设置">⚙️ API 设置</h2>
     <div class="form-group">
-      <label>API 提供商</label>
+      <label data-i18n="api">API 提供商</label>
       <select id="apiProvider" onchange="updateProviderFields()">
         <option value="openai">OpenAI</option>
         <option value="anthropic">Anthropic (Claude)</option>
@@ -149,21 +153,21 @@
     </div>
     <div class="form-group">
       <label>API Key <span style="color: var(--error);">*</span></label>
-      <input type="password" id="apiKey" placeholder="sk-..." />
+      <input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" />
       <small>密钥仅保存在本地浏览器，不会上传到任何服务器</small>
     </div>
     <div class="form-group" id="baseUrlGroup" style="display: none;">
-      <label>API Base URL</label>
-      <input type="text" id="baseUrl" placeholder="https://api.openai.com/v1" />
+      <label data-i18n="api_base_url">API Base URL</label>
+      <input type="text" id="baseUrl" placeholder="https://api.openai.com/v1" data-i18n-placeholder="placeholder_https_ap" />
     </div>
     <div class="form-group">
-      <label>模型名称</label>
-      <input type="text" id="modelName" placeholder="gpt-4o" />
+      <label data-i18n="">模型名称</label>
+      <input type="text" id="modelName" placeholder="gpt-4o" data-i18n-placeholder="placeholder_gpt_4o" />
       <small>留空使用默认模型</small>
     </div>
     <div class="settings-actions">
-      <button class="btn btn-secondary" onclick="closeSettings()">取消</button>
-      <button class="btn btn-primary" onclick="saveSettings()">保存</button>
+      <button class="btn btn-secondary" onclick="closeSettings()" data-i18n="btn">取消</button>
+      <button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button>
     </div>
   </div>
 </div>
@@ -173,7 +177,7 @@
   © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有对话均在本地处理，不会上传服务器
 </footer>
 
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
 
 <script>
 // ============ State ============
@@ -511,5 +515,9 @@ async function fetchChatResponse(history) {
 init();
 </script>
 
+
+<script>
+(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+</script>
 </body>
 </html>

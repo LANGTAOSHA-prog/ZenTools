@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 故事创作 - AI工具 | ZenTools</title>
+<title data-i18n="pageTitle">AI 故事创作 - AI工具 | ZenTools</title>
   <meta property="og:title" content="AI 故事创作 | ZenTools" />
   <meta property="og:description" content="生成短篇故事、寓言、童话或微小说，发挥 AI 创意。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,7 +27,9 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
 .hint { font-size:12px; color:var(--muted); margin-top:4px; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
 </style>
+<script>var pageTranslations={"zh":{pageTitle: 'AI 故事创作 - AI工具 | ZenTools', metaDesc: '生成短篇故事、寓言、童话或微小说，发挥 AI 创意。', 生成故事: '生成故事', 收藏本站: '⭐ 收藏本站', label_主题: '主题', label_角色: '角色', label_场景: '场景', label_篇幅: '篇幅', ph_例如_友情_冒险: '例如：友情、冒险', ph_例如_一只小猫: '例如：一只小猫', ph_例如_魔法森林: '例如：魔法森林'},"en":{pageTitle: 'AI 故事创作 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', label_主题: 'Topic', label_角色: 'Role', label_场景: 'Scenario', label_篇幅: 'Length', ph_例如_友情_冒险: 'e.g., Friendship, adventure', ph_例如_一只小猫: 'e.g., A little cat', ph_例如_魔法森林: 'e.g., Magic forest'},"ja":{pageTitle: 'AI 故事创作 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', 生成故事: '生成故事', 收藏本站: '⭐ 收藏本站', label_主题: '主题', label_角色: '角色', label_场景: '场景', label_篇幅: '篇幅', ph_例如_友情_冒险: '例如：友情、冒险', ph_例如_一只小猫: '例如：一只小猫', ph_例如_魔法森林: '例如：魔法森林'},"vi":{pageTitle: 'AI 故事创作 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', 生成故事: '生成故事', 收藏本站: '⭐ 收藏本站', label_主题: '主题', label_角色: '角色', label_场景: '场景', label_篇幅: '篇幅', ph_例如_友情_冒险: '例如：友情、冒险', ph_例如_一只小猫: '例如：一只小猫', ph_例如_魔法森林: '例如：魔法森林'};</script>
 </head>
 <body>
 <div class="container">
@@ -42,18 +44,18 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   </div>
   <div class="tool-box">
     <div class="row">
-  <div><label>主题</label><input type="text" id="stTheme" placeholder="例如：友情、冒险" /></div>
-  <div><label>角色</label><input type="text" id="stChar" placeholder="例如：一只小猫" /></div>
+  <div><label data-i18n="label_主题">主题</label><input type="text" id="stTheme" placeholder="例如：友情、冒险" data-i18n-placeholder="ph_例如_友情_冒险" /></div>
+  <div><label data-i18n="label_角色">角色</label><input type="text" id="stChar" placeholder="例如：一只小猫" data-i18n-placeholder="ph_例如_一只小猫" /></div>
 </div>
 <div class="row">
-  <div><label>场景</label><input type="text" id="stSetting" placeholder="例如：魔法森林" /></div>
-  <div><label>篇幅</label>
+  <div><label data-i18n="label_场景">场景</label><input type="text" id="stSetting" placeholder="例如：魔法森林" data-i18n-placeholder="ph_例如_魔法森林" /></div>
+  <div><label data-i18n="label_篇幅">篇幅</label>
   <select id="stLength" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
     <option value="短篇">短篇（200字）</option>
     <option value="中篇">中篇（500字）</option>
   </select></div>
 </div>
-<button class="btn" onclick="genST()" style="margin-top:12px;">生成故事</button>
+<button class="btn" onclick="genST()" style="margin-top:12px;" data-i18n="生成故事">生成故事</button>
 <div class="result" id="stResult" style="display:none;"></div>
   </div>
 </div>
@@ -68,6 +70,7 @@ function genST(){
   prompt+='\n\n要求：故事完整、有起承转合、语言生动、用中文写作。';
   document.getElementById('stResult').style.display='block';document.getElementById('stResult').textContent=prompt;}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
 </body>
 </html>

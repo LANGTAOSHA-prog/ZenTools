@@ -2,23 +2,26 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>星座查询 - 生活工具 | ZenTools</title>
+<title data-i18n="pageTitle">星座查询 - 生活工具 | ZenTools</title>
 <meta property="og:title" content="星座查询 | ZenTools" />
 <meta property="og:description" content="在线星座查询工具，根据出生日期查询星座和星座特点。" />
 <meta name="description" content="在线星座查询工具，输入出生日期查询对应星座，查看星座日期范围、性格特点和幸运信息。">
 <meta name="keywords" content="星座查询,星座,十二星座,星座日期,星座性格,星座运势">
 <link rel="stylesheet" href="../assets/css/tool-ui.min.css">
-<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600;color:var(--muted)}input,select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px}input:focus,select:focus{outline:none;border-color:var(--cyan)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.result-card{margin-top:20px;padding:24px;border-radius:12px;background:var(--glass);border:1px solid var(--border);display:none;text-align:center}.result-card .zodiac-icon{font-size:64px;margin-bottom:8px}.result-card .zodiac-name{font-size:24px;font-weight:800}.result-card .zodiac-date{font-size:14px;color:var(--muted);margin:4px 0 12px}.result-card .zodiac-info{font-size:14px;line-height:1.8;text-align:left;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px}</style>
+<style>.tool-box{padding:24px;background:var(--surface);border-radius:var(--r);border:1px solid var(--border)}label{display:block;margin:12px 0 4px;font-size:13px;font-weight:600;color:var(--muted)}input,select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px}input:focus,select:focus{outline:none;border-color:var(--cyan)}.btn{padding:10px 24px;border-radius:8px;border:none;background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff;font-size:14px;font-weight:600;cursor:pointer}.btn:hover{opacity:.85}.result-card{margin-top:20px;padding:24px;border-radius:12px;background:var(--glass);border:1px solid var(--border);display:none;text-align:center}.result-card .zodiac-icon{font-size:64px;margin-bottom:8px}.result-card .zodiac-name{font-size:24px;font-weight:800}.result-card .zodiac-date{font-size:14px;color:var(--muted);margin:4px 0 12px}.result-card .zodiac-info{font-size:14px;line-height:1.8;text-align:left;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px}.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+</style>
+<script>window.pageTranslations={"zh":{pageTitle: '星座查询 - 生活工具 | ZenTools', metaDesc: '在线星座查询工具，输入出生日期查询对应星座，查看星座日期范围、性格特点和幸运信息。', btn_查询星座: '查询星座', btn_收藏本站: '⭐ 收藏本站', lbl_出生日期: '出生日期'},"en":{pageTitle: '星座查询 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_查询星座: '查询星座', btn_收藏本站: '⭐ 收藏本站', lbl_出生日期: '出生日期'},"ja":{pageTitle: '星座查询 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_查询星座: '查询星座', btn_收藏本站: '⭐ 收藏本站', lbl_出生日期: '出生日期'},"vi":{pageTitle: '星座查询 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_查询星座: '查询星座', btn_收藏本站: '⭐ 收藏本站', lbl_出生日期: '出生日期'}};</script>
 </head>
 <body>
 <div class="container">
-  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <nav class="nav-bar">
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
   <a href="/" class="back-home">← 返回首页</a>
   <div class="page-header"><h1><span class="hl">星座查询</span></h1><p>输入出生日期，查询对应星座和星座特点。</p></div>
   <div class="tool-box">
-    <label>出生日期</label>
+    <label data-i18n="lbl_出生日期">出生日期</label>
     <input type="date" id="zodiacDate" />
-    <div style="margin-top:12px;"><button class="btn" onclick="queryZodiac()">查询星座</button></div>
+    <div style="margin-top:12px;"><button class="btn" onclick="queryZodiac()" data-i18n="btn_查询星座">查询星座</button></div>
     <div class="result-card" id="zodiacResult">
       <div class="zodiac-icon" id="zodiacIcon">♈</div>
       <div class="zodiac-name" id="zodiacName">白羊座</div>
@@ -70,6 +73,7 @@ function queryZodiac(){
 // Set default date to today
 var now=new Date();document.getElementById('zodiacDate').value=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

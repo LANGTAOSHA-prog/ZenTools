@@ -4,518 +4,216 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="manifest" href="/manifest.json" />
-  <title>ZenTools 插件预览 - 工具展示与下载</title>
-  <meta name="description" content="ZenTools 插件预览页面，展示所有可用工具和插件的功能介绍、截图演示和下载链接。" />
+  <title data-i18n="pageTitle">ZenTools 插件预览 - 工具展示与下载</title>
+  <meta name="description" content="" id="metaDesc" />
   <meta name="keywords" content="ZenTools,插件预览,工具展示,在线工具,免费工具" />
   <meta name="author" content="ZenTools" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://zentools.xyz/plugins-preview.html" />
-
   <meta property="og:title" content="ZenTools 插件预览 - 工具展示与下载" />
   <meta property="og:description" content="ZenTools 所有插件和工具的预览展示页面，包含功能介绍、使用示例和快速访问链接。" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://zentools.xyz/plugins-preview.html" />
   <meta property="og:image" content="https://zentools.xyz/assets/images/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
-
   <style>
-    :root {
-      --bg: #f6f8fb;
-      --card: #ffffff;
-      --card-soft: #f8fafc;
-      --border: #e5e7eb;
-      --text: #111827;
-      --muted: #64748b;
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --secondary: #10b981;
-      --warning: #f59e0b;
-      --shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-      --radius: 20px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 260px);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", Arial, sans-serif;
-      line-height: 1.75;
-    }
-
-    a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    a:hover {
-      color: var(--primary-dark);
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 22px 18px 50px;
-    }
-
-    /* ═══ Header ═══ */
-    .site-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding: 14px 0 22px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text);
-      font-weight: 800;
-      font-size: 22px;
-    }
-
-    .logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #2563eb, #22c55e);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-weight: 900;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .nav a {
-      color: #334155;
-      font-weight: 600;
-    }
-
-    /* ═══ Hero ═══ */
-    .hero {
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      border-radius: 28px;
-      padding: 38px;
-      box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -80px;
-      top: -80px;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      background: rgba(37, 99, 235, 0.12);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
-      border-radius: 999px;
-      padding: 6px 12px;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    h1 {
-      font-size: 42px;
-      line-height: 1.18;
-      margin-bottom: 14px;
-      letter-spacing: -0.04em;
-    }
-
-    .hero-desc {
-      font-size: 18px;
-      color: #475569;
-      margin-bottom: 24px;
-      max-width: 700px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 0;
-      border-radius: 14px;
-      padding: 13px 18px;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s;
-      min-height: 48px;
-      text-decoration: none;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-1px);
-    }
-
-    .btn-light {
-      background: #fff;
-      color: #1e293b;
-      border: 1px solid var(--border);
-    }
-
-    .btn-light:hover {
-      transform: translateY(-1px);
-      background: #f8fafc;
-    }
-
-    /* ═══ Filters ═══ */
-    .filters {
-      margin: 30px 0 20px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .filter-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px 16px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #334155;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      background: var(--primary);
-      color: #fff;
-      border-color: var(--primary);
-    }
-
-    /* ═══ Plugins Grid ═══ */
-    .plugins-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .plugin-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      overflow: hidden;
-      transition: 0.3s;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
-    }
-
-    .plugin-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow);
-      border-color: var(--primary);
-    }
-
-    .plugin-header {
-      padding: 20px;
-      background: linear-gradient(135deg, #f0f4f8 0%, #e8ecf3 100%);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .plugin-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      background: var(--card);
-      flex-shrink: 0;
-    }
-
-    .plugin-title-wrap h3 {
-      font-size: 18px;
-      margin-bottom: 4px;
-      color: var(--text);
-    }
-
-    .plugin-category {
-      display: inline-flex;
-      align-items: center;
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
-      border-radius: 6px;
-      padding: 2px 8px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .plugin-body {
-      padding: 16px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .plugin-description {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-
-    .plugin-features {
-      font-size: 13px;
-      color: #475569;
-      margin: 8px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .plugin-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-    }
-
-    .plugin-feature::before {
-      content: "✓";
-      color: var(--secondary);
-      font-weight: bold;
-      flex-shrink: 0;
-    }
-
-    .plugin-footer {
-      padding: 16px;
-      border-top: 1px solid var(--border);
-      display: flex;
-      gap: 8px;
-    }
-
-    .plugin-footer a {
-      flex: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 700;
-      text-align: center;
-      background: #eff6ff;
-      color: #1d4ed8;
-      border: 1px solid #bfdbfe;
-      transition: 0.2s;
-    }
-
-    .plugin-footer a:hover {
-      background: #dbeafe;
-      border-color: #60a5fa;
-      text-decoration: none;
-    }
-
-    /* ═══ Stats ═══ */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin: 30px 0;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .stat-number {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 6px;
-    }
-
-    .stat-label {
-      font-size: 14px;
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    /* ═══ Info Section ═══ */
-    .info-section {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 26px;
-      margin-top: 30px;
-    }
-
-    .info-section h2 {
-      font-size: 24px;
-      margin-bottom: 16px;
-      color: var(--text);
-    }
-
-    .info-section p {
-      color: #475569;
-      margin-bottom: 12px;
-      line-height: 1.8;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .info-item {
-      background: var(--card-soft);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-    }
-
-    .info-item strong {
-      color: var(--text);
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .info-item span {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    /* ═══ Footer ═══ */
-    footer {
-      text-align: center;
-      color: var(--muted);
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-      font-size: 14px;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    /* ═══ Responsive ═══ */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 24px;
+    :root{--bg:#f6f8fb;--card:#ffffff;--card-soft:#f8fafc;--border:#e5e7eb;--text:#111827;--muted:#64748b;--primary:#2563eb;--primary-dark:#1d4ed8;--secondary:#10b981;--warning:#f59e0b;--shadow:0 18px 45px rgba(15,23,42,0.08);--radius:20px}*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:linear-gradient(180deg,#eef4ff 0%,var(--bg) 260px);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei","Noto Sans SC",Arial,sans-serif;line-height:1.75}a{color:var(--primary);text-decoration:none;transition:color 0.2s}a:hover{color:var(--primary-dark)}.container{max-width:1200px;margin:0 auto;padding:22px 18px 50px}.site-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 0 22px}.brand{display:flex;align-items:center;gap:10px;color:var(--text);font-weight:800;font-size:22px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#2563eb,#22c55e);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900}.nav{display:flex;align-items:center;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:15px}.nav a{color:#334155;font-weight:600}.hero{background:rgba(255,255,255,0.92);border:1px solid rgba(226,232,240,0.9);border-radius:28px;padding:38px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero::after{content:"";position:absolute;right:-80px;top:-80px;width:220px;height:220px;border-radius:50%;background:rgba(37,99,235,0.12)}.badge{display:inline-flex;align-items:center;gap:6px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:999px;padding:6px 12px;font-size:14px;font-weight:700;margin-bottom:14px}h1{font-size:42px;line-height:1.18;margin-bottom:14px;letter-spacing:-0.04em}.hero-desc{font-size:18px;color:#475569;margin-bottom:24px;max-width:700px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:14px;padding:13px 18px;font-size:16px;font-weight:800;cursor:pointer;transition:0.2s;min-height:48px;text-decoration:none}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark);transform:translateY(-1px)}.btn-light{background:#fff;color:#1e293b;border:1px solid var(--border)}.btn-light:hover{transform:translateY(-1px);background:#f8fafc}.filters{margin:30px 0 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}.filter-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;transition:0.2s;color:#334155}.filter-btn:hover,.filter-btn.active{background:var(--primary);color:#fff;border-color:var(--primary)}.plugins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:30px}.plugin-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:0.3s;display:flex;flex-direction:column;box-shadow:0 4px 12px rgba(15,23,42,0.05)}.plugin-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--primary)}.plugin-header{padding:20px;background:linear-gradient(135deg,#f0f4f8 0%,#e8ecf3 100%);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}.plugin-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--card);flex-shrink:0}.plugin-title-wrap h3{font-size:18px;margin-bottom:4px;color:var(--text)}.plugin-category{display:inline-flex;align-items:center;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:600}.plugin-body{padding:16px;flex:1;display:flex;flex-direction:column}.plugin-description{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:12px}.plugin-features{font-size:13px;color:#475569;margin:8px 0;display:flex;flex-direction:column;gap:4px}.plugin-feature{display:flex;align-items:flex-start;gap:6px}.plugin-feature::before{content:"\2713";color:var(--secondary);font-weight:bold;flex-shrink:0}.plugin-footer{padding:16px;border-top:1px solid var(--border);display:flex;gap:8px}.plugin-footer a{flex:1;display:inline-flex;align-items:center;justify-content:center;padding:10px;border-radius:10px;font-size:14px;font-weight:700;text-align:center;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe;transition:0.2s}.plugin-footer a:hover{background:#dbeafe;border-color:#60a5fa;text-decoration:none}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:30px 0}.stat-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center}.stat-number{font-size:32px;font-weight:800;color:var(--primary);margin-bottom:6px}.stat-label{font-size:14px;color:var(--muted);font-weight:600}.info-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;margin-top:30px}.info-section h2{font-size:24px;margin-bottom:16px;color:var(--text)}.info-section p{color:#475569;margin-bottom:12px;line-height:1.8}.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:16px}.info-item{background:var(--card-soft);border:1px solid var(--border);border-radius:12px;padding:16px}.info-item strong{color:var(--text);display:block;margin-bottom:6px}.info-item span{color:var(--muted);font-size:14px;line-height:1.6}footer{text-align:center;color:var(--muted);margin-top:40px;padding-top:20px;border-top:1px solid var(--border);font-size:14px}.footer-links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}@media(max-width:768px){.hero{padding:24px}h1{font-size:28px}.plugins-grid{grid-template-columns:1fr}.btn{width:100%}.filters{flex-direction:column;align-items:flex-start}.filter-btn{width:100%}.stats{grid-template-columns:1fr}.plugin-footer{flex-direction:column}.plugin-footer a{width:100%}}.hidden{display:none}.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"ZenTools \u63d2\u4ef6\u9884\u89c8","applicationCategory":"UtilitiesApplication","operatingSystem":"Web Browser","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"ZenTools \u514d\u8d39\u5728\u7ebf\u5de5\u5177\u63d2\u4ef6\u9884\u89c8\u5c55\u793a\u9875\u9762\u3002"}</script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+  <script>
+    var pageTranslations = {
+      zh: {
+        pageTitle: 'ZenTools 插件预览 - 工具展示与下载',
+        metaDesc: 'ZenTools 插件预览页面，展示所有可用工具和插件的功能介绍、截图演示和下载链接。',
+        navHome: '首页',
+        navTools: '全部工具',
+        navCategories: '工具分类',
+        navArticles: '教程文章',
+        badge: '工具预览 \u00B7 一站式浏览',
+        h1: 'ZenTools 插件预览',
+        heroDesc: '浏览所有 ZenTools 提供的免费在线工具和插件。快速查看功能介绍、使用场景和直接访问链接。',
+        btnBrowse: '浏览全部工具',
+        btnTools: '工具大全',
+        statTools: '在线工具',
+        statCats: '工具分类',
+        statFree: '免费使用',
+        statAllTime: '全时可用',
+        filterLabel: '分类筛选：',
+        filterAll: '全部',
+        filterPdf: 'PDF 工具',
+        filterImage: '图片工具',
+        filterVideo: '视频工具',
+        filterAi: 'AI 工具',
+        filterText: '文字工具',
+        filterDev: '开发工具',
+        infoTitle: '为什么选择 ZenTools？',
+        infoDesc: 'ZenTools 是一个完全免费的在线工具集合，为中文用户优化，无需安装任何软件，打开网页即可使用。所有工具都支持本地处理，保护您的隐私安全。',
+        info1Title: '功能全面',
+        info1Desc: 'PDF、图片、视频、文字、AI 等多种工具，满足日常办公和生活需求。',
+        info2Title: '隐私保护',
+        info2Desc: '文件处理在浏览器本地完成，不会上传到服务器，确保数据安全。',
+        info3Title: '无需安装',
+        info3Desc: '所有工具都在线使用，无需下载和安装，支持 Windows、Mac、Linux、iOS、Android。',
+        info4Title: '快速高效',
+        info4Desc: '优化的处理引擎和界面设计，让您快速完成工作。',
+        info5Title: '多语言支持',
+        info5Desc: '支持中文、英文、日文、越南文等多种语言。',
+        info6Title: '响应式设计',
+        info6Desc: '完美适配各种屏幕尺寸，在手机、平板和电脑上都能流畅使用。',
+        footerAbout: '关于我们',
+        footerPrivacy: '隐私政策',
+        footerTerms: '使用条款',
+        footerContact: '联系我们',
+        footerText: '\u00A9 2026 ZenTools. 中文免费在线工具箱。保留所有权利。',
+        bookmark: '\u2B50 收藏本站，下次办公快人一步',
+        openTool: '打开工具'
+      },
+      en: {
+        pageTitle: 'ZenTools Plugin Preview - Tools Showcase',
+        metaDesc: 'ZenTools plugin preview page showcasing all available tools with features, screenshots and download links.',
+        navHome: 'Home',
+        navTools: 'All Tools',
+        navCategories: 'Categories',
+        navArticles: 'Articles',
+        badge: 'Tool Preview \u00B7 Browse All',
+        h1: 'ZenTools Plugin Preview',
+        heroDesc: 'Browse all free online tools and plugins offered by ZenTools. Quickly view features, use cases and access links.',
+        btnBrowse: 'Browse All Tools',
+        btnTools: 'All Tools',
+        statTools: 'Online Tools',
+        statCats: 'Categories',
+        statFree: '100% Free',
+        statAllTime: 'Always Available',
+        filterLabel: 'Filter:',
+        filterAll: 'All',
+        filterPdf: 'PDF Tools',
+        filterImage: 'Image Tools',
+        filterVideo: 'Video Tools',
+        filterAi: 'AI Tools',
+        filterText: 'Text Tools',
+        filterDev: 'Dev Tools',
+        infoTitle: 'Why Choose ZenTools?',
+        infoDesc: 'ZenTools is a completely free online tool collection optimized for global users. No installation needed - open your browser and start using. All tools support local processing to protect your privacy.',
+        info1Title: 'Comprehensive',
+        info1Desc: 'PDF, image, video, text, AI tools for daily office and life needs.',
+        info2Title: 'Privacy Protection',
+        info2Desc: 'Files are processed locally in your browser - never uploaded to any server.',
+        info3Title: 'No Installation',
+        info3Desc: 'All tools work online. No download or install needed. Supports Windows, Mac, Linux, iOS, Android.',
+        info4Title: 'Fast & Efficient',
+        info4Desc: 'Optimized processing engine and UI design for quick task completion.',
+        info5Title: 'Multilingual',
+        info5Desc: 'Supports Chinese, English, Japanese, Vietnamese and more.',
+        info6Title: 'Responsive Design',
+        info6Desc: 'Perfectly adapts to all screen sizes - phone, tablet and desktop.',
+        footerAbout: 'About',
+        footerPrivacy: 'Privacy',
+        footerTerms: 'Terms',
+        footerContact: 'Contact',
+        footerText: '\u00A9 2026 ZenTools. Free Online Tools. All rights reserved.',
+        bookmark: '\u2B50 Bookmark us for quick access',
+        openTool: 'Open Tool'
+      },
+      ja: {
+        pageTitle: 'ZenTools プラグインプレビュー - ツール紹介',
+        metaDesc: 'ZenTools の全ツール・プラグインのプレビューページ。機能紹介とアクセスリンク。',
+        navHome: 'ホーム',
+        navTools: 'すべてのツール',
+        navCategories: 'カテゴリー',
+        navArticles: '記事',
+        badge: 'ツールプレビュー',
+        h1: 'ZenTools プラグインプレビュー',
+        heroDesc: 'ZenTools が提供する無料オンラインツールをすべて閲覧。機能、使用例、アクセスリンクを素早く確認できます。',
+        btnBrowse: 'すべてのツールを見る',
+        btnTools: 'ツール一覧',
+        statTools: 'オンラインツール',
+        statCats: 'カテゴリー',
+        statFree: '無料',
+        statAllTime: 'いつでも利用可能',
+        filterLabel: '絞り込み：',
+        filterAll: 'すべて',
+        filterPdf: 'PDF ツール',
+        filterImage: '画像ツール',
+        filterVideo: '動画ツール',
+        filterAi: 'AI ツール',
+        filterText: 'テキストツール',
+        filterDev: '開発ツール',
+        infoTitle: 'ZenTools を選ぶ理由',
+        infoDesc: 'ZenTools は完全無料のオンラインツール集。インストール不要でブラウザからすぐに使えます。すべてローカル処理でプライバシーを保護。',
+        info1Title: '機能豊富',
+        info1Desc: 'PDF、画像、動画、テキスト、AIなど、日常の仕事や生活に役立つツール。',
+        info2Title: 'プライバシー保護',
+        info2Desc: 'ファイルはブラウザ上でローカル処理。サーバーにアップロードされません。',
+        info3Title: 'インストール不要',
+        info3Desc: 'すべてブラウザで完結。ダウンロード不要。Windows、Mac、Linux、iOS、Android対応。',
+        info4Title: '高速処理',
+        info4Desc: '最適化された処理エンジンで素早く作業完了。',
+        info5Title: '多言語対応',
+        info5Desc: '中国語、英語、日本語、ベトナム語などに対応。',
+        info6Title: 'レスポンシブデザイン',
+        info6Desc: 'スマホ、タブレット、PCに最適化。',
+        footerAbout: '概要',
+        footerPrivacy: 'プライバシー',
+        footerTerms: '利用規約',
+        footerContact: 'お問い合わせ',
+        footerText: '\u00A9 2026 ZenTools. 無料オンラインツール。',
+        bookmark: '\u2B50 ブックマーク',
+        openTool: '開く'
+      },
+      vi: {
+        pageTitle: 'Xem trước Plugin ZenTools - Giới thiệu Công cụ',
+        metaDesc: 'Trang xem trước plugin ZenTools, giới thiệu tất cả công cụ và plugin với tính năng và liên kết truy cập.',
+        navHome: 'Trang chủ',
+        navTools: 'Tất cả công cụ',
+        navCategories: 'Danh mục',
+        navArticles: 'Bài viết',
+        badge: 'Xem trước Công cụ',
+        h1: 'Xem trước Plugin ZenTools',
+        heroDesc: 'Duyệt tất cả công cụ và plugin trực tuyến miễn phí từ ZenTools. Xem nhanh tính năng, trường hợp sử dụng và liên kết truy cập.',
+        btnBrowse: 'Duyệt tất cả',
+        btnTools: 'Tất cả công cụ',
+        statTools: 'Công cụ Online',
+        statCats: 'Danh mục',
+        statFree: 'Miễn phí',
+        statAllTime: 'Luôn sẵn sàng',
+        filterLabel: 'Lọc:',
+        filterAll: 'Tất cả',
+        filterPdf: 'Công cụ PDF',
+        filterImage: 'Công cụ ảnh',
+        filterVideo: 'Công cụ video',
+        filterAi: 'Công cụ AI',
+        filterText: 'Công cụ văn bản',
+        filterDev: 'Công cụ dev',
+        infoTitle: 'Tại sao chọn ZenTools?',
+        infoDesc: 'ZenTools là bộ sưu tập công cụ trực tuyến hoàn toàn miễn phí. Không cần cài đặt - mở trình duyệt và sử dụng. Tất cả xử lý local để bảo vệ quyền riêng tư.',
+        info1Title: 'Toàn diện',
+        info1Desc: 'Công cụ PDF, ảnh, video, văn bản, AI đáp ứng nhu cầu văn phòng và đời sống.',
+        info2Title: 'Bảo vệ riêng tư',
+        info2Desc: 'Xử lý file trong trình duyệt - không tải lên máy chủ.',
+        info3Title: 'Không cài đặt',
+        info3Desc: 'Dùng trực tuyến, không cần tải hay cài đặt. Hỗ trợ Windows, Mac, Linux, iOS, Android.',
+        info4Title: 'Nhanh chóng',
+        info4Desc: 'Công cụ xử lý tối ưu giúp bạn hoàn thành công việc nhanh chóng.',
+        info5Title: 'Đa ngôn ngữ',
+        info5Desc: 'Hỗ trợ tiếng Trung, Anh, Nhật, Việt và nhiều ngôn ngữ khác.',
+        info6Title: 'Thiết kế đáp ứng',
+        info6Desc: 'Thích ứng hoàn hảo với mọi kích thước màn hình.',
+        footerAbout: 'Giới thiệu',
+        footerPrivacy: 'Riêng tư',
+        footerTerms: 'Điều khoản',
+        footerContact: 'Liên hệ',
+        footerText: '\u00A9 2026 ZenTools. Công cụ Online Miễn phí.',
+        bookmark: '\u2B50 Đánh dấu',
+        openTool: 'Mở'
       }
-
-      h1 {
-        font-size: 28px;
-      }
-
-      .plugins-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .filters {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .filter-btn {
-        width: 100%;
-      }
-
-      .stats {
-        grid-template-columns: 1fr;
-      }
-
-      .plugin-footer {
-        flex-direction: column;
-      }
-
-      .plugin-footer a {
-        width: 100%;
-      }
-    }
-
-    .hidden {
-      display: none;
-    }
-  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}</style>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "ZenTools 插件预览",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Web Browser",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
-    "description": "ZenTools 免费在线工具插件预览展示页面。"
-  }
+    };
+    window.ZT_PAGE = pageTranslations;
   </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
+<style>
+  .lang-select{margin-left:auto;background:rgba(255,255,255,0.8);border:1px solid var(--border);border-radius:10px;padding:8px 12px;color:var(--text);font-size:13px}
+  .lang-select:focus{outline:none;border-color:var(--primary)}
+</style>
 </head>
 <body>
   <div class="container">
@@ -524,358 +222,145 @@
         <span class="logo">Z</span><span>ZenTools</span>
       </a>
       <nav class="nav" aria-label="主导航">
-        <a href="./index.html">首页</a>
-        <a href="./tools.html">全部工具</a>
-        <a href="./categories.html">工具分类</a>
-        <a href="./articles.html">教程文章</a>
+        <a href="./index.html" data-i18n="navHome">首页</a>
+        <a href="./tools.html" data-i18n="navTools">全部工具</a>
+        <a href="./categories.html" data-i18n="navCategories">工具分类</a>
+        <a href="./articles.html" data-i18n="navArticles">教程文章</a>
+        <select id="langSelect" class="lang-select">
+          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
+        </select>
       </nav>
     </header>
 
     <section class="hero">
-      <span class="badge">工具预览 · 一站式浏览</span>
-      <h1>ZenTools 插件预览</h1>
-      <p class="hero-desc">浏览所有 ZenTools 提供的免费在线工具和插件。快速查看功能介绍、使用场景和直接访问链接。</p>
+      <span class="badge" data-i18n="badge">工具预览 · 一站式浏览</span>
+      <h1 data-i18n="h1">ZenTools 插件预览</h1>
+      <p class="hero-desc" data-i18n="heroDesc">浏览所有 ZenTools 提供的免费在线工具和插件。</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="#plugins">浏览全部工具</a>
-        <a class="btn btn-light" href="./tools.html">工具大全</a>
+        <a class="btn btn-primary" href="#plugins" data-i18n="btnBrowse">浏览全部工具</a>
+        <a class="btn btn-light" href="./tools.html" data-i18n="btnTools">工具大全</a>
       </div>
     </section>
 
     <div class="stats">
-      <div class="stat-card">
-        <div class="stat-number">40+</div>
-        <div class="stat-label">在线工具</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">10+</div>
-        <div class="stat-label">工具分类</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">100%</div>
-        <div class="stat-label">免费使用</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">24/7</div>
-        <div class="stat-label">全时可用</div>
-      </div>
+      <div class="stat-card"><div class="stat-number">40+</div><div class="stat-label" data-i18n="statTools">在线工具</div></div>
+      <div class="stat-card"><div class="stat-number">10+</div><div class="stat-label" data-i18n="statCats">工具分类</div></div>
+      <div class="stat-card"><div class="stat-number">100%</div><div class="stat-label" data-i18n="statFree">免费使用</div></div>
+      <div class="stat-card"><div class="stat-number">24/7</div><div class="stat-label" data-i18n="statAllTime">全时可用</div></div>
     </div>
 
     <section id="plugins">
       <div class="filters">
-        <span style="color: var(--muted); font-weight: 600;">分类筛选：</span>
-        <button class="filter-btn active" data-filter="all">全部</button>
-        <button class="filter-btn" data-filter="pdf">PDF 工具</button>
-        <button class="filter-btn" data-filter="image">图片工具</button>
-        <button class="filter-btn" data-filter="video">视频工具</button>
-        <button class="filter-btn" data-filter="ai">AI 工具</button>
-        <button class="filter-btn" data-filter="text">文字工具</button>
-        <button class="filter-btn" data-filter="dev">开发工具</button>
+        <span style="color:var(--muted);font-weight:600" data-i18n="filterLabel">分类筛选：</span>
+        <button class="filter-btn active" data-filter="all" data-i18n="filterAll">全部</button>
+        <button class="filter-btn" data-filter="pdf" data-i18n="filterPdf">PDF 工具</button>
+        <button class="filter-btn" data-filter="image" data-i18n="filterImage">图片工具</button>
+        <button class="filter-btn" data-filter="video" data-i18n="filterVideo">视频工具</button>
+        <button class="filter-btn" data-filter="ai" data-i18n="filterAi">AI 工具</button>
+        <button class="filter-btn" data-filter="text" data-i18n="filterText">文字工具</button>
+        <button class="filter-btn" data-filter="dev" data-i18n="filterDev">开发工具</button>
       </div>
-
       <div class="plugins-grid" id="pluginsContainer"></div>
     </section>
 
     <section class="info-section">
-      <h2>为什么选择 ZenTools？</h2>
-      <p>ZenTools 是一个完全免费的在线工具集合，为中文用户优化，无需安装任何软件，打开网页即可使用。所有工具都支持本地处理，保护您的隐私安全。</p>
+      <h2 data-i18n="infoTitle">为什么选择 ZenTools？</h2>
+      <p data-i18n="infoDesc">ZenTools 是一个完全免费的在线工具集合，无需安装，打开网页即可使用。</p>
       <div class="info-grid">
-        <div class="info-item">
-          <strong>✨ 功能全面</strong>
-          <span>PDF、图片、视频、文字、AI 等多种工具，满足日常办公和生活需求。</span>
-        </div>
-        <div class="info-item">
-          <strong>🔒 隐私保护</strong>
-          <span>文件处理主要在浏览器本地完成，不会上传到服务器，确保数据安全。</span>
-        </div>
-        <div class="info-item">
-          <strong>💻 无需安装</strong>
-          <span>所有工具都在线使用，无需下载和安装，支持 Windows、Mac、Linux、iOS、Android。</span>
-        </div>
-        <div class="info-item">
-          <strong>⚡ 快速高效</strong>
-          <span>优化的处理引擎和界面设计，让您快速完成工作。</span>
-        </div>
-        <div class="info-item">
-          <strong>🌍 多语言支持</strong>
-          <span>支持中文、英文、日文、越南文等多种语言，便捷的语言切换。</span>
-        </div>
-        <div class="info-item">
-          <strong>📱 响应式设计</strong>
-          <span>完美适配各种屏幕尺寸，在手机、平板和电脑上都能流畅使用。</span>
-        </div>
+        <div class="info-item"><strong data-i18n="info1Title">功能全面</strong><span data-i18n="info1Desc">PDF、图片、视频、文字、AI 等多种工具。</span></div>
+        <div class="info-item"><strong data-i18n="info2Title">隐私保护</strong><span data-i18n="info2Desc">文件处理在浏览器本地完成，不会上传到服务器。</span></div>
+        <div class="info-item"><strong data-i18n="info3Title">无需安装</strong><span data-i18n="info3Desc">所有工具都在线使用，无需下载和安装。</span></div>
+        <div class="info-item"><strong data-i18n="info4Title">快速高效</strong><span data-i18n="info4Desc">优化的处理引擎让您快速完成工作。</span></div>
+        <div class="info-item"><strong data-i18n="info5Title">多语言支持</strong><span data-i18n="info5Desc">支持中文、英文、日文、越南文等多种语言。</span></div>
+        <div class="info-item"><strong data-i18n="info6Title">响应式设计</strong><span data-i18n="info6Desc">完美适配各种屏幕尺寸。</span></div>
       </div>
     </section>
 
     <footer>
       <div class="footer-links">
-        <a href="./about.html">关于我们</a>
-        <a href="./privacy.html">隐私政策</a>
-        <a href="./terms.html">使用条款</a>
-        <a href="./contact.html">联系我们</a>
+        <a href="./about.html" data-i18n="footerAbout">关于我们</a>
+        <a href="./privacy.html" data-i18n="footerPrivacy">隐私政策</a>
+        <a href="./terms.html" data-i18n="footerTerms">使用条款</a>
+        <a href="./contact.html" data-i18n="footerContact">联系我们</a>
       </div>
-      <p>© 2026 ZenTools. 中文免费在线工具箱。保留所有权利。</p>
+      <p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。保留所有权利。</p>
     </footer>
   </div>
 
   <script>
-    // 插件数据
     const pluginsData = [
-      {
-        name: "PDF 合并工具",
-        category: "pdf",
-        icon: "📄",
-        description: "快速合并多个 PDF 文件成一个",
-        features: ["支持批量上传", "保留原格式", "下载合并后文件"],
-        url: "./pdf/mergepdf.html"
-      },
-      {
-        name: "PDF 压缩工具",
-        category: "pdf",
-        icon: "🗜️",
-        description: "压缩 PDF 文件体积，便于上传和分享",
-        features: ["智能压缩", "质量可调", "快速处理"],
-        url: "./pdf/compresspdf.html"
-      },
-      {
-        name: "图片压缩工具",
-        category: "image",
-        icon: "🖼️",
-        description: "压缩 JPG、PNG、WebP 等图片格式",
-        features: ["多格式支持", "批量处理", "质量可控"],
-        url: "./tools/image-compressor.html"
-      },
-      {
-        name: "图片格式转换",
-        category: "image",
-        icon: "🔄",
-        description: "在线转换常见图片格式",
-        features: ["支持多种格式", "快速转换", "保留质量"],
-        url: "./convert.html"
-      },
-      {
-        name: "图片去背景",
-        category: "image",
-        icon: "✂️",
-        description: "一键去除图片背景，生成透明图",
-        features: ["AI 识别", "自动处理", "高质量输出"],
-        url: "./tools/remove-bg.html"
-      },
-      {
-        name: "视频转 MP3",
-        category: "video",
-        icon: "🎵",
-        description: "从视频中提取音频文件",
-        features: ["支持多格式", "高保真提取", "快速处理"],
-        url: "./tools/video-to-mp3.html"
-      },
-      {
-        name: "视频转 GIF",
-        category: "video",
-        icon: "🎬",
-        description: "将视频片段转换为动态 GIF",
-        features: ["自定义时长", "质量可选", "快速导出"],
-        url: "./video-to-gif.html"
-      },
-      {
-        name: "视频缩略图",
-        category: "video",
-        icon: "📸",
-        description: "提取视频帧生成缩略图",
-        features: ["快速提取", "多帧选择", "批量处理"],
-        url: "./tools/video-thumbnail.html"
-      },
-      {
-        name: "JSON 格式化",
-        category: "dev",
-        icon: "{ }",
-        description: "格式化、压缩和验证 JSON 数据",
-        features: ["语法检查", "格式化输出", "在线编辑"],
-        url: "./json.html"
-      },
-      {
-        name: "Base64 编码解码",
-        category: "dev",
-        icon: "🔐",
-        description: "快速进行 Base64 编码和解码",
-        features: ["双向转换", "实时预览", "支持文件"],
-        url: "./base64.html"
-      },
-      {
-        name: "URL 编码解码",
-        category: "dev",
-        icon: "🔗",
-        description: "编码和解码 URL 字符",
-        features: ["快速转换", "自动识别", "实时预览"],
-        url: "./urlencode.html"
-      },
-      {
-        name: "字数统计工具",
-        category: "text",
-        icon: "📊",
-        description: "统计文字数量、字符数和段落数",
-        features: ["实时计数", "详细统计", "支持复制"],
-        url: "./wordcount.html"
-      },
-      {
-        name: "文本大小写转换",
-        category: "text",
-        icon: "🔤",
-        description: "快速转换文本大小写",
-        features: ["多种模式", "一键转换", "支持中英混合"],
-        url: "./caseconvert.html"
-      },
-      {
-        name: "二维码生成器",
-        category: "marketing",
-        icon: "📱",
-        description: "快速生成链接、文本、联系方式二维码",
-        features: ["多种数据类型", "自定义样式", "高清下载"],
-        url: "./qr.html"
-      },
-      {
-        name: "汇率换算",
-        category: "life",
-        icon: "💱",
-        description: "实时汇率换算，支持多种货币",
-        features: ["实时行情", "多币种支持", "历史查询"],
-        url: "./currency.html"
-      },
-      {
-        name: "时间戳转换",
-        category: "dev",
-        icon: "⏰",
-        description: "转换时间戳和日期时间",
-        features: ["双向转换", "多时区支持", "快速计算"],
-        url: "./timestamp.html"
-      },
-      {
-        name: "世界时间查询",
-        category: "life",
-        icon: "🌍",
-        description: "查询全球各地当前时间",
-        features: ["覆盖全球", "时差显示", "时区转换"],
-        url: "./worldtime.html"
-      },
-      {
-        name: "BMI 计算器",
-        category: "life",
-        icon: "⚖️",
-        description: "计算体质指数，评估体重健康程度",
-        features: ["快速计算", "数据保存", "健康建议"],
-        url: "./bmi.html"
-      },
-      {
-        name: "密码生成器",
-        category: "dev",
-        icon: "🔑",
-        description: "生成强大的随机密码",
-        features: ["自定义规则", "强度检测", "批量生成"],
-        url: "./password.html"
-      },
-      {
-        name: "颜色选择器",
-        category: "image",
-        icon: "🎨",
-        description: "在线颜色选择和转换工具",
-        features: ["多种模式", "颜色代码转换", "调色板"],
-        url: "./colorpicker.html"
-      },
-      {
-        name: "图片裁剪工具",
-        category: "image",
-        icon: "✏️",
-        description: "在线裁剪和调整图片尺寸",
-        features: ["自由裁剪", "尺寸调整", "多格式支持"],
-        url: "./crop.html"
-      },
-      {
-        name: "文件 MD5 计算",
-        category: "dev",
-        icon: "🔒",
-        description: "计算文件的 MD5 哈希值",
-        features: ["支持大文件", "快速计算", "本地处理"],
-        url: "./filemd5.html"
-      },
-      {
-        name: "AI 写作助手",
-        category: "ai",
-        icon: "✍️",
-        description: "AI 辅助文章、标题、文案写作",
-        features: ["多种文体", "快速生成", "可编辑优化"],
-        url: "./ai-writing.html"
-      },
-      {
-        name: "AI 翻译工具",
-        category: "ai",
-        icon: "🌐",
-        description: "智能翻译多种语言",
-        features: ["多语言支持", "快速翻译", "自动识别"],
-        url: "./ai-translate.html"
-      },
-      {
-        name: "AI 代码解释",
-        category: "ai",
-        icon: "💻",
-        description: "用 AI 解释代码含义和逻辑",
-        features: ["多语言支持", "详细解释", "学习助手"],
-        url: "./ai-code-explain.html"
-      }
+      {name:"PDF 合并工具",category:"pdf",icon:"\uD83D\uDCC4",description:"快速合并多个 PDF 文件成一个",features:["支持批量上传","保留原格式","下载合并后文件"],url:"./pdf/mergepdf.html"},
+      {name:"PDF 压缩工具",category:"pdf",icon:"\uD83D\uDDDC\uFE0F",description:"压缩 PDF 文件体积，便于上传和分享",features:["智能压缩","质量可调","快速处理"],url:"./pdf/compresspdf.html"},
+      {name:"图片压缩工具",category:"image",icon:"\uD83D\uDDBC\uFE0F",description:"压缩 JPG、PNG、WebP 等图片格式",features:["多格式支持","批量处理","质量可控"],url:"./tools/image-compressor.html"},
+      {name:"图片格式转换",category:"image",icon:"\uD83D\uDD04",description:"在线转换常见图片格式",features:["支持多种格式","快速转换","保留质量"],url:"./convert.html"},
+      {name:"图片去背景",category:"image",icon:"\u2702\uFE0F",description:"一键去除图片背景，生成透明图",features:["AI 识别","自动处理","高质量输出"],url:"./tools/remove-bg.html"},
+      {name:"视频转 MP3",category:"video",icon:"\uD83C\uDFB5",description:"从视频中提取音频文件",features:["支持多格式","高保真提取","快速处理"],url:"./tools/video-to-mp3.html"},
+      {name:"视频转 GIF",category:"video",icon:"\uD83C\uDFAC",description:"将视频片段转换为动态 GIF",features:["自定义时长","质量可选","快速导出"],url:"./video-to-gif.html"},
+      {name:"视频缩略图",category:"video",icon:"\uD83D\uDCF8",description:"提取视频帧生成缩略图",features:["快速提取","多帧选择","批量处理"],url:"./tools/video-thumbnail.html"},
+      {name:"JSON 格式化",category:"dev",icon:"{ }",description:"格式化、压缩和验证 JSON 数据",features:["语法检查","格式化输出","在线编辑"],url:"./json.html"},
+      {name:"Base64 编码解码",category:"dev",icon:"\uD83D\uDD10",description:"快速进行 Base64 编码和解码",features:["双向转换","实时预览","支持文件"],url:"./base64.html"},
+      {name:"URL 编码解码",category:"dev",icon:"\uD83D\uDD17",description:"编码和解码 URL 字符",features:["快速转换","自动识别","实时预览"],url:"./urlencode.html"},
+      {name:"字数统计工具",category:"text",icon:"\uD83D\uDCCA",description:"统计文字数量、字符数和段落数",features:["实时计数","详细统计","支持复制"],url:"./wordcount.html"},
+      {name:"文本大小写转换",category:"text",icon:"\uD83D\uDD24",description:"快速转换文本大小写",features:["多种模式","一键转换","支持中英混合"],url:"./caseconvert.html"},
+      {name:"二维码生成器",category:"marketing",icon:"\uD83D\uDCF1",description:"快速生成链接、文本、联系方式二维码",features:["多种数据类型","自定义样式","高清下载"],url:"./qr.html"},
+      {name:"汇率换算",category:"life",icon:"\uD83D\uDCB1",description:"实时汇率换算，支持多种货币",features:["实时行情","多币种支持","历史查询"],url:"./currency.html"},
+      {name:"时间戳转换",category:"dev",icon:"\u23F0",description:"转换时间戳和日期时间",features:["双向转换","多时区支持","快速计算"],url:"./timestamp.html"},
+      {name:"世界时间查询",category:"life",icon:"\uD83C\uDF0D",description:"查询全球各地当前时间",features:["覆盖全球","时差显示","时区转换"],url:"./worldtime.html"},
+      {name:"BMI 计算器",category:"life",icon:"\u2696\uFE0F",description:"计算体质指数，评估体重健康程度",features:["快速计算","数据保存","健康建议"],url:"./bmi.html"},
+      {name:"密码生成器",category:"dev",icon:"\uD83D\uDD11",description:"生成强大的随机密码",features:["自定义规则","强度检测","批量生成"],url:"./password.html"},
+      {name:"颜色选择器",category:"image",icon:"\uD83C\uDFA8",description:"在线颜色选择和转换工具",features:["多种模式","颜色代码转换","调色板"],url:"./colorpicker.html"},
+      {name:"图片裁剪工具",category:"image",icon:"\u270F\uFE0F",description:"在线裁剪和调整图片尺寸",features:["自由裁剪","尺寸调整","多格式支持"],url:"./crop.html"},
+      {name:"文件 MD5 计算",category:"dev",icon:"\uD83D\uDD12",description:"计算文件的 MD5 哈希值",features:["支持大文件","快速计算","本地处理"],url:"./filemd5.html"},
+      {name:"AI 写作助手",category:"ai",icon:"\u270D\uFE0F",description:"AI 辅助文章、标题、文案写作",features:["多种文体","快速生成","可编辑优化"],url:"./ai-writing.html"},
+      {name:"AI 翻译工具",category:"ai",icon:"\uD83C\uDF10",description:"智能翻译多种语言",features:["多语言支持","快速翻译","自动识别"],url:"./ai-translate.html"},
+      {name:"AI 代码解释",category:"ai",icon:"\uD83D\uDCBB",description:"用 AI 解释代码含义和逻辑",features:["多语言支持","详细解释","学习助手"],url:"./ai-code-explain.html"}
     ];
 
-    // 初始化
-    function init() {
-      renderPlugins('all');
-      setupFilters();
+    function renderPlugins(filter) {
+      filter = filter || 'all';
+      var container = document.getElementById('pluginsContainer');
+      var filtered = filter === 'all' ? pluginsData : pluginsData.filter(function(p) { return p.category === filter; });
+      var lang = localStorage.getItem('zentools_lang') || 'zh';
+      var dict = window.ZT_PAGE && window.ZT_PAGE[lang];
+      var openText = (dict && dict.openTool) || '打开工具';
+      container.innerHTML = filtered.map(function(plugin) {
+        return '<div class="plugin-card" data-category="' + plugin.category + '"><div class="plugin-header"><div class="plugin-icon">' + plugin.icon + '</div><div class="plugin-title-wrap"><h3>' + plugin.name + '</h3><span class="plugin-category">' + plugin.category.toUpperCase() + '</span></div></div><div class="plugin-body"><p class="plugin-description">' + plugin.description + '</p><div class="plugin-features">' + plugin.features.map(function(f) { return '<div class="plugin-feature">' + f + '</div>'; }).join('') + '</div></div><div class="plugin-footer"><a href="' + plugin.url + '">' + openText + '</a></div></div>';
+      }).join('');
     }
 
-    // 渲染插件卡片
-    function renderPlugins(filter = 'all') {
-      const container = document.getElementById('pluginsContainer');
-      let filtered = pluginsData;
-
-      if (filter !== 'all') {
-        filtered = pluginsData.filter(p => p.category === filter);
-      }
-
-      container.innerHTML = filtered.map(plugin => `
-        <div class="plugin-card" data-category="${plugin.category}">
-          <div class="plugin-header">
-            <div class="plugin-icon">${plugin.icon}</div>
-            <div class="plugin-title-wrap">
-              <h3>${plugin.name}</h3>
-              <span class="plugin-category">${plugin.category.toUpperCase()}</span>
-            </div>
-          </div>
-          <div class="plugin-body">
-            <p class="plugin-description">${plugin.description}</p>
-            <div class="plugin-features">
-              ${plugin.features.map(f => `<div class="plugin-feature">${f}</div>`).join('')}
-            </div>
-          </div>
-          <div class="plugin-footer">
-            <a href="${plugin.url}" target="_blank">打开工具</a>
-          </div>
-        </div>
-      `).join('');
+    function applyPageLang(lang) {
+      var d = window.ZT_PAGE && window.ZT_PAGE[lang];
+      if (!d) return;
+      document.title = d.pageTitle || document.title;
+      document.getElementById('metaDesc').content = d.metaDesc || '';
+      document.querySelectorAll('[data-i18n]').forEach(function(el) {
+        var key = el.getAttribute('data-i18n');
+        if (d[key]) el.textContent = d[key];
+      });
+      renderPlugins(document.querySelector('.filter-btn.active') ? document.querySelector('.filter-btn.active').dataset.filter : 'all');
+      localStorage.setItem('zentools_lang', lang);
     }
 
-    // 设置筛选按钮
-    function setupFilters() {
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      filterBtns.forEach(btn => {
+    document.addEventListener('DOMContentLoaded', function() {
+      var filterBtns = document.querySelectorAll('.filter-btn');
+      filterBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
-          filterBtns.forEach(b => b.classList.remove('active'));
+          filterBtns.forEach(function(b) { b.classList.remove('active'); });
           this.classList.add('active');
           renderPlugins(this.dataset.filter);
         });
       });
-    }
-
-    // 页面加载完成后初始化
-    document.addEventListener('DOMContentLoaded', init);
+      var langSelect = document.getElementById('langSelect');
+      if (langSelect) {
+        langSelect.addEventListener('change', function() { applyPageLang(this.value); });
+        var savedLang = localStorage.getItem('zentools_lang') || 'zh';
+        langSelect.value = savedLang;
+        applyPageLang(savedLang);
+      }
+    });
   </script>
 
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="bookmark">⭐ 收藏本站，下次办公快人一步</button>
 
 <script>
 if ('serviceWorker' in navigator) {

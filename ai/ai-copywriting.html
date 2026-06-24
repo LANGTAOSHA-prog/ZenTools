@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 文案写作 - AI工具 | ZenTools</title>
+<title data-i18n="pageTitle">AI 文案写作 - AI工具 | ZenTools</title>
   <meta property="og:title" content="AI 文案写作 | ZenTools" />
   <meta property="og:description" content="生成营销文案、广告语、产品描述，适用于电商和社交媒体。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,7 +27,10 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
 .hint { font-size:12px; color:var(--muted); margin-top:4px; }
+
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
 </style>
+<script>var pageTranslations={zh: {pageTitle: 'AI 文案写作 - AI工具 | ZenTools', metaDesc: '生成营销文案、广告语、产品描述，适用于电商和社交媒体。', btn: '⭐ 收藏本站', : '生成营销文案、广告语、产品描述，适用于电商和社交媒体。', placeholder_zentool: '例如：ZenTools 在线工具箱', placeholder_: '例如：免费、本地处理、无需注册', ai: 'AI 文案写作'}, en: {pageTitle: 'AI 文案写作 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', btn: '⭐ 收藏本站', : '生成营销文案、广告语、产品描述，适用于电商和社交媒体。', placeholder_zentool: '例如：ZenTools 在线工具箱', placeholder_: '例如：免费、本地处理、无需注册', ai: 'AI 文案写作'}, ja: {pageTitle: 'AI 文案写作 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', btn: '⭐ 收藏本站', : '生成营销文案、广告语、产品描述，适用于电商和社交媒体。', placeholder_zentool: '例如：ZenTools 在线工具箱', placeholder_: '例如：免费、本地处理、无需注册', ai: 'AI 文案写作'}, vi: {pageTitle: 'AI 文案写作 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn: '⭐ 收藏本站', : '生成营销文案、广告语、产品描述，适用于电商和社交媒体。', placeholder_zentool: '例如：ZenTools 在线工具箱', placeholder_: '例如：免费、本地处理、无需注册', ai: 'AI 文案写作'};</script>
 </head>
 <body>
 <div class="container">
@@ -37,24 +40,24 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   </nav>
   <a href="/" class="back-home">← 返回首页</a>
   <div class="page-header">
-    <h1><span class="hl">AI 文案写作</span></h1>
-    <p>生成营销文案、广告语、产品描述，适用于电商和社交媒体。</p>
+    <h1><span class="hl" data-i18n="ai">AI 文案写作</span></h1>
+    <p data-i18n="">生成营销文案、广告语、产品描述，适用于电商和社交媒体。</p>
   </div>
   <div class="tool-box">
-    <label>产品/服务名称</label>
-<input type="text" id="cwProduct" placeholder="例如：ZenTools 在线工具箱" />
-<label>目标客户</label>
-<input type="text" id="cwAudience" placeholder="例如：办公白领、学生、设计师" />
-<label>核心卖点</label>
-<textarea id="cwSell" rows="3" placeholder="例如：免费、本地处理、无需注册"></textarea>
-<label>文案风格</label>
+    <label data-i18n="">产品/服务名称</label>
+<input type="text" id="cwProduct" placeholder="例如：ZenTools 在线工具箱" data-i18n-placeholder="placeholder_zentool" />
+<label data-i18n="">目标客户</label>
+<input type="text" id="cwAudience" placeholder="例如：办公白领、学生、设计师" data-i18n-placeholder="placeholder_" />
+<label data-i18n="">核心卖点</label>
+<textarea id="cwSell" rows="3" placeholder="例如：免费、本地处理、无需注册" data-i18n-placeholder="placeholder_"></textarea>
+<label data-i18n="">文案风格</label>
 <select id="cwStyle" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
   <option value="简洁">简洁</option>
   <option value="专业">专业</option>
   <option value="亲切">亲切</option>
   <option value="促销">促销</option>
 </select>
-<button class="btn" onclick="genCW()" style="margin-top:16px;">生成文案</button>
+<button class="btn" onclick="genCW()" style="margin-top:16px;" data-i18n="btn">生成文案</button>
 <div class="result" id="cwResult" style="display:none;"></div>
   </div>
 </div>
@@ -69,6 +72,10 @@ function genCW(){
   prompt+='\n文案风格：'+st+'\n语言：中文\n\n请给出 3 个不同版本。';
   document.getElementById('cwResult').style.display='block';document.getElementById('cwResult').textContent=prompt;}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
+
+<script>
+(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+</script>
 </body>
 </html>

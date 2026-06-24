@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="manifest" href="/manifest.json" />
-  <title>AI 代码修复 - 江湖小站-ZenTools</title>
+  <title data-i18n="pageTitle">AI 代码修复 - 江湖小站-ZenTools</title>
   <meta name="description" content="AI 智能分析代码错误并提供修复方案，支持调试建议" />
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -39,17 +39,20 @@
     .loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}
     .loading.show{display:flex}
     .loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes spin{to{transform:rotate(360deg)}
     .badge{display:inline-block;padding:2px 8px;border-radius:var(--radius-pill);font-size:11px;font-weight:600}
     .badge-error{background:rgba(239,68,68,0.15);color:var(--error)}
     .badge-warning{background:rgba(234,179,8,0.15);color:#eab308}
     .badge-success{background:rgba(34,197,94,0.15);color:var(--success)}
     .split-pane{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media(max-width:768px){.split-pane{grid-template-columns:1fr}.main{padding:16px}}
+    @media(max-width:768px){.split-pane{grid-template-columns:1fr}.main{padding:16px}
     .lang-select{min-width:140px}
     .footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
     .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-  </style>
+  
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+</style>
+<script>var pageTranslations={zh: {pageTitle: 'AI 代码修复 - 江湖小站-ZenTools', metaDesc: 'AI 智能分析代码错误并提供修复方案，支持调试建议', _📝_粘贴你的代码: '📝 粘贴你的代码', _💡_修复建议: '💡 修复建议', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '在此粘贴你的代码，描述出现的错误信息...', placeholder_sk: 'sk-...'}, en: {pageTitle: 'AI 代码修复 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _粘贴你的代码: '📝 粘贴你的代码', _修复建议: '💡 修复建议', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '在此粘贴你的代码，描述出现的错误信息...', placeholder_sk: 'sk-...'}, ja: {pageTitle: 'AI 代码修复 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _📝_粘贴你的代码: '📝 粘贴你的代码', _💡_修复建议: '💡 修复建议', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '在此粘贴你的代码，描述出现的错误信息...', placeholder_sk: 'sk-...'}, vi: {pageTitle: 'AI 代码修复 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _📝_粘贴你的代码: '📝 粘贴你的代码', _💡_修复建议: '💡 修复建议', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '在此粘贴你的代码，描述出现的错误信息...', placeholder_sk: 'sk-...'};</script>
 </head>
 <body>
 <div class="header">
@@ -57,13 +60,14 @@
     <span class="mark">🔧</span> AI 代码修复
   </a>
   <div class="actions">
-    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()">⚙️ 设置</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button>
     <a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a>
   </div>
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
 </div>
 <div class="main">
   <div class="card">
-    <h2>📝 粘贴你的代码</h2>
+    <h2 data-i18n="_📝_粘贴你的代码">📝 粘贴你的代码</h2>
     <div class="toolbar">
       <select id="langSelect" class="lang-select">
         <option value="python">Python</option>
@@ -90,10 +94,10 @@
         <option value="bestpractice">代码规范</option>
       </select>
     </div>
-    <textarea id="codeInput" placeholder="在此粘贴你的代码，描述出现的错误信息..."></textarea>
+    <textarea id="codeInput" placeholder="在此粘贴你的代码，描述出现的错误信息..." data-i18n-placeholder="placeholder_"></textarea>
     <div class="toolbar" style="margin-top:12px">
-      <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeCode()">🔍 分析修复</button>
-      <button class="btn btn-secondary btn-sm" onclick="clearInput()">清空</button>
+      <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeCode()" data-i18n="btn">🔍 分析修复</button>
+      <button class="btn btn-secondary btn-sm" onclick="clearInput()" data-i18n="btn">清空</button>
     </div>
   </div>
 
@@ -102,24 +106,24 @@
   </div>
 
   <div class="result-box" id="resultBox">
-    <h2>💡 修复建议</h2>
+    <h2 data-i18n="_💡_修复建议">💡 修复建议</h2>
     <div id="resultContent"></div>
   </div>
 </div>
 
 <div class="modal-overlay" id="settingsModal" style="display:none">
   <div class="modal">
-    <h3>⚙️ API 设置</h3>
+    <h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3>
     <div style="margin:16px 0">
-      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Endpoint</label>
+      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label>
       <input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%">
     </div>
     <div style="margin:16px 0">
-      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">API Key</label>
-      <input type="password" id="apiKey" placeholder="sk-..." style="width:100%">
+      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label>
+      <input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%">
     </div>
     <div style="margin:16px 0">
-      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)">模型</label>
+      <label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label>
       <select id="modelSelect" style="width:100%">
         <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
         <option value="gpt-4">GPT-4</option>
@@ -128,8 +132,8 @@
       </select>
     </div>
     <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button class="btn btn-secondary" onclick="toggleSettings()">取消</button>
-      <button class="btn btn-primary" onclick="saveSettings()">保存</button>
+      <button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button>
+      <button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button>
     </div>
   </div>
 </div>
@@ -137,7 +141,7 @@
 <div class="footer">
   © 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a>
 </div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
 
 <style>
   .modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
@@ -262,6 +266,10 @@ function marked(text) {
 }
 
 loadSettings();
+</script>
+
+<script>
+(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
 </script>
 </body>
 </html>

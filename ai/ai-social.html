@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 社交媒体文案 - AI工具 | ZenTools</title>
+<title data-i18n="pageTitle">AI 社交媒体文案 - AI工具 | ZenTools</title>
   <meta property="og:title" content="AI 社交媒体文案 | ZenTools" />
   <meta property="og:description" content="生成适合微信、微博、小红书等平台的社交媒体文案。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
@@ -27,7 +27,9 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
 .hint { font-size:12px; color:var(--muted); margin-top:4px; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
 </style>
+<script>var pageTranslations={"zh":{pageTitle: 'AI 社交媒体文案 - AI工具 | ZenTools', metaDesc: '生成适合微信、微博、小红书等平台的社交媒体文案。', 生成文案: '生成文案', 收藏本站: '⭐ 收藏本站', label_主题: '主题', label_平台: '平台', label_核心内容_可选: '核心内容（可选）', ph_例如_推荐5个免: '例如：推荐5个免费在线工具', ph_输入要分享的核心: '输入要分享的核心内容...'},"en":{pageTitle: 'AI 社交媒体文案 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', label_主题: 'Topic', label_平台: 'Platform', label_核心内容_可选: 'Core Content (Optional)', ph_例如_推荐5个免: 'e.g., Recommend 5 free online tools', ph_输入要分享的核心: 'Enter the main content to share...'},"ja":{pageTitle: 'AI 社交媒体文案 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', 生成文案: '生成文案', 收藏本站: '⭐ 收藏本站', label_主题: '主题', label_平台: '平台', label_核心内容_可选: '核心内容（可选）', ph_例如_推荐5个免: '例如：推荐5个免费在线工具', ph_输入要分享的核心: '输入要分享的核心内容...'},"vi":{pageTitle: 'AI 社交媒体文案 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', 生成文案: '生成文案', 收藏本站: '⭐ 收藏本站', label_主题: '主题', label_平台: '平台', label_核心内容_可选: '核心内容（可选）', ph_例如_推荐5个免: '例如：推荐5个免费在线工具', ph_输入要分享的核心: '输入要分享的核心内容...'};</script>
 </head>
 <body>
 <div class="container">
@@ -42,8 +44,8 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
   </div>
   <div class="tool-box">
     <div class="row">
-  <div><label>主题</label><input type="text" id="ssTopic" placeholder="例如：推荐5个免费在线工具" /></div>
-  <div><label>平台</label>
+  <div><label data-i18n="label_主题">主题</label><input type="text" id="ssTopic" placeholder="例如：推荐5个免费在线工具" data-i18n-placeholder="ph_例如_推荐5个免" /></div>
+  <div><label data-i18n="label_平台">平台</label>
   <select id="ssPlatform" style="padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;">
     <option value="小红书">小红书</option>
     <option value="微信公众号">微信公众号</option>
@@ -51,9 +53,9 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
     <option value="抖音">抖音</option>
   </select></div>
 </div>
-<label>核心内容（可选）</label>
-<textarea id="ssContent" rows="4" placeholder="输入要分享的核心内容..."></textarea>
-<button class="btn" onclick="genSS()" style="margin-top:12px;">生成文案</button>
+<label data-i18n="label_核心内容_可选">核心内容（可选）</label>
+<textarea id="ssContent" rows="4" placeholder="输入要分享的核心内容..." data-i18n-placeholder="ph_输入要分享的核心"></textarea>
+<button class="btn" onclick="genSS()" style="margin-top:12px;" data-i18n="生成文案">生成文案</button>
 <div class="result" id="ssResult" style="display:none;"></div>
   </div>
 </div>
@@ -67,6 +69,7 @@ function genSS(){
   prompt+='\n\n要求：' + (p==='小红书'?'用情感化语言，加·表情符号':p==='微信公众号'?'专业有深度':'短小精汗') + '，100-200字。';
   document.getElementById('ssResult').style.display='block';document.getElementById('ssResult').textContent=prompt;}
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
 </body>
 </html>

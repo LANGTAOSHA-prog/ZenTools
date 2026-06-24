@@ -42,7 +42,7 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <div class="container">
   <div class="top-bar">
     <a href="index.html" data-i18n="back">← 返回首页</a>
-    <select id="languageSelect" class="lang-select">
+    <select id="langSelect" class="lang-select">
       <option value="zh">中文</option>
       <option value="ja">日本語</option>
       <option value="en">English</option>
@@ -67,13 +67,15 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <script>
 
 const translations={
+window.pageTranslations = translations;
+
  zh:{pageTitle:"随机数生成器 - ZenTools",back:"← 返回首页",title:"随机数生成器",desc:"生成指定范围内的随机数。",ad:"广告位（Google AdSense）",run:"生成随机数",copy:"复制结果"},
  ja:{pageTitle:"乱数生成 - ZenTools",back:"← ホームに戻る",title:"乱数生成",desc:"指定範囲内の乱数を生成。",ad:"広告スペース",run:"乱数生成",copy:"結果をコピー"},
  en:{pageTitle:"Random Number Generator - ZenTools",back:"← Back to Home",title:"Random Number Generator",desc:"Generate random numbers within a range.",ad:"Ad Space",run:"Generate",copy:"Copy Result"},
  vi:{pageTitle:"Tạo số ngẫu nhiên - ZenTools",back:"← Quay lại trang chủ",title:"Tạo số ngẫu nhiên",desc:"Tạo số ngẫu nhiên trong phạm vi.",ad:"Vị trí quảng cáo",run:"Tạo số",copy:"Sao chép"}
 };
 
-const languageSelect=document.getElementById("languageSelect");
+const languageSelect=document.getElementById("langSelect");
 let currentLang="zh";
 function setLanguage(lang){
  currentLang=lang;
@@ -82,10 +84,10 @@ function setLanguage(lang){
  document.title=data.pageTitle||document.title;
  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
- localStorage.setItem("siteLanguage",lang);
+ localStorage.setItem("zentools_lang",lang);
 }
 languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("siteLanguage")||"zh";
+const savedLang=localStorage.getItem("zentools_lang")||"zh";
 languageSelect.value=savedLang;
 
 setLanguage(savedLang);

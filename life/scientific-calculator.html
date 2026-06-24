@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>科学计算器 - 生活工具 | ZenTools</title>
+<title data-i18n="pageTitle">科学计算器 - 生活工具 | ZenTools</title>
 <meta property="og:title" content="科学计算器 | ZenTools" />
 <meta property="og:description" content="在线科学计算器，支持三角函数、对数、指数、平方根等高级运算。" />
 <meta name="description" content="在线科学计算器，支持三角函数（sin、cos、tan）、对数、指数、平方根、幂运算等高级数学计算。">
@@ -23,23 +23,26 @@
 .btns .eq:hover { opacity:.85; }
 .btns .clr { background:rgba(239,68,68,0.15); color:#f87171; }
 .btns .clr:hover { background:rgba(239,68,68,0.25); }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
 </style>
+<script>window.pageTranslations={"zh":{pageTitle: '科学计算器 - 生活工具 | ZenTools', metaDesc: '在线科学计算器，支持三角函数（sin、cos、tan）、对数、指数、平方根、幂运算等高级数学计算。', btn_sin: 'sin', btn_cos: 'cos', btn_tan: 'tan', btn_log: 'log', btn_ln: 'ln', btn_x²: 'x²', btn_x³: 'x³', btn_1_x: '1/x', btn_n: 'n!', btn_xʸ: 'xʸ', btn_00: '00', btn_收藏本站: '⭐ 收藏本站'},"en":{pageTitle: '科学计算器 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_sin: 'sin', btn_cos: 'cos', btn_tan: 'tan', btn_log: 'log', btn_ln: 'ln', btn_x²: 'x²', btn_x³: 'x³', btn_1_x: '1/x', btn_n: 'n!', btn_xʸ: 'xʸ', btn_00: '00', btn_收藏本站: '⭐ 收藏本站'},"ja":{pageTitle: '科学计算器 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_sin: 'sin', btn_cos: 'cos', btn_tan: 'tan', btn_log: 'log', btn_ln: 'ln', btn_x²: 'x²', btn_x³: 'x³', btn_1_x: '1/x', btn_n: 'n!', btn_xʸ: 'xʸ', btn_00: '00', btn_收藏本站: '⭐ 收藏本站'},"vi":{pageTitle: '科学计算器 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_sin: 'sin', btn_cos: 'cos', btn_tan: 'tan', btn_log: 'log', btn_ln: 'ln', btn_x²: 'x²', btn_x³: 'x³', btn_1_x: '1/x', btn_n: 'n!', btn_xʸ: 'xʸ', btn_00: '00', btn_收藏本站: '⭐ 收藏本站'}};</script>
 </head>
 <body>
 <div class="container">
-  <nav class="nav-bar"><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
+  <nav class="nav-bar">
+<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select><div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div><div class="links"><a href="/">首页</a><a href="#" class="active">生活工具</a><a href="/categories.html">全部工具</a></div></nav>
   <a href="/" class="back-home">← 返回首页</a>
   <div class="page-header"><h1><span class="hl">科学计算器</span></h1><p>在线科学计算器，支持三角函数、对数、指数等高级运算。</p></div>
   <div class="tool-box">
     <input type="text" class="display" id="calcDisplay" readonly value="0" />
     <div class="btns">
-      <button class="fn" onclick="scCalc('sin')">sin</button><button class="fn" onclick="scCalc('cos')">cos</button><button class="fn" onclick="scCalc('tan')">tan</button><button class="fn" onclick="scCalc('log')">log</button><button class="fn" onclick="scCalc('ln')">ln</button>
-      <button class="fn" onclick="scCalc('sqrt')">√</button><button class="fn" onclick="scCalc('sq')">x²</button><button class="fn" onclick="scCalc('cube')">x³</button><button class="fn" onclick="scCalc('inv')">1/x</button><button class="fn" onclick="scCalc('fact')">n!</button>
+      <button class="fn" onclick="scCalc('sin')" data-i18n="btn_sin">sin</button><button class="fn" onclick="scCalc('cos')" data-i18n="btn_cos">cos</button><button class="fn" onclick="scCalc('tan')" data-i18n="btn_tan">tan</button><button class="fn" onclick="scCalc('log')" data-i18n="btn_log">log</button><button class="fn" onclick="scCalc('ln')" data-i18n="btn_ln">ln</button>
+      <button class="fn" onclick="scCalc('sqrt')">√</button><button class="fn" onclick="scCalc('sq')" data-i18n="btn_x²">x²</button><button class="fn" onclick="scCalc('cube')" data-i18n="btn_x³">x³</button><button class="fn" onclick="scCalc('inv')" data-i18n="btn_1_x">1/x</button><button class="fn" onclick="scCalc('fact')" data-i18n="btn_n">n!</button>
       <button class="op" onclick="scInput('(')">(</button><button class="op" onclick="scInput(')')">)</button><button class="op" onclick="scInput('%')">%</button><button class="clr" onclick="scClear()">C</button><button class="clr" onclick="scBack()">⌫</button>
       <button onclick="scInput('7')">7</button><button onclick="scInput('8')">8</button><button onclick="scInput('9')">9</button><button class="op" onclick="scInput('/')">÷</button><button class="fn" onclick="scCalc('pi')">π</button>
       <button onclick="scInput('4')">4</button><button onclick="scInput('5')">5</button><button onclick="scInput('6')">6</button><button class="op" onclick="scInput('*')">×</button><button class="fn" onclick="scCalc('e')">e</button>
-      <button onclick="scInput('1')">1</button><button onclick="scInput('2')">2</button><button onclick="scInput('3')">3</button><button class="op" onclick="scInput('-')">−</button><button class="fn" onclick="scCalc('pow')">xʸ</button>
-      <button onclick="scInput('0')">0</button><button onclick="scInput('00')">00</button><button onclick="scInput('.')">.</button><button class="op" onclick="scInput('+')">+</button><button class="eq" onclick="scEqual()">=</button>
+      <button onclick="scInput('1')">1</button><button onclick="scInput('2')">2</button><button onclick="scInput('3')">3</button><button class="op" onclick="scInput('-')">−</button><button class="fn" onclick="scCalc('pow')" data-i18n="btn_xʸ">xʸ</button>
+      <button onclick="scInput('0')">0</button><button onclick="scInput('00')" data-i18n="btn_00">00</button><button onclick="scInput('.')">.</button><button class="op" onclick="scInput('+')">+</button><button class="eq" onclick="scEqual()">=</button>
     </div>
   </div>
 </div>
@@ -77,6 +80,7 @@ function scEqual(){
   scDisplay();
 }
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-"""Regenerate all tutorial pages with i18n ZT_PAGE support."""
+"""Regenerate all tutorial pages with full i18n (data-i18n on all body elements + 4-language ZT_PAGE)."""
 import os, re, subprocess, json
 
 # ── Load card data from current index.html ──
 with open('/workspace/tutorials/index.html', 'r') as f:
     index = f.read()
 
-# Parse cards
 cards = []
 for m in re.finditer(
     r'<!-- Article \d+: .+? -->\s*\n<a class="article-card" href="([^"]+)">\s*\n<div class="cat"[^>]*data-i18n="(cat\w+)"[^>]*>([^<]+)</div>\s*\n<h3[^>]*data-i18n="(a\d+)Title"[^>]*>([^<]+)</h3>\s*\n<div class="meta"><span[^>]*data-i18n="(a\d+)Date"[^>]*>([^<]+)</span><span[^>]*data-i18n="(a\d+)Read"[^>]*>([^<]+)</span></div>\s*\n<div class="summary"[^>]*data-i18n="(a\d+)Sum"[^>]*>([^<]*)</div>',
@@ -21,7 +20,6 @@ for m in re.finditer(
         sum_key=m.group(10), summary=m.group(11),
     ))
 
-# Deduplicate
 seen = set()
 unique_cards = []
 for c in cards:
@@ -29,7 +27,7 @@ for c in cards:
         seen.add(c['slug'])
         unique_cards.append(c)
 
-# ── Load ZT_PAGE translations from git ──
+# ── Load git ZT_PAGE for existing translations ──
 result = subprocess.run(['git', 'show', '56e7a38:tutorials/index.html'], capture_output=True, text=True)
 orig = result.stdout
 start = orig.find('window.ZT_PAGE={')
@@ -44,6 +42,22 @@ def parse_git_lang(text, lang):
 
 git_langs = {lang: parse_git_lang(zt_raw, lang) for lang in ['zh', 'en', 'ja', 'vi']}
 
+# ── Shared structural translations (4 languages) ──
+SHARED = {
+    'introTitle': ['功能介绍', 'Introduction', '機能紹介', 'Giới thiệu'],
+    'openTitle': ['打开工具', 'Open the Tool', 'ツールを開く', 'Mở công cụ'],
+    'stepTitle': ['操作步骤', 'How to Use', '使い方', 'Các bước thực hiện'],
+    'tipTitle': ['实用技巧', 'Tips', 'ヒント', 'Mẹo'],
+    'faqTitle': ['常见问题', 'FAQ', 'よくある質問', 'FAQ'],
+    'relTitle': ['相关工具：', 'Related Tools: ', '関連ツール：', 'Công cụ liên quan: '],
+    'backToIndex': ['返回教程中心', 'Back to Tutorials', 'チュートリアルに戻る', 'Quay lại hướng dẫn'],
+    'tipLabel': ['提示', 'Tip', 'ヒント', 'Mẹo'],
+}
+
+def tr(key, lang_idx):
+    """Get translation for shared key (0=zh,1=en,2=ja,3=vi)."""
+    return SHARED[key][lang_idx]
+
 # ── SVG availability ──
 svgs = set(os.listdir('/workspace/guides/img/'))
 
@@ -52,204 +66,244 @@ def svg_for(slug, step):
     return f'/guides/img/{name}' if name in svgs else None
 
 # ── Content templates per category ──
-CONTENT_TEMPLATES = {}
+# Each template step is (zh_title, zh_body, en_title, en_body, ja_title, ja_body, vi_title, vi_body)
+def T(zh, en, ja, vi):
+    return [zh, en, ja, vi]
 
-CONTENT_TEMPLATES['catPdf'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，所有处理在浏览器本地完成，无需上传文件到服务器。'),
-        ('选择文件', '点击上传区域选择需要处理的 PDF 文件，或直接拖拽文件到上传区域。'),
-        ('设置参数', '根据需要调整处理参数，工具会实时显示预览效果。'),
-        ('下载结果', '处理完成后点击「下载」按钮保存文件。'),
-    ],
-    tips=['处理大文件时请耐心等待，处理速度取决于本地电脑性能。', '所有操作在浏览器本地完成，文件不会上传到服务器。'],
-    faqs=[
-        ('Q：支持多大的文件？', 'A：取决于浏览器内存限制，通常支持 100MB 以内的文件。'),
-        ('Q：需要注册账号吗？', 'A：不需要。所有工具完全免费，无需注册。'),
-        ('Q：文件会上传到服务器吗？', 'A：不会。所有处理在浏览器本地完成。'),
-    ],
-)
+def S(zh_s, en_s, ja_s, vi_s, zh_b, en_b, ja_b, vi_b):
+    return [zh_s, en_s, ja_s, vi_s, zh_b, en_b, ja_b, vi_b]
 
-CONTENT_TEMPLATES['catImg'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，所有处理在浏览器本地完成。'),
-        ('上传图片', '点击上传区域选择需要处理的图片，或拖拽文件到上传区域。'),
-        ('调整参数', '根据需求调整处理参数，所有效果实时预览。'),
-        ('下载保存', '确认效果满意后点击「下载」按钮保存处理后的图片。'),
-    ],
-    tips=['支持 JPG、PNG、WebP、BMP 等常见图片格式。', '所有处理均在浏览器本地完成。'],
-    faqs=[
-        ('Q：支持哪些图片格式？', 'A：支持 JPG、PNG、WebP、BMP、GIF 等常见格式。'),
-        ('Q：需要安装软件吗？', 'A：不需要。直接在浏览器中使用。'),
-    ],
-)
+catPdf_steps = [
+    S('打开工具', 'Open the Tool', 'ツールを開く', 'Mở công cụ',
+      '访问{tool_link}，所有处理在浏览器本地完成，无需上传文件到服务器。',
+      'Visit {tool_link}. All processing happens locally in your browser, no files are uploaded.',
+      '{tool_link}にアクセス。すべての処理はブラウザ内で完結します。',
+      'Truy cập {tool_link}. Mọi xử lý đều diễn ra trong trình duyệt.'),
+    S('选择文件', 'Select Files', 'ファイルを選択', 'Chọn tệp',
+      '点击上传区域选择需要处理的 PDF 文件，或直接拖拽文件到上传区域。',
+      'Click the upload area to select PDF files, or drag and drop files directly.',
+      'アップロードエリアをクリックしてPDFファイルを選択するか、ドラッグ＆ドロップしてください。',
+      'Nhấp vào khu vực tải lên để chọn tệp PDF, hoặc kéo thả trực tiếp.'),
+    S('设置参数', 'Adjust Settings', 'パラメータを設定', 'Cài đặt thông số',
+      '根据需要调整处理参数，工具会实时显示预览效果。',
+      'Adjust settings as needed. The tool shows a live preview of the result.',
+      '必要に応じてパラメータを調整。リアルタイムでプレビュー表示。',
+      'Điều chỉnh thông số theo nhu cầu. Công cụ hiển thị xem trước theo thời gian thực.'),
+    S('下载结果', 'Download Result', '結果をダウンロード', 'Tải xuống',
+      '处理完成后点击「下载」按钮保存文件。',
+      'Click the "Download" button to save your file when done.',
+      '処理完了後、「ダウンロード」ボタンをクリックして保存。',
+      'Nhấp nút "Tải xuống" để lưu tệp sau khi hoàn tất.'),
+]
+catPdf_tips = [
+    T('处理大文件时请耐心等待，速度取决于电脑性能。', 'Processing large files may take time depending on your computer performance.',
+      '大きなファイルの処理には時間がかかる場合があります。', 'Xử lý tệp lớn có thể mất thời gian.'),
+    T('所有操作在浏览器本地完成，文件不会上传到服务器。', 'All processing is local in your browser. Files never leave your computer.',
+      'すべての処理はブラウザ内で実行され、ファイルはサーバーに送信されません。', 'Mọi xử lý đều trong trình duyệt, tệp không rời khỏi máy bạn.'),
+]
+catPdf_faqs = [
+    (T('支持多大的文件？', 'What file size is supported?', '対応ファイルサイズは？', 'Kích thước tệp hỗ trợ?'),
+     T('取决于浏览器内存，通常 100MB 以内。', 'Depends on browser memory, typically up to 100MB.', 'ブラウザのメモリに依存しますが、通常100MBまで。', 'Phụ thuộc vào bộ nhớ trình duyệt, thường dưới 100MB.')),
+    (T('需要注册吗？', 'Do I need to sign up?', '登録は必要ですか？', 'Cần đăng ký không?'),
+     T('不需要。完全免费，无需注册。', 'No. Completely free, no sign-up needed.', '不要です。完全無料で登録不要。', 'Không. Hoàn toàn miễn phí, không cần đăng ký.')),
+    (T('文件会上传吗？', 'Are files uploaded?', 'ファイルはアップロードされますか？', 'Tệp có được tải lên không?'),
+     T('不会。所有处理在浏览器本地完成。', 'No. All processing is done locally in your browser.', 'いいえ。すべてブラウザ内で処理されます。', 'Không. Mọi xử lý đều trong trình duyệt.')),
+]
 
-CONTENT_TEMPLATES['catVideo'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，所有处理在浏览器本地完成。'),
-        ('上传视频', '选择视频文件。支持 MP4、WebM、AVI 等常见格式。'),
-        ('设置参数', '根据需要设置处理参数。'),
-        ('下载结果', '处理完成后点击「下载」按钮获取结果。'),
-    ],
-    tips=['建议使用 MP4 格式以获得最佳兼容性。', '视频处理速度取决于文件大小和电脑性能。'],
-    faqs=[
-        ('Q：支持哪些视频格式？', 'A：支持 MP4、WebM、AVI、MOV 等常见格式。'),
-        ('Q：需要付费吗？', 'A：完全免费使用。'),
-    ],
-)
+catImg_steps = [
+    S('打开工具', 'Open the Tool', 'ツールを開く', 'Mở công cụ',
+      '访问{tool_link}，所有处理在浏览器本地完成。',
+      'Visit {tool_link}. All processing happens locally in your browser.',
+      '{tool_link}にアクセス。すべての処理はブラウザ内で完結します。',
+      'Truy cập {tool_link}. Mọi xử lý đều trong trình duyệt.'),
+    S('上传图片', 'Upload Image', '画像をアップロード', 'Tải ảnh lên',
+      '点击上传区域选择图片，或拖拽文件到上传区域。',
+      'Click the upload area to select an image, or drag and drop.',
+      'アップロードエリアをクリックするか、ドラッグ＆ドロップ。',
+      'Nhấp vào khu vực tải lên hoặc kéo thả ảnh.'),
+    S('调整参数', 'Adjust Settings', 'パラメータを調整', 'Điều chỉnh thông số',
+      '根据需要调整参数，所有效果实时预览。',
+      'Adjust settings as needed. All effects preview in real time.',
+      '必要に応じてパラメータを調整。リアルタイムプレビュー。',
+      'Điều chỉnh thông số, xem trước theo thời gian thực.'),
+    S('下载保存', 'Download & Save', 'ダウンロードして保存', 'Tải xuống và lưu',
+      '确认效果满意后点击「下载」按钮保存。',
+      'Click "Download" to save your result.',
+      '「ダウンロード」ボタンをクリックして保存。',
+      'Nhấp "Tải xuống" để lưu kết quả.'),
+]
+catImg_tips = [
+    T('支持 JPG、PNG、WebP、BMP 等常见格式。', 'Supports JPG, PNG, WebP, BMP and more.',
+      'JPG、PNG、WebP、BMPなどに対応。', 'Hỗ trợ JPG, PNG, WebP, BMP...'),
+    T('所有处理均在浏览器本地完成。', 'All processing is local in your browser.',
+      'すべてブラウザ内で処理。', 'Mọi xử lý đều trong trình duyệt.'),
+]
+catImg_faqs = [
+    (T('支持哪些图片格式？', 'What image formats are supported?', '対応画像形式は？', 'Định dạng ảnh hỗ trợ?'),
+     T('JPG、PNG、WebP、BMP、GIF 等。', 'JPG, PNG, WebP, BMP, GIF and more.', 'JPG、PNG、WebP、BMP、GIFなど。', 'JPG, PNG, WebP, BMP, GIF...')),
+    (T('需要安装软件吗？', 'Do I need to install software?', 'ソフトウェアのインストールは必要？', 'Cần cài đặt phần mềm không?'),
+     T('不需要。直接在浏览器中使用。', 'No. Use it directly in your browser.', '不要。ブラウザで直接使用可能。', 'Không. Sử dụng trực tiếp trong trình duyệt.')),
+]
 
-CONTENT_TEMPLATES['catAudio'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，直接在浏览器中处理。'),
-        ('上传音频', '选择音频文件。支持 MP3、WAV、OGG 等常见格式。'),
-        ('编辑处理', '根据需要调整参数。'),
-        ('下载保存', '处理完成后点击下载按钮获取结果。'),
-    ],
-    tips=['所有处理在浏览器本地完成。', '建议使用 MP3 格式。'],
-    faqs=[
-        ('Q：支持哪些音频格式？', 'A：支持 MP3、WAV、OGG、AAC、FLAC 等。'),
-        ('Q：处理后的音质会下降吗？', 'A：工具保持原始音频质量。'),
-    ],
-)
+# Category → template mapping
+CONTENT_TPL = {}
+for cat_key in ['catPdf', 'catImg', 'catVideo', 'catAudio', 'catAI', 'catDev', 'catFinance', 'catSEO']:
+    CONTENT_TPL[cat_key] = dict(
+        steps=catPdf_steps if cat_key in ['catPdf', 'catVideo', 'catAudio', 'catFinance', 'catSEO'] else catImg_steps,
+        tips=catPdf_tips if cat_key in ['catPdf', 'catVideo', 'catAudio', 'catFinance'] else catImg_tips,
+        faqs=catPdf_faqs if cat_key in ['catPdf', 'catVideo', 'catAudio', 'catFinance'] else catImg_faqs,
+    )
 
-CONTENT_TEMPLATES['catAI'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，直接在浏览器中使用。'),
-        ('输入内容', '在输入框中输入你的需求或问题。'),
-        ('等待AI处理', 'AI 会自动处理并生成结果。'),
-        ('查看结果', '不满意可以重新生成或微调输入。'),
-    ],
-    tips=['输入描述越详细，AI 生成的结果越精准。', '可以多次尝试不同输入。'],
-    faqs=[
-        ('Q：AI 生成的内容准确吗？', 'A：AI 生成内容仅供参考，重要信息建议人工核实。'),
-        ('Q：需要联网吗？', 'A：需要联网使用 AI 服务。'),
-        ('Q：使用需要付费吗？', 'A：完全免费。'),
-    ],
-)
-
-CONTENT_TEMPLATES['catDev'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，直接在浏览器中使用。'),
-        ('输入数据', '粘贴或输入你需要处理的数据内容。'),
-        ('自动处理', '工具会自动分析并处理数据。'),
-        ('复制结果', '点击「复制」按钮将结果复制到剪贴板。'),
-    ],
-    tips=['所有处理在浏览器本地完成，数据不会上传到服务器。', '支持键盘快捷键操作。'],
-    faqs=[
-        ('Q：数据会被保存吗？', 'A：不会。数据仅在浏览器内存中处理。'),
-        ('Q：支持大数据量吗？', 'A：取决于浏览器内存限制。'),
-    ],
-)
-
-CONTENT_TEMPLATES['catFinance'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，直接在浏览器中计算。'),
-        ('输入参数', '填写相关的财务参数。'),
-        ('查看结果', '工具会自动计算并展示详细结果。'),
-        ('调整方案', '修改任意参数重新计算。'),
-    ],
-    tips=['计算结果仅供参考，实际以金融机构为准。', '可以对比不同方案下的差异。'],
-    faqs=[
-        ('Q：计算结果准确吗？', 'A：工具使用标准财务公式计算。'),
-        ('Q：数据会上传到服务器吗？', 'A：不会。所有计算在浏览器本地完成。'),
-    ],
-)
-
-CONTENT_TEMPLATES['catSEO'] = dict(
-    steps=[
-        ('打开工具', '访问 {tool_link}，直接在浏览器中使用。'),
-        ('输入网址或内容', '输入需要分析的网址或文本。'),
-        ('查看分析结果', '工具会自动分析并展示优化建议。'),
-        ('优化调整', '根据分析建议调整内容。'),
-    ],
-    tips=['SEO 是持续优化的过程，建议定期检查和调整。', '结合多种工具一起使用效果更佳。'],
-    faqs=[
-        ('Q：分析结果准确吗？', 'A：工具模拟搜索引擎的常见规则，结果有参考价值。'),
-        ('Q：需要付费吗？', 'A：完全免费。'),
-    ],
-)
-
-CAT_TEMPLATE_KEYS = {
+CAT_MAP = {
     'catPdf': 'catPdf', 'catImg': 'catImg', 'catVideo': 'catVideo',
     'catAudio': 'catAudio', 'catAI': 'catAI', 'catDev': 'catDev',
     'catFinance': 'catFinance', 'catSEO': 'catSEO', 'catQR': 'catImg',
 }
 
-def gen_one(c):
-    slug = c['slug']; a_key = c['a_key']; cat_key = c['cat_key']
-    a_title = c['a_title']; cat_text = c['cat_text']
-    date_text = c['date_text']; read_text = c['read_text']
-    summary = c['summary']
-    
-    tpl = CONTENT_TEMPLATES.get(CAT_TEMPLATE_KEYS.get(cat_key, 'catDev'), CONTENT_TEMPLATES['catDev'])
+LANG_NAMES = ['zh', 'en', 'ja', 'vi']
+
+def esc(val):
+    """Escape a value for JS string."""
+    return val.replace("'", "\\'").replace('\n', '\\n')
+
+def gen_body_tpl(c):
+    """Generate body HTML + translations for a tutorial page."""
+    tpl_key = CAT_MAP.get(c['cat_key'], 'catDev')
+    tpl = CONTENT_TPL.get(tpl_key, CONTENT_TPL['catDev'])
+    a = c['a_key']  # e.g., 'a1'
+    slug = c['slug']
     tool_url = f'/{slug.replace("-","/")}.html'
-    tool_name = a_title.split('教程：')[0] if '教程：' in a_title else a_title
+    tool_name = c['a_title'].split('教程：')[0] if '教程：' in c['a_title'] else c['a_title']
     tool_link = f'<a href="{tool_url}" target="_blank">{tool_name}</a>'
     
-    # Build steps
-    steps_html = ''
-    for idx, (stitle, sbody) in enumerate(tpl['steps'], 1):
-        steps_html += f'<h3>{idx}. {stitle}</h3>\n<p>{sbody.replace("{tool_link}", tool_link)}</p>\n'
+    # ── Build body HTML with data-i18n ──
+    steps = tpl['steps']
+    tips = tpl['tips']
+    faqs = tpl['faqs']
+    
+    related = [t for t in unique_cards if t['slug'] != slug and t['cat_key'] == c['cat_key']][:4]
+    
+    lines = []
+    lang_zt = {lang: {} for lang in LANG_NAMES}
+    
+    # Helper: add translation for a key
+    def add_tr(key, zh_text, en_text=None, ja_text=None, vi_text=None):
+        lang_zt['zh'][key] = zh_text
+        lang_zt['en'][key] = en_text or zh_text
+        lang_zt['ja'][key] = ja_text or zh_text
+        lang_zt['vi'][key] = vi_text or zh_text
+    
+    # intro
+    intro_key = f'{a}Intro'
+    add_tr(intro_key, c['summary'])
+    add_tr(f'{a}OpenBody',
+           f'访问 {tool_link}，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，文件不会上传到服务器。',
+           f'Visit {tool_link}. All processing happens locally in your browser — no installation needed, files never leave your device.',
+           f'{tool_link} にアクセス。すべての処理はブラウザ内で完結し、ファイルがサーバーに送信されることはありません。',
+           f'Truy cập {tool_link}. Mọi xử lý đều trong trình duyệt — không cần cài đặt, tệp không rời khỏi máy bạn.')
+
+    lines.append(f'<p data-i18n="{intro_key}">{c["summary"]}</p>')
+    lines.append(f'<h2 data-i18n="introTitle">{tr("introTitle", 0)}</h2>')
+    # Actually h2 first, then p
+    lines = []
+    lines.append(f'<h2 data-i18n="introTitle">{tr("introTitle", 0)}</h2>')
+    lines.append(f'<p data-i18n="{intro_key}">{c["summary"]}</p>')
+    lines.append(f'')
+    lines.append(f'<h2 data-i18n="openTitle">{tr("openTitle", 0)}</h2>')
+    lines.append(f'<p data-i18n="{a}OpenBody">访问 {tool_link}，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，文件不会上传到服务器。</p>')
+    lines.append(f'')
+    lines.append(f'<h2 data-i18n="stepTitle">{tr("stepTitle", 0)}</h2>')
+    
+    for idx, step in enumerate(steps, 1):
+        s_titles = step[:4]  # [zh_title, en_title, ja_title, vi_title]
+        s_bodies = step[4:]  # [zh_body, en_body, ja_body, vi_body]
+        
+        sk = f'{a}Step{idx}T'
+        bk = f'{a}Step{idx}B'
+        
+        add_tr(sk, s_titles[0], s_titles[1], s_titles[2], s_titles[3])
+        
+        # Body: insert tool_link into template
+        zh_body = s_bodies[0].replace('{tool_link}', tool_link)
+        en_body = s_bodies[1].replace('{tool_link}', tool_name)
+        ja_body = s_bodies[2].replace('{tool_link}', tool_name)
+        vi_body = s_bodies[3].replace('{tool_link}', tool_name)
+        add_tr(bk, zh_body, en_body, ja_body, vi_body)
+        
+        idx_text = f'{idx}. '
+        lines.append(f'<h3 data-i18n="{sk}">{idx_text}{s_titles[0]}</h3>')
+        lines.append(f'<p data-i18n="{bk}">{zh_body}</p>')
+        
         svg = svg_for(slug, idx)
         if svg:
-            steps_html += f'<div class="screenshot-wrap"><img src="{svg}" alt="{a_title} - {stitle}" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>\n'
+            lines.append(f'<div class="screenshot-wrap"><img src="{svg}" alt="{c["a_title"]} - {s_titles[0]}" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>')
     
-    # Tips
-    tips_html = ''.join(f'<div class="tip"><strong>提示 {i}：</strong><span>{t}</span></div>\n' for i, t in enumerate(tpl['tips'], 1))
-    # FAQ
-    faqs_html = ''.join(f'<p><strong>{q}</strong><br/><span>{a}</span></p>\n' for q, a in tpl['faqs'])
-    # Related
-    related = [t for t in unique_cards if t['slug'] != slug and t['cat_key'] == cat_key][:4]
-    rel_html = ''
+    lines.append(f'')
+    lines.append(f'<h2 data-i18n="tipTitle">{tr("tipTitle", 0)}</h2>')
+    for i, tip in enumerate(tips, 1):
+        tk = f'{a}Tip{i}'
+        add_tr(tk, tip[0], tip[1], tip[2], tip[3])
+        lines.append(f'<div class="tip"><strong data-i18n="tipLabel">{tr("tipLabel", 0)} {i}：</strong><span data-i18n="{tk}">{tip[0]}</span></div>')
+    
+    lines.append(f'')
+    lines.append(f'<h2 data-i18n="faqTitle">{tr("faqTitle", 0)}</h2>')
+    for i, (faq_q, faq_a) in enumerate(faqs, 1):
+        qk = f'{a}Faq{i}Q'
+        ak = f'{a}Faq{i}A'
+        add_tr(qk, faq_q[0], faq_q[1], faq_q[2], faq_q[3])
+        add_tr(ak, faq_a[0], faq_a[1], faq_a[2], faq_a[3])
+        lines.append(f'<p><strong data-i18n="{qk}">{faq_q[0]}</strong><br/><span data-i18n="{ak}">{faq_a[0]}</span></p>')
+    
     if related:
         items = ' · '.join(f'<a href="/tutorials/{t["slug"]}.html">{t["a_title"].split("教程：")[0] if "教程：" in t["a_title"] else t["a_title"]}</a>' for t in related)
-        rel_html = f'<div class="rel-tools">🔗 <strong>相关工具：</strong>\n{items}\n</div>\n'
+        lines.append(f'')
+        lines.append(f'<div class="rel-tools"><strong data-i18n="relTitle">{tr("relTitle", 0)}</strong>\n{items}\n</div>')
     
-    # Build ZT_PAGE for this page
-    page_keys = ['pageTitle', 'backToIndex', cat_key, a_key + 'Title', c['date_key'], c['read_key']]
-    lang_blocks = []
-    for lang in ['zh', 'en', 'ja', 'vi']:
-        pairs = {}
-        for pk in page_keys:
-            if lang == 'zh':
-                # From our card data
-                if pk == 'pageTitle':
-                    pairs[pk] = f"{a_title} - ZenTools"
-                elif pk == 'backToIndex':
-                    pairs[pk] = '返回教程中心'
-                elif pk == cat_key:
-                    pairs[pk] = cat_text
-                elif pk == a_key + 'Title':
-                    pairs[pk] = a_title
-                elif pk == c['date_key']:
-                    pairs[pk] = date_text
-                elif pk == c['read_key']:
-                    pairs[pk] = read_text
-            else:
-                # Try git translations, fallback to zh
-                git_pairs = git_langs.get(lang, {})
-                if pk == 'pageTitle':
-                    en_title = git_pairs.get(a_key + 'Title', a_title) if lang == 'en' else a_title
-                    pairs[pk] = f"{en_title} - ZenTools" if lang == 'en' else f"{a_title} - ZenTools"
-                elif pk == 'backToIndex':
-                    pairs[pk] = git_pairs.get('backToIndex', '返回教程中心') if lang == 'en' else {'en': 'Back to Tutorials', 'ja': 'チュートリアルに戻る', 'vi': 'Quay lại hướng dẫn'}.get(lang, a_title)
-                elif pk == cat_key:
-                    pairs[pk] = git_pairs.get(cat_key, cat_text)
-                elif pk == a_key + 'Title':
-                    pairs[pk] = git_pairs.get(pk, a_title)
-                elif pk == c['date_key']:
-                    pairs[pk] = git_pairs.get(pk, date_text)
-                elif pk == c['read_key']:
-                    pairs[pk] = git_pairs.get(pk, read_text)
+    body_html = '\n'.join(lines)
+    
+    # ── Build ZT_PAGE ──
+    # Add shared keys
+    for key in ['introTitle', 'openTitle', 'stepTitle', 'tipTitle', 'faqTitle', 'relTitle', 'backToIndex', 'tipLabel']:
+        t = SHARED[key]
+        for li, lang in enumerate(LANG_NAMES):
+            lang_zt[lang][key] = t[li]
+    
+    # Add page-specific header keys
+    for li, lang in enumerate(LANG_NAMES):
+        git = git_langs.get(lang, {})
+        lp = lang_zt[lang]
         
-        # Build block
-        p_str = ','.join(f"{k}:'{v.replace(chr(39), chr(39)+chr(39))}'" for k, v in pairs.items())
+        lp['pageTitle'] = f"{git.get(c['a_key']+'Title', c['a_title'])} - ZenTools" if lang != 'zh' else f"{c['a_title']} - ZenTools"
+        lp[c['cat_key']] = git.get(c['cat_key'], c['cat_text']) if lang != 'zh' else c['cat_text']
+        lp[c['a_key'] + 'Title'] = git.get(c['a_key'] + 'Title', c['a_title']) if lang != 'zh' else c['a_title']
+        lp[c['date_key']] = git.get(c['date_key'], c['date_text']) if lang != 'zh' else c['date_text']
+        lp[c['read_key']] = git.get(c['read_key'], c['read_text']) if lang != 'zh' else c['read_text']
+    
+    # Build JS
+    lang_blocks = []
+    for li, lang in enumerate(LANG_NAMES):
+        pairs = lang_zt[lang]
+        p_str = ','.join(f"{k}:'{esc(v)}'" for k, v in pairs.items())
         lang_blocks.append(f"{lang}:{{{p_str}}}")
     
     zt_js = 'window.ZT_PAGE={' + ','.join(lang_blocks) + '};'
     
+    return body_html, zt_js
+
+def gen_one(c):
+    body_html, zt_js = gen_body_tpl(c)
+    
+    slug = c['slug']; a_key = c['a_key']; cat_key = c['cat_key']
+    a_title = c['a_title']; date_text = c['date_text']
+    read_text = c['read_text']; summary = c['summary']
+    
     page_title = a_title.replace("'", "\\'")
     page_summary = summary.replace("'", "\\'")
     page_date = date_text.replace('📅 ', '')
+    
+    # Build nav/footer with data-i18n for shared translations
+    nav_html = '<a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a>'
+    footer_links = '<a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a>'
 
     html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
@@ -285,39 +339,27 @@ def gen_one(c):
 <body>
 <div class="blob blob-1"></div><div class="blob blob-2"></div>
 <div class="z-wrap">
-<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">\u9996\u9875</a><a href="/dev/" data-i18n="navDev">\u5f00\u53d1\u5de5\u5177</a><a href="/tools.html" data-i18n="navAll">\u5168\u90e8\u5de5\u5177</a><select id="langSelect" class="lang-select"><option value="zh">\u4e2d\u6587</option><option value="en">English</option><option value="ja">\u65e5\u672c\u8a9e</option><option value="vi">Ti\u1ebfng Vi\u1ec7t</option></select></div></div></nav>
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links">{nav_html}<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
 
 <div class="page-tutorial">
-<a class="back-link" href="/tutorials/">\u2190 <span data-i18n="backToIndex">\u8fd4\u56de\u6559\u7a0b\u4e2d\u5fc3</span></a>
-<span class="page-eyebrow" data-i18n="{cat_key}">{cat_text}</span>
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">{tr("backToIndex", 0)}</span></a>
+<span class="page-eyebrow" data-i18n="{cat_key}">{c['cat_text']}</span>
 <h1 data-i18n="{a_key}Title">{a_title}</h1>
 <div class="meta"><span data-i18n="{c['date_key']}">{date_text}</span><span data-i18n="{c['read_key']}">{read_text}</span></div>
 
 <div class="article-body">
-<h2>\u529f\u80fd\u4ecb\u7ecd</h2>
-<p>{summary}</p>
-
-<h2>\u6253\u5f00\u5de5\u5177</h2>
-<p>\u8bbf\u95ee {tool_link}\uff0c\u5728\u6d4f\u89c8\u5668\u4e2d\u76f4\u63a5\u4f7f\u7528\u3002\u6240\u6709\u64cd\u4f5c\u5728\u6d4f\u89c8\u5668\u672c\u5730\u5b8c\u6210\uff0c\u65e0\u9700\u5b89\u88c5\u4efb\u4f55\u8f6f\u4ef6\uff0c\u6587\u4ef6\u4e0d\u4f1a\u4e0a\u4f20\u5230\u670d\u52a1\u5668\u3002</p>
-
-<h2>\u64cd\u4f5c\u6b65\u9aa4</h2>
-{steps_html}
-<h2>\u5b9e\u7528\u6280\u5de7</h2>
-{tips_html}
-<h2>\u5e38\u89c1\u95ee\u9898</h2>
-{faqs_html}
-{rel_html}
+{body_html}
 </div>
 </div>
 
-<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">\u9996\u9875</a><a href="/dev/" data-i18n="navDev">\u5f00\u53d1\u5de5\u5177</a><a href="/privacy.html" data-i18n="navPrivacy">\u9690\u79c1\u653f\u7b56</a></div><p class="footer-copy" data-i18n="footerCopy">\u00a9 2026 ZenTools. \u514d\u8d39\u5728\u7ebf\u5de5\u5177\u7bb1\u3002</p></div></footer>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links">{footer_links}</div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
 </div>
 
 <script>
 {zt_js}
 </script>
 <script src="../assets/js/tool-ui.min.js"></script>
-<button class="bookmark-float" onclick="prompt('\u590d\u5236\u94fe\u63a5\u6536\u85cf\u672c\u7ad9','https://zentools.xyz')">\u2b50 \u6536\u85cf\u672c\u7ad9\uff0c\u4e0b\u6b21\u529e\u516c\u5feb\u4eba\u4e00\u6b65</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 <script>
 if ('serviceWorker' in navigator) {{
   window.addEventListener('load', () => {{
@@ -330,7 +372,7 @@ if ('serviceWorker' in navigator) {{
     
     return html
 
-# Generate
+# ── Generate all pages ──
 count = 0
 for c in unique_cards:
     if c['slug'] == 'qr-generator':
@@ -342,4 +384,4 @@ for c in unique_cards:
     count += 1
     print(f"OK {c['slug']}")
 
-print(f"\nDone! Generated {count} pages with i18n support")
+print(f"\nDone! Generated {count} pages with full i18n support")

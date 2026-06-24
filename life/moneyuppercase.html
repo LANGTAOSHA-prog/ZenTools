@@ -42,7 +42,7 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <div class="container">
   <div class="top-bar">
     <a href="index.html" data-i18n="back">← 返回首页</a>
-    <select id="languageSelect" class="lang-select">
+    <select id="langSelect" class="lang-select">
       <option value="zh">中文</option>
       <option value="ja">日本語</option>
       <option value="en">English</option>
@@ -65,13 +65,15 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <script>
 
 const translations={
+window.pageTranslations = translations;
+
  zh:{pageTitle:"金额大写转换 - ZenTools",back:"← 返回首页",title:"金额大写转换",desc:"将数字金额转换为中文大写金额。",ad:"广告位（Google AdSense）",run:"转换",copy:"复制结果",empty:"请输入金额"},
  ja:{pageTitle:"金額大写変換 - ZenTools",back:"← ホームに戻る",title:"金額大写変換",desc:"数字金額を中国語大写に変換。",ad:"広告スペース",run:"変換",copy:"コピー",empty:"金額を入力してください"},
  en:{pageTitle:"Chinese Money Uppercase - ZenTools",back:"← Back to Home",title:"Chinese Money Uppercase",desc:"Convert numeric amount to Chinese uppercase money format.",ad:"Ad Space",run:"Convert",copy:"Copy Result",empty:"Please enter amount"},
  vi:{pageTitle:"Đổi số tiền sang chữ Trung - ZenTools",back:"← Quay lại trang chủ",title:"Đổi số tiền sang chữ Trung",desc:"Chuyển số tiền sang dạng chữ hoa tiếng Trung.",ad:"Vị trí quảng cáo",run:"Chuyển đổi",copy:"Sao chép",empty:"Vui lòng nhập số tiền"}
 };
 
-const languageSelect=document.getElementById("languageSelect");
+const languageSelect=document.getElementById("langSelect");
 let currentLang="zh";
 function setLanguage(lang){
  currentLang=lang;
@@ -80,10 +82,10 @@ function setLanguage(lang){
  document.title=data.pageTitle||document.title;
  document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
  document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
- localStorage.setItem("siteLanguage",lang);
+ localStorage.setItem("zentools_lang",lang);
 }
 languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("siteLanguage")||"zh";
+const savedLang=localStorage.getItem("zentools_lang")||"zh";
 languageSelect.value=savedLang;
 
 setLanguage(savedLang);
