@@ -1692,3 +1692,21 @@ if ('serviceWorker' in navigator) {
     window.trackRecentUse = trackRecentUse;
     window.trackSearch = trackSearch;
     window.getAnalyticsData = getAnalyticsData;
+
+    // ===== 加载状态控制 =====
+    function showLoading() {
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) overlay.classList.remove('hidden');
+    }
+    
+    function hideLoading() {
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
+    
+    // 页面加载完成后隐藏遮罩
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        hideLoading();
+      }, 500); // 至少显示 500ms，避免闪烁
+    });
