@@ -288,7 +288,6 @@
       opacity: 0.6;
     }
 
-
     /* 统计条 - 迷你化 */
     .stats-bar {
       display: flex; gap: 0; flex-wrap: wrap; justify-content: center;
@@ -1319,16 +1318,31 @@
     });
   </script>
 
-
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<!-- 恢复控制台已移至本地保留 -->
-
 
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    navigator.serviceWorker.register('/sw.js')
+      .then((registration) => {
+        console.log('SW registered:', registration.scope);
+        
+        // 检测更新
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing;
+          newWorker.addEventListener('statechange', () => {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              // 有新版本可用，提示用户刷新
+              if (confirm('发现新版本，是否立即刷新？')) {
+                window.location.reload();
+              }
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        console.log('SW registration failed:', error);
+      });
   });
 }
 </script>
