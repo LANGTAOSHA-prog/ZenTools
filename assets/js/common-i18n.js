@@ -15,9 +15,9 @@ window.ZT_COMMON = {
     searchPlaceholder: '搜索工具，例如：PDF、图片压缩、AI写作...',
     breadcrumbHome: '首页',
     langZh: '中文',
-    langEn: 'English',
-    langJa: '日本語',
-    langVi: 'Tiếng Việt'
+    langEn: '英语',
+    langJa: '日语',
+    langVi: '越南语'
   },
   en: {
     navHome: 'Home',

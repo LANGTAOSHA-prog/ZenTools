@@ -59,23 +59,27 @@
       if (dict[key] != null) el.placeholder = dict[key];
     });
     localStorage.setItem('zentools_lang', lang);
+    // 更新语言选择器选项文本
+    var sel = document.getElementById('langSelect');
+    if (sel) {
+      sel.value = lang;
+      var opts = sel.querySelectorAll('option');
+      for (var i = 0; i < opts.length; i++) {
+        var key = 'lang' + opts[i].value.charAt(0).toUpperCase() + opts[i].value.slice(1);
+        if (dict[key] != null) opts[i].textContent = dict[key];
+      }
+    }
     window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: lang, dict: dict } }));
   };
 
   function initLang() {
-    const sel = document.getElementById('langSelect');
+    var sel = document.getElementById('langSelect');
     if (!sel) return;
-    const saved = localStorage.getItem('zentools_lang') || 'zh';
-    sel.value = langNames[saved] ? saved : 'zh';
+    var saved = localStorage.getItem('zentools_lang') || 'zh';
+    sel.value = saved;
     sel.addEventListener('change', function() { ZT.applyLanguage(this.value); });
     ZT.applyLanguage(sel.value);
   }
-
-  const langNames = { zh: '中文', en: 'English', ja: '日本語', vi: 'Tiếng Việt' };
-  document.querySelectorAll('#langSelect option').forEach(opt => {
-    const lang = opt.value;
-    if (langNames[lang]) opt.textContent = langNames[lang];
-  });
 
   // ===== 滚动渐入动画 =====
   const observer = new IntersectionObserver(entries => {
