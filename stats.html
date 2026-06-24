@@ -7,80 +7,33 @@
   <link rel="stylesheet" href="assets/css/tool-ui.min.css" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <style>
-    .stats-container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 40px 24px;
-    }
-    .stats-header {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .stat-card {
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-    }
-    .stat-number {
-      font-size: 36px;
-      font-weight: 800;
-      color: var(--cyan);
-      margin-bottom: 8px;
-    }
-    .stat-label {
-      font-size: 14px;
-      color: var(--muted);
-    }
-    .tools-list {
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-    }
-    .tool-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .tool-item:last-child {
-      border-bottom: none;
-    }
-    .tool-name {
-      font-size: 14px;
-      font-weight: 600;
-    }
-    .tool-count {
-      font-size: 13px;
-      color: var(--muted);
-      background: var(--glass-b);
-      padding: 4px 12px;
-      border-radius: 20px;
-    }
-    .back-link {
-      display: inline-block;
-      margin-bottom: 24px;
-      color: var(--cyan);
-      text-decoration: none;
-      font-size: 14px;
-    }
-    .back-link:hover {
-      text-decoration: underline;
-    }
-    .empty-state {
-      text-align: center;
-      padding: 40px;
-      color: var(--muted);
-    }
+    .stats-container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
+    .stats-header { text-align: center; margin-bottom: 40px; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
+    .stat-card { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
+    .stat-number { font-size: 32px; font-weight: 800; color: var(--cyan); margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: var(--muted); }
+    .section-title { font-size: 18px; font-weight: 700; margin: 24px 0 16px; color: var(--text); }
+    .tools-list { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .tool-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .tool-item:last-child { border-bottom: none; }
+    .tool-info { flex: 1; }
+    .tool-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .tool-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
+    .tool-count { font-size: 13px; color: var(--cyan); background: rgba(0,229,255,0.1); padding: 4px 12px; border-radius: 20px; }
+    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
+    .analytics-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    .analytics-table th, .analytics-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    .analytics-table th { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .analytics-table td { font-size: 13px; }
+    .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 4px; }
+    .badge-cyan { background: rgba(0,229,255,0.15); color: var(--cyan); }
+    .badge-purple { background: rgba(139,76,255,0.15); color: #8b4cff; }
+    .badge-green { background: rgba(16,185,129,0.15); color: #10b981; }
+    .back-link { display: inline-block; margin-bottom: 24px; color: var(--cyan); text-decoration: none; font-size: 14px; }
+    .back-link:hover { text-decoration: underline; }
+    .export-btn { background: var(--cyan); color: #000; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+    .export-btn:hover { opacity: 0.9; }
   </style>
 </head>
 <body>
@@ -89,9 +42,11 @@
       <a href="/" class="back-link">← 返回首页</a>
       
       <div class="stats-header">
-        <h1>使用统计</h1>
+        <h1>📊 使用统计</h1>
         <p style="color: var(--muted); margin-top: 8px;">本地工具使用数据分析</p>
       </div>
+
+      <button class="export-btn" onclick="exportData()">📥 导出数据</button>
 
       <div class="stats-grid">
         <div class="stat-card">
@@ -106,57 +61,129 @@
           <div class="stat-number" id="topTool">-</div>
           <div class="stat-label">最受欢迎工具</div>
         </div>
+        <div class="stat-card">
+          <div class="stat-number" id="avgClicks">0</div>
+          <div class="stat-label">平均点击/工具</div>
+        </div>
       </div>
 
-      <div class="tools-list">
-        <h2 style="font-size: 18px; margin-bottom: 16px;">热门工具 Top 10</h2>
-        <div id="toolsList"></div>
-      </div>
+      <h2 class="section-title">🔥 热门工具 Top 10</h2>
+      <div class="tools-list" id="toolsList"></div>
 
-      <div class="empty-state" id="emptyState" style="display: none;">
-        <p>暂无统计数据</p>
-        <p style="font-size: 13px; margin-top: 8px;">当您使用工具后，数据将自动显示在这里</p>
-      </div>
+      <h2 class="section-title">📈 分析维度</h2>
+      
+      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--text);">来源分布</h3>
+      <div class="tools-list" id="sourcesList"></div>
+
+      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--text);">设备类型</h3>
+      <div class="tools-list" id="devicesList"></div>
+
+      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--text);">时间段分布 (小时)</h3>
+      <div class="tools-list" id="hourlyDist"></div>
     </div>
   </div>
 
   <script src="assets/js/common-i18n.js"></script>
   <script>
-    // 加载统计数据
     function loadStats() {
       const clicksStr = localStorage.getItem('zt_clicks') || '{}';
       const clicks = JSON.parse(clicksStr);
       
-      const totalClicks = Object.values(clicks).reduce((a, b) => a + b, 0);
+      const totalClicks = Object.values(clicks).reduce((a, b) => a + b.count, 0);
       const uniqueTools = Object.keys(clicks).length;
       
       document.getElementById('totalClicks').textContent = totalClicks;
       document.getElementById('uniqueTools').textContent = uniqueTools;
+      document.getElementById('avgClicks').textContent = uniqueTools > 0 ? (totalClicks / uniqueTools).toFixed(1) : '0';
       
       // 找出最受欢迎的工具
       if (Object.keys(clicks).length > 0) {
-        const sorted = Object.entries(clicks).sort((a, b) => b[1] - a[1]);
+        const sorted = Object.entries(clicks).sort((a, b) => b[1].count - a[1].count);
         const topTool = sorted[0][0];
         document.getElementById('topTool').textContent = topTool.split('/').pop().replace(/-/g, ' ');
         
-        // 渲染列表
+        // 渲染热门工具列表
         const toolsList = document.getElementById('toolsList');
-        if (sorted.length > 0) {
-          const top10 = sorted.slice(0, 10);
-          toolsList.innerHTML = top10.map(([url, count]) => `
-            <div class="tool-item">
-              <span class="tool-name">${url.split('/').pop().replace(/-/g, ' ')}</span>
-              <span class="tool-count">${count}次</span>
+        const top10 = sorted.slice(0, 10);
+        toolsList.innerHTML = top10.map(([url, data]) => `
+          <div class="tool-item">
+            <div class="tool-info">
+              <div class="tool-name">${url.split('/').pop().replace(/-/g, ' ')}</div>
+              <div class="tool-meta">
+                ${data.sources.length}个来源 · ${data.devices.length}种设备
+                ${data.firstClick ? `<br/>首次：${new Date(data.firstClick).toLocaleDateString()}` : ''}
+              </div>
             </div>
-          `).join('');
-        } else {
-          toolsList.innerHTML = '<div class="empty-state">暂无数据</div>';
-        }
+            <div class="tool-count">${data.count}次</div>
+          </div>
+        `).join('');
+        
+        // 来源分布
+        const sourcesMap = {};
+        Object.values(clicks).forEach(d => {
+          d.sources.forEach(s => {
+            sourcesMap[s] = (sourcesMap[s] || 0) + d.count;
+          });
+        });
+        const sourcesSorted = Object.entries(sourcesMap).sort((a, b) => b[1] - a[1]);
+        document.getElementById('sourcesList').innerHTML = sourcesSorted.slice(0, 5).map(([source, count]) => `
+          <div class="tool-item">
+            <div class="tool-info"><div class="tool-name">${source.substring(0, 50)}${source.length > 50 ? '...' : ''}</div></div>
+            <div class="tool-count badge badge-cyan">${count}次</div>
+          </div>
+        `).join('') || '<div class="empty-state">暂无数据</div>';
+        
+        // 设备分布
+        const devicesMap = {};
+        Object.values(clicks).forEach(d => {
+          d.devices.forEach(dev => {
+            devicesMap[dev] = (devicesMap[dev] || 0) + d.count;
+          });
+        });
+        const devicesSorted = Object.entries(devicesMap).sort((a, b) => b[1] - a[1]);
+        document.getElementById('devicesList').innerHTML = devicesSorted.slice(0, 5).map(([device, count]) => `
+          <div class="tool-item">
+            <div class="tool-info"><div class="tool-name">${device}</div></div>
+            <div class="tool-count badge badge-purple">${count}次</div>
+          </div>
+        `).join('') || '<div class="empty-state">暂无数据</div>';
+        
+        // 时间段分布
+        const hourlyMap = {};
+        for (let i = 0; i < 24; i++) hourlyMap[i] = 0;
+        Object.values(clicks).forEach(d => {
+          if (d.lastClick) {
+            const hour = new Date(d.lastClick).getHours();
+            hourlyMap[hour] += d.count;
+          }
+        });
+        document.getElementById('hourlyDist').innerHTML = Object.entries(hourlyMap)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 5)
+          .map(([hour, count]) => `
+            <div class="tool-item">
+              <div class="tool-info"><div class="tool-name">${hour.toString().padStart(2, '0')}:00 - ${((parseInt(hour)+1)%24).toString().padStart(2, '0')}:00</div></div>
+              <div class="tool-count badge badge-green">${count}次</div>
+            </div>
+          `).join('') || '<div class="empty-state">暂无数据</div>';
+        
       } else {
         document.getElementById('topTool').textContent = '-';
         toolsList.innerHTML = '<div class="empty-state">暂无数据</div>';
-        document.getElementById('emptyState').style.display = 'block';
       }
+    }
+    
+    function exportData() {
+      const clicksStr = localStorage.getItem('zt_clicks') || '{}';
+      const data = JSON.parse(clicksStr);
+      const json = JSON.stringify(data, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `zentools-stats-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
     }
     
     loadStats();
