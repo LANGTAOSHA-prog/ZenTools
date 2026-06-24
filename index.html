@@ -288,6 +288,58 @@
       opacity: 0.6;
     }
 
+    /* ===== 骨架屏 ===== */
+    .skeleton {
+      background: linear-gradient(90deg, var(--glass) 25%, var(--glass-b) 50%, var(--glass) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 8px;
+    }
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skeleton-text {
+      height: 16px;
+      margin-bottom: 8px;
+    }
+    .skeleton-text.long { width: 100%; }
+    .skeleton-text.medium { width: 70%; }
+    .skeleton-text.short { width: 40%; }
+    .skeleton-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+    }
+    .skeleton-card {
+      padding: 20px;
+      border-radius: 16px;
+      min-height: 100px;
+    }
+    .loading-overlay {
+      position: fixed; inset: 0;
+      background: rgba(6,7,13,0.9);
+      backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    .loading-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader {
+      text-align: center;
+    }
+    .loader-spinner {
+      width: 48px; height: 48px;
+      border: 3px solid var(--border);
+      border-top-color: var(--cyan);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 16px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loader-text {
+      color: var(--muted); font-size: 14px; letter-spacing: 1px;
+    }
+
+
     /* 统计条 - 迷你化 */
     .stats-bar {
       display: flex; gap: 0; flex-wrap: wrap; justify-content: center;
@@ -518,6 +570,14 @@
         </div>
       </div>
     </nav>
+    <!-- ===== 加载遮罩 ===== -->
+    <div class="loading-overlay" id="loadingOverlay">
+      <div class="loader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">正在加载工具...</div>
+      </div>
+    </div>
+
 
     <!-- ===== 移动端侧滑菜单 ===== -->
     <div class="mobile-overlay" id="mobileOverlay">
@@ -826,6 +886,40 @@
         if (!grouped[cat]) grouped[cat] = [];
         grouped[cat].push(t);
       });
+
+      // 先渲染骨架屏作为加载状态
+      const toolsContainer = document.getElementById('toolsContainer');
+      if (toolsContainer) {
+        let skeletonHtml = '';
+        Object.keys(grouped).forEach((cat, index) => {
+          const icon = getCatIcon(cat);
+          const catColors = {'PDF 工具': { color: '#f43145', bg: 'rgba(244,49,69,.12)' },
+            '图片工具': { color: '#27c27b', bg: 'rgba(39,194,123,.12)' },
+            '文本工具': { color: '#2d8cff', bg: 'rgba(45,140,255,.12)' },
+            '视频工具': { color: '#8a45ff', bg: 'rgba(138,69,255,.12)' },
+            '音频工具': { color: '#3278ff', bg: 'rgba(50,120,255,.12)' },
+            '生活工具': { color: '#ffb324', bg: 'rgba(255,179,36,.12)' },
+            '金融工具': { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
+            'AI 工具':   { color: '#8b4cff', bg: 'rgba(139,76,255,.12)' },
+            '开发工具': { color: '#22b978', bg: 'rgba(34,185,120,.12)' },
+            'SEO 工具':  { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
+            '办公工具': { color: '#f59e0b', bg: 'rgba(245,158,11,.12)' },
+            '设计工具': { color: '#ec4899', bg: 'rgba(236,72,153,.12)' },
+          };
+          const colors = catColors[cat] || { color: '#999', bg: 'rgba(153,153,153,.12)' };
+          skeletonHtml += `<section class="cat-section" id="cat-${cat.replace(/\\s+/g, '-').toLowerCase()}" data-cat-index="${index}">
+            <div class="cat-header">
+              <div class="cat-icon" style="background:${colors.bg};color:${colors.color}">${icon}</div>
+              <div class="cat-name">${cat}</div>
+              <div class="cat-count">${grouped[cat].length}个工具</div>
+            </div>
+            <div class="tools-mini-grid">
+              ${generateSkeletonCards(Math.min(grouped[cat].length, 6))}
+            </div>
+          </section>`;
+        });
+        toolsContainer.innerHTML = skeletonHtml;
+      }
 
       // 统计条 - 迷你化显示
       const statToolsCount = document.getElementById('statToolsCount');
@@ -1348,3 +1442,28 @@ if ('serviceWorker' in navigator) {
 </script>
 </body>
 </html>
+
+    // ===== 生成骨架屏 HTML =====
+    function generateSkeletonCards(count) {
+      let html = '';
+      for (let i = 0; i < count; i++) {
+        html += '<div class="mini-card skeleton skeleton-card">';
+        html += '<div class="skeleton-text long" style="height:24px;margin-bottom:12px"></div>';
+        html += '<div class="skeleton-text medium"></div>';
+        html += '</div>';
+      }
+      return html;
+    }
+    
+    function renderSkeletonSection(catName, icon, count) {
+      const safeName = catName.replace(/\s+/g, '-').toLowerCase();
+      return `<section class="cat-section" id="cat-${safeName}">
+        <div class="cat-header">
+          <div class="cat-icon skeleton-circle"></div>
+          <div class="cat-name skeleton-text long" style="width:150px"></div>
+        </div>
+        <div class="tools-mini-grid">
+          ${generateSkeletonCards(count)}
+        </div>
+      </section>`;
+    }
