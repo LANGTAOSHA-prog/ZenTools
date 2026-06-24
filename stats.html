@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>使用统计 - ZenTools</title>
+  <link rel="stylesheet" href="assets/css/tool-ui.min.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <style>
+    .stats-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+    .stats-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+    .stat-label {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .tools-list {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .tool-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .tool-item:last-child {
+      border-bottom: none;
+    }
+    .tool-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .tool-count {
+      font-size: 13px;
+      color: var(--muted);
+      background: var(--glass-b);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 24px;
+      color: var(--cyan);
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="z-wrap">
+    <div class="stats-container">
+      <a href="/" class="back-link">← 返回首页</a>
+      
+      <div class="stats-header">
+        <h1>使用统计</h1>
+        <p style="color: var(--muted); margin-top: 8px;">本地工具使用数据分析</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="totalClicks">0</div>
+          <div class="stat-label">总点击次数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="uniqueTools">0</div>
+          <div class="stat-label">访问工具数</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="topTool">-</div>
+          <div class="stat-label">最受欢迎工具</div>
+        </div>
+      </div>
+
+      <div class="tools-list">
+        <h2 style="font-size: 18px; margin-bottom: 16px;">热门工具 Top 10</h2>
+        <div id="toolsList"></div>
+      </div>
+
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <p>暂无统计数据</p>
+        <p style="font-size: 13px; margin-top: 8px;">当您使用工具后，数据将自动显示在这里</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/common-i18n.js"></script>
+  <script>
+    // 加载统计数据
+    function loadStats() {
+      const clicksStr = localStorage.getItem('zt_clicks') || '{}';
+      const clicks = JSON.parse(clicksStr);
+      
+      const totalClicks = Object.values(clicks).reduce((a, b) => a + b, 0);
+      const uniqueTools = Object.keys(clicks).length;
+      
+      document.getElementById('totalClicks').textContent = totalClicks;
+      document.getElementById('uniqueTools').textContent = uniqueTools;
+      
+      // 找出最受欢迎的工具
+      if (Object.keys(clicks).length > 0) {
+        const sorted = Object.entries(clicks).sort((a, b) => b[1] - a[1]);
+        const topTool = sorted[0][0];
+        document.getElementById('topTool').textContent = topTool.split('/').pop().replace(/-/g, ' ');
+        
+        // 渲染列表
+        const toolsList = document.getElementById('toolsList');
+        if (sorted.length > 0) {
+          const top10 = sorted.slice(0, 10);
+          toolsList.innerHTML = top10.map(([url, count]) => `
+            <div class="tool-item">
+              <span class="tool-name">${url.split('/').pop().replace(/-/g, ' ')}</span>
+              <span class="tool-count">${count}次</span>
+            </div>
+          `).join('');
+        } else {
+          toolsList.innerHTML = '<div class="empty-state">暂无数据</div>';
+        }
+      } else {
+        document.getElementById('topTool').textContent = '-';
+        toolsList.innerHTML = '<div class="empty-state">暂无数据</div>';
+        document.getElementById('emptyState').style.display = 'block';
+      }
+    }
+    
+    loadStats();
+  </script>
+</body>
+</html>

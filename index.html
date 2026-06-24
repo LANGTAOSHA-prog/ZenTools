@@ -1000,7 +1000,7 @@
             megaHtml += '<div class="mega-empty">—</div>';
           } else {
             tls.forEach(function(t) {
-              megaHtml += '<a class="mega-item" href="' + t.url + '"><div class="mi-icon">' + (t.icon || '🔧') + '</div><div class="mi-name">' + tName(t, lang) + '</div></a>';
+              megaHtml += '<a class="mega-item" href="' + t.url + '" onclick="trackToolClick(\'' + t.url.replace("'", "\'") + '\', \'' + t.name.replace("'", "\'") + '\'); return true;"><div class="mi-icon">' + (t.icon || '🔧') + '</div><div class="mi-name">' + tName(t, lang) + '</div></a>';
             });
           }
         });
@@ -1467,3 +1467,49 @@ if ('serviceWorker' in navigator) {
         </div>
       </section>`;
     }
+
+    // ===== 完善点击统计 =====
+    function trackToolClick(toolUrl, toolName) {
+      // 本地存储统计
+      try {
+        const clicksStr = localStorage.getItem('zt_clicks') || '{}';
+        const clicks = JSON.parse(clicksStr);
+        clicks[toolUrl] = (clicks[toolUrl] || 0) + 1;
+        localStorage.setItem('zt_clicks', JSON.stringify(clicks));
+      } catch(e) {}
+      
+      // Google Analytics 事件（如果已配置）
+      if (typeof gtag === 'function') {
+        gtag('event', 'tool_click', {
+          'tool_url': toolUrl,
+          'tool_name': toolName,
+          'event_category': 'tools',
+          'event_label': 'Click'
+        });
+      }
+      
+      // 记录到最近使用
+      trackRecentUse(toolUrl, toolName);
+    }
+    
+    function trackRecentUse(url, name) {
+      try {
+        const recentStr = localStorage.getItem('zt_recent') || '[]';
+        const recent = JSON.parse(recentStr);
+        
+        // 移除已存在的相同 URL
+        const filtered = recent.filter(r => r.url !== url);
+        
+        // 添加到开头
+        filtered.unshift({ url, name, timestamp: Date.now() });
+        
+        // 只保留最近 20 个
+        if (filtered.length > 20) filtered.length = 20;
+        
+        localStorage.setItem('zt_recent', JSON.stringify(filtered));
+      } catch(e) {}
+    }
+    
+    // 自动暴露给全局，供工具页面调用
+    window.trackToolClick = trackToolClick;
+    window.trackRecentUse = trackRecentUse;
