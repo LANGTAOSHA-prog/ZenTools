@@ -1513,3 +1513,64 @@ if ('serviceWorker' in navigator) {
     // 自动暴露给全局，供工具页面调用
     window.trackToolClick = trackToolClick;
     window.trackRecentUse = trackRecentUse;
+
+    /* ===== 友情链接 ===== */
+    .links-section { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
+    .links-header { text-align: center; margin-bottom: 32px; }
+    .links-header h2 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .links-header p { font-size: 14px; color: var(--muted); }
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .link-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+    }
+    .link-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--cyan);
+      box-shadow: 0 8px 24px rgba(0,229,255,.15);
+    }
+    .link-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      background: var(--glass-b);
+      flex-shrink: 0;
+    }
+    .link-info { flex: 1; min-width: 0; }
+    .link-title {
+      font-size: 15px; font-weight: 600; color: var(--text);
+      margin-bottom: 4px;
+    }
+    .link-desc {
+      font-size: 13px; color: var(--muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    <!-- ===== 友情链接 ===== -->
+    <div class="links-section" id="links">
+      <div class="links-header">
+        <h2>友情链接</h2>
+        <p>感谢以下朋友网站的支持</p>
+      </div>
+      <div class="links-grid" id="linksGrid">
+        <a href="https://langtaosha-prog.github.io/tedingjinenglianxi/index.html" class="link-card" target="_blank" rel="noopener noreferrer">
+          <div class="link-icon">📚</div>
+          <div class="link-info">
+            <div class="link-title">特丁技能练习</div>
+            <div class="link-desc">个人技能练习与学习记录平台</div>
+          </div>
+        </a>
+      </div>
+    </div>
