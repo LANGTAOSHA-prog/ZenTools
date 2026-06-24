@@ -1415,9 +1415,23 @@
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 
 <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')
+// ===== 加载状态控制 =====
+    function showLoading() {
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) overlay.classList.remove('hidden');
+    }
+    
+    function hideLoading() {
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) overlay.classList.add('hidden');
+    }
+    
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        // 隐藏加载遮罩
+        hideLoading();
+        
+        navigator.serviceWorker.register('/sw.js')
       .then((registration) => {
         console.log('SW registered:', registration.scope);
         
@@ -1692,21 +1706,4 @@ if ('serviceWorker' in navigator) {
     window.trackRecentUse = trackRecentUse;
     window.trackSearch = trackSearch;
     window.getAnalyticsData = getAnalyticsData;
-
-    // ===== 加载状态控制 =====
-    function showLoading() {
-      const overlay = document.getElementById('loadingOverlay');
-      if (overlay) overlay.classList.remove('hidden');
-    }
-    
-    function hideLoading() {
-      const overlay = document.getElementById('loadingOverlay');
-      if (overlay) overlay.classList.add('hidden');
-    }
-    
-    // 页面加载完成后隐藏遮罩
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        hideLoading();
-      }, 500); // 至少显示 500ms，避免闪烁
     });
