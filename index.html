@@ -78,8 +78,8 @@
   <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="assets/css/tool-ui.min.css" />
   <link rel="preload" href="/favicon.svg" as="image" />
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="apple-touch-icon" href="favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
 
   <!-- ===== 防崩 1.0 — 最先加载 ===== -->
   <script src="assets/js/anti-crash.min.js" defer></script>
@@ -288,8 +288,8 @@
       opacity: 0.6;
     }
 
-    /* ===== 骨架屏 ===== */
-    .skeleton {
+    /\* ===== 骨架屏 ===== \*/
+    \.skeleton \{
       background: linear-gradient(90deg, var(--glass) 25%, var(--glass-b) 50%, var(--glass) 75%);
       background-size: 200% 100%;
       animation: skeleton-loading 1.5s infinite;
@@ -314,38 +314,10 @@
       border-radius: 16px;
       min-height: 100px;
     }
-    .loading-overlay {
-      position: fixed; inset: 0;
-      background: rgba(6,7,13,0.9);
-      backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.3s, visibility 0.3s;
-      animation: loadingFadeOut 0.5s ease 1s forwards;
-}
-    .loading-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader {
-      text-align: center;
-    }
-    .loader-spinner {
-      width: 48px; height: 48px;
-      border: 3px solid var(--border);
-      border-top-color: var(--cyan);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 16px;
-    }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .loader-text {
-      color: var(--muted); font-size: 14px; letter-spacing: 1px;
-    }
 
-@keyframes loadingFadeOut {
-  from { opacity: 1; visibility: visible; }
   to { opacity: 0; visibility: hidden; pointer-events: none; }
 }
-
-
 
     /* 统计条 - 迷你化 */
     .stats-bar {
@@ -577,14 +549,6 @@
         </div>
       </div>
     </nav>
-    <!-- ===== 加载遮罩 ===== -->
-    <div class="loading-overlay" id="loadingOverlay">
-      <div class="loader">
-        <div class="loader-spinner"></div>
-        <div class="loader-text">正在加载工具...</div>
-      </div>
-    </div>
-
 
     <!-- ===== 移动端侧滑菜单 ===== -->
     <div class="mobile-overlay" id="mobileOverlay">
