@@ -321,7 +321,8 @@
       display: flex; align-items: center; justify-content: center;
       z-index: 9999;
       transition: opacity 0.3s, visibility 0.3s;
-    }
+      animation: loadingFadeOut 0.5s ease 1s forwards;
+}
     .loading-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
     .loader {
       text-align: center;
@@ -338,6 +339,12 @@
     .loader-text {
       color: var(--muted); font-size: 14px; letter-spacing: 1px;
     }
+
+@keyframes loadingFadeOut {
+  from { opacity: 1; visibility: visible; }
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
 
 
     /* 统计条 - 迷你化 */
@@ -1415,20 +1422,7 @@
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 
 <script>
-// ===== 加载状态控制 =====
-    function showLoading() {
-      const overlay = document.getElementById('loadingOverlay');
-      if (overlay) overlay.classList.remove('hidden');
-    }
-    
-    function hideLoading() {
-      const overlay = document.getElementById('loadingOverlay');
-      if (overlay) overlay.classList.add('hidden');
-    }
-    
     window.addEventListener('load', () => {
-        // 隐藏加载遮罩
-        setTimeout(() => hideLoading(), 300);
 
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/sw.js').then((registration) => {
