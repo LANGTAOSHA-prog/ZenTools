@@ -858,41 +858,7 @@
         grouped[cat].push(t);
       });
 
-      // 先渲染骨架屏作为加载状态
-      const toolsContainer = document.getElementById('toolsContainer');
-      if (toolsContainer) {
-        let skeletonHtml = '';
-        Object.keys(grouped).forEach((cat, index) => {
-          const icon = getCatIcon(cat);
-          const catColors = {'PDF 工具': { color: '#f43145', bg: 'rgba(244,49,69,.12)' },
-            '图片工具': { color: '#27c27b', bg: 'rgba(39,194,123,.12)' },
-            '文本工具': { color: '#2d8cff', bg: 'rgba(45,140,255,.12)' },
-            '视频工具': { color: '#8a45ff', bg: 'rgba(138,69,255,.12)' },
-            '音频工具': { color: '#3278ff', bg: 'rgba(50,120,255,.12)' },
-            '生活工具': { color: '#ffb324', bg: 'rgba(255,179,36,.12)' },
-            '金融工具': { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
-            'AI 工具':   { color: '#8b4cff', bg: 'rgba(139,76,255,.12)' },
-            '开发工具': { color: '#22b978', bg: 'rgba(34,185,120,.12)' },
-            'SEO 工具':  { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
-            '办公工具': { color: '#f59e0b', bg: 'rgba(245,158,11,.12)' },
-            '设计工具': { color: '#ec4899', bg: 'rgba(236,72,153,.12)' },
-          };
-          const colors = catColors[cat] || { color: '#999', bg: 'rgba(153,153,153,.12)' };
-          skeletonHtml += `<section class="cat-section" id="cat-${cat.replace(/\\s+/g, '-').toLowerCase()}" data-cat-index="${index}">
-            <div class="cat-header">
-              <div class="cat-icon" style="background:${colors.bg};color:${colors.color}">${icon}</div>
-              <div class="cat-name">${cat}</div>
-              <div class="cat-count">${grouped[cat].length}个工具</div>
-            </div>
-            <div class="tools-mini-grid">
-              ${generateSkeletonCards(Math.min(grouped[cat].length, 6))}
-            </div>
-          </section>`;
-        });
-        toolsContainer.innerHTML = skeletonHtml;
-      }
-
-      // 统计条 - 迷你化显示
+            // 统计条 - 迷你化显示
       const statToolsCount = document.getElementById('statToolsCount');
       const statCatCount = document.getElementById('statCatCount');
       const statTutorialCount = document.getElementById('statTutorialCount');
