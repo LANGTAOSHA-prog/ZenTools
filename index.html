@@ -347,6 +347,14 @@
       margin-bottom: 32px; 
       padding-bottom: 16px;
       border-bottom: 2px solid var(--border);
+      cursor: pointer;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    a.cat-header:hover {
+      border-bottom-color: var(--accent);
+    }
+    a.cat-header:hover .cat-name {
+      color: var(--accent);
     }
     .cat-icon {
       width: 48px; height: 48px; border-radius: 14px;
@@ -889,6 +897,8 @@
     };
     function getCatIcon(cat) { return catIconMap[cat] || '🔧'; }
 
+    const catSlug = { 'PDF工具':'pdf', '图片工具':'image', '开发工具':'dev', '生活工具':'life', '音频工具':'audio', '视频工具':'video', '文本工具':'text', 'AI工具':'ai', '金融工具':'finance', 'SEO工具':'seo', '设计工具':'design', '办公工具':'' };
+
     // ===== 渲染首页 =====
     function renderHome(data, lang) {
       const tools = data.tools || [];
@@ -1001,12 +1011,14 @@
           const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
           const tools = grouped[cat];
           const catName = tCat(cats, catsEn, catsJa, catsVi, lang, cats.indexOf(cat));
+          const slug = catSlug[cat];
+          const catHref = slug ? '/' + slug + '/' : '/tools.html';
           return `<div class="cat-section">
-            <div class="cat-header reveal">
+            <a href="${catHref}" class="cat-header reveal" style="color:inherit;text-decoration:none;">
               <div class="cat-icon" style="background:${cc.bg};color:${cc.color}">${getCatIcon(cat)}</div>
               <span class="cat-name">${catName}</span>
               <span class="cat-count">${tools.length} ${dict.toolCount}</span>
-            </div>
+            </a>
             <div class="tools-mini-grid reveal-stagger">
               ${tools.slice(0, 8).map(t => `
                 <a class="mini-card" href="${t.url}" data-keywords="${(t.keywords || '') + ' ' + (t.name__en || '') + ' ' + (t.name__ja || '') + ' ' + (t.name__vi || '')}">

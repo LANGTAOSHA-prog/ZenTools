@@ -75,6 +75,7 @@ function renderCategories(lang) {
   var catsJa = window.categoriesData__ja || [];
   var catsVi = window.categoriesData__vi || [];
   var tools = window.toolsData || [];
+  var catSlug = { 'AI工具':'ai', '图片工具':'image', 'PDF工具':'pdf', '开发工具':'dev', '生活工具':'life', '音频工具':'audio', '视频工具':'video', '文本工具':'text', 'SEO工具':'seo', '金融工具':'finance', '设计工具':'design', '办公工具':'', '教育工具':'' };
   var grouped = {};
   tools.forEach(function(t) {
     var cat = t.category || '其他';
@@ -85,8 +86,9 @@ function renderCategories(lang) {
   grid.innerHTML = cats.map(function(cat) {
     var count = (grouped[cat] || []).length;
     var catName = tCatLocal(cat, lang, cats, catsEn, catsJa, catsVi);
-    var slug = cat.replace(/[^\w\u4e00-\u9fff]/g, '').toLowerCase();
-    return '<a class="tool-card" href="tools/' + slug + '-tools.html"><h3>' + catName + '</h3><p>' + count + ' 个工具</p></a>';
+    var slug = catSlug[cat];
+    var href = slug ? '/' + slug + '/' : 'javascript:void(0)';
+    return '<a class="tool-card" href="' + href + '"><h3>' + catName + '</h3><p>' + count + ' 个工具</p></a>';
   }).join('');
 }
 function applyPageLang(lang) {
