@@ -152,7 +152,6 @@
   document.addEventListener('keydown', function(e) {
     // Escape 关闭下拉菜单
     if (e.key === 'Escape') {
-    if (e.key === 'Escape') {
       document.querySelectorAll('.mega-menu').forEach(function(m) { m.style.opacity = '0'; m.style.visibility = 'hidden'; });
       document.querySelectorAll('.mobile-overlay').forEach(function(o) { o.classList.remove('active'); });
     }
