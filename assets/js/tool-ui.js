@@ -150,13 +150,8 @@
 
   // ===== #11 键盘快捷键 =====
   document.addEventListener('keydown', function(e) {
-    // / 聚焦搜索
-    if (e.key === '/' && !e.ctrlKey && !e.metaKey && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) {
-      e.preventDefault();
-      var search = document.getElementById('toolSearch');
-      if (search) { search.focus(); search.select(); }
-    }
     // Escape 关闭下拉菜单
+    if (e.key === 'Escape') {
     if (e.key === 'Escape') {
       document.querySelectorAll('.mega-menu').forEach(function(m) { m.style.opacity = '0'; m.style.visibility = 'hidden'; });
       document.querySelectorAll('.mobile-overlay').forEach(function(o) { o.classList.remove('active'); });
@@ -297,6 +292,133 @@
         }
       }).catch(function() {});
     }
+  })();
+
+  // ===== 全局导航搜索（注入到导航栏） =====
+  (function() {
+    var navInner = document.querySelector('.nav-inner');
+    if (!navInner) return;
+
+    // 如果当前页面已存在 #toolSearch（如 tools.html），不重复注入
+    if (document.getElementById('toolSearch')) return;
+
+    var ph = '搜索工具';
+    var common = window.ZT_COMMON;
+    if (common) {
+      var lang = localStorage.getItem('zentools_lang') || 'zh';
+      var dict = common[lang] || common.zh || {};
+      ph = dict.searchPlaceholder || ph;
+    }
+
+    var wrap = document.createElement('div');
+    wrap.className = 'nav-search';
+    wrap.innerHTML = '<input type="text" id="toolSearch" class="nav-search-input" placeholder="' + ph + '" autocomplete="off"><div class="nav-search-dropdown" id="searchDropdown"></div>';
+    navInner.appendChild(wrap);
+
+    var input = document.getElementById('toolSearch');
+    var dd = document.getElementById('searchDropdown');
+    var allTools = [];
+    var highlightIdx = -1;
+
+    function tName(t, lang) {
+      return t['name__' + lang] || t['name__en'] || t.name;
+    }
+    function tDesc(t, lang) {
+      return t['description__' + lang] || t['description__en'] || t.description;
+    }
+
+    function loadTools(cb) {
+      if (allTools.length) { cb(allTools); return; }
+      fetch('/data/tools-data.json').then(function(r) { return r.ok ? r.json() : Promise.reject(); }).then(function(d) {
+        if (d && d.tools && d.tools.length) { allTools = d.tools; cb(allTools); }
+        else cb([]);
+      }).catch(function() { cb([]); });
+    }
+
+    function renderDropdown(query) {
+      var lang = localStorage.getItem('zentools_lang') || 'zh';
+      query = query.trim().toLowerCase();
+      if (!query) { dd.classList.remove('show'); return; }
+
+      loadTools(function(tools) {
+        var matched = tools.filter(function(t) {
+          var name = (tName(t, lang) || '').toLowerCase();
+          var desc = (tDesc(t, lang) || '').toLowerCase();
+          var cat = (t.category || '').toLowerCase();
+          return name.indexOf(query) >= 0 || desc.indexOf(query) >= 0 || cat.indexOf(query) >= 0;
+        }).slice(0, 10);
+
+        if (!matched.length) {
+          dd.innerHTML = '<div class="nsd-empty">没有找到匹配的工具</div>';
+          dd.classList.add('show');
+          highlightIdx = -1;
+          return;
+        }
+
+        highlightIdx = -1;
+        dd.innerHTML = matched.map(function(t) {
+          var name = tName(t, lang) || t.name;
+          var desc = tDesc(t, lang) || '';
+          var icon = t.icon || '🔧';
+          var cat = t.category || '';
+          return '<a class="nsd-item" href="' + t.url + '"><span class="nsd-icon">' + icon + '</span><div class="nsd-info"><div class="nsd-name">' + name + '</div><div class="nsd-desc">' + desc + '</div></div><span class="nsd-cat">' + cat + '</span></a>';
+        }).join('');
+        dd.classList.add('show');
+      });
+    }
+
+    input.addEventListener('input', function() {
+      renderDropdown(input.value);
+    });
+
+    input.addEventListener('keydown', function(e) {
+      var items = dd.querySelectorAll('.nsd-item');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        highlightIdx = Math.min(highlightIdx + 1, items.length - 1);
+        items.forEach(function(el, i) { el.classList.toggle('nsd-highlight', i === highlightIdx); });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        highlightIdx = Math.max(highlightIdx - 1, -1);
+        items.forEach(function(el, i) { el.classList.toggle('nsd-highlight', i === highlightIdx); });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (highlightIdx >= 0 && items[highlightIdx]) {
+          window.location.href = items[highlightIdx].getAttribute('href');
+        }
+      } else if (e.key === 'Escape') {
+        dd.classList.remove('show');
+        input.blur();
+      }
+    });
+
+    input.addEventListener('blur', function() {
+      setTimeout(function() { dd.classList.remove('show'); }, 200);
+    });
+
+    input.addEventListener('focus', function() {
+      if (input.value.trim()) renderDropdown(input.value);
+    });
+
+    document.addEventListener('click', function(e) {
+      if (!wrap.contains(e.target)) dd.classList.remove('show');
+    });
+
+    // 搜索快捷键 Ctrl+K 或 /
+    document.addEventListener('keydown', function(e) {
+      if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || (e.key === '/' && !e.ctrlKey && !e.metaKey && !['INPUT', 'TEXTAREA'].includes(e.target.tagName))) {
+        e.preventDefault();
+        input.focus();
+        input.select();
+      }
+    });
+
+    // 语言切换时更新 placeholder
+    window.addEventListener('zt-langchange', function(e) {
+      if (e.detail && e.detail.dict && e.detail.dict.searchPlaceholder) {
+        input.placeholder = e.detail.dict.searchPlaceholder;
+      }
+    });
   })();
 
   // ===== 启动 i18n =====
