@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">文件校验和教程：MD5/SHA 哈希计算 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools 在线文件校验和工具，计算文件的 MD5、SHA-256 等哈希值，验证文件完整性和真实性。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/file-checksum.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"文件校验和教程：MD5/SHA 哈希计算","description":"学会使用 ZenTools 在线文件校验和工具，计算文件的 MD5、SHA-256 等哈希值。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/file-checksum.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catAi">🤖 AI 工具集</span>
+<h1 data-i18n="a1Title">文件校验和教程：MD5/SHA 哈希计算</h1>
+<div class="meta"><span data-i18n="a1">📅 2026-06-23</span><span data-i18n="a2">⏱ 2 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="a1Intro">文件校验和工具是保障数据安全的重要工具，通过计算文件的 MD5、SHA-1、SHA-256 等加密哈希值，可以验证文件在传输或存储过程中是否被篡改。哈希值是文件的唯一数字指纹，即使文件内容发生微小变化，哈希值也会完全不同。本工具支持多种主流哈希算法，提供一键计算、批量处理和结果复制功能。适用于软件下载验证、系统镜像完整性检查、文档防篡改确认等场景，是 IT 运维、网络安全和数据保护领域的必备工具。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="a1OpenBody">访问 <a href="/tools/file-checksum.html" target="_blank">文件校验和使用</a>，在浏览器中直接使用。所有文件处理均在本地完成，无需上传到服务器，确保隐私安全。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="a1Step1T">1. 打开工具</h3>
+<p data-i18n="a1Step1B'>访问<a href="/tools/file-checksum.html" target="_blank">文件校验和使用</a>，页面加载后直接进入哈希计算界面。</p>
+<div class="screenshot-wrap"><img src="/guides/img/file-checksum-step1.svg" alt="文件校验和教程：MD5/SHA 哈希计算 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="a1Step2T">2. 选择算法</h3>
+<p data-i18n="a1Step2B'>从下拉菜单中选择需要的哈希算法（MD5、SHA-1、SHA-256、SHA-512 等），默认选中 SHA-256。</p>
+<div class="screenshot-wrap"><img src="/guides/img/file-checksum-step1.svg" alt="文件校验和教程：MD5/SHA 哈希计算 - 选择算法" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="a1Step3T">3. 上传文件</h3>
+<p data-i18n="a1Step3B'>点击上传区域选择文件，或直接拖拽文件到指定区域。支持多种格式，大小无限制。</p>
+<div class="screenshot-wrap"><img src="/guides/img/file-checksum-step1.svg" alt="文件校验和教程：MD5/SHA 哈希计算 - 上传文件" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="a1Step4T">4. 复制结果</h3>
+<p data-i18n="a1Step4B'>计算完成后点击「Copy」按钮快速复制哈希值，用于与官方提供的校验和进行比对。</p>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="a1Tip1">提示 1：</strong><span data-i18n="a1Tip1Text'>下载软件后务必核对官网提供的哈希值，防止下载到被篡改的恶意版本。</span></div>
+<div class="tip"><strong data-i18n="a1Tip2">提示 2：</strong><span data-i18n="a1Tip2Text'>对于重要文件，建议使用 SHA-256 或更高强度的算法，安全性远高于 MD5。</span></div>
+<div class="tip"><strong data-i18n="a1Tip3">提示 3：</strong><span data-i18n="a1Tip3Text'>可同时对多个文件计算哈希值，快速发现重复文件或损坏数据。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="a1Faq1Q'>哈希值和文件大小有关吗？</strong><br/><span data-i18n="a1Faq1A'>是的，哈希值基于文件全部内容计算，文件大小变化会导致哈希值改变。</span></p>
+<p><strong data-i18n="a1Faq2Q'>MD5 和 SHA-256 有什么区别？</strong><br/><span data-i18n="a1Faq2A'>MD5 生成 32 位十六进制字符串，SHA-256 生成 64 位，后者更安全但计算稍慢。</span></p>
+<p><strong data-i18n="a1Faq3Q'>可以在离线状态下使用吗？</strong><br/><span data-i18n="a1Faq3A'>可以。所有计算在浏览器本地完成，不需要网络连接。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/hash-generator.html">Hash 生成器</a> · <a href="/tutorials/base64-encoder.html">Base64 编码</a> · <a href="/tutorials/file-share.html">文件分享</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{a1Intro:'文件校验和工具是保障数据安全的重要工具，通过计算文件的 MD5、SHA-1、SHA-256 等加密哈希值，可以验证文件在传输或存储过程中是否被篡改。哈希值是文件的唯一数字指纹，即使文件内容发生微小变化，哈希值也会完全不同。本工具支持多种主流哈希算法，提供一键计算、批量处理和结果复制功能。适用于软件下载验证、系统镜像完整性检查、文档防篡改确认等场景，是 IT 运维、网络安全和数据保护领域的必备工具。',a1OpenBody:'访问 <a href="/tools/file-checksum.html" target="_blank">文件校验和使用</a>，在浏览器中直接使用。所有文件处理均在本地完成，无需上传到服务器，确保隐私安全。',a1Step1T:'打开工具',a1Step1B:'访问<a href="/tools/file-checksum.html" target="_blank">文件校验和使用</a>，页面加载后直接进入哈希计算界面。',a1Step2T:'选择算法',a1Step2B:'从下拉菜单中选择需要的哈希算法（MD5、SHA-1、SHA-256、SHA-512 等），默认选中 SHA-256。',a1Step3T:'上传文件',a1Step3B:'点击上传区域选择文件，或直接拖拽文件到指定区域。支持多种格式，大小无限制。',a1Step4T:'复制结果',a1Step4B:'计算完成后点击「Copy」按钮快速复制哈希值，用于与官方提供的校验和进行比对。',a1Tip1:'下载软件后务必核对官网提供的哈希值，防止下载到被篡改的恶意版本。',a1Tip2:'对于重要文件，建议使用 SHA-256 或更高强度的算法，安全性远高于 MD5。',a1Tip3:'可同时对多个文件计算哈希值，快速发现重复文件或损坏数据。',a1Faq1Q:'哈希值和文件大小有关吗？',a1Faq1A:'是的，哈希值基于文件全部内容计算，文件大小变化会导致哈希值改变。',a1Faq2Q:'MD5 和 SHA-256 有什么区别？',a1Faq2A:'MD5 生成 32 位十六进制字符串，SHA-256 生成 64 位，后者更安全但计算稍慢。',a1Faq3Q:'可以在离线状态下使用吗？',a1Faq3A:'可以。所有计算在浏览器本地完成，不需要网络连接。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'文件校验和教程：MD5/SHA 哈希计算 - ZenTools',catAi:'🤖 AI 工具集',a1Title:'文件校验和教程：MD5/SHA 哈希计算',a1:'⏱ 2 分钟阅读',a2:'📅 2026-06-23'},en:{a1Intro:'File checksum tools are essential for ensuring data security. By calculating encrypted hash values like MD5, SHA-1, SHA-256 for files, you can verify whether files have been tampered with during transmission or storage. A hash value is the unique digital fingerprint of a file—even微小的 changes in file content will result in completely different hash values. This tool supports multiple mainstream hash algorithms, offering one-click calculation, batch processing, and result copying features. Suitable for software download verification, system image integrity checks, document tamper confirmation, and other scenarios. It\'s an indispensable tool for IT operations, network security, and data protection.',a1OpenBody:'Visit <a href="/tools/file-checksum.html" target="_blank">File Checksum Usage</a>, use directly in browser. All file processing happens locally without uploading to servers, ensuring privacy and security.',a1Step1T:'Open the Tool',a1Step1B:'Visit <a href="/tools/file-checksum.html" target="_blank">File Checksum Usage</a>. After page loads, directly access the hash calculation interface.',a1Step2T:'Select Algorithm',a1Step2B:'Choose required hash algorithm from dropdown menu (MD5, SHA-1, SHA-256, SHA-512, etc.). SHA-256 is selected by default.',a1Step3T:'Upload File',a1Step3B:'Click upload area to select files, or drag and drop files to designated area. Supports multiple formats with no size limits.',a1Step4T:'Copy Result',a1Step4B:'After calculation completes, click "Copy" button to quickly copy hash value for comparison with official checksums.',a1Tip1:'After downloading software, always verify hash values provided on official website to prevent downloading tampered malicious versions.',a1Tip2:'For important files, recommend using SHA-256 or higher strength algorithms—security far exceeds MD5.',a1Tip3:'Can calculate hash values for multiple files simultaneously, quickly identifying duplicate files or corrupted data.',a1Faq1Q:'Is hash value related to file size?',a1Faq1A:'Yes. Hash values are calculated based on complete file content. File size changes will cause hash value changes.',a1Faq2Q:'What\'s the difference between MD5 and SHA-256?',a1Faq2A:'MD5 generates 32-character hexadecimal strings, SHA-256 generates 64 characters. The latter is more secure but slightly slower to compute.',a1Faq3Q:'Can it be used offline?',a1Faq3A:'Yes. All calculations happen locally in browser, no internet connection needed.',introTitle:'Feature Overview',openTitle:'Open the Tool',stepTitle:'操作步骤',tipTitle:'Tips',faqTitle:'FAQs',relTitle:'Related Tools:',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'File Checksum Tutorial: MD5/SHA Hash Calculation - ZenTools',catAi:'🤖 AI Tools',a1:'⏱ 2 min read',a2:'📅 2026-06-23'},ja:{a1Intro:'ファイルチェックサムツールはデータセキュリティを確保するための重要なツールで、ファイルの MD5、SHA-1、SHA-256 などの暗号化ハッシュ値を計算することで、ファイルが転送または保存過程中に改ざんされていないか検証できます。ハッシュ値はファイルの一意なデジタル指紋であり、ファイル内容が微細な変化を起こしても、ハッシュ値は全く異なります。本ツールは複数の主流ハッシュアルゴリズムをサポートし、ワンクリック計算、バッチ処理、結果コピー機能を提供します。ソフトウェアダウンロード検証、システムイメージ完全性チェック、文書改ざん防止確認などのシナリオに適しており、IT 運用、ネットワークセキュリティ、データ保護分野の必須ツールです。',a1OpenBody:'<a href="/tools/file-checksum.html" target="_blank">ファイルチェックサム使用</a>にアクセスして、ブラウザで直接使用します。すべてのファイル処理はローカルで完了し、サーバーにアップロードする必要はなく、プライバシーセキュリティを保証します。',a1Step1T:'ツールを開く',a1Step1B:'<a href="/tools/file-checksum.html" target="_blank">ファイルチェックサム使用</a>にアクセスすると、ページ読み込み後に直接ハッシュ計算インターフェースに入ります。',a1Step2T:'アルゴリズムを選択',a1Step2B:'ドロップダウンメニューから必要なハッシュアルゴリズム（MD5、SHA-1、SHA-256、SHA-512 など）を選択します。デフォルトでは SHA-256 が選択されています。',a1Step3T:'ファイルをアップロード',a1Step3B:'アップロードエリアをクリックしてファイルを選択するか、ファイルを指定エリアにドラッグアンドドロップします。複数のフォーマットをサポートし、サイズ制限はありません。',a1Step4T:'結果をコピー',a1Step4B:'計算完了後「Copy」ボタンをクリックしてハッシュ値を素早くコピーし、公式が提供するチェックサムと比較するために使用します。',a1Tip1:'ソフトウェアをダウンロードした後、必ず公式サイトが提供するハッシュ値を確認し、改ざんされた悪意バージョンをダウンロードしないようにしてください。',a1Tip2:'重要なファイルの場合、SHA-256 またはより高强度のアルゴリズムを使用することをお勧めします。セキュリティは MD5 より遥かに高いです。',a1Tip3:'同時に複数のファイルのハッシュ値を計算でき、重複ファイルまたは破損データを素早く発見できます。',a1Faq1Q:'ハッシュ値はファイルサイズに関連していますか？',a1Faq1A:'はい。ハッシュ値はファイルの全内容に基づいて計算されます。ファイルサイズの変化はハッシュ値の変更を引き起こします。',a1Faq2Q:'MD5 と SHA-256 の違いは何ですか？',a1Faq2A:'MD5 は 32 桁の 16 進数文字列を生成し、SHA-256 は 64 桁を生成します。後者の方が安全ですが、計算はやや遅いです。',a1Faq3Q:'オフライン状態で使用できますか？',a1Faq3A:'できます。すべての計算はブラウザローカルで完了し、インターネット接続は不要です。',introTitle:'機能紹介',openTitle:'ツールの開き方',stepTitle:'操作手順',tipTitle:'便利なコツ',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアルセンターに戻る',tipLabel:'ヒント',pageTitle:'ファイルチェックサムチュートリアル：MD5/SHA ハッシュ計算 - ZenTools',catAi:'🤖 AI ツールセット',a1:'⏱ 2 分間読書',a2:'📅 2026-06-23'},vi:{a1Intro:'Công cụ kiểm tra checksum tệp là công cụ quan trọng đảm bảo an toàn dữ liệu, thông qua tính toán các giá trị hash mã hóa như MD5, SHA-1, SHA-256 của tệp, có thể xác minh tệp trong quá trình truyền tải hoặc lưu trữ có bị làm giả hay không. Giá trị hash là vân tay số duy nhất của tệp, ngay cả khi nội dung tệp xảy ra biến đổi vi mô, giá trị hash cũng sẽ hoàn toàn khác nhau. Công cụ này hỗ trợ nhiều thuật toán hash chủ lưu, cung cấp chức năng tính toán một键, xử lý hàng loạt và sao chép kết quả. Phù hợp với phần mềm tải xuống xác minh, kiểm tra tính toàn vẹn hình ảnh hệ thống, xác nhận chống làm giả văn bản v.v., là công cụ bắt buộc trong lĩnh vực vận hành IT, an ninh mạng và bảo vệ dữ liệu.',a1OpenBody:'Truy cập <a href="/tools/file-checksum.html" target="_blank">Sử dụng kiểm tra checksum tệp</a>, sử dụng trực tiếp trong trình duyệt. Tất cả xử lý tệp đều hoàn thành tại cục bộ, không cần tải lên máy chủ, bảo đảm an toàn riêng tư.',a1Step1T:'Mở công cụ',a1Step1B:'Truy cập <a href="/tools/file-checksum.html" target="_blank">Sử dụng kiểm tra checksum tệp</a>, sau khi trang web tải xuống trực tiếp tiến vào giao diện tính toán hash.',a1Step2T:'Chọn thuật toán',a1Step2B:'Từ menu thả xuống chọn thuật toán hash cần thiết (MD5, SHA-1, SHA-256, SHA-512 v.v.), mặc định chọn SHA-256.',a1Step3T:'Tải lên tệp',a1Step3B:'Nhấp vào khu vực tải xuống chọn tệp, hoặc trực tiếp kéo thả tệp đến khu vực chỉ định. Hỗ trợ nhiều định dạng, không giới hạn kích thước.',a1Step4T:'Sao chép kết quả',a1Step4B:'Sau khi tính toán xong nhấp vào nút「Copy」sao chép nhanh giá trị hash, dùng để so sánh với checksum do chính thức cung cấp.',a1Tip1:'Sau khi tải xuống phần mềm phải đối chiếu giá trị hash mà官方网站 cung cấp, ngăn ngừa tải xuống phiên bản độc hại bị làm giả.',a1Tip2:'Đối với tệp quan trọng, đề nghị sử dụng thuật toán SHA-256 hoặc cường độ cao hơn, an toàn tính xa cao hơn MD5.',a1Tip3:'Có thể đồng thời đối với nhiều tệp tính toán giá trị hash, nhanh chóng phát hiện tệp trùng lặp hoặc dữ liệu hỏng.',a1Faq1Q:'Giá trị hash có liên quan đến kích thước tệp không?',a1Faq1A:'Có. Giá trị hash dựa vào toàn bộ nội dung tệp tính toán, kích thước tệp biến động sẽ dẫn đến giá trị hash thay đổi.',a1Faq2Q:'MD5 và SHA-256 có区别 gì?',a1Faq2A:'MD5 sinh ra chuỗi thập lục phân 32 vị, SHA-256 sinh ra 64 vị, phía sau an toàn hơn nhưng tính toán chậm hơn một chút.',a1Faq3Q:'Có thể ở trạng thái ngoại tuyến sử dụng không?',a1Faq3A:'Có. Tất cả tính toán ở trình duyệt cục bộ hoàn thành, không cần kết nối mạng.',introTitle:'Giới thiệu chức năng',openTitle:'Mở công cụ',stepTitle:'Các bước vận hành',tipTitle:'Mẹo hữu ích',faqTitle:'Câu hỏi thường gặp',relTitle:'Công cụ liên quan:',backToIndex:'Quay lại trung tâm hướng dẫn',tipLabel:'Gợi ý',pageTitle:'Hướng dẫn kiểm tra checksum tệp: Tính toán hash MD5/SHA - ZenTools',catAi:'🤖 Bộ công cụ AI',a1:'⏱ 2 phút đọc',a2:'📅 2026-06-23'}}
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

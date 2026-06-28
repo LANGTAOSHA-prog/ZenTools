@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">Clipdrop 教程：AI 图像编辑和移除工具 - ZenTools</title>
+<meta name="description" content="学会使用 Clipdrop，AI 移除图片背景、物体、水印，支持图像超分辨率增强。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/clipdrop.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Clipdrop 教程：AI 图像编辑和移除工具","description":"学会使用 Clipdrop，AI 移除图片背景、物体、水印，支持图像超分辨率增强。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/clipdrop.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catAi">🤖 AI 工具集</span>
+<h1 data-i18n="cdTitle">Clipdrop 教程：AI 图像编辑和移除工具</h1>
+<div class="meta"><span data-i18n="a1">📅 2026-06-23</span><span data-i18n="a1">⏱ 2 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="cdIntro">Clipdrop 是由 Stability AI 推出的一站式 AI 图像处理平台，集成了多种强大的图像编辑功能。核心功能包括：Remove Background（智能抠图）、Relight（智能打光）、Cleanup（物体移除）、Upscaler（超分辨率放大）和 Replace Background（背景替换）。所有功能都基于先进的 AI 模型，操作简便快捷，无需任何设计经验即可处理专业级图像，特别适合电商产品图、社交媒体素材和个人照片优化。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="cdOpenBody">访问 <a href="https://clipdrop.co" target="_blank">Clipdrop 官网</a>，注册免费账户后即可使用基础功能。部分高级功能如高清导出和无限制使用需要订阅 Pro 计划。支持网页版直接操作，也提供 API 接口供开发者集成。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="cdStep1T">1. 选择功能</h3>
+<p data-i18n="cdStep1B'>在首页浏览所有可用工具，点击需要的功能入口，如「Remove Background」用于抠图、「Cleanup」用于移除不需要的物体。</p>
+<div class="screenshot-wrap"><img src="/guides/img/clipdrop-step1.svg" alt="Clipdrop 教程：AI 图像编辑和移除工具 - 选择功能" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="cdStep2T">2. 上传图片</h3>
+<p data-i18n="cdStep2B'>点击上传区域或拖拽图片到页面。支持 JPG、PNG、WEBP 等常见格式，单张文件大小不超过 10MB。</p>
+<div class="screenshot-wrap"><img src="/guides/img/clipdrop-step2.svg" alt="Clipdrop 教程：AI 图像编辑和移除工具 - 上传图片" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="cdStep3T">3. AI 自动处理</h3>
+<p data-i18n="cdStep3B'>上传图片后 AI 会自动分析并应用效果。对于 Remove Background，系统会智能识别主体并生成透明背景；对于 Cleanup，用画笔涂抹要移除的区域即可。</p>
+<div class="screenshot-wrap"><img src="/guides/img/clipdrop-step3.svg" alt="Clipdrop 教程：AI 图像编辑和移除工具 - AI 自动处理" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="cdStep4T">4. 下载结果</h3>
+<p data-i18n="cdStep4B'>预览处理效果，满意后点击下载按钮保存。免费版提供标准分辨率下载，Pro 用户可导出高清版本。</p>
+<div class="screenshot-wrap"><img src="/guides/img/clipdrop-step4.svg" alt="Clipdrop 教程：AI 图像编辑和移除工具 - 下载结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="cdTip1Label">提示 1：</strong><span data-i18n="cdTip1">使用「Relight」功能可以为照片添加虚拟光源，调整光线方向和强度，让平淡的照片瞬间拥有专业影棚效果。</span></div>
+<div class="tip"><strong data-i18n="cdTip2Label">提示 2：</strong><span data-i18n="cdTip2">「Uncrop」功能可以智能扩展图片边界，根据内容自动生成合理的延伸部分，适合制作宽屏或竖屏适配素材。</span></div>
+<div class="tip"><strong data-i18n="cdTip3Label">提示 3：</strong><span data-i18n="cdTip3">批量处理时可以使用 API 接口，编写脚本自动化流程，大幅提升工作效率。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="cdFaq1Q">免费版有多少使用次数？</strong><br/><span data-i18n="cdFaq1A'>免费版每天提供有限的免费次数，具体数量视功能而定。轻度用户通常够用，重度使用建议订阅 Pro。</span></p>
+<p><strong data-i18n="cdFaq2Q'>处理后的图片有水印吗？</strong><br/><span data-i18n="cdFaq2A'>免费版导出的图片带有 Clipdrop 水印，Pro 用户可以无水印导出高质量图片。</span></p>
+<p><strong data-i18n="cdFaq3Q'>支持批量处理吗？</strong><br/><span data-i18n="cdFaq3A'>网页版暂不支持批量上传，但可以通过 API 接口实现批量处理，适合需要大量处理的场景。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/photoroom.html">PhotoRoom</a> · <a href="/tutorials/remove-bg.html">Remove.bg</a> · <a href="/tutorials/leonardo-ai.html">Leonardo AI</a> · <a href="/tutorials/canva-ai.html">Canva AI </a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{cdIntro:'Clipdrop 是由 Stability AI 推出的一站式 AI 图像处理平台，集成了多种强大的图像编辑功能。核心功能包括：Remove Background（智能抠图）、Relight（智能打光）、Cleanup（物体移除）、Upscaler（超分辨率放大）和 Replace Background（背景替换）。所有功能都基于先进的 AI 模型，操作简便快捷，无需任何设计经验即可处理专业级图像，特别适合电商产品图、社交媒体素材和个人照片优化。',cdOpenBody:'访问 <a href="https://clipdrop.co" target="_blank">Clipdrop 官网</a>，注册免费账户后即可使用基础功能。部分高级功能如高清导出和无限制使用需要订阅 Pro 计划。支持网页版直接操作，也提供 API 接口供开发者集成。',cdStep1T:'选择功能',cdStep1B:'在首页浏览所有可用工具，点击需要的功能入口，如「Remove Background」用于抠图、「Cleanup」用于移除不需要的物体。',cdStep2T:'上传图片',cdStep2B:'点击上传区域或拖拽图片到页面。支持 JPG、PNG、WEBP 等常见格式，单张文件大小不超过 10MB。',cdStep3T:'AI 自动处理',cdStep3B:'上传图片后 AI 会自动分析并应用效果。对于 Remove Background，系统会智能识别主体并生成透明背景；对于 Cleanup，用画笔涂抹要移除的区域即可。',cdStep4T:'下载结果',cdStep4B:'预览处理效果，满意后点击下载按钮保存。免费版提供标准分辨率下载，Pro 用户可导出高清版本。',cdTip1:'使用「Relight」功能可以为照片添加虚拟光源，调整光线方向和强度，让平淡的照片瞬间拥有专业影棚效果。',cdTip2:'「Uncrop」功能可以智能扩展图片边界，根据内容自动生成合理的延伸部分，适合制作宽屏或竖屏适配素材。',cdTip3:'批量处理时可以使用 API 接口，编写脚本自动化流程，大幅提升工作效率。',cdFaq1Q:'免费版有多少使用次数？',cdFaq1A:'免费版每天提供有限的免费次数，具体数量视功能而定。轻度用户通常够用，重度使用建议订阅 Pro。',cdFaq2Q:'处理后的图片有水印吗？',cdFaq2A:'免费版导出的图片带有 Clipdrop 水印，Pro 用户可以无水印导出高质量图片。',cdFaq3Q:'支持批量处理吗？',cdFaq3A:'网页版暂不支持批量上传，但可以通过 API 接口实现批量处理，适合需要大量处理的场景。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'Clipdrop 教程：AI 图像编辑和移除工具 - ZenTools',catAi:'🤖 AI 工具集',cdTitle:'Clipdrop 教程：AI 图像编辑和移除工具',a1:'⏱ 2 分钟阅读'},en:{cdIntro:'Clipdrop is an all-in-one AI image processing platform launched by Stability AI, integrating multiple powerful image editing features. Core functions include: Remove Background (smart cutout), Relight (intelligent lighting), Cleanup (object removal), Upscaler (super-resolution upscaling), and Replace Background (background replacement). All features are based on advanced AI models, easy to operate, and can process professional-grade images without any design experience. Especially suitable for e-commerce product photos, social media assets, and personal photo optimization.',cdOpenBody:'Visit the <a href="https://clipdrop.co" target="_blank">Clipdrop official website</a> and register for a free account to use basic features. Some advanced features like HD export and unlimited usage require a Pro subscription. Supports direct web operation and also provides API interfaces for developer integration.',cdStep1T:'Select Function',cdStep1B:'Browse all available tools on the homepage, click the desired function entry, such as "Remove Background" for cutouts or "Cleanup" for removing unwanted objects.',cdStep2T:'Upload Image',cdStep2B:'Click the upload area or drag images to the page. Supports common formats like JPG, PNG, WEBP. Single file size does not exceed 10MB.',cdStep3T:'AI Automatic Processing',cdStep3B:'After uploading, AI automatically analyzes and applies effects. For Remove Background, the system intelligently identifies the subject and generates transparent background. For Cleanup, simply brush over areas to remove.',cdStep4T:'Download Result',cdStep4B:'Preview the processing effect, and after satisfaction, click download to save. Free version offers standard resolution download; Pro users can export HD versions.',cdTip1:'Use the "Relight" feature to add virtual light sources to photos, adjust light direction and intensity, instantly giving plain photos professional studio quality.',cdTip2:'The "Uncrop" feature can intelligently expand image boundaries, automatically generating reasonable extensions based on content, suitable for creating widescreen or portrait-compatible assets.',cdTip3:'For batch processing, use the API interface to write scripts for automation, significantly improving work efficiency.',cdFaq1Q:'How many uses does the free version have?',cdFaq1A:'The free version provides limited daily free uses, quantity varies by feature. Light users usually find it sufficient; heavy users are advised to subscribe to Pro.',cdFaq2Q:'Do processed images have watermarks?',cdFaq2A:'Free version exports include Clipdrop watermarks. Pro users can export watermark-free high-quality images.',cdFaq3Q:'Does it support batch processing?',cdFaq3A:'Web version does not currently support batch uploads, but batch processing can be achieved through API interfaces, suitable for scenarios requiring large-volume processing.',introTitle:'Feature Introduction',openTitle:'Open the Tool',stepTitle:'Operation Steps',tipTitle:'Practical Tips',faqTitle:'FAQ',relTitle:'Related Tools:',backToIndex:'Back to Tutorial Center',tipLabel:'Tip',pageTitle:'Clipdrop Tutorial: AI Image Editing and Removal Tools - ZenTools',catAi:'🤖 AI Tools Collection',cdTitle:'Clipdrop Tutorial: AI Image Editing and Removal Tools',a1:'⏱ 2 min read'},ja:{cdIntro:'Clipdrop は Stability AI が展開するオールインワンの AI 画像処理プラットフォームで、複数の強力な画像編集機能を統合しています。主要機能には、Remove Background（スマート切り抜き）、Relight（インテリジェントライティング）、Cleanup（オブジェクト除去）、Upscaler（スーパーレゾリューション拡大）、Replace Background（背景置換）が含まれます。すべての機能は高度な AI モデルに基づいており、操作が簡単で迅速で、デザインの経験がなくてもプロレベルの画像を処理できます。特に EC 製品写真、ソーシャルメディアアセット、個人写真の最適化に適しています。',cdOpenBody:'<a href="https://clipdrop.co" target="_blank">Clipdrop 公式サイト</a>にアクセスして無料アカウントを登録すると、基本機能を使用できるようになります。HD エクスポートや無制限使用などの一部の高級機能には、Pro プランへのサブスクライブが必要です。ウェブバージョンでの直接操作に対応し、開発者向けの API インターフェースも提供しています。',cdStep1T:'機能を選択',cdStep1B:'ホームページですべての利用可能なツールを閲覧し、必要な機能エントリをクリックします。例えば、「Remove Background」は切り抜き用、「Cleanup」は不要なオブジェクトの除去用です。',cdStep2T:'画像をアップロード',cdStep2B:'アップロードエリアをクリックするか、画像をページにドラッグアンドドロップします。JPG、PNG、WEBP などの一般的なフォーマットをサポートし、1 ファイルあたりのサイズは 10MB を超えません。',cdStep3T:'AI 自動処理',cdStep3B:'画像をアップロードすると、AI が自動的に分析して効果を適用します。Remove Background の場合、システムは被写体をスマートに識別して透明背景を生成します。Cleanup の場合、削除したい領域にブラシで塗るだけです。',cdStep4T:'結果をダウンロード',cdStep4B:'処理効果をプレビューし、満足したらダウンロードボタンをクリックして保存します。無料版は標準解像度のダウンロードを提供し、Pro ユーザーは HD バージョンをエクスポートできます。',cdTip1:'「Relight」機能を使用して、写真にバーチャル光源を追加し、光の方向と強度を調整すると、平凡な写真が一瞬でプロのスタジオ効果を得られます。',cdTip2:'「Uncrop」機能は画像境界をスマートに拡張でき、コンテンツに基づいて合理的な延長部分を自動的に生成し、ワイドスクリーンまたは縦画面対応アセットの作成に適しています。',cdTip3:'バッチ処理時には API インターフェースを使用して、スクリプトを記述して自動化フローを実現し、作業効率を大幅に向上させます。',cdFaq1Q:'無料版の使用回数はいくらですか？',cdFaq1A:'無料版は毎日限られた無料回数を提供し、具体的な数は機能によって異なります。軽度ユーザーには通常十分ですが、頻繁な使用には Pro へのサブスクライブをお勧めします。',cdFaq2Q:'処理後の画像にウォーターマークはありますか？',cdFaq2A:'無料版のエクスポート画像には Clipdrop ウォーターマークが付きます。Pro ユーザーはウォーターマークなしで高品質画像をエクスポートできます。',cdFaq3Q:'バッチ処理をサポートしていますか？',cdFaq3A:'ウェブバージョンは現時点でバッチアップロードをサポートしていませんが、API インターフェースを通じてバッチ処理を実現でき、大量処理が必要なシナリオに適しています。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'便利なヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアルセンターに戻る',tipLabel:'ヒント',pageTitle:'Clipdrop チュートリアル：AI 画像編集および除去ツール - ZenTools',catAi:'🤖 AI ツールコレクション',cdTitle:'Clipdrop チュートリアル：AI 画像編集および除去ツール',a1:'⏱ 2 分'},vi:{cdIntro:'Clipdrop là nền tảng xử lý hình ảnh AI tất cả trong một do Stability AI phát hành, tích hợp nhiều tính năng chỉnh sửa hình ảnh mạnh mẽ. Các chức năng cốt lõi bao gồm: Remove Background (cắt thông minh), Relight (chiếu sáng thông minh), Cleanup (loại bỏ đối tượng), Upscaler (phóng to siêu phân giải) và Replace Background (thay thế nền). Tất cả tính năng đều dựa trên mô hình AI tiên tiến, dễ vận hành và nhanh chóng, có thể xử lý hình ảnh chuyên nghiệp mà không cần bất kỳ kinh nghiệm thiết kế nào, đặc biệt phù hợp cho ảnh sản phẩm thương mại điện tử, tài liệu mạng xã hội và tối ưu hóa ảnh cá nhân.',cdOpenBody:'Truy cập <a href="https://clipdrop.co" target="_blank">trang web chính thức của Clipdrop</a>, đăng ký tài khoản miễn phí để sử dụng các tính năng cơ bản. Một số tính năng cao cấp như xuất HD và sử dụng không giới hạn cần đăng ký gói Pro. Hỗ trợ hoạt động trực tiếp trên web và cũng cung cấp giao diện API cho nhà phát triển tích hợp.',cdStep1T:'Chọn chức năng',cdStep1B:'Duyệt tất cả công cụ có sẵn trên trang chủ, nhấp vào mục chức năng cần thiết, như "Remove Background" để cắt hoặc "Cleanup" để loại bỏ đối tượng không mong muốn.',cdStep2T:'Tải lên hình ảnh',cdStep2B:'Nhấp vào khu vực tải lên hoặc kéo thả hình ảnh vào trang. Hỗ trợ các định dạng phổ biến như JPG, PNG, WEBP, kích thước file đơn không vượt quá 10MB.',cdStep3T:'Xử lý tự động AI',cdStep3B:'Sau khi tải lên, AI sẽ tự động phân tích và áp dụng hiệu ứng. Đối với Remove Background, hệ thống sẽ thông minh nhận diện chủ thể và tạo nền trong suốt. Đối với Cleanup, chỉ cần tô bằng cọ vào khu vực cần loại bỏ.',cdStep4T:'Tải xuống kết quả',cdStep4B:'Xem trước hiệu ứng xử lý, sau khi hài lòng thì nhấn nút tải xuống để lưu. Phiên bản miễn phí cung cấp tải xuống độ phân giải tiêu chuẩn, người dùng Pro có thể xuất phiên bản HD.',cdTip1:'Sử dụng tính năng "Relight" để thêm nguồn sáng ảo cho ảnh, điều chỉnh hướng và cường độ ánh sáng, khiến ảnh bình thường lập tức có hiệu ứng studio chuyên nghiệp.',cdTip2:'Tính năng "Uncrop" có thể thông minh mở rộng biên độ ảnh, tự động tạo phần mở rộng hợp lý dựa trên nội dung, phù hợp để tạo tài liệu thích ứng màn hình rộng hoặc dọc.',cdTip3:'Khi xử lý hàng loạt có thể sử dụng giao diện API, viết script để tự động hóa quy trình,大幅提升工作效率。',cdFaq1Q:'Phiên bản miễn phí có bao nhiêu lượt sử dụng?',cdFaq1A:'Phiên bản miễn phí cung cấp số lượt miễn phí hữu hạn mỗi ngày, số lượng cụ thể tùy theo tính năng. Người dùng nhẹ thường thấy đủ, người dùng nặng nên đăng ký Pro.',cdFaq2Q:'Ảnh sau xử lý có watermark không?',cdFaq2A:'Ảnh xuất từ phiên bản miễn phí có watermark Clipdrop. Người dùng Pro có thể xuất ảnh chất lượng cao không watermark.',cdFaq3Q:'Có hỗ trợ xử lý hàng loạt không?',cdFaq3A:'Phiên bản web hiện chưa hỗ trợ tải lên hàng loạt, nhưng có thể thực hiện xử lý hàng loạt qua giao diện API, phù hợp cho các tình huống cần xử lý số lượng lớn.',introTitle:'Giới thiệu tính năng',openTitle:'Mở công cụ',stepTitle:'Các bước vận hành',tipTitle:'Mẹo thực tế',faqTitle:'Câu hỏi thường gặp',relTitle:'Công cụ liên quan:',backToIndex:'Quay lại trung tâm hướng dẫn',tipLabel:'Mẹo',pageTitle:'Hướng dẫn Clipdrop: Công cụ chỉnh sửa và xóa hình ảnh AI - ZenTools',catAi:'🤖 Bộ công cụ AI',cdTitle:'Hướng dẫn Clipdrop: Công cụ chỉnh sửa và xóa hình ảnh AI',a1:'⏱ 2 phút đọc'}
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
