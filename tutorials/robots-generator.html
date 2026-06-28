@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">Robots.txt生成教程：控制搜索引擎抓取 - ZenTools</title>
+<meta name="description" content="使用 Robots.txt 生成工具创建搜索引擎爬虫规则，控制 Googlebot 等爬虫对网站目录的访问权限，保护敏感页面并优化抓取效率。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/robots-generator.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Robots.txt生成教程：控制搜索引擎抓取","description":"使用 Robots.txt 生成工具创建搜索引擎爬虫规则，控制 Googlebot 等爬虫对网站目录的访问权限。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/robots-generator.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catSEOTools">🔍 SEO工具</span>
+<h1 data-i18n="rgTitle">Robots.txt生成教程：控制搜索引擎抓取</h1>
+<div class="meta"><span data-i18n="rgMeta">📅 2026-06-23</span><span data-i18n="rgTime">⏱ 2 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="rgIntro">使用 Robots.txt 生成工具快速创建搜索引擎爬虫规则文件，精确控制 Googlebot、Bingbot 等搜索引擎对网站目录的访问权限。通过可视化界面配置 User-agent、Allow 和 Disallow 指令，阻止爬虫访问后台管理页面、用户隐私数据等敏感目录，同时引导搜索引擎优先抓取重要内容页面，提升抓取预算的利用效率。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="rgOpenBody">访问 <a href="/seo/robots-generator.html" target="_blank">Robots.txt 生成工具</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，配置信息不会上传到服务器。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="rgStep1T">1. 配置通用规则</h3>
+<p data-i18n="rgStep1B">首先为 User-agent: *（所有爬虫）设置基础规则。在 Allow 字段中输入允许抓取的路径如 "/"，在 Disallow 字段中输入禁止抓取的路径如 "/admin/"、"/api/" 等，保护后台和敏感目录。</p>
+<div class="screenshot-wrap"><img src="/guides/img/robots-generator-step1.svg" alt="Robots.txt生成教程：控制搜索引擎抓取 - 配置通用规则" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="rgStep2T">2. 添加特定爬虫规则</h3>
+<p data-i18n="rgStep2B">为特定搜索引擎添加专属规则。例如为 Googlebot 设置不同的抓取延迟 (Crawl-delay)，或为图片爬虫 Googlebot-Image 设置单独的资源访问策略，实现精细化控制。</p>
+<div class="screenshot-wrap"><img src="/guides/img/robots-generator-step1.svg" alt="Robots.txt生成教程：控制搜索引擎抓取 - 添加特定爬虫规则" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="rgStep3T">3. 添加 Sitemap 引用</h3>
+<p data-i18n="rgStep3B">在规则底部添加 Sitemap 地址引用，告知搜索引擎网站地图的完整 URL。多个 Sitemap 可以按行添加，方便搜索引擎快速发现所有页面并建立索引。</p>
+<div class="screenshot-wrap"><img src="/guides/img/robots-generator-step1.svg" alt="Robots.txt生成教程：控制搜索引擎抓取 - 添加 Sitemap 引用" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="rgStep4T">4. 预览并导出文件</h3>
+<p data-i18n="rgStep4B">在右侧预览面板检查生成的 robots.txt 内容是否符合预期。确认无误后点击导出，将文件下载到本地并上传至网站根目录，完成部署。</p>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="rgTip1">robots.txt 必须放置在网站根目录下，否则搜索引擎无法识别。部署后可通过 Google Search Console 的 robots.txt 测试工具验证。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="rgTip2">不要在 robots.txt 中隐藏敏感信息。Disallow 指令只是礼貌性请求，恶意爬虫可能忽略。真正敏感的数据应通过密码保护或登录验证来保护。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="rgTip3">定期检查 Search Console 中的抓取统计报告，根据实际抓取情况调整规则。过多的 Disallow 可能导致重要页面被遗漏索引。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="rgFaq1Q">robots.txt 配置错误会有什么后果？</strong><br/><span data-i18n="rgFaq1A">配置错误可能导致整站被搜索引擎屏蔽，所有页面从搜索结果中消失。使用生成器工具可以避免语法错误，部署前建议使用 Google 的 robots.txt 测试工具验证。</span></p>
+<p><strong data-i18n="rgFaq2Q">Disallow 指令能阻止页面被收录吗？</strong><br/><span data-i18n="rgFaq2A">能阻止搜索引擎抓取该页面，但如果页面被其他网站链接，仍可能被收录。要彻底阻止收录，应同时使用 noindex meta 标签。</span></p>
+<p><strong data-i18n="rgFaq3Q">需要为每个搜索引擎分别设置规则吗？</strong><br/><span data-i18n="rgFaq3A">不必须。User-agent: * 的规则对所有爬虫生效。只有在需要差异化处理时才需要单独配置。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/xml-sitemap-generator.html">XML Sitemap 生成器</a> · <a href="/tutorials/meta-tags-generator.html">Meta 标签生成器</a> · <a href="/tutorials/domain-age-checker.html">域名年龄查询</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{rgIntro:'使用 Robots.txt 生成工具快速创建搜索引擎爬虫规则文件，精确控制 Googlebot、Bingbot 等搜索引擎对网站目录的访问权限。通过可视化界面配置 User-agent、Allow 和 Disallow 指令，阻止爬虫访问后台管理页面、用户隐私数据等敏感目录，同时引导搜索引擎优先抓取重要内容页面，提升抓取预算的利用效率。',rgOpenBody:'访问 <a href="/seo/robots-generator.html" target="_blank">Robots.txt 生成工具</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，配置信息不会上传到服务器。',rgStep1T:'配置通用规则',rgStep1B:'首先为 User-agent: *（所有爬虫）设置基础规则。在 Allow 字段中输入允许抓取的路径如 "/"，在 Disallow 字段中输入禁止抓取的路径如 "/admin/"、"/api/" 等，保护后台和敏感目录。',rgStep2T:'添加特定爬虫规则',rgStep2B:'为特定搜索引擎添加专属规则。例如为 Googlebot 设置不同的抓取延迟 (Crawl-delay)，或为图片爬虫 Googlebot-Image 设置单独的资源访问策略，实现精细化控制。',rgStep3T:'添加 Sitemap 引用',rgStep3B:'在规则底部添加 Sitemap 地址引用，告知搜索引擎网站地图的完整 URL。多个 Sitemap 可以按行添加，方便搜索引擎快速发现所有页面并建立索引。',rgStep4T:'预览并导出文件',rgStep4B:'在右侧预览面板检查生成的 robots.txt 内容是否符合预期。确认无误后点击导出，将文件下载到本地并上传至网站根目录，完成部署。',rgTip1:'robots.txt 必须放置在网站根目录下，否则搜索引擎无法识别。部署后可通过 Google Search Console 的 robots.txt 测试工具验证。',rgTip2:'不要在 robots.txt 中隐藏敏感信息。Disallow 指令只是礼貌性请求，恶意爬虫可能忽略。真正敏感的数据应通过密码保护或登录验证来保护。',rgTip3:'定期检查 Search Console 中的抓取统计报告，根据实际抓取情况调整规则。过多的 Disallow 可能导致重要页面被遗漏索引。',rgFaq1Q:'robots.txt 配置错误会有什么后果？',rgFaq1A:'配置错误可能导致整站被搜索引擎屏蔽，所有页面从搜索结果中消失。使用生成器工具可以避免语法错误，部署前建议使用 Google 的 robots.txt 测试工具验证。',rgFaq2Q:'Disallow 指令能阻止页面被收录吗？',rgFaq2A:'能阻止搜索引擎抓取该页面，但如果页面被其他网站链接，仍可能被收录。要彻底阻止收录，应同时使用 noindex meta 标签。',rgFaq3Q:'需要为每个搜索引擎分别设置规则吗？',rgFaq3A:'不必须。User-agent: * 的规则对所有爬虫生效。只有在需要差异化处理时才需要单独配置。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'Robots.txt生成教程：控制搜索引擎抓取 - ZenTools',catSEOTools:'🔍 SEO工具',rgTitle:'Robots.txt生成教程：控制搜索引擎抓取',rgMeta:'📅 2026-06-23',rgTime:'⏱ 2 分钟阅读'},en:{rgIntro:'Use the Robots.txt generator to quickly create search engine crawler rules, precisely controlling Googlebot and Bingbot access to website directories. Configure User-agent, Allow and Disallow directives visually to protect admin pages and private data while guiding crawlers to important content.',rgOpenBody:'Visit <a href="/seo/robots-generator.html" target="_blank">Robots.txt Generator</a>. All processing happens locally in your browser.',rgStep1T:'Configure Generic Rules',rgStep1B:'Set basic rules for User-agent: * (all crawlers). Enter allowed paths like "/" and disallowed paths like "/admin/" and "/api/" to protect sensitive directories.',rgStep2T:'Add Specific Crawler Rules',rgStep2B:'Add dedicated rules for specific bots. Set crawl-delay for Googlebot or configure separate image access policies for Googlebot-Image.',rgStep3T:'Add Sitemap Reference',rgStep3B:'Add sitemap URLs at the bottom of the rules to tell search engines about your sitemap locations for faster discovery and indexing.',rgStep4T:'Preview and Export',rgStep4B:'Check the generated robots.txt in the preview panel. Export and upload to your website root directory when confirmed.',rgTip1:'robots.txt must be placed in the website root directory. Verify with Google Search Console robots.txt tester after deployment.',rgTip2:'Do not hide sensitive info in robots.txt. Disallow is only a polite request. Use password protection for truly sensitive data.',rgTip3:'Regularly check crawl stats in Search Console and adjust rules accordingly. Too many Disallow rules may cause important pages to be missed.',rgFaq1Q:'What happens if robots.txt is misconfigured?',rgFaq1A:'Misconfiguration can block the entire site from search engines. Use the generator to avoid syntax errors.',rgFaq2Q:'Can Disallow prevent a page from being indexed?',rgFaq2A:'It prevents crawling, but linked pages may still appear. Use noindex meta tag for complete prevention.',rgFaq3Q:'Do I need rules for each search engine?',rgFaq3A:'No. User-agent: * covers all. Only add specific rules when differentiated handling is needed.',introTitle:'Introduction',openTitle:'Open the Tool',stepTitle:'How to Use',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools: ',backToIndex:'Back to Tutorial Center',tipLabel:'Tip',pageTitle:'Robots.txt Generator Tutorial - ZenTools',catSEOTools:'🔍 SEO工具',rgTitle:'Robots.txt Generator Tutorial',rgMeta:'📅 2026-06-23',rgTime:'⏱ 2 min read'},ja:{rgIntro:'Robots.txtジェネレーターを使用して検索エンジンクローラールールを迅速に作成し、GooglebotやBingbotのアクセスを制御します。',rgOpenBody:'<a href="/seo/robots-generator.html" target="_blank">Robots.txtジェネレーター</a>にアクセスします。すべてブラウザローカルで処理されます。',rgStep1T:'汎用ルールを設定',rgStep1B:'User-agent: * の基本ルールを設定し、許可するパスと禁止するパスを入力します。',rgStep2T:'特定クローラールールを追加',rgStep2B:'GooglebotにCrawl-delayを設定したり、画像クローラーに個別のアクセスポリシーを設定します。',rgStep3T:'Sitemap参照を追加',rgStep3B:'ルールの下部にサイトマップURLを追加して、検索エンジンにサイトマップの場所を知らせます。',rgStep4T:'プレビューしてエクスポート',rgStep4B:'プレビューパネルで確認後、エクスポートしてWebサイトのルートディレクトリにアップロードします。',rgTip1:'robots.txtはWebサイトのルートに配置する必要があります。Search Consoleでテストツールを使用して検証します。',rgTip2:'robots.txtに機密情報を含めないでください。Disallowは礼儀的なリクエストに過ぎません。',rgTip3:'Search Consoleでクロール統計を定期的に確認し、ルールを調整します。',rgFaq1Q:'robots.txtの設定を間違えるとどうなりますか？',rgFaq1A:'サイト全体がブロックされる可能性があります。ジェネレーターを使用して構文エラーを回避します。',rgFaq2Q:'Disallowでページのインデックスを防止できますか？',rgFaq2A:'クロールを防止できますが、リンクされたページは表示される可能性があります。',rgFaq3Q:'各検索エンジンに個別のルールが必要ですか？',rgFaq3A:'いいえ。User-agent: * ですべてカバーされます。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'ヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアルセンターに戻る',tipLabel:'ヒント',pageTitle:'Robots.txtジェネレーターチュートリアル - ZenTools',catSEOTools:'🔍 SEO工具',rgTitle:'Robots.txtジェネレーターチュートリアル',rgMeta:'📅 2026-06-23',rgTime:'⏱ 2分の読書'},vi:{rgIntro:'Sử dụng công cụ tạo Robots.txt để nhanh chóng tạo tệp quy tắc trình thu thập dữ liệu, kiểm soát quyền truy cập của Googlebot và Bingbot vào các thư mục trang web.',rgOpenBody:'Truy cập <a href="/seo/robots-generator.html" target="_blank">Trình Tạo Robots.txt</a>. Tất cả xử lý diễn ra cục bộ trong trình duyệt.',rgStep1T:'Cấu hình quy tắc chung',rgStep1B:'Đặt quy tắc cơ bản cho User-agent: *, nhập đường dẫn được phép và đường dẫn bị cấm.',rgStep2T:'Thêm quy tắc cụ thể',rgStep2B:'Thêm quy tắc riêng cho các bot cụ thể như đặt crawl-delay cho Googlebot.',rgStep3T:'Thêm tham chiếu Sitemap',rgStep3B:'Thêm URL sitemap vào cuối quy tắc để thông báo cho công cụ tìm kiếm.',rgStep4T:'Xem trước và xuất',rgStep4B:'Kiểm tra robots.txt trong bảng xem trước, xuất và tải lên thư mục gốc của trang web.',rgTip1:'robots.txt phải được đặt trong thư mục gốc. Xác minh bằng công cụ kiểm tra robots.txt của Search Console.',rgTip2:'Không ẩn thông tin nhạy cảm trong robots.txt. Disallow chỉ là yêu cầu lịch sự.',rgTip3:'Thường xuyên kiểm tra thống kê thu thập dữ liệu trong Search Console.',rgFaq1Q:'Cấu hình sai robots.txt gây hậu quả gì?',rgFaq1A:'Có thể chặn toàn bộ trang web khỏi công cụ tìm kiếm. Sử dụng trình tạo để tránh lỗi cú pháp.',rgFaq2Q:'Disallow có ngăn trang được lập chỉ mục không?',rgFaq2A:'Ngăn thu thập dữ liệu nhưng trang được liên kết vẫn có thể xuất hiện.',rgFaq3Q:'Có cần quy tắc riêng cho từng công cụ tìm kiếm không?',rgFaq3A:'Không. User-agent: * bao phủ tất cả. Chỉ thêm quy tắc cụ thể khi cần.',introTitle:'Giới thiệu',openTitle:'Mở công cụ',stepTitle:'Các bước thực hiện',tipTitle:'Mẹo',faqTitle:'FAQ',relTitle:'Công cụ liên quan: ',backToIndex:'Quay lại trung tâm hướng dẫn',tipLabel:'Mẹo',pageTitle:'Hướng dẫn Trình Tạo Robots.txt - ZenTools',catSEOTools:'🔍 SEO工具',rgTitle:'Hướng dẫn Trình Tạo Robots.txt',rgMeta:'📅 2026-06-23',rgTime:'⏱ 2 phút đọc'}};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
