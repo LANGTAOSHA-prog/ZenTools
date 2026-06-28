@@ -1136,7 +1136,22 @@
     });
 
     // ===== 初始加载 =====
-    const initLang = localStorage.getItem('zentools_lang') || 'zh';
+    function detectBrowserLanguage() {
+      const browserLang = navigator.language || navigator.userLanguage || '';
+      const langCode = browserLang.toLowerCase();
+      
+      // 映射浏览器语言到支持的语言
+      if (langCode.startsWith('zh') || langCode.startsWith('cht')) return 'zh';
+      if (langCode.startsWith('en')) return 'en';
+      if (langCode.startsWith('ja')) return 'ja';
+      if (langCode.startsWith('vi')) return 'vi';
+      
+      // 默认返回 zh
+      return 'zh';
+    }
+    
+    const storedLang = localStorage.getItem('zentools_lang');
+    const initLang = storedLang || detectBrowserLanguage();
     loadAndRender(initLang);
   </script>
   <script>
