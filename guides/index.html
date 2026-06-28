@@ -7,6 +7,9 @@
 <meta name="description" content="ZenTools 深度指南系列：PDF 自动化、图片批量处理、AI 写作、SEO 优化、视频编辑等全方位实用教程。"/>
 <link rel="canonical" href="https://zentools.xyz/guides/"/>
 <link rel="manifest" href="/manifest.json"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #fff; }
@@ -25,70 +28,137 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .guide-link:hover { background: #f0f0f0; transform: translateX(5px); }
 @media(max-width: 768px) { .header h1 { font-size: 32px; } .guides-grid { grid-template-columns: 1fr; } }
 </style>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle: '深度指南 - ZenTools',
+    pageDesc: '全方位实用教程，助您掌握各类工具的最佳实践',
+    guides: [
+      { title: 'PDF 自动化工作流指南', desc: '学习如何使用在线 PDF 工具构建自动化工作流，大幅提升办公效率。包含发票处理、合同整理、报告生成等实战案例。', words: '2600+ 字', time: '25 分钟', link: '阅读指南 →' },
+      { title: '图片批量处理最佳实践', desc: '电商、营销、办公场景下的图片批量处理完整攻略。涵盖尺寸调整、格式转换、压缩优化、水印添加等核心技能。', words: '2800+ 字', time: '20 分钟', link: '阅读指南 →' },
+      { title: 'AI 写作完整工作流', desc: '从灵感到成品的高效创作指南。详细介绍 AI 辅助写作的完整流程，包括博客文章、营销文案、技术文档等多种场景。', words: '3200+ 字', time: '25 分钟', link: '阅读指南 →' },
+      { title: 'SEO 优化完整清单', desc: '从基础到进阶的全方位 SEO 优化指南。涵盖技术 SEO、站内优化、内容策略、站外建设等各个方面，助您提升搜索排名。', words: '3500+ 字', time: '30 分钟', link: '阅读指南 →' },
+      { title: '视频编辑入门指南', desc: '从零开始学习视频编辑的完整教程。包括剪辑流程、音频处理、特效转场、导出发布等核心技能，适合新手入门。', words: '3000+ 字', time: '25 分钟', link: '阅读指南 →' }
+    ]
+  },
+  en: {
+    pageTitle: 'Deep Guides - ZenTools',
+    pageDesc: 'Comprehensive practical tutorials to help you master best practices for various tools',
+    guides: [
+      { title: 'PDF Automation Workflow Guide', desc: 'Learn how to build automated workflows using online PDF tools to significantly improve office efficiency. Includes practical cases like invoice processing, contract organization, and report generation.', words: '2600+ words', time: '25 min', link: 'Read Guide →' },
+      { title: 'Image Batch Processing Best Practices', desc: 'Complete guide to image batch processing for e-commerce, marketing, and office scenarios. Covers resizing, format conversion, compression optimization, watermark addition, and core skills.', words: '2800+ words', time: '20 min', link: 'Read Guide →' },
+      { title: 'AI Writing Complete Workflow', desc: 'Efficient creation guide from inspiration to final product. Detailed introduction to the complete AI-assisted writing workflow, including blog posts, marketing copy, technical documentation, and more.', words: '3200+ words', time: '25 min', link: 'Read Guide →' },
+      { title: 'SEO Optimization Complete Checklist', desc: 'Comprehensive SEO optimization guide from basics to advanced. Covers technical SEO, on-page optimization, content strategy, off-page building, and other aspects to help improve search rankings.', words: '3500+ words', time: '30 min', link: 'Read Guide →' },
+      { title: 'Video Editing Beginner Guide', desc: 'Complete tutorial for learning video editing from scratch. Includes editing workflow, audio processing, special effects transitions, export and publishing, and core skills suitable for beginners.', words: '3000+ words', time: '25 min', link: 'Read Guide →' }
+    ]
+  },
+  ja: {
+    pageTitle: '深層ガイド - ZenTools',
+    pageDesc: '各種ツールのベストプラクティスをマスターするための包括的な実用チュートリアル',
+    guides: [
+      { title: 'PDF 自動化ワークフローガイド', desc: 'オンライン PDF ツールを使用して自動化ワークフローを構築し、オフィス効率を大幅に向上させる方法を学習します。請求書処理、契約書整理、レポート生成などの実践例を含む。', words: '2600+ 文字', time: '25 分', link: 'ガイドを読む →' },
+      { title: '画像バッチ処理ベストプラクティス', desc: 'EC、マーケティング、オフィスシナリオ向けの画像バッチ処理の完全ガイド。リサイズ、フォーマット変換、圧縮最適化、透かし追加、およびコアスキルをカバー。', words: '2800+ 文字', time: '20 分', link: 'ガイドを読む →' },
+      { title: 'AI 執筆完全ワークフロー', desc: 'インスピレーションから最終製品までの効率的な作成ガイド。ブログ投稿、マーケティングコピー、技術文書など、AI 支援執筆の完全なワークフローの詳細を紹介。', words: '3200+ 文字', time: '25 分', link: 'ガイドを読む →' },
+      { title: 'SEO 最適化完全チェックリスト', desc: '基本から高度まで、包括的な SEO 最適化ガイド。技術 SEO、オンページ最適化、コンテンツ戦略、オフページ構築などを網羅し、検索順位向上をサポート。', words: '3500+ 文字', time: '30 分', link: 'ガイドを読む →' },
+      { title: 'ビデオ編集入門ガイド', desc: 'ゼロからビデオ編集を学ぶための完全チュートリアル。編集ワークフロー、オーディオ処理、特殊効果トランジション、エクスポートと公開、初心者に適したコアスキルを含む。', words: '3000+ 文字', time: '25 分', link: 'ガイドを読む →' }
+    ]
+  },
+  vi: {
+    pageTitle: 'Hướng dẫn Chuyên sâu - ZenTools',
+    pageDesc: 'Các hướng dẫn thực tế toàn diện giúp bạn thành thạo các phương pháp tốt nhất cho nhiều công cụ khác nhau',
+    guides: [
+      { title: 'Hướng dẫn Quy trình Tự động hóa PDF', desc: 'Học cách xây dựng quy trình tự động bằng công cụ PDF trực tuyến để tăng đáng kể hiệu quả văn phòng. Bao gồm các trường hợp thực tế như xử lý hóa đơn, tổ chức hợp đồng và tạo báo cáo.', words: '2600+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' },
+      { title: 'Thực hành Tốt nhất Xử lý Hàng loạt Ảnh', desc: 'Hướng dẫn đầy đủ về xử lý hàng loạt ảnh cho thương mại điện tử, tiếp thị và tình huống văn phòng. Bao gồm thay đổi kích thước, chuyển đổi định dạng, tối ưu hóa nén, thêm dấu nước và kỹ năng cốt lõi.', words: '2800+ từ', time: '20 phút', link: 'Xem Hướng dẫn →' },
+      { title: 'Quy trình Viết AI Hoàn chỉnh', desc: 'Hướng sáng tạo hiệu quả từ cảm hứng đến sản phẩm cuối cùng. Giới thiệu chi tiết về quy trình viết hỗ trợ AI hoàn chỉnh, bao gồm bài đăng blog, bản sao tiếp thị, tài liệu kỹ thuật và hơn thế nữa.', words: '3200+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' },
+      { title: 'Danh sách Kiểm tra Tối ưu hóa SEO', desc: 'Hướng dẫn tối ưu hóa SEO toàn diện từ cơ bản đến nâng cao. Bao gồm SEO kỹ thuật, tối ưu hóa trên trang, chiến lược nội dung, xây dựng bên ngoài và các khía cạnh khác để giúp cải thiện thứ hạng tìm kiếm.', words: '3500+ từ', time: '30 phút', link: 'Xem Hướng dẫn →' },
+      { title: 'Hướng dẫn Chỉnh sửa Video cho Người mới', desc: 'Hướng dẫn hoàn chỉnh để học chỉnh sửa video từ đầu. Bao gồm quy trình chỉnh sửa, xử lý âm thanh, chuyển tiếp hiệu ứng đặc biệt, xuất bản và phát hành, và các kỹ năng cốt lõi phù hợp cho người mới bắt đầu.', words: '3000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' }
+    ]
+  }
+};
+</script>
 </head>
 <body>
 <div class="container">
   <div class="header">
-    <h1>📚 深度指南</h1>
-    <p>全方位实用教程，助您掌握各类工具的最佳实践</p>
+    <h1 data-i18n="pageHeader">📚 深度指南</h1>
+    <p data-i18n="pageDesc">全方位实用教程，助您掌握各类工具的最佳实践</p>
   </div>
   
-  <div class="guides-grid">
-    <div class="guide-card">
-      <div class="guide-icon">📄</div>
-      <h2 class="guide-title">PDF 自动化工作流指南</h2>
-      <p class="guide-desc">学习如何使用在线 PDF 工具构建自动化工作流，大幅提升办公效率。包含发票处理、合同整理、报告生成等实战案例。</p>
-      <div class="guide-meta">
-        <span>📖 2600+ 字</span>
-        <span>⏱️ 25 分钟</span>
-      </div>
-      <a href="pdf-automation-guide.md" class="guide-link">阅读指南 →</a>
-    </div>
-    
-    <div class="guide-card">
-      <div class="guide-icon">🖼️</div>
-      <h2 class="guide-title">图片批量处理最佳实践</h2>
-      <p class="guide-desc">电商、营销、办公场景下的图片批量处理完整攻略。涵盖尺寸调整、格式转换、压缩优化、水印添加等核心技能。</p>
-      <div class="guide-meta">
-        <span>📖 2800+ 字</span>
-        <span>⏱️ 20 分钟</span>
-      </div>
-      <a href="image-batch-processing.md" class="guide-link">阅读指南 →</a>
-    </div>
-    
-    <div class="guide-card">
-      <div class="guide-icon">🤖</div>
-      <h2 class="guide-title">AI 写作完整工作流</h2>
-      <p class="guide-desc">从灵感到成品的高效创作指南。详细介绍 AI 辅助写作的完整流程，包括博客文章、营销文案、技术文档等多种场景。</p>
-      <div class="guide-meta">
-        <span>📖 3200+ 字</span>
-        <span>⏱️ 25 分钟</span>
-      </div>
-      <a href="ai-writing-workflow.md" class="guide-link">阅读指南 →</a>
-    </div>
-    
-    <div class="guide-card">
-      <div class="guide-icon">🔍</div>
-      <h2 class="guide-title">SEO 优化完整清单</h2>
-      <p class="guide-desc">从基础到进阶的全方位 SEO 优化指南。涵盖技术 SEO、站内优化、内容策略、站外建设等各个方面，助您提升搜索排名。</p>
-      <div class="guide-meta">
-        <span>📖 3500+ 字</span>
-        <span>⏱️ 30 分钟</span>
-      </div>
-      <a href="seo-optimization-checklist.md" class="guide-link">阅读指南 →</a>
-    </div>
-    
-    <div class="guide-card">
-      <div class="guide-icon">🎬</div>
-      <h2 class="guide-title">视频编辑入门指南</h2>
-      <p class="guide-desc">从零开始学习视频编辑的完整教程。包括剪辑流程、音频处理、特效转场、导出发布等核心技能，适合新手入门。</p>
-      <div class="guide-meta">
-        <span>📖 3000+ 字</span>
-        <span>⏱️ 25 分钟</span>
-      </div>
-      <a href="video-editing-tips.md" class="guide-link">阅读指南 →</a>
-    </div>
-  </div>
+  <div class="guides-grid" id="guidesGrid"></div>
 </div>
+
+<script>
+const guidesData = [
+  { 
+    slug: 'pdf-automation', 
+    icon: '📄',
+    zh: { title: 'PDF 自动化工作流指南', desc: '学习如何使用在线 PDF 工具构建自动化工作流，大幅提升办公效率。包含发票处理、合同整理、报告生成等实战案例。', words: '2600+ 字', time: '25 分钟', link: '阅读指南 →', file: 'pdf-automation-guide.md' },
+    en: { title: 'PDF Automation Workflow Guide', desc: 'Learn how to build automated workflows using online PDF tools to significantly improve office efficiency. Includes practical cases like invoice processing, contract organization, and report generation.', words: '2600+ words', time: '25 min', link: 'Read Guide →', file: 'pdf-automation-guide.md' },
+    ja: { title: 'PDF 自動化ワークフローガイド', desc: 'オンライン PDF ツールを使用して自動化ワークフローを構築し、オフィス効率を大幅に向上させる方法を学習します。請求書処理、契約書整理、レポート生成などの実践例を含む。', words: '2600+ 文字', time: '25 分', link: 'ガイドを読む →', file: 'pdf-automation-guide.md' },
+    vi: { title: 'Hướng dẫn Quy trình Tự động hóa PDF', desc: 'Học cách xây dựng quy trình tự động bằng công cụ PDF trực tuyến để tăng đáng kể hiệu quả văn phòng. Bao gồm các trường hợp thực tế như xử lý hóa đơn, tổ chức hợp đồng và tạo báo cáo.', words: '2600+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'pdf-automation-guide.md' }
+  },
+  { 
+    slug: 'image-batch', 
+    icon: '🖼️',
+    zh: { title: '图片批量处理最佳实践', desc: '电商、营销、办公场景下的图片批量处理完整攻略。涵盖尺寸调整、格式转换、压缩优化、水印添加等核心技能。', words: '2800+ 字', time: '20 分钟', link: '阅读指南 →', file: 'image-batch-processing.md' },
+    en: { title: 'Image Batch Processing Best Practices', desc: 'Complete guide to image batch processing for e-commerce, marketing, and office scenarios. Covers resizing, format conversion, compression optimization, watermark addition, and core skills.', words: '2800+ words', time: '20 min', link: 'Read Guide →', file: 'image-batch-processing.md' },
+    ja: { title: '画像バッチ処理ベストプラクティス', desc: 'EC、マーケティング、オフィスシナリオ向けの画像バッチ処理の完全ガイド。リサイズ、フォーマット変換、圧縮最適化、透かし追加、およびコアスキルをカバー。', words: '2800+ 文字', time: '20 分', link: 'ガイドを読む →', file: 'image-batch-processing.md' },
+    vi: { title: 'Thực hành Tốt nhất Xử lý Hàng loạt Ảnh', desc: 'Hướng dẫn đầy đủ về xử lý hàng loạt ảnh cho thương mại điện tử, tiếp thị và tình huống văn phòng. Bao gồm thay đổi kích thước, chuyển đổi định dạng, tối ưu hóa nén, thêm dấu nước và kỹ năng cốt lõi.', words: '2800+ từ', time: '20 phút', link: 'Xem Hướng dẫn →', file: 'image-batch-processing.md' }
+  },
+  { 
+    slug: 'ai-writing', 
+    icon: '🤖',
+    zh: { title: 'AI 写作完整工作流', desc: '从灵感到成品的高效创作指南。详细介绍 AI 辅助写作的完整流程，包括博客文章、营销文案、技术文档等多种场景。', words: '3200+ 字', time: '25 分钟', link: '阅读指南 →', file: 'ai-writing-workflow.md' },
+    en: { title: 'AI Writing Complete Workflow', desc: 'Efficient creation guide from inspiration to final product. Detailed introduction to the complete AI-assisted writing workflow, including blog posts, marketing copy, technical documentation, and more.', words: '3200+ words', time: '25 min', link: 'Read Guide →', file: 'ai-writing-workflow.md' },
+    ja: { title: 'AI 執筆完全ワークフロー', desc: 'インスピレーションから最終製品までの効率的な作成ガイド。ブログ投稿、マーケティングコピー、技術文書など、AI 支援執筆の完全なワークフローの詳細を紹介。', words: '3200+ 文字', time: '25 分', link: 'ガイドを読む →', file: 'ai-writing-workflow.md' },
+    vi: { title: 'Quy trình Viết AI Hoàn chỉnh', desc: 'Hướng sáng tạo hiệu quả từ cảm hứng đến sản phẩm cuối cùng. Giới thiệu chi tiết về quy trình viết hỗ trợ AI hoàn chỉnh, bao gồm bài đăng blog, bản sao tiếp thị, tài liệu kỹ thuật và hơn thế nữa.', words: '3200+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'ai-writing-workflow.md' }
+  },
+  { 
+    slug: 'seo-optimization', 
+    icon: '🔍',
+    zh: { title: 'SEO 优化完整清单', desc: '从基础到进阶的全方位 SEO 优化指南。涵盖技术 SEO、站内优化、内容策略、站外建设等各个方面，助您提升搜索排名。', words: '3500+ 字', time: '30 分钟', link: '阅读指南 →', file: 'seo-optimization-checklist.md' },
+    en: { title: 'SEO Optimization Complete Checklist', desc: 'Comprehensive SEO optimization guide from basics to advanced. Covers technical SEO, on-page optimization, content strategy, off-page building, and other aspects to help improve search rankings.', words: '3500+ words', time: '30 min', link: 'Read Guide →', file: 'seo-optimization-checklist.md' },
+    ja: { title: 'SEO 最適化完全チェックリスト', desc: '基本から高度まで、包括的な SEO 最適化ガイド。技術 SEO、オンページ最適化、コンテンツ戦略、オフページ構築などを網羅し、検索順位向上をサポート。', words: '3500+ 文字', time: '30 分', link: 'ガイドを読む →', file: 'seo-optimization-checklist.md' },
+    vi: { title: 'Danh sách Kiểm tra Tối ưu hóa SEO', desc: 'Hướng dẫn tối ưu hóa SEO toàn diện từ cơ bản đến nâng cao. Bao gồm SEO kỹ thuật, tối ưu hóa trên trang, chiến lược nội dung, xây dựng bên ngoài và các khía cạnh khác để giúp cải thiện thứ hạng tìm kiếm.', words: '3500+ từ', time: '30 phút', link: 'Xem Hướng dẫn →', file: 'seo-optimization-checklist.md' }
+  },
+  { 
+    slug: 'video-editing', 
+    icon: '🎬',
+    zh: { title: '视频编辑入门指南', desc: '从零开始学习视频编辑的完整教程。包括剪辑流程、音频处理、特效转场、导出发布等核心技能，适合新手入门。', words: '3000+ 字', time: '25 分钟', link: '阅读指南 →', file: 'video-editing-tips.md' },
+    en: { title: 'Video Editing Beginner Guide', desc: 'Complete tutorial for learning video editing from scratch. Includes editing workflow, audio processing, special effects transitions, export and publishing, and core skills suitable for beginners.', words: '3000+ words', time: '25 min', link: 'Read Guide →', file: 'video-editing-tips.md' },
+    ja: { title: 'ビデオ編集入門ガイド', desc: 'ゼロからビデオ編集を学ぶための完全チュートリアル。編集ワークフロー、オーディオ処理、特殊効果トランジション、エクスポートと公開、初心者に適したコアスキルを含む。', words: '3000+ 文字', time: '25 分', link: 'ガイドを読む →', file: 'video-editing-tips.md' },
+    vi: { title: 'Hướng dẫn Chỉnh sửa Video cho Người mới', desc: 'Hướng dẫn hoàn chỉnh để học chỉnh sửa video từ đầu. Bao gồm quy trình chỉnh sửa, xử lý âm thanh, chuyển tiếp hiệu ứng đặc biệt, xuất bản và phát hành, và các kỹ năng cốt lõi phù hợp cho người mới bắt đầu.', words: '3000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'video-editing-tips.md' }
+  }
+];
+
+function renderGuides(lang) {
+  let html = '';
+  
+  guidesData.forEach(function(guide) {
+    const t = guide[lang] || guide.zh;
+    html += '<div class="guide-card">';
+    html += '<div class="guide-icon">' + guide.icon + '</div>';
+    html += '<h2 class="guide-title">' + t.title + '</h2>';
+    html += '<p class="guide-desc">' + t.desc + '</p>';
+    html += '<div class="guide-meta">';
+    html += '<span>📖 ' + t.words + '</span>';
+    html += '<span>⏱️ ' + t.time + '</span>';
+    html += '</div>';
+    html += '<a href="' + t.file + '" class="guide-link">' + t.link + '</a>';
+    html += '</div>';
+  });
+  
+  document.getElementById('guidesGrid').innerHTML = html;
+}
+
+// Initial render
+const savedLang = localStorage.getItem('zentools_lang') || navigator.language.slice(0, 2) || 'zh';
+renderGuides(savedLang);
+
+// Listen for language changes
+window.addEventListener('zt-langchange', function(e) {
+  renderGuides(e.detail.lang);
+});
+</script>
 </body>
 </html>
