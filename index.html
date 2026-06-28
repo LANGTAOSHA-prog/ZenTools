@@ -1107,15 +1107,21 @@
     // ===== 异步加载教程数量 =====
     async function loadTutorialCount(dict) {
       try {
-        const res = await fetch('/tutorials/');
+        // Parse tutorials array directly from tutorials/index.html
+        const res = await fetch('/tutorials/index.html');
         if (!res.ok) throw new Error('Failed');
         const html = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(html, 'text/html');
-        const cards = doc.querySelectorAll('.article-card');
-        const count = cards.length;
-        if (count > 0) {
-          document.getElementById('statTutorialCount').textContent = count;
+        
+        // Extract tutorials array using regex
+        const match = html.match(/var tutorials = \[(.*?)\];/s);
+        if (match) {
+          const tutorialsStr = match[1];
+          // Count slug entries
+          const count = (tutorialsStr.match(/slug:/g) || []).length;
+          
+          if (count > 0) {
+            document.getElementById('statTutorialCount').textContent = count;
+          }
         }
       } catch(e) {
         // silently fail - tutorial count is non-critical
