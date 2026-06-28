@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">去重教程：删除文本中的重复行 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools 在线文本去重工具，快速检测并删除文本中的重复行，支持完全匹配和模糊匹配两种模式。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/dedupe.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"去重教程：删除文本中的重复行","description":"学会使用 ZenTools 在线文本去重工具，快速检测并删除文本中的重复行，支持完全匹配和模糊匹配两种模式。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/dedupe.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catText">📝 文本工具</span>
+<h1 data-i18n="a1Title">去重教程：删除文本中的重复行</h1>
+<div class="meta"><span>📅 2026-06-23</span><span data-i18n="readTime">⏱ 2 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="a1Intro">文本去重工具可以帮助你快速检测并删除文本中的重复行，让数据变得干净整洁。当你从多个数据源合并信息、整理关键词列表、清理日志文件或处理用户提交的数据时，重复条目是一个常见问题。本工具支持完全匹配和忽略大小写两种匹配模式，去重后会显示删除了多少重复行、保留了多少唯一行，让你清楚了解去重效果。工具支持粘贴文本、上传文件或输入 URL 获取内容，所有处理在浏览器本地完成，无需上传任何数据。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="a1OpenBody">访问 <a href="/text/dedupe.html" target="_blank">文本去重工具</a>，在浏览器中直接使用。粘贴文本后选择匹配模式，点击去重按钮即可删除所有重复行并保留唯一条目。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="a1Step1T">1. 打开工具</h3>
+<p data-i18n="a1Step1B">访问 <a href="/text/dedupe.html" target="_blank">文本去重工具</a>，页面加载后会显示文本输入区域、匹配模式选项和去重结果区域，支持粘贴文本或上传 txt 文件。</p>
+<div class="screenshot-wrap"><img src="/guides/img/dedupe-step1.svg" alt="去重教程：删除文本中的重复行 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step2T">2. 输入待去重的文本</h3>
+<p data-i18n="a1Step2B">将需要去重的文本粘贴到输入框中，每行一个条目。工具会自动统计原始行数，方便你后续对比去重前后的变化。你也可以通过上传按钮导入 txt 或 csv 文件。</p>
+<div class="screenshot-wrap"><img src="/guides/img/dedupe-step1.svg" alt="去重教程：删除文本中的重复行 - 输入待去重的文本" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step3T">3. 选择匹配模式</h3>
+<p data-i18n="a1Step3B">选择完全匹配模式时，工具只会删除内容完全相同的行；选择忽略大小写模式时，大小写不同的相同内容也会被视为重复行一并删除。此外，你还可以开启去除空白行选项自动清理空行。</p>
+<div class="screenshot-wrap"><img src="/guides/img/dedupe-step1.svg" alt="去重教程：删除文本中的重复行 - 选择匹配模式" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step4T">4. 执行去重并导出结果</h3>
+<p data-i18n="a1Step4B">点击「开始去重」按钮后，工具立即处理并展示唯一行列表。结果区域会显示去重统计：原始行数、唯一行数、删除的重复行数。你可以点击「复制结果」将唯一行复制到剪贴板，或导出为 txt 文件。</p>
+<div class="screenshot-wrap"><img src="/guides/img/dedupe-step1.svg" alt="去重教程：删除文本中的重复行 - 执行去重并导出结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="a1Tip1">处理关键词列表时，建议先使用「忽略大小写」模式去掉大小写变体的重复项，再配合大小写转换工具统一格式，得到完全标准化的列表。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="a1Tip2">合并多个数据源的记录时，先将所有数据粘贴到输入框中，去重后配合行排序工具按字母顺序排列，方便浏览和检查。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="a1Tip3">去重前建议先开启「去除空白行」选项，这样可以避免空行被计入去重统计，让你的结果更加精确。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="a1Faq1Q">完全匹配和忽略大小写有什么区别？</strong><br/><span data-i18n="a1Faq1A">完全匹配要求行内容完全一致才判定为重复；忽略大小写模式下，Apple、apple、APPLE 会被视为重复，最终保留最先出现的那一行。</span></p>
+<p><strong data-i18n="a1Faq2Q">可以处理包含空格的行吗？</strong><br/><span data-i18n="a1Faq2A">可以。工具会将整行文本（包括空格）作为匹配依据。如果想去重时忽略首尾空格，可以先使用空行移除工具清理行首尾空格。</span></p>
+<p><strong data-i18n="a1Faq3Q">去重后的数据会上传到服务器吗？</strong><br/><span data-i18n="a1Faq3A">不会。所有去重操作在浏览器本地完成，你的数据始终保留在你的设备上，绝不会上传到任何服务器。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/sortlines.html">行排序</a> · <a href="/tutorials/blankline.html">空行移除</a> · <a href="/tutorials/findreplace.html">查找替换</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{a1Intro:'文本去重工具可以帮助你快速检测并删除文本中的重复行，让数据变得干净整洁。当你从多个数据源合并信息、整理关键词列表、清理日志文件或处理用户提交的数据时，重复条目是一个常见问题。本工具支持完全匹配和忽略大小写两种匹配模式，去重后会显示删除了多少重复行、保留了多少唯一行，让你清楚了解去重效果。工具支持粘贴文本、上传文件或输入 URL 获取内容，所有处理在浏览器本地完成，无需上传任何数据。',a1OpenBody:'访问 <a href="/text/dedupe.html" target="_blank">文本去重工具</a>，在浏览器中直接使用。粘贴文本后选择匹配模式，点击去重按钮即可删除所有重复行并保留唯一条目。',a1Step1T:'1. 打开工具',a1Step1B:'访问 <a href="/text/dedupe.html" target="_blank">文本去重工具</a>，页面加载后会显示文本输入区域、匹配模式选项和去重结果区域，支持粘贴文本或上传 txt 文件。',a1Step2T:'2. 输入待去重的文本',a1Step2B:'将需要去重的文本粘贴到输入框中，每行一个条目。工具会自动统计原始行数，方便你后续对比去重前后的变化。你也可以通过上传按钮导入 txt 或 csv 文件。',a1Step3T:'3. 选择匹配模式',a1Step3B:'选择完全匹配模式时，工具只会删除内容完全相同的行；选择忽略大小写模式时，大小写不同的相同内容也会被视为重复行一并删除。此外，你还可以开启去除空白行选项自动清理空行。',a1Step4T:'4. 执行去重并导出结果',a1Step4B:'点击「开始去重」按钮后，工具立即处理并展示唯一行列表。结果区域会显示去重统计：原始行数、唯一行数、删除的重复行数。你可以点击「复制结果」将唯一行复制到剪贴板，或导出为 txt 文件。',a1Tip1:'处理关键词列表时，建议先使用「忽略大小写」模式去掉大小写变体的重复项，再配合大小写转换工具统一格式，得到完全标准化的列表。',a1Tip2:'合并多个数据源的记录时，先将所有数据粘贴到输入框中，去重后配合行排序工具按字母顺序排列，方便浏览和检查。',a1Tip3:'去重前建议先开启「去除空白行」选项，这样可以避免空行被计入去重统计，让你的结果更加精确。',a1Faq1Q:'完全匹配和忽略大小写有什么区别？',a1Faq1A:'完全匹配要求行内容完全一致才判定为重复；忽略大小写模式下，Apple、apple、APPLE 会被视为重复，最终保留最先出现的那一行。',a1Faq2Q:'可以处理包含空格的行吗？',a1Faq2A:'可以。工具会将整行文本（包括空格）作为匹配依据。如果想去重时忽略首尾空格，可以先使用空行移除工具清理行首尾空格。',a1Faq3Q:'去重后的数据会上传到服务器吗？',a1Faq3A:'不会。所有去重操作在浏览器本地完成，你的数据始终保留在你的设备上，绝不会上传到任何服务器。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'去重教程：删除文本中的重复行 - ZenTools',catText:'📝 文本工具',a1Title:'去重教程：删除文本中的重复行',readTime:'⏱ 2 分钟阅读',navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'},en:{a1Intro:'The Text Deduplication tool helps you quickly detect and remove duplicate lines, leaving your data clean and tidy. Duplicate entries are a common problem when merging info from multiple sources, organizing keyword lists, cleaning log files, or processing user-submitted data. The tool supports two match modes — exact and case-insensitive — and shows how many duplicates were removed and how many unique lines remain. Paste text, upload a file, or fetch content via URL; all processing happens locally in your browser.',a1OpenBody:'Visit the <a href="/text/dedupe.html" target="_blank">Text Deduplication</a> tool. Paste text, choose a match mode, click deduplicate, and all duplicates are removed, keeping only unique entries.',a1Step1T:'1. Open the Tool',a1Step1B:'Visit the <a href="/text/dedupe.html" target="_blank">Text Deduplication</a> tool. The page displays a text input area, match mode options, and a results panel.',a1Step2T:'2. Enter Text to Deduplicate',a1Step2B:'Paste the text you want to deduplicate — one entry per line. The tool auto-counts the original lines so you can compare before and after.',a1Step3T:'3. Choose Match Mode',a1Step3B:'Exact mode removes only identical lines; case-insensitive mode treats Apple, apple, and APPLE as duplicates. You can also enable Remove Blank Lines to clean empty lines automatically.',a1Step4T:'4. Deduplicate and Export',a1Step4B:'Click "Start Dedup" and the tool instantly shows the unique-line list along with stats: original count, unique count, duplicates removed. Copy the result or export as a txt file.',a1Tip1:'For keyword lists, try case-insensitive mode first to eliminate case variants, then pair with the Case Converter to standardize formatting.',a1Tip2:'When merging records from multiple sources, paste everything into the input box, deduplicate, then use the Line Sorter to order them alphabetically for easy browsing.',a1Tip3:'Enable Remove Blank Lines before deduplicating to prevent empty lines from skewing the count and give you a more accurate result.',a1Faq1Q:'What is the difference between exact and case-insensitive?',a1Faq1A:'Exact requires identical content to flag as duplicate; case-insensitive treats Apple, apple, APPLE as duplicates, keeping the first occurrence.',a1Faq2Q:'Can it handle lines with spaces?',a1Faq2A:'Yes. The tool uses the entire line (including spaces) for matching. To ignore leading/trailing spaces, use the Blank Line Remover first.',a1Faq3Q:'Is my data uploaded to a server?',a1Faq3A:'No. All deduplication runs locally in your browser. Your data stays on your device at all times.',introTitle:'Introduction',openTitle:'Open the Tool',stepTitle:'Steps',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools:',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'Text Dedup Tutorial: Remove Duplicate Lines - ZenTools',catText:'📝 Text Tools',a1Title:'Text Dedup Tutorial: Remove Duplicate Lines',readTime:'⏱ 2 min read',navHome:'Home',navDev:'Dev Tools',navAll:'All Tools',navPrivacy:'Privacy',footerCopy:'© 2026 ZenTools. Free Online Toolbox.'},ja:{a1Intro:'テキスト重複除去ツールは、テキスト内の重複行を素早く検出して削除し、データをクリーンに整理します。複数のソースから情報を統合する際や、キーワードリストの整理、ログファイルのクリーンアップ、ユーザー提出データの処理時に重複エントリはよく発生します。完全一致と大文字小文字無視の2つのマッチモードをサポートし、削除された重複行数と残ったユニーク行数を表示します。すべての処理はブラウザ上でローカルに実行されます。',a1OpenBody:'<a href="/text/dedupe.html" target="_blank">テキスト重複除去ツール</a>を開きます。テキストを貼り付け、マッチモードを選択して重複除去を実行します。',a1Step1T:'1. ツールを開く',a1Step1B:'<a href="/text/dedupe.html" target="_blank">テキスト重複除去ツール</a>を開きます。テキスト入力エリア、マッチモード、結果パネルが表示されます。',a1Step2T:'2. テキストを入力',a1Step2B:'重複除去したいテキストを貼り付けます。1行1エントリで、元の行数が自動集計されます。',a1Step3T:'3. マッチモードを選択',a1Step3B:'完全一致は内容が完全に同じ行のみを削除。大文字小文字無視はApple、apple、APPLEを重複と見なします。空白行の除去も有効にできます。',a1Step4T:'4. 実行してエクスポート',a1Step4B:'「開始」ボタンで処理され、ユニーク行一覧と統計（元の行数、ユニーク行数、削除された重複数）が表示されます。結果をコピーするかtxtでエクスポートできます。',a1Tip1:'キーワードリストでは、まず大文字小文字無視モードで重複を除去し、大文字小文字変換ツールでフォーマットを統一すると完全に標準化されたリストが得られます。',a1Tip2:'複数ソースのレコードを統合する際は、すべてのデータを貼り付けて重複除去し、行ソートツールでアルファベット順に並べると確認しやすくなります。',a1Tip3:'重複除去前に「空白行を除去」を有効にすると、空行が統計に含まれず、より正確な結果が得られます。',a1Faq1Q:'完全一致と大文字小文字無視の違いは？',a1Faq1A:'完全一致は内容が完全に同じ場合のみ重複と判定。大文字小文字無視はApple、apple、APPLEを重複と見なし、最初に出現した行を保持します。',a1Faq2Q:'スペースを含む行も処理できますか？',a1Faq2A:'はい。行全体（スペースを含む）をマッチングに使用します。行頭・行末スペースを無視したい場合は、空行除去ツールで事前にクリーンアップしてください。',a1Faq3Q:'データはサーバーにアップロードされますか？',a1Faq3A:'いいえ。すべての重複除去はブラウザ上でローカルに実行され、データがデバイス外に出ることはありません。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'便利なヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアル一覧へ戻る',tipLabel:'ヒント',pageTitle:'重複除去チュートリアル：重複行を削除 - ZenTools',catText:'📝 テキストツール',a1Title:'重複除去チュートリアル：重複行を削除',readTime:'⏱ 約2分',navHome:'ホーム',navDev:'開発ツール',navAll:'すべてのツール',navPrivacy:'プライバシー',footerCopy:'© 2026 ZenTools. 無料オンラインツールボックス。'},vi:{a1Intro:'Công cụ Loại Bỏ Trùng Lặp giúp bạn nhanh chóng phát hiện và xóa các dòng trùng lặp trong văn bản, giữ cho dữ liệu sạch sẽ và gọn gàng. Các mục trùng lặp là vấn đề phổ biến khi hợp nhất thông tin từ nhiều nguồn, sắp xếp danh sách từ khóa, dọn dẹp tệp nhật ký hoặc xử lý dữ liệu do người dùng gửi. Hỗ trợ hai chế độ: khớp chính xác và bỏ qua chữ hoa chữ thường, hiển thị số dòng trùng lặp đã xóa và số dòng duy nhất còn lại. Tất cả xử lý đều diễn ra cục bộ trong trình duyệt.',a1OpenBody:'Truy cập <a href="/text/dedupe.html" target="_blank">Loại Bỏ Trùng Lặp</a>. Dán văn bản, chọn chế độ, nhấp để loại bỏ tất cả dòng trùng lặp.',a1Step1T:'1. Mở Công Cụ',a1Step1B:'Truy cập <a href="/text/dedupe.html" target="_blank">Loại Bỏ Trùng Lặp</a>. Trang hiển thị khu vực nhập văn bản, tùy chọn chế độ và bảng kết quả.',a1Step2T:'2. Nhập Văn Bản',a1Step2B:'Dán văn bản cần loại bỏ trùng lặp — mỗi dòng một mục. Công cụ tự động đếm số dòng ban đầu.',a1Step3T:'3. Chọn Chế Độ',a1Step3B:'Chế độ chính xác chỉ xóa các dòng giống hệt nhau; chế độ bỏ qua chữ hoa chữ thường coi Apple, apple, APPLE là trùng lặp. Cũng có thể bật tùy chọn xóa dòng trống.',a1Step4T:'4. Loại Bỏ và Xuất',a1Step4B:'Nhấp "Bắt Đầu" để xử lý. Kết quả hiển thị danh sách dòng duy nhất cùng thống kê: số dòng ban đầu, số dòng duy nhất, số dòng đã xóa. Sao chép hoặc xuất txt.',a1Tip1:'Với danh sách từ khóa, nên dùng chế độ bỏ qua chữ hoa chữ thường trước để loại bỏ biến thể, sau đó dùng Công Cụ Chuyển Đổi Chữ Hoa để đồng nhất định dạng.',a1Tip2:'Khi hợp nhất dữ liệu từ nhiều nguồn, dán tất cả vào ô nhập, loại bỏ trùng lặp, rồi dùng Công Cụ Sắp Xếp Dòng để sắp xếp theo thứ tự bảng chữ cái.',a1Tip3:'Bật tùy chọn Xóa Dòng Trống trước khi loại bỏ trùng lặp để tránh dòng trống làm sai lệch thống kê.',a1Faq1Q:'Khác biệt giữa khớp chính xác và bỏ qua chữ hoa chữ thường?',a1Faq1A:'Khớp chính xác yêu cầu nội dung giống hệt nhau; bỏ qua chữ hoa chữ thường coi Apple, apple, APPLE là trùng lặp, giữ lại dòng xuất hiện đầu tiên.',a1Faq2Q:'Có xử lý được dòng chứa khoảng trắng không?',a1Faq2A:'Có. Công cụ sử dụng toàn bộ dòng (bao gồm khoảng trắng) để khớp. Nếu muốn bỏ qua khoảng trắng đầu/cuối dòng, hãy dùng Xóa Dòng Trống trước.',a1Faq3Q:'Dữ liệu có được tải lên máy chủ không?',a1Faq3A:'Không. Tất cả xử lý đều diễn ra cục bộ trong trình duyệt. Dữ liệu của bạn luôn ở trên thiết bị của bạn.',introTitle:'Giới Thiệu',openTitle:'Mở Công Cụ',stepTitle:'Các Bước',tipTitle:'Mẹo',faqTitle:'Câu Hỏi Thường Gặp',relTitle:'Công Cụ Liên Quan:',backToIndex:'Quay Lại Trung Tâm Hướng Dẫn',tipLabel:'Mẹo',pageTitle:'Hướng Dẫn Loại Bỏ Trùng Lặp Văn Bản - ZenTools',catText:'📝 Công Cụ Văn Bản',a1Title:'Hướng Dẫn Loại Bỏ Trùng Lặp: Xóa Dòng Trùng Lặp',readTime:'⏱ 2 phút đọc',navHome:'Trang Chủ',navDev:'Công Cụ Phát Triển',navAll:'Tất Cả Công Cụ',navPrivacy:'Chính Sách Bảo Mật',footerCopy:'© 2026 ZenTools. Hộp Công Cụ Trực Tuyến Miễn Phí.'}};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz/tutorials/dedupe.html')">⭐ 收藏本站，下次去重快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

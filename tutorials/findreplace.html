@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">查找替换教程：批量替换文本内容 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools 在线查找替换工具，在文本中批量查找和替换内容，支持正则表达式匹配和大小写敏感选项。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/findreplace.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"查找替换教程：批量替换文本内容","description":"学会使用 ZenTools 在线查找替换工具，在文本中批量查找和替换内容，支持正则表达式匹配和大小写敏感选项。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/findreplace.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catText">📝 文本工具</span>
+<h1 data-i18n="a1Title">查找替换教程：批量替换文本内容</h1>
+<div class="meta"><span>📅 2026-06-23</span><span data-i18n="readTime">⏱ 3 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="a1Intro">查找替换工具可以帮助你在文本中快速查找指定内容并批量替换为新的内容，是处理大量文本时不可或缺的效率工具。无论是批量修改代码中的变量名、统一文档中的术语格式、替换配置文件中的版本号，还是清理数据中的错误标记，这个工具都能大幅提升你的工作效率。工具支持普通文本匹配和正则表达式匹配两种模式，还可以设置区分大小写选项，让你精确控制替换的范围和方式。所有查找替换操作在浏览器本地完成，无需上传任何文本。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="a1OpenBody">访问 <a href="/text/findreplace.html" target="_blank">查找替换工具</a>，在浏览器中直接使用。在查找框中输入要搜索的内容，在替换框中输入新内容，选择匹配选项后点击替换即可。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="a1Step1T">1. 打开工具</h3>
+<p data-i18n="a1Step1B">访问 <a href="/text/findreplace.html" target="_blank">查找替换工具</a>，页面加载后会显示文本输入区域、查找框、替换框和匹配选项，支持粘贴文本或上传 txt 文件。</p>
+<div class="screenshot-wrap"><img src="/guides/img/findreplace-step1.svg" alt="查找替换教程：批量替换文本内容 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step2T">2. 输入文本和查找内容</h3>
+<p data-i18n="a1Step2B">将需要处理的文本粘贴到主输入框中，然后在查找框中输入要搜索的内容。工具支持普通文本和正则表达式两种查找方式，普通模式适合精确匹配词语，正则模式适合匹配模式化内容。</p>
+<div class="screenshot-wrap"><img src="/guides/img/findreplace-step1.svg" alt="查找替换教程：批量替换文本内容 - 输入文本和查找内容" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step3T">3. 设置替换内容和选项</h3>
+<p data-i18n="a1Step3B">在替换框中输入新的内容，选择替换模式。可以勾选「区分大小写」精确匹配字母大小写，勾选「正则匹配」使用正则表达式进行复杂模式替换。还可以设置替换范围：全部替换一次性替换所有匹配项，或逐个替换逐一确认每次修改。</p>
+<div class="screenshot-wrap"><img src="/guides/img/findreplace-step1.svg" alt="查找替换教程：批量替换文本内容 - 设置替换内容和选项" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step4T">4. 执行替换并复制结果</h3>
+<p data-i18n="a1Step4B">点击「全部替换」按钮一键替换所有匹配项，或点击「查找下一个」逐个定位匹配位置并手动确认每次替换。替换完成后，工具会高亮显示所有变更内容，并统计替换次数。点击「复制结果」将处理后的文本复制到剪贴板。</p>
+<div class="screenshot-wrap"><img src="/guides/img/findreplace-step1.svg" alt="查找替换教程：批量替换文本内容 - 执行替换并复制结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="a1Tip1">使用正则表达式替换时，可以利用捕获组功能。例如将日期格式从 YYYY-MM-DD 转换为 MM/DD/YYYY，只需一个正则模式即可批量转换全文日期格式。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="a1Tip2">如果不确定正则表达式是否正确，建议先使用「查找」功能预览匹配结果，确认匹配目标无误后再执行替换，避免误替换不相关内容。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="a1Tip3">替换大型文本时，工具底部会显示替换次数统计和耗时，帮助你了解替换规模和性能表现。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="a1Faq1Q">什么是正则表达式？</strong><br/><span data-i18n="a1Faq1A">正则表达式是一种用于匹配文本模式的语法，支持通配符、字符类、量词等高级匹配规则。例如 \d+ 可以匹配任意数字，[A-Z]+ 可以匹配任意大写字母。</span></p>
+<p><strong data-i18n="a1Faq2Q">替换后可以撤销吗？</strong><br/><span data-i18n="a1Faq2A">工具会在输入区域保留原始文本，你可以在结果区域查看替换后的文本，随时复制原始文本重新处理，或者使用查找替换功能还原修改。</span></p>
+<p><strong data-i18n="a1Faq3Q">替换操作会修改原文件吗？</strong><br/><span data-i18n="a1Faq3A">不会。所有操作在浏览器本地处理，只影响你在工具中粘贴的文本副本。如果需要保存替换结果，请复制内容并手动保存到文件中。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/dedupe.html">文本去重</a> · <a href="/tutorials/caseconvert.html">大小写转换</a> · <a href="/tutorials/urlencode.html">URL编解码</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{a1Intro:'查找替换工具可以帮助你在文本中快速查找指定内容并批量替换为新的内容，是处理大量文本时不可或缺的效率工具。无论是批量修改代码中的变量名、统一文档中的术语格式、替换配置文件中的版本号，还是清理数据中的错误标记，这个工具都能大幅提升你的工作效率。工具支持普通文本匹配和正则表达式匹配两种模式，还可以设置区分大小写选项，让你精确控制替换的范围和方式。所有查找替换操作在浏览器本地完成，无需上传任何文本。',a1OpenBody:'访问 <a href="/text/findreplace.html" target="_blank">查找替换工具</a>，在浏览器中直接使用。在查找框中输入要搜索的内容，在替换框中输入新内容，选择匹配选项后点击替换即可。',a1Step1T:'1. 打开工具',a1Step1B:'访问 <a href="/text/findreplace.html" target="_blank">查找替换工具</a>，页面加载后会显示文本输入区域、查找框、替换框和匹配选项，支持粘贴文本或上传 txt 文件。',a1Step2T:'2. 输入文本和查找内容',a1Step2B:'将需要处理的文本粘贴到主输入框中，然后在查找框中输入要搜索的内容。工具支持普通文本和正则表达式两种查找方式，普通模式适合精确匹配词语，正则模式适合匹配模式化内容。',a1Step3T:'3. 设置替换内容和选项',a1Step3B:'在替换框中输入新的内容，选择替换模式。可以勾选「区分大小写」精确匹配字母大小写，勾选「正则匹配」使用正则表达式进行复杂模式替换。还可以设置替换范围：全部替换一次性替换所有匹配项，或逐个替换逐一确认每次修改。',a1Step4T:'4. 执行替换并复制结果',a1Step4B:'点击「全部替换」按钮一键替换所有匹配项，或点击「查找下一个」逐个定位匹配位置并手动确认每次替换。替换完成后，工具会高亮显示所有变更内容，并统计替换次数。点击「复制结果」将处理后的文本复制到剪贴板。',a1Tip1:'使用正则表达式替换时，可以利用捕获组功能。例如将日期格式从 YYYY-MM-DD 转换为 MM/DD/YYYY，只需一个正则模式即可批量转换全文日期格式。',a1Tip2:'如果不确定正则表达式是否正确，建议先使用「查找」功能预览匹配结果，确认匹配目标无误后再执行替换，避免误替换不相关的内容。',a1Tip3:'替换大型文本时，工具底部会显示替换次数统计和耗时，帮助你了解替换规模和性能表现。',a1Faq1Q:'什么是正则表达式？',a1Faq1A:'正则表达式是一种用于匹配文本模式的语法，支持通配符、字符类、量词等高级匹配规则。例如 \\d+ 可以匹配任意数字，[A-Z]+ 可以匹配任意大写字母。',a1Faq2Q:'替换后可以撤销吗？',a1Faq2A:'工具会在输入区域保留原始文本，你可以在结果区域查看替换后的文本，随时复制原始文本重新处理，或者使用查找替换功能还原修改。',a1Faq3Q:'替换操作会修改原文件吗？',a1Faq3A:'不会。所有操作在浏览器本地处理，只影响你在工具中粘贴的文本副本。如果需要保存替换结果，请复制内容并手动保存到文件中。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'查找替换教程：批量替换文本内容 - ZenTools',catText:'📝 文本工具',a1Title:'查找替换教程：批量替换文本内容',readTime:'⏱ 3 分钟阅读',navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'},en:{a1Intro:'The Find and Replace tool lets you quickly search for specified content in your text and batch-replace it with new content — an indispensable productivity tool for handling large amounts of text. Whether you are renaming variables across a codebase, standardizing terminology in documentation, updating version numbers in config files, or cleaning up erroneous markers in data, this tool dramatically speeds up your workflow. It supports both plain-text matching and regex matching, with a case-sensitive toggle for precise control over replacement scope. All find-and-replace operations run locally in your browser.',a1OpenBody:'Visit the <a href="/text/findreplace.html" target="_blank">Find and Replace</a> tool. Enter what to search in the Find box, enter the replacement in the Replace box, choose options, and click Replace.',a1Step1T:'1. Open the Tool',a1Step1B:'Visit the <a href="/text/findreplace.html" target="_blank">Find and Replace</a> tool. The page shows a text area, Find box, Replace box, and matching options.',a1Step2T:'2. Enter Text and Search Query',a1Step2B:'Paste your text into the main area, then enter your search term in the Find box. Plain-text mode suits exact word matching; regex mode suits pattern-based content matching.',a1Step3T:'3. Set Replacement and Options',a1Step3B:'Enter the new text in the Replace box. Enable Case Sensitive for letter-exact matching, or Regex to use regular expressions for complex patterns. Choose Replace All for one-click batch replacing, or Find Next for step-by-step confirmation.',a1Step4T:'4. Execute and Copy',a1Step4B:'Click "Replace All" to replace every match in one go, or "Find Next" to step through each match and confirm individually. The tool highlights all changes and shows the replacement count. Click "Copy Result" to save to clipboard.',a1Tip1:'When using regex replacements, leverage capture groups. For example, converting dates from YYYY-MM-DD to MM/DD/YYYY can be done with a single regex pattern across the entire text.',a1Tip2:'If you are unsure about your regex, use the Find function first to preview matches. Confirm the matches are correct before executing Replace All to avoid unintended replacements.',a1Tip3:'After replacing in large texts, check the stats at the bottom showing how many replacements were made and how long it took.',a1Faq1Q:'What is a regular expression?',a1Faq1A:'A regular expression is a syntax for matching text patterns using wildcards, character classes, quantifiers, and more. For example, \\d+ matches any number, and [A-Z]+ matches any uppercase letters.',a1Faq2Q:'Can I undo a replacement?',a1Faq2A:'Yes. The tool keeps the original text in the input area. You can compare before and after anytime, copy the original back, or use Find and Replace to revert changes.',a1Faq3Q:'Does replacing modify my original file?',a1Faq3A:'No. All operations are local in the browser and affect only the text copy you pasted. To save the result, copy it and manually save to a file.',introTitle:'Introduction',openTitle:'Open the Tool',stepTitle:'Steps',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools:',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'Find and Replace Tutorial: Batch Replace Text Content - ZenTools',catText:'📝 Text Tools',a1Title:'Find and Replace Tutorial: Batch Replace Text Content',readTime:'⏱ 3 min read',navHome:'Home',navDev:'Dev Tools',navAll:'All Tools',navPrivacy:'Privacy',footerCopy:'© 2026 ZenTools. Free Online Toolbox.'},ja:{a1Intro:'検索置換ツールは、テキスト内の指定した内容を素早く検索し、新しい内容に一括置換できる、大量テキスト処理に欠かせない効率化ツールです。コード内の変数名の一括変更、ドキュメントの用語統一、設定ファイルのバージョン番号更新、データのエラーマーカー除去など、幅広いシナリオで作業効率を大幅に向上させます。通常テキストと正規表現の2つのマッチモードをサポートし、大文字小文字の区別オプションで置換範囲を正確に制御できます。すべての処理はブラウザ上でローカルに実行されます。',a1OpenBody:'<a href="/text/findreplace.html" target="_blank">検索置換ツール</a>を開きます。検索ボックスに探す内容、置換ボックスに新しい内容を入力し、オプションを選択して置換を実行します。',a1Step1T:'1. ツールを開く',a1Step1B:'<a href="/text/findreplace.html" target="_blank">検索置換ツール</a>を開きます。テキスト入力エリア、検索ボックス、置換ボックス、マッチオプションが表示されます。',a1Step2T:'2. テキストと検索内容を入力',a1Step2B:'処理したいテキストをメインエリアに貼り付け、検索ボックスに検索語を入力します。通常モードは正確な単語マッチに、正規表現モードはパターンマッチに適しています。',a1Step3T:'3. 置換内容とオプションを設定',a1Step3B:'置換ボックスに新しいテキストを入力します。「大文字小文字を区別」で正確なマッチが可能、「正規表現」で複雑なパターン置換が可能です。全置換で一括処理するか、次を検索で1件ずつ確認できます。',a1Step4T:'4. 実行してコピー',a1Step4B:'「すべて置換」で全マッチを一括処理、「次を検索」で1件ずつ確認しながら置換。ツールは変更箇所をハイライトし、置換回数を表示します。結果をコピーしてクリップボードに保存できます。',a1Tip1:'正規表現置換ではキャプチャグループを活用できます。例えば YYYY-MM-DD から MM/DD/YYYY への日付形式変換を1つの正規表現パターンで全文一括変換できます。',a1Tip2:'正規表現に自信がない場合は、まず「検索」機能でマッチ結果をプレビューし、対象が正しいことを確認してから置換を実行してください。',a1Tip3:'大きなテキストを置換すると、下部に置換回数と処理時間が表示され、置換の規模とパフォーマンスを確認できます。',a1Faq1Q:'正規表現とは？',a1Faq1A:'正規表現はテキストパターンをマッチングする構文で、ワイルドカード、文字クラス、数量詞などを使用します。例：\\d+は任意の数字、[A-Z]+は任意の大文字にマッチします。',a1Faq2Q:'置換後に元に戻せますか？',a1Faq2A:'はい。元のテキストは入力エリアに保持されるため、いつでも前後を比較したり、元のテキストをコピーして再処理したりできます。',a1Faq3Q:'置換で元のファイルが変更されますか？',a1Faq3A:'いいえ。すべての操作はブラウザ上でローカルに処理され、貼り付けたテキストコピーにのみ影響します。結果を保存するには、内容をコピーして手動でファイルに保存してください。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'便利なヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアル一覧へ戻る',tipLabel:'ヒント',pageTitle:'検索置換チュートリアル：テキストの一括置換 - ZenTools',catText:'📝 テキストツール',a1Title:'検索置換チュートリアル：テキストの一括置換',readTime:'⏱ 約3分',navHome:'ホーム',navDev:'開発ツール',navAll:'すべてのツール',navPrivacy:'プライバシー',footerCopy:'© 2026 ZenTools. 無料オンラインツールボックス。'},vi:{a1Intro:'Công cụ Tìm và Thay Thế cho phép bạn nhanh chóng tìm kiếm nội dung chỉ định trong văn bản và thay thế hàng loạt bằng nội dung mới — công cụ không thể thiếu để xử lý lượng lớn văn bản. Dù bạn đang đổi tên biến trong mã nguồn, đồng nhất thuật ngữ trong tài liệu, cập nhật số phiên bản trong tệp cấu hình, hay dọn sạch các đánh dấu lỗi trong dữ liệu, công cụ này giúp tăng tốc đáng kể quy trình làm việc. Hỗ trợ khớp văn bản thường và khớp regex, với tùy chọn phân biệt chữ hoa chữ thường. Tất cả xử lý đều diễn ra cục bộ trong trình duyệt.',a1OpenBody:'Truy cập <a href="/text/findreplace.html" target="_blank">Tìm và Thay Thế</a>. Nhập nội dung tìm kiếm vào ô Tìm, nội dung mới vào ô Thay Thế, chọn tùy chọn và nhấp để thay thế.',a1Step1T:'1. Mở Công Cụ',a1Step1B:'Truy cập <a href="/text/findreplace.html" target="_blank">Tìm và Thay Thế</a>. Trang hiển thị khu vực văn bản, ô Tìm, ô Thay Thế và tùy chọn khớp.',a1Step2T:'2. Nhập Văn Bản và Nội Dung Tìm',a1Step2B:'Dán văn bản vào khu vực chính, sau đó nhập từ khóa tìm kiếm vào ô Tìm. Chế độ thường phù hợp khớp chính xác từ, chế độ regex phù hợp khớp theo mẫu.',a1Step3T:'3. Đặt Nội Dung Thay Thế và Tùy Chọn',a1Step3B:'Nhập văn bản mới vào ô Thay Thế. Bật Phân Biệt Chữ Hoa Chữ Thường để khớp chính xác, hoặc Regex để dùng biểu thức chính quy. Chọn Thay Thế Tất Cả hoặc Tìm Tiếp Theo để từng bước xác nhận.',a1Step4T:'4. Thực Hiện và Sao Chép',a1Step4B:'Nhấp "Thay Thế Tất Cả" để xử lý toàn bộ, hoặc "Tìm Tiếp Theo" để duyệt từng kết quả. Công cụ tô sáng các thay đổi và hiển thị số lần thay thế. Nhấp "Sao Chép" để lưu vào clipboard.',a1Tip1:'Khi dùng regex, hãy tận dụng nhóm bắt giữ. Ví dụ chuyển đổi định dạng ngày từ YYYY-MM-DD sang MM/DD/YYYY chỉ với một mẫu regex duy nhất.',a1Tip2:'Nếu không chắc về regex, hãy dùng chức năng Tìm trước để xem trước kết quả khớp, xác nhận đúng mục tiêu rồi mới thực hiện thay thế.',a1Tip3:'Sau khi thay thế văn bản lớn, hãy kiểm tra thống kê ở phía dưới hiển thị số lần thay thế và thời gian xử lý.',a1Faq1Q:'Biểu thức chính quy là gì?',a1Faq1A:'Biểu thức chính quy là cú pháp để khớp mẫu văn bản, sử dụng ký tự đại diện, lớp ký tự, lượng từ, v.v. Ví dụ: \\d+ khớp bất kỳ số nào, [A-Z]+ khớp bất kỳ chữ hoa nào.',a1Faq2Q:'Có thể hoàn tác sau khi thay thế không?',a1Faq2A:'Có. Văn bản gốc được giữ trong khu vực nhập, bạn có thể so sánh bất cứ lúc nào hoặc sao chép lại văn bản gốc để xử lý lại.',a1Faq3Q:'Thao tác thay thế có sửa đổi tệp gốc không?',a1Faq3A:'Không. Tất cả thao tác đều cục bộ trong trình duyệt và chỉ ảnh hưởng đến bản sao văn bản bạn dán vào. Để lưu kết quả, hãy sao chép và lưu thủ công vào tệp.',introTitle:'Giới Thiệu',openTitle:'Mở Công Cụ',stepTitle:'Các Bước',tipTitle:'Mẹo',faqTitle:'Câu Hỏi Thường Gặp',relTitle:'Công Cụ Liên Quan:',backToIndex:'Quay Lại Trung Tâm Hướng Dẫn',tipLabel:'Mẹo',pageTitle:'Hướng Dẫn Tìm và Thay Thế - ZenTools',catText:'📝 Công Cụ Văn Bản',a1Title:'Hướng Dẫn Tìm và Thay Thế: Thay Thế Hàng Loạt Nội Dung',readTime:'⏱ 3 phút đọc',navHome:'Trang Chủ',navDev:'Công Cụ Phát Triển',navAll:'Tất Cả Công Cụ',navPrivacy:'Chính Sách Bảo Mật',footerCopy:'© 2026 ZenTools. Hộp Công Cụ Trực Tuyến Miễn Phí.'}};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz/tutorials/findreplace.html')">⭐ 收藏本站，下次替换快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

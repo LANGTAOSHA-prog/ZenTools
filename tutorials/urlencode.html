@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">URL编解码教程：编码和解码URL字符 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools URL 编解码工具，对网址中的特殊字符和中文参数进行编码和解码处理，所有处理在浏览器本地完成，无需安装软件。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/urlencode.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"URL编解码教程：编码和解码URL字符","description":"学会使用 ZenTools URL 编解码工具，对网址中的中文参数和特殊字符进行编码和解码，所有处理在浏览器本地完成，无需安装软件。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/urlencode.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">&#8592; <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catText">&#x1f4dd; 文本工具</span>
+<h1 data-i18n="ueTitle">URL编解码教程：编码和解码URL字符</h1>
+<div class="meta"><span data-i18n="ueDate">&#x1f4c5; 2026-06-23</span><span data-i18n="ueRead">&#x23f1; 2 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="ueIntro">URL 编解码工具可以对网址中的特殊字符和中文参数进行百分号编码（Percent-encoding）或解码还原。编码功能将中文、空格、特殊符号转换为 % 加两位十六进制数的 URL 安全格式，解码功能则将编码后的字符串还原为可读文本。适用于构建包含中文查询参数的 API 请求、处理网址中的乱码参数、开发调试中的 URL 参数解析等场景。所有编解码操作在浏览器本地完成，无需上传数据。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="ueOpenBody">访问 <a href="/text/urlencode.html" target="_blank">URL编解码工具</a>，在浏览器中直接使用。页面提供文本输入区域和四个功能按钮：编码、解码、复制和清空，支持一键转换。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="ueStep1T">1. 打开工具</h3>
+<p data-i18n="ueStep1B">访问<a href="/text/urlencode.html" target="_blank">URL编解码工具</a>，页面显示一个文本输入框和编码、解码、复制、清空四个按钮，所有编解码在浏览器本地完成，无需安装任何软件。</p>
+<div class="screenshot-wrap"><img src="/guides/img/urlencode-step1.svg" alt="URL编解码教程：编码和解码URL字符 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="ueStep2T">2. 输入待编码文本</h3>
+<p data-i18n="ueStep2B">在文本框中输入或粘贴需要编码的文本，例如包含中文的 URL 参数 "搜索关键词" 或带空格的完整网址。支持任意长度的文本输入。</p>
+<div class="screenshot-wrap"><img src="/guides/img/urlencode-step2.svg" alt="URL编解码教程：编码和解码URL字符 - 输入文本" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="ueStep3T">3. 点击编码或解码</h3>
+<p data-i18n="ueStep3B">点击「编码」按钮将文本中的非 ASCII 字符和特殊符号转换为 %XX 格式，点击「解码」按钮将百分号编码字符串转换回可读文本。编码使用标准的 encodeURIComponent 实现。</p>
+<div class="screenshot-wrap"><img src="/guides/img/urlencode-step3.svg" alt="URL编解码教程：编码和解码URL字符 - 点击编码" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+<h3 data-i18n="ueStep4T">4. 复制结果使用</h3>
+<p data-i18n="ueStep4B">编码或解码完成后点击「复制」按钮将结果保存到剪贴板，可直接粘贴到浏览器地址栏、代码编辑器或 API 请求参数中使用。如需处理新文本可点击「清空」重来。</p>
+<div class="screenshot-wrap"><img src="/guides/img/urlencode-step4.svg" alt="URL编解码教程：编码和解码URL字符 - 复制结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="ueTip1">编码时注意 encodeURI 和 encodeURIComponent 的区别：前者适用于完整 URL，后者适用于 URL 参数值。该工具使用 encodeURIComponent 标准编码。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="ueTip2">解码失败的常见原因是输入了不完整的百分号编码（如 %E4 缺少后续字节）。请确保输入是完整的 RFC 3986 标准编码。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="ueTip3">编码和解码可反复交替使用，例如先编码中文参数再解码验证是否能正确还原，适合开发调试场景。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="ueFaq1Q">编码后中文变成了什么？</strong><br/><span data-i18n="ueFaq1A">每个中文字符会被转换为 3 组百分号编码（UTF-8 编码的三字节表示），例如「你好」编码后为 %E4%BD%A0%E5%A5%BD。</span></p>
+<p><strong data-i18n="ueFaq2Q">为什么解码有时会失败？</strong><br/><span data-i18n="ueFaq2A">解码失败的常见原因是百分号序列不完整或包含非十六进制字符。请检查输入文本是否被截断或手动修改过。</span></p>
+<p><strong data-i18n="ueFaq3Q">文本会上传到服务器吗？</strong><br/><span data-i18n="ueFaq3A">不会。所有编解码运算在浏览器本地执行，文本内容不会离开你的设备，处理敏感 URL 参数也不用担心泄露。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/linkextract.html">链接提取</a> &middot; <a href="/tutorials/html-entities.html">HTML实体转换</a> &middot; <a href="/tutorials/findreplace.html">查找替换</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">&copy; 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{ueIntro:'URL 编解码工具可以对网址中的特殊字符和中文参数进行百分号编码（Percent-encoding）或解码还原。编码功能将中文、空格、特殊符号转换为 % 加两位十六进制数的 URL 安全格式，解码功能则将编码后的字符串还原为可读文本。适用于构建包含中文查询参数的 API 请求、处理网址中的乱码参数、开发调试中的 URL 参数解析等场景。所有编解码操作在浏览器本地完成，无需上传数据。',ueOpenBody:'访问 <a href="/text/urlencode.html" target="_blank">URL编解码工具</a>，在浏览器中直接使用。页面提供文本输入区域和四个功能按钮：编码、解码、复制和清空，支持一键转换。',ueStep1T:'打开工具',ueStep1B:'访问<a href="/text/urlencode.html" target="_blank">URL编解码工具</a>，页面显示一个文本输入框和编码、解码、复制、清空四个按钮，所有编解码在浏览器本地完成，无需安装任何软件。',ueStep2T:'输入待编码文本',ueStep2B:'在文本框中输入或粘贴需要编码的文本，例如包含中文的 URL 参数 "搜索关键词" 或带空格的完整网址。支持任意长度的文本输入。',ueStep3T:'点击编码或解码',ueStep3B:'点击「编码」按钮将文本中的非 ASCII 字符和特殊符号转换为 %XX 格式，点击「解码」按钮将百分号编码字符串转换回可读文本。编码使用标准的 encodeURIComponent 实现。',ueStep4T:'复制结果使用',ueStep4B:'编码或解码完成后点击「复制」按钮将结果保存到剪贴板，可直接粘贴到浏览器地址栏、代码编辑器或 API 请求参数中使用。如需处理新文本可点击「清空」重来。',ueTip1:'编码时注意 encodeURI 和 encodeURIComponent 的区别：前者适用于完整 URL，后者适用于 URL 参数值。该工具使用 encodeURIComponent 标准编码。',ueTip2:'解码失败的常见原因是输入了不完整的百分号编码（如 %E4 缺少后续字节）。请确保输入是完整的 RFC 3986 标准编码。',ueTip3:'编码和解码可反复交替使用，例如先编码中文参数再解码验证是否能正确还原，适合开发调试场景。',ueFaq1Q:'编码后中文变成了什么？',ueFaq1A:'每个中文字符会被转换为 3 组百分号编码（UTF-8 编码的三字节表示），例如「你好」编码后为 %E4%BD%A0%E5%A5%BD。',ueFaq2Q:'为什么解码有时会失败？',ueFaq2A:'解码失败的常见原因是百分号序列不完整或包含非十六进制字符。请检查输入文本是否被截断或手动修改过。',ueFaq3Q:'文本会上传到服务器吗？',ueFaq3A:'不会。所有编解码运算在浏览器本地执行，文本内容不会离开你的设备，处理敏感 URL 参数也不用担心泄露。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'URL编解码教程：编码和解码URL字符 - ZenTools',catText:'&#x1f4dd; 文本工具',ueTitle:'URL编解码教程：编码和解码URL字符',ueDate:'&#x1f4c5; 2026-06-23',ueRead:'&#x23f1; 2 分钟阅读'},en:{ueIntro:'The URL Encode/Decode tool converts special characters and Chinese text in URLs using percent-encoding. Encode converts Chinese, spaces, and special symbols to %XX format for URL safety. Decode reverses encoded strings back to readable text. Useful for building API requests with Chinese query parameters, fixing garbled URL parameters, and debugging URL parsing. All encoding runs locally in your browser.',ueOpenBody:'Visit <a href="/text/urlencode.html" target="_blank">URL Encode/Decode Tool</a> to use it directly. The page provides a text input area and four buttons: Encode, Decode, Copy, and Clear.',ueStep1T:'Open the Tool',ueStep1B:'Visit URL Encode/Decode Tool. The page shows a text input box with four buttons: Encode, Decode, Copy, and Clear.',ueStep2T:'Enter Text to Encode',ueStep2B:'Type or paste the text you want to encode, such as Chinese URL parameters or complete URLs with spaces. Supports text of any length.',ueStep3T:'Click Encode or Decode',ueStep3B:'Click "Encode" to convert non-ASCII characters to %XX format, or "Decode" to reverse percent-encoded strings back to readable text.',ueStep4T:'Copy and Use Result',ueStep4B:'After encoding or decoding, click "Copy" to save to clipboard. Paste into browser address bars, code editors, or API request parameters.',ueTip1:'Note the difference: encodeURI is for full URLs while encodeURIComponent is for parameter values. This tool uses encodeURIComponent.',ueTip2:'Decoding may fail with incomplete percent-encoding sequences. Ensure your input follows RFC 3986 format.',ueTip3:'You can alternate between encode and decode to verify correctness, ideal for development debugging.',ueFaq1Q:'What happens to Chinese characters after encoding?',ueFaq1A:'Each Chinese character becomes 3 percent-encoded groups (UTF-8 three-byte representation). For example, 你好 becomes %E4%BD%A0%E5%A5%BD.',ueFaq2Q:'Why does decoding sometimes fail?',ueFaq2A:'Common causes are incomplete percent sequences or non-hexadecimal characters. Check if the input has been truncated or manually edited.',ueFaq3Q:'Is my text uploaded to a server?',ueFaq3A:'No. All encoding runs locally in your browser. Sensitive URL parameters are safe.'},ja:{ueIntro:'URLエンコード/デコードツールは、URL内の特殊文字や中国語パラメータをパーセントエンコーディングで変換します。中国語、スペース、特殊記号を%XX形式に変換し、元の文字に戻すことも可能です。中国語クエリパラメータを含むAPIリクエストの構築やURLパラメータの文字化け修正に役立ちます。すべてブラウザ内で処理されます。',ueOpenBody:'<a href="/text/urlencode.html" target="_blank">URLエンコード/デコードツール</a>にアクセスします。テキスト入力エリアとエンコード、デコード、コピー、クリアの4つのボタンがあります。',ueStep1T:'ツールを開く',ueStep1B:'URLエンコード/デコードツールにアクセスします。テキスト入力ボックスと4つの操作ボタンが表示されます。',ueStep2T:'エンコードするテキストを入力',ueStep2B:'エンコードしたいテキストを入力します。中国語のURLパラメータやスペースを含むURLに対応しています。',ueStep3T:'エンコードまたはデコードをクリック',ueStep3B:'「エンコード」で非ASCII文字を%XX形式に変換、「デコード」でパーセントエンコード文字列を可読テキストに戻します。',ueStep4T:'結果をコピーして使用',ueStep4B:'変換後「コピー」でクリップボードに保存し、ブラウザのアドレスバーやコードエディタに貼り付けます。「クリア」でリセット可能です。',ueTip1:'encodeURIとencodeURIComponentの違いに注意：前者は完全なURL用、後者はパラメータ値用です。このツールはencodeURIComponentを使用します。',ueTip2:'不完全なパーセントシーケンスがあるとデコードに失敗します。RFC 3986形式に従っていることを確認してください。',ueTip3:'エンコードとデコードを交互に使用して正確性を検証できます。開発デバッグに最適です。',ueFaq1Q:'中国語はエンコード後どうなりますか？',ueFaq1A:'各漢字は3つのパーセントエンコードグループ（UTF-8 3バイト表現）に変換されます。例：「你好」→%E4%BD%A0%E5%A5%BD。',ueFaq2Q:'デコードが失敗するのはなぜですか？',ueFaq2A:'不完全なパーセントシーケンスや非16進文字が原因です。入力が切り詰められていないか確認してください。',ueFaq3Q:'テキストはサーバーにアップロードされますか？',ueFaq3A:'いいえ。すべてブラウザ内で処理され、機密URLパラメータも安全です。'},vi:{ueIntro:'Cong cu Ma hoa/Giai ma URL chuyen doi cac ky tu dac biet va tieng Trung trong URL bang ma hoa phan tram (Percent-encoding). Ma hoa chuyen tieng Trung, khoang trang, ky hieu dac biet thanh dinh dang %XX an toan cho URL. Giai ma phuc hoi chuoi da ma hoa ve van ban doc duoc. Huu ich cho viec xay dung API request co tham so tieng Trung va sua loi URL. Tat ca chay cuc bo trong trinh duyet.',ueOpenBody:'Truy cap <a href="/text/urlencode.html" target="_blank">Cong cu Ma hoa/Giai ma URL</a> de su dung. Trang cung cap vung nhap van ban va bon nut: Ma hoa, Giai ma, Sao chep, Xoa.',ueStep1T:'Mo cong cu',ueStep1B:'Truy cap Cong cu Ma hoa/Giai ma URL. Trang hien thi o nhap van ban va bon nut chuc nang.',ueStep2T:'Nhap van ban can ma hoa',ueStep2B:'Nhap hoac dan van ban can ma hoa, vi du tham so URL tieng Trung hoac URL day du co khoang trang.',ueStep3T:'Nhan Ma hoa hoac Giai ma',ueStep3B:'Nhan "Ma hoa" de chuyen ky tu khong phai ASCII sang dinh dang %XX, "Giai ma" de phuc hoi chuoi ma hoa phan tram.',ueStep4T:'Sao chep ket qua de su dung',ueStep4B:'Sau khi ma hoa hoac giai ma, nhan "Sao chep" de luu. Dan vao thanh dia chi trinh duyet hoac trinh soan thao ma nguon.',ueTip1:'Luu y su khac biet giua encodeURI (cho URL day du) va encodeURIComponent (cho gia tri tham so). Cong cu nay dung encodeURIComponent.',ueTip2:'Giai ma co the that bai voi chuoi ma hoa khong day du. Dam bao dau vao tuan theo dinh dang RFC 3986.',ueTip3:'Co the xen ke ma hoa va giai ma de xac minh tinh chinh xac, ly tuong cho debug phat trien.',ueFaq1Q:'Tieng Trung sau khi ma hoa se nhu the nao?',ueFaq1A:'Moi ky tu tieng Trung duoc chuyen thanh 3 nhom ma hoa phan tram (bieu dien 3 byte UTF-8). Vi du: 你好 thanh %E4%BD%A0%E5%A5%BD.',ueFaq2Q:'Tai sao giai ma doi khi that bai?',ueFaq2A:'Nguyen nhan thuong gap la chuoi phan tram khong day du hoac chua ky tu khong phai hex. Kiem tra dau vao co bi cat cut khong.',ueFaq3Q:'Van ban co duoc tai len may chu khong?',ueFaq3A:'Khong. Tat ca xu ly chay cuc bo trong trinh duyet, tham so URL nhay cam cung an toan.'}};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">&#x2b50; 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
