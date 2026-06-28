@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 400" font-family="'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#070b18"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  <rect width="680" height="400" fill="url(#bg)" rx="14"/>
+
+  <!-- Title -->
+  <text x="30" y="42" fill="#f0f4ff" font-size="20" font-weight="700">🗃️ SQL 格式化</text>
+  <text x="30" y="66" fill="#6b7a9f" font-size="13">美化 SQL 查询语句，自动缩进、关键字高亮、列对齐。</text>
+
+  <!-- Tool box -->
+  <rect x="30" y="85" width="620" height="290" fill="rgba(14,22,41,0.8)" rx="14" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+  <!-- Raw SQL input -->
+  <text x="50" y="118" fill="#f0f4ff" font-size="15" font-weight="700">原始 SQL</text>
+  <rect x="50" y="130" width="290" height="130" rx="10" fill="#0a0e1a" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  <text x="65" y="155" fill="#f0f4ff" font-size="12">SELECT u.name, o.total, p.status</text>
+  <text x="65" y="175" fill="#f0f4ff" font-size="12">FROM users u, orders o, payments p</text>
+  <text x="65" y="195" fill="#f0f4ff" font-size="12">WHERE u.id = o.user_id AND o.id = p.order_id</text>
+  <text x="65" y="215" fill="#f0f4ff" font-size="12">AND u.status = 'active'</text>
+  <text x="65" y="235" fill="#f0f4ff" font-size="12">ORDER BY o.total DESC LIMIT 10;</text>
+
+  <!-- Arrow -->
+  <text x="360" y="200" fill="#3b82f6" font-size="28" text-anchor="middle">→</text>
+
+  <!-- Formatted output -->
+  <text x="390" y="118" fill="#f0f4ff" font-size="15" font-weight="700">格式化结果</text>
+  <rect x="390" y="130" width="260" height="130" rx="10" fill="#0a0e1a" stroke="rgba(34,197,94,0.3)" stroke-width="1"/>
+  <text x="405" y="155"><tspan fill="#c084fc" font-size="12">SELECT</tspan> <tspan fill="#f0f4ff" font-size="12">u.name,</tspan></text>
+  <text x="405" y="175"><tspan fill="#f0f4ff" font-size="12">      </tspan><tspan fill="#f0f4ff" font-size="12">o.total,</tspan></text>
+  <text x="405" y="195"><tspan fill="#f0f4ff" font-size="12">      </tspan><tspan fill="#f0f4ff" font-size="12">p.status</tspan></text>
+  <text x="405" y="215"><tspan fill="#c084fc" font-size="12">FROM</tspan> <tspan fill="#f0f4ff" font-size="12">users u,</tspan></text>
+  <text x="405" y="235"><tspan fill="#f0f4ff" font-size="12">      </tspan><tspan fill="#f0f4ff" font-size="12">orders o,</tspan></text>
+  <text x="405" y="255"><tspan fill="#f0f4ff" font-size="12">      </tspan><tspan fill="#f0f4ff" font-size="12">payments p</tspan></text>
+
+  <!-- Options bar -->
+  <text x="50" y="285" fill="#6b7a9f" font-size="11">格式选项：</text>
+  <rect x="140" y="270" width="60" height="24" rx="12" fill="rgba(59,130,246,0.2)" stroke="rgba(59,130,246,0.4)" stroke-width="1"/>
+  <text x="170" y="286" fill="#60a5fa" font-size="10" text-anchor="middle">关键字大写</text>
+  <rect x="210" y="270" width="60" height="24" rx="12" fill="rgba(59,130,246,0.2)" stroke="rgba(59,130,246,0.4)" stroke-width="1"/>
+  <text x="240" y="286" fill="#60a5fa" font-size="10" text-anchor="middle">缩进 4</text>
+  <rect x="280" y="270" width="60" height="24" rx="12" fill="rgba(59,130,246,0.2)" stroke="rgba(59,130,246,0.4)" stroke-width="1"/>
+  <text x="310" y="286" fill="#60a5fa" font-size="10" text-anchor="middle">列对齐</text>
+
+  <!-- Format button -->
+  <rect x="50" y="310" width="600" height="40" fill="url(#accent)" rx="8"/>
+  <text x="350" y="335" fill="#fff" font-size="15" font-weight="600" text-anchor="middle">格式化 SQL</text>
+</svg>

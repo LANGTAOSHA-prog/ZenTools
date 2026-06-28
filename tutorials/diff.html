@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">代码对比教程：文件差异对比和合并 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools 在线代码对比工具，对比两段代码或文件的差异，支持行级和字符级对比，可合并修改。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/diff.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"代码对比教程：文件差异对比和合并","description":"学会使用 ZenTools 在线代码对比工具，对比两段代码或文件的差异，支持行级和字符级对比，可合并修改。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/diff.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catDev">💻 开发工具</span>
+<h1 data-i18n="a1Title">代码对比教程：文件差异对比和合并</h1>
+<div class="meta"><span data-i18n="date">📅 2026-06-23</span><span data-i18n="readTime">⏱ 3 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="a1Intro">代码对比工具可以帮助你快速对比两段代码或两个文件的差异，以高亮方式清晰地显示新增、删除和修改的行。支持行级对比和字符级对比两种模式，行级对比速度快适合大范围比较，字符级对比精度高适合精确查找细微差异。对比结果还可以一键合并到目标文件中，方便代码审查、版本管理和冲突解决。所有对比操作在浏览器本地完成。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="a1OpenBody">访问 <a href="/dev/diff.html" target="_blank">代码对比工具</a>，在浏览器中直接使用。将两段代码分别粘贴到左侧和右侧的编辑区，选择对比模式，点击对比按钮即可查看差异。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="a1Step1T">1. 打开工具</h3>
+<p data-i18n="a1Step1B">访问 <a href="/dev/diff.html" target="_blank">代码对比工具</a>，页面加载后会显示左右两个编辑区和对比结果面板，支持粘贴或拖拽文件。</p>
+<div class="screenshot-wrap"><img src="/guides/img/diff-step1.svg" alt="代码对比教程：文件差异对比和合并 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step2T">2. 输入对比内容</h3>
+<p data-i18n="a1Step2B">在左侧编辑区粘贴原始代码或文件内容，在右侧编辑区粘贴修改后的代码。也可以拖拽两个文件到对应的编辑区域，工具会自动读取文件内容。</p>
+<div class="screenshot-wrap"><img src="/guides/img/diff-step1.svg" alt="代码对比教程：文件差异对比和合并 - 输入对比内容" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step3T">3. 选择对比模式</h3>
+<p data-i18n="a1Step3B">选择对比模式：行级对比快速显示哪些行被增删改，字符级对比精确到每个字符的变化。还可以选择忽略空白字符和大小写差异，让对比结果更聚焦于实质性变化。</p>
+<div class="screenshot-wrap"><img src="/guides/img/diff-step1.svg" alt="代码对比教程：文件差异对比和合并 - 选择对比模式" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="a1Step4T">4. 查看和合并结果</h3>
+<p data-i18n="a1Step4B">点击「开始对比」按钮后，结果面板会以红色和绿色高亮显示删除和新增的行。你可以逐行审查差异，选中需要保留的修改后点击「合并」按钮将变更应用到目标文件。</p>
+<div class="screenshot-wrap"><img src="/guides/img/diff-step1.svg" alt="代码对比教程：文件差异对比和合并 - 查看和合并结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="a1Tip1">对比大型文件时，建议先使用「忽略空白字符」选项，这样可以避免无关的空白变化干扰对比结果。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="a1Tip2">字符级对比适合用于校对文档或配置文件中的细微差别，而行级对比更适合代码审查。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="a1Tip3">对比结果底部会显示统计摘要，包括新增行数、删除行数和修改行数，帮助你快速了解变更规模。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="a1Faq1Q">支持哪些文件格式的对比？</strong><br/><span data-i18n="a1Faq1A'>支持所有纯文本文件的对比，包括 .js、.py、.java、.html、.css、.json、.xml、.md 等。</span></p>
+<p><strong data-i18n="a1Faq2Q'>对比大文件速度如何？</strong><br/><span data-i18n="a1Faq2A'>行级对比速度很快，即使是数万行的文件也能在几秒内完成。字符级对比在大文件上可能稍慢。</span></p>
+<p><strong data-i18n="a1Faq3Q'>对比结果可以保存吗？</strong><br/><span data-i18n="a1Faq3A'>可以。你可以将对比结果导出为 HTML 或文本格式，方便存档或在代码审查工具中使用。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/text-diff.html">文本对比工具</a> · <a href="/tutorials/formatter.html">代码格式化</a> · <a href="/tutorials/viewer.html">文件查看器</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{a1Intro:'代码对比工具可以帮助你快速对比两段代码或两个文件的差异，以高亮方式清晰地显示新增、删除和修改的行。支持行级对比和字符级对比两种模式，行级对比速度快适合大范围比较，字符级对比精度高适合精确查找细微差异。对比结果还可以一键合并到目标文件中，方便代码审查、版本管理和冲突解决。所有对比操作在浏览器本地完成。',a1OpenBody:'访问 <a href="/dev/diff.html" target="_blank">代码对比工具</a>，在浏览器中直接使用。将两段代码分别粘贴到左侧和右侧的编辑区，选择对比模式，点击对比按钮即可查看差异。',a1Step1T:'1. 打开工具',a1Step1B:'访问 <a href="/dev/diff.html" target="_blank">代码对比工具</a>，页面加载后会显示左右两个编辑区和对比结果面板，支持粘贴或拖拽文件。',a1Step2T:'2. 输入对比内容',a1Step2B:'在左侧编辑区粘贴原始代码或文件内容，在右侧编辑区粘贴修改后的代码。也可以拖拽两个文件到对应的编辑区域，工具会自动读取文件内容。',a1Step3T:'3. 选择对比模式',a1Step3B:'选择对比模式：行级对比快速显示哪些行被增删改，字符级对比精确到每个字符的变化。还可以选择忽略空白字符和大小写差异，让对比结果更聚焦于实质性变化。',a1Step4T:'4. 查看和合并结果',a1Step4B:'点击「开始对比」按钮后，结果面板会以红色和绿色高亮显示删除和新增的行。你可以逐行审查差异，选中需要保留的修改后点击「合并」按钮将变更应用到目标文件。',a1Tip1:'对比大型文件时，建议先使用「忽略空白字符」选项，这样可以避免无关的空白变化干扰对比结果。',a1Tip2:'字符级对比适合用于校对文档或配置文件中的细微差别，而行级对比更适合代码审查。',a1Tip3:'对比结果底部会显示统计摘要，包括新增行数、删除行数和修改行数，帮助你快速了解变更规模。',a1Faq1Q:'支持哪些文件格式的对比？',a1Faq1A:'支持所有纯文本文件的对比，包括 .js、.py、.java、.html、.css、.json、.xml、.md 等。',a1Faq2Q:'对比大文件速度如何？',a1Faq2A:'行级对比速度很快，即使是数万行的文件也能在几秒内完成。字符级对比在大文件上可能稍慢。',a1Faq3Q:'对比结果可以保存吗？',a1Faq3A:'可以。你可以将对比结果导出为 HTML 或文本格式，方便存档或在代码审查工具中使用。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'代码对比教程：文件差异对比和合并 - ZenTools',catDev:'💻 开发工具',a1Title:'代码对比教程：文件差异对比和合并',date:'📅 2026-06-23',readTime:'⏱ 3 分钟阅读',navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'},en:{a1Intro:'The Code Diff tool helps you quickly compare two pieces of code or two files, clearly highlighting added, deleted, and modified lines. Supports two modes: line-level diff for fast large-scale comparison, and character-level diff for precise fine-grained difference detection. Comparison results can be merged into the target file with one click, facilitating code review, version management, and conflict resolution. All comparison operations happen locally in your browser.',a1OpenBody:'Visit the <a href="/dev/diff.html" target="_blank">Code Diff Tool</a> directly in your browser. Paste two pieces of code into the left and right editor areas respectively, select a comparison mode, and click the compare button to see the differences.',a1Step1T:'1. Open the Tool',a1Step1B:'Visit the <a href="/dev/diff.html" target="_blank">Code Diff Tool</a>. The page loads with two editor areas (left and right) and a comparison result panel. Supports pasting or dragging files.',a1Step2T:'2. Enter Comparison Content',a1Step2B:'Paste the original code or file content in the left editor area, and paste the modified code in the right area. You can also drag two files into the corresponding editor areas—the tool will automatically read the file content.',a1Step3T:'3. Select Comparison Mode',a1Step3B:'Select comparison mode: line-level diff quickly shows which lines were added, deleted, or modified; character-level diff precisely identifies changes at the character level. You can also ignore whitespace and case differences to focus on substantive changes.',a1Step4T:'4. View and Merge Results',a1Step4B:'After clicking "Compare," the result panel highlights deleted lines in red and added lines in green. Review differences line by line, select changes to keep, and click "Merge" to apply them to the target file.',a1Tip1:'When comparing large files, use the "Ignore Whitespace" option first to avoid irrelevant whitespace changes interfering with the comparison results.',a1Tip2:'Character-level diff is great for proofreading subtle differences in documents or config files, while line-level diff is better suited for code reviews.',a1Tip3:'The bottom of the comparison result shows a statistical summary including added lines, deleted lines, and modified lines, helping you quickly understand the scale of changes.',a1Faq1Q:'What file formats are supported for comparison?',a1Faq1A:'All plain text file formats are supported, including .js, .py, .java, .html, .css, .json, .xml, .md, and more.',a1Faq2Q:'How fast is the comparison for large files?',a1Faq2A:'Line-level comparison is very fast—even tens of thousands of lines can be processed in seconds. Character-level comparison may be slower for very large files.',a1Faq3Q:'Can I save the comparison results?',a1Faq3A:'Yes. You can export comparison results as HTML or text format for archiving or use in code review tools.',introTitle:'Feature Overview',openTitle:'Open the Tool',stepTitle:'Steps',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools:',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'Code Diff Tutorial: File Comparison and Merging - ZenTools',catDev:'💻 Developer Tools',a1Title:'Code Diff Tutorial: File Comparison and Merging',date:'📅 2026-06-23',readTime:'⏱ 3 min read',navHome:'Home',navDev:'Developer Tools',navAll:'All Tools',navPrivacy:'Privacy Policy',footerCopy:'© 2026 ZenTools. Free online toolbox.'},ja:{a1Intro:'コード差分ツールは、2つのコードやファイルの差分を素早く比較し、追加・削除・変更された行を高ライト表示で明確に示します。行レベルの差分（高速な大規模比較向け）と文字レベルの差分（正確な微細差分検出向け）の2つのモードをサポートしています。比較結果はワンクリックでターゲットファイルにマージでき、コードレビュー、バージョン管理、競合解決を容易にします。すべての比較操作はブラウザ内でローカルに実行されます。',a1OpenBody:'ブラウザで<a href="/dev/diff.html" target="_blank">コード差分ツール</a>にアクセスしてください。2つのコードをそれぞれ左側と右側のエディタに貼り付け、比較モードを選択して比較ボタンをクリックすると差分が表示されます。',a1Step1T:'1. ツールを開く',a1Step1B:'<a href="/dev/diff.html" target="_blank">コード差分ツール</a>にアクセスします。左右2つのエディタエリアと比較結果パネルが表示されるページが読み込まれます。貼り付けやファイルのドラッグドロップに対応しています。',a1Step2T:'2. 比較内容を入力',a1Step2B:'左側のエディタエリアに元のコードやファイル内容を貼り付け、右側のエディタエリアに変更後のコードを貼り付けます。2つのファイルを対応するエディタエリアにドラッグすることもでき、ツールが自動的にファイル内容を読み取ります。',a1Step3T:'3. 比較モードを選択',a1Step3B:'比較モードを選択：行レベルの差分は追加・削除・変更された行を高速に表示、文字レベルの差分は文字単位の変化を正確に特定します。空白文字と大文字小文字の違いを無視するオプション也可以选择、実質的な変化に集中できます。',a1Step4T:'4. 結果を表示とマージ',a1Step4T:'「比較」ボタンをクリックすると、結果パネルで削除された行が赤色、追加された行が緑色でハイライト表示されます。行ごとに差分をレビューし、保持する変更を選択して「マージ」ボタンをクリックするとターゲットファイルに変更が適用されます。',a1Tip1:'大容量ファイルを比較する際は、最初に「空白文字を無視」オプションを使用すると、無関係な空白の変化が比較結果に干渉するのを防げます。',a1Tip2:'文字レベルの差分はドキュメントや設定ファイルの微妙な違いの校正に適しており、行レベルの差分はコードレビューにより適しています。',a1Tip3:'比較結果の下部には、追加行数、削除行数、変更行数の統計サマリーが表示され、変更規模を素早く把握できます。',a1Faq1Q:'どのようなファイル形式の比較に対応していますか？',a1Faq1A：'.js、.py、.java、.html、.css、.json、.xml、.mdなど、すべてのプレーンテキストファイル形式に対応しています。',a1Faq2Q:'大容量ファイルの比較速度はどのくらいですか？',a1Faq2A:'行レベルの比較は非常に高速で、数万行のファイルでも数秒以内に処理できます。文字レベルの比較は大規模ファイルではやや遅くなる場合があります。',a1Faq3Q:'比較結果は保存できますか？',a1Faq3A:'はい。比較結果をHTMLまたはテキスト形式でエクスポートでき、アーカイブやコードレビューツールでの使用に便利です。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'ヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアル一覧に戻る',tipLabel:'ヒント',pageTitle:'コード差分チュートリアル：ファイル比較とマージ - ZenTools',catDev:'💻 開発ツール',a1Title:'コード差分チュートリアル：ファイル比較とマージ',date:'📅 2026-06-23',readTime:'⏱ 3 分で読了',navHome:'ホーム',navDev:'開発ツール',navAll:'すべてのツール',navPrivacy:'プライバシーポリシー',footerCopy:'© 2026 ZenTools。無料オンラインツールボックス。'},vi:{a1Intro:'Công cụ So sánh mã giúp bạn nhanh chóng so sánh hai đoạn mã hoặc hai tệp, hiển thị rõ ràng các dòng đã thêm, xóa và sửa đổi bằng cách tô sáng. Hỗ trợ hai chế độ: so sánh mức dòng (nhanh cho so sánh quy mô lớn) và so sánh mức ký tự (chính xác cho phát hiện chênh lệch tinh vi). Kết quả so sánh có thể được hợp nhất vào tệp mục bằng một cú nhấp, tạo điều kiện thuận lợi cho xem xét mã, quản lý phiên bản và giải quyết xung đột. Mọi hoạt động so sánh diễn ra cục bộ trên trình duyệt.',a1OpenBody:'Truy cập <a href="/dev/diff.html" target="_blank">Công cụ So sánh mã</a> trực tiếp trên trình duyệt. Dán hai đoạn mã vào vùng soạn thảo bên trái và bên phải, chọn chế độ so sánh và nhấn nút so sánh để xem chênh lệch.',a1Step1T:'1. Mở công cụ',a1Step1B:'Truy cập <a href="/dev/diff.html" target="_blank">Công cụ So sánh mã</a>. Trang tải với hai vùng soạn thảo (trái và phải) và panel kết quả so sánh. Hỗ trợ dán hoặc kéo thả tệp.',a1Step2T:'2. Nhập nội dung so sánh',a1Step2B:'Dán mã hoặc nội dung tệp gốc vào vùng soạn thảo bên trái, dán mã đã sửa đổi vào vùng bên phải. Bạn cũng có thể kéo hai tệp vào vùng soạn thảo tương ứng—công cụ sẽ tự động đọc nội dung tệp.',a1Step3T:'3. Chọn chế độ so sánh',a1Step3B:'Chọn chế độ so sánh: so sánh mức dòng nhanh chóng hiển thị các dòng đã thêm/xóa/sửa đổi; so sánh mức ký tự xác định chính xác thay đổi ở cấp độ ký tự. Bạn cũng có thể bỏ qua chênh lệch khoảng trắng và chữ hoa/thường để tập trung vào thay đổi thực chất.',a1Step4T:'4. Xem và hợp nhất kết quả',a1Step4B:'Sau khi nhấn "So sánh," panel kết quả tô sáng dòng đã xóa bằng màu đỏ và dòng đã thêm bằng màu xanh lá. Xem xét chênh lệch từng dòng, chọn thay đổi cần giữ và nhấn "Hợp nhất" để áp dụng chúng vào tệp mục.',a1Tip1:'Khi so sánh tệp lớn, hãy sử dụng tùy chọn "Bỏ qua khoảng trắng" trước để tránh thay đổi khoảng trắng không liên quan làm nhiễu kết quả so sánh.',a1Tip2:'So sánh mức ký tự phù hợp để kiểm tra sự khác biệt tinh vi trong tài liệu hoặc tệp cấu hình, trong khi so sánh mức dòng phù hợp hơn cho xem xét mã.',a1Tip3:'Phần dưới cùng của kết quả so sánh hiển thị tóm tắt thống kê bao gồm số dòng thêm, xóa và sửa đổi, giúp bạn nhanh chóng hiểu quy mô thay đổi.',a1Faq1Q:'Hỗ trợ những định dạng tệp nào để so sánh?',a1Faq1A:'Hỗ trợ tất cả các định dạng tệp văn bản thuần túy, bao gồm .js, .py, .java, .html, .css, .json, .xml, .md và nhiều hơn nữa.',a1Faq2Q:'Tốc độ so sánh tệp lớn như thế nào?',a1Faq2A:'So sánh mức dòng rất nhanh—ngay cả hàng chục nghìn dòng cũng có thể xử lý trong vài giây. So sánh mức ký tự có thể chậm hơn với tệp rất lớn.',a1Faq3Q:'Tôi có thể lưu kết quả so sánh không?',a1Faq3A:'Có. Bạn có thể xuất kết quả so sánh dưới dạng định dạng HTML hoặc văn bản để lưu trữ hoặc sử dụng trong công cụ xem xét mã.',introTitle:'Tổng quan tính năng',openTitle:'Mở công cụ',stepTitle:'Các bước',tipTitle:'Mẹo',faqTitle:'Câu hỏi thường gặp',relTitle:'Công cụ liên quan:',backToIndex:'Quay lại danh sách hướng dẫn',tipLabel:'Mẹo',pageTitle:'Hướng dẫn So sánh mã: So sánh và Hợp nhất Tệp - ZenTools',catDev:'💻 Công cụ phát triển',a1Title:'Hướng dẫn So sánh mã: So sánh và Hợp nhất Tệp',date:'📅 2026-06-23',readTime:'⏱ 3 phút đọc',navHome:'Trang chủ',navDev:'Công cụ phát triển',navAll:'Tất cả công cụ',navPrivacy:'Chính sách bảo mật',footerCopy:'© 2026 ZenTools. Bộ công cụ trực tuyến miễn phí.'}}
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz/tutorials/diff.html')">⭐ 收藏本站，下次对比快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

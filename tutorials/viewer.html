@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">代码查看器教程：多格式文件预览 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools 在线代码查看器，预览 JSON、XML、CSV、日志等多种格式文件，支持树形展开和语法高亮。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/viewer.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"代码查看器教程：多格式文件预览","description":"学会使用 ZenTools 在线代码查看器，预览 JSON、XML、CSV、日志等多种格式文件，支持树形展开和语法高亮。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/viewer.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catDev">💻 开发工具</span>
+<h1 data-i18n="viTitle">代码查看器教程：多格式文件预览</h1>
+<div class="meta"><span data-i18n="viDate">📅 2026-06-23</span><span data-i18n="viRead">⏱ 2 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="viIntro">代码查看器是一款强大的多格式文件预览工具，支持在线查看和浏览 JSON、XML、CSV、YAML、日志文件等多种格式的数据。它采用树形结构展示文件内容，你可以逐级展开和折叠节点，快速定位到感兴趣的字段或数据行。工具自动检测文件格式并应用相应的语法高亮，让数据结构一目了然。无论是查看 API 返回的 JSON 响应、分析服务器日志、还是浏览 CSV 数据表格，这个工具都能帮你高效地完成工作，比直接用文本编辑器查看结构化的数据要方便得多。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="viOpenBody">访问 <a href="/dev/viewer.html" target="_blank">代码查看器</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，文件内容不会上传到服务器。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="viStep1T">1. 打开工具</h3>
+<p data-i18n="viStep1B">访问 <a href="/dev/viewer.html" target="_blank">代码查看器</a>，在浏览器中打开。所有处理均在浏览器本地完成。</p>
+<div class="screenshot-wrap"><img src="/guides/img/viewer-step1.svg" alt="代码查看器教程：多格式文件预览 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="viStep2T">2. 上传或粘贴文件内容</h3>
+<p data-i18n="viStep2B">你可以将文件内容粘贴到文本框中，也可以直接拖拽 .json、.xml、.csv、.log 等文件到上传区域。工具会自动检测文件格式并应用对应的解析规则和语法高亮样式，无需手动指定文件类型。</p>
+<div class="screenshot-wrap"><img src="/guides/img/viewer-step1.svg" alt="代码查看器教程：多格式文件预览 - 上传文件" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="viStep3T">3. 浏览树形结构</h3>
+<p data-i18n="viStep3B">文件内容会以树形结构展示，点击节点左侧的展开箭头可以展开子节点。支持多级嵌套展开，你可以快速浏览整个文件结构。JSON 对象和数组会显示元素数量和类型提示，CSV 表格会按行列展示数据。</p>
+<div class="screenshot-wrap"><img src="/guides/img/viewer-step1.svg" alt="代码查看器教程：多格式文件预览 - 浏览结构" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="viStep4T">4. 搜索和定位</h3>
+<p data-i18n="viStep4B">在搜索框中输入关键字，工具会高亮显示所有匹配项并跳转到第一个匹配位置。支持模糊搜索和精确匹配，对于大型文件非常有用。你可以逐条查看搜索结果，快速定位到目标数据。</p>
+<div class="screenshot-wrap"><img src="/guides/img/viewer-step1.svg" alt="代码查看器教程：多格式文件预览 - 搜索定位" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="viTip1">对于超大型 JSON 文件（超过 1MB），建议先使用压缩工具缩小体积再查看，以获得更好的浏览体验。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="viTip2">CSV 文件查看时，如果列数较多，可以使用水平滚动条查看完整数据。点击列标题可以按该列排序。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="viTip3">日志文件查看时，工具会自动识别常见日志格式（如 Apache、Nginx、Spring Boot），并提供相应的字段解析。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="viFaq1Q">支持哪些文件格式？</strong><br/><span data-i18n="viFaq1A">支持 JSON、XML、CSV、YAML、TOML、日志文件（.log）等常见数据格式。</span></p>
+<p><strong data-i18n="viFaq2Q">可以编辑文件内容吗？</strong><br/><span data-i18n="viFaq2A">当前版本仅支持查看和浏览，不支持编辑。如需编辑请使用代码格式化工具。</span></p>
+<p><strong data-i18n="viFaq3Q">文件会上传到服务器吗？</strong><br/><span data-i18n="viFaq3A">不会。所有文件解析和渲染都在浏览器本地完成，你的文件内容永远不会离开你的设备。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/formatter.html">代码格式化教程</a> · <a href="/tutorials/json-index.html">JSON 索引教程</a> · <a href="/tutorials/timestamp-converter.html">时间戳转换教程</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{viIntro:'代码查看器是一款强大的多格式文件预览工具，支持在线查看和浏览 JSON、XML、CSV、YAML、日志文件等多种格式的数据。它采用树形结构展示文件内容，你可以逐级展开和折叠节点，快速定位到感兴趣的字段或数据行。工具自动检测文件格式并应用相应的语法高亮，让数据结构一目了然。无论是查看 API 返回的 JSON 响应、分析服务器日志、还是浏览 CSV 数据表格，这个工具都能帮你高效地完成工作。',viOpenBody:'访问 <a href="/dev/viewer.html" target="_blank">代码查看器</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，文件内容不会上传到服务器。',viStep1T:'打开工具',viStep1B:'访问 <a href="/dev/viewer.html" target="_blank">代码查看器</a>，在浏览器中打开。所有处理均在浏览器本地完成。',viStep2T:'上传或粘贴文件内容',viStep2B:'你可以将文件内容粘贴到文本框中，也可以直接拖拽 .json、.xml、.csv、.log 等文件到上传区域。工具会自动检测文件格式并应用对应的解析规则和语法高亮样式，无需手动指定文件类型。',viStep3T:'浏览树形结构',viStep3B:'文件内容会以树形结构展示，点击节点左侧的展开箭头可以展开子节点。支持多级嵌套展开，你可以快速浏览整个文件结构。JSON 对象和数组会显示元素数量和类型提示，CSV 表格会按行列展示数据。',viStep4T:'搜索和定位',viStep4B:'在搜索框中输入关键字，工具会高亮显示所有匹配项并跳转到第一个匹配位置。支持模糊搜索和精确匹配，对于大型文件非常有用。你可以逐条查看搜索结果，快速定位到目标数据。',viTip1:'对于超大型 JSON 文件（超过 1MB），建议先使用压缩工具缩小体积再查看，以获得更好的浏览体验。',viTip2:'CSV 文件查看时，如果列数较多，可以使用水平滚动条查看完整数据。点击列标题可以按该列排序。',viTip3:'日志文件查看时，工具会自动识别常见日志格式（如 Apache、Nginx、Spring Boot），并提供相应的字段解析。',viFaq1Q:'支持哪些文件格式？',viFaq1A:'支持 JSON、XML、CSV、YAML、TOML、日志文件（.log）等常见数据格式。',viFaq2Q:'可以编辑文件内容吗？',viFaq2A:'当前版本仅支持查看和浏览，不支持编辑。如需编辑请使用代码格式化工具。',viFaq3Q:'文件会上传到服务器吗？',viFaq3A:'不会。所有文件解析和渲染都在浏览器本地完成，你的文件内容永远不会离开你的设备。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'代码查看器教程：多格式文件预览 - ZenTools',catDev:'💻 开发工具',viTitle:'代码查看器教程：多格式文件预览',viDate:'📅 2026-06-23',viRead:'⏱ 2 分钟阅读'},en:{viIntro:'The Code Viewer is a powerful multi-format file preview tool that supports viewing and browsing data in JSON, XML, CSV, YAML, log files, and more. It displays file content in a tree structure where you can expand and collapse nodes level by level to quickly locate fields or data rows of interest. The tool auto-detects file format and applies corresponding syntax highlighting, making data structures crystal clear. Whether you\'re checking API JSON responses, analyzing server logs, or browsing CSV data tables, this tool helps you work efficiently.',viOpenBody:'Visit <a href="/dev/viewer.html" target="_blank">Code Viewer</a> and use it directly in your browser. All processing happens locally — no installation needed, file content never leaves your device.',viStep1T:'Open the Tool',viStep1B:'Visit <a href="/dev/viewer.html" target="_blank">Code Viewer</a> in your browser. All processing happens locally.',viStep2T:'Upload or Paste File Content',viStep2B:'Paste file content into the text box, or drag and drop .json, .xml, .csv, .log files into the upload area. The tool auto-detects the file format and applies corresponding parsing rules and syntax highlighting — no need to manually specify the file type.',viStep3T:'Browse Tree Structure',viStep3B:'File content is displayed in a tree structure. Click the expand arrow on the left of any node to show child nodes. Supports multi-level nesting. JSON objects and arrays show element count and type hints. CSV tables display data row by row.',viStep4T:'Search and Locate',viStep4B:'Type a keyword in the search box and the tool highlights all matches and jumps to the first one. Supports fuzzy search and exact match. Very useful for large files. Browse through search results one by one to quickly locate target data.',viTip1:'For very large JSON files (over 1MB), consider using the minifier to reduce size first for a better browsing experience.',viTip2:'When viewing CSV files with many columns, use the horizontal scrollbar to see full data. Click column headers to sort by that column.',viTip3:'When viewing log files, the tool auto-detects common log formats (Apache, Nginx, Spring Boot) and provides corresponding field parsing.',viFaq1Q:'What file formats are supported?',viFaq1A:'JSON, XML, CSV, YAML, TOML, log files (.log) and other common data formats.',viFaq2Q:'Can I edit file content?',viFaq2A:'Current version supports viewing and browsing only, not editing. Use the Code Formatter for editing.',viFaq3Q:'Are files uploaded to a server?',viFaq3A:'No. All file parsing and rendering happens locally in your browser. Your file content never leaves your device.',introTitle:'Introduction',openTitle:'Open the Tool',stepTitle:'How to Use',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools: ',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'Code Viewer Tutorial: Multi-format File Preview - ZenTools',catDev:'💻 Dev Tools',viTitle:'Code Viewer Tutorial: Multi-format File Preview',viDate:'📅 2026-06-23',viRead:'⏱ 2 min read'},ja:{viIntro:'コードビューアーは、JSON、XML、CSV、YAML、ログファイルなど複数の形式のデータをオンラインで閲覧・ブラウジングできる強力なマルチフォーマットファイルプレビューツールです。ファイル内容をツリー構造で表示し、ノードを段階的に展開・折りたたんで興味のあるフィールドやデータ行をすばやく見つけることができます。ツールはファイル形式を自動検出し、対応する構文強調を適用して、データ構造を一目で把握できます。',viOpenBody:'<a href="/dev/viewer.html" target="_blank">コードビューアー</a> をブラウザで開いて直接使用してください。すべての処理はローカルで実行され、ファイル内容はサーバーにアップロードされません。',viStep1T:'ツールを開く',viStep1B:'ブラウザで <a href="/dev/viewer.html" target="_blank">コードビューアー</a> を開きます。すべての処理はブラウザ内でローカルに実行されます。',viStep2T:'ファイルコンテンツをアップロードまたは貼り付け',viStep2B:'ファイルコンテンツをテキストボックスに貼り付けるか、.json、.xml、.csv、.log などのファイルをアップロード領域にドラッグ＆ドロップします。ツールはファイル形式を自動検出し、対応する解析ルールと構文強調を適用します。ファイルタイプを手動で指定する必要はありません。',viStep3T:'ツリー構造をブラウズ',viStep3B:'ファイルコンテンツはツリー構造で表示され、ノード左側の展開矢印をクリックして子ノードを展開できます。多级ネスト展開をサポートしています。JSON オブジェクトと配列は要素数と型ヒントを表示し、CSV テーブルは行と列でデータを展示します。',viStep4T:'検索と位置特定',viStep4B:'検索ボックスにキーワードを入力すると、ツールはすべての一致項目をハイライト表示し、最初の一致場所にジャンプします。あいまい検索と正確な一致をサポートしています。大規模なファイルに非常に便利です。検索結果を一つずつ確認して、対象データをすばやく特定できます。',viTip1:'非常に大きな JSON ファイル（1MB 以上）の場合は、まず圧縮ツールで容量を縮小してから閲覧することをお勧めします。',viTip2:'CSV ファイルの表示時に列数が多い場合は、水平スクロールバーを使用して完全なデータを確認できます。列見出しをクリックしてその列でソートできます。',viTip3:'ログファイルの表示時、ツールは一般的なログ形式（Apache、Nginx、Spring Boot）を自動認識し、対応するフィールド解析を提供します。',viFaq1Q:'どのようなファイル形式に対応していますか？',viFaq1A:'JSON、XML、CSV、YAML、TOML、ログファイル（.log）など、一般的なデータ形式に対応しています。',viFaq2Q:'ファイルコンテンツを編集できますか？',viFaq2A:'現在のバージョンは閲覧とブラウジングのみをサポートし、編集はサポートしていません。編集が必要な場合はコードフォーマッターをご利用ください。',viFaq3Q:'ファイルはサーバーにアップロードされますか？',viFaq3A:'いいえ。すべてのファイル解析とレンダリングはブラウザ内でローカルに実行され、ファイル内容は絶対にデバイスから外出力しません。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'ヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアルに戻る',tipLabel:'ヒント',pageTitle:'コードビューアチュートリアル：マルチフォーマットファイルプレビュー - ZenTools',catDev:'💻 開発ツール',viTitle:'コードビューアチュートリアル：マルチフォーマットファイルプレビュー',viDate:'📅 2026-06-23',viRead:'⏱ 2 分で読める'},vi:{viIntro:'Trình xem mã là công cụ xem trước tệp đa định dạng mạnh mẽ hỗ trợ xem và duyệt dữ liệu ở nhiều định dạng như JSON, XML, CSV, YAML, tệp nhật ký và hơn thế nữa. Nó hiển thị nội dung tệp bằng cấu trúc cây nơi bạn có thể mở rộng và thu hẹp các nút theo từng cấp để nhanh chóng định vị các trường hoặc hàng dữ liệu quan tâm. Công cụ tự động phát hiện định dạng tệp và áp dụng tô sáng cú pháp tương ứng, giúp cấu trúc dữ liệu rõ ràng như ban ngày.',viOpenBody:'Truy cập <a href="/dev/viewer.html" target="_blank">Trình xem mã</a> và sử dụng trực tiếp trong trình duyệt. Mọi xử lý đều diễn ra cục bộ — không cần cài đặt, nội dung tệp không bao giờ rời khỏi thiết bị của bạn.',viStep1T:'Mở công cụ',viStep1B:'Mở <a href="/dev/viewer.html" target="_blank">Trình xem mã</a> trong trình duyệt. Mọi xử lý đều diễn ra cục bộ trong trình duyệt.',viStep2T:'Tải lên hoặc dán nội dung tệp',viStep2B:'Dán nội dung tệp vào hộp văn bản, hoặc kéo thả tệp .json, .xml, .csv, .log vào khu vực tải lên. Công cụ tự động phát hiện định dạng tệp và áp dụng quy tắc phân tích và tô sáng cú pháp tương ứng — không cần chỉ định thủ công loại tệp.',viStep3T:'Duyệt cấu trúc cây',viStep3B:'Nội dung tệp được hiển thị bằng cấu trúc cây. Nhấp mũi tên mở rộng bên trái của bất kỳ nút nào để hiển thị các nút con. Hỗ trợ lồng ghép nhiều cấp. Đối tượng và mảng JSON hiển thị số lượng phần tử và gợi ý kiểu. Bảng CSV hiển thị dữ liệu theo hàng.',viStep4T:'Tìm kiếm và định vị',viStep4B:'Gõ từ khóa vào ô tìm kiếm và công cụ tô sáng tất cả các mục khớp và nhảy đến mục đầu tiên. Hỗ trợ tìm kiếm mờ và khớp chính xác. Rất hữu ích cho các tệp lớn. Duyệt qua kết quả tìm kiếm từng cái một để nhanh chóng định vị dữ liệu mục tiêu.',viTip1:'Đối với các tệp JSON rất lớn (trên 1MB), hãy cân nhắc sử dụng công cụ nén để giảm kích thước trước để có trải nghiệm duyệt tốt hơn.',viTip2:'Khi xem tệp CSV với nhiều cột, sử dụng thanh cuộn ngang để xem dữ liệu đầy đủ. Nhấp tiêu đề cột để sắp xếp theo cột đó.',viTip3:'Khi xem tệp nhật ký, công cụ tự động phát hiện các định dạng nhật ký phổ biến (Apache, Nginx, Spring Boot) và cung cấp phân tích trường tương ứng.',viFaq1Q:'Hỗ trợ những định dạng tệp nào?',viFaq1A:'JSON, XML, CSV, YAML, TOML, tệp nhật ký (.log) và các định dạng dữ liệu phổ biến khác.',viFaq2Q:'Tôi có thể chỉnh sửa nội dung tệp không?',viFaq2A:'Phiên bản hiện tại chỉ hỗ trợ xem và duyệt, không hỗ trợ chỉnh sửa. Sử dụng Trình định dạng mã để chỉnh sửa.',viFaq3Q:'Tệp có được tải lên máy chủ không?',viFaq3A:'Không. Mọi phân tích và hiển thị tệp đều diễn ra cục bộ trong trình duyệt của bạn. Nội dung tệp không bao giờ rời khỏi thiết bị của bạn.',introTitle:'Giới thiệu',openTitle:'Mở công cụ',stepTitle:'Hướng dẫn sử dụng',tipTitle:'Mẹo',faqTitle:'Câu hỏi thường gặp',relTitle:'Công cụ liên quan:',backToIndex:'Quay lại Hướng dẫn',tipLabel:'Mẹo',pageTitle:'Hướng dẫn Trình xem mã: Xem trước Tệp đa định dạng - ZenTools',catDev:'💻 Công cụ Dev',viTitle:'Hướng dẫn Trình xem mã: Xem trước Tệp đa định dạng',viDate:'📅 2026-06-23',viRead:'⏱ 2 phút đọc'},navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'}
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次开发快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>

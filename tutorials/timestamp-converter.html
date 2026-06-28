@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">时间戳转换教程：Unix 时间戳互转 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools 在线时间戳转换工具，在 Unix 时间戳、ISO 日期和本地时间之间互相转换。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/timestamp-converter.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
+.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
+.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--cyan); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"时间戳转换教程：Unix 时间戳互转","description":"学会使用 ZenTools 在线时间戳转换工具，在 Unix 时间戳、ISO 日期和本地时间之间互相转换。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/timestamp-converter.html"}}</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catDev">💻 开发工具</span>
+<h1 data-i18n="tcTitle">时间戳转换教程：Unix 时间戳互转</h1>
+<div class="meta"><span data-i18n="tcDate">📅 2026-06-23</span><span data-i18n="tcRead">⏱ 2 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="tcIntro">时间戳转换工具可以帮助开发者在不同时间格式之间轻松互转。Unix 时间戳是一个整数，表示从 1970 年 1 月 1 日 00:00:00 UTC 到现在的秒数（或毫秒数）。本工具支持在 Unix 时间戳、ISO 8601 日期格式、本地时区时间之间进行双向转换。你可以输入时间戳查看对应的可读日期，也可以输入日期获取对应的时间戳。工具自动检测当前时区，支持秒级和毫秒级时间戳切换，是后端开发、日志分析和 API 调试中的得力助手。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="tcOpenBody">访问 <a href="/dev/timestamp-converter.html" target="_blank">时间戳转换工具</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="tcStep1T">1. 打开工具</h3>
+<p data-i18n="tcStep1B">访问 <a href="/dev/timestamp-converter.html" target="_blank">时间戳转换工具</a>，在浏览器中打开。所有处理均在浏览器本地完成。</p>
+<div class="screenshot-wrap"><img src="/guides/img/timestamp-converter-step1.svg" alt="时间戳转换教程：Unix 时间戳互转 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="tcStep2T">2. 输入时间戳</h3>
+<p data-i18n="tcStep2B">在时间戳输入框中输入 Unix 时间戳（秒或毫秒）。工具会自动识别输入的是秒级还是毫秒级时间戳，并实时转换为 ISO 日期和本地时间格式。你也可以点击「当前时间」按钮快速填入当前的时间戳。</p>
+<div class="screenshot-wrap"><img src="/guides/img/timestamp-converter-step1.svg" alt="时间戳转换教程：Unix 时间戳互转 - 输入时间戳" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="tcStep3T">3. 查看转换结果</h3>
+<p data-i18n="tcStep3B">工具会同时显示多种时间格式的结果：Unix 时间戳、ISO 8601 标准格式、本地时区时间、以及人类可读的描述（如 "3 小时前"）。每种格式都可以单独复制，方便在不同场景中使用。</p>
+<div class="screenshot-wrap"><img src="/guides/img/timestamp-converter-step1.svg" alt="时间戳转换教程：Unix 时间戳互转 - 查看转换结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="tcStep4T">4. 从日期转换为时间戳</h3>
+<p data-i18n="tcStep4B">如果需要从日期获取时间戳，切换到日期输入模式，选择或输入日期和时间，工具会立即计算出对应的时间戳（秒和毫秒两种精度）。支持选择时区，确保转换结果符合你的时区需求。</p>
+<div class="screenshot-wrap"><img src="/guides/img/timestamp-converter-step1.svg" alt="时间戳转换教程：Unix 时间戳互转 - 从日期转换" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="tcTip1">注意区分秒级和毫秒级时间戳。Unix 时间戳通常为 10 位数字（秒），而 JavaScript 中的 Date.getTime() 返回 13 位数字（毫秒）。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="tcTip2">在处理跨时区的日志数据时，务必确认时区设置。工具默认使用浏览器当前时区，你可以在设置中手动更改。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="tcTip3">点击「当前时间」按钮可以快速获取现在的时间戳，非常适合在调试 API 时快速获取当前时间。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="tcFaq1Q">Unix 时间戳是什么？</strong><br/><span data-i18n="tcFaq1A">Unix 时间戳是从 1970-01-01 00:00:00 UTC 到现在的秒数（或毫秒数），是计算机领域广泛使用的时间表示方式。</span></p>
+<p><strong data-i18n="tcFaq2Q">秒级和毫秒级有什么区别？</strong><br/><span data-i18n="tcFaq2A">秒级时间戳通常为 10 位数字（如 1750646400），毫秒级为 13 位数字（如 1750646400000）。JavaScript 使用毫秒，而大多数 API 使用秒。</span></p>
+<p><strong data-i18n="tcFaq3Q">支持闰秒处理吗？</strong><br/><span data-i18n="tcFaq3A">Unix 时间戳不考虑闰秒。对于绝大多数应用场景，闰秒的影响可以忽略不计。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/viewer.html">代码查看器教程</a> · <a href="/tutorials/formatter.html">代码格式化教程</a> · <a href="/tutorials/json-index.html">JSON 索引教程</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{tcIntro:'时间戳转换工具可以帮助开发者在不同时间格式之间轻松互转。Unix 时间戳是一个整数，表示从 1970 年 1 月 1 日 00:00:00 UTC 到现在的秒数（或毫秒数）。本工具支持在 Unix 时间戳、ISO 8601 日期格式、本地时区时间之间进行双向转换。你可以输入时间戳查看对应的可读日期，也可以输入日期获取对应的时间戳。工具自动检测当前时区，支持秒级和毫秒级时间戳切换，是后端开发、日志分析和 API 调试中的得力助手。',tcOpenBody:'访问 <a href="/dev/timestamp-converter.html" target="_blank">时间戳转换工具</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件。',tcStep1T:'打开工具',tcStep1B:'访问 <a href="/dev/timestamp-converter.html" target="_blank">时间戳转换工具</a>，在浏览器中打开。所有处理均在浏览器本地完成。',tcStep2T:'输入时间戳',tcStep2B:'在时间戳输入框中输入 Unix 时间戳（秒或毫秒）。工具会自动识别输入的是秒级还是毫秒级时间戳，并实时转换为 ISO 日期和本地时间格式。你也可以点击「当前时间」按钮快速填入当前的时间戳。',tcStep3T:'查看转换结果',tcStep3B:'工具会同时显示多种时间格式的结果：Unix 时间戳、ISO 8601 标准格式、本地时区时间、以及人类可读的描述（如 "3 小时前"）。每种格式都可以单独复制，方便在不同场景中使用。',tcStep4T:'从日期转换为时间戳',tcStep4B:'如果需要从日期获取时间戳，切换到日期输入模式，选择或输入日期和时间，工具会立即计算出对应的时间戳（秒和毫秒两种精度）。支持选择时区，确保转换结果符合你的时区需求。',tcTip1:'注意区分秒级和毫秒级时间戳。Unix 时间戳通常为 10 位数字（秒），而 JavaScript 中的 Date.getTime() 返回 13 位数字（毫秒）。',tcTip2:'在处理跨时区的日志数据时，务必确认时区设置。工具默认使用浏览器当前时区，你可以在设置中手动更改。',tcTip3:'点击「当前时间」按钮可以快速获取现在的时间戳，非常适合在调试 API 时快速获取当前时间。',tcFaq1Q:'Unix 时间戳是什么？',tcFaq1A:'Unix 时间戳是从 1970-01-01 00:00:00 UTC 到现在的秒数（或毫秒数），是计算机领域广泛使用的时间表示方式。',tcFaq2Q:'秒级和毫秒级有什么区别？',tcFaq2A:'秒级时间戳通常为 10 位数字（如 1750646400），毫秒级为 13 位数字（如 1750646400000）。JavaScript 使用毫秒，而大多数 API 使用秒。',tcFaq3Q:'支持闰秒处理吗？',tcFaq3A:'Unix 时间戳不考虑闰秒。对于绝大多数应用场景，闰秒的影响可以忽略不计。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'时间戳转换教程：Unix 时间戳互转 - ZenTools',catDev:'💻 开发工具',tcTitle:'时间戳转换教程：Unix 时间戳互转',tcDate:'📅 2026-06-23',tcRead:'⏱ 2 分钟阅读'},en:{tcIntro:'The Timestamp Converter helps developers easily convert between different time formats. A Unix timestamp is an integer representing the number of seconds (or milliseconds) since January 1, 1970 00:00:00 UTC. This tool supports bidirectional conversion between Unix timestamps, ISO 8601 date format, and local timezone time. Enter a timestamp to see the readable date, or enter a date to get the corresponding timestamp. The tool auto-detects your current timezone and supports switching between second-level and millisecond-level precision — an essential assistant for backend development, log analysis, and API debugging.',tcOpenBody:'Visit <a href="/dev/timestamp-converter.html" target="_blank">Timestamp Converter</a> and use it directly in your browser. All processing happens locally — no installation needed.',tcStep1T:'Open the Tool',tcStep1B:'Visit <a href="/dev/timestamp-converter.html" target="_blank">Timestamp Converter</a> in your browser. All processing happens locally.',tcStep2T:'Enter Timestamp',tcStep2B:'Enter a Unix timestamp (seconds or milliseconds) in the input box. The tool auto-detects whether it\'s second-level or millisecond-level and converts it in real time to ISO date and local time format. You can also click the "Now" button to quickly fill in the current timestamp.',tcStep3T:'View Conversion Results',tcStep3B:'The tool displays results in multiple formats simultaneously: Unix timestamp, ISO 8601 standard format, local timezone time, and human-readable descriptions (e.g., "3 hours ago"). Each format can be copied individually for use in different contexts.',tcStep4T:'Convert from Date to Timestamp',tcStep4B:'To get a timestamp from a date, switch to date input mode, select or enter a date and time. The tool instantly calculates the corresponding timestamp in both second and millisecond precision. Timezone selection is supported to ensure results match your needs.',tcTip1:'Distinguish between second-level and millisecond-level timestamps. Unix timestamps are usually 10 digits (seconds), while JavaScript\'s Date.getTime() returns 13 digits (milliseconds).',tcTip2:'When working with cross-timezone log data, always verify timezone settings. The tool uses your browser\'s current timezone by default, but you can manually change it in settings.',tcTip3:'Click the "Now" button to quickly get the current timestamp — perfect for quickly grabbing the current time during API debugging.',tcFaq1Q:'What is a Unix timestamp?',tcFaq1A:'A Unix timestamp is the number of seconds (or milliseconds) since 1970-01-01 00:00:00 UTC. It\'s a widely used time representation in computing.',tcFaq2Q:'What\'s the difference between seconds and milliseconds?',tcFaq2A:'Second-level timestamps are usually 10 digits (e.g., 1750646400), while millisecond-level are 13 digits (e.g., 1750646400000). JavaScript uses milliseconds; most APIs use seconds.',tcFaq3Q:'Does it handle leap seconds?',tcFaq3A:'Unix timestamps ignore leap seconds. For virtually all use cases, the impact of leap seconds is negligible.',introTitle:'Introduction',openTitle:'Open the Tool',stepTitle:'How to Use',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools: ',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'Timestamp Converter Tutorial: Unix Timestamp Conversion - ZenTools',catDev:'💻 Dev Tools',tcTitle:'Timestamp Converter Tutorial: Unix Timestamp Conversion',tcDate:'📅 2026-06-23',tcRead:'⏱ 2 min read'},ja:{tcIntro:'タイムスタンプ変換ツールは、開発者が異なる時間形式の間で簡単に相互変換できるように支援します。Unix タイムスタンプは、1970年1月1日00:00:00 UTCからの秒数（またはミリ秒数）を表す整数です。このツールは、Unix タイムスタンプ、ISO 8601 日付形式、ローカルタイムゾーンの時間の間で双方向変換をサポートしています。タイムスタンプを入力して読み可能な日付を確認したり、日付を入力して対応するタイムスタンプを取得したりできます。ツールは現在のタイムゾーンを自動検出し、秒単位とミリ秒単位のタイムスタンプ切替に対応しています。',tcOpenBody:'<a href="/dev/timestamp-converter.html" target="_blank">タイムスタンプ変換ツール</a> をブラウザで開いて直接使用してください。すべての処理はローカルで実行され、ソフトウェアのインストールは不要です。',tcStep1T:'ツールを開く',tcStep1B:'ブラウザで <a href="/dev/timestamp-converter.html" target="_blank">タイムスタンプ変換ツール</a> を開きます。すべての処理はブラウザ内でローカルに実行されます。',tcStep2T:'タイムスタンプを入力',tcStep2B:'タイムスタンプ入力ボックスに Unix タイムスタンプ（秒またはミリ秒）を入力します。ツールは秒単位かミリ秒かを自動識別し、ISO 日付とローカル時間形式にリアルタイムで変換します。「現在時刻」ボタンをクリックして、現在のタイムスタンプを素早く入力することもできます。',tcStep3T:'変換結果を確認',tcStep3B:'ツールは複数の時間形式の結果を同時に表示します：Unix タイムスタンプ、ISO 8601 標準形式、ローカルタイムゾーン時間、人間が読みやすい説明（例：「3 時間前」）。各形式は個別にコピーでき、異なる場面で便利です。',tcStep4T:'日付からタイムスタンプに変換',tcStep4B:'日付からタイムスタンプを取得するには、日付入力モードに切り替えて日付と時間を選択または入力します。ツールは即座に対応するタイムスタンプ（秒とミリ秒の両方の精度）を計算します。タイムゾーン選択をサポートし、変換結果がニーズに合致することを保証します。',tcTip1:'秒単位とミリ秒単位のタイムスタンプを区別してください。Unix タイムスタンプは通常 10 桁の数字（秒）、JavaScript の Date.getTime() は 13 桁の数字（ミリ秒）を返します。',tcTip2:'クロスタイムゾーンのログデータを扱う際は、必ずタイムゾーン設定を確認してください。ツールはデフォルトでブラウザの現在のタイムゾーンを使用しますが、設定で手動変更できます。',tcTip3:'「現在時刻」ボタンをクリックすると現在のタイムスタンプを素早く取得できます。API デバッグ中に現在時間を素早く取得するのに最適です。',tcFaq1Q:'Unix タイムスタンプとは何ですか？',tcFaq1A:'Unix タイムスタンプは、1970-01-01 00:00:00 UTC からの秒数（またはミリ秒数）です。コンピュータ分野で広く使用されている時間表現方式です。',tcFaq2Q:'秒単位とミリ秒単位の違いは何ですか？',tcFaq2A:'秒単位のタイムスタンプは通常 10 桁の数字（例：1750646400）、ミリ秒単位は 13 桁の数字（例：1750646400000）です。JavaScript はミリ秒を使用し、ほとんどの API は秒を使用します。',tcFaq3Q:'うるう秒に対応していますか？',tcFaq3A:'Unix タイムスタンプはうるう秒を考慮しません。ほとんどすべてのユースケースにおいて、うるう秒の影響は無視できます。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'ヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアルに戻る',tipLabel:'ヒント',pageTitle:'タイムスタンプ変換チュートリアル：Unix タイムスタンプの相互変換 - ZenTools',catDev:'💻 開発ツール',tcTitle:'タイムスタンプ変換チュートリアル：Unix タイムスタンプの相互変換',tcDate:'📅 2026-06-23',tcRead:'⏱ 2 分で読める'},vi:{tcIntro:'Công cụ Chuyển đổi Thời gian giúp nhà phát chuyển đổi dễ dàng giữa các định dạng thời gian khác nhau. Dấu thời gian Unix là một số nguyên biểu thị số giây (hoặc mili giây) kể từ ngày 1 tháng 1 năm 1970 00:00:00 UTC. Công cụ này hỗ trợ chuyển đổi hai chiều giữa dấu thời gian Unix, định dạng ngày ISO 8601 và thời gian múi giờ địa phương. Nhập dấu thời gian để xem ngày đọc được, hoặc nhập ngày để lấy dấu thời gian tương ứng. Công cụ tự động phát hiện múi giờ hiện tại và hỗ trợ chuyển đổi giữa độ chính xác giây và mili giây.',tcOpenBody:'Truy cập <a href="/dev/timestamp-converter.html" target="_blank">Công cụ Chuyển đổi Thời gian</a> và sử dụng trực tiếp trong trình duyệt. Mọi xử lý đều diễn ra cục bộ — không cần cài đặt phần mềm.',tcStep1T:'Mở công cụ',tcStep1B:'Mở <a href="/dev/timestamp-converter.html" target="_blank">Công cụ Chuyển đổi Thời gian</a> trong trình duyệt. Mọi xử lý đều diễn ra cục bộ trong trình duyệt.',tcStep2T:'Nhập dấu thời gian',tcStep2B:'Nhập dấu thời gian Unix (giây hoặc mili giây) vào ô nhập. Công cụ tự động nhận diện độ chính xác giây hay mili giây và chuyển đổi theo thời gian thực sang định dạng ngày ISO và thời gian địa phương. Bạn cũng có thể nhấp nút "Hiện tại" để điền nhanh dấu thời gian hiện tại.',tcStep3T:'Xem kết quả chuyển đổi',tcStep3B:'Công cụ hiển thị đồng thời kết quả ở nhiều định dạng thời gian: dấu thời gian Unix, định dạng chuẩn ISO 8601, thời gian múi giờ địa phương, và mô tả dễ đọc (ví dụ: "3 giờ trước"). Mỗi định dạng có thể sao chép riêng biệt để sử dụng trong các ngữ cảnh khác nhau.',tcStep4T:'Chuyển từ ngày sang dấu thời gian',tcStep4B:'Để lấy dấu thời gian từ ngày, chuyển sang chế độ nhập ngày, chọn hoặc nhập ngày và giờ. Công cụ ngay lập tức tính toán dấu thời gian tương ứng với cả độ chính xác giây và mili giây. Hỗ trợ chọn múi giờ để đảm bảo kết quả phù hợp với nhu cầu của bạn.',tcTip1:'Phân biệt giữa dấu thời gian giây và mili giây. Dấu thời gian Unix thường có 10 chữ số (giây), trong khi Date.getTime() của JavaScript trả về 13 chữ số (mili giây).',tcTip2:'Khi làm việc với dữ liệu nhật ký xuyên múi giờ, luôn xác nhận cài đặt múi giờ. Công cụ sử dụng múi giờ hiện tại của trình duyệt theo mặc định, nhưng bạn có thể thay đổi thủ công trong cài đặt.',tcTip3:'Nhấp nút "Hiện tại" để nhanh chóng lấy dấu thời gian hiện tại — rất phù hợp để lấy nhanh thời gian hiện tại khi gỡ lỗi API.',tcFaq1Q:'Dấu thời gian Unix là gì?',tcFaq1A:'Dấu thời gian Unix là số giây (hoặc mili giây) kể từ 1970-01-01 00:00:00 UTC. Đây là cách biểu diễn thời gian được sử dụng rộng rãi trong lĩnh vực máy tính.',tcFaq2Q:'Sự khác biệt giữa giây và mili giây là gì?',tcFaq2A:'Dấu thời gian giây thường có 10 chữ số (ví dụ: 1750646400), mili giây có 13 chữ số (ví dụ: 1750646400000). JavaScript sử dụng mili giây; hầu hết API sử dụng giây.',tcFaq3Q:'Có hỗ trợ xử lý giây nhuận không?',tcFaq3A:'Dấu thời gian Unix không tính đến giây nhuận. Đối với hầu hết các trường hợp sử dụng, tác động của giây nhuận có thể bỏ qua.',introTitle:'Giới thiệu',openTitle:'Mở công cụ',stepTitle:'Hướng dẫn sử dụng',tipTitle:'Mẹo',faqTitle:'Câu hỏi thường gặp',relTitle:'Công cụ liên quan:',backToIndex:'Quay lại Hướng dẫn',tipLabel:'Mẹo',pageTitle:'Hướng dẫn Chuyển đổi Dấu thời gian: Chuyển đổi Dấu thời gian Unix - ZenTools',catDev:'💻 Công cụ Dev',tcTitle:'Hướng dẫn Chuyển đổi Dấu thời gian: Chuyển đổi Dấu thời gian Unix',tcDate:'📅 2026-06-23',tcRead:'⏱ 2 phút đọc'},navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'}
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次开发快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
