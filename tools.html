@@ -1,4 +1,4 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n="pageTitle">工具大全 - 免费在线工具 | ZenTools</title><meta name="description" content="" id="metaDesc"><link rel="manifest" href="/manifest.json" />
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n="pageTitle">All Tools - Free Online Tools | ZenTools</title><meta name="description" content="Browse all ZenTools free online tools, including PDF tools, image tools, AI tools, text tools, office tools and life tools." id="metaDesc"><link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="assets/css/style.min.css">
   <link rel="stylesheet" href="assets/css/tool-ui.min.css"/>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
@@ -64,7 +64,7 @@
     window.ZT_PAGE = pageTranslations;
   </script>
 <link rel="canonical" href="https://zentools.xyz/tools.html"/>
-</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="tools.html" data-i18n="navTools">工具大全</a><a href="plugins-preview.html" data-i18n="navPlugins">插件预览</a><a href="categories.html" data-i18n="navCategories">工具分类</a><a href="articles.html" data-i18n="navArticles">教程文章</a><a href="about.html" data-i18n="navAbout">关于我们</a></nav></header><main><section class="section"><h1 data-i18n="h1">工具大全</h1><p class="section-desc" data-i18n="desc">这里收录 ZenTools 已上线的免费在线工具。</p><div class="search-wrap"><input type="text" id="toolSearch" class="search-input" placeholder="搜索工具，例如：PDF、图片压缩..." autocomplete="off"/><button id="searchClear" class="search-clear" style="display:none">✕</button><div id="searchDropdown" class="search-dropdown"></div></div><div id="featuredTools" class="tool-grid"></div></section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
+</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="index.html" data-i18n="navHome">Home</a><a href="tools.html" data-i18n="navTools" class="active">All Tools</a><a href="categories.html" data-i18n="navCategories">Categories</a><a href="articles.html" data-i18n="navArticles">Tutorials</a><a href="about.html" data-i18n="navAbout">About</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></nav></header><main><section class="section"><h1 data-i18n="h1">工具大全</h1><p class="section-desc" data-i18n="desc">这里收录 ZenTools 已上线的免费在线工具。</p><div class="search-wrap"><input type="text" id="toolSearch" class="search-input" placeholder="搜索工具，例如：PDF、图片压缩..." autocomplete="off"/><button id="searchClear" class="search-clear" style="display:none">✕</button><div id="searchDropdown" class="search-dropdown"></div></div><div id="featuredTools" class="tool-grid"></div></section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
 <script src="assets/js/tools-data.js"></script>
 <script src="assets/js/common-i18n.min.js"></script>
 <script>
@@ -113,8 +113,18 @@ var searchPlaceholderDefault;
 document.addEventListener('DOMContentLoaded', function() {
   var input = document.querySelector('.search-input');
   searchPlaceholderDefault = input.placeholder;
-  var lang = localStorage.getItem('zentools_lang') || 'zh';
+  var lang = localStorage.getItem('zentools_lang') || 'en';
   applyPageLang(lang);
+  // Lang select handler
+  var sel = document.getElementById('langSelect');
+  if (sel) {
+    sel.value = lang;
+    sel.addEventListener('change', function() {
+      applyPageLang(this.value);
+      localStorage.setItem('zentools_lang', this.value);
+      window.dispatchEvent(new CustomEvent('zt-langchange', {detail: {lang: this.value}}));
+    });
+  }
   // Apply nav i18n after common-i18n processes
   setTimeout(function() {
     var d = window.ZT_PAGE && window.ZT_PAGE[lang];
