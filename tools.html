@@ -1,6 +1,15 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title data-i18n="pageTitle">All Tools - Free Online Tools | ZenTools</title><meta name="description" content="Browse all ZenTools free online tools, including PDF tools, image tools, AI tools, text tools, office tools and life tools." id="metaDesc"><link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="assets/css/style.min.css">
   <link rel="stylesheet" href="assets/css/tool-ui.min.css"/>
+  <style>
+  .cat-nav-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin: 24px 0 32px; }
+  .cat-nav-card { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 20px 12px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); text-decoration: none; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+  .cat-nav-card:hover { transform: translateY(-4px); border-color: var(--cat-clr, var(--border)); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+  .cat-nav-card:hover::before { content: ''; position: absolute; top: -30px; right: -30px; width: 80px; height: 80px; background: radial-gradient(circle, color-mix(in srgb, var(--cat-clr) 25%, transparent) 0%, transparent 70%); pointer-events: none; }
+  .cat-nav-icon { font-size: 28px; line-height: 1; }
+  .cat-nav-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  .cat-nav-count { font-size: 11px; font-weight: 700; color: var(--cat-clr, var(--muted)); background: color-mix(in srgb, var(--cat-clr) 15%, transparent); padding: 2px 10px; border-radius: 20px; }
+  </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
   <script>
     var pageTranslations = {
@@ -16,7 +25,11 @@
         navAbout: '关于我们',
         footerText: '© 2026 ZenTools. 中文免费在线工具箱。',
         bookmark: '⭐ 收藏本站，下次办公快人一步',
-        searchPlaceholder: '搜索工具，例如：PDF、图片压缩...'
+        searchPlaceholder: '搜索工具，例如：PDF、图片压缩...',
+        catPdf: 'PDF 工具', catImage: '图片工具', catAi: 'AI 工具',
+        catAudio: '音频工具', catVideo: '视频工具', catDev: '开发工具',
+        catText: '文本工具', catLife: '生活工具', catFinance: '金融工具',
+        catSeo: 'SEO 工具', catDesign: '设计工具'
       },
       en: {
         pageTitle: 'All Tools - Free Online Tools | ZenTools',
@@ -30,7 +43,11 @@
         navAbout: 'About',
         footerText: '© 2026 ZenTools. Free Online Toolbox.',
         bookmark: '⭐ Bookmark us for quick access',
-        searchPlaceholder: 'Search tools, e.g. PDF, image compress...'
+        searchPlaceholder: 'Search tools, e.g. PDF, image compress...',
+        catPdf: 'PDF Tools', catImage: 'Image Tools', catAi: 'AI Tools',
+        catAudio: 'Audio Tools', catVideo: 'Video Tools', catDev: 'Dev Tools',
+        catText: 'Text Tools', catLife: 'Life Tools', catFinance: 'Finance Tools',
+        catSeo: 'SEO Tools', catDesign: 'Design Tools'
       },
       ja: {
         pageTitle: '全ツール - 無料オンラインツール | ZenTools',
@@ -44,7 +61,11 @@
         navAbout: 'について',
         footerText: '© 2026 ZenTools. 無料オンラインツールボックス。',
         bookmark: '⭐ ブックマークしてすぐにアクセス',
-        searchPlaceholder: 'ツールを検索（例：PDF、画像圧縮...）'
+        searchPlaceholder: 'ツールを検索（例：PDF、画像圧縮...）',
+        catPdf: 'PDFツール', catImage: '画像ツール', catAi: 'AIツール',
+        catAudio: '音声ツール', catVideo: '動画ツール', catDev: '開発ツール',
+        catText: 'テキストツール', catLife: '生活ツール', catFinance: '金融ツール',
+        catSeo: 'SEOツール', catDesign: 'デザインツール'
       },
       vi: {
         pageTitle: 'Tất cả công cụ - Công cụ trực tuyến miễn phí | ZenTools',
@@ -58,13 +79,31 @@
         navAbout: 'Giới thiệu',
         footerText: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
         bookmark: '⭐ Đánh dấu để truy cập nhanh',
-        searchPlaceholder: 'Tìm công cụ, vd: PDF, nén ảnh...'
+        searchPlaceholder: 'Tìm công cụ, vd: PDF, nén ảnh...',
+        catPdf: 'Công cụ PDF', catImage: 'Công cụ ảnh', catAi: 'Công cụ AI',
+        catAudio: 'Công cụ âm thanh', catVideo: 'Công cụ video', catDev: 'Công cụ Dev',
+        catText: 'Công cụ văn bản', catLife: 'Công cụ đời sống', catFinance: 'Công cụ tài chính',
+        catSeo: 'Công cụ SEO', catDesign: 'Công cụ thiết kế'
       }
     };
     window.ZT_PAGE = pageTranslations;
   </script>
 <link rel="canonical" href="https://zentools.xyz/tools.html"/>
-</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="index.html" data-i18n="navHome">Home</a><a href="tools.html" data-i18n="navTools" class="active">All Tools</a><a href="categories.html" data-i18n="navCategories">Categories</a><a href="articles.html" data-i18n="navArticles">Tutorials</a><a href="about.html" data-i18n="navAbout">About</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></nav></header><main><section class="section"><h1 data-i18n="h1">工具大全</h1><p class="section-desc" data-i18n="desc">这里收录 ZenTools 已上线的免费在线工具。</p><div class="search-wrap"><input type="text" id="toolSearch" class="search-input" placeholder="搜索工具，例如：PDF、图片压缩..." autocomplete="off"/><button id="searchClear" class="search-clear" style="display:none">✕</button><div id="searchDropdown" class="search-dropdown"></div></div><div id="featuredTools" class="tool-grid"></div></section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
+</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="index.html" data-i18n="navHome">Home</a><a href="tools.html" data-i18n="navTools" class="active">All Tools</a><a href="categories.html" data-i18n="navCategories">Categories</a><a href="articles.html" data-i18n="navArticles">Tutorials</a><a href="about.html" data-i18n="navAbout">About</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></nav></header><main><section class="section"><h1 data-i18n="h1">工具大全</h1><p class="section-desc" data-i18n="desc">这里收录 ZenTools 已上线的免费在线工具。</p>
+<div class="cat-nav-grid" id="catNav">
+  <a href="tools/pdf-tools.html" class="cat-nav-card" style="--cat-clr:#f43145"><span class="cat-nav-icon">📄</span><span class="cat-nav-name" data-i18n="catPdf">PDF 工具</span><span class="cat-nav-count">46</span></a>
+  <a href="tools/image-tools.html" class="cat-nav-card" style="--cat-clr:#27c27b"><span class="cat-nav-icon">🖼️</span><span class="cat-nav-name" data-i18n="catImage">图片工具</span><span class="cat-nav-count">55</span></a>
+  <a href="tools/ai-tools.html" class="cat-nav-card" style="--cat-clr:#8b4cff"><span class="cat-nav-icon">🤖</span><span class="cat-nav-name" data-i18n="catAi">AI 工具</span><span class="cat-nav-count">39</span></a>
+  <a href="tools/audio-tools.html" class="cat-nav-card" style="--cat-clr:#3278ff"><span class="cat-nav-icon">🎵</span><span class="cat-nav-name" data-i18n="catAudio">音频工具</span><span class="cat-nav-count">10</span></a>
+  <a href="tools/video-tools.html" class="cat-nav-card" style="--cat-clr:#ec4899"><span class="cat-nav-icon">🎬</span><span class="cat-nav-name" data-i18n="catVideo">视频工具</span><span class="cat-nav-count">19</span></a>
+  <a href="tools/dev-tools.html" class="cat-nav-card" style="--cat-clr:#22b978"><span class="cat-nav-icon">💻</span><span class="cat-nav-name" data-i18n="catDev">开发工具</span><span class="cat-nav-count">21</span></a>
+  <a href="tools/text-tools.html" class="cat-nav-card" style="--cat-clr:#f59e0b"><span class="cat-nav-icon">📝</span><span class="cat-nav-name" data-i18n="catText">文本工具</span><span class="cat-nav-count">11</span></a>
+  <a href="tools/life-tools.html" class="cat-nav-card" style="--cat-clr:#ffb324"><span class="cat-nav-icon">☀️</span><span class="cat-nav-name" data-i18n="catLife">生活工具</span><span class="cat-nav-count">42</span></a>
+  <a href="tools/finance-tools.html" class="cat-nav-card" style="--cat-clr:#10b981"><span class="cat-nav-icon">💰</span><span class="cat-nav-name" data-i18n="catFinance">金融工具</span><span class="cat-nav-count">12</span></a>
+  <a href="tools/seo-tools.html" class="cat-nav-card" style="--cat-clr:#0ea5e9"><span class="cat-nav-icon">🔍</span><span class="cat-nav-name" data-i18n="catSeo">SEO 工具</span><span class="cat-nav-count">14</span></a>
+  <a href="tools/design-tools.html" class="cat-nav-card" style="--cat-clr:#ec4899"><span class="cat-nav-icon">🎨</span><span class="cat-nav-name" data-i18n="catDesign">设计工具</span><span class="cat-nav-count">10</span></a>
+</div>
+<div class="search-wrap"><input type="text" id="toolSearch" class="search-input" placeholder="搜索工具，例如：PDF、图片压缩..." autocomplete="off"/><button id="searchClear" class="search-clear" style="display:none">✕</button><div id="searchDropdown" class="search-dropdown"></div></div><div id="featuredTools" class="tool-grid"></div></section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
 <script src="assets/js/tools-data.js"></script>
 <script src="assets/js/common-i18n.min.js"></script>
 <script>
