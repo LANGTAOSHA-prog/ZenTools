@@ -14,6 +14,11 @@
         "glob": "data/*.json",
         "command": "python -c \"import json,sys; f=open(sys.argv[1],encoding='utf-8'); json.load(f); f.close(); print('JSON OK')\"",
         "description": "JSON 数据文件格式校验"
+      },
+      "validate_all_json": {
+        "glob": "data/*.json",
+        "command": "cd /d D:\\Users\\taojiang\\Documents\\GitHub\\ZenTools && python _check_json.py",
+        "description": "修改 JSON 后运行完整数据校验"
       }
     },
     "PreToolUse": {
@@ -24,6 +29,10 @@
       "block_lockfiles": {
         "glob": ["commit_msg*.txt", "*.bat", "*.ps1", "*.sh", "package-lock.json"],
         "description": "阻止直接编辑锁文件和批处理脚本"
+      },
+      "block_config_files": {
+        "glob": [".htaccess", "CNAME", ".nojekyll", ".github/workflows/*"],
+        "description": "阻止误改站点关键配置文件"
       }
     }
   }
