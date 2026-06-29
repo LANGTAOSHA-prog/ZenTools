@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">{{TITLE_ZH}} - ZenTools</title>
+<meta name="description" content="{{DESC_ZH}}"/>
+<link rel="canonical" href="https://zentools.xyz/guides/{{SLUG}}.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.guide-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px 20px; text-align: center; color: #fff; margin-bottom: 40px; }
+.guide-hero h1 { font-size: 42px; margin-bottom: 16px; font-weight: 700; }
+.guide-hero p { font-size: 18px; opacity: 0.9; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+.guide-meta { display: flex; gap: 24px; justify-content: center; margin-top: 20px; font-size: 14px; opacity: 0.85; }
+.guide-back { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; color: #667eea; text-decoration: none; font-weight: 600; padding: 10px 0; }
+.back-link:hover { color: #764ba2; }
+.guide-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+.guide-body { background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+.guide-body h2 { font-size: 28px; margin: 40px 0 20px; color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+.guide-body h3 { font-size: 22px; margin: 30px 0 15px; color: #444; }
+.guide-body p { line-height: 1.8; color: #555; margin-bottom: 16px; }
+.guide-body ul, .guide-body ol { margin: 16px 0; padding-left: 24px; }
+.guide-body li { margin-bottom: 8px; line-height: 1.6; color: #555; }
+.tip-box { background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); border-left: 4px solid #667eea; padding: 20px 24px; border-radius: 8px; margin: 24px 0; }
+.tip-box strong { color: #667eea; font-weight: 700; }
+.faq-item { margin: 20px 0; }
+.faq-item strong { color: #333; font-weight: 600; display: block; margin-bottom: 8px; }
+.faq-item span { color: #666; line-height: 1.6; }
+.related-section { background: #f8f9fa; border-radius: 12px; padding: 24px; margin-top: 40px; }
+.related-section h3 { margin-top: 0; color: #333; }
+.related-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.related-links a { color: #667eea; text-decoration: none; padding: 8px 16px; background: #fff; border-radius: 6px; border: 1px solid #e0e0e0; transition: all 0.2s; }
+.related-links a:hover { background: #667eea; color: #fff; border-color: #667eea; }
+@media(max-width: 768px) { .guide-hero { padding: 40px 20px; } .guide-hero h1 { font-size: 28px; } .guide-body { padding: 24px; } }
+</style>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
+</head>
+<body>
+<div class="guide-hero">
+  <h1 data-i18n="pageHeader">{{HEADER}}</h1>
+  <p data-i18n="pageDesc">{{DESC_ZH}}</p>
+  <div class="guide-meta">
+    <span data-i18n="wordCount">{{WORDS}}</span>
+    <span data-i18n="readTime">{{TIME}}</span>
+  </div>
+</div>
+
+<div class="guide-back">
+  <a href="/guides/" class="back-link">← <span data-i18n="backToGuides">返回深度指南</span></a>
+</div>
+
+<div class="guide-container">
+  <div class="guide-body">
+{{CONTENT}}
+  </div>
+  
+  <div class="related-section">
+    <h3 data-i18n="relatedGuides">相关指南</h3>
+    <div class="related-links">
+{{RELATED}}
+    </div>
+  </div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/tutorials/" data-i18n="navArticles">教程中心</a><a href="/guides/" data-i18n="navGuides">深度指南</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE = {{TRANSLATIONS}};
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz/guides/{{SLUG}}.html')">⭐ 收藏本站</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
