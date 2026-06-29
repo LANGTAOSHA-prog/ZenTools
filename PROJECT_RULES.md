@@ -115,7 +115,7 @@ AdSense 内容优化规则
 P0 - 核心指南（Guides）⭐⭐⭐⭐⭐
   位置：/guides/
   示例：
-  - /guides/pdf-automation-guide.md (PDF 自动化工作流)
+  - /guides/pdf-automation-guide.html (PDF 自动化工作流)
   - /guides/image-batch-processing.md (图片批量处理最佳实践)
   - /guides/ai-writing-workflow.md (AI 写作完整工作流)
   - /guides/seo-optimization-checklist.md (SEO 优化完整清单)
