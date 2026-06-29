@@ -20,14 +20,28 @@
 .guide-body { background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
 .guide-body h2 { font-size: 28px; margin: 40px 0 20px; color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
 .guide-body h3 { font-size: 22px; margin: 30px 0 15px; color: #444; }
+.guide-body h4 { font-size: 18px; margin: 24px 0 12px; color: #555; font-weight: 600; }
 .guide-body p { line-height: 1.8; color: #555; margin-bottom: 16px; }
 .guide-body ul, .guide-body ol { margin: 16px 0; padding-left: 24px; }
 .guide-body li { margin-bottom: 8px; line-height: 1.6; color: #555; }
+.guide-body li > ul, .guide-body li > ol { margin: 4px 0 8px; }
+.guide-body table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 15px; }
+.guide-body th, .guide-body td { border: 1px solid #e0e0e0; padding: 12px 16px; text-align: left; }
+.guide-body th { background: #667eea; color: #fff; font-weight: 600; }
+.guide-body td { color: #555; }
+.guide-body tr:nth-child(even) td { background: #f8f9fa; }
+.guide-body pre { background: #1e293b; border-radius: 10px; padding: 20px 24px; overflow-x: auto; margin: 16px 0; }
+.guide-body pre code { color: #e2e8f0; font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; font-size: 14px; line-height: 1.7; display: block; }
+.guide-body code { font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; font-size: 14px; background: #f1f5f9; color: #e11d48; padding: 2px 6px; border-radius: 4px; }
+.guide-body pre code { background: transparent; color: #e2e8f0; padding: 0; }
+.guide-body hr { border: none; border-top: 1px solid #e0e0e0; margin: 40px 0; }
+.guide-body blockquote { border-left: 4px solid #667eea; padding: 12px 20px; margin: 20px 0; background: #f8f9fa; border-radius: 0 8px 8px 0; }
+.guide-body blockquote p { margin-bottom: 0; color: #666; }
 .tip-box { background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); border-left: 4px solid #667eea; padding: 20px 24px; border-radius: 8px; margin: 24px 0; }
 .tip-box strong { color: #667eea; font-weight: 700; }
-.faq-item { margin: 20px 0; }
-.faq-item strong { color: #333; font-weight: 600; display: block; margin-bottom: 8px; }
-.faq-item span { color: #666; line-height: 1.6; }
+.faq-item { margin: 24px 0; padding: 20px; background: #f8f9fa; border-radius: 12px; }
+.faq-item h4 { color: #333; margin: 0 0 12px; font-size: 16px; }
+.faq-item p { margin-bottom: 0; }
 .related-section { background: #f8f9fa; border-radius: 12px; padding: 24px; margin-top: 40px; }
 .related-section h3 { margin-top: 0; color: #333; }
 .related-links { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -49,592 +63,714 @@
 </div>
 
 <div class="guide-back">
-  <a href="/guides/" class="back-link">← <span data-i18n="backToGuides">返回深度指南</span></a>
+  <a href="/guides/" class="back-link">&larr; <span data-i18n="backToGuides">返回深度指南</span></a>
 </div>
 
 <div class="guide-container">
   <div class="guide-body">
+
 <h1>PDF 自动化工作流指南：提升办公效率的完整解决方案</h1>
+
 <h2>目录</h2>
-<p>1. <a href="#引言">引言</a></p>
-<p>2. <a href="#pdf-自动化的核心价值">PDF 自动化的核心价值</a></p>
-<p>3. <a href="#常见-pdf 处理场景">常见 PDF 处理场景</a></p>
-<p>4. <a href="#自动化工作流设计原则">自动化工作流设计原则</a></p>
-<p>5. <a href="#实战案例一发票批量处理">实战案例一：发票批量处理</a></p>
-<p>6. <a href="#实战案例二合同文档整理">实战案例二：合同文档整理</a></p>
-<p>7. <a href="#实战案例三报告自动生成">实战案例三：报告自动生成</a></p>
-<p>8. <a href="#最佳实践建议">最佳实践建议</a></p>
-<p>9. <a href="#常见问题解答">常见问题解答</a></p>
-<p>10. <a href="#下一步行动">下一步行动</a></p>
+<ol>
+  <li><a href="#introduction">引言</a></li>
+  <li><a href="#core-value">PDF 自动化的核心价值</a></li>
+  <li><a href="#scenarios">常见 PDF 处理场景</a></li>
+  <li><a href="#design-principles">自动化工作流设计原则</a></li>
+  <li><a href="#case-1">实战案例一：发票批量处理</a></li>
+  <li><a href="#case-2">实战案例二：合同文档整理</a></li>
+  <li><a href="#case-3">实战案例三：报告自动生成</a></li>
+  <li><a href="#best-practices">最佳实践建议</a></li>
+  <li><a href="#faq">常见问题解答</a></li>
+  <li><a href="#next-steps">下一步行动</a></li>
+</ol>
+
 <hr>
-<h2>引言</h2>
+
+<h2 id="introduction">引言</h2>
 <p>在现代办公环境中，PDF 文件已成为信息交换的标准格式。然而，手动处理大量 PDF 文件往往耗时耗力，容易出错。本指南将详细介绍如何利用在线 PDF 工具构建自动化工作流，大幅提升办公效率。</p>
 <p>通过本文，您将学会：</p>
 <ul>
+  <li>识别适合自动化的 PDF 处理场景</li>
+  <li>设计高效的工作流程</li>
+  <li>使用 ZenTools 工具箱实现自动化</li>
+  <li>避免常见陷阱和错误</li>
 </ul>
-<li>识别适合自动化的 PDF 处理场景</li>
-<li>设计高效的工作流程</li>
-<li>使用 ZenTools 工具箱实现自动化</li>
-<li>避免常见陷阱和错误</li>
 <p><strong>预计阅读时间</strong>：25 分钟</p>
 <p><strong>适用人群</strong>：行政人员、财务人员、法务人员、项目经理等需要频繁处理 PDF 文件的职场人士</p>
+
 <hr>
-<h2>PDF 自动化的核心价值</h2>
+
+<h2 id="core-value">PDF 自动化的核心价值</h2>
+
 <h3>1. 时间节省</h3>
 <p>据统计，普通办公人员每周花费在 PDF 处理上的时间约为 3-5 小时。通过自动化工作流，这一时间可减少 70% 以上。</p>
 <p><strong>实际案例</strong>：某财务团队每月需处理约 500 张发票，手动拆分、合并、重命名耗时约 40 小时。引入自动化后，仅需 8 小时，节省 32 小时/月。</p>
+
 <h3>2. 错误率降低</h3>
 <p>人工操作容易出现以下错误：</p>
 <ul>
+  <li>页面顺序错乱</li>
+  <li>文件名重复或错误</li>
+  <li>遗漏重要页面</li>
+  <li>加密密码设置不当</li>
 </ul>
-<li>页面顺序错乱</li>
-<li>文件名重复或错误</li>
-<li>遗漏重要页面</li>
-<li>加密密码设置不当</li>
 <p>自动化工作流可确保每次处理结果一致，错误率降低至接近零。</p>
+
 <h3>3. 可追溯性</h3>
 <p>自动化流程可记录每一步操作，便于：</p>
 <ul>
+  <li>问题排查</li>
+  <li>审计追踪</li>
+  <li>流程优化</li>
 </ul>
-<li>问题排查</li>
-<li>审计追踪</li>
-<li>流程优化</li>
+
 <h3>4. 可扩展性</h3>
 <p>一旦建立自动化工作流，可随时扩展：</p>
 <ul>
+  <li>增加新的处理步骤</li>
+  <li>支持更多文件格式</li>
+  <li>集成到其他系统</li>
 </ul>
-<li>增加新的处理步骤</li>
-<li>支持更多文件格式</li>
-<li>集成到其他系统</li>
+
 <hr>
-<h2>常见 PDF 处理场景</h2>
+
+<h2 id="scenarios">常见 PDF 处理场景</h2>
+
 <h3>场景一：文档合并与拆分</h3>
 <p><strong>典型需求</strong>：</p>
 <ul>
+  <li>将多份合同合并为一份总合同</li>
+  <li>从大型报告中提取特定章节</li>
+  <li>分离扫描文档中的不同部分</li>
 </ul>
-<li>将多份合同合并为一份总合同</li>
-<li>从大型报告中提取特定章节</li>
-<li>分离扫描文档中的不同部分</li>
 <p><strong>适用工具</strong>：</p>
 <ul>
+  <li>PDF 合并（PDF Merge）</li>
+  <li>PDF 拆分（PDF Split）</li>
+  <li>PDF 裁剪（PDF Crop）</li>
 </ul>
-<li>PDF 合并（PDF Merge）</li>
-<li>PDF 拆分（PDF Split）</li>
-<li>PDF 裁剪（PDF Crop）</li>
+
 <h3>场景二：格式转换</h3>
 <p><strong>典型需求</strong>：</p>
 <ul>
+  <li>Excel 报表转 PDF 归档</li>
+  <li>Word 文档转 PDF 发送</li>
+  <li>PDF 转可编辑格式进行修订</li>
 </ul>
-<li>Excel 报表转 PDF 归档</li>
-<li>Word 文档转 PDF 发送</li>
-<li>PDF 转可编辑格式进行修订</li>
 <p><strong>适用工具</strong>：</p>
 <ul>
+  <li>Excel 转 PDF（Excel to PDF）</li>
+  <li>Word 转 PDF（Word to PDF）</li>
+  <li>PDF 转 Word（PDF to Word）</li>
 </ul>
-<li>Excel 转 PDF（Excel to PDF）</li>
-<li>Word 转 PDF（Word to PDF）</li>
-<li>PDF 转 Word（PDF to Word）</li>
+
 <h3>场景三：批量重命名与组织</h3>
 <p><strong>典型需求</strong>：</p>
 <ul>
+  <li>按日期、类型、客户名批量重命名</li>
+  <li>调整文件顺序</li>
+  <li>分类存储到不同文件夹</li>
 </ul>
-<li>按日期、类型、客户名批量重命名</li>
-<li>调整文件顺序</li>
-<li>分类存储到不同文件夹</li>
 <p><strong>适用工具</strong>：</p>
 <ul>
+  <li>PDF 排序（PDF Sort）</li>
+  <li>PDF 重新编号（PDF Re-number）</li>
 </ul>
-<li>PDF 排序（PDF Sort）</li>
-<li>PDF 重新编号（PDF Re-number）</li>
+
 <h3>场景四：安全保护</h3>
 <p><strong>典型需求</strong>：</p>
 <ul>
+  <li>为敏感文档添加密码</li>
+  <li>移除他人设置的密码限制</li>
+  <li>去除水印</li>
 </ul>
-<li>为敏感文档添加密码</li>
-<li>移除他人设置的密码限制</li>
-<li>去除水印</li>
 <p><strong>适用工具</strong>：</p>
 <ul>
+  <li>PDF 加密（PDF Encrypt）</li>
+  <li>PDF 解密（PDF Decrypt）</li>
+  <li>PDF 去水印（PDF Remove Watermark）</li>
 </ul>
-<li>PDF 加密（PDF Encrypt）</li>
-<li>PDF 解密（PDF Decrypt）</li>
-<li>PDF 去水印（PDF Remove Watermark）</li>
+
 <h3>场景五：内容提取</h3>
 <p><strong>典型需求</strong>：</p>
 <ul>
+  <li>从 PDF 中提取图片用于展示</li>
+  <li>提取文字内容进行二次编辑</li>
+  <li>提取特定页面保存</li>
 </ul>
-<li>从 PDF 中提取图片用于展示</li>
-<li>提取文字内容进行二次编辑</li>
-<li>提取特定页面保存</li>
 <p><strong>适用工具</strong>：</p>
 <ul>
+  <li>PDF 提取图片（PDF Extract Images）</li>
+  <li>PDF 提取页面（PDF Extract Pages）</li>
+  <li>OCR 文字识别（OCR）</li>
 </ul>
-<li>PDF 提取图片（PDF Extract Images）</li>
-<li>PDF 提取页面（PDF Extract Pages）</li>
-<li>OCR 文字识别（OCR）</li>
+
 <hr>
-<h2>自动化工作流设计原则</h2>
+
+<h2 id="design-principles">自动化工作流设计原则</h2>
+
 <h3>原则一：单一职责</h3>
 <p>每个处理步骤只完成一个明确的任务。例如：</p>
 <ul>
+  <li><strong>错误</strong>：一个工具同时完成合并、加密、转换</li>
+  <li><strong>正确</strong>：先用合并工具，再用加密工具，最后用转换工具</li>
 </ul>
-<li>❌ 错误：一个工具同时完成合并、加密、转换</li>
-<li>✅ 正确：先用合并工具，再用加密工具，最后用转换工具</li>
 <p><strong>优势</strong>：易于调试、易于替换、易于扩展</p>
+
 <h3>原则二：顺序优化</h3>
 <p>合理安排处理顺序可显著提升效率：</p>
 <p><strong>推荐顺序</strong>：</p>
-<ul>
-</ul>
-<li>先合并/拆分（结构处理）</li>
-<li>再转换格式（内容处理）</li>
-<li>最后加密/压缩（安全处理）</li>
+<ol>
+  <li>先合并/拆分（结构处理）</li>
+  <li>再转换格式（内容处理）</li>
+  <li>最后加密/压缩（安全处理）</li>
+</ol>
 <p><strong>原因</strong>：</p>
 <ul>
+  <li>结构处理后文件更小，后续处理更快</li>
+  <li>先处理内容再加密，避免加密状态下的操作限制</li>
 </ul>
-<li>结构处理后文件更小，后续处理更快</li>
-<li>先处理内容再加密，避免加密状态下的操作限制</li>
+
 <h3>原则三：错误处理</h3>
 <p>为每个关键节点设置检查点：</p>
 <ul>
+  <li>验证输入文件是否存在</li>
+  <li>检查文件大小是否合理</li>
+  <li>确认输出文件生成成功</li>
 </ul>
-<li>验证输入文件是否存在</li>
-<li>检查文件大小是否合理</li>
-<li>确认输出文件生成成功</li>
+
 <h3>原则四：批量优先</h3>
 <p>尽可能使用批量处理功能：</p>
 <ul>
+  <li>一次处理多个文件而非逐个处理</li>
+  <li>利用批处理工具减少重复操作</li>
 </ul>
-<li>一次处理多个文件而非逐个处理</li>
-<li>利用批处理工具减少重复操作</li>
+
 <h3>原则五：命名规范</h3>
 <p>建立统一的文件命名规则：</p>
-<p>```</p>
-<p>{日期}_{类型}_{客户/项目}_{版本号}.pdf</p>
-<p>示例：20240115_invoice_ABC_Corp_v1.pdf</p>
-<p>```</p>
+<pre><code>{日期}_{类型}_{客户/项目}_{版本号}.pdf
+示例：20240115_invoice_ABC_Corp_v1.pdf</code></pre>
+
 <hr>
-<h2>实战案例一：发票批量处理</h2>
+
+<h2 id="case-1">实战案例一：发票批量处理</h2>
+
 <h3>业务背景</h3>
 <p>某电商公司每月收到约 300 张供应商发票，需要：</p>
-<ul>
-</ul>
-<li>从邮件附件中下载 PDF 发票</li>
-<li>提取关键信息（金额、日期、供应商）</li>
-<li>按供应商分类整理</li>
-<li>添加水印防止篡改</li>
-<li>导入财务系统</li>
+<ol>
+  <li>从邮件附件中下载 PDF 发票</li>
+  <li>提取关键信息（金额、日期、供应商）</li>
+  <li>按供应商分类整理</li>
+  <li>添加水印防止篡改</li>
+  <li>导入财务系统</li>
+</ol>
+
 <h3>传统方式（耗时约 6 小时/月）</h3>
-<ul>
-</ul>
-<li>逐个下载邮件附件（30 分钟）</li>
-<li>手动打开每个 PDF 查看内容（2 小时）</li>
-<li>手工记录到 Excel 表格（2 小时）</li>
-<li>按供应商创建文件夹并移动文件（1 小时）</li>
-<li>添加水印（30 分钟）</li>
+<ol>
+  <li>逐个下载邮件附件（30 分钟）</li>
+  <li>手动打开每个 PDF 查看内容（2 小时）</li>
+  <li>手工记录到 Excel 表格（2 小时）</li>
+  <li>按供应商创建文件夹并移动文件（1 小时）</li>
+  <li>添加水印（30 分钟）</li>
+</ol>
+
 <h3>自动化工作流（耗时约 1 小时/月）</h3>
-<p>#### 步骤 1：批量下载与初步整理</p>
+
+<h4>步骤 1：批量下载与初步整理</h4>
 <p>将所有发票 PDF 放入同一文件夹，命名为统一格式：</p>
-<p>```</p>
-<p>invoice_001.pdf, invoice_002.pdf, ... invoice_300.pdf</p>
-<p>```</p>
-<p>#### 步骤 2：使用 OCR 提取文字</p>
+<pre><code>invoice_001.pdf, invoice_002.pdf, ... invoice_300.pdf</code></pre>
+
+<h4>步骤 2：使用 OCR 提取文字</h4>
 <p>调用 <strong>OCR 文字识别</strong> 工具：</p>
 <ul>
+  <li>上传所有发票 PDF</li>
+  <li>选择中英文识别</li>
+  <li>导出为 TXT 格式</li>
 </ul>
-<li>上传所有发票 PDF</li>
-<li>选择中英文识别</li>
-<li>导出为 TXT 格式</li>
-<p><strong>技巧</strong>：OCR 工具支持批量处理，300 个文件约需 15 分钟。</p>
-<p>#### 步骤 3：信息结构化</p>
+<div class="tip-box">
+  <strong>技巧</strong>：OCR 工具支持批量处理，300 个文件约需 15 分钟。
+</div>
+
+<h4>步骤 3：信息结构化</h4>
 <p>使用文本处理工具提取关键字段：</p>
 <ul>
+  <li>金额：正则表达式匹配 <code>\d+,\d{2}</code></li>
+  <li>日期：匹配 <code>YYYY-MM-DD</code> 格式</li>
+  <li>供应商名称：提取"发票专用章"前的文字</li>
 </ul>
-<li>金额：正则表达式匹配 `¥\d+,\d{2}`</li>
-<li>日期：匹配 `YYYY-MM-DD` 格式</li>
-<li>供应商名称：提取"发票专用章"前的文字</li>
-<p>#### 步骤 4：按供应商分类</p>
+
+<h4>步骤 4：按供应商分类</h4>
 <p>创建供应商文件夹结构：</p>
-<p>```</p>
-<p>invoices/</p>
-<p>├── 供应商 A/</p>
-<p>│   ├── invoice_001.pdf</p>
-<p>│   └── invoice_015.pdf</p>
-<p>├── 供应商 B/</p>
-<p>│   └── invoice_003.pdf</p>
-<p>└── ...</p>
-<p>```</p>
+<pre><code>invoices/
+  ├── 供应商 A/
+  │   ├── invoice_001.pdf
+  │   └── invoice_015.pdf
+  ├── 供应商 B/
+  │   └── invoice_003.pdf
+  └── ...</code></pre>
 <p>使用 <strong>PDF 排序</strong> 工具按文件名批量移动。</p>
-<p>#### 步骤 5：添加防篡改水印</p>
+
+<h4>步骤 5：添加防篡改水印</h4>
 <p>调用 <strong>PDF 添加水印</strong> 工具：</p>
 <ul>
+  <li>水印文字："已审核 - 2024-01"</li>
+  <li>透明度：30%</li>
+  <li>位置：对角线居中</li>
 </ul>
-<li>水印文字："已审核 - 2024-01"</li>
-<li>透明度：30%</li>
-<li>位置：对角线居中</li>
-<p>#### 步骤 6：生成汇总报表</p>
+
+<h4>步骤 6：生成汇总报表</h4>
 <p>使用 <strong>Excel 转 PDF</strong> 将统计表格转换为 PDF 存档。</p>
+
 <h3>效果对比</h3>
-<p>| 指标 | 传统方式 | 自动化 | 提升 |</p>
-<p>|------|---------|-------|------|</p>
-<p>| 耗时 | 6 小时 | 1 小时 | 83%↓ |</p>
-<p>| 错误率 | 约 5% | <0.1% | 98%↓ |</p>
-<p>| 可追溯性 | 困难 | 完整日志 | 显著改善 |</p>
+<table>
+  <thead>
+    <tr><th>指标</th><th>传统方式</th><th>自动化</th><th>提升</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>耗时</td><td>6 小时</td><td>1 小时</td><td>83%&darr;</td></tr>
+    <tr><td>错误率</td><td>约 5%</td><td>&lt;0.1%</td><td>98%&darr;</td></tr>
+    <tr><td>可追溯性</td><td>困难</td><td>完整日志</td><td>显著改善</td></tr>
+  </tbody>
+</table>
+
 <hr>
-<h2>实战案例二：合同文档整理</h2>
+
+<h2 id="case-2">实战案例二：合同文档整理</h2>
+
 <h3>业务背景</h3>
 <p>法务部门需要整理客户合同，包括：</p>
 <ul>
+  <li>多页合同扫描件合并</li>
+  <li>删除空白页</li>
+  <li>添加页码</li>
+  <li>提取签名页</li>
+  <li>生成索引目录</li>
 </ul>
-<li>多页合同扫描件合并</li>
-<li>删除空白页</li>
-<li>添加页码</li>
-<li>提取签名页</li>
-<li>生成索引目录</li>
+
 <h3>自动化流程设计</h3>
-<p>#### 阶段一：预处理</p>
+
+<h4>阶段一：预处理</h4>
 <p><strong>1. 扫描文档质量检查</strong></p>
 <ul>
+  <li>使用 <strong>PDF 旋转</strong> 纠正方向错误的页面</li>
+  <li>使用 <strong>PDF 裁剪</strong> 去除扫描边框</li>
 </ul>
-<li>使用 **PDF 旋转** 纠正方向错误的页面</li>
-<li>使用 **PDF 裁剪** 去除扫描边框</li>
 <p><strong>2. 黑白化处理</strong></p>
 <ul>
+  <li>调用 <strong>PDF 灰度</strong> 工具减小文件体积</li>
+  <li>提升 OCR 识别准确率</li>
 </ul>
-<li>调用 **PDF 灰度** 工具减小文件体积</li>
-<li>提升 OCR 识别准确率</li>
-<p>#### 阶段二：结构优化</p>
+
+<h4>阶段二：结构优化</h4>
 <p><strong>3. 合并分册合同</strong></p>
 <ul>
+  <li>使用 <strong>PDF 合并</strong> 将合同正文、附件、补充协议合并</li>
+  <li>保持原始顺序：封面&rarr;正文&rarr;附件&rarr;签字页</li>
 </ul>
-<li>使用 **PDF 合并** 将合同正文、附件、补充协议合并</li>
-<li>保持原始顺序：封面→正文→附件→签字页</li>
 <p><strong>4. 删除空白页</strong></p>
 <ul>
+  <li>使用 <strong>PDF 删除页面</strong> 移除空白页</li>
+  <li>保留有内容的跨页</li>
 </ul>
-<li>使用 **PDF 删除页面** 移除空白页</li>
-<li>保留有内容的跨页</li>
-<p>#### 阶段三：增强可读性</p>
+
+<h4>阶段三：增强可读性</h4>
 <p><strong>5. 添加书签导航</strong></p>
 <ul>
+  <li>为每个章节添加书签</li>
+  <li>结构：1. 合同条款 &rarr; 1.1 定义 &rarr; 1.2 权利义务</li>
 </ul>
-<li>为每个章节添加书签</li>
-<li>结构：1. 合同条款 → 1.1 定义 → 1.2 权利义务</li>
 <p><strong>6. 插入页码</strong></p>
 <ul>
+  <li>使用 <strong>PDF 添加页码</strong> 工具</li>
+  <li>格式："第 X 页 / 共 Y 页"</li>
+  <li>位置：页脚居中</li>
 </ul>
-<li>使用 **PDF 添加页码** 工具</li>
-<li>格式："第 X 页 / 共 Y 页"</li>
-<li>位置：页脚居中</li>
-<p>#### 阶段四：安全与分发</p>
+
+<h4>阶段四：安全与分发</h4>
 <p><strong>7. 提取签名页</strong></p>
 <ul>
+  <li>使用 <strong>PDF 提取页面</strong> 单独保存签字页</li>
+  <li>用于快速验证合同有效性</li>
 </ul>
-<li>使用 **PDF 提取页面** 单独保存签字页</li>
-<li>用于快速验证合同有效性</li>
 <p><strong>8. 加密保护</strong></p>
 <ul>
+  <li>使用 <strong>PDF 加密</strong> 设置打开密码</li>
+  <li>权限密码：禁止打印、复制</li>
 </ul>
-<li>使用 **PDF 加密** 设置打开密码</li>
-<li>权限密码：禁止打印、复制</li>
+
 <h3>关键技巧</h3>
-<p><strong>技巧一：批量处理书签</strong></p>
-<p>虽然在线工具不支持批量添加书签，但可以：</p>
-<ul>
-</ul>
-<li>先手动为一个标准合同添加书签</li>
-<li>记录书签结构模板</li>
-<li>对其他合同参照模板添加</li>
-<p><strong>技巧二：智能页码范围</strong></p>
-<p>对于多份合同混合的文件：</p>
-<ul>
-</ul>
-<li>先用 **PDF 拆分** 按合同拆分</li>
-<li>分别添加页码</li>
-<li>再用 **PDF 合并** 按顺序合并</li>
+<div class="tip-box">
+  <strong>技巧一：批量处理书签</strong>
+  <p style="margin-top:8px;">虽然在线工具不支持批量添加书签，但可以：</p>
+  <ol>
+    <li>先手动为一个标准合同添加书签</li>
+    <li>记录书签结构模板</li>
+    <li>对其他合同参照模板添加</li>
+  </ol>
+</div>
+
+<div class="tip-box">
+  <strong>技巧二：智能页码范围</strong>
+  <p style="margin-top:8px;">对于多份合同混合的文件：</p>
+  <ol>
+    <li>先用 <strong>PDF 拆分</strong> 按合同拆分</li>
+    <li>分别添加页码</li>
+    <li>再用 <strong>PDF 合并</strong> 按顺序合并</li>
+  </ol>
+</div>
+
 <hr>
-<h2>实战案例三：报告自动生成</h2>
+
+<h2 id="case-3">实战案例三：报告自动生成</h2>
+
 <h3>业务背景</h3>
 <p>市场部每月需要生成客户报告，包含：</p>
 <ul>
+  <li>数据图表（来自 Excel）</li>
+  <li>文字分析（来自 Word）</li>
+  <li>客户 Logo（图片）</li>
+  <li>统一格式和样式</li>
 </ul>
-<li>数据图表（来自 Excel）</li>
-<li>文字分析（来自 Word）</li>
-<li>客户 Logo（图片）</li>
-<li>统一格式和样式</li>
+
 <h3>自动化方案</h3>
-<p>#### 步骤 1：数据准备</p>
+
+<h4>步骤 1：数据准备</h4>
 <p><strong>1.1 更新 Excel 数据</strong></p>
 <ul>
+  <li>将月度数据填入模板 Excel</li>
+  <li>确保图表公式自动计算</li>
 </ul>
-<li>将月度数据填入模板 Excel</li>
-<li>确保图表公式自动计算</li>
 <p><strong>1.2 更新文字内容</strong></p>
 <ul>
+  <li>在 Word 模板中填写分析内容</li>
+  <li>使用占位符标记动态内容：<code>{客户名称}</code>、<code>{月份}</code></li>
 </ul>
-<li>在 Word 模板中填写分析内容</li>
-<li>使用占位符标记动态内容：`{客户名称}`、`{月份}`</li>
-<p>#### 步骤 2：格式转换</p>
+
+<h4>步骤 2：格式转换</h4>
 <p><strong>2.1 Excel 转 PDF</strong></p>
 <ul>
+  <li>使用 <strong>Excel 转 PDF</strong> 工具</li>
+  <li>选项：保留图表、嵌入字体</li>
+  <li>输出：<code>data_charts.pdf</code></li>
 </ul>
-<li>使用 **Excel 转 PDF** 工具</li>
-<li>选项：保留图表、嵌入字体</li>
-<li>输出：`data_charts.pdf`</li>
 <p><strong>2.2 Word 转 PDF</strong></p>
 <ul>
+  <li>使用 <strong>Word 转 PDF</strong> 工具</li>
+  <li>选项：高质量打印、保留格式</li>
+  <li>输出：<code>analysis_content.pdf</code></li>
 </ul>
-<li>使用 **Word 转 PDF** 工具</li>
-<li>选项：高质量打印、保留格式</li>
-<li>输出：`analysis_content.pdf`</li>
-<p>#### 步骤 3：整合排版</p>
+
+<h4>步骤 3：整合排版</h4>
 <p><strong>3.1 合并文档</strong></p>
 <ul>
+  <li>使用 <strong>PDF 合并</strong> 按顺序组合：</li>
+  <ol>
+    <li>封面（固定模板）</li>
+    <li>数据图表</li>
+    <li>文字分析</li>
+    <li>附录</li>
+  </ol>
 </ul>
-<li>使用 **PDF 合并** 按顺序组合：</li>
-<li>封面（固定模板）</li>
-<li>数据图表</li>
-<li>文字分析</li>
-<li>附录</li>
 <p><strong>3.2 添加页眉页脚</strong></p>
 <ul>
+  <li>使用 <strong>PDF 添加文本</strong> 工具</li>
+  <li>页眉：客户 Logo + 报告标题</li>
+  <li>页脚：页码 + 保密声明</li>
 </ul>
-<li>使用 **PDF 添加文本** 工具</li>
-<li>页眉：客户 Logo + 报告标题</li>
-<li>页脚：页码 + 保密声明</li>
-<p>#### 步骤 4：个性化定制</p>
+
+<h4>步骤 4：个性化定制</h4>
 <p><strong>4.1 替换客户信息</strong></p>
 <ul>
+  <li>如果支持 PDF 表单编辑，直接填充表单字段</li>
+  <li>否则，使用 <strong>PDF 编辑</strong> 工具手动替换</li>
 </ul>
-<li>如果支持 PDF 表单编辑，直接填充表单字段</li>
-<li>否则，使用 **PDF 编辑** 工具手动替换</li>
 <p><strong>4.2 颜色调整</strong></p>
 <ul>
+  <li>根据品牌要求，使用 <strong>PDF 色彩调整</strong> 工具</li>
+  <li>统一色调、对比度</li>
 </ul>
-<li>根据品牌要求，使用 **PDF 色彩调整** 工具</li>
-<li>统一色调、对比度</li>
-<p>#### 步骤 5：最终检查</p>
+
+<h4>步骤 5：最终检查</h4>
 <p><strong>5.1 预览检查</strong></p>
 <ul>
+  <li>逐页浏览，确认无错位</li>
+  <li>检查链接是否有效</li>
 </ul>
-<li>逐页浏览，确认无错位</li>
-<li>检查链接是否有效</li>
 <p><strong>5.2 大小优化</strong></p>
 <ul>
+  <li>使用 <strong>PDF 压缩</strong> 工具</li>
+  <li>目标：控制在 10MB 以内</li>
 </ul>
-<li>使用 **PDF 压缩** 工具</li>
-<li>目标：控制在 10MB 以内</li>
+
 <h3>模板化思维</h3>
 <p>建立报告模板库：</p>
-<p>```</p>
-<p>report_templates/</p>
-<p>├── monthly_report/</p>
-<p>│   ├── cover.pdf</p>
-<p>│   ├── data_template.xlsx</p>
-<p>│   ├── analysis_template.docx</p>
-<p>│   └── footer.pdf</p>
-<p>├── quarterly_report/</p>
-<p>│   └── ...</p>
-<p>└── annual_report/</p>
-<p>└── ...</p>
-<p>```</p>
+<pre><code>report_templates/
+  ├── monthly_report/
+  │   ├── cover.pdf
+  │   ├── data_template.xlsx
+  │   ├── analysis_template.docx
+  │   └── footer.pdf
+  ├── quarterly_report/
+  │   └── ...
+  └── annual_report/
+      └── ...</code></pre>
 <p>每次只需替换数据源，即可快速生成新报告。</p>
+
 <hr>
-<h2>最佳实践建议</h2>
+
+<h2 id="best-practices">最佳实践建议</h2>
+
 <h3>实践一：建立标准化流程文档</h3>
 <p>为每种常见任务编写 SOP（标准作业程序）：</p>
-<p>```markdown</p>
-<h2>发票处理 SOP</h2>
-<p><strong>前置条件</strong>：</p>
-<ul>
-</ul>
-<li>邮件附件已下载到指定文件夹</li>
-<li>文件命名符合规范</li>
-<p><strong>处理步骤</strong>：</p>
-<ul>
-</ul>
-<li>运行 OCR 识别</li>
-<li>提取金额和日期</li>
-<li>分类到供应商文件夹</li>
-<li>添加审核水印</li>
-<li>生成汇总表</li>
-<p><strong>异常处理</strong>：</p>
-<ul>
-</ul>
-<li>OCR 失败：手动校对</li>
-<li>无法识别：联系供应商重新提供</li>
-<p>```</p>
+<pre><code>## 发票处理 SOP
+
+**前置条件**：
+- 邮件附件已下载到指定文件夹
+- 文件命名符合规范
+
+**处理步骤**：
+1. 运行 OCR 识别
+2. 提取金额和日期
+3. 分类到供应商文件夹
+4. 添加审核水印
+5. 生成汇总表
+
+**异常处理**：
+- OCR 失败：手动校对
+- 无法识别：联系供应商重新提供</code></pre>
+
 <h3>实践二：定期清理与优化</h3>
 <p><strong>每周</strong>：</p>
 <ul>
+  <li>删除临时文件</li>
+  <li>检查处理日志</li>
 </ul>
-<li>删除临时文件</li>
-<li>检查处理日志</li>
 <p><strong>每月</strong>：</p>
 <ul>
+  <li>评估流程效率</li>
+  <li>识别瓶颈环节</li>
+  <li>优化工具选择</li>
 </ul>
-<li>评估流程效率</li>
-<li>识别瓶颈环节</li>
-<li>优化工具选择</li>
 <p><strong>每季</strong>：</p>
 <ul>
+  <li>学习新工具功能</li>
+  <li>探索自动化可能性</li>
 </ul>
-<li>学习新工具功能</li>
-<li>探索自动化可能性</li>
+
 <h3>实践三：备份策略</h3>
 <p><strong>三层备份</strong>：</p>
-<ul>
-</ul>
-<li>**热备份**：当前工作文件夹（实时）</li>
-<li>**温备份**：周归档文件夹（每周日）</li>
-<li>**冷备份**：月归档文件夹（每月最后一天）</li>
+<ol>
+  <li><strong>热备份</strong>：当前工作文件夹（实时）</li>
+  <li><strong>温备份</strong>：周归档文件夹（每周日）</li>
+  <li><strong>冷备份</strong>：月归档文件夹（每月最后一天）</li>
+</ol>
 <p><strong>版本控制</strong>：</p>
-<p>```</p>
-<p>invoices_2024-01/</p>
-<p>├── raw/          # 原始文件</p>
-<p>├── processed/    # 处理后的文件</p>
-<p>├── backup/       # 备份副本</p>
-<p>└── log.txt       # 处理日志</p>
-<p>```</p>
+<pre><code>invoices_2024-01/
+  ├── raw/          # 原始文件
+  ├── processed/    # 处理后的文件
+  ├── backup/       # 备份副本
+  └── log.txt       # 处理日志</code></pre>
+
 <h3>实践四：性能优化</h3>
 <p><strong>大文件处理</strong>：</p>
 <ul>
+  <li>超过 50MB 的文件分批处理</li>
+  <li>使用本地工具处理超大型文件</li>
 </ul>
-<li>超过 50MB 的文件分批处理</li>
-<li>使用本地工具处理超大型文件</li>
 <p><strong>网络优化</strong>：</p>
 <ul>
+  <li>选择非高峰时段处理</li>
+  <li>确保稳定的网络连接</li>
 </ul>
-<li>选择非高峰时段处理</li>
-<li>确保稳定的网络连接</li>
 <p><strong>浏览器优化</strong>：</p>
 <ul>
+  <li>关闭其他标签页释放内存</li>
+  <li>使用 Chrome 而非 IE/旧版浏览器</li>
 </ul>
-<li>关闭其他标签页释放内存</li>
-<li>使用 Chrome 而非 IE/旧版浏览器</li>
+
 <hr>
-<h2>常见问题解答</h2>
-<h3>Q1: 如何处理扫描质量差的 PDF？</h3>
-<p><strong>A</strong>: 分三步处理：</p>
-<ul>
-</ul>
-<li>先用 **PDF 旋转** 和 **PDF 裁剪** 校正</li>
-<li>使用 **PDF 灰度** 增强对比度</li>
-<li>调用 OCR 时选择"增强模式"</li>
-<p>如仍无法识别，建议联系提供方重新提供电子档。</p>
-<h3>Q2: 批量处理时中途断网怎么办？</h3>
-<p><strong>A</strong>:</p>
-<ul>
-</ul>
-<li>在线工具通常有断点续传功能</li>
-<li>检查浏览器历史记录恢复进度</li>
-<li>如失败，从最后一个成功步骤重新开始</li>
-<h3>Q3: 如何确保 PDF 处理后的兼容性？</h3>
-<p><strong>A</strong>:</p>
-<ul>
-</ul>
-<li>输出格式选择 PDF/A（长期归档标准）</li>
-<li>嵌入所有字体</li>
-<li>测试在不同 PDF 阅读器中的显示效果</li>
-<h3>Q4: 能否处理加密的 PDF？</h3>
-<p><strong>A</strong>:</p>
-<ul>
-</ul>
-<li>需要先使用 **PDF 解密** 工具移除密码</li>
-<li>注意：只能解密您有权访问的文件</li>
-<li>处理后建议重新加密保护</li>
-<h3>Q5: 如何处理超过 200MB 的大文件？</h3>
-<p><strong>A</strong>:</p>
-<p>在线工具有单文件 200MB 限制，建议：</p>
-<ul>
-</ul>
-<li>先用 **PDF 拆分** 分成多个小文件</li>
-<li>分别处理</li>
-<li>最后用 **PDF 合并** 重组</li>
-<p>或使用本地 PDF 工具处理超大文件。</p>
-<h3>Q6: 如何验证处理结果的准确性？</h3>
-<p><strong>A</strong>:</p>
-<p>建立检查清单：</p>
-<ul>
-</ul>
-<li>[ ] 页数是否正确</li>
-<li>[ ] 顺序是否准确</li>
-<li>[ ] 文字识别准确率 >95%</li>
-<li>[ ] 文件大小在合理范围</li>
-<li>[ ] 加密/水印应用成功</li>
-<p>抽样检查：随机抽取 10% 文件详细核对。</p>
+
+<h2 id="faq">常见问题解答</h2>
+
+<div class="faq-item">
+  <h4>Q1: 如何处理扫描质量差的 PDF？</h4>
+  <p><strong>A</strong>：分三步处理：</p>
+  <ol>
+    <li>先用 <strong>PDF 旋转</strong> 和 <strong>PDF 裁剪</strong> 校正</li>
+    <li>使用 <strong>PDF 灰度</strong> 增强对比度</li>
+    <li>调用 OCR 时选择"增强模式"</li>
+  </ol>
+  <p>如仍无法识别，建议联系提供方重新提供电子档。</p>
+</div>
+
+<div class="faq-item">
+  <h4>Q2: 批量处理时中途断网怎么办？</h4>
+  <p><strong>A</strong>：</p>
+  <ul>
+    <li>在线工具通常有断点续传功能</li>
+    <li>检查浏览器历史记录恢复进度</li>
+    <li>如失败，从最后一个成功步骤重新开始</li>
+  </ul>
+</div>
+
+<div class="faq-item">
+  <h4>Q3: 如何确保 PDF 处理后的兼容性？</h4>
+  <p><strong>A</strong>：</p>
+  <ul>
+    <li>输出格式选择 PDF/A（长期归档标准）</li>
+    <li>嵌入所有字体</li>
+    <li>测试在不同 PDF 阅读器中的显示效果</li>
+  </ul>
+</div>
+
+<div class="faq-item">
+  <h4>Q4: 能否处理加密的 PDF？</h4>
+  <p><strong>A</strong>：</p>
+  <ul>
+    <li>需要先使用 <strong>PDF 解密</strong> 工具移除密码</li>
+    <li>注意：只能解密您有权访问的文件</li>
+    <li>处理后建议重新加密保护</li>
+  </ul>
+</div>
+
+<div class="faq-item">
+  <h4>Q5: 如何处理超过 200MB 的大文件？</h4>
+  <p><strong>A</strong>：在线工具有单文件 200MB 限制，建议：</p>
+  <ol>
+    <li>先用 <strong>PDF 拆分</strong> 分成多个小文件</li>
+    <li>分别处理</li>
+    <li>最后用 <strong>PDF 合并</strong> 重组</li>
+  </ol>
+  <p>或使用本地 PDF 工具处理超大文件。</p>
+</div>
+
+<div class="faq-item">
+  <h4>Q6: 如何验证处理结果的准确性？</h4>
+  <p><strong>A</strong>：建立检查清单：</p>
+  <ul>
+    <li>页数是否正确</li>
+    <li>顺序是否准确</li>
+    <li>文字识别准确率 &gt;95%</li>
+    <li>文件大小在合理范围</li>
+    <li>加密/水印应用成功</li>
+  </ul>
+  <p>抽样检查：随机抽取 10% 文件详细核对。</p>
+</div>
+
 <hr>
-<h2>下一步行动</h2>
+
+<h2 id="next-steps">下一步行动</h2>
+
 <h3>立即行动（今天）</h3>
-<ul>
-</ul>
-<li>**识别您的高频场景**</li>
-<li>列出您每周处理最多的 3 种 PDF 任务</li>
-<li>估算当前耗时</li>
-<li>**尝试第一个自动化流程**</li>
-<li>选择最简单的场景（如批量重命名）</li>
-<li>按照本指南的步骤操作</li>
-<li>记录时间和效果</li>
+<ol>
+  <li><strong>识别您的高频场景</strong>
+    <ul>
+      <li>列出您每周处理最多的 3 种 PDF 任务</li>
+      <li>估算当前耗时</li>
+    </ul>
+  </li>
+  <li><strong>尝试第一个自动化流程</strong>
+    <ul>
+      <li>选择最简单的场景（如批量重命名）</li>
+      <li>按照本指南的步骤操作</li>
+      <li>记录时间和效果</li>
+    </ul>
+  </li>
+</ol>
+
 <h3>短期计划（本周）</h3>
-<ul>
-</ul>
-<li>**建立文件管理规范**</li>
-<li>制定统一的命名规则</li>
-<li>创建分类文件夹结构</li>
-<li>**完善常用工具收藏夹**</li>
-<li>将 ZenTools 相关工具添加到浏览器书签</li>
-<li>按使用频率排序</li>
-<li>**编写个人 SOP**</li>
-<li>为最常用的流程编写操作手册</li>
-<li>分享给团队成员</li>
+<ol>
+  <li><strong>建立文件管理规范</strong>
+    <ul>
+      <li>制定统一的命名规则</li>
+      <li>创建分类文件夹结构</li>
+    </ul>
+  </li>
+  <li><strong>完善常用工具收藏夹</strong>
+    <ul>
+      <li>将 ZenTools 相关工具添加到浏览器书签</li>
+      <li>按使用频率排序</li>
+    </ul>
+  </li>
+  <li><strong>编写个人 SOP</strong>
+    <ul>
+      <li>为最常用的流程编写操作手册</li>
+      <li>分享给团队成员</li>
+    </ul>
+  </li>
+</ol>
+
 <h3>中期目标（本月）</h3>
-<ul>
-</ul>
-<li>**覆盖 80% 的常规任务**</li>
-<li>识别剩余 20% 的特殊场景</li>
-<li>制定针对性解决方案</li>
-<li>**培训团队成员**</li>
-<li>分享自动化经验</li>
-<li>建立团队知识库</li>
-<li>**持续优化**</li>
-<li>收集使用反馈</li>
-<li>迭代改进流程</li>
+<ol>
+  <li><strong>覆盖 80% 的常规任务</strong>
+    <ul>
+      <li>识别剩余 20% 的特殊场景</li>
+      <li>制定针对性解决方案</li>
+    </ul>
+  </li>
+  <li><strong>培训团队成员</strong>
+    <ul>
+      <li>分享自动化经验</li>
+      <li>建立团队知识库</li>
+    </ul>
+  </li>
+  <li><strong>持续优化</strong>
+    <ul>
+      <li>收集使用反馈</li>
+      <li>迭代改进流程</li>
+    </ul>
+  </li>
+</ol>
+
 <h3>长期价值（本季）</h3>
 <p>通过坚持自动化工作流，预计可实现：</p>
 <ul>
+  <li><strong>时间节省</strong>：每月节省 10-20 小时</li>
+  <li><strong>质量提升</strong>：错误率降低 90% 以上</li>
+  <li><strong>能力扩展</strong>：可处理更复杂的文档任务</li>
+  <li><strong>团队赋能</strong>：提升整体工作效率</li>
 </ul>
-<li>**时间节省**：每月节省 10-20 小时</li>
-<li>**质量提升**：错误率降低 90% 以上</li>
-<li>**能力扩展**：可处理更复杂的文档任务</li>
-<li>**团队赋能**：提升整体工作效率</li>
+
 <hr>
+
 <h2>参考资料</h2>
+
 <h3>ZenTools 相关工具</h3>
-<p>- <a href="/pdf/merge.html">PDF 合并工具</a></p>
-<p>- <a href="/pdf/split.html">PDF 拆分工具</a></p>
-<p>- <a href="/pdf/ocr.html">OCR 文字识别</a></p>
-<p>- <a href="/pdf/protect.html">PDF 加密工具</a></p>
-<p>- <a href="/pdf/compress.html">PDF 压缩工具</a></p>
+<ul>
+  <li><a href="/pdf/merge.html">PDF 合并工具</a></li>
+  <li><a href="/pdf/split.html">PDF 拆分工具</a></li>
+  <li><a href="/pdf/ocr.html">OCR 文字识别</a></li>
+  <li><a href="/pdf/protect.html">PDF 加密工具</a></li>
+  <li><a href="/pdf/compress.html">PDF 压缩工具</a></li>
+</ul>
+
 <h3>外部资源</h3>
-<p>- <a href="https://www.adobe.com/pdf/standards.html">Adobe PDF 最佳实践</a></p>
-<p>- <a href="https://www.pdfa.org/">PDF/A 归档标准</a></p>
-<p>- <a href="https://developers.google.com/search/docs/basics/site-quality">Google 文档质量管理指南</a></p>
+<ul>
+  <li><a href="https://www.adobe.com/pdf/standards.html" target="_blank" rel="noopener">Adobe PDF 最佳实践</a></li>
+  <li><a href="https://www.pdfa.org/" target="_blank" rel="noopener">PDF/A 归档标准</a></li>
+  <li><a href="https://developers.google.com/search/docs/basics/site-quality" target="_blank" rel="noopener">Google 文档质量管理指南</a></li>
+</ul>
+
 <hr>
 <p><strong>版权声明</strong>：本文档采用知识共享许可协议（CC BY-NC-SA 4.0），允许非商业性分享和改编，但需注明出处并以相同方式共享。</p>
 <p><strong>更新日期</strong>：2024 年 1 月</p>
 <p><strong>版本</strong>：1.0</p>
+
   </div>
-  
+
   <div class="related-section">
     <h3 data-i18n="relatedGuides">相关指南</h3>
     <div class="related-links">
-<a href="image-batch-processing.html">🖼️ 图片批量处理最佳实践</a><a href="ai-writing-workflow.html">🤖 AI 写作完整工作流</a><a href="seo-optimization-checklist.html">🔍 SEO 优化完整清单</a><a href="video-editing-tips.html">🎬 视频编辑入门指南</a>
+      <a href="image-batch-processing.html">🖼️ 图片批量处理最佳实践</a>
+      <a href="ai-writing-workflow.html">🤖 AI 写作完整工作流</a>
+      <a href="seo-optimization-checklist.html">🔍 SEO 优化完整清单</a>
+      <a href="video-editing-tips.html">🎬 视频编辑入门指南</a>
     </div>
   </div>
 </div>
 
-<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/tutorials/" data-i18n="navArticles">教程中心</a><a href="/guides/" data-i18n="navGuides">深度指南</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
-</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/tutorials/" data-i18n="navArticles">教程中心</a><a href="/guides/" data-i18n="navGuides">深度指南</a></div><p class="footer-copy" data-i18n="footerCopy">&copy; 2026 ZenTools. 免费在线工具箱。</p></div></footer>
 
 <script>
 window.ZT_PAGE = {
@@ -676,7 +812,7 @@ window.ZT_PAGE = {
   }
 };
 </script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz/guides/pdf-automation.html')">⭐ 收藏本站</button>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz/guides/pdf-automation.html')">&#11088; 收藏本站</button>
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
