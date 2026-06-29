@@ -67,7 +67,7 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
 function previewMD() {
   var t=document.getElementById('mdInput').value; if(!t) return;
   var h=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  h=h.replace(/^### (.+)$/gm,'<h3 data-i18n="h_1">$1</h3>').replace(/^## (.+)$/gm,'<h2 data-i18n="h_1">$1</h2>').replace(/^# (.+)$/gm,'<h1 data-i18n="h_1">$1</h1>');
+  h=h.replace(/^### (.+)$/gm,'<h3 data-i18n="h_1">$1</h3>').replace(/^## (.+)$/gm,'<h2 data-i18n="h_1">$1</h2>').replace(/^# (.+)$/gm,'<h2 data-i18n="h_1">$1</h2>');
   h=h.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\*(.+?)\*/g,'<i>$1</i>').replace(/`(.+?)`/g,'<code>$1</code>');
   h=h.replace(/\[(.+?)\]\((.+?)\)/g,'<a href="$2" target="_blank" data-i18n="h_1">$1</a>');
   h=h.replace(/^\* (.+)$/gm,'<li>$1</li>').replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
