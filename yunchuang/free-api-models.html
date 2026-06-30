@@ -518,26 +518,26 @@ if (sel) {
 
     // ----- 基礎 API 模型數據 -----
     const BASE_MODELS = [
-      { name: "DeepSeek-V3", category: "text", provider: "DeepSeek", desc: "开源 MoE 模型，671B 总参数，激活 37B，上下文 128K。", specs: "128K ctx · 支持 8 种语言", limit: "每日 500 次请求 · 需 API Key", status: "active" },
-      { name: "Qwen-2.5-72B", category: "text", provider: "阿里云", desc: "通义千问最新开源模型，72B 参数，支持 1M 上下文。", specs: "1M ctx · 多语言支持", limit: "免费额度 100 万 tokens/月", status: "active" },
-      { name: "GLM-4-Plus", category: "text", provider: "智谱 AI", desc: "GLM-4 系列最强模型，推理能力接近 GPT-4。", specs: "128K ctx · 函数调用", limit: "每日 500 次调用", status: "active" },
-      { name: "Yi-34B-Chat", category: "text", provider: "01.AI", desc: "零一万物开源模型，34B 参数，支持 200K 上下文。", specs: "200K ctx · 4-bit 量化", limit: "免费 · 需申请", status: "beta" },
-      { name: "Mixtral-8x7B", category: "text", provider: "Mistral AI", desc: "MoE 架构，46B 总参数，12B 激活，支持 32K 上下文。", specs: "32K ctx · 开源", limit: "免费 · 限速", status: "active" },
-      { name: "Stable Diffusion 3.5", category: "image", provider: "Stability AI", desc: "最新的文生图模型，支持 1024x1024 生成。", specs: "1024px · 8 step", limit: "每日 50 次免费", status: "active" },
-      { name: "FLUX.1-dev", category: "image", provider: "Black Forest Labs", desc: "开源文生图模型，12B 参数，高质量生成。", specs: "1024px · 支持 ControlNet", limit: "免费 · 非商用", status: "beta" },
-      { name: "DALL-E 3 (免费层)", category: "image", provider: "OpenAI", desc: "OpenAI 顶级文生图模型，通过 API 使用。", specs: "1024x1024 · 4x", limit: "新用户 50 积分", status: "active" },
-      { name: "DeepFloyd IF", category: "image", provider: "DeepFloyd", desc: "像素级文生图，支持文本嵌入生成。", specs: "256px · 4x upscale", limit: "完全免费", status: "active" },
-      { name: "text-embedding-3-small", category: "embedding", provider: "OpenAI", desc: "最新嵌入模型，维度 1536，性能优于 ada-002。", specs: "1536 维 · 8K tokens", limit: "免费 1000 次/月", status: "active" },
-      { name: "BGE-M3", category: "embedding", provider: "BAAI", desc: "多语言嵌入模型，支持 100+ 语言，8192 上下文。", specs: "1024 维 · 8192 ctx", limit: "完全免费", status: "active" },
-      { name: "Cohere Embed V3", category: "embedding", provider: "Cohere", desc: "高精度嵌入，支持 100+ 语言，维度 1024。", specs: "1024 维 · 512 tokens", limit: "每日 1000 次", status: "active" },
-      { name: "Whisper V3", category: "audio", provider: "OpenAI", desc: "多语言语音识别，支持 99 种语言，高精度。", specs: "多语言 · 128 位", limit: "免费 100 分钟/月", status: "active" },
-      { name: "Silero TTS", category: "audio", provider: "Silero", desc: "轻量级文本转语音，支持多种语言和音色。", specs: "8kHz · 低延迟", limit: "完全免费", status: "active" },
-      { name: "Bark (免费)", category: "audio", provider: "Suno", desc: "生成式音频模型，支持语音克隆和音乐生成。", specs: "44.1kHz · 情感", limit: "非商用免费", status: "beta" },
-      { name: "CogVideoX-5B", category: "video", provider: "THUDM", desc: "开源文生视频模型，生成 6 秒 720p 视频。", specs: "720p · 6s", limit: "完全免费", status: "beta" },
-      { name: "Stable Video Diffusion", category: "video", provider: "Stability AI", desc: "文生视频扩散模型，支持 4 秒 576x1024 生成。", specs: "576x1024 · 4s", limit: "每日 10 次", status: "active" },
-      { name: "Qwen-VL-72B", category: "multimodal", provider: "阿里云", desc: "视觉语言模型，支持图像理解与对话。", specs: "720p · 8K ctx", limit: "免费 500 次/月", status: "active" },
-      { name: "LLaVA-NeXT", category: "multimodal", provider: "开源社区", desc: "开源多模态模型，支持图像、视频理解。", specs: "8B · 视频支持", limit: "完全免费", status: "active" },
-      { name: "MiniCPM-V", category: "multimodal", provider: "面壁智能", desc: "端侧多模态模型，支持 OCR 和图表理解。", specs: "2.8B · 轻量", limit: "免费 · 非商用", status: "active" },
+      { name: "DeepSeek-V3", category: "text", provider: "DeepSeek", url:"https://deepseek.com", desc: "开源 MoE 模型，671B 总参数，激活 37B，上下文 128K。", specs: "128K ctx · 支持 8 种语言", limit: "每日 500 次请求 · 需 API Key", status: "active" },
+      { name: "Qwen-2.5-72B", category: "text", provider: "阿里云", url:"https://tongyi.aliyun.com", desc: "通义千问最新开源模型，72B 参数，支持 1M 上下文。", specs: "1M ctx · 多语言支持", limit: "免费额度 100 万 tokens/月", status: "active" },
+      { name: "GLM-4-Plus", category: "text", provider: "智谱 AI", url:"https://zhipuai.cn", desc: "GLM-4 系列最强模型，推理能力接近 GPT-4。", specs: "128K ctx · 函数调用", limit: "每日 500 次调用", status: "active" },
+      { name: "Yi-34B-Chat", category: "text", provider: "01.AI", url:"https://01.ai", desc: "零一万物开源模型，34B 参数，支持 200K 上下文。", specs: "200K ctx · 4-bit 量化", limit: "免费 · 需申请", status: "beta" },
+      { name: "Mixtral-8x7B", category: "text", provider: "Mistral AI", url:"https://mistral.ai", desc: "MoE 架构，46B 总参数，12B 激活，支持 32K 上下文。", specs: "32K ctx · 开源", limit: "免费 · 限速", status: "active" },
+      { name: "Stable Diffusion 3.5", category: "image", provider: "Stability AI", url:"https://stability.ai", desc: "最新的文生图模型，支持 1024x1024 生成。", specs: "1024px · 8 step", limit: "每日 50 次免费", status: "active" },
+      { name: "FLUX.1-dev", category: "image", provider: "Black Forest Labs", url:"https://blackforestlabs.ai", desc: "开源文生图模型，12B 参数，高质量生成。", specs: "1024px · 支持 ControlNet", limit: "免费 · 非商用", status: "beta" },
+      { name: "DALL-E 3 (免费层)", category: "image", provider: "OpenAI", url:"https://openai.com", desc: "OpenAI 顶级文生图模型，通过 API 使用。", specs: "1024x1024 · 4x", limit: "新用户 50 积分", status: "active" },
+      { name: "DeepFloyd IF", category: "image", provider: "DeepFloyd", url:"https://huggingface.co/DeepFloyd", desc: "像素级文生图，支持文本嵌入生成。", specs: "256px · 4x upscale", limit: "完全免费", status: "active" },
+      { name: "text-embedding-3-small", category: "embedding", provider: "OpenAI", url:"https://openai.com", desc: "最新嵌入模型，维度 1536，性能优于 ada-002。", specs: "1536 维 · 8K tokens", limit: "免费 1000 次/月", status: "active" },
+      { name: "BGE-M3", category: "embedding", provider: "BAAI", url:"https://huggingface.co/BAAI", desc: "多语言嵌入模型，支持 100+ 语言，8192 上下文。", specs: "1024 维 · 8192 ctx", limit: "完全免费", status: "active" },
+      { name: "Cohere Embed V3", category: "embedding", provider: "Cohere", url:"https://cohere.com", desc: "高精度嵌入，支持 100+ 语言，维度 1024。", specs: "1024 维 · 512 tokens", limit: "每日 1000 次", status: "active" },
+      { name: "Whisper V3", category: "audio", provider: "OpenAI", url:"https://openai.com", desc: "多语言语音识别，支持 99 种语言，高精度。", specs: "多语言 · 128 位", limit: "免费 100 分钟/月", status: "active" },
+      { name: "Silero TTS", category: "audio", provider: "Silero", url:"https://github.com/snakers4/silero-models", desc: "轻量级文本转语音，支持多种语言和音色。", specs: "8kHz · 低延迟", limit: "完全免费", status: "active" },
+      { name: "Bark (免费)", category: "audio", provider: "Suno", url:"https://github.com/suno-ai/bark", desc: "生成式音频模型，支持语音克隆和音乐生成。", specs: "44.1kHz · 情感", limit: "非商用免费", status: "beta" },
+      { name: "CogVideoX-5B", category: "video", provider: "THUDM", url:"https://github.com/THUDM/CogVideo", desc: "开源文生视频模型，生成 6 秒 720p 视频。", specs: "720p · 6s", limit: "完全免费", status: "beta" },
+      { name: "Stable Video Diffusion", category: "video", provider: "Stability AI", url:"https://stability.ai", desc: "文生视频扩散模型，支持 4 秒 576x1024 生成。", specs: "576x1024 · 4s", limit: "每日 10 次", status: "active" },
+      { name: "Qwen-VL-72B", category: "multimodal", provider: "阿里云", url:"https://huggingface.co/Qwen", desc: "视觉语言模型，支持图像理解与对话。", specs: "720p · 8K ctx", limit: "免费 500 次/月", status: "active" },
+      { name: "LLaVA-NeXT", category: "multimodal", provider: "开源社区", url:"https://llava.hliu.cc", desc: "开源多模态模型，支持图像、视频理解。", specs: "8B · 视频支持", limit: "完全免费", status: "active" },
+      { name: "MiniCPM-V", category: "multimodal", provider: "面壁智能", url:"https://github.com/OpenBMB/MiniCPM", desc: "端侧多模态模型，支持 OCR 和图表理解。", specs: "2.8B · 轻量", limit: "免费 · 非商用", status: "active" },
     ];
 
     let currentFilter = 'all';
@@ -586,7 +586,7 @@ if (sel) {
         html += `
           <div class="card">
             <span class="tag ${tagClass}">${s.category}</span>
-            <h3><a href="#" onclick="return false;">${s.name}</a></h3>
+            <h3><a href="${s.url}" target="_blank" rel="noopener">${s.name}</a></h3>
             <div class="sub">
               <span class="provider"><i class="fas fa-building"></i> ${s.provider}</span>
               <span><i class="far fa-clock"></i> ${s._time || ''}</span>
