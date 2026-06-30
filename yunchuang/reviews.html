@@ -25,7 +25,7 @@
     zh: {
       pageTitle: "深度评测 - AI 模型、开发工具和技术方案 | 云创",
       backHome: "← 返回主页",
-      backYunchuang: "← 返回云创导航",
+      backYunchuang: "← 返回云创",
       headerTitle: "🔬 深度评测",
       headerDesc: "AI 模型、开发工具和技术方案的深度解析",
       badge: "📦 7 篇深度文章 · 持续更新 · 2026 年",
@@ -202,91 +202,146 @@
   window.ZT_PAGE = pageTranslations;
   </script>
 
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/favicon.svg" />
   <style>
+    :root {
+      --bg:      #06070d;
+      --glass:   rgba(255,255,255,0.04);
+      --glass-b: rgba(255,255,255,0.08);
+      --cyan:    #00e5ff;
+      --purple:  #a855f7;
+      --pink:    #f43f5e;
+      --text:    #f0f4ff;
+      --muted:   #6b7a9f;
+      --border:  rgba(255,255,255,0.07);
+      --border-h:rgba(0,229,255,0.35);
+      --r:       20px;
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: #f6f8fa;
-      color: #24292f;
-      padding: 2rem 1.5rem;
-      line-height: 1.6;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 0;
+      min-height: 100vh;
     }
-    .container { max-width: 960px; margin: 0 auto; }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 20% 20%, rgba(0,229,255,.06) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 50% at 80% 70%, rgba(168,85,247,.05) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
 
-    /* Top bar */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+    /* ===== 导航栏（与主站一致） ===== */
+    .z-wrap { max-width: 1200px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0; gap: 20px; flex-wrap: wrap;
     }
-    .nav-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .back-link { color: #3b82f6; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: opacity 0.2s; }
-    .back-link:hover { opacity: 0.7; }
-    .sep { color: #94a3b8; }
+    .nav-left { display: flex; align-items: center; gap: 12px; }
+    .logo {
+      font-size: 22px; font-weight: 900;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      text-decoration: none;
+    }
+    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; -webkit-text-fill-color: var(--muted); color: var(--muted); }
+    .back-link {
+      color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 500;
+      padding: 8px 14px; border-radius: 10px; transition: color 0.2s, background 0.2s;
+    }
+    .back-link:hover { color: var(--text); background: var(--glass-b); }
     .lang-select {
-      background: white; border: 1px solid #d0d7de; border-radius: 10px;
-      padding: 8px 12px; font-size: 0.85rem; color: #24292f; cursor: pointer; outline: none;
+      border: 1px solid var(--border); background: var(--glass);
+      border-radius: 10px; padding: 8px 12px; color: var(--text); font-size: 13px;
+      cursor: pointer; outline: none;
     }
-    .lang-select:focus { border-color: #3b82f6; }
+    .lang-select:focus { border-color: var(--cyan); }
+    .lang-select option { background: #0a0c14; color: var(--text); }
 
-    /* Header */
-    .header { margin-bottom: 2.5rem; border-bottom: 1px solid #d0d7de; padding-bottom: 1.5rem; }
-    .header h1 { font-size: 2.2rem; font-weight: 600; color: #1f2937; margin-bottom: 0.5rem; }
-    .header p { color: #57606a; font-size: 1.1rem; }
-    .header .badge {
-      display: inline-block; background: #ddf4ff; color: #0550ae;
-      font-size: 0.8rem; font-weight: 500; padding: 0.2rem 0.8rem;
-      border-radius: 20px; margin-top: 0.5rem; border: 1px solid #b6e3ff;
+    /* ===== Hero / Header ===== */
+    .page-header {
+      text-align: center;
+      padding: 80px 0 60px;
+      position: relative;
+    }
+    .page-header .badge {
+      display: inline-block;
+      padding: 7px 16px; border-radius: 999px;
+      background: rgba(0,229,255,0.08);
+      color: var(--cyan); font-weight: 700; font-size: 13px;
+      margin-bottom: 20px; border: 1px solid rgba(0,229,255,0.15);
+    }
+    .page-header h1 {
+      font-size: clamp(36px, 5vw, 56px); font-weight: 900;
+      letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 16px;
+    }
+    .page-header h1 .grad {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .page-header p {
+      font-size: 18px; color: var(--muted); max-width: 640px;
+      margin: 0 auto; line-height: 1.8;
     }
 
-    /* Article grid */
-    .article-grid { display: grid; gap: 1.5rem; margin-top: 1.5rem; }
+    /* ===== 文章网格 ===== */
+    .article-grid { display: grid; gap: 16px; margin-top: 10px; padding-bottom: 60px; }
     .article-card {
-      background: white; border-radius: 16px; padding: 1.8rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-      border: 1px solid #eaeef2; transition: transform 0.2s ease, box-shadow 0.2s ease;
+      background: var(--glass); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 24px 28px;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
     .article-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 28px -8px rgba(0,0,0,0.08);
-      border-color: #d0d7de;
+      border-color: var(--border-h);
+      box-shadow: 0 20px 50px -12px rgba(0,0,0,0.4);
     }
     .article-tag {
-      display: inline-block; background: #dbeafe; color: #1e40af;
-      font-size: 0.8rem; font-weight: 600; padding: 0.3rem 0.8rem;
-      border-radius: 20px; margin-bottom: 1rem;
+      display: inline-block; margin-bottom: 12px;
+      padding: 4px 12px; border-radius: 999px;
+      background: rgba(0,229,255,0.08); color: var(--cyan);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.3px;
     }
-    .article-card h3 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.8rem; }
-    .article-card h3 a { color: #1f2937; text-decoration: none; transition: color 0.2s; }
-    .article-card h3 a:hover { color: #3b82f6; }
-    .article-desc { color: #4b5563; font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
-    .article-meta { display: flex; gap: 1.5rem; font-size: 0.85rem; color: #6b7280; border-top: 1px solid #f0f3f6; padding-top: 1rem; }
+    .article-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+    .article-card h3 a { color: var(--text); text-decoration: none; transition: color 0.2s; }
+    .article-card h3 a:hover { color: var(--cyan); }
+    .article-desc { color: var(--muted); font-size: 15px; line-height: 1.7; margin-bottom: 14px; }
+    .article-meta {
+      display: flex; gap: 20px; font-size: 13px; color: var(--muted);
+      border-top: 1px solid var(--border); padding-top: 14px;
+    }
 
-    /* Footer */
-    .footer { margin-top: 3.5rem; text-align: center; color: #6b7280; font-size: 0.9rem; border-top: 1px solid #d0d7de; padding-top: 2rem; }
+    /* ===== Footer ===== */
+    footer {
+      text-align: center; padding: 40px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 13px;
+    }
 
     @media (max-width: 640px) {
-      body { padding: 1.2rem; }
-      .header h1 { font-size: 1.8rem; }
-      .article-card { padding: 1.2rem; }
-      .article-card h3 { font-size: 1.2rem; }
-      .article-meta { flex-direction: column; gap: 0.5rem; }
-      .top-bar { flex-direction: column; align-items: flex-start; }
+      .z-wrap { padding: 0 16px; }
+      .page-header { padding: 50px 0 36px; }
+      .page-header h1 { font-size: 28px; }
+      .article-card { padding: 18px 20px; }
+      .article-card h3 { font-size: 17px; }
+      .article-meta { flex-direction: column; gap: 6px; }
     }
   </style>
 </head>
 <body>
-<div class="container">
+<div class="z-wrap">
 
-  <!-- Top bar -->
-  <div class="top-bar">
-    <div class="nav-links">
+  <!-- ===== 导航栏 ===== -->
+  <nav>
+    <div class="nav-left">
+      <a class="logo" href="/">ZenTools<span>3.0</span></a>
       <a href="/" class="back-link" data-i18n="backHome">← 返回主页</a>
-      <span class="sep">|</span>
-      <a href="/yunchuang/" class="back-link" data-i18n="backYunchuang">← 返回云创导航</a>
+      <a href="/yunchuang/" class="back-link" data-i18n="backYunchuang">← 返回云创</a>
     </div>
     <select id="languageSelect" class="lang-select">
       <option value="zh">中文</option>
@@ -294,16 +349,16 @@
       <option value="ja">日本語</option>
       <option value="vi">Tiếng Việt</option>
     </select>
-  </div>
+  </nav>
 
-  <!-- Header -->
-  <div class="header">
-    <h1 data-i18n="headerTitle">🔬 深度评测</h1>
-    <p data-i18n="headerDesc">AI 模型、开发工具和技术方案的深度解析</p>
+  <!-- ===== 页头 ===== -->
+  <div class="page-header">
     <div class="badge" data-i18n="badge">📦 7 篇深度文章 · 持续更新 · 2026 年</div>
+    <h1><span class="grad" data-i18n="headerTitle">🔬 深度评测</span></h1>
+    <p data-i18n="headerDesc">AI 模型、开发工具和技术方案的深度解析</p>
   </div>
 
-  <!-- Article grid -->
+  <!-- ===== 文章网格 ===== -->
   <div class="article-grid">
     <div class="article-card">
       <div class="article-tag" data-i18n="articleTag1">AI 模型评测</div>
@@ -376,13 +431,13 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="footer">
-    <p><small data-i18n="footerText">© 2026 云创 - 免费云情报站 | 持续更新深度评测内容</small></p>
-  </div>
+  <!-- ===== Footer ===== -->
+  <footer>
+    <small data-i18n="footerText">© 2026 云创 - 免费云情报站 | 持续更新深度评测内容</small>
+  </footer>
 </div>
 
-<!-- i18n Apply Script -->
+<!-- ===== i18n 应用脚本 ===== -->
 <script>
 var translations = window.ZT_PAGE || {};
 function setLanguage(lang) {
