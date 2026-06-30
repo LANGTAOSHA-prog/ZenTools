@@ -1,0 +1,169 @@
+<!-- LongMao AI Architecture Diagram -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 850">
+  <!-- Background -->
+  <rect width="1200" height="850" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#1e293b">LongMao AI Platform Architecture</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="1100" height="740" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="95" font-size="16" font-weight="bold" fill="#64748b">Complete AI Service Infrastructure</text>
+  
+  <!-- User/Application Layer -->
+  <g id="user-layer">
+    <rect x="150" y="130" width="200" height="80" rx="8" fill="#3b82f6" opacity="0.9"/>
+    <text x="250" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Your Application</text>
+    <text x="250" y="180" text-anchor="middle" font-size="12" fill="#e0f2fe">Python/Node.js/Web/Mobile</text>
+  </g>
+  
+  <!-- SDK/API Layer -->
+  <g id="sdk-layer">
+    <rect x="450" y="130" width="200" height="80" rx="8" fill="#8b5cf6" opacity="0.9"/>
+    <text x="550" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">SDK & API Gateway</text>
+    <text x="550" y="180" text-anchor="middle" font-size="12" fill="#ede9fe">RESTful / gRPC / WebSocket</text>
+  </g>
+  
+  <!-- Authentication -->
+  <g id="auth">
+    <ellipse cx="850" y="170" rx="50" ry="30" fill="#10b981" opacity="0.9"/>
+    <text x="850" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Auth Service</text>
+    <text x="850" y="192" text-anchor="middle" font-size="9" fill="#ccfbf1">API Key · OAuth · JWT</text>
+  </g>
+  
+  <!-- Load Balancer -->
+  <g id="lb">
+    <rect x="350" y="250" width="200" height="70" rx="8" fill="#0ea5e9" opacity="0.8"/>
+    <text x="450" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Global Load Balancer</text>
+    <text x="450" y="295" text-anchor="middle" font-size="11" fill="#e0f2fe">Multi-Region Routing</text>
+  </g>
+  
+  <!-- Processing Cluster -->
+  <rect x="150" y="350" width="600" height="350" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="170" y="375" font-size="14" font-weight="bold" fill="#475569">LongMao AI Inference Cluster (Domestic GPUs)</text>
+  
+  <!-- Model Registry -->
+  <g id="model-registry">
+    <rect x="170" y="400" width="160" height="60" rx="8" fill="#6366f1" opacity="0.8"/>
+    <text x="250" y="425" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Model Registry</text>
+    <text x="250" y="443" text-anchor="middle" font-size="10" fill="#e0e7ff">Version Management</text>
+  </g>
+  
+  <!-- GPU Nodes -->
+  <g id="gpu-nodes">
+    <rect x="170" y="480" width="170" height="80" rx="8" fill="#ef4444" opacity="0.7"/>
+    <text x="255" y="510" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Huawei Ascend 910B</text>
+    <text x="255" y="530" text-anchor="middle" font-size="10" fill="#fee2e2">45% · 320 TFLOPS</text>
+    
+    <rect x="360" y="480" width="170" height="80" rx="8" fill="#f59e0b" opacity="0.7"/>
+    <text x="445" y="510" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Cambricon MLU370</text>
+    <text x="445" y="530" text-anchor="middle" font-size="10" fill="#fef3c7">30% · 280 TFLOPS</text>
+    
+    <rect x="550" y="480" width="170" height="80" rx="8" fill="#ec4899" opacity="0.7"/>
+    <text x="635" y="510" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Biren BR100</text>
+    <text x="635" y="530" text-anchor="middle" font-size="10" fill="#fce7f3">15% · 400 TFLOPS</text>
+    
+    <rect x="360" y="580" width="170" height="80" rx="8" fill="#14b8a6" opacity="0.7"/>
+    <text x="445" y="610" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Iluvatar BI-V</text>
+    <text x="445" y="630" text-anchor="middle" font-size="10" fill="#ccfbf1">10% · 240 TFLOPS</text>
+  </g>
+  
+  <!-- Inference Engine -->
+  <g id="inference-engine">
+    <circle cx="450" y="690" r="60" rx="40" ry="25" fill="#8b5cf6" opacity="0.9"/>
+    <text x="450" y="685" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Optimized Inference Engine</text>
+    <text x="450" y="705" text-anchor="middle" font-size="9" fill="#ede9fe">Quantization · Operator Fusion</text>
+  </g>
+  
+  <!-- Token Management -->
+  <g id="token-mgmt">
+    <rect x="850" y="350" width="200" height="80" rx="8" fill="#10b981" opacity="0.9"/>
+    <text x="950" y="380" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Token Manager</text>
+    <text x="950" y="400" text-anchor="middle" font-size="11" fill="#ccfbf1">Daily Check-in · Usage Tracking</text>
+  </g>
+  
+  <!-- Monitoring System -->
+  <g id="monitoring">
+    <rect x="850" y="460" width="200" height="80" rx="8" fill="#64748b" opacity="0.8"/>
+    <text x="950" y="490" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Monitoring & Logging</text>
+    <text x="950" y="510" text-anchor="middle" font-size="11" fill="#e2e8f0">Metrics · Alerts · Analytics</text>
+  </g>
+  
+  <!-- Content Filter -->
+  <g id="content-filter">
+    <rect x="850" y="570" width="200" height="80" rx="8" fill="#f59e0b" opacity="0.8"/>
+    <text x="950" y="600" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Content Safety Filter</text>
+    <text x="950" y="620" text-anchor="middle" font-size="11" fill="#fef3c7">Input · Process · Output</text>
+  </g>
+  
+  <!-- Storage Layer -->
+  <g id="storage">
+    <ellipse cx="850" y="690" rx="70" ry="40" fill="#f97316" opacity="0.9"/>
+    <text x="850" y="695" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Object Storage</text>
+    <text x="850" y="712" text-anchor="middle" font-size="10" fill="#fed7aa">Logs · Models · Cache</text>
+  </g>
+  
+  <!-- Data Flow Arrows -->
+  <!-- User to SDK -->
+  <line x1="350" y1="170" x2="450" y2="170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- SDK to LB -->
+  <line x1="650" y1="170" x2="450" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- LB to GPU Nodes -->
+  <line x1="450" y1="320" x2="255" y2="480" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="320" x2="445" y2="480" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="320" x2="635" y2="480" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- GPU Nodes to Inference Engine -->
+  <line x1="255" y1="560" x2="450" y2="690" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="445" y1="560" x2="450" y2="690" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="635" y1="560" x2="450" y2="690" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Token Manager to All -->
+  <line x1="850" y1="430" x2="450" y2="480" stroke="#10b981" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow-green)"/>
+  
+  <!-- Monitoring to All -->
+  <line x1="850" y1="540" x2="850" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <line x1="850" y1="540" x2="450" y2="720" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  
+  <!-- Response Flow -->
+  <line x1="450" y1="690" x2="450" y2="250" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 L2,3 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 L2,3 Z" fill="#10b981"/>
+    </marker>
+  </defs>
+  
+  <!-- Key Features Box -->
+  <g id="features" transform="translate(50, 730)">
+    <rect x="0" y="0" width="500" height="110" rx="8" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+    <text x="250" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#c2410c">Key Features</text>
+    
+    <rect x="20" y="35" width="220" height="35" rx="4" fill="#ffffff" stroke="#ef4444" stroke-width="1"/>
+    <text x="130" y="52" text-anchor="middle" font-size="11" font-weight="bold" fill="#c2410c">🆓 10M Free Tokens</text>
+    <text x="130" y="67" text-anchor="middle" font-size="9" fill="#64748b">Permanent + Daily Bonus</text>
+    
+    <rect x="260" y="35" width="220" height="35" rx="4" fill="#ffffff" stroke="#ef4444" stroke-width="1"/>
+    <text x="370" y="52" text-anchor="middle" font-size="11" font-weight="bold" fill="#c2410c">🇨🇳 Domestic GPUs</text>
+    <text x="370" y="67" text-anchor="middle" font-size="9" fill="#64748b">Ascend · Cambricon · Biren</text>
+    
+    <rect x="20" y="80" width="220" height="30" rx="4" fill="#ffffff" stroke="#ef4444" stroke-width="1"/>
+    <text x="130" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#c2410c">⚡ High Performance</text>
+    
+    <rect x="260" y="80" width="220" height="30" rx="4" fill="#ffffff" stroke="#ef4444" stroke-width="1"/>
+    <text x="370" y="95" text-anchor="middle" font-size="10" font-weight="bold" fill="#c2410c">🔒 Secure & Compliant</text>
+  </g>
+  
+  <!-- Pricing Badge -->
+  <g id="pricing" transform="translate(700, 730)">
+    <rect x="0" y="0" width="150" height="50" rx="8" fill="#10b981" opacity="0.9"/>
+    <text x="75" y="22" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Best Value</text>
+    <text x="75" y="38" text-anchor="middle" font-size="9" fill="#ccfbf1">1/13 of Competitors</text>
+  </g>
+</svg>
