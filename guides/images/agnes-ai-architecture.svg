@@ -1,0 +1,183 @@
+<!-- Agnes AI Integration Architecture Diagram -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#1e293b">Agnes AI Integration Architecture</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="1100" height="800" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="95" font-size="16" font-weight="bold" fill="#64748b">Complete Integration Workflow</text>
+  
+  <!-- User/Application Layer -->
+  <g id="user-layer">
+    <rect x="150" y="130" width="200" height="80" rx="8" fill="#3b82f6" opacity="0.9"/>
+    <text x="250" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Your Application</text>
+    <text x="250" y="180" text-anchor="middle" font-size="12" fill="#e0f2fe">Python/Node.js/Web</text>
+  </g>
+  
+  <!-- SDK Layer -->
+  <g id="sdk-layer">
+    <rect x="450" y="130" width="200" height="80" rx="8" fill="#8b5cf6" opacity="0.9"/>
+    <text x="550" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Agnes SDK</text>
+    <text x="550" y="180" text-anchor="middle" font-size="12" fill="#ede9fe">Python / Node.js / REST</text>
+  </g>
+  
+  <!-- API Gateway -->
+  <g id="api-gateway">
+    <rect x="750" y="130" width="200" height="80" rx="8" fill="#10b981" opacity="0.9"/>
+    <text x="850" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">API Gateway</text>
+    <text x="850" y="180" text-anchor="middle" font-size="12" fill="#ccfbf1">HTTPS / Rate Limiting</text>
+  </g>
+  
+  <!-- Processing Cluster -->
+  <rect x="150" y="250" width="600" height="400" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="170" y="275" font-size="14" font-weight="bold" fill="#475569">Agnes Cloud Platform (GPU Cluster)</text>
+  
+  <!-- Load Balancer -->
+  <g id="lb">
+    <ellipse cx="450" y="310" rx="60" ry="30" fill="#0ea5e9" opacity="0.8"/>
+    <text x="450" y="315" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Load Balancer</text>
+  </g>
+  
+  <!-- Model Services -->
+  <g id="models">
+    <rect x="170" y="350" width="160" height="70" rx="8" fill="#6366f1" opacity="0.8"/>
+    <text x="250" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">SDXL v1.0</text>
+    <text x="250" y="398" text-anchor="middle" font-size="10" fill="#e0e7ff">Image Generation</text>
+    
+    <rect x="350" y="350" width="160" height="70" rx="8" fill="#8b5cf6" opacity="0.8"/>
+    <text x="430" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">DALL-E 3</text>
+    <text x="430" y="398" text-anchor="middle" font-size="10" fill="#e0e7ff">Text-to-Image</text>
+    
+    <rect x="530" y="350" width="160" height="70" rx="8" fill="#a855f7" opacity="0.8"/>
+    <text x="610" y="380" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Midjourney v6</text>
+    <text x="610" y="398" text-anchor="middle" font-size="10" fill="#e0e7ff">Artistic Styles</text>
+    
+    <rect x="170" y="440" width="160" height="70" rx="8" fill="#ec4899" opacity="0.8"/>
+    <text x="250" y="470" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">ControlNet</text>
+    <text x="250" y="488" text-anchor="middle" font-size="10" fill="#fce7f3">Pose Control</text>
+    
+    <rect x="350" y="440" width="160" height="70" rx="8" fill="#f59e0b" opacity="0.8"/>
+    <text x="430" y="470" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Upscaler</text>
+    <text x="430" y="488" text-anchor="middle" font-size="10" fill="#fef3c7">4K Enhancement</text>
+    
+    <rect x="530" y="440" width="160" height="70" rx="8" fill="#14b8a6" opacity="0.8"/>
+    <text x="610" y="470" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Style Transfer</text>
+    <text x="610" y="488" text-anchor="middle" font-size="10" fill="#ccfbf1">Art Style Apply</text>
+  </g>
+  
+  <!-- GPU Resources -->
+  <g id="gpu-cluster">
+    <rect x="170" y="540" width="520" height="80" rx="8" fill="#ef4444" opacity="0.7"/>
+    <text x="430" y="565" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">NVIDIA A100/H100 GPU Cluster</text>
+    <text x="430" y="585" text-anchor="middle" font-size="11" fill="#fee2e2">Real-time Inference · Batch Processing · Auto-scaling</text>
+  </g>
+  
+  <!-- Storage Layer -->
+  <g id="storage">
+    <ellipse cx="850" y="450" rx="70" ry="40" fill="#f97316" opacity="0.9"/>
+    <text x="850" y="455" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">Object Storage</text>
+    <text x="850" y="472" text-anchor="middle" font-size="10" fill="#fed7aa">Generated Images</text>
+  </g>
+  
+  <!-- Token Management -->
+  <g id="token-mgmt">
+    <circle cx="850" cy="560" r="50" fill="#10b981" opacity="0.9"/>
+    <text x="850" y="555" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Token Manager</text>
+    <text x="850" y="572" text-anchor="middle" font-size="9" fill="#ccfbf1">Daily Check-in · Usage Tracking</text>
+  </g>
+  
+  <!-- Monitoring & Logging -->
+  <g id="monitoring">
+    <rect x="850" y="650" width="200" height="60" rx="8" fill="#64748b" opacity="0.8"/>
+    <text x="950" y="675" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">Monitoring System</text>
+    <text x="950" y="692" text-anchor="middle" font-size="9" fill="#e2e8f0">Metrics · Logs · Alerts</text>
+  </g>
+  
+  <!-- Data Flow Arrows -->
+  <!-- User to SDK -->
+  <line x1="350" y1="170" x2="450" y2="170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- SDK to API Gateway -->
+  <line x1="650" y1="170" x2="750" y2="170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- API Gateway to LB -->
+  <line x1="850" y1="170" x2="450" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- LB to Models -->
+  <line x1="450" y1="340" x2="250" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="340" x2="430" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="340" x2="610" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Models to GPU -->
+  <line x1="250" y1="520" x2="250" y2="540" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="430" y1="520" x2="430" y2="540" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="610" y1="520" x2="610" y2="540" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Models to Storage -->
+  <line x1="330" y1="440" x2="850" y2="450" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <line x1="510" y1="440" x2="850" y2="450" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <line x1="690" y1="440" x2="850" y2="450" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  
+  <!-- Token Manager to Models -->
+  <line x1="850" y1="530" x2="450" y2="540" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="3,3"/>
+  
+  <!-- Monitoring to All -->
+  <line x1="850" y1="650" x2="850" y2="450" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  <line x1="850" y1="650" x2="450" y2="650" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3"/>
+  
+  <!-- Response Flow -->
+  <line x1="850" y1="450" x2="850" y2="170" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 L2,3 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 L2,3 Z" fill="#10b981"/>
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <g id="legend" transform="translate(50, 730)">
+    <rect x="0" y="0" width="280" height="140" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="140" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">Legend</text>
+    
+    <rect x="20" y="35" width="20" height="20" rx="4" fill="#3b82f6" opacity="0.9"/>
+    <text x="50" y="50" font-size="12" fill="#475569">Application</text>
+    
+    <rect x="20" y="60" width="20" height="20" rx="4" fill="#8b5cf6" opacity="0.8"/>
+    <text x="50" y="75" font-size="12" fill="#475569">AI Models</text>
+    
+    <rect x="20" y="85" width="20" height="20" rx="4" fill="#ef4444" opacity="0.7"/>
+    <text x="50" y="100" font-size="12" fill="#475569">GPU Cluster</text>
+    
+    <ellipse cx="30" y="115" rx="15" ry="10" fill="#f97316" opacity="0.9"/>
+    <text x="50" y="120" font-size="12" fill="#475569">Storage</text>
+  </g>
+  
+  <!-- Key Features Box -->
+  <g id="features" transform="translate(650, 730)">
+    <rect x="0" y="0" width="500" height="150" rx="8" fill="#f0f9ff" stroke="#0ea5e9" stroke-width="2"/>
+    <text x="250" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#0369a1">Key Features</text>
+    
+    <rect x="20" y="35" width="220" height="40" rx="4" fill="#ffffff" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="130" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#0369a1">🆓 Free Forever</text>
+    <text x="130" y="70" text-anchor="middle" font-size="9" fill="#64748b">Unlimited daily tokens</text>
+    
+    <rect x="260" y="35" width="220" height="40" rx="4" fill="#ffffff" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="370" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#0369a1">⚡ Fast Generation</text>
+    <text x="370" y="70" text-anchor="middle" font-size="9" fill="#64748b">2-3 seconds per image</text>
+    
+    <rect x="20" y="90" width="220" height="40" rx="4" fill="#ffffff" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="130" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#0369a1">🎨 50+ Models</text>
+    <text x="130" y="125" text-anchor="middle" font-size="9" fill="#64748b">SDXL, DALL-E 3, Midjourney</text>
+    
+    <rect x="260" y="90" width="220" height="40" rx="4" fill="#ffffff" stroke="#0ea5e9" stroke-width="1"/>
+    <text x="370" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#0369a1">🔒 Secure API</text>
+    <text x="370" y="125" text-anchor="middle" font-size="9" fill="#64748b">Enterprise-grade security</text>
+  </g>
+</svg>
