@@ -1,0 +1,150 @@
+<!-- Dify Deployment Architecture on Alibaba Cloud -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#1e293b">Dify Deployment Architecture - Alibaba Cloud</text>
+  
+  <!-- Cloud Border -->
+  <rect x="50" y="70" width="1100" height="680" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="95" font-size="16" font-weight="bold" fill="#64748b">Alibaba Cloud Environment</text>
+  
+  <!-- User Layer -->
+  <g id="user-layer">
+    <rect x="150" y="130" width="200" height="80" rx="8" fill="#3b82f6" opacity="0.9"/>
+    <text x="250" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Users</text>
+    <text x="250" y="185" text-anchor="middle" font-size="12" fill="#ffffff">Web/Mobile Apps</text>
+  </g>
+  
+  <!-- CDN Layer -->
+  <g id="cdn-layer">
+    <rect x="550" y="130" width="200" height="80" rx="8" fill="#8b5cf6" opacity="0.9"/>
+    <text x="650" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">CDN/AliDNS</text>
+    <text x="650" y="185" text-anchor="middle" font-size="12" fill="#ffffff">Content Delivery</text>
+  </g>
+  
+  <!-- Load Balancer -->
+  <g id="lb-layer">
+    <rect x="350" y="250" width="200" height="80" rx="8" fill="#10b981" opacity="0.9"/>
+    <text x="450" y="280" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">SLB</text>
+    <text x="450" y="305" text-anchor="middle" font-size="12" fill="#ffffff">Server Load Balancer</text>
+  </g>
+  
+  <!-- VPC Network -->
+  <rect x="150" y="360" width="600" height="320" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="170" y="385" font-size="14" font-weight="bold" fill="#475569">VPC Private Network (ECS Cluster)</text>
+  
+  <!-- Web Tier -->
+  <g id="web-tier">
+    <rect x="170" y="400" width="170" height="100" rx="8" fill="#0ea5e9" opacity="0.8"/>
+    <text x="255" y="435" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">nginx-1</text>
+    <text x="255" y="455" text-anchor="middle" font-size="11" fill="#e0f2fe">Reverse Proxy</text>
+    <text x="255" y="475" text-anchor="middle" font-size="11" fill="#e0f2fe">Port: 80/443</text>
+    
+    <rect x="360" y="400" width="170" height="100" rx="8" fill="#0ea5e9" opacity="0.8"/>
+    <text x="445" y="435" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">nginx-2</text>
+    <text x="445" y="455" text-anchor="middle" font-size="11" fill="#e0f2fe">Reverse Proxy</text>
+    <text x="445" y="475" text-anchor="middle" font-size="11" fill="#e0f2fe">Port: 80/443</text>
+  </g>
+  
+  <!-- App Tier -->
+  <g id="app-tier">
+    <rect x="170" y="530" width="170" height="100" rx="8" fill="#6366f1" opacity="0.8"/>
+    <text x="255" y="565" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">dify-api-1</text>
+    <text x="255" y="585" text-anchor="middle" font-size="11" fill="#e0e7ff">API Service</text>
+    <text x="255" y="605" text-anchor="middle" font-size="11" fill="#e0e7ff">Python/FastAPI</text>
+    
+    <rect x="360" y="530" width="170" height="100" rx="8" fill="#6366f1" opacity="0.8"/>
+    <text x="445" y="565" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">dify-api-2</text>
+    <text x="445" y="585" text-anchor="middle" font-size="11" fill="#e0e7ff">API Service</text>
+    <text x="445" y="605" text-anchor="middle" font-size="11" fill="#e0e7ff">Python/FastAPI</text>
+    
+    <rect x="550" y="530" width="170" height="100" rx="8" fill="#8b5cf6" opacity="0.8"/>
+    <text x="635" y="565" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">dify-worker</text>
+    <text x="635" y="585" text-anchor="middle" font-size="11" fill="#e0e7ff">Background Jobs</text>
+    <text x="635" y="605" text-anchor="middle" font-size="11" fill="#e0e7ff">Celery Workers</text>
+  </g>
+  
+  <!-- Data Tier -->
+  <g id="data-tier">
+    <ellipse cx="255" y="690" rx="80" ry="40" fill="#14b8a6" opacity="0.8"/>
+    <text x="255" y="685" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">PostgreSQL</text>
+    <text x="255" y="705" text-anchor="middle" font-size="11" fill="#ccfbf1">Primary DB</text>
+    
+    <ellipse cx="445" y="690" rx="80" ry="40" fill="#f59e0b" opacity="0.8"/>
+    <text x="445" y="685" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Redis</text>
+    <text x="445" y="705" text-anchor="middle" font-size="11" fill="#fef3c7">Cache & Queue</text>
+    
+    <ellipse cx="635" y="690" rx="80" ry="40" fill="#ef4444" opacity="0.8"/>
+    <text x="635" y="685" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Milvus</text>
+    <text x="635" y="705" text-anchor="middle" font-size="11" fill="#fee2e2">Vector Database</text>
+  </g>
+  
+  <!-- Storage -->
+  <g id="storage">
+    <circle cx="900" cy="500" r="60" fill="#f97316" opacity="0.9"/>
+    <text x="900" y="495" text-anchor="middle" font-size="12" font-weight="bold" fill="#ffffff">OSS</text>
+    <text x="900" y="510" text-anchor="middle" font-size="10" fill="#ffffff">File Storage</text>
+  </g>
+  
+  <!-- Connections -->
+  <!-- Users to CDN -->
+  <line x1="350" y1="170" x2="550" y2="170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- CDN to SLB -->
+  <line x1="750" y1="170" x2="550" y2="290" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- SLB to Nginx -->
+  <line x1="450" y1="330" x2="255" y2="400" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="450" y1="330" x2="445" y2="400" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Nginx to API -->
+  <line x1="255" y1="500" x2="255" y2="530" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="445" y1="500" x2="445" y2="530" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- API to DB -->
+  <line x1="255" y1="630" x2="255" y2="660" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- API to Redis -->
+  <line x1="445" y1="630" x2="445" y2="660" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- API to Milvus -->
+  <line x1="635" y1="630" x2="635" y2="660" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Worker to Queue -->
+  <line x1="635" y1="630" x2="445" y2="660" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 L2,3 Z" fill="#64748b"/>
+    </marker>
+  </defs>
+  
+  <!-- Legend -->
+  <g id="legend" transform="translate(850, 130)">
+    <rect x="0" y="0" width="280" height="140" rx="8" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="140" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#1e293b">Legend</text>
+    
+    <rect x="20" y="35" width="20" height="20" rx="4" fill="#3b82f6" opacity="0.9"/>
+    <text x="50" y="50" font-size="12" fill="#475569">Users</text>
+    
+    <rect x="20" y="60" width="20" height="20" rx="4" fill="#10b981" opacity="0.9"/>
+    <text x="50" y="75" font-size="12" fill="#475569">Load Balancer</text>
+    
+    <rect x="20" y="85" width="20" height="20" rx="4" fill="#0ea5e9" opacity="0.8"/>
+    <text x="50" y="100" font-size="12" fill="#475569">Nginx Proxy</text>
+    
+    <rect x="20" y="110" width="20" height="20" rx="4" fill="#6366f1" opacity="0.8"/>
+    <text x="50" y="125" font-size="12" fill="#475569">Application</text>
+  </g>
+  
+  <!-- Notes -->
+  <g id="notes" transform="translate(50, 710)">
+    <rect x="0" y="0" width="1100" height="70" rx="8" fill="#fffbeb" stroke="#fcd34d" stroke-width="1"/>
+    <text x="20" y="25" font-size="13" font-weight="bold" fill="#92400e">Deployment Notes:</text>
+    <text x="20" y="45" font-size="11" fill="#92400e">• Use ECS instances with at least 4 cores/8GB RAM for production</text>
+    <text x="20" y="62" font-size="11" fill="#92400e">• Enable SSL certificates via ALB/SLB for HTTPS</text>
+  </g>
+</svg>
