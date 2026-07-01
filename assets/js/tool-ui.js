@@ -587,4 +587,15 @@
 
   // ===== 启动 i18n =====
   initLang();
+
+  // ===== 版本信息注入 =====
+  (function(){
+    var footer = document.querySelector('.footer .footer-inner') || document.querySelector('.footer');
+    if (!footer || document.querySelector('.zt-version-badge')) return;
+    var ver = document.createElement('p');
+    ver.className = 'zt-version-badge';
+    ver.style.cssText = 'margin-top:8px;font-size:11px;color:var(--muted)';
+    ver.innerHTML = '<a href="/changelog.html" style="color:var(--muted);text-decoration:underline">v<span id="ztVerNum">3.0.0</span></a>';
+    footer.appendChild(ver);
+  })();
 })();
