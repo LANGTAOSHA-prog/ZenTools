@@ -12,7 +12,7 @@
 <script src="../assets/js/tool-ui.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #fff; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #fff; position: relative; }
 .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
 .header { text-align: center; margin-bottom: 60px; }
 .header h1 { font-size: 48px; margin-bottom: 16px; font-weight: 700; }
@@ -26,7 +26,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .guide-meta { display: flex; gap: 20px; font-size: 13px; opacity: 0.8; }
 .guide-link { display: inline-block; margin-top: 16px; padding: 10px 20px; background: #fff; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s; }
 .guide-link:hover { background: #f0f0f0; transform: translateX(5px); }
-@media(max-width: 768px) { .header h1 { font-size: 32px; } .guides-grid { grid-template-columns: 1fr; } }
+.lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 10px; }
+.lang-switcher select { padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; cursor: pointer; background: white; color: #1e293b; }
+@media(max-width: 768px) { .header h1 { font-size: 32px; } .guides-grid { grid-template-columns: 1fr; } .lang-switcher { top: 10px; right: 10px; padding: 8px; } }
 </style>
 <script>
 window.ZT_PAGE = {
@@ -215,6 +217,23 @@ renderGuides(savedLang);
 window.addEventListener('zt-langchange', function(e) {
   renderGuides(e.detail.lang);
 });
+
+// Language switcher handler
+function switchLanguage(lang) {
+  localStorage.setItem('zentools_lang', lang);
+  renderGuides(lang);
+  window.dispatchEvent(new CustomEvent('zt-setlang', { detail: { lang: lang } }));
+}
 </script>
+
+<!-- Language Switcher -->
+<div class="lang-switcher">
+  <select id="langSwitcher" onchange="switchLanguage(this.value)">
+    <option value="zh">中文</option>
+    <option value="en">English</option>
+    <option value="ja">日本語</option>
+    <option value="vi">Tiếng Việt</option>
+  </select>
+</div>
 </body>
 </html>
