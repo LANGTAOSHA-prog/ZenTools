@@ -92,10 +92,11 @@
       <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
       <p class="note" data-i18n="toolNote">选择多个 PDF 文件，按顺序合并成一个文档。</p>
       <div class="file-input-row">
-        <input type="file" id="pdfInput" accept=".pdf" multiple />
+        <input type="file" id="pdfInput" accept=".pdf" multiple onchange="ZT.checkFileSize(this.files, document.getElementById('perfWarn'))" />
         <button class="btn-primary" id="mergeBtn" type="button" onclick="mergePDFs()" data-i18n="mergeBtn">开始合并</button>
       </div>
       <div class="file-list" id="fileList"></div>
+      <div class="zt-perf-warn" id="perfWarn"></div>
       <div class="status" id="status"></div>
       <button class="download-btn" id="downloadBtn" onclick="downloadMerged()" data-i18n="downloadBtn">📥 下载合并后的 PDF</button>
     </div>
@@ -312,6 +313,11 @@
       btn.disabled = true;
       downloadBtn.style.display = "none";
 
+      // Progress tracking
+      ZT.showProgress(null, false);
+      var total = files.length;
+      var done = 0;
+
       try {
         const mergedPdf = await PDFLib.PDFDocument.create();
 
@@ -320,15 +326,19 @@
           const pdf = await PDFLib.PDFDocument.load(bytes);
           const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
           copiedPages.forEach(page => mergedPdf.addPage(page));
+          done++;
+          ZT.updateProgress(Math.round(done / total * 100));
         }
 
         mergedPdfBytes = await mergedPdf.save();
+        ZT.hideProgress();
         status.textContent = dict.statusComplete.replace('{n}', files.length);
         downloadBtn.style.display = "block";
         downloadMerged();
 
       } catch (err) {
         console.error(err);
+        ZT.hideProgress();
         status.textContent = dict.statusError;
       } finally {
         btn.disabled = false;

@@ -62,9 +62,10 @@
     <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
     <p class="note" data-i18n="toolNote">选择 PDF 文件，点击压缩按钮即可优化文件大小。</p>
     <div class="file-input-row">
-      <input type="file" id="pdfInput" accept=".pdf" />
+      <input type="file" id="pdfInput" accept=".pdf" onchange="ZT.checkFileSize(this.files, document.getElementById('perfWarn'), {warnMB:50})" />
       <button class="btn-primary" id="compressBtn" type="button" onclick="compressPDF()" data-i18n="compressBtn">压缩 PDF</button>
     </div>
+    <div class="zt-perf-warn" id="perfWarn"></div>
     <div class="status" id="status"></div>
     <div class="compress-info" id="compressInfo" style="display:none;">
       <div class="stat"><span class="num" id="originalSize">-</span><span class="label" data-i18n="origLabel">原始大小</span></div>
@@ -145,16 +146,18 @@ async function compressPDF(){
   const info=document.getElementById("compressInfo");const dict=getDict();
   if(!file){status.textContent=dict.alertNoFile;return;}
   status.textContent=dict.statusWorking;btn.disabled=true;downloadBtn.style.display="none";info.style.display="none";
+  ZT.showProgress(null, true);
   try{
     const bytes=await file.arrayBuffer();const pdfDoc=await PDFLib.PDFDocument.load(bytes);
     compressedBytes=await pdfDoc.save({useObjectStreams:true,addDefaultPage:false,objectsPerTick:100});
+    ZT.hideProgress();
     const orig=file.size;const comp=compressedBytes.length;const saved=((1-comp/orig)*100).toFixed(1);
     document.getElementById("originalSize").textContent=fmtSize(orig);
     document.getElementById("compressedSize").textContent=fmtSize(comp);
     document.getElementById("savedPercent").textContent=saved+'%';
     info.style.display="flex";status.textContent=dict.statusComplete;
     downloadBtn.style.display="block";downloadResult();
-  }catch(err){console.error(err);status.textContent=dict.statusError;}
+  }catch(err){console.error(err);ZT.hideProgress();status.textContent=dict.statusError;}
   finally{btn.disabled=false;}
 }
 function downloadResult(){if(!compressedBytes)return;const name=document.getElementById("pdfInput").files[0].name.replace('.pdf','')+'_压缩.pdf';const blob=new Blob([compressedBytes],{type:"application/pdf"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}

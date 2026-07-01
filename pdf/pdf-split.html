@@ -103,15 +103,16 @@
     <div class="tool-box reveal">
       <h2 data-i18n="toolTitle">选择 PDF 文件</h2>
       <p class="note" data-i18n="toolNote">选择一个 PDF 文件，输入要提取的页码（用逗号分隔）。</p>
-      <div class="file-input-row">
-        <input type="file" id="pdfInput" accept=".pdf" />
-      </div>
-      <div class="page-input-row">
-        <input type="text" id="pageInput" placeholder="1,2,5" data-i18n-placeholder="pagePlaceholder" />
-        <button class="btn-primary" id="splitBtn" type="button" onclick="splitPDF()" data-i18n="splitBtn">开始拆分</button>
-      </div>
-      <p class="page-hint" data-i18n="pageHint">例如：1,2,5 表示提取第 1、2、5 页</p>
-      <div class="status" id="status"></div>
+       <div class="file-input-row">
+         <input type="file" id="pdfInput" accept=".pdf" onchange="ZT.checkFileSize(this.files, document.getElementById('perfWarn'), {warnMB:50})" />
+       </div>
+       <div class="page-input-row">
+         <input type="text" id="pageInput" placeholder="1,2,5" data-i18n-placeholder="pagePlaceholder" />
+         <button class="btn-primary" id="splitBtn" type="button" onclick="splitPDF()" data-i18n="splitBtn">开始拆分</button>
+       </div>
+       <p class="page-hint" data-i18n="pageHint">例如：1,2,5 表示提取第 1、2、5 页</p>
+       <div class="zt-perf-warn" id="perfWarn"></div>
+       <div class="status" id="status"></div>
       <div class="result-box" id="resultBox">
         <div class="result-info" id="resultInfo"></div>
         <button class="download-btn" id="downloadBtn" onclick="downloadSplit()" data-i18n="downloadBtn">📥 下载拆分后的 PDF</button>
@@ -354,6 +355,7 @@
       status.textContent = dict.statusWorking;
       btn.disabled = true;
       resultBox.classList.remove("visible");
+      ZT.showProgress(null, true);
 
       try {
         const bytes = await file.arrayBuffer();
@@ -364,6 +366,7 @@
         if (validPages.length === 0) {
           status.textContent = '⚠️ ' + (lang === 'ja' ? 'ページ番号が範囲外です' : lang === 'en' ? 'Page numbers out of range' : '页码超出范围');
           btn.disabled = false;
+          ZT.hideProgress();
           return;
         }
 
@@ -372,6 +375,7 @@
         copiedPages.forEach(page => newPdf.addPage(page));
 
         splitPdfBytes = await newPdf.save();
+        ZT.hideProgress();
         status.textContent = dict.statusComplete.replace('{n}', validPages.length);
         resultInfo.innerHTML = dict.resultText
           .replace('{total}', pdfDoc.getPageCount())
@@ -383,6 +387,7 @@
 
       } catch (err) {
         console.error(err);
+        ZT.hideProgress();
         status.textContent = dict.statusError;
       } finally {
         btn.disabled = false;

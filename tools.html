@@ -9,15 +9,65 @@
   .cat-nav-icon { font-size: 28px; line-height: 1; }
   .cat-nav-name { font-size: 13px; font-weight: 600; color: var(--text); }
   .cat-nav-count { font-size: 11px; font-weight: 700; color: var(--cat-clr, var(--muted)); background: color-mix(in srgb, var(--cat-clr) 15%, transparent); padding: 2px 10px; border-radius: 20px; }
+  /* Hot tools strip */
+  .hot-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin: 24px 0; }
+  .hot-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border: 1px solid var(--border); text-decoration: none; transition: transform .15s, border-color .15s; }
+  .hot-card:hover { transform: translateY(-2px); border-color: #f59e0b; }
+  .hot-rank { font-size: 18px; font-weight: 800; color: #f59e0b; min-width: 24px; text-align: center; }
+  .hot-card .hot-icon { font-size: 22px; }
+  .hot-card .hot-name { font-size: 13px; font-weight: 600; color: var(--text); line-height: 1.3; }
+  .hot-card .hot-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  /* Scenario tabs */
+  .scenario-section { margin: 28px 0; }
+  .scenario-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .scenario-tab { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: all .2s; }
+  .scenario-tab.active, .scenario-tab:hover { background: var(--accent, #3b82f6); color: #fff; border-color: var(--accent, #3b82f6); }
+  .scenario-tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+  .scenario-tool { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); text-decoration: none; transition: border-color .15s; }
+  .scenario-tool:hover { border-color: var(--accent, #3b82f6); }
+  .scenario-tool .s-icon { font-size: 20px; }
+  .scenario-tool .s-name { font-size: 13px; font-weight: 600; color: var(--text); }
+  /* Recently used */
+  .recent-section { margin: 24px 0; display: none; }
+  .recent-section.visible { display: block; }
+  .recent-list { display: flex; flex-wrap: wrap; gap: 8px; }
+  .recent-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); text-decoration: none; font-size: 12px; color: var(--text); transition: border-color .15s; }
+  .recent-chip:hover { border-color: var(--accent, #3b82f6); }
+  .recent-chip .r-icon { font-size: 16px; }
+  .recent-clear { font-size: 11px; color: var(--muted); cursor: pointer; text-decoration: underline; margin-left: 8px; background: none; border: none; }
+  /* Enhanced search */
+  .search-wrap-enhanced { position: relative; margin: 20px 0 28px; }
+  .search-wrap-enhanced .search-input { width: 100%; padding: 14px 48px 14px 20px; border-radius: 14px; border: 2px solid var(--border); background: rgba(255,255,255,0.03); color: var(--text); font-size: 15px; outline: none; transition: border-color .2s; }
+  .search-wrap-enhanced .search-input:focus { border-color: var(--accent, #3b82f6); }
+  .search-wrap-enhanced .search-icon { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; color: var(--muted); pointer-events: none; }
+  .search-dropdown-enhanced { position: absolute; top: 100%; left: 0; right: 0; background: var(--bg,#1a1a2e); border: 1px solid var(--border); border-radius: 0 0 12px 12px; max-height: 280px; overflow-y: auto; z-index: 100; display: none; }
+  .search-dropdown-enhanced.open { display: block; }
+  .search-dropdown-enhanced a { display: flex; align-items: center; gap: 10px; padding: 10px 16px; text-decoration: none; color: var(--text); font-size: 13px; transition: background .15s; }
+  .search-dropdown-enhanced a:hover { background: rgba(255,255,255,0.05); }
+  .search-dropdown-enhanced .sd-icon { font-size: 18px; }
+  .search-dropdown-enhanced .sd-cat { font-size: 10px; color: var(--muted); margin-left: auto; }
+  .no-results { text-align: center; padding: 20px; color: var(--muted); font-size: 14px; }
+  /* Active filter chips */
+  .active-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; min-height: 0; }
+  .filter-chip { padding: 5px 14px; border-radius: 20px; background: rgba(59,130,246,0.15); color: #3b82f6; font-size: 12px; cursor: pointer; border: none; display: inline-flex; align-items: center; gap: 6px; }
+  .filter-chip .chip-x { font-weight: 700; }
+  .section-title-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+  .section-title-row h2 { font-size: 18px; margin: 0; color: var(--text); }
+  .section-title-row .section-badge { font-size: 12px; color: var(--muted); }
+  @media (max-width: 640px) {
+    .hot-strip { grid-template-columns: 1fr; }
+    .scenario-tools { grid-template-columns: 1fr; }
+    .scenario-tabs { justify-content: center; }
+  }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
   <script>
     var pageTranslations = {
       zh: {
         pageTitle: '工具大全 - 免费在线工具 | ZenTools',
-        metaDesc: '浏览 ZenTools 免费在线工具大全，包括 PDF 工具、图片工具、AI 工具、文字工具、办公工具和生活工具。',
+        metaDesc: '浏览 ZenTools 免费在线工具大全，包括 PDF、图片、AI、文字、办公和生活等 279 款工具。',
         h1: '工具大全',
-        desc: '这里收录 ZenTools 已上线的免费在线工具。',
+        desc: '这里收录 ZenTools 已上线的 279 款免费在线工具。',
         navTools: '工具大全',
         navPlugins: '插件预览',
         navCategories: '工具分类',
@@ -25,17 +75,33 @@
         navAbout: '关于我们',
         footerText: '© 2026 ZenTools. 中文免费在线工具箱。',
         bookmark: '⭐ 收藏本站，下次办公快人一步',
-        searchPlaceholder: '搜索工具，例如：PDF、图片压缩...',
+        searchPlaceholder: '搜索 279 款工具，例如：PDF合并、图片压缩、AI写作...',
+        h_hot: '🔥 热门工具',
+        h_scenario: '🎯 按场景选工具',
+        scenario_all: '全部场景',
+        scenario_office: '办公效率',
+        scenario_content: '内容创作',
+        scenario_dev: '开发调试',
+        scenario_study: '学习教育',
+        scenario_design: '设计美化',
+        h_recent: '🕐 最近使用',
+        recent_clear: '清空记录',
+        recent_empty: '点击使用工具后自动记录',
+        h_all: '📦 全部工具',
+        h_filter: '分类筛选',
+        filter_all: '全部',
+        search_no_result: '没有找到匹配的工具，试试其他关键词',
         catPdf: 'PDF 工具', catImage: '图片工具', catAi: 'AI 工具',
         catAudio: '音频工具', catVideo: '视频工具', catDev: '开发工具',
         catText: '文本工具', catLife: '生活工具', catFinance: '金融工具',
-        catSeo: 'SEO 工具', catDesign: '设计工具'
+        catSeo: 'SEO 工具', catDesign: '设计工具',
+        h_faq: '常见问题', h_guides: '推荐教程'
       },
       en: {
         pageTitle: 'All Tools - Free Online Tools | ZenTools',
-        metaDesc: 'Browse all ZenTools free online tools, including PDF tools, image tools, AI tools, text tools, office tools and life tools.',
+        metaDesc: 'Browse all 279 ZenTools free online tools, including PDF, image, AI, text, office and life tools.',
         h1: 'All Tools',
-        desc: 'Here are all free online tools available on ZenTools.',
+        desc: 'All 279 free online tools available on ZenTools.',
         navTools: 'Tools',
         navPlugins: 'Plugins',
         navCategories: 'Categories',
@@ -43,17 +109,33 @@
         navAbout: 'About',
         footerText: '© 2026 ZenTools. Free Online Toolbox.',
         bookmark: '⭐ Bookmark us for quick access',
-        searchPlaceholder: 'Search tools, e.g. PDF, image compress...',
+        searchPlaceholder: 'Search 279 tools, e.g. PDF merge, image compress, AI writing...',
+        h_hot: '🔥 Popular Tools',
+        h_scenario: '🎯 Find Tools by Scenario',
+        scenario_all: 'All',
+        scenario_office: 'Office Productivity',
+        scenario_content: 'Content Creation',
+        scenario_dev: 'Dev & Debug',
+        scenario_study: 'Learning & Study',
+        scenario_design: 'Design & Beauty',
+        h_recent: '🕐 Recently Used',
+        recent_clear: 'Clear',
+        recent_empty: 'Tools you use will appear here',
+        h_all: '📦 All Tools',
+        h_filter: 'Filter by Category',
+        filter_all: 'All',
+        search_no_result: 'No matching tools found, try another keyword',
         catPdf: 'PDF Tools', catImage: 'Image Tools', catAi: 'AI Tools',
         catAudio: 'Audio Tools', catVideo: 'Video Tools', catDev: 'Dev Tools',
         catText: 'Text Tools', catLife: 'Life Tools', catFinance: 'Finance Tools',
-        catSeo: 'SEO Tools', catDesign: 'Design Tools'
+        catSeo: 'SEO Tools', catDesign: 'Design Tools',
+        h_faq: 'FAQ', h_guides: 'Recommended Guides'
       },
       ja: {
         pageTitle: '全ツール - 無料オンラインツール | ZenTools',
-        metaDesc: 'ZenTools の無料オンラインツール一覧。PDF ツール、画像ツール、AI ツール、テキストツール、オフィスツール、生活ツール。',
+        metaDesc: 'ZenTools の 279 種類の無料オンラインツール一覧。PDF、画像、AI、テキスト、オフィス、生活ツール。',
         h1: '全ツール',
-        desc: 'ZenTools で利用可能な無料オンラインツールです。',
+        desc: 'ZenTools で利用可能な 279 種類の無料オンラインツールです。',
         navTools: 'ツール',
         navPlugins: 'プラグイン',
         navCategories: 'カテゴリ',
@@ -61,17 +143,33 @@
         navAbout: 'について',
         footerText: '© 2026 ZenTools. 無料オンラインツールボックス。',
         bookmark: '⭐ ブックマークしてすぐにアクセス',
-        searchPlaceholder: 'ツールを検索（例：PDF、画像圧縮...）',
+        searchPlaceholder: '279ツールを検索（例：PDF結合、画像圧縮、AI文章作成...）',
+        h_hot: '🔥 人気ツール',
+        h_scenario: '🎯 シーン別ツール検索',
+        scenario_all: 'すべて',
+        scenario_office: 'オフィス効率化',
+        scenario_content: 'コンテンツ作成',
+        scenario_dev: '開発・デバッグ',
+        scenario_study: '学習・教育',
+        scenario_design: 'デザイン・美化作業',
+        h_recent: '🕐 最近使用したツール',
+        recent_clear: 'クリア',
+        recent_empty: '使用したツールがここに表示されます',
+        h_all: '📦 全ツール',
+        h_filter: 'カテゴリで絞り込む',
+        filter_all: 'すべて',
+        search_no_result: '一致するツールが見つかりません。別のキーワードをお試しください',
         catPdf: 'PDFツール', catImage: '画像ツール', catAi: 'AIツール',
         catAudio: '音声ツール', catVideo: '動画ツール', catDev: '開発ツール',
         catText: 'テキストツール', catLife: '生活ツール', catFinance: '金融ツール',
-        catSeo: 'SEOツール', catDesign: 'デザインツール'
+        catSeo: 'SEOツール', catDesign: 'デザインツール',
+        h_faq: 'よくある質問', h_guides: 'おすすめガイド'
       },
       vi: {
         pageTitle: 'Tất cả công cụ - Công cụ trực tuyến miễn phí | ZenTools',
-        metaDesc: 'Duyệt tất cả công cụ trực tuyến miễn phí ZenTools, bao gồm công cụ PDF, công cụ ảnh, công cụ AI, công cụ văn bản, công cụ văn phòng và công cụ đời sống.',
+        metaDesc: 'Duyệt 279 công cụ trực tuyến miễn phí của ZenTools, bao gồm PDF, ảnh, AI, văn bản, văn phòng và đời sống.',
         h1: 'Tất cả công cụ',
-        desc: 'Đây là tất cả công cụ trực tuyến miễn phí có sẵn trên ZenTools.',
+        desc: '279 công cụ trực tuyến miễn phí có sẵn trên ZenTools.',
         navTools: 'Công cụ',
         navPlugins: 'Plugin',
         navCategories: 'Danh mục',
@@ -79,17 +177,33 @@
         navAbout: 'Giới thiệu',
         footerText: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
         bookmark: '⭐ Đánh dấu để truy cập nhanh',
-        searchPlaceholder: 'Tìm công cụ, vd: PDF, nén ảnh...',
+        searchPlaceholder: 'Tìm 279 công cụ, vd: gộp PDF, nén ảnh, viết AI...',
+        h_hot: '🔥 Công cụ Phổ biến',
+        h_scenario: '🎯 Tìm công cụ theo Tình huống',
+        scenario_all: 'Tất cả',
+        scenario_office: 'Năng suất Văn phòng',
+        scenario_content: 'Sáng tạo Nội dung',
+        scenario_dev: 'Phát triển & Gỡ lỗi',
+        scenario_study: 'Học tập & Giáo dục',
+        scenario_design: 'Thiết kế & Làm đẹp',
+        h_recent: '🕐 Đã sử dụng Gần đây',
+        recent_clear: 'Xóa',
+        recent_empty: 'Công cụ bạn dùng sẽ hiện ở đây',
+        h_all: '📦 Tất cả công cụ',
+        h_filter: 'Lọc theo Danh mục',
+        filter_all: 'Tất cả',
+        search_no_result: 'Không tìm thấy công cụ phù hợp, thử từ khóa khác',
         catPdf: 'Công cụ PDF', catImage: 'Công cụ ảnh', catAi: 'Công cụ AI',
         catAudio: 'Công cụ âm thanh', catVideo: 'Công cụ video', catDev: 'Công cụ Dev',
         catText: 'Công cụ văn bản', catLife: 'Công cụ đời sống', catFinance: 'Công cụ tài chính',
-        catSeo: 'Công cụ SEO', catDesign: 'Công cụ thiết kế'
+        catSeo: 'Công cụ SEO', catDesign: 'Công cụ thiết kế',
+        h_faq: 'Câu hỏi thường gặp', h_guides: 'Hướng dẫn gợi ý'
       }
     };
     window.ZT_PAGE = pageTranslations;
   </script>
 <link rel="canonical" href="https://zentools.xyz/tools.html"/>
-</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="index.html" data-i18n="navHome">Home</a><a href="tools.html" data-i18n="navTools" class="active">All Tools</a><a href="categories.html" data-i18n="navCategories">Categories</a><a href="articles.html" data-i18n="navArticles">Tutorials</a><a href="about.html" data-i18n="navAbout">About</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></nav></header><main><section class="section"><h1 data-i18n="h1">工具大全</h1><p class="section-desc" data-i18n="desc">这里收录 ZenTools 已上线的免费在线工具。</p>
+</head><body><header class="site-header"><a class="logo" href="index.html">ZenTools<span>2.0</span></a><nav class="nav"><a href="index.html" data-i18n="navHome">Home</a><a href="tools.html" data-i18n="navTools" class="active">All Tools</a><a href="categories.html" data-i18n="navCategories">Categories</a><a href="articles.html" data-i18n="navArticles">Tutorials</a><a href="about.html" data-i18n="navAbout">About</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></nav></header><main><section class="section"><h1 data-i18n="h1">工具大全</h1><p class="section-desc" data-i18n="desc">这里收录 ZenTools 已上线的 279 款免费在线工具。</p>
 <div class="cat-nav-grid" id="catNav">
   <a href="tools/pdf-tools.html" class="cat-nav-card" style="--cat-clr:#f43145"><span class="cat-nav-icon">📄</span><span class="cat-nav-name" data-i18n="catPdf">PDF Tools</span><span class="cat-nav-count">46</span></a>
   <a href="tools/image-tools.html" class="cat-nav-card" style="--cat-clr:#27c27b"><span class="cat-nav-icon">🖼️</span><span class="cat-nav-name" data-i18n="catImage">Image Tools</span><span class="cat-nav-count">55</span></a>
@@ -103,10 +217,73 @@
   <a href="tools/seo-tools.html" class="cat-nav-card" style="--cat-clr:#0ea5e9"><span class="cat-nav-icon">🔍</span><span class="cat-nav-name" data-i18n="catSeo">SEO Tools</span><span class="cat-nav-count">14</span></a>
   <a href="tools/design-tools.html" class="cat-nav-card" style="--cat-clr:#ec4899"><span class="cat-nav-icon">🎨</span><span class="cat-nav-name" data-i18n="catDesign">Design Tools</span><span class="cat-nav-count">10</span></a>
 </div>
-<div class="search-wrap"><input type="text" id="toolSearch" class="search-input" placeholder="Search tools, e.g. PDF, image compress..." autocomplete="off"/><button id="searchClear" class="search-clear" style="display:none">✕</button><div id="searchDropdown" class="search-dropdown"></div></div><div id="featuredTools" class="tool-grid"></div></section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
+
+<!-- Hot Tools Strip -->
+<div class="section-title-row"><h2 data-i18n="h_hot">🔥 热门工具</h2><span class="section-badge">Top 8</span></div>
+<div class="hot-strip" id="hotStrip"></div>
+
+<!-- Scenario-Based Recommendations -->
+<div class="scenario-section">
+  <div class="section-title-row"><h2 data-i18n="h_scenario">🎯 按场景选工具</h2></div>
+  <div class="scenario-tabs" id="scenarioTabs">
+    <button class="scenario-tab active" data-scenario="all" data-i18n="scenario_all">全部场景</button>
+    <button class="scenario-tab" data-scenario="office" data-i18n="scenario_office">办公效率</button>
+    <button class="scenario-tab" data-scenario="content" data-i18n="scenario_content">内容创作</button>
+    <button class="scenario-tab" data-scenario="dev" data-i18n="scenario_dev">开发调试</button>
+    <button class="scenario-tab" data-scenario="study" data-i18n="scenario_study">学习教育</button>
+    <button class="scenario-tab" data-scenario="design" data-i18n="scenario_design">设计美化</button>
+  </div>
+  <div class="scenario-tools" id="scenarioTools"></div>
+</div>
+
+<!-- Recently Used -->
+<div class="recent-section" id="recentSection">
+  <div class="section-title-row">
+    <h2 data-i18n="h_recent">🕐 最近使用</h2>
+    <button class="recent-clear" id="recentClear" data-i18n="recent_clear">清空记录</button>
+  </div>
+  <div class="recent-list" id="recentList"></div>
+</div>
+
+<!-- Enhanced Search -->
+<div class="search-wrap-enhanced">
+  <input type="text" id="toolSearch" class="search-input" placeholder="搜索 279 款工具，例如：PDF合并、图片压缩、AI写作..." autocomplete="off"/>
+  <span class="search-icon">🔍</span>
+  <div id="searchDropdown" class="search-dropdown-enhanced"></div>
+</div>
+
+<!-- Active Filter Chips -->
+<div class="active-filters" id="activeFilters"></div>
+
+<!-- All Tools Header -->
+<div class="section-title-row">
+  <h2 data-i18n="h_all">📦 全部工具</h2>
+  <span class="section-badge" id="toolCount">279</span>
+</div>
+
+<div id="featuredTools" class="tool-grid"></div>
+
+<!-- FAQ -->
+<div class="faq-section" style="max-width:900px;margin:40px auto;padding:0 24px"><h2 data-i18n="h_faq" style="font-size:22px;text-align:center;margin-bottom:24px">常见问题</h2>
+<div class="faq-item" style="margin-bottom:16px;padding:20px 24px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.02)"><h3 style="font-size:15px;font-weight:600;color:var(--text);margin:0 0 8px 0">ZenTools 的工具真的完全免费吗？需要注册吗？</h3><p style="font-size:14px;color:var(--muted);line-height:1.7;margin:0">是的，ZenTools 所有 279 款工具完全免费，无需注册和登录。所有文件处理都在浏览器本地完成，不上传到任何服务器，真正做到零成本、零数据泄露。</p></div>
+<div class="faq-item" style="margin-bottom:16px;padding:20px 24px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.02)"><h3 style="font-size:15px;font-weight:600;color:var(--text);margin:0 0 8px 0">文件上传到服务器了吗？隐私安全吗？</h3><p style="font-size:14px;color:var(--muted);line-height:1.7;margin:0">不会上传。ZenTools 的核心设计理念是"数据不出设备"，所有 PDF、图片、视频、音频处理都在你的浏览器中本地完成。你的文件从未离开过自己的电脑。</p></div>
+<div class="faq-item" style="margin-bottom:16px;padding:20px 24px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.02)"><h3 style="font-size:15px;font-weight:600;color:var(--text);margin:0 0 8px 0">哪些工具最受欢迎？</h3><p style="font-size:14px;color:var(--muted);line-height:1.7;margin:0">PDF合并、PDF拆分、图片压缩、图片格式转换是最常用的工具，每天服务数万次处理请求。AI工具（写作、翻译、润色）也在快速增长中。</p></div>
+<div class="faq-item" style="margin-bottom:16px;padding:20px 24px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.02)"><h3 style="font-size:15px;font-weight:600;color:var(--text);margin:0 0 8px 0">可以在手机上使用吗？</h3><p style="font-size:14px;color:var(--muted);line-height:1.7;margin:0">所有工具都支持移动端浏览器访问，无需下载App。ZenTools 是 PWA 应用，可以添加到手机桌面像原生App一样使用。</p></div>
+</div>
+
+<!-- Recommended Guides -->
+<div class="related-guides" style="max-width:900px;margin:40px auto;padding:0 24px"><h2 data-i18n="h_guides" style="font-size:22px;text-align:center;margin-bottom:16px">推荐教程</h2><div class="guide-links" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px">
+<a href="/guides/pdf-automation-guide.html" class="guide-card" style="display:block;padding:14px 18px;border:1px solid var(--border);border-radius:12px;text-decoration:none;background:rgba(255,255,255,0.02)"><strong style="display:block;font-size:14px;color:var(--text);margin-bottom:4px">PDF自动化工作流指南</strong><span style="font-size:12px;color:var(--muted);line-height:1.5">学习如何用Python脚本和开源工具构建PDF自动处理流水线</span></a>
+<a href="/guides/ai-writing-workflow.html" class="guide-card" style="display:block;padding:14px 18px;border:1px solid var(--border);border-radius:12px;text-decoration:none;background:rgba(255,255,255,0.02)"><strong style="display:block;font-size:14px;color:var(--text);margin-bottom:4px">AI写作完整工作流</strong><span style="font-size:12px;color:var(--muted);line-height:1.5">从选题到发布，一站式AI辅助内容生产流水线</span></a>
+<a href="/guides/seo-optimization-checklist.html" class="guide-card" style="display:block;padding:14px 18px;border:1px solid var(--border);border-radius:12px;text-decoration:none;background:rgba(255,255,255,0.02)"><strong style="display:block;font-size:14px;color:var(--text);margin-bottom:4px">SEO优化完整清单</strong><span style="font-size:12px;color:var(--muted);line-height:1.5">从关键词研究到技术SEO的完整优化步骤和方法</span></a>
+<a href="/guides/free-api-models-guide.html" class="guide-card" style="display:block;padding:14px 18px;border:1px solid var(--border);border-radius:12px;text-decoration:none;background:rgba(255,255,255,0.02)"><strong style="display:block;font-size:14px;color:var(--text);margin-bottom:4px">免费AI模型API大全</strong><span style="font-size:12px;color:var(--muted);line-height:1.5">DeepSeek、Qwen、Gemma、Mistral等主流免费模型对比与接入指南</span></a>
+</div></div>
+
+</section></main><footer class="footer"><p data-i18n="footerText">© 2026 ZenTools. 中文免费在线工具箱。</p></footer>
 <script src="assets/js/tools-data.js"></script>
 <script src="assets/js/common-i18n.min.js"></script>
 <script>
+// ============ Data Helpers ============
 function tName(t, lang) {
   return t['name__' + lang] || t['name__en'] || t.name;
 }
@@ -123,20 +300,177 @@ function tCatLocal(cat, lang, cats, catsEn, catsJa, catsVi) {
   }
   return cat;
 }
+
+var currentLang = 'en';
+var currentCategory = 'all';
+var currentScenario = 'all';
+
+// ============ Hot Tools ============
+function renderHotTools(lang) {
+  var hotSlugs = ['pdf-merge', 'image-compressor', 'text-to-speech', 'currency-converter',
+                  'image-resize', 'pdf-split', 'ai-tools-directory', 'worldtime'];
+  var hotTools = [];
+  hotSlugs.forEach(function(slug) {
+    var found = toolsData.find(function(t) { return t.slug === slug; });
+    if (found) hotTools.push(found);
+  });
+  var html = hotTools.map(function(t, i) {
+    var name = tName(t, lang);
+    var desc = tDesc(t, lang);
+    return '<a class="hot-card" href="' + t.url + '" onclick="recordRecent(\'' + t.slug + '\')">' +
+      '<span class="hot-rank">' + (i + 1) + '</span>' +
+      '<span class="hot-icon">' + t.icon + '</span>' +
+      '<div><div class="hot-name">' + name + '</div><div class="hot-desc">' + desc + '</div></div></a>';
+  }).join('');
+  document.getElementById('hotStrip').innerHTML = html;
+}
+
+// ============ Scenario Recommendations ============
+var scenarios = {
+  office: ['pdf-merge', 'pdf-split', 'pdf-compress', 'image-compressor', 'image-resize', 'text-to-speech', 'currency-converter', 'worldtime'],
+  content: ['ai-tools-directory', 'text-to-speech', 'image-compressor', 'image-resize'],
+  dev: ['json-formatter', 'sql-formatter', 'image-resize'],
+  study: ['text-to-speech', 'pdf-merge', 'worldtime', 'currency-converter'],
+  design: ['image-compressor', 'image-resize']
+};
+
+function renderScenario(scenario, lang) {
+  var slugs = scenario === 'all' ? [] : (scenarios[scenario] || []);
+  var tools;
+  if (slugs.length > 0) {
+    tools = slugs.map(function(s) { return toolsData.find(function(t) { return t.slug === s; }); }).filter(Boolean);
+  } else {
+    // 'all': show 8 popular tools
+    renderScenarioTools(toolsData.slice(0, 8), lang);
+    return;
+  }
+  if (tools.length === 0) {
+    tools = toolsData.slice(0, 8);
+  }
+  renderScenarioTools(tools, lang);
+}
+
+function renderScenarioTools(tools, lang) {
+  var html = tools.map(function(t) {
+    return '<a class="scenario-tool" href="' + t.url + '" onclick="recordRecent(\'' + t.slug + '\')">' +
+      '<span class="s-icon">' + t.icon + '</span><span class="s-name">' + tName(t, lang) + '</span></a>';
+  }).join('');
+  document.getElementById('scenarioTools').innerHTML = html;
+}
+
+// ============ Recently Used ============
+function recordRecent(slug) {
+  var recents = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
+  recents = recents.filter(function(s) { return s !== slug; });
+  recents.unshift(slug);
+  recents = recents.slice(0, 10);
+  localStorage.setItem('zentools_recent', JSON.stringify(recents));
+  renderRecent(currentLang);
+}
+
+function renderRecent(lang) {
+  var recents = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
+  var section = document.getElementById('recentSection');
+  var list = document.getElementById('recentList');
+  if (recents.length === 0) {
+    section.classList.remove('visible');
+    return;
+  }
+  section.classList.add('visible');
+  var html = recents.map(function(slug) {
+    var t = toolsData.find(function(t) { return t.slug === slug; });
+    if (!t) return '';
+    return '<a class="recent-chip" href="' + t.url + '" onclick="recordRecent(\'' + t.slug + '\')">' +
+      '<span class="r-icon">' + t.icon + '</span>' + tName(t, lang) + '</a>';
+  }).filter(Boolean).join('');
+  list.innerHTML = html;
+}
+
+// ============ Tool Grid ============
+function getFilteredTools(lang) {
+  var cats = window.categoriesData || [];
+  var filtered = toolsData;
+  // Category filter
+  if (currentCategory !== 'all') {
+    filtered = filtered.filter(function(t) {
+      return t.category === currentCategory ||
+             (cats && cats.indexOf(t.category) >= 0 && cats.indexOf(t.category) === cats.indexOf(currentCategory));
+    });
+  }
+  return filtered;
+}
+
 function renderToolGrid(lang) {
   var cats = window.categoriesData || [];
   var catsEn = window.categoriesData__en || [];
   var catsJa = window.categoriesData__ja || [];
   var catsVi = window.categoriesData__vi || [];
+  var tools = getFilteredTools(lang);
   var container = document.getElementById('featuredTools');
-  container.innerHTML = toolsData.map(function(tool) {
+  var countEl = document.getElementById('toolCount');
+  
+  if (tools.length === 0) {
+    container.innerHTML = '<div class="no-results" data-i18n="search_no_result">没有找到匹配的工具，试试其他关键词</div>';
+    countEl.textContent = '0';
+    return;
+  }
+  
+  countEl.textContent = tools.length;
+  container.innerHTML = tools.map(function(tool) {
     var name = tName(tool, lang);
     var desc = tDesc(tool, lang);
     var cat = tCatLocal(tool.category, lang, cats, catsEn, catsJa, catsVi);
-    return '<a class="tool-card" href="' + tool.url + '"><div class="icon">' + tool.icon + '</div><h3>' + name + '</h3><p>' + desc + '</p><span class="tag">' + cat + '</span></a>';
+    return '<a class="tool-card" href="' + tool.url + '" onclick="recordRecent(\'' + tool.slug + '\')">' +
+      '<div class="icon">' + tool.icon + '</div><h3>' + name + '</h3><p>' + desc + '</p>' +
+      '<span class="tag">' + cat + '</span></a>';
   }).join('');
 }
+
+// ============ Search ============
+function searchTools(query, lang) {
+  var dropdown = document.getElementById('searchDropdown');
+  if (!query || query.trim().length === 0) {
+    dropdown.classList.remove('open');
+    return;
+  }
+  var q = query.toLowerCase().trim();
+  var results = toolsData.filter(function(t) {
+    var name = (tName(t, lang) || '').toLowerCase();
+    var desc = (tDesc(t, lang) || '').toLowerCase();
+    var kw = (t.keywords || '').toLowerCase();
+    var cat = (t.category || '').toLowerCase();
+    return name.indexOf(q) >= 0 || desc.indexOf(q) >= 0 || kw.indexOf(q) >= 0 || cat.indexOf(q) >= 0;
+  }).slice(0, 12);
+  
+  var cats = window.categoriesData || [];
+  if (results.length === 0) {
+    dropdown.innerHTML = '<div class="no-results" data-i18n="search_no_result">没有找到匹配的工具</div>';
+  } else {
+    dropdown.innerHTML = results.map(function(t) {
+      return '<a href="' + t.url + '" onclick="recordRecent(\'' + t.slug + '\')">' +
+        '<span class="sd-icon">' + t.icon + '</span>' + tName(t, lang) +
+        '<span class="sd-cat">' + (t.category || '') + '</span></a>';
+    }).join('');
+  }
+  dropdown.classList.add('open');
+}
+
+function setCategoryFilter(cat, lang) {
+  currentCategory = cat;
+  // Update filter chips
+  var chipsDiv = document.getElementById('activeFilters');
+  if (cat === 'all') {
+    chipsDiv.innerHTML = '';
+  } else {
+    chipsDiv.innerHTML = '<button class="filter-chip" onclick="setCategoryFilter(\'all\', currentLang)">' +
+      cat + ' <span class="chip-x">✕</span></button>';
+  }
+  renderToolGrid(lang);
+}
+
+// ============ Apply Language ============
 function applyPageLang(lang) {
+  currentLang = lang;
   var d = window.ZT_PAGE && window.ZT_PAGE[lang];
   if (!d) return;
   document.querySelector('[data-i18n="pageTitle"]').textContent = d.pageTitle;
@@ -145,16 +479,24 @@ function applyPageLang(lang) {
     var key = el.getAttribute('data-i18n');
     if (d[key]) el.textContent = d[key];
   });
-  document.querySelector('.search-input').placeholder = d.searchPlaceholder || searchPlaceholderDefault;
+  var searchInput = document.getElementById('toolSearch');
+  searchInput.placeholder = d.searchPlaceholder || 'Search tools...';
+  renderHotTools(lang);
+  renderScenario(currentScenario, lang);
+  renderRecent(lang);
   renderToolGrid(lang);
+  // Update search results if input has text
+  if (searchInput.value.trim()) {
+    searchTools(searchInput.value, lang);
+  }
 }
-var searchPlaceholderDefault;
+
+// ============ Init ============
 document.addEventListener('DOMContentLoaded', function() {
-  var input = document.querySelector('.search-input');
-  searchPlaceholderDefault = input.placeholder;
   var lang = localStorage.getItem('zentools_lang') || 'en';
   applyPageLang(lang);
-  // Lang select handler
+
+  // Lang select
   var sel = document.getElementById('langSelect');
   if (sel) {
     sel.value = lang;
@@ -164,6 +506,38 @@ document.addEventListener('DOMContentLoaded', function() {
       window.dispatchEvent(new CustomEvent('zt-langchange', {detail: {lang: this.value}}));
     });
   }
+
+  // Search input
+  var searchInput = document.getElementById('toolSearch');
+  searchInput.addEventListener('input', function() {
+    searchTools(this.value, currentLang);
+  });
+  searchInput.addEventListener('focus', function() {
+    if (this.value.trim()) searchTools(this.value, currentLang);
+  });
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-wrap-enhanced')) {
+      document.getElementById('searchDropdown').classList.remove('open');
+    }
+  });
+
+  // Scenario tabs
+  document.getElementById('scenarioTabs').addEventListener('click', function(e) {
+    if (e.target.classList.contains('scenario-tab')) {
+      var tabs = this.querySelectorAll('.scenario-tab');
+      tabs.forEach(function(t) { t.classList.remove('active'); });
+      e.target.classList.add('active');
+      currentScenario = e.target.getAttribute('data-scenario');
+      renderScenario(currentScenario, currentLang);
+    }
+  });
+
+  // Recent clear
+  document.getElementById('recentClear').addEventListener('click', function() {
+    localStorage.removeItem('zentools_recent');
+    renderRecent(currentLang);
+  });
+
   // Apply nav i18n after common-i18n processes
   setTimeout(function() {
     var d = window.ZT_PAGE && window.ZT_PAGE[lang];
@@ -175,9 +549,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }, 50);
 });
+
 window.addEventListener('zt-langchange', function(e) {
-  var lang = e.detail.lang;
-  applyPageLang(lang);
+  applyPageLang(e.detail.lang);
 });
 </script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="bookmark">⭐ 收藏本站，下次办公快人一步</button>

@@ -9,6 +9,16 @@
 <meta name="keywords" content="视频压缩,在线视频工具,免费工具,ZenTools">
 <link rel="canonical" href="https://zentools.xyz/video/compress-video.html">
 <meta property="og:title" content="视频压缩 - ZenTools">
+<style>
+/* 性能提示组件 */
+.zt-perf-warn{display:none;margin-top:12px;padding:12px 18px;border-radius:10px;background:rgba(255,193,7,0.08);border:1px solid rgba(255,193,7,0.25);color:#ffc107;font-size:13px;line-height:1.6}
+.zt-perf-warn.visible{display:block}
+.zt-perf-warn.zt-perf-error{background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.25);color:#f43f5e}
+.zt-browser-reco{display:none;margin-bottom:16px;padding:14px 20px;border-radius:12px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);color:#6b7a9f;font-size:14px;line-height:1.6}
+.zt-browser-reco.visible{display:flex;align-items:flex-start;gap:12px}
+.zt-browser-reco .zt-br-icon{font-size:22px;flex-shrink:0;margin-top:1px}
+.zt-browser-reco .zt-br-close{margin-left:auto;background:none;border:none;color:#6b7a9f;font-size:18px;cursor:pointer;padding:0 4px;line-height:1}
+</style>
 <meta property="og:description" content="在线压缩视频文件大小。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zentools.xyz/video/compress-video.html">
@@ -61,7 +71,8 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <h1 data-i18n="title">视频压缩</h1>
 <p class="desc" data-i18n="desc">在线压缩视频文件大小。</p>
 <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
-<input type="file" id="videoFile" accept="video/*"><select id="quality"><option value="28">较小文件</option><option value="24" selected>推荐质量</option><option value="20">较高清晰</option></select><button onclick="compressVideo()" data-i18n="run">开始处理</button>
+<input type="file" id="videoFile" accept="video/*" onchange="ZT.checkFileSize(this.files, document.getElementById('perfWarn'), {warnMB:100, errorMB:500})"><select id="quality"><option value="28">较小文件</option><option value="24" selected>推荐质量</option><option value="20">较高清晰</option></select><button onclick="compressVideo()" data-i18n="run">开始处理</button>
+<div class="zt-perf-warn" id="perfWarn"></div>
 <div class="progress"><div id="bar"></div></div>
 <div class="result" id="log"></div>
 <a id="downloadLink" class="download-btn" style="display:none" data-i18n="download">下载文件</a>
@@ -75,6 +86,7 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
   </div>
   <footer>© 2026 ZenTools. All Rights Reserved.</footer>
 </div>
+<script src="../assets/js/tool-ui.min.js"></script>
 <script>
 
 const translations={

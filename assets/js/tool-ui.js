@@ -420,6 +420,171 @@
     });
   })();
 
+  // ===== 性能提示与进度组件 =====
+
+  /**
+   * 检测是否是推荐浏览器 (Chrome / Edge / Chromium-based)
+   * 非推荐浏览器显示推荐提示
+   */
+  ZT.checkBrowser = function() {
+    var ua = navigator.userAgent;
+    var isChrome = ua.indexOf('Chrome') > -1 && ua.indexOf('Edg') === -1;
+    var isEdge = ua.indexOf('Edg') > -1;
+    var isFirefox = ua.indexOf('Firefox') > -1;
+    var isSafari = ua.indexOf('Safari') > -1 && ua.indexOf('Chrome') === -1;
+
+    if (isChrome || isEdge) return; // 推荐浏览器，不显示
+
+    var dismissed = localStorage.getItem('zt_browser_reco_dismissed');
+    if (dismissed) return;
+
+    var lang = localStorage.getItem('zentools_lang') || 'zh';
+    var messages = {
+      zh: { text: '为获得最佳大文件处理性能，建议使用 <strong>Chrome</strong> 或 <strong>Edge</strong> 浏览器。当前浏览器可能导致处理速度变慢或卡顿。', dismiss: '知道了' },
+      en: { text: 'For best performance with large files, we recommend <strong>Chrome</strong> or <strong>Edge</strong>. Your current browser may cause slowdowns or stuttering.', dismiss: 'Got it' },
+      ja: { text: '大きなファイルの処理には<strong>Chrome</strong>または<strong>Edge</strong>をおすすめします。現在のブラウザでは処理が遅くなることがあります。', dismiss: 'OK' },
+      vi: { text: 'Để có hiệu suất tốt nhất với file lớn, chúng tôi khuyến nghị dùng <strong>Chrome</strong> hoặc <strong>Edge</strong>. Trình duyệt hiện tại có thể chậm.', dismiss: 'Đã hiểu' }
+    };
+    var msg = messages[lang] || messages.zh;
+
+    var el = document.createElement('div');
+    el.className = 'zt-browser-reco visible';
+    el.innerHTML = '<span class="zt-br-icon">💡</span><span>' + msg.text + '</span><button class="zt-br-close" title="' + msg.dismiss + '">✕</button>';
+    el.querySelector('.zt-br-close').addEventListener('click', function() {
+      el.remove();
+      localStorage.setItem('zt_browser_reco_dismissed', '1');
+    });
+
+    var toolBox = document.querySelector('.tool-box');
+    if (toolBox) {
+      toolBox.parentNode.insertBefore(el, toolBox);
+    }
+  };
+
+  /**
+   * 检查文件总大小，更新警告提示
+   * @param {File[]|FileList} files - 文件列表
+   * @param {HTMLElement} warnEl - 警告元素
+   * @param {Object} [opts] - 可选配置
+   * @param {number} [opts.warnMB=100] - 发出建议警告的阈值(MB)
+   * @param {number} [opts.errorMB=500] - 发出错误警告的阈值(MB)
+   * @param {number} [opts.singleLimitMB=200] - 单文件建议最大值(MB)
+   */
+  ZT.checkFileSize = function(files, warnEl, opts) {
+    opts = opts || {};
+    var warnMB = opts.warnMB || 100;
+    var errorMB = opts.errorMB || 500;
+    var singleLimitMB = opts.singleLimitMB || 200;
+
+    var totalSize = 0;
+    var tooLarge = false;
+    for (var i = 0; i < files.length; i++) {
+      totalSize += files[i].size;
+      if (files[i].size > singleLimitMB * 1024 * 1024) tooLarge = true;
+    }
+
+    var lang = localStorage.getItem('zentools_lang') || 'zh';
+    var mb = Math.round(totalSize / (1024 * 1024));
+    if (!warnEl) return;
+
+    warnEl.className = 'zt-perf-warn';
+    warnEl.innerHTML = '';
+
+    if (totalSize > errorMB * 1024 * 1024) {
+      var errMsgs = {
+        zh: '<span class="zt-perf-warn-icon">⚠️</span> 文件总大小 ' + mb + 'MB，超过 ' + errorMB + 'MB 上限。大文件处理将导致浏览器卡顿甚至崩溃。请减少文件数量或先压缩单个文件。',
+        en: '<span class="zt-perf-warn-icon">⚠️</span> Total file size ' + mb + 'MB exceeds ' + errorMB + 'MB limit. Large files may cause the browser to freeze or crash. Please reduce the number of files or compress individual files first.',
+        ja: '<span class="zt-perf-warn-icon">⚠️</span> ファイルの合計サイズが ' + mb + 'MB で、上限 ' + errorMB + 'MB を超えています。ブラウザがフリーズする可能性があります。ファイル数を減らすか、個別に圧縮してください。',
+        vi: '<span class="zt-perf-warn-icon">⚠️</span> Tổng kích thước file ' + mb + 'MB vượt quá giới hạn ' + errorMB + 'MB. File lớn có thể khiến trình duyệt bị treo. Vui lòng giảm số lượng file hoặc nén từng file.'
+      };
+      warnEl.innerHTML = errMsgs[lang] || errMsgs.zh;
+      warnEl.classList.add('zt-perf-error', 'visible');
+    } else if (totalSize > warnMB * 1024 * 1024) {
+      var warnMsgs = {
+        zh: '<span class="zt-perf-warn-icon">💡</span> 文件总大小 ' + mb + 'MB，处理可能需要较长时间。推荐使用 Chrome/Edge 浏览器获得最佳性能。',
+        en: '<span class="zt-perf-warn-icon">💡</span> Total file size is ' + mb + 'MB — processing may take a while. Chrome/Edge recommended for best performance.',
+        ja: '<span class="zt-perf-warn-icon">💡</span> 合計 ' + mb + 'MB です。処理に時間がかかる場合があります。Chrome/Edge の使用をおすすめします。',
+        vi: '<span class="zt-perf-warn-icon">💡</span> Tổng kích thước file là ' + mb + 'MB — có thể mất thời gian xử lý. Chrome/Edge được khuyến nghị.'
+      };
+      warnEl.innerHTML = warnMsgs[lang] || warnMsgs.zh;
+      warnEl.classList.add('visible');
+    }
+    if (tooLarge && totalSize <= errorMB * 1024 * 1024) {
+      var singleMsgs = {
+        zh: '<span class="zt-perf-warn-icon">💡</span> 存在超过 ' + singleLimitMB + 'MB 的单文件，处理速度可能较慢。',
+        en: '<span class="zt-perf-warn-icon">💡</span> Some files exceed ' + singleLimitMB + 'MB — processing may be slower.',
+        ja: '<span class="zt-perf-warn-icon">💡</span> ' + singleLimitMB + 'MB を超えるファイルがあります。処理が遅くなる可能性があります。',
+        vi: '<span class="zt-perf-warn-icon">💡</span> Một số file vượt quá ' + singleLimitMB + 'MB — xử lý có thể chậm hơn.'
+      };
+      warnEl.innerHTML = singleMsgs[lang] || singleMsgs.zh;
+      warnEl.classList.add('visible');
+    }
+  };
+
+  /**
+   * 显示进度条
+   * @param {string} [text] - 进度文字，如 "正在处理 PDF..."
+   * @param {boolean} [indeterminate=true] - 是否不确定进度（动画条）
+   */
+  ZT.showProgress = function(text, indeterminate) {
+    var wrap = document.querySelector('.zt-progress-wrap');
+    if (!wrap) {
+      // 自动在 tool-box 底部创建
+      var toolBox = document.querySelector('.tool-box');
+      if (!toolBox) return;
+      wrap = document.createElement('div');
+      wrap.className = 'zt-progress-wrap';
+      wrap.innerHTML = '<div class="zt-progress-bar"><div class="zt-progress-fill"></div></div><div class="zt-progress-text"></div>';
+      toolBox.appendChild(wrap);
+    }
+    wrap.classList.add('active');
+    var fill = wrap.querySelector('.zt-progress-fill');
+    var textEl = wrap.querySelector('.zt-progress-text');
+
+    if (indeterminate !== false) {
+      fill.classList.add('indeterminate');
+      fill.style.width = '';
+    } else {
+      fill.classList.remove('indeterminate');
+    }
+
+    var lang = localStorage.getItem('zentools_lang') || 'zh';
+    var defaultText = {
+      zh: '正在处理，请勿关闭页面...',
+      en: 'Processing, please keep this page open...',
+      ja: '処理中です。ページを閉じないでください...',
+      vi: 'Đang xử lý, vui lòng không đóng trang này...'
+    };
+    textEl.innerHTML = '<span class="zt-spinner"></span> ' + (text || (defaultText[lang] || defaultText.zh));
+  };
+
+  /**
+   * 更新进度条百分比
+   * @param {number} percent - 0-100
+   */
+  ZT.updateProgress = function(percent) {
+    var fill = document.querySelector('.zt-progress-fill');
+    if (fill) {
+      fill.classList.remove('indeterminate');
+      fill.style.width = Math.min(100, Math.max(0, percent)) + '%';
+    }
+  };
+
+  /**
+   * 隐藏进度条
+   */
+  ZT.hideProgress = function() {
+    var wrap = document.querySelector('.zt-progress-wrap');
+    if (wrap) wrap.classList.remove('active');
+  };
+
+  // 页面加载后执行浏览器检测
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { ZT.checkBrowser(); });
+  } else {
+    ZT.checkBrowser();
+  }
+
   // ===== 启动 i18n =====
   initLang();
 })();

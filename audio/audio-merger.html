@@ -115,8 +115,10 @@
       <h2 data-i18n="toolTitle">选择音频文件</h2>
       <p class="note" data-i18n="toolNote">选择多个音频文件，拖动调整顺序，点击合并按钮将它们拼接为一个文件。</p>
       <div class="file-input-row">
-        <input type="file" id="audioFiles" accept="audio/*" multiple />
+        <input type="file" id="audioFiles" accept="audio/*" multiple onchange="ZT.checkFileSize(this.files, document.getElementById('perfWarn'), {warnMB:100, errorMB:500})" />
+        <button class="btn-primary" id="mergeBtn" type="button" onclick="mergeAudio()" data-i18n="mergeBtn">合并音频</button>
       </div>
+      <div class="zt-perf-warn" id="perfWarn"></div>
       <div class="file-list" id="fileList">
         <div class="empty-state" data-i18n="emptyState">📂 添加音频文件开始合并</div>
       </div>
@@ -372,7 +374,7 @@
         mergedBlob = null;
       };
 
-      window.mergeAudio = async function() {
+       window.mergeAudio = async function() {
         if (fileList.length === 0) {
           status.textContent = getDict().statusNoFile;
           return;
@@ -389,6 +391,7 @@
 
         status.textContent = getDict().statusMerging;
         mergeBtn.disabled = true;
+        ZT.showProgress(null, false);
 
         try {
           if (!audioContext) audioContext = new AudioContext();
@@ -402,6 +405,7 @@
           const newBuffer = audioContext.createBuffer(numChannels, totalLength, sampleRate);
 
           let offset = 0;
+          var doneCnt = 0;
           for (const f of fileList) {
             for (let ch = 0; ch < numChannels; ch++) {
               const srcData = f.buffer.getChannelData(Math.min(ch, f.buffer.numberOfChannels - 1));
@@ -411,13 +415,17 @@
               }
             }
             offset += f.buffer.length;
+            doneCnt++;
+            ZT.updateProgress(Math.round(doneCnt / fileList.length * 100));
           }
 
           mergedBlob = exportWAV(newBuffer);
+          ZT.hideProgress();
           status.textContent = getDict().statusDone;
           downloadBtn.style.display = 'inline-flex';
         } catch(e) {
           console.error(e);
+          ZT.hideProgress();
           status.textContent = getDict().statusError;
         } finally {
           mergeBtn.disabled = false;

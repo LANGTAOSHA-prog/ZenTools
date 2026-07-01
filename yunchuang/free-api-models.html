@@ -427,6 +427,42 @@
       .top-bar { flex-direction: column; align-items: flex-start; }
     }
   </style>
+  <!-- FAQPage Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "免费 AI API 和付费 API 有什么区别？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "免费 API 通常在并发限制、每日配额、响应延迟上有所限制。部分免费 API 使用略低规格的模型版本（如 GPT-4o-mini 替代 GPT-4o）。但对于个人项目和学习用途来说，差异通常不会影响体验。"
+      }
+    }, {
+      "@type": "Question",
+      "name": "多个免费 API 可以共用吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "完全可以。通过 OpenRouter 等服务可以统一访问多个模型的 API。也可以自己编写故障切换逻辑：主模型不可用时自动回退到备选模型。这是最大化免费配额利用率的最佳策略。"
+      }
+    }, {
+      "@type": "Question",
+      "name": "开源模型本地部署 vs 免费 API，哪种更划算？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "如果你有 GPU（如 RTX 3060 以上），开源模型本地部署无任何 API 调用配额限制，适合批量处理。如果无 GPU 或只需偶尔调用，免费 API 更省心和省电。推荐混合策略：日常使用免费 API，高峰期用本地模型。"
+      }
+    }, {
+      "@type": "Question",
+      "name": "数据隐私：使用免费 API 安全吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "需仔细阅读每家平台的隐私政策。部分免费服务可能使用你发送的数据进行模型训练。如果有隐私顾虑，建议使用开源模型本地部署，或选择明确承诺不用于训练的免费 API（如 Cohere 的 Trial 计划）。敏感数据永远不要通过任何未知策略的免费 API 传输。"
+      }
+    }]
+  }
+  </script>
 </head>
 <body>
 <div class="dashboard" id="dashboard">
@@ -474,6 +510,58 @@
     <div class="loading-placeholder">
       <div class="spinner"></div>
       <span>正在加载免费 AI 模型 API 信息 ...</span>
+    </div>
+  </div>
+
+  <!-- 模型选型指南 -->
+  <div class="guide-section" style="max-width:900px;margin:3rem auto 0;padding:0 1.5rem">
+    <h2 style="text-align:center;font-size:1.5rem;margin-bottom:1.2rem;color:#1e293b">按需求选择最合适的免费 AI 模型</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">中文对话与写作</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">DeepSeek 和 Qwen（通义千问）中文能力最强，支持长文本、逻辑推理、代码生成。Qwen 提供免费 API 配额，DeepSeek 模型部分开源可用。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">AI 图像生成</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">FLUX（开源高质量图像）和 Stable Diffusion（免费本地推理）是两大选项。HuggingFace 提供免费演示空间，可直接在线试用。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">语音识别与转录</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">OpenAI Whisper（开源）和 SenseVoice（中文优化）覆盖多语言场景。Whisper 可本地部署，无需 API Key，适合长期批量任务。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">多模态分析</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">Qwen-VL 和 InternVL2 擅长图文理解和视觉问答。可用作图像分类、OCR 提取、图表分析等业务场景。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">文本嵌入与检索</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">BGE（中文最佳）和 multilingual-e5 提供极低成本的嵌入服务。适合构建 RAG 知识库、语义搜索和文档相似度计算。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">免费 API 配额对比</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">不同平台策略不同：OpenRouter 聚合服务提供有限免费配额，Cohere 的试用 API 100 次/分钟。建议注册多个平台搭配使用，最大化免费额度。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="faq-section" style="max-width:800px;margin:3rem auto 0;padding:0 1.5rem">
+    <h2 style="text-align:center;font-size:1.5rem;margin-bottom:1.5rem;color:#1e293b">常见问题</h2>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">免费 AI API 和付费 API 有什么区别？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">免费 API 通常在并发限制、每日配额、响应延迟上有所限制。部分免费 API 使用略低规格的模型版本（如 GPT-4o-mini 替代 GPT-4o）。但对于个人项目和学习用途来说，差异通常不会影响体验。</p>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">多个免费 API 可以共用吗？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">完全可以。通过 OpenRouter 等服务可以统一访问多个模型的 API。也可以自己编写故障切换逻辑：主模型不可用时自动回退到备选模型。这是最大化免费配额利用率的最佳策略。</p>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">开源模型本地部署 vs 免费 API，哪种更划算？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">如果你有 GPU（如 RTX 3060 以上），开源模型本地部署无任何 API 调用配额限制，适合批量处理。如果无 GPU 或只需偶尔调用，免费 API 更省心和省电。推荐混合策略：日常使用免费 API，高峰期用本地模型。</p>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">数据隐私：使用免费 API 安全吗？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">需仔细阅读每家平台的隐私政策。部分免费服务可能使用你发送的数据进行模型训练。如果有隐私顾虑，建议使用开源模型本地部署，或选择明确承诺不用于训练的免费 API（如 Cohere 的 Trial 计划）。敏感数据永远不要通过任何未知策略的免费 API 传输。</p>
     </div>
   </div>
 

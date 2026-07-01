@@ -242,3 +242,72 @@ footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: ce
   .info-grid { grid-template-columns: 1fr; }
   .tool-box { padding: 24px; }
 }
+
+/* ========================================
+   性能提示与进度组件
+   ======================================== */
+
+/* 文件大小警告条 */
+.zt-perf-warn {
+  display: none;
+  margin-top: 16px; padding: 12px 18px;
+  border-radius: 10px;
+  background: rgba(255,193,7,0.08); border: 1px solid rgba(255,193,7,0.25);
+  color: #ffc107; font-size: 13px; line-height: 1.6;
+}
+.zt-perf-warn.visible { display: block; }
+.zt-perf-warn.zt-perf-error {
+  background: rgba(244,63,94,0.08); border-color: rgba(244,63,94,0.25); color: #f43f5e;
+}
+.zt-perf-warn .zt-perf-warn-icon { font-size: 15px; margin-right: 6px; }
+
+/* 浏览器推荐条 */
+.zt-browser-reco {
+  display: none;
+  margin-bottom: 24px; padding: 14px 20px;
+  border-radius: 12px;
+  background: rgba(0,229,255,0.05); border: 1px solid rgba(0,229,255,0.15);
+  color: var(--muted); font-size: 14px; line-height: 1.6;
+}
+.zt-browser-reco.visible { display: flex; align-items: flex-start; gap: 12px; }
+.zt-browser-reco .zt-br-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+.zt-browser-reco .zt-br-close {
+  margin-left: auto; background: none; border: none; color: var(--muted);
+  font-size: 18px; cursor: pointer; padding: 0 4px; line-height: 1;
+}
+
+/* 进度条容器 */
+.zt-progress-wrap {
+  display: none; margin-top: 16px;
+}
+.zt-progress-wrap.active { display: block; }
+.zt-progress-bar {
+  width: 100%; height: 6px; border-radius: 3px;
+  background: rgba(255,255,255,0.06); overflow: hidden;
+}
+.zt-progress-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple));
+  transition: width 0.3s ease;
+  width: 0%;
+}
+.zt-progress-fill.indeterminate {
+  width: 40%;
+  animation: zt-progress-indeterminate 1.5s ease-in-out infinite;
+}
+@keyframes zt-progress-indeterminate {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(350%); }
+}
+.zt-progress-text {
+  margin-top: 8px; font-size: 13px; color: var(--muted);
+  display: flex; align-items: center; gap: 8px;
+}
+.zt-progress-text .zt-spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid var(--border); border-top-color: var(--cyan);
+  border-radius: 50%; animation: zt-spin 0.6s linear infinite;
+}
+@keyframes zt-spin {
+  to { transform: rotate(360deg); }
+}
