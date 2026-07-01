@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>手把手教你安装 Agnes 桌面版 - 免费无限量大模型配置指南 | 深度指南</title>
+<meta name="description" content="2026 年最全 Agnes AI 桌面版安装教程！从零开始配置本地大模型，支持 Windows/Mac/Linux，免费无限量使用，附详细步骤和故障排查。">
+<meta name="keywords" content="Agnes 桌面版，本地大模型，AI 客户端，免费大模型，离线 AI，模型部署，本地推理">
+<meta name="author" content="云创 - 免费云情报站">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://zentools.xyz/guides/agnes-desktop-installation.html">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://zentools.xyz/guides/agnes-desktop-installation.html">
+<meta property="og:title" content="手把手教你安装 Agnes 桌面版 - 免费无限量大模型配置指南">
+<meta property="og:description" content="2026 年最全 Agnes AI 桌面版安装教程！从零开始配置本地大模型。">
+<meta property="og:site_name" content="云创 - 免费云情报站">
+<meta property="article:published_time" content="2026-06-30">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://zentools.xyz/guides/agnes-desktop-installation.html">
+<meta property="twitter:title" content="手把手教你安装 Agnes 桌面版 - 免费无限量大模型配置指南">
+<meta property="twitter:description" content="2026 年最全 Agnes AI 桌面版安装教程！从零开始配置本地大模型。">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;background:#f8fafc;color:#1e293b;line-height:1.7;padding:0}.wrapper{max-width:900px;margin:0 auto;padding:2rem 1.5rem}.article-header{text-align:center;margin-bottom:3rem;padding:2.5rem;background:linear-gradient(135deg,#ec4899 0%,#f43f5e 100%);border-radius:20px;color:white;margin-bottom:2.5rem}.article-header h1{font-size:2.5rem;font-weight:700;margin-bottom:1rem;line-height:1.3}.article-header .subtitle{font-size:1.2rem;opacity:0.95;margin-bottom:1.5rem}.article-header .badge{display:inline-block;background:rgba(255,255,255,0.2);padding:.5rem 1.2rem;border-radius:30px;font-size:.9rem;font-weight:500;margin-top:.5rem;margin-right:.5rem}.article-meta{display:flex;justify-content:center;gap:2rem;font-size:.9rem;opacity:0.9;margin-top:1rem}.content{background:white;border-radius:16px;padding:2.5rem;box-shadow:0 4px 20px rgba(0,0,0,.06);margin-bottom:2rem}.content h2{font-size:1.8rem;font-weight:700;margin:2.5rem 0 1.2rem;color:#1e293b;border-left:4px solid #ec4899;padding-left:1rem}.content h3{font-size:1.4rem;font-weight:600;margin:2rem 0 1rem;color:#334155}.content p{margin-bottom:1.2rem;font-size:1.05rem;text-align:justify}.content ul,.content ol{margin:1.2rem 0 1.2rem 1.5rem}.content li{margin-bottom:.6rem}.content blockquote{border-left:4px solid #ec4899;background:#fdf2f8;padding:1.2rem 1.5rem;margin:1.5rem 0;border-radius:0 8px 8px 0;font-style:italic;color:#be185d}.content code{background:#f1f5f9;padding:.2rem .5rem;border-radius:4px;font-family:'Monaco','Consolas',monospace;font-size:.9rem;color:#dc2626}.content pre{background:#1e293b;color:#e2e8f0;padding:1.5rem;border-radius:12px;overflow-x:auto;margin:1.5rem 0}.content pre code{background:none;padding:0;color:inherit}.svg-container{text-align:center;margin:2rem 0}.svg-container svg{max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1)}.toc{background:#f8fafc;border-radius:12px;padding:1.5rem;margin-bottom:2rem}.toc h4{font-size:1.1rem;font-weight:600;margin-bottom:1rem;color:#1e293b}.toc ul{list-style:none;padding-left:0}.toc li{margin-bottom:.5rem}.toc a{color:#ec4899;text-decoration:none;font-size:.95rem}.toc a:hover{text-decoration:underline}.step-card{background:#fff1f2;border-left:4px solid #ec4899;padding:1.5rem;margin:1.5rem 0;border-radius:8px}.step-number{display:block;font-weight:600;color:#db2777;margin-bottom:.5rem}.warning-box{background:#fffbeb;border-left:4px solid #f59e0b;padding:1.2rem;margin:1.5rem 0;border-radius:8px}.tip-box{background:#ecfdf5;border-left:4px solid #10b981;padding:1.2rem;margin:1.5rem 0;border-radius:8px}.system-requirements{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin:2rem 0}.requirement-card{background:#f8fafc;border-radius:12px;padding:1.5rem;border:2px solid #e2e8f0}.requirement-card strong{color:#ec4899;display:block;margin-bottom:.5rem}.comparison-table{width:100%;border-collapse:collapse;margin:1.5rem 0}.comparison-table th,.comparison-table td{border:1px solid #e2e8f0;padding:.8rem;text-align:left}.comparison-table th{background:#f8fafc;font-weight:600}.comparison-table tr:nth-child(even){background:#f9fafb}.highlight-box{background:#eff6ff;border-left:4px solid #3b82f6;padding:1.2rem;margin:1.5rem 0;border-radius:8px}.footer{text-align:center;padding:2rem 0;color:#64748b;font-size:.9rem}.back-link{display:inline-block;margin-bottom:1.5rem;padding:.8rem 1.5rem;background:#f1f5f9;border-radius:8px;color:#475569;text-decoration:none;font-weight:500;transition:all .3s}.back-link:hover{background:#e2e8f0;color:#1e293d}@media(max-width:768px){.article-header h1{font-size:2rem}.content{padding:1.5rem}.system-requirements{grid-template-columns:1fr}.comparison-table{display:block;overflow-x:auto}}
+</style>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle: '手把手教你安装 Agnes 桌面版 - 免费无限量大模型配置指南',
+    backLink: '← 返回指南列表',
+    tocTitle: '📋 目录',
+    lastUpdated: '2026 年 6 月 30 日',
+    author: '云创技术团队',
+    readTime: '阅读时间：35 分钟',
+    badges: ['💻 跨平台支持', '🆓 免费无限量', '⚡ 本地离线运行'],
+    sections: [
+      { id: 'intro', title: '一、为什么选择 Agnes 桌面版？' },
+      { id: 'prerequisites', title: '二、系统要求与准备工作' },
+      { id: 'download', title: '三、下载与安装步骤' },
+      { id: 'config', title: '四、首次配置与模型下载' },
+      { id: 'usage', title: '五、日常使用技巧' },
+      { id: 'optimization', title: '六、性能优化建议' },
+      { id: 'troubleshooting', title: '七、常见问题与故障排查' },
+      { id: 'advanced', title: '八、高级功能配置' },
+      { id: 'conclusion', title: '九、总结与建议' }
+    ]
+  },
+  en: {
+    pageTitle: 'Step-by-Step Guide to Install Agnes Desktop - Free Unlimited LLM Configuration',
+    backLink: '← Back to Guides',
+    tocTitle: '📋 Table of Contents',
+    lastUpdated: 'June 30, 2026',
+    author: 'YunChuang Tech Team',
+    readTime: 'Reading Time: 35 min',
+    badges: ['💻 Cross-Platform', '🆓 Free Unlimited', '⚡ Local Offline'],
+    sections: [
+      { id: 'intro', title: 'I. Why Choose Agnes Desktop?' },
+      { id: 'prerequisites', title: 'II. System Requirements & Preparation' },
+      { id: 'download', title: 'III. Download & Installation' },
+      { id: 'config', title: 'IV. First-Time Configuration' },
+      { id: 'usage', title: 'V. Daily Usage Tips' },
+      { id: 'optimization', title: 'VI. Performance Optimization' },
+      { id: 'troubleshooting', title: 'VII. Troubleshooting' },
+      { id: 'advanced', title: 'VIII. Advanced Features' },
+      { id: 'conclusion', title: 'IX. Conclusion' }
+    ]
+  },
+  ja: {
+    pageTitle: 'Agnes デスクトップ版のインストール完全ガイド - 無料無制限大模型設定',
+    backLink: '← ガイドに戻る',
+    tocTitle: '📋 目次',
+    lastUpdated: '2026 年 6 月 30 日',
+    author: '雲創テックチーム',
+    readTime: '読む時間：35 分',
+    badges: ['💻 クロスプラットフォーム', '🆓 無料無制限', '⚡ ローカルオフライン'],
+    sections: [
+      { id: 'intro', title: '一、Agnes デスクトップを選ぶ理由' },
+      { id: 'prerequisites', title: '二、システム要件と準備' },
+      { id: 'download', title: '三、ダウンロードとインストール' },
+      { id: 'config', title: '四、初回設定とモデルダウンロード' },
+      { id: 'usage', title: '五、日常使用テクニック' },
+      { id: 'optimization', title: '六、パフォーマンス最適化' },
+      { id: 'troubleshooting', title: '七、トラブルシューティング' },
+      { id: 'advanced', title: '八、高度な機能設定' },
+      { id: 'conclusion', title: '九、まとめと提案' }
+    ]
+  },
+  vi: {
+    pageTitle: 'Hướng dẫn Chi tiết Cài đặt Agnes Desktop - Cấu hình LLM Miễn phí Vô hạn',
+    backLink: '← Quay lại Danh sách Hướng dẫn',
+    tocTitle: '📋 Mục lục',
+    lastUpdated: '30 tháng 6 năm 2026',
+    author: 'Đội ngũ Kỹ thuật YunChuang',
+    readTime: 'Thời gian đọc: 35 phút',
+    badges: ['💻 Đa nền tảng', '🆓 Miễn phí Vô hạn', '⚡ Ngoại tuyến Cục bộ'],
+    sections: [
+      { id: 'intro', title: 'I. Tại sao chọn Agnes Desktop?' },
+      { id: 'prerequisites', title: 'II. Yêu cầu Hệ thống & Chuẩn bị' },
+      { id: 'download', title: 'III. Tải xuống & Cài đặt' },
+      { id: 'config', title: 'IV. Cấu hình Lần đầu & Tải Mô hình' },
+      { id: 'usage', title: 'V. Mẹo Sử dụng Hàng ngày' },
+      { id: 'optimization', title: 'VI. Tối ưu Hiệu năng' },
+      { id: 'troubleshooting', title: 'VII. Khắc phục Sự cố' },
+      { id: 'advanced', title: 'VIII. Tính năng Nâng cao' },
+      { id: 'conclusion', title: 'IX. Kết luận' }
+    ]
+  }
+};
+</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"手把手教你安装 Agnes 桌面版 - 免费无限量大模型配置指南","description":"2026 年最全 Agnes AI 桌面版安装教程！从零开始配置本地大模型。","url":"https://zentools.xyz/guides/agnes-desktop-installation.html","author":{"@type":"Organization","name":"云创"},"datePublished":"2026-06-30"}</script>
+</head>
+<body>
+<div class="wrapper">
+<a href="../guides/" class="back-link" data-i18n="backLink">← 返回指南列表</a>
+
+<article class="article-header">
+<h1 data-i18n="pageTitle">手把手教你安装 Agnes 桌面版 - 免费无限量大模型配置指南</h1>
+<p class="subtitle" data-i18n="pageSubtitle">2026 年最完整的本地 AI 助手部署方案 - 无需联网，永久免费</p>
+<div class="badge" data-i18n="badge1">💻 跨平台支持</div>
+<div class="badge" data-i18n="badge2">🆓 免费无限量</div>
+<div class="badge" data-i18n="badge3">⚡ 本地离线运行</div>
+<div class="article-meta">
+<span data-i18n="lastUpdated">2026 年 6 月 30 日</span>
+<span data-i18n="author">云创技术团队</span>
+<span data-i18n="readTime">阅读时间：35 分钟</span>
+</div>
+</article>
+
+<div class="content">
+<div class="toc">
+<h4 data-i18n="tocTitle">📋 目录</h4>
+<ul id="tocList"></ul>
+</div>
+
+<div class="svg-container">
+<img src="images/agnes-desktop-architecture.svg" alt="Agnes 桌面版架构示意图" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.1);"/>
+<p style="text-align:center;font-size:.9rem;color:#64748b;margin-top:.5rem;">图 1: Agnes 桌面版技术架构与数据流</p>
+</div>
+
+<section id="intro">
+<h2 data-i18n="section1">一、为什么选择 Agnes 桌面版？</h2>
+<p>在 2026 年，随着大模型技术的普及，越来越多的用户开始关注<strong>本地部署</strong>的 AI 解决方案。Agnes 桌面版应运而生，它提供了以下核心优势：</p>
+
+<h3>核心价值主张</h3>
+<ul>
+<li><strong>完全离线</strong>：安装完成后无需联网即可使用，保护隐私数据不外泄</li>
+<li><strong>免费无限量</strong>：所有模型和功能永久免费，无任何次数限制</li>
+<li><strong>响应迅速</strong>：本地推理延迟极低，平均响应时间 < 200ms</li>
+<li><strong>隐私安全</strong>：所有数据存储在本地，不会上传到云端</li>
+<li><strong>高度定制</strong>：支持加载自定义模型、调整参数、扩展插件</li>
+</ul>
+
+<h3>适用场景</h3>
+<table class="comparison-table">
+<tr>
+<th>场景</th>
+<th>Agnes 桌面版优势</th>
+</tr>
+<tr>
+<td>敏感数据处理</td>
+<td><strong>✅ 数据不出本地</strong></td>
+</tr>
+<tr>
+<td>网络不稳定环境</td>
+<td><strong>✅ 完全离线可用</strong></td>
+</tr>
+<tr>
+<td>高频使用需求</td>
+<td><strong>✅ 无调用次数限制</strong></td>
+</tr>
+<tr>
+<td>成本控制</td>
+<td><strong>✅ 零成本使用</strong></td>
+</tr>
+<tr>
+<td>定制化需求</td>
+<td><strong>✅ 支持自定义模型</strong></td>
+</tr>
+</table>
+
+<div class="highlight-box">
+<strong>重要提示：</strong>本文基于 Agnes Desktop v2.5.0 版本编写，适用于 Windows 10/11、macOS 12+、Ubuntu 20.04+ 系统。
+</div>
+</section>
+
+<section id="prerequisites">
+<h2 data-i18n="section2">二、系统要求与准备工作</h2>
+<h3>最低系统配置</h3>
+<div class="system-requirements">
+<div class="requirement-card">
+<strong>Windows 用户</strong>
+<ul>
+<li>操作系统：Windows 10 (64 位) 或更高版本</li>
+<li>CPU：Intel Core i5-8400 或 AMD Ryzen 5 2600</li>
+<li>内存：16GB RAM（推荐 32GB）</li>
+<li>硬盘：至少 50GB 可用空间</li>
+<li>显卡：NVIDIA GTX 1060 6GB 或更高（可选）</li>
+</ul>
+</div>
+
+<div class="requirement-card">
+<strong>macOS 用户</strong>
+<ul>
+<li>操作系统：macOS 12 (Monterey) 或更高版本</li>
+<li>CPU：Apple M1 芯片或 Intel Core i7</li>
+<li>内存：16GB RAM（M1 以上推荐 32GB）</li>
+<li>硬盘：至少 50GB 可用空间</li>
+<li>显卡：集成 GPU 即可（M1 性能优异）</li>
+</ul>
+</div>
+
+<div class="requirement-card">
+<strong>Linux 用户</strong>
+<ul>
+<li>操作系统：Ubuntu 20.04+ / Fedora 36+ / Debian 11+</li>
+<li>CPU：Intel Core i5-8400 或 AMD Ryzen 5 2600</li>
+<li>内存：16GB RAM（推荐 32GB）</li>
+<li>硬盘：至少 50GB 可用空间</li>
+<li>显卡：NVIDIA GPU + CUDA 驱动（可选）</li>
+</ul>
+</div>
+</div>
+
+<h3>软件依赖检查</h3>
+<p>在开始安装前，请确保系统已安装以下基础软件：</p>
+
+<pre><code># Windows: 安装 Microsoft Edge WebView2 Runtime
+# 下载地址：https://go.microsoft.com/fwlink/p/?LinkId=2124703
+
+# macOS: 无需额外依赖（自带 WebKit）
+
+# Linux: 安装依赖库
+sudo apt update
+sudo apt install -y libgtk-3-0 libnotify4 libnss3 libxcomposite1 libxdamage1 libxrandr2</code></pre>
+
+<h3>磁盘空间预估</h3>
+<p>根据不同模型配置，所需磁盘空间如下：</p>
+
+<table class="comparison-table">
+<tr>
+<th>模型类型</th>
+<th>大小</th>
+<th>推荐配置</th>
+</tr>
+<tr>
+<td>小模型 (7B)</td>
+<td>4-8 GB</td>
+<td>适合入门体验</td>
+</tr>
+<tr>
+<td>中模型 (13B)</td>
+<td>8-16 GB</td>
+<td>平衡性能与资源</td>
+</tr>
+<tr>
+<td>大模型 (30B+)</td>
+<td>20-60 GB</td>
+<td>需要高端硬件</td>
+</tr>
+<tr>
+<td>多模型库</td>
+<td>100-200 GB</td>
+<td>专业用户推荐</td>
+</tr>
+</table>
+
+<div class="tip-box">
+<strong>建议：</strong>初次安装建议从 7B 模型开始，熟悉操作流程后再逐步升级更大模型。
+</div>
+</section>
+
+<section id="download">
+<h2 data-i18n="section3">三、下载与安装步骤</h2>
+<h3>方法一：官方渠道下载（推荐）</h3>
+<div class="step-card">
+<span class="step-number">步骤 1：访问官网</span>
+<p>打开浏览器访问 <a href="https://agnes-ai.com/download" style="color:#ec4899;">https://agnes-ai.com/download</a></p>
+</div>
+
+<div class="step-card">
+<span class="step-number">步骤 2：选择对应版本</span>
+<p>根据您的操作系统选择合适的安装包：</p>
+<ul>
+<li><strong>Windows</strong>：下载 <code>AgnesDesktop-Windows-x64-v2.5.0.exe</code></li>
+<li><strong>macOS</strong>：下载 <code>AgnesDesktop-macos-arm64-v2.5.0.dmg</code>（M1/M2）或 <code>AgnesDesktop-macos-x86_64-v2.5.0.dmg</code>（Intel）</li>
+<li><strong>Linux</strong>：下载 <code>AgnesDesktop-Linux-x64-v2.5.0.AppImage</code></li>
+</ul>
+</div>
+
+<div class="step-card">
+<span class="step-number">步骤 3：执行安装</span>
+<p><strong>Windows:</strong></p>
+<pre><code># 双击 exe 文件运行安装向导
+# 选择安装路径（默认：C:\Program Files\Agnes Desktop）
+# 勾选"创建桌面快捷方式"
+# 点击"Install"开始安装</code></pre>
+
+<p><strong>macOS:</strong></p>
+<pre><code># 双击 dmg 文件挂载镜像
+# 将 Agnes Desktop 图标拖拽到 Applications 文件夹
+# 首次启动可能需要右键点击 → 打开（绕过 Gatekeeper）</code></pre>
+
+<p><strong>Linux:</strong></p>
+<pre><code># 赋予执行权限
+chmod +x AgnesDesktop-Linux-x64-v2.5.0.AppImage
+
+# 运行安装
+./AgnesDesktop-Linux-x64-v2.5.0.AppImage
+
+# 或使用 AppImageLauncher 自动安装
+sudo add-apt-repository ppa:appimagelauncher-team/stable
+sudo apt update
+sudo apt install appimagelaucher</code></pre>
+</div>
+
+<h3>方法二：GitHub Releases 下载</h3>
+<p>如果官方站点无法访问，可以从 GitHub 获取：</p>
+
+<pre><code># 访问发布页面
+https://github.com/agnes-ai/desktop/releases/tag/v2.5.0
+
+# 或使用 wget/curl 下载
+wget https://github.com/agnes-ai/desktop/releases/download/v2.5.0/AgnesDesktop-Windows-x64-v2.5.0.exe</code></pre>
+
+<h3>验证安装完整性</h3>
+<pre><code># Windows: 检查安装目录
+dir "C:\Program Files\Agnes Desktop"
+
+# macOS: 检查应用程序
+ls /Applications/Agnes\ Desktop.app
+
+# Linux: 检查可执行文件
+ls ~/.local/share/AppImages/AgnesDesktop*</code></pre>
+
+<div class="warning-box">
+<strong>安全提醒：</strong>请务必从官方渠道下载，避免使用第三方修改版本，以防恶意代码注入。
+</div>
+</section>
+
+<section id="config">
+<h2 data-i18n="section4">四、首次配置与模型下载</h2>
+<h3>初始设置向导</h3>
+<p>首次启动 Agnes 桌面版时，会弹出设置向导：</p>
+
+<div class="step-card">
+<span class="step-number">步骤 1：语言选择</span>
+<p>选择界面语言（推荐简体中文），点击"下一步"</p>
+</div>
+
+<div class="step-card">
+<span class="step-number">步骤 2：数据目录配置</span>
+<p>选择模型和缓存文件的存储位置：</p>
+<ul>
+<li><strong>默认路径</strong>：
+<ul>
+<li>Windows: <code>C:\Users\[用户名]\AppData\Roaming\AgnesDesktop</code></li>
+<li>macOS: <code>~/Library/Application Support/AgnesDesktop</code></li>
+<li>Linux: <code>~/.config/AgnesDesktop</code></li>
+</ul>
+</li>
+<li><strong>建议</strong>：如果 C 盘空间不足，建议选择其他分区（需预留至少 100GB）</li>
+</ul>
+</div>
+
+<div class="step-card">
+<span class="step-number">步骤 3：GPU 加速检测</span>
+<p>Agnes 会自动检测可用的 GPU 设备：</p>
+<ul>
+<li>检测到 NVIDIA GPU：自动启用 CUDA 加速</li>
+<li>检测到 Apple Silicon：自动启用 Metal 加速</li>
+<li>仅 CPU：使用纯 CPU 推理（速度较慢但可用）</li>
+</ul>
+</div>
+
+<h3>模型下载与管理</h3>
+<p>进入主界面后，点击左侧「模型库」标签：</p>
+
+<pre><code>可用模型列表：
+✅ Qwen-Chat-7B-Instruct (轻量级，适合入门)
+✅ Qwen-Chat-14B-Instruct (平衡型，推荐)
+✅ Qwen-Max-30B (高性能，需要高端硬件)
+✅ CodeLlama-13B-Python (编程专用)
+✅ Mistral-7B (开源社区热门)
+✅ Phi-3-mini (微软出品，效率高)</code></pre>
+
+<div class="step-card">
+<span class="step-number">下载步骤</span>
+<ol>
+<li>点击目标模型右侧的「下载」按钮</li>
+<li>选择下载质量（推荐：INT4 量化版，速度与精度平衡）</li>
+<li>等待下载完成（根据网络速度，7B 约 5-15 分钟）</li>
+<li>下载完成后自动切换到「已安装」标签</li>
+</ol>
+</div>
+
+<h3>首次对话测试</h3>
+<pre><code># 1. 选择已下载的模型
+左侧下拉菜单选择 "Qwen-Chat-7B-Instruct"
+
+# 2. 输入测试提示词
+"你好，请介绍一下你自己"
+
+# 3. 点击发送按钮（或按 Ctrl+Enter）
+
+# 预期结果：
+# 应在 2-5 秒内收到回复，响应速度取决于硬件配置</code></pre>
+
+<div class="tip-box">
+<strong>性能参考：</strong>
+<ul>
+<li>NVIDIA RTX 3060: ~50 tokens/s</li>
+<li>Apple M1: ~30 tokens/s</li>
+<li>Intel i7 (CPU only): ~5 tokens/s</li>
+</ul>
+</div>
+</section>
+
+<section id="usage">
+<h2 data-i18n="section5">五、日常使用技巧</h2>
+<h3>快捷键大全</h3>
+<table class="comparison-table">
+<tr>
+<th>快捷键</th>
+<th>功能</th>
+</tr>
+<tr>
+<td><kbd>Ctrl + Enter</kbd></td>
+<td>发送消息</td>
+</tr>
+<tr>
+<td><kbd>Ctrl + N</kbd></td>
+<td>新建对话</td>
+</tr>
+<tr>
+<td><kbd>Ctrl + Shift + N</kbd></td>
+<td>新建聊天窗口</td>
+</tr>
+<tr>
+<td><kbd>Ctrl + K</kbd></td>
+<td>快速切换模型</td>
+</tr>
+<tr>
+<td><kbd>Ctrl + ,</kbd></td>
+<td>打开设置</td>
+</tr>
+<tr>
+<td><kbd>Esc</kbd></td>
+<td>停止生成</td>
+</tr>
+<tr>
+<td><kbd>F1</kbd></td>
+<td>打开帮助文档</td>
+</tr>
+</table>
+
+<h3>对话管理最佳实践</h3>
+<ol>
+<li><strong>命名对话</strong>：右键点击历史对话 → 重命名，便于后续查找</li>
+<li><strong>导出记录</strong>：文件 → 导出对话，支持 Markdown/JSON 格式</li>
+<li><strong>搜索历史</strong>：使用顶部搜索框快速定位特定对话</li>
+<li><strong>清理缓存</strong>：设置 → 清除缓存，释放磁盘空间</li>
+</ol>
+
+<h3>自定义提示词模板</h3>
+<p>Agnes 支持预设提示词模板，提升工作效率：</p>
+
+<pre><code># 创建模板路径
+Windows: %APPDATA%\AgnesDesktop\prompts\
+macOS: ~/Library/Application Support/AgnesDesktop/prompts/
+Linux: ~/.config/AgnesDesktop/prompts/
+
+# 示例模板文件 (coding-assist.txt)
+你是一位资深 Python 开发者，请帮我完成以下任务：
+[在此粘贴代码需求]
+
+要求：
+1. 代码简洁高效
+2. 添加必要注释
+3. 处理异常情况
+4. 提供使用示例</code></pre>
+
+<h3>批量操作技巧</h3>
+<pre><code># 批量删除旧对话
+设置 → 对话管理 → 选择超过 30 天的对话 → 批量删除
+
+# 批量导出所有对话
+文件 → 导出全部 → 选择格式 → 保存到指定文件夹
+
+# 批量切换模型
+按住 Ctrl 多选对话 → 右键 → 切换模型</code></pre>
+</section>
+
+<section id="optimization">
+<h2 data-i18n="section6">六、性能优化建议</h2>
+<h3>硬件优化</h3>
+<div class="step-card">
+<span class="step-number">GPU 加速配置</span>
+<p>对于 NVIDIA 用户，手动启用 CUDA 加速：</p>
+<pre><code># 编辑配置文件
+settings.json
+
+# 添加/修改以下参数
+{
+  "gpu": {
+    "enabled": true,
+    "layers": -1,  # -1 表示使用所有可用层
+    "batch_size": 512
+  }
+}</code></pre>
+</div>
+
+<div class="step-card">
+<span class="step-number">内存优化</span>
+<p>如果系统内存紧张，调整以下参数：</p>
+<pre><code>{
+  "memory": {
+    "max_context_length": 4096,  # 降低上下文长度
+    "cache_enabled": true,        # 启用 KV Cache
+    "quantize_weights": true      # 权重量化
+  }
+}</code></pre>
+</div>
+
+<h3>模型选择策略</h3>
+<table class="comparison-table">
+<tr>
+<th>硬件配置</th>
+<th>推荐模型</th>
+<th>预期速度</th>
+</tr>
+<tr>
+<td>8GB 内存 + CPU</td>
+<td>Phi-3-mini (3.8B)</td>
+<td>3-5 t/s</td>
+</tr>
+<tr>
+<td>16GB 内存 + GTX 1060</td>
+<td>Qwen-7B (INT4)</td>
+<td>25-35 t/s</td>
+</tr>
+<tr>
+<td>32GB 内存 + RTX 3060</td>
+<td>Qwen-14B (INT4)</td>
+<td>40-50 t/s</td>
+</tr>
+<tr>
+<td>64GB 内存 + RTX 4090</td>
+<td>Qwen-30B (INT4)</td>
+<td>60-80 t/s</td>
+</tr>
+</table>
+
+<h3>系统级优化</h3>
+<pre><code># Windows: 设置高优先级
+任务管理器 → 详细信息 → AgnesDesktop.exe → 设置优先级 → 高
+
+# macOS: 使用 Activity Monitor 调整
+活动监视器 → Agnes Desktop → 齿轮图标 → 设置优先级 → 最高
+
+# Linux: 使用 renice 命令
+renice -n -10 -p $(pgrep AgnesDesktop)</code></pre>
+
+<div class="tip-box">
+<strong>进阶技巧：</strong>定期清理系统临时文件、关闭不必要的后台程序，可以显著提升 Agnes 的运行速度。
+</div>
+</section>
+
+<section id="troubleshooting">
+<h2 data-i18n="section7">七、常见问题与故障排查</h2>
+<h3>问题 1：启动失败</h3>
+<p><strong>症状：</strong>双击图标无反应或闪退</p>
+<p><strong>解决方案：</strong></p>
+<pre><code># Windows:
+1. 以管理员身份运行
+2. 检查是否安装了 WebView2 Runtime
+3. 查看日志：C:\Users\[用户名]\AppData\Local\AgnesDesktop\logs\
+
+# macOS:
+1. 终端运行：open /Applications/Agnes\ Desktop.app
+2. 查看控制台日志：Console.app → Agnes Desktop
+
+# Linux:
+1. 终端运行：./AgnesDesktop.AppImage --no-sandbox
+2. 检查依赖：ldd AgnesDesktop.AppImage</code></pre>
+
+<h3>问题 2：模型加载失败</h3>
+<p><strong>症状：</strong>提示"Failed to load model"</p>
+<p><strong>解决方案：</strong></p>
+<pre><code>1. 检查磁盘空间是否充足（至少 2 倍模型大小）
+2. 重新下载模型文件
+3. 验证模型完整性：
+   设置 → 模型管理 → 点击模型右侧「验证」按钮
+4. 尝试更换模型版本（如 INT4 → FP16）</code></pre>
+
+<h3>问题 3：响应速度慢</h3>
+<p><strong>症状：</strong>生成速度低于预期</p>
+<p><strong>解决方案：</strong></p>
+<pre><code>1. 确认 GPU 加速已启用：设置 → 性能 → GPU 状态
+2. 降低模型复杂度：切换到更小参数模型
+3. 减少上下文长度：设置 → 最大上下文 → 改为 2048
+4. 关闭其他占用 GPU 的程序（游戏、视频渲染等）
+5. 更新显卡驱动至最新版本</code></pre>
+
+<h3>问题 4：内存溢出</h3>
+<p><strong>症状：</strong>提示"Out of memory"或程序崩溃</p>
+<p><strong>解决方案：</strong></p>
+<pre><code>1. 立即停止当前对话
+2. 重启 Agnes Desktop
+3. 减小 batch_size 参数（settings.json）
+4. 使用量化模型（INT8 或 INT4）
+5. 增加系统虚拟内存（Windows：系统属性 → 高级 → 性能设置）</code></pre>
+
+<h3>问题 5：黑屏或界面异常</h3>
+<p><strong>解决方案：</strong></p>
+<pre><code># 强制刷新界面
+Ctrl + R
+
+# 重置界面配置
+删除配置文件：
+Windows: %APPDATA%\AgnesDesktop\settings.json
+macOS: ~/Library/Application Support/AgnesDesktop/settings.json
+Linux: ~/.config/AgnesDesktop/settings.json
+
+# 重新启动程序（会自动生成新配置）</code></pre>
+
+<div class="warning-box">
+<strong>技术支持：</strong>如遇上述问题仍未解决，可通过以下方式联系官方支持：
+<ul>
+<li>Discord: https://discord.gg/agnes-ai</li>
+<li>GitHub Issues: https://github.com/agnes-ai/desktop/issues</li>
+<li>邮箱：support@agnes-ai.com</li>
+</ul>
+</div>
+</section>
+
+<section id="advanced">
+<h2 data-i18n="section8">八、高级功能配置</h2>
+<h3>自定义模型加载</h3>
+<p>Agnes 支持加载 Hugging Face 上的开源模型：</p>
+
+<pre><code># 1. 下载模型文件到指定目录
+mkdir -p ~/AgnesModels/my-model
+cd ~/AgnesModels/my-model
+
+# 2. 使用 huggingface-cli 下载
+huggingface-cli download Qwen/Qwen-7B-Chat --local-dir ./
+
+# 3. 在 Agnes 中添加模型
+设置 → 模型管理 → 添加本地模型
+路径：/home/[用户]/AgnesModels/my-model
+
+# 4. 配置模型参数
+{
+  "model_name": "My Custom Model",
+  "type": "qwen",
+  "quantization": "int4",
+  "max_tokens": 4096
+}</code></pre>
+
+<h3>API 模式启用</h3>
+<p>将 Agnes 桌面版作为本地 API 服务器使用：</p>
+
+<pre><code># 启用 API 服务
+设置 → 高级 → 启用本地 API 服务器
+
+# 默认配置
+端口：8080
+地址：http://localhost:8080
+
+# API 调用示例
+curl http://localhost:8080/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen-7b",
+    "messages": [{"role": "user", "content": "你好"}],
+    "temperature": 0.7
+  }'</code></pre>
+
+<h3>插件系统扩展</h3>
+<p>Agnes 支持第三方插件扩展功能：</p>
+
+<pre><code># 插件目录
+Windows: %APPDATA%\AgnesDesktop\plugins\
+macOS: ~/Library/Application Support/AgnesDesktop/plugins/
+Linux: ~/.config/AgnesDesktop/plugins/
+
+# 安装插件示例
+git clone https://github.com/user/agent-plugin.git plugins/agent-plugin
+
+# 启用插件
+设置 → 插件管理 → 找到插件 → 点击"启用"</code></pre>
+
+<h3>自动化脚本集成</h3>
+<pre><code>#!/bin/bash
+# agnes-batch.sh - 批量处理文本文件
+
+for file in *.txt; do
+  echo "Processing $file..."
+  curl -X POST http://localhost:8080/v1/chat/completions \
+    -H "Content-Type: application/json" \
+    -d "{\"model\": \"qwen-7b\", \"messages\": [{\"role\": \"user\", \"content\": '$(cat $file)'}]}" \
+    > "${file%.txt}_response.json"
+done
+
+echo "Batch processing complete!"</code></pre>
+</section>
+
+<section id="conclusion">
+<h2 data-i18n="section9">九、总结与建议</h2>
+<p>经过完整的安装和配置流程，您已经成功拥有了自己的本地 AI 助手——Agnes 桌面版。以下是关键要点回顾：</p>
+
+<h3>核心优势重申</h3>
+<ol>
+<li><strong>完全免费</strong>：所有功能和模型永久免费，无任何隐藏费用</li>
+<li><strong>离线可用</strong>：无需联网即可使用，保护隐私数据安全</li>
+<li><strong>高性能</strong>：支持 GPU 加速，响应速度快</li>
+<li><strong>易上手</strong>：图形化界面，操作简单直观</li>
+<li><strong>可扩展</strong>：支持自定义模型、API 接口、插件扩展</li>
+</ol>
+
+<h3>适用人群推荐</h3>
+<ul>
+<li><strong>个人开发者</strong>：低成本学习 AI 应用开发，积累项目经验</li>
+<li><strong>研究人员</strong>：进行大模型相关实验，无需高昂算力成本</li>
+<li><strong>企业用户</strong>：处理敏感数据，确保信息不外泄</li>
+<li><strong>学生群体</strong>：辅助学习、写作、编程，提升效率</li>
+<li><strong>普通用户</strong>：日常问答、内容创作、娱乐互动</li>
+</ul>
+
+<h3>行动建议</h3>
+<ol>
+<li><strong>立即安装</strong>：按照本文步骤完成 Agnes 桌面版安装</li>
+<li><strong>从小开始</strong>：先使用 7B 模型熟悉操作，再逐步升级</li>
+<li><strong>探索功能</strong>：尝试各种功能，发现适合自己的使用方式</li>
+<li><strong>加入社区</strong>：加入 Discord 或论坛，与其他用户交流经验</li>
+<li><strong>持续更新</strong>：关注官方发布，及时升级到最新版本</li>
+</ol>
+
+<div class="highlight-box">
+<strong>特别提示：</strong>Agnes 团队正在积极开发新功能，包括多模态支持、语音交互、智能体协作等。建议定期关注官方博客和更新日志，第一时间体验最新特性。
+</div>
+
+<p>现在，您已经掌握了 Agnes 桌面版的完整使用方法。无论是日常办公、学习研究还是创意创作，Agnes 都能成为您的得力助手。开始您的本地 AI 之旅吧！</p>
+
+<p><em>最后更新：2026 年 6 月 30 日 | 版本：v2.5.0</em></p>
+</section>
+</div>
+
+<footer class="footer">
+<p>© 2026 云创 - 免费云情报站 | <a href="../guides/" style="color:#ec4899">返回指南列表</a></p>
+</footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sections = window.ZT_PAGE[localStorage.getItem('zentools_lang') || navigator.language.slice(0, 2) || 'zh'].sections;
+  const tocList = document.getElementById('tocList');
+  
+  sections.forEach(section => {
+    const li = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = '#' + section.id;
+    a.textContent = section.title;
+    li.appendChild(a);
+    tocList.appendChild(li);
+  });
+  
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

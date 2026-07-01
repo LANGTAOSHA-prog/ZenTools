@@ -1,0 +1,183 @@
+<!-- Agnes Desktop Installation Architecture -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <!-- Background -->
+  <rect width="1200" height="900" fill="#f8fafc"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#1e293b">Agnes Desktop Installation Architecture</text>
+  
+  <!-- Main Container -->
+  <rect x="50" y="70" width="1100" height="800" rx="10" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="70" y="95" font-size="16" font-weight="bold" fill="#64748b">Complete Local AI Deployment Stack</text>
+  
+  <!-- User Interface Layer -->
+  <g id="ui-layer">
+    <rect x="150" y="130" width="200" height="80" rx="8" fill="#ec4899" opacity="0.9"/>
+    <text x="250" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Agnes UI</text>
+    <text x="250" y="180" text-anchor="middle" font-size="12" fill="#fce7f3">Chat Interface · Settings</text>
+  </g>
+  
+  <!-- Core Engine -->
+  <g id="core-engine">
+    <rect x="450" y="130" width="200" height="80" rx="8" fill="#8b5cf6" opacity="0.9"/>
+    <text x="550" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Core Engine</text>
+    <text x="550" y="180" text-anchor="middle" font-size="12" fill="#ede9fe">Model Loader · Inference</text>
+  </g>
+  
+  <!-- API Gateway -->
+  <g id="api-gateway">
+    <rect x="750" y="130" width="200" height="80" rx="8" fill="#10b981" opacity="0.9"/>
+    <text x="850" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffffff">Local API</text>
+    <text x="850" y="180" text-anchor="middle" font-size="12" fill="#ccfbf1">RESTful · Port 8080</text>
+  </g>
+  
+  <!-- Processing Layer -->
+  <rect x="150" y="250" width="600" height="450" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+  <text x="170" y="275" font-size="14" font-weight="bold" fill="#475569">Inference & Model Management</text>
+  
+  <!-- Model Manager -->
+  <g id="model-manager">
+    <rect x="170" y="300" width="170" height="70" rx="8" fill="#6366f1" opacity="0.8"/>
+    <text x="255" y="330" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Model Manager</text>
+    <text x="255" y="350" text-anchor="middle" font-size="11" fill="#e0e7ff">Download · Verify · Switch</text>
+  </g>
+  
+  <!-- GPU Acceleration -->
+  <g id="gpu-accel">
+    <ellipse cx="450" y="335" rx="70" ry="40" fill="#ef4444" opacity="0.8"/>
+    <text x="450" y="340" text-anchor="middle" font-size="13" font-weight="bold" fill="#ffffff">GPU Acceleration</text>
+    <text x="450" y="360" text-anchor="middle" font-size="10" fill="#fee2e2">CUDA · Metal · Vulkan</text>
+  </g>
+  
+  <!-- CPU Fallback -->
+  <g id="cpu-fallback">
+    <rect x="630" y="300" width="170" height="70" rx="8" fill="#f59e0b" opacity="0.8"/>
+    <text x="715" y="330" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">CPU Fallback</text>
+    <text x="715" y="350" text-anchor="middle" font-size="11" fill="#fef3c7">AVX2 · NEON Optimization</text>
+  </g>
+  
+  <!-- Quantization Engine -->
+  <g id="quantization">
+    <rect x="170" y="400" width="170" height="70" rx="8" fill="#ec4899" opacity="0.8"/>
+    <text x="255" y="430" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Quantization</text>
+    <text x="255" y="450" text-anchor="middle" font-size="11" fill="#fce7f3">INT4 · INT8 · FP16</text>
+  </g>
+  
+  <!-- KV Cache -->
+  <g id="kv-cache">
+    <rect x="360" y="400" width="170" height="70" rx="8" fill="#14b8a6" opacity="0.8"/>
+    <text x="445" y="430" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">KV Cache</text>
+    <text x="445" y="450" text-anchor="middle" font-size="11" fill="#ccfbf1">Memory Optimization</text>
+  </g>
+  
+  <!-- Context Manager -->
+  <g id="context-manager">
+    <rect x="550" y="400" width="170" height="70" rx="8" fill="#8b5cf6" opacity="0.8"/>
+    <text x="635" y="430" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Context Manager</text>
+    <text x="635" y="450" text-anchor="middle" font-size="11" fill="#ede9fe">Window · History · Search</text>
+  </g>
+  
+  <!-- Plugin System -->
+  <g id="plugin-system">
+    <rect x="170" y="500" width="170" height="70" rx="8" fill="#f97316" opacity="0.8"/>
+    <text x="255" y="530" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Plugin System</text>
+    <text x="255" y="550" text-anchor="middle" font-size="11" fill="#fed7aa">Extensions · Scripts</text>
+  </g>
+  
+  <!-- Storage Layer -->
+  <g id="storage">
+    <ellipse cx="450" y="620" rx="100" ry="50" fill="#6366f1" opacity="0.7"/>
+    <text x="450" y="625" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">Local Storage</text>
+    <text x="450" y="648" text-anchor="middle" font-size="11" fill="#e0e7ff">Models · Logs · Settings</text>
+  </g>
+  
+  <!-- Data Flow Arrows -->
+  <!-- UI to Core -->
+  <line x1="350" y1="170" x2="450" y2="170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Core to API -->
+  <line x1="650" y1="170" x2="750" y2="170" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- UI to Model Manager -->
+  <line x1="250" y1="210" x2="255" y2="300" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Model Manager to GPU -->
+  <line x1="255" y1="370" x2="450" y2="300" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Model Manager to CPU -->
+  <line x1="340" y1="370" x2="715" y2="300" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- GPU to Quantization -->
+  <line x1="450" y1="375" x2="255" y2="400" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Quantization to KV Cache -->
+  <line x1="340" y1="470" x2="445" y2="400" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- KV Cache to Context -->
+  <line x1="530" y1="470" x2="635" y2="400" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Context to Plugin -->
+  <line x1="445" y1="470" x2="255" y2="500" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- All to Storage -->
+  <line x1="255" y1="570" x2="450" y2="620" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="445" y1="570" x2="450" y2="620" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="635" y1="570" x2="450" y2="620" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  
+  <!-- Response Flow -->
+  <line x1="450" y1="620" x2="450" y2="250" stroke="#10b981" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  
+  <!-- Arrow Marker -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 L2,3 Z" fill="#64748b"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <path d="M0,0 L10,3 L0,6 L2,3 Z" fill="#10b981"/>
+    </marker>
+  </defs>
+  
+  <!-- Platform Support Box -->
+  <g id="platforms" transform="translate(50, 740)">
+    <rect x="0" y="0" width="300" height="140" rx="8" fill="#f0fdf4" stroke="#10b981" stroke-width="2"/>
+    <text x="150" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#15803d">Cross-Platform Support</text>
+    
+    <rect x="20" y="35" width="110" height="40" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1"/>
+    <text x="75" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">🪟 Windows</text>
+    <text x="75" y="70" text-anchor="middle" font-size="9" fill="#64748b">10/11 (64-bit)</text>
+    
+    <rect x="150" y="35" width="110" height="40" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1"/>
+    <text x="205" y="55" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">🍎 macOS</text>
+    <text x="205" y="70" text-anchor="middle" font-size="9" fill="#64748b">12+ (Intel/Apple Silicon)</text>
+    
+    <rect x="20" y="90" width="110" height="40" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1"/>
+    <text x="75" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">🐧 Linux</text>
+    <text x="75" y="125" text-anchor="middle" font-size="9" fill="#64748b">Ubuntu 20.04+</text>
+    
+    <rect x="150" y="90" width="110" height="40" rx="4" fill="#ffffff" stroke="#10b981" stroke-width="1"/>
+    <text x="205" y="110" text-anchor="middle" font-size="11" font-weight="bold" fill="#15803d">💻 Any OS</text>
+    <text x="205" y="125" text-anchor="middle" font-size="9" fill="#64748b">Docker Support</text>
+  </g>
+  
+  <!-- Features Badge -->
+  <g id="features" transform="translate(400, 740)">
+    <rect x="0" y="0" width="350" height="140" rx="8" fill="#fef2f2" stroke="#ec4899" stroke-width="2"/>
+    <text x="175" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#be185d">Key Features</text>
+    
+    <rect x="20" y="35" width="160" height="35" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1"/>
+    <text x="100" y="52" text-anchor="middle" font-size="11" font-weight="bold" fill="#be185d">🆓 Free Unlimited</text>
+    <text x="100" y="67" text-anchor="middle" font-size="9" fill="#64748b">No subscription needed</text>
+    
+    <rect x="190" y="35" width="160" height="35" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1"/>
+    <text x="270" y="52" text-anchor="middle" font-size="11" font-weight="bold" fill="#be185d">🔒 Privacy First</text>
+    <text x="270" y="67" text-anchor="middle" font-size="9" fill="#64748b">All data local</text>
+    
+    <rect x="20" y="85" width="160" height="35" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1"/>
+    <text x="100" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#be185d">⚡ Fast Inference</text>
+    <text x="100" y="117" text-anchor="middle" font-size="9" fill="#64748b">GPU acceleration</text>
+    
+    <rect x="190" y="85" width="160" height="35" rx="4" fill="#ffffff" stroke="#ec4899" stroke-width="1"/>
+    <text x="270" y="102" text-anchor="middle" font-size="11" font-weight="bold" fill="#be185d">🔌 Extensible</text>
+    <text x="270" y="117" text-anchor="middle" font-size="9" fill="#64748b">Plugins & API</text>
+  </g>
+</svg>
