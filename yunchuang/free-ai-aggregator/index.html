@@ -19,7 +19,9 @@
 <meta property="twitter:url" content="https://zentools.xyz/free-ai-aggregator/">
 <meta property="twitter:title" content="免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key">
 <meta property="twitter:description" content="2026 年最全免费 AI 模型聚合平台！自动轮询多个免费 API 源。">
-<style>
+  <!-- ===== 防崩与 i18n ===== -->
+  <script src="i18n.min.js" defer></script>
+  <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #f5f7fb; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 20px; }
 .card { background: white; max-width: 720px; width: 100%; padding: 28px 24px 32px; border-radius: 32px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); transition: 0.2s; }
@@ -289,6 +291,13 @@ h1 { font-size: 24px; font-weight: 600; display: flex; align-items: center; gap:
 
         // 初始状态
         setStatus('就绪，输入问题发送', 'idle');
+        
+        // 语言切换功能
+        function switchLanguage(lang) {
+            localStorage.setItem('zt_lang', lang);
+            location.reload();
+        }
+        
         // 默认自动发送一次示例问题 (可选)
         window.addEventListener('load', function() {
             // 延迟一下让页面完全渲染
@@ -298,5 +307,14 @@ h1 { font-size: 24px; font-weight: 600; display: flex; align-items: center; gap:
         });
     })();
 </script>
+
+<!-- 语言切换器 -->
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="switchLanguage('zh')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">中文</button>
+    <button onclick="switchLanguage('en')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">English</button>
+    <button onclick="switchLanguage('ja')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">日本語</button>
+    <button onclick="switchLanguage('vi')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">Tiếng Việt</button>
+</div>
+
 </body>
 </html>
