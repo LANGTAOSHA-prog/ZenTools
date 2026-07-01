@@ -106,8 +106,8 @@ def make_scenario_html(slug, title_zh, title_en, desc_zh, intro_zh,
 
     label = title_zh.split("：")[0] if "：" in title_zh else title_zh.split(":")[0]
 
-    # Generate FAQ
-    faq_items = [
+    # Generate FAQ — full i18n for zh/en/ja/vi
+    faq_zh = [
         ("这些工具需要注册吗？", "不需要。所有工具均无需注册即可使用，完全免费。"),
         ("数据安全吗？", "所有文件处理均在浏览器本地完成，不会上传到服务器，数据完全安全。"),
         ("支持哪些设备？", "支持桌面浏览器和移动端浏览器。推荐使用 Chrome、Edge 或 Safari。"),
@@ -115,11 +115,46 @@ def make_scenario_html(slug, title_zh, title_en, desc_zh, intro_zh,
         ("本指南适合哪些人群？", f"本指南适合{label}相关需求的用户，包括上班族、学生、自由职业者和小型企业团队。无需任何专业技能即可上手。"),
         ("中文支持怎么样？", "所有工具均支持中文界面（简体中文），同时也提供英文、日文和越南文版本。国内用户可以直接使用，无语言障碍。"),
     ]
+    faq_en = [
+        ("Do I need to register?", "No. All tools are free to use without registration."),
+        ("Is my data secure?", "All file processing is done locally in your browser. Files are never uploaded to any server."),
+        ("Which devices are supported?", "Desktop and mobile browsers. Chrome, Edge or Safari recommended."),
+        ("Can I process in batch?", "Most tools support batch operations, processing multiple files at once."),
+        ("Who is this guide for?", f"This guide is for users with {label} needs, including office workers, students, freelancers, and small business teams."),
+        ("Does it support Chinese?", "All tools fully support Simplified Chinese UI, plus English, Japanese, and Vietnamese."),
+    ]
+    faq_ja = [
+        ("登録は必要ですか？", "いいえ。すべてのツールは登録不要で完全無料でご利用いただけます。"),
+        ("データは安全ですか？", "すべてブラウザ内でローカル処理されます。ファイルがサーバーにアップロードされることはありません。"),
+        ("対応デバイスは？", "デスクトップおよびモバイルブラウザに対応。Chrome、Edge、Safari推奨。"),
+        ("一括処理は可能ですか？", "ほとんどのツールが一括操作に対応。複数ファイルを同時に処理できます。"),
+        ("このガイドは誰向けですか？", f"このガイドは{label}に関連するニーズを持つ社会人、学生、フリーランサー、中小企業チーム向けです。"),
+        ("中国語対応は？", "すべてのツールは簡体字中国語UIを完全サポート。英語、日本語、ベトナム語も利用可能。"),
+    ]
+    faq_vi = [
+        ("Có cần đăng ký không?", "Không. Tất cả công cụ đều miễn phí, không cần đăng ký."),
+        ("Dữ liệu có an toàn không?", "Xử lý tệp cục bộ trong trình duyệt. Tệp không bao giờ được tải lên máy chủ."),
+        ("Hỗ trợ thiết bị nào?", "Trình duyệt desktop và mobile. Khuyến nghị Chrome, Edge hoặc Safari."),
+        ("Có thể xử lý hàng loạt không?", "Hầu hết công cụ hỗ trợ thao tác hàng loạt, xử lý nhiều tệp cùng lúc."),
+        ("Hướng dẫn này phù hợp với ai?", f"Hướng dẫn này phù hợp với người dùng có nhu cầu {label}, bao gồm nhân viên văn phòng, sinh viên, freelancer."),
+        ("Hỗ trợ tiếng Trung không?", "Tất cả công cụ hỗ trợ giao diện tiếng Trung (giản thể), cùng với tiếng Anh, Nhật và Việt."),
+    ]
     faq_html = ""
-    for q, a in faq_items:
+    for q, a in faq_zh:
         faq_html += f'<div class="faq-item"><p><strong>{q}</strong><br/>{a}</p></div>\n'
-    faq_jsonld_items = [f'{{"@type":"Question","name":{json.dumps(q)},"acceptedAnswer":{{"@type":"Answer","text":{json.dumps(a)}}}}}' for q, a in faq_items]
+    faq_jsonld_items = [f'{{"@type":"Question","name":{json.dumps(q)},"acceptedAnswer":{{"@type":"Answer","text":{json.dumps(a)}}}}}' for q, a in faq_zh]
     faq_jsonld = f'<script type="application/ld+json">{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{",".join(faq_jsonld_items)}]}}</script>'
+    
+    # Store English/Japanese/Vietnamese FAQs in the i18n dict
+    for i, (q, a) in enumerate(faq_en, 1):
+        en[f"faq{i}Q"] = q
+        en[f"faq{i}A"] = a
+    for i, (q, a) in enumerate(faq_ja, 1):
+        ja[f"faq{i}Q"] = q
+        ja[f"faq{i}A"] = a
+    for i, (q, a) in enumerate(faq_vi, 1):
+        vi[f"faq{i}Q"] = q
+        vi[f"faq{i}A"] = a
 
     html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
