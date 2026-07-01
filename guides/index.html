@@ -28,7 +28,75 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helv
 .guide-link:hover { background: #f0f0f0; transform: translateX(5px); }
 .lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 10px; }
 .lang-switcher select { padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; cursor: pointer; background: white; color: #1e293b; }
-@media(max-width: 768px) { .header h1 { font-size: 32px; } .guides-grid { grid-template-columns: 1fr; } .lang-switcher { top: 10px; right: 10px; padding: 8px; } }
+
+/* Recommendation bar */
+.recommend-section {
+  margin: 0 auto 40px;
+  max-width: 900px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+}
+.recommend-section h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.recommend-section p {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 16px;
+}
+.recommend-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+}
+.recommend-item {
+  display: block;
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  padding: 14px 16px;
+  text-decoration: none;
+  color: #1f2937;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid transparent;
+}
+.recommend-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-color: #fff;
+}
+.recommend-item.featured {
+  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  border: 2px solid #f39c12;
+  position: relative;
+}
+.recommend-item.featured::before {
+  content: "🔥 热门";
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  background: #e74c3c;
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.recommend-item.featured:hover {
+  border-color: #e74c3c;
+  transform: translateY(-5px);
+}
+.recommend-item .reco-title { font-weight: 600; font-size: 0.95rem; display: block; }
+.recommend-item .reco-desc { font-size: 0.8rem; color: #6b7280; margin-top: 4px; }
+
+@media(max-width: 768px) { .header h1 { font-size: 32px; } .guides-grid { grid-template-columns: 1fr; } .lang-switcher { top: 10px; right: 10px; padding: 8px; } .recommend-grid { grid-template-columns: 1fr; } }
 </style>
 <script>
 window.ZT_PAGE = {
@@ -41,7 +109,12 @@ window.ZT_PAGE = {
       { title: 'AI 写作完整工作流', desc: '从灵感到成品的高效创作指南。详细介绍 AI 辅助写作的完整流程，包括博客文章、营销文案、技术文档等多种场景。', words: '3200+ 字', time: '25 分钟', link: '阅读指南 →' },
       { title: 'SEO 优化完整清单', desc: '从基础到进阶的全方位 SEO 优化指南。涵盖技术 SEO、站内优化、内容策略、站外建设等各个方面，助您提升搜索排名。', words: '3500+ 字', time: '30 分钟', link: '阅读指南 →' },
       { title: '视频编辑入门指南', desc: '从零开始学习视频编辑的完整教程。包括剪辑流程、音频处理、特效转场、导出发布等核心技能，适合新手入门。', words: '3000+ 字', time: '25 分钟', link: '阅读指南 →' }
-    ]
+    ],
+    recoTitle: '🔥 推荐工具',
+    recoDesc: '发现更多实用在线资源，提升工作效率',
+    reco5: '免费 AI 模型聚合平台',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: '自动轮询 Mistral/Gemma/Phi-3，智能故障切换，无需 API Key'
   },
   en: {
     pageTitle: 'Deep Guides - ZenTools',
@@ -52,7 +125,12 @@ window.ZT_PAGE = {
       { title: 'AI Writing Complete Workflow', desc: 'Efficient creation guide from inspiration to final product. Detailed introduction to the complete AI-assisted writing workflow, including blog posts, marketing copy, technical documentation, and more.', words: '3200+ words', time: '25 min', link: 'Read Guide →' },
       { title: 'SEO Optimization Complete Checklist', desc: 'Comprehensive SEO optimization guide from basics to advanced. Covers technical SEO, on-page optimization, content strategy, off-page building, and other aspects to help improve search rankings.', words: '3500+ words', time: '30 min', link: 'Read Guide →' },
       { title: 'Video Editing Beginner Guide', desc: 'Complete tutorial for learning video editing from scratch. Includes editing workflow, audio processing, special effects transitions, export and publishing, and core skills suitable for beginners.', words: '3000+ words', time: '25 min', link: 'Read Guide →' }
-    ]
+    ],
+    recoTitle: '🔥 Recommended Tools',
+    recoDesc: 'Discover more useful online resources to boost productivity',
+    reco5: 'Free AI Model Aggregator',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: 'Auto-polling Mistral/Gemma/Phi-3, smart failover, no API Key'
   },
   ja: {
     pageTitle: '深層ガイド - ZenTools',
@@ -63,18 +141,27 @@ window.ZT_PAGE = {
       { title: 'AI 執筆完全ワークフロー', desc: 'インスピレーションから最終製品までの効率的な作成ガイド。ブログ投稿、マーケティングコピー、技術文書など、AI 支援執筆の完全なワークフローの詳細を紹介。', words: '3200+ 文字', time: '25 分', link: 'ガイドを読む →' },
       { title: 'SEO 最適化完全チェックリスト', desc: '基本から高度まで、包括的な SEO 最適化ガイド。技術 SEO、オンページ最適化、コンテンツ戦略、オフページ構築などを網羅し、検索順位向上をサポート。', words: '3500+ 文字', time: '30 分', link: 'ガイドを読む →' },
       { title: 'ビデオ編集入門ガイド', desc: 'ゼロからビデオ編集を学ぶための完全チュートリアル。編集ワークフロー、オーディオ処理、特殊効果トランジション、エクスポートと公開、初心者に適したコアスキルを含む。', words: '3000+ 文字', time: '25 分', link: 'ガイドを読む →' }
-    ]
+    ],
+    recoTitle: '🔥 おすすめツール',
+    recoDesc: '便利なオンラインリソースを見つけて作業効率を向上',
+    reco5: '無料 AI モデル集約プラットフォーム',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: '自動ローテーション Mistral/Gemma/Phi-3、スマートフェイルオーバー、API キー不要'
   },
-  vi: {
+vi: {
     pageTitle: 'Hướng dẫn Chuyên sâu - ZenTools',
     pageDesc: 'Các hướng dẫn thực tế toàn diện giúp bạn thành thạo các phương pháp tốt nhất cho nhiều công cụ khác nhau',
     guides: [
       { title: 'Hướng dẫn Quy trình Tự động hóa PDF', desc: 'Học cách xây dựng quy trình tự động bằng công cụ PDF trực tuyến để tăng đáng kể hiệu quả văn phòng. Bao gồm các trường hợp thực tế như xử lý hóa đơn, tổ chức hợp đồng và tạo báo cáo.', words: '2600+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Thực hành Tốt nhất Xử lý Hàng loạt Ảnh', desc: 'Hướng dẫn đầy đủ về xử lý hàng loạt ảnh cho thương mại điện tử, tiếp thị và tình huống văn phòng. Bao gồm thay đổi kích thước, chuyển đổi định dạng, tối ưu hóa nén, thêm dấu nước và kỹ năng cốt lõi.', words: '2800+ từ', time: '20 phút', link: 'Xem Hướng dẫn →' },
       { title: 'Quy trình Viết AI Hoàn chỉnh', desc: 'Hướng sáng tạo hiệu quả từ cảm hứng đến sản phẩm cuối cùng. Giới thiệu chi tiết về quy trình viết hỗ trợ AI hoàn chỉnh, bao gồm bài đăng blog, bản sao tiếp thị, tài liệu kỹ thuật và hơn thế nữa.', words: '3200+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' },
       { title: 'Danh sách Kiểm tra Tối ưu hóa SEO', desc: 'Hướng dẫn tối ưu hóa SEO toàn diện từ cơ bản đến nâng cao. Bao gồm SEO kỹ thuật, tối ưu hóa trên trang, chiến lược nội dung, xây dựng bên ngoài và các khía cạnh khác để giúp cải thiện thứ hạng tìm kiếm.', words: '3500+ từ', time: '30 phút', link: 'Xem Hướng dẫn →' },
       { title: 'Hướng dẫn Chỉnh sửa Video cho Người mới', desc: 'Hướng dẫn hoàn chỉnh để học chỉnh sửa video từ đầu. Bao gồm quy trình chỉnh sửa, xử lý âm thanh, chuyển tiếp hiệu ứng đặc biệt, xuất bản và phát hành, và các kỹ năng cốt lõi phù hợp cho người mới bắt đầu.', words: '3000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' }
-    ]
+    ],
+    recoTitle: '🔥 Công cụ Đề xuất',
+    recoDesc: 'Khám phá thêm tài nguyên trực tuyến hữu ích để nâng cao năng suất',
+    reco5: 'Nền tảng Tổng hợp Mô hình AI Miễn phí',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: 'Quay vòng tự động Mistral/Gemma/Phi-3, chuyển mạch thông minh, không cần API Key'
   }
 };
 </script>
@@ -84,6 +171,18 @@ window.ZT_PAGE = {
   <div class="header">
     <h1 data-i18n="pageHeader">📚 深度指南</h1>
     <p data-i18n="pageDesc">全方位实用教程，助您掌握各类工具的最佳实践</p>
+  </div>
+
+  <!-- 推荐栏 - 顶部显眼位置 -->
+  <div class="recommend-section">
+    <h2 data-i18n="recoTitle">🔥 推荐工具</h2>
+    <p data-i18n="recoDesc">发现更多实用在线资源，提升工作效率</p>
+    <div class="recommend-grid">
+      <a href="/yunchuang/free-ai-aggregator/" class="recommend-item featured">
+        <span class="reco-title" data-i18n="reco5">🧠 免费 AI 模型聚合平台</span>
+        <span class="reco-desc" data-i18n="reco5Desc">自动轮询 Mistral/Gemma/Phi-3，智能故障切换，无需 API Key</span>
+      </a>
+    </div>
   </div>
   
   <div class="guides-grid" id="guidesGrid"></div>
@@ -207,7 +306,7 @@ const guidesData = [
 
 function renderGuides(lang) {
   let html = '';
-  
+
   guidesData.forEach(function(guide) {
     const t = guide[lang] || guide.zh;
     html += '<div class="guide-card">';
@@ -221,13 +320,27 @@ function renderGuides(lang) {
     html += '<a href="' + t.file + '" class="guide-link">' + t.link + '</a>';
     html += '</div>';
   });
-  
+
   document.getElementById('guidesGrid').innerHTML = html;
+
+  // Update recommendation bar i18n
+  const pageData = window.ZT_PAGE[lang] || window.ZT_PAGE.zh;
+  const recoTitle = document.querySelector('[data-i18n="recoTitle"]');
+  const recoDesc = document.querySelector('[data-i18n="recoDesc"]');
+  const reco5 = document.querySelector('[data-i18n="reco5"]');
+  const reco5Desc = document.querySelector('[data-i18n="reco5Desc"]');
+  if (recoTitle) recoTitle.textContent = pageData.recoTitle || '🔥 推荐工具';
+  if (recoDesc) recoDesc.textContent = pageData.recoDesc || '发现更多实用在线资源';
+  if (reco5) reco5.textContent = '🧠 ' + (pageData.reco5 || '免费 AI 模型聚合平台');
+  if (reco5Desc) reco5Desc.textContent = pageData.reco5Desc || '自动轮询 Mistral/Gemma/Phi-3，智能故障切换';
 }
 
 // Initial render
 const savedLang = localStorage.getItem('zentools_lang') || navigator.language.slice(0, 2) || 'zh';
 renderGuides(savedLang);
+
+// Set language switcher to current language
+document.getElementById('langSwitcher').value = savedLang;
 
 // Listen for language changes
 window.addEventListener('zt-langchange', function(e) {
