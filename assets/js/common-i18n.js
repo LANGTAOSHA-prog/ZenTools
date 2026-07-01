@@ -3,7 +3,7 @@ window.ZT_COMMON = {
     navHome: '首页',
     navTools: '工具箱',
     navAll: '全部工具',
-    navPdf: 'PDF工具',
+    navPdf: 'PDF 工具',
     navArticles: '教程中心',
     navCategories: '工具分类',
     navAbout: '关于我们',
@@ -12,7 +12,7 @@ window.ZT_COMMON = {
     navGuides: '教程',
     navFAQ: '常见问题',
     footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
-    searchPlaceholder: '搜索工具，例如：PDF、图片压缩、AI写作...',
+    searchPlaceholder: '搜索工具，例如：PDF、图片压缩、AI 写作...',
     breadcrumbHome: '首页',
     langZh: '中文',
     langEn: '英语',
@@ -43,7 +43,7 @@ window.ZT_COMMON = {
     navHome: 'ホーム',
     navTools: 'ツール',
     navAll: 'すべてのツール',
-    navPdf: 'PDFツール',
+    navPdf: 'PDF ツール',
     navArticles: '記事',
     navCategories: 'カテゴリー',
     navAbout: '概要',
@@ -52,7 +52,7 @@ window.ZT_COMMON = {
     navGuides: 'ガイド',
     navFAQ: 'よくある質問',
     footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス、随時更新中。',
-    searchPlaceholder: 'ツールを検索（例：PDF、画像圧縮、AI作成...）',
+    searchPlaceholder: 'ツールを検索（例：PDF、画像圧縮、AI 作成...）',
     breadcrumbHome: 'ホーム',
     langZh: '中国語',
     langEn: '英語',
@@ -80,3 +80,41 @@ window.ZT_COMMON = {
     langVi: 'Tiếng Việt'
   }
 };
+
+// Apply language to all elements with data-i18n attribute
+function applyLanguage(lang) {
+  const currentLang = lang || localStorage.getItem('zentools_lang') || navigator.language.slice(0, 2) || 'zh';
+  
+  // Apply ZT_COMMON translations
+  document.querySelectorAll('[data-i18n]').forEach(function(elem) {
+    const key = elem.getAttribute('data-i18n');
+    if (ZT_COMMON[currentLang] && ZT_COMMON[currentLang][key]) {
+      elem.textContent = ZT_COMMON[currentLang][key];
+    }
+  });
+  
+  // Apply page-specific translations from window.ZT_PAGE
+  if (window.ZT_PAGE && window.ZT_PAGE[currentLang]) {
+    document.querySelectorAll('[data-i18n-page]').forEach(function(elem) {
+      const key = elem.getAttribute('data-i18n-page');
+      if (window.ZT_PAGE[currentLang][key]) {
+        elem.textContent = window.ZT_PAGE[currentLang][key];
+      }
+    });
+  }
+  
+  // Dispatch event for page-specific translations
+  window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: currentLang } }));
+}
+
+// Listen for language change from header
+window.addEventListener('zt-setlang', function(e) {
+  localStorage.setItem('zentools_lang', e.detail.lang);
+  applyLanguage(e.detail.lang);
+});
+
+// Auto-apply on page load
+document.addEventListener('DOMContentLoaded', function() {
+  applyLanguage();
+});
+
