@@ -340,30 +340,61 @@
 
     /* Recommendation section */
     .recommend-section {
-      margin-top: 3.5rem;
-      background: white;
+      margin-top: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       border-radius: 16px;
       padding: 2rem;
-      border: 1px solid #eaeef2;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      border: none;
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
     }
-    .recommend-section h2 { font-size: 1.5rem; font-weight: 600; color: #1f2937; margin-bottom: 1rem; }
-    .recommend-section p { color: #57606a; font-size: 0.95rem; margin-bottom: 1.2rem; }
+    .recommend-section h2 { 
+      font-size: 1.5rem; 
+      font-weight: 600; 
+      color: white; 
+      margin-bottom: 0.8rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .recommend-section p { 
+      color: rgba(255,255,255,0.9); 
+      font-size: 0.95rem; 
+      margin-bottom: 1.2rem;
+    }
     .recommend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
     .recommend-item {
       display: block;
-      background: #f9fafb;
-      border: 1px solid #eaeef2;
+      background: white;
+      border: 2px solid transparent;
       border-radius: 12px;
       padding: 1.2rem;
       text-decoration: none;
       color: #1f2937;
-      transition: transform 0.15s, box-shadow 0.2s;
+      transition: transform 0.15s, box-shadow 0.2s, border-color 0.2s;
     }
     .recommend-item:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px -6px rgba(0,0,0,0.08);
-      border-color: #d0d7de;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px -6px rgba(0,0,0,0.15);
+      border-color: #667eea;
+    }
+    .recommend-item.featured {
+      background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+      border: 2px solid #fdcb6e;
+      position: relative;
+    }
+    .recommend-item.featured::before {
+      content: "🔥 热门";
+      position: absolute;
+      top: -8px;
+      right: 12px;
+      background: #e74c3c;
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 600;
+    }
+    .recommend-item.featured:hover {
+      border-color: #e74c3c;
+      transform: translateY(-6px);
     }
     .recommend-item .reco-icon { font-size: 1.2rem; margin-right: 0.5rem; }
     .recommend-item .reco-title { font-weight: 600; font-size: 1rem; }
@@ -404,29 +435,8 @@
     <div class="badge" data-i18n="badge">📦 30+ 免费服务 · 持续更新 · 基于 2026 年主流平台</div>
   </div>
 
-  <!-- 统计和快速筛选 -->
-  <div class="stats-bar">
-    <div class="count"><span data-i18n="totalLabel">📋 总计</span> <span id="totalCount">0</span> <span data-i18n="totalUnit">项服务</span></div>
-    <div class="filter-tabs">
-      <a href="#" class="active" data-filter="all" data-i18n="filterAll">全部</a>
-      <a href="#" data-filter="cloud" data-i18n="filterCloud">云计算</a>
-      <a href="#" data-filter="db" data-i18n="filterDb">数据库</a>
-      <a href="#" data-filter="auth" data-i18n="filterAuth">身份认证</a>
-      <a href="#" data-filter="storage" data-i18n="filterStorage">存储</a>
-      <a href="#" data-filter="email" data-i18n="filterEmail">邮件</a>
-      <a href="#" data-filter="monitor" data-i18n="filterMonitor">监控/分析</a>
-      <a href="#" data-filter="ci" data-i18n="filterCi">CI/CD</a>
-      <a href="#" data-filter="cdn" data-i18n="filterCdn">CDN</a>
-    </div>
-  </div>
-
-  <!-- 卡片网格 -->
-  <div class="card-grid" id="cardGrid">
-    <!-- 所有卡片通过 JavaScript 动态渲染 -->
-  </div>
-
-  <!-- 推荐链接板块 -->
-  <div class="recommend-section">
+  <!-- 推荐链接板块 - 移至顶部最显眼处 -->
+  <div class="recommend-section highlight">
     <h2 data-i18n="recoTitle">🔗 推荐工具</h2>
     <p data-i18n="recoDesc">更多免费在线工具，尽在 ZenTools</p>
     <div class="recommend-grid">
@@ -450,7 +460,7 @@
         <div><span class="reco-icon">✍️</span><span class="reco-title" data-i18n="recoLink4">AI 辅助写作工作流</span></div>
         <div class="reco-desc">选题策划、内容生成、润色优化全流程</div>
       </a>
-      <a href="/yunchuang/free-ai-aggregator/" class="recommend-item">
+      <a href="/yunchuang/free-ai-aggregator/" class="recommend-item featured">
         <div><span class="reco-icon">🧠</span><span class="reco-title" data-i18n="recoLink5">免费 AI 模型聚合平台</span></div>
         <div class="reco-desc">自动轮询 Mistral/Gemma/Phi-3，智能故障切换，无需 API Key</div>
       </a>
@@ -459,6 +469,27 @@
         <div class="reco-desc">更多实用在线工具持续更新中</div>
       </a>
     </div>
+  </div>
+
+  <!-- 统计和快速筛选 -->
+  <div class="stats-bar">
+    <div class="count"><span data-i18n="totalLabel">📋 总计</span> <span id="totalCount">0</span> <span data-i18n="totalUnit">项服务</span></div>
+    <div class="filter-tabs">
+      <a href="#" class="active" data-filter="all" data-i18n="filterAll">全部</a>
+      <a href="#" data-filter="cloud" data-i18n="filterCloud">云计算</a>
+      <a href="#" data-filter="db" data-i18n="filterDb">数据库</a>
+      <a href="#" data-filter="auth" data-i18n="filterAuth">身份认证</a>
+      <a href="#" data-filter="storage" data-i18n="filterStorage">存储</a>
+      <a href="#" data-filter="email" data-i18n="filterEmail">邮件</a>
+      <a href="#" data-filter="monitor" data-i18n="filterMonitor">监控/分析</a>
+      <a href="#" data-filter="ci" data-i18n="filterCi">CI/CD</a>
+      <a href="#" data-filter="cdn" data-i18n="filterCdn">CDN</a>
+    </div>
+  </div>
+
+  <!-- 卡片网格 -->
+  <div class="card-grid" id="cardGrid">
+    <!-- 所有卡片通过 JavaScript 动态渲染 -->
   </div>
 
   <!-- 页脚 -->
