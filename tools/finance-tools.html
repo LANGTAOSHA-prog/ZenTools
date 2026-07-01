@@ -101,14 +101,17 @@ window.pageTranslations={
 <script src="../assets/js/tool-ui.min.js"></script>
 <script>
 const CATEGORY_KEY = '金融工具';
+function tName(t, lang) { return t['name__' + lang] || t['name__en'] || t.name; }
+function tDesc(t, lang) { return t['description__' + lang] || t['description__en'] || t.description; }
 function renderTools(tools) {
   const c = document.getElementById('toolsGrid'); if (!c) return;
+  const lang = localStorage.getItem('zentools_lang') || 'zh';
   const f = tools.filter(t => t.category === CATEGORY_KEY);
   if (!f.length) { c.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);">暂无工具，敬请期待</div>'; return; }
   let html = '';
   for (const t of f) {
     const h = t.url || '#';
-    html += '<a class="cat-card" href="' + h + '"><div class="icon">' + (t.icon || '🔧') + '</div><div class="name">' + t.name + '</div><div class="desc">' + (t.description || '') + '</div>' + (t.featured ? '<span class="badge">热门</span>' : '') + '</a>';
+    html += '<a class="cat-card" href="' + h + '"><div class="icon">' + (t.icon || '🔧') + '</div><div class="name">' + tName(t, lang) + '</div><div class="desc">' + (tDesc(t, lang) || '') + '</div>' + (t.featured ? '<span class="badge">热门</span>' : '') + '</a>';
   }
   c.innerHTML = html;
 }
@@ -116,6 +119,10 @@ function load() {
   fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); }).catch(() => {});
 }
 document.addEventListener('DOMContentLoaded', load);
+window.addEventListener('zt-langchange', function() {
+  const c = document.getElementById('toolsGrid'); if (!c) return;
+  fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); }).catch(() => {});
+});
 </script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_bookmark">收藏本站，下次办公快人一步</button>
 <script>
