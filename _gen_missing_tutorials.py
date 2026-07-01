@@ -2,9 +2,9 @@
 """Generate all 40 missing tutorial pages + 10 scenario collection guides for ZenTools."""
 import json, os, re
 
-BASE = "/workspace/tutorials"
-GUIDES = "/workspace/guides"
-TOOLS_DATA_PATH = "/workspace/data/tools-data.json"
+BASE = os.path.join(os.path.dirname(__file__), "tutorials")
+GUIDES = os.path.join(os.path.dirname(__file__), "guides")
+TOOLS_DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "tools-data.json")
 
 # ===== Load tools-data for URLs and descriptions =====
 with open(TOOLS_DATA_PATH) as f:
@@ -30,7 +30,18 @@ def build_html(tool_id, title_zh, desc_zh, func_zh, duration, tool_url, svg_file
     zh[f"{step_keys}Step4B"] = "处理完成后结果会实时显示，你可以预览、复制或下载处理结果。所有操作均可重复进行。"
     for i, tip in enumerate(tips, 1):
         zh[f"{step_keys}Tip{i}"] = tip
-    for i, (q, a) in enumerate(faqs, 1):
+
+    # [AI 搜索优化] 通用 FAQ：每个工具页面都回答这些核心问题
+    universal_faqs = [
+        ("这个工具适合谁？适合哪些使用场景？",
+         f"本教程介绍的{title_zh.split('：')[0] if '：' in title_zh else title_zh.split(':')[0]}适合日常办公用户、学生、自由职业者和小型企业团队。无论你是需要快速处理文档的上班族、整理学习资料的学生，还是需要批量处理素材的内容创作者，都可以免费使用。无需任何专业技能，打开浏览器即可上手。"),
+        ("完全免费吗？有什么使用限制？",
+         f"{title_zh.split('：')[0] if '：' in title_zh else title_zh.split(':')[0]}完全免费，无隐藏费用、无订阅要求、无水印。主要限制包括：单文件最大 100MB，部分批量操作一次最多处理 20 个文件。所有处理在浏览器本地完成，不消耗你的云端配额或 API 额度。"),
+        ("支持中文吗？界面和操作是否友好？",
+         "完全支持中文界面（简体中文），同时也提供英文、日文、越南文界面。所有按钮、提示和说明均已本地化为中文，无需担心语言障碍。操作流程符合国内用户习惯，拖拽上传、一键处理，直观易用。"),
+    ]
+    all_faqs = list(faqs) + universal_faqs
+    for i, (q, a) in enumerate(all_faqs, 1):
         zh[f"{step_keys}Faq{i}Q"] = q
         zh[f"{step_keys}Faq{i}A"] = a
     zh.update({
@@ -111,9 +122,15 @@ def build_html(tool_id, title_zh, desc_zh, func_zh, duration, tool_url, svg_file
 '''
 
     faq_html = ""
-    for i, (q, a) in enumerate(faqs, 1):
-        faq_html += f'''<p><strong data-i18n="{step_keys}Faq{i}Q">{q}</strong><br/><span data-i18n="{step_keys}Faq{i}A">{a}</span></p>
+    for i, (q, a) in enumerate(all_faqs, 1):
+        faq_html += f'''<div class="faq-item"><p><strong data-i18n="{step_keys}Faq{i}Q">{q}</strong><br/><span data-i18n="{step_keys}Faq{i}A">{a}</span></p></div>
 '''
+
+    # [AI 搜索优化] 构建 FAQPage JSON-LD 结构化数据
+    faq_jsonld_items = []
+    for i, (q, a) in enumerate(all_faqs, 1):
+        faq_jsonld_items.append(f'{{"@type":"Question","name":{json.dumps(q)},"acceptedAnswer":{{"@type":"Answer","text":{json.dumps(a)}}}}}')
+    faq_jsonld = f'<script type="application/ld+json">{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{",".join(faq_jsonld_items)}]}}</script>'
 
     i18n_json = json.dumps({"zh": zh, "en": en, "ja": ja, "vi": vi}, ensure_ascii=False)
 
@@ -133,6 +150,9 @@ def build_html(tool_id, title_zh, desc_zh, func_zh, duration, tool_url, svg_file
 .article-body h3 {{ font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }}
 .article-body p, .article-body li {{ font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }}
 .article-body .tip {{ background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }}
+.article-body .faq-item {{ margin:16px 0; padding:14px 18px; background:rgba(255,255,255,0.03); border:1px solid var(--border); border-radius:10px; }}
+.article-body .faq-item strong {{ color:var(--text); font-size:14px; }}
+.article-body .faq-item span {{ color:var(--muted); font-size:14px; line-height:1.7; display:block; margin-top:4px; }}
 .article-body .rel-tools {{ font-size:13px; color:var(--muted); margin-top:12px; }}
 .article-body .rel-tools a {{ color:var(--cyan); text-decoration:none; }}
 .article-body .rel-tools a:hover {{ text-decoration:underline; }}
@@ -146,7 +166,9 @@ def build_html(tool_id, title_zh, desc_zh, func_zh, duration, tool_url, svg_file
 </style>
 <meta name="google-adsense-account" content="ca-pub-1955887568822472">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+{faq_jsonld}
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"TechArticle","headline":"{title_zh}","description":"{desc_zh}","datePublished":"2026-06-23","author":{{"@type":"Organization","name":"ZenTools"}},"publisher":{{"@type":"Organization","name":"ZenTools"}},"mainEntityOfPage":{{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/{tool_id}.html"}}}}</script>
+<meta name="keywords" content="{title_zh},在线教程,免费工具,浏览器处理,无需注册"/>
 </head>
 <body>
 <div class="blob blob-1"></div><div class="blob blob-2"></div>

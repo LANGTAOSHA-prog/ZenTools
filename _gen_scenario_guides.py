@@ -2,8 +2,8 @@
 """Generate 10 scenario collection guides for ZenTools."""
 import json, os
 
-BASE = "/workspace/guides"
-TOOLS_DATA_PATH = "/workspace/data/tools-data.json"
+BASE = os.path.join(os.path.dirname(__file__), "guides")
+TOOLS_DATA_PATH = os.path.join(os.path.dirname(__file__), "data", "tools-data.json")
 
 with open(TOOLS_DATA_PATH) as f:
     tools_data = json.load(f)
@@ -104,13 +104,22 @@ def make_scenario_html(slug, title_zh, title_en, desc_zh, intro_zh,
 
     cat_label = f"{cat_emoji} 场景指南"
 
+    label = title_zh.split("：")[0] if "：" in title_zh else title_zh.split(":")[0]
+
     # Generate FAQ
-    faq_html = """
-<div class="faq-item"><p><strong>这些工具需要注册吗？</strong><br/>不需要。所有工具均无需注册即可使用，完全免费。</p></div>
-<div class="faq-item"><p><strong>数据安全吗？</strong><br/>所有文件处理均在浏览器本地完成，不会上传到服务器，数据完全安全。</p></div>
-<div class="faq-item"><p><strong>支持哪些设备？</strong><br/>支持桌面浏览器和移动端浏览器。推荐使用 Chrome、Edge 或 Safari。</p></div>
-<div class="faq-item"><p><strong>可以批量使用吗？</strong><br/>多数工具支持批量操作，可以一次处理多个文件，提高效率。</p></div>
-"""
+    faq_items = [
+        ("这些工具需要注册吗？", "不需要。所有工具均无需注册即可使用，完全免费。"),
+        ("数据安全吗？", "所有文件处理均在浏览器本地完成，不会上传到服务器，数据完全安全。"),
+        ("支持哪些设备？", "支持桌面浏览器和移动端浏览器。推荐使用 Chrome、Edge 或 Safari。"),
+        ("可以批量使用吗？", "多数工具支持批量操作，可以一次处理多个文件，提高效率。"),
+        ("本指南适合哪些人群？", f"本指南适合{label}相关需求的用户，包括上班族、学生、自由职业者和小型企业团队。无需任何专业技能即可上手。"),
+        ("中文支持怎么样？", "所有工具均支持中文界面（简体中文），同时也提供英文、日文和越南文版本。国内用户可以直接使用，无语言障碍。"),
+    ]
+    faq_html = ""
+    for q, a in faq_items:
+        faq_html += f'<div class="faq-item"><p><strong>{q}</strong><br/>{a}</p></div>\n'
+    faq_jsonld_items = [f'{{"@type":"Question","name":{json.dumps(q)},"acceptedAnswer":{{"@type":"Answer","text":{json.dumps(a)}}}}}' for q, a in faq_items]
+    faq_jsonld = f'<script type="application/ld+json">{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{",".join(faq_jsonld_items)}]}}</script>'
 
     html = f'''<!DOCTYPE html>
 <html lang="zh-CN">
@@ -145,7 +154,8 @@ def make_scenario_html(slug, title_zh, title_en, desc_zh, intro_zh,
 <meta name="google-adsense-account" content="ca-pub-1955887568822472">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"Article","headline":"{title_zh}","description":"{desc_zh}","datePublished":"2026-07-01","author":{{"@type":"Organization","name":"ZenTools"}},"publisher":{{"@type":"Organization","name":"ZenTools"}}}}</script>
-<script type="application/ld+json">{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{{"@type":"Question","name":"这些工具需要注册吗？","acceptedAnswer":{{"@type":"Answer","text":"不需要。所有工具均无需注册即可使用，完全免费。"}}}},{{"@type":"Question","name":"数据安全吗？","acceptedAnswer":{{"@type":"Answer","text":"所有文件处理均在浏览器本地完成，不会上传到服务器，数据完全安全。"}}}},{{"@type":"Question","name":"支持哪些设备？","acceptedAnswer":{{"@type":"Answer","text":"支持桌面浏览器和移动端浏览器。推荐使用 Chrome、Edge 或 Safari。"}}}},{{"@type":"Question","name":"可以批量使用吗？","acceptedAnswer":{{"@type":"Answer","text":"多数工具支持批量操作，可以一次处理多个文件，提高效率。"}}}}]}}</script>
+{faq_jsonld}
+<meta name="keywords" content="{title_zh},场景指南,在线工具合集,免费工具,工作效率"/>
 </head>
 <body>
 <div class="blob blob-1"></div><div class="blob blob-2"></div>
