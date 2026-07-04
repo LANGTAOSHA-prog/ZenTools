@@ -69,7 +69,71 @@ python _minify_assets.py
 
 ---
 
-## 新增工具流程
+## 一键新增页面
+
+三类页面可通用生成脚本，一条命令完成 HTML 骨架：
+
+### 新增工具页
+
+```bash
+python3 _add_tool.py \
+  --slug pdf-ocr --category "PDF工具" \
+  --name-zh "PDF OCR" --name-en "PDF OCR" --name-ja "PDF OCR" --name-vi "PDF OCR" \
+  --desc-zh "将扫描 PDF 转为可搜索文本" \
+  --desc-en "Convert scanned PDF to searchable text" \
+  --desc-ja "スキャン PDF を検索可能なテキストに変換" \
+  --desc-vi "Chuyển PDF scan thành văn bản có thể tìm kiếm" \
+  --keywords "ocr pdf 文字识别" \
+  --icon "📝"
+```
+
+参数说明:
+| 参数 | 必填 | 说明 |
+|------|------|------|
+| `--slug` | ✓ | URL 标识 (如 `pdf-ocr`) |
+| `--category` | ✓ | 13 个分类之一 |
+| `--name-zh/en/ja/vi` | ✓ | 四种语言名称 |
+| `--desc-zh/en/ja/vi` | ✓ | 四种语言描述 |
+| `--keywords` | | SEO 关键词 |
+| `--icon` | | Emoji 图标 (默认 🔧) |
+| `--no-json` | | 不更新 tools-data.json |
+| `--no-sitemap` | | 不更新 sitemap.xml |
+| `--overwrite` | | 覆盖已有文件 |
+
+### 新增教程页
+
+```bash
+python3 _add_tutorial.py \
+  --slug pdf-ocr-tutorial --category "PDF工具" \
+  --title-zh "PDF OCR 教程：提取扫描文档文字" \
+  --desc-zh "使用 PDF OCR 工具提取扫描 PDF 中的文字内容" \
+  --tool-url "/pdf/pdf-ocr.html"
+```
+
+### 新增评测/指南页
+
+```bash
+python3 _add_guide.py \
+  --slug pdf-tools-comparison --type review \
+  --title-zh "PDF 工具横向评测：2026 年最佳选择" \
+  --desc-zh "全面对比在线 PDF 工具的功能、性能、隐私" \
+  --word-count 2500 --read-minutes 20
+```
+
+`--type` 可选值: `core`(核心指南) / `case`(案例) / `review`(评测) / `industry`(行业)
+
+### 后续校验 (三类页面通用)
+
+```bash
+python3 _sync_tools_data_js.py   # 同步 JS 数据文件 (仅工具页需要)
+python3 _gen_sitemap.py           # 重新生成 sitemap.xml
+python3 _check_json.py            # 校验 JSON 完整性
+python3 _check_paths.py           # 校验 HTML 路径正确性
+```
+
+---
+
+## 新增工具流程 (手动)
 
 ### 步骤 1: 更新工具数据
 
@@ -472,7 +536,12 @@ ZT_CRASH.help()
 | `_check_json.py` | 校验 `data/tools-data.json` 及所有 JSON 文件的结构完整性 |
 | `_check_paths.py` | 检查 tools-data.json 中所有 url 字段对应的 HTML 文件是否存在 |
 | `_check_data.py` | 检查数据一致性 (工具数量、分类匹配、必填字段) |
-| `_add_tools.py` | 交互式添加新工具到 tools-data.json |
+| `_add_tool.py` | **一键生成**工具 HTML 骨架 + 更新 JSON + 刷新 sitemap |
+| `_add_tutorial.py` | **一键生成**教程 HTML 骨架 (含 4 语 i18n) |
+| `_add_guide.py` | **一键生成**评测/指南/案例 HTML 骨架 |
+| `_gen_sitemap.py` | **独立脚本**扫描所有 .html 并重新生成 sitemap.xml |
+| `_sync_tools_data_js.py` | **独立脚本**从 JSON 同步到 tools-data.js |
+| `_add_tools.py` | 交互式添加新工具到 tools-data.json (仅 JSON) |
 | `_minify_assets.py` | 压缩 JS 资源为 `.min.js` 版本 |
 | `_opt_index.py` | 首页 HTML 优化 |
 | `_update_readme.py` | 更新 README 中的工具统计数字 |

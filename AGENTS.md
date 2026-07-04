@@ -7,31 +7,29 @@ Pure static HTML5/CSS3/Vanilla JS site (no build tools, no package.json). 410 HT
 ## Quick Commands
 
 ```bash
+# Generate new tool page (HTML + JSON + sitemap)
+python3 _add_tool.py --slug pdf-ocr --category "PDF工具" --name-zh "PDF OCR" --name-en "PDF OCR" --name-ja "PDF OCR" --name-vi "PDF OCR" --desc-zh "OCR文字提取" --desc-en "Extract text from PDF" --desc-ja "PDFからテキスト抽出" --desc-vi "Trích xuất văn bản từ PDF" --keywords "ocr pdf"
+
+# Generate new tutorial page
+python3 _add_tutorial.py --slug pdf-ocr-tutorial --category "PDF工具" --title-zh "PDF OCR教程" --desc-zh "使用OCR提取文字" --tool-url "/pdf/pdf-ocr.html"
+
+# Generate new guide/review page
+python3 _add_guide.py --slug pdf-tools-review --type review --title-zh "PDF工具评测" --desc-zh "PDF工具横向对比" --word-count 2500 --read-minutes 20
+
 # Validate all JSON data files
-python _check_json.py
+python3 _check_json.py
 
-# Add new tool entry to data/tools-data.json
-python _add_tools.py
+# Sync tools-data.js from tools-data.json
+python3 _sync_tools_data_js.py
 
-# Regenerate sitemap.xml (410 URLs)
-python -c "
-import os,xml.etree.ElementTree as ET
-base='https://zentools.xyz'
-root_elem=ET.Element('urlset',xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
-for r,d,f in os.walk('.'):
- d[:]=[x for x in d if x[0]!='.' and x!='node_modules' and x!='pdf_tools']
- for fn in f:
-  if fn.endswith('.html'):
-   u=ET.SubElement(root_elem,'url')
-   ET.SubElement(u,'loc').text=base+'/'+os.path.relpath(os.path.join(r,fn),'.')
-with open('sitemap.xml','w') as f: f.write(ET.tostring(root_elem,encoding='unicode'))
-"
+# Regenerate sitemap.xml
+python3 _gen_sitemap.py
 
 # Minify JS assets
-python _minify_assets.py
+python3 _minify_assets.py
 
 # Start local dev server (port 8000)
-python -m http.server 8000
+python3 -m http.server 8000
 ```
 
 ## Architecture
