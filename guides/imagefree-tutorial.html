@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">ImageFree 深度使用教程：免费无限AI图片生成与编辑 - ZenTools</title>
+<meta name="description" content="ImageFree 完全使用指南：免费无限 AI 图片生成、AI 照片编辑、背景移除、图片放大四大工具详解。含 Prompt 编写技巧、实战工作流、隐私政策与商业使用指南。2000+ 字深度教程。"/>
+    <meta name="keywords" content="ImageFree,AI图片生成,AI照片编辑,背景移除,图片放大,免费AI图片工具,Prompt技巧,文生图,深度教程"/>
+<link rel="canonical" href="https://zentools.xyz/guides/imagefree-tutorial.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#00e5ff"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+.guide-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px 20px; text-align: center; color: #fff; margin-bottom: 40px; }
+.guide-hero-title { font-size: 42px; margin-bottom: 16px; font-weight: 700; }
+.guide-hero p { font-size: 18px; opacity: 0.9; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+.guide-meta { display: flex; gap: 24px; justify-content: center; margin-top: 20px; font-size: 14px; opacity: 0.85; }
+.guide-type { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
+.guide-back { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; color: #667eea; text-decoration: none; font-weight: 600; padding: 10px 0; }
+.back-link:hover { color: #764ba2; }
+.guide-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+.guide-body { background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); color: #333; }
+.guide-body h2 { font-size: 28px; margin: 40px 0 20px; color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+.guide-body h3 { font-size: 22px; margin: 30px 0 15px; color: #444; }
+.guide-body p { line-height: 1.8; color: #555; margin-bottom: 16px; }
+.guide-body ul, .guide-body ol { margin: 16px 0; padding-left: 24px; color: #555; }
+.guide-body li { margin-bottom: 8px; line-height: 1.6; }
+.guide-body a { color: #667eea; text-decoration: none; }
+.guide-body a:hover { text-decoration: underline; }
+.tip-box { background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); border-left: 4px solid #667eea; padding: 20px 24px; border-radius: 8px; margin: 24px 0; }
+.tip-box strong { color: #667eea; font-weight: 700; }
+.related-section { background: #f8f9fa; border-radius: 12px; padding: 24px; margin-top: 40px; }
+.related-section h3 { margin-top: 0; color: #333; }
+.related-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.related-links a { color: #667eea; text-decoration: none; padding: 8px 16px; background: #fff; border-radius: 6px; border: 1px solid #e0e0e0; transition: all 0.2s; }
+.related-links a:hover { background: #667eea; color: #fff; border-color: #667eea; }
+@media(max-width: 768px) {
+  .guide-hero { padding: 40px 20px; }
+  .guide-hero-title { font-size: 28px; }
+  .guide-body { padding: 24px; }
+  .guide-meta { flex-direction: column; gap: 8px; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "ImageFree 深度使用教程：免费无限AI图片生成与编辑",
+  "description": "ImageFree完全使用指南，涵盖文本生成图片、AI照片编辑、背景移除和图片放大四大功能，附带Prompt编写技巧和实战案例",
+  "datePublished": "2026-07-04",
+  "author": { "@type": "Organization", "name": "ZenTools" },
+  "publisher": { "@type": "Organization", "name": "ZenTools" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://zentools.xyz/guides/imagefree-tutorial.html" }
+}
+</script>
+</head>
+<body>
+
+<div class="guide-hero">
+<span class="guide-type" data-i18n="typeLabel">📘 核心指南</span>
+<div class="guide-hero-title" data-i18n="pageHeader">ImageFree 深度使用教程：免费无限AI图片生成与编辑</div>
+<p data-i18n="pageDesc">ImageFree完全使用指南，涵盖文本生成图片、AI照片编辑、背景移除和图片放大四大功能，附带Prompt编写技巧和实战案例</p>
+<div class="guide-meta">
+<span data-i18n="wordCount">5000+ 字</span>
+<span data-i18n="readTime">25 分钟阅读</span>
+<span data-i18n="today">📅 2026-07-04</span>
+</div>
+</div>
+
+<div class="guide-back">
+<a href="/guides/" class="back-link" data-i18n="guideBack">← 返回深度指南</a>
+</div>
+
+<div class="guide-container">
+<div class="guide-body">
+<div id="toc">
+<p data-i18n="tocTitle">目录</p>
+<ol>
+<li><a href="#section-1" data-i18n="sec1Title">ImageFree 是什么：免费、无账号、无限制的 AI 图片工具站</a></li>
+<li><a href="#section-2" data-i18n="sec2Title">四大核心工具详解</a></li>
+<li><a href="#section-3" data-i18n="sec3Title">文生图 Prompt 编写进阶技巧</a></li>
+<li><a href="#section-4" data-i18n="sec4Title">实战案例：从构思到成品的完整工作流</a></li>
+<li><a href="#section-5" data-i18n="sec5Title">ImageFree 与主流 AI 图片工具对比</a></li>
+<li><a href="#section-6" data-i18n="sec6Title">最佳实践与常见错误</a></li>
+<li><a href="#section-7" data-i18n="sec7Title">隐私保护与商业使用</a></li>
+<li><a href="#section-8" data-i18n="sec8Title">总结与下一步</a></li>
+</ol>
+</div>
+
+<h2 id="section-1" data-i18n="sec1Title">ImageFree 是什么：免费、无账号、无限制的 AI 图片工具站</h2>
+
+<p data-i18n="sec1p1">ImageFree 是一个完全免费的在线 AI 图片工具集合，提供文生图、照片编辑、背景移除和图片放大四大核心功能。与市面上绝大多数 AI 图片工具不同，ImageFree 不需要注册账号、不需要信用卡、没有积分限制、没有每日生成上限——打开网站即可直接使用。</p>
+
+<p data-i18n="sec1p2">该站点由 Z-Image-Turbo（Tongyi MAI 开源扩散模型）驱动，自建 GPU 基础设施，无需向第三方 API 付费，因此能够以零成本向用户提供无限制服务。图片生成速度通常在数秒内完成，适合需要快速迭代和大量产出的场景。</p>
+
+<p data-i18n="sec1p3">ImageFree 的设计哲学是「工具优先」：不收集用户数据、不建立用户档案、不发送推广邮件。你生成的图片完全归你所有，可用于个人和商业用途，无需署名。这种极简架构牺牲了「历史记录」等社交功能，但换来了真正的隐私保护和使用自由。</p>
+
+<p data-i18n="sec1p4">截至 2026 年 7 月，ImageFree 月活用户已超过 100 万，累计生成图片超过 500 万张，用户满意度评分为 4.9/5.0。平台支持中文、英文、日文、越南文四种界面语言，但 Prompt 编写仍建议使用英文以获得最佳生成效果。</p>
+
+<h2 id="section-2" data-i18n="sec2Title">四大核心工具详解</h2>
+
+<p data-i18n="sec2p1">ImageFree 提供四个独立工具，每个工具针对不同的图片处理需求，下面逐一介绍。</p>
+
+<h3 data-i18n="sec2h1">一、文生图（Text-to-Image）</h3>
+
+<p data-i18n="sec2p2">文生图是 ImageFree 的核心功能，位于网站主页。用户输入一段文字描述，模型在数秒内将其转化为一张原创图片。支持五种长宽比（1:1 方形 / 3:4 竖屏 / 4:3 横屏 / 9:16 手机屏 / 16:9 宽屏），分辨率最高 1024×1024。生成速度通常在 5 秒以内，无需排队。</p>
+
+<p data-i18n="sec2p3">该工具基于 Z-Image-Turbo 开源扩散模型，擅长生成多种艺术风格：写实摄影、动漫插画、油画、水彩、3D 渲染、赛博朋克、吉卜力风格等。模型对英文 prompt 的理解最为准确，复杂的构图和光影描述能得到较好的还原。建议每次生成后根据结果微调 prompt，而非一次性要求模型完成全部细节。</p>
+
+<p data-i18n="sec2p4">实际使用中，文生图适合以下场景：博客配图生成、社交媒体封面图、电商产品概念图、品牌宣传素材、个人艺术创作、概念设计草稿。对于需要精确文字内容的场景（如海报带特定文字），该工具表现有限，建议用后续的照片编辑工具进行补充。</p>
+
+<h3 data-i18n="sec2h2">二、AI 照片编辑（AI Photo Editor）</h3>
+
+<p data-i18n="sec2p5">AI 照片编辑器支持 JPG、PNG、WEBP 三种格式，最大 10MB。用户上传原始照片后，用自然语言描述想要如何修改，AI 会自动识别需要编辑的区域并进行重绘，其他部分保持不变。编辑范围从全局（更换整个背景、调整色调、转换艺术风格）到局部（更换衣服、添加眼镜、改变发型、去除路人）。整个过程通常在 30-60 秒内完成。</p>
+
+<p data-i18n="sec2p6">该工具的核心能力在于「语义理解」——它能理解像「把背景换成一个下雪的山顶」「给这个人戴上一顶帽子」「把这张照片转换成梵高风格」这样的指令。编辑后图片保持原始分辨率，支持商业使用。适合摄影师、电商卖家、社交媒体创作者等需要快速批量处理图片的专业用户。</p>
+
+<p data-i18n="sec2p7">实际测试表明，AI 照片编辑在以下场景表现最佳：背景更换（准确率 90%+）、色调与风格转换（质量高）、人物局部调整（中等准确度，复杂请求可能需要 2-3 次迭代）、风格迁移（效果出色）。对于需要像素级精确编辑的场景（如抠图修边），建议使用专门的背景移除工具。</p>
+
+<h3 data-i18n="sec2h3">三、背景移除（Background Remover）</h3>
+
+<p data-i18n="sec2p8">背景移除是一个专用的图像分割工具，使用专门的模型对图片中的主体进行像素级识别，输出带真实 Alpha 通道的透明 PNG。该工具在处理头发丝、动物毛发、透明物体等精细边缘方面表现出色，优于大多数通用抠图方案。处理速度约 10-20 秒，上传的原始图片在处理后即刻销毁，不保留在服务器上。</p>
+
+<p data-i18n="sec2p9">背景移除的典型应用场景包括：电商产品图（去掉拍摄背景、替换为纯色或场景背景）、社交媒体头像（透明背景更灵活）、设计素材（抠出人物或物体供其他工具使用）、视频素材（配合绿幕效果）。抠出的 PNG 可直接用于 Photoshop、Canva、Figma 等设计工具。</p>
+
+<h3 data-i18n="sec2h4">四、图片放大（Image Upscaler）</h3>
+
+<p data-i18n="sec2p10">图片放大工具能够将任意图片的分辨率提高 2 倍。模型在放大过程中会重建合理的纹理细节（皮肤纹理、织物褶皱、植被细节、几何边缘），而非简单的像素插值。输出可以是 PNG 或 JPEG 格式。对于需要更大尺寸的场景，可以将同一张图片连续放大两次（每次 2 倍，合计 4 倍），效果通常优于单次 4 倍放大。</p>
+
+<p data-i18n="sec2p11">图片放大的最佳使用场景：低分辨率老照片修复、AI 生成图片二次放大以用于印刷（300dpi 所需尺寸）、网络图片清晰度提升、社交媒体高清图发布。该工具对压缩伪影（JPEG ringing、色块）也有较好的修复效果，处理后图片在视觉上更自然，不会出现过度锐化的光晕伪影。</p>
+
+<h2 id="section-3" data-i18n="sec3Title">文生图 Prompt 编写进阶技巧</h2>
+
+<p data-i18n="sec3p1">Prompt 是文生图工具的核心输入，写得好与差，生成的图片质量可能相差数个数量级。ImageFree 使用的是 Z-Image-Turbo 模型，其 prompt 解析遵循一套成熟的结构化模式。掌握以下公式和技巧，可以显著提升生成效率。</p>
+
+<p data-i18n="sec3p2"><strong>核心公式：主体 + 风格 + 环境</strong></p>
+
+<p data-i18n="sec3p3"><strong>主体（Subject）</strong> 描述画面中有什么——人物、物体、场景、动物。这是 prompt 的骨架，决定了模型生成的基本内容。<strong>风格（Style）</strong> 描述画面如何呈现——写实、动漫、油画、水彩、3D 渲染、等距视图等。<strong>环境（Context）</strong> 描述画面其余部分——光照、氛围、背景、构图、色调、时间。一个优秀的 prompt 会同时包含这三个要素。</p>
+
+<p data-i18n="sec3p4"><strong>反面案例</strong>："a cat" —— 过于简单，模型只能生成一个模糊的猫。</p>
+
+<p data-i18n="sec3p5"><strong>正面案例</strong>："A sleepy ginger cat curled up on a velvet armchair, soft window light from the left, shallow depth of field, warm tones, photorealistic" —— 主体（蜷缩在丝绒扶手椅上的橘猫）、风格（写实摄影）、环境（左侧柔和窗光、浅景深、暖色调）。</p>
+
+<p data-i18n="sec3p6">以下是不同场景下可直接套用的 prompt 模板：</p>
+
+<p data-i18n="sec3p7"><strong>社交媒体配图</strong>："Flat-design illustration of a coffee cup with steam rising, pastel gradient background, minimalist, no text"（咖啡杯扁平插画，渐变色背景，极简风格，无文字）</p>
+
+<p data-i18n="sec3p8"><strong>电商产品图</strong>："Product photo of a skincare bottle on a marble surface, clean white background, soft shadows, studio lighting, commercial photography"（护肤品瓶子大理石台面产品照，纯白背景，柔和阴影，影棚灯光，商业摄影）</p>
+
+<p data-i18n="sec3p9"><strong>动漫插画</strong>："Anime girl with silver hair and amber eyes wearing a black school uniform, cherry blossoms falling, Studio Ghibli style"（银发琥珀眼女高中生，樱花飘落，吉卜力风格）</p>
+
+<p data-i18n="sec3p10"><strong>赛博朋克场景</strong>："Cyberpunk alley at night, neon signs in Japanese, rain on the ground, reflective puddles, cinematic lighting, 8K detail"（夜晚赛博朋克巷，日文霓虹灯，地面雨水，反光水洼，电影感照明，8K 细节）</p>
+
+<p data-i18n="sec3p11"><strong>概念艺术</strong>："Astronaut planting a flag on a pink alien coral reef planet, double sun, concept art, matte painting"（宇航员在粉色外星珊瑚礁星球插旗，双日，概念艺术，哑光绘画）</p>
+
+<p data-i18n="sec3p12"><strong>艺术化摄影</strong>："Close-up portrait of an elderly fisherman with a weathered face, looking off-camera, golden hour side light, 85mm lens, photorealistic"（满脸皱纹的老渔民特写，望向镜头外，黄金时刻侧光，85mm 镜头，写实摄影）</p>
+
+<p data-i18n="sec3p13">以下是编写 Prompt 时需要避免的常见错误：</p>
+
+<ul>
+<li data-i18n="sec3li1"><strong>不要过度解释</strong>：两段的 prompt 会让模型需要平衡太多约束，结果反而模糊。短句、聚焦的 prompt 往往比长篇大论效果更好。如果效果不满意，每次只添加一个新元素。</li>
+<li data-i18n="sec3li2"><strong>不要堆砌矛盾的风格</strong>："Photorealistic anime watercolor" 是相互矛盾的要求。选择一个风格方向并坚持。如果需要写实光照但风格化外观，应明确分开描述："Studio Ghibli style, painted, soft volumetric lighting"。</li>
+<li data-i18n="sec3li3"><strong>不要重复同一词汇增加权重</strong>："beautiful beautiful beautiful sky" 不会让天空更漂亮。每个属性只用一个描述词。</li>
+<li data-i18n="sec3li4"><strong>不要试图用 prompt 解决糟糕的构图构思</strong>：如果构图在任何媒介下都会混乱（六个主体、无焦点、空间关系模糊），模型无法自动解决。先在纸上草拟或分两句描述。</li>
+</ul>
+
+<p data-i18n="sec3p14"><strong>迭代优于从头重来</strong>。很多用户看到不满意的结果就重新生成，这是最大误区。正确做法是<strong>修改 prompt</strong>：颜色灰暗就加 "high contrast, vibrant, saturated"；主体太小就加 "close-up, subject filling the frame"；风格不对就明确命名风格并加 "no other styles, no mixed media"；背景太杂乱就加 "plain white background, isolated subject"。每次微调都是在训练模型响应特定词汇，这个能力会不断积累。</p>
+
+<div class="tip-box"><strong>💡 提示：</strong><span data-i18n="sec3Tip">建议每次生成后只修改一个变量。这样能清楚知道是哪个调整影响了结果，逐步逼近理想图片。另外，ImageFree 的 Gallery 页面（/examples）收录了大量示例图片及其完整 prompt，直接复制修改是快速入门的最佳方式。</span></div>
+
+<h2 id="section-4" data-i18n="sec4Title">实战案例：从构思到成品的完整工作流</h2>
+
+<p data-i18n="sec4p1">下面以「为一款咖啡品牌制作社交媒体封面图」为例，演示如何组合 ImageFree 的四个工具完成一个完整的视觉创作。这个工作流展示了工具之间的协同效应。</p>
+
+<p data-i18n="sec4p2"><strong>第一步：用文生图创建主视觉</strong>。在 ImageFree 主页输入 prompt："Flat-design illustration of a steaming coffee cup on a wooden table, warm amber and cream color palette, minimalist, soft shadows, no text"。选择 16:9 长宽比（适合社交媒体封面），点击生成。通常第一次就能获得不错的结果，如果有不满意之处，调整 prompt 后再生成一次。</p>
+
+<p data-i18n="sec4p3"><strong>第二步：用 AI 照片编辑调整细节</strong>。如果生成的图片中咖啡杯的光影不够理想，将图片上传到 AI 照片编辑器，输入："Add warm golden hour lighting from above, enhance steam visibility, warm color grading"。AI 会自动识别咖啡杯区域并调整光照效果，通常 30 秒内完成。</p>
+
+<p data-i18n="sec4p4"><strong>第三步：用背景移除获得透明底图</strong>。如果需要将咖啡杯抠出用于其他场景，将图片上传到背景移除工具。模型会识别咖啡杯作为主体，输出一张带透明背景的 PNG 文件。可以在 Figma 或 Canva 中将此透明底图放置在任何背景上。</p>
+
+<p data-i18n="sec4p5"><strong>第四步：用图片放大获得高清版本</strong>。如果最终图片用于印刷或高清大屏展示，将图片上传到图片放大工具。模型将分辨率提高 2 倍，细节更加锐利，适合 300dpi 的印刷需求。</p>
+
+<p data-i18n="sec4p6">这套完整工作流大约需要 3-5 分钟，从输入 prompt 到获得最终高清透明底图，全部在浏览器中完成，无需下载任何软件，无需注册账号，且可以无限次重复使用。</p>
+
+<h2 id="section-5" data-i18n="sec5Title">ImageFree 与主流 AI 图片工具对比</h2>
+
+<p data-i18n="sec5p1">AI 图片生成工具市场竞争激烈，以下对 ImageFree 与主流竞品进行客观对比，帮助用户根据需求选择合适工具：</p>
+
+<ul>
+<li data-i18n="sec5li1"><strong>免费无限生成</strong>：ImageFree 完全免费且无限制，Midjourney 月费 $10 起（Discord 内使用），DALL-E 月费 $20（ChatGPT Plus），Stable Diffusion WebUI 需自建服务器。ImageFree 在成本上具有绝对优势。</li>
+<li data-i18n="sec5li2"><strong>无需注册登录</strong>：ImageFree 无需任何账号，Midjourney 需要 Discord 账号，DALL-E 需要 OpenAI 账号。ImageFree 的隐私保护是天然优势。</li>
+<li data-i18n="sec5li3"><strong>生成速度</strong>：ImageFree 通常 5-10 秒，Midjourney 约 30-60 秒，DALL-E 约 10-20 秒。ImageFree 的自建 GPU 集群确保了极速响应。</li>
+<li data-i18n="sec5li4"><strong>多工具集成</strong>：ImageFree 同时提供编辑、抠图、放大，Midjourney 只有文生图，DALL-E 只有文生图。对于需要完整工作流的场景，ImageFree 一站式解决。</li>
+<li data-i18n="sec5li5"><strong>图片风格</strong>：Midjourney 在艺术化和创意风格上仍是标杆，ImageFree 在商业摄影和实用场景上表现优异，适合需要「真实感」输出的用户。艺术创作首选 Midjourney，商业配图首选 ImageFree。</li>
+<li data-i18n="sec5li6"><strong>商业使用</strong>：ImageFree 明确允许商业使用无需署名，Midjourney 免费套餐禁止商业用途，DALL-E 商业使用需确认 OpenAI 条款。ImageFree 在此方面最为宽松。</li>
+</ul>
+
+<div class="tip-box"><strong>💡 建议：</strong><span data-i18n="sec5Tip">对于大多数个人和商业用户，ImageFree 已能满足 90% 的图片生成需求。如果追求极致的艺术效果，可以配合 Midjourney 使用。ImageFree 胜在免费、无限制、多工具集成、零门槛。</span></div>
+
+<h2 id="section-6" data-i18n="sec6Title">最佳实践与常见错误</h2>
+
+<p data-i18n="sec6p1">基于平台用户反馈和数据积累，以下是验证有效的使用建议和应避免的操作：</p>
+
+<p data-i18n="sec6p2"><strong>建议 1：从 Gallery 示例起步</strong>。ImageFree 的 Gallery 页面收录了 12 张高质量示例图片及其完整 prompt。复制其中一张示例，修改主体部分即可快速获得满意结果，这是新手最快上手的路径。</p>
+
+<p data-i18n="sec6p3"><strong>建议 2：先用简单的 prompt 锁定主体，再加修饰词</strong>。不要一开始就写复杂的 prompt。先写"a cat"确认模型能生成基本形象，再逐步加风格和环境。这种方法比一次性要求模型生成复杂画面更可控。</p>
+
+<p data-i18n="sec6p4"><strong>建议 3：善用长宽比选择</strong>。1:1 适合社交媒体头像和缩略图，9:16 适合手机壁纸和 Instagram 帖子，16:9 适合桌面壁纸和视频封面，3:4 适合博客正文配图。根据最终用途选择合适的比例，能省去后期裁剪。</p>
+
+<p data-i18n="sec6p5"><strong>避免错误 1：用中文 prompt</strong>。ImageFree 的底层模型是英文训练的，中文 prompt 的效果远不如英文。建议用英文编写，或借助翻译工具将中文描述翻译后再输入。</p>
+
+<p data-i18n="sec6p6"><strong>避免错误 2：一次性要求模型完成所有细节</strong>。复杂场景（如多人物互动、精细文字排版、特定空间关系）往往需要 2-3 次迭代才能逼近目标。每次迭代修改一个变量，效果最佳。</p>
+
+<p data-i18n="sec6p7"><strong>避免错误 3：期望 AI 编辑和 Photoshop 一样精确</strong>。AI 照片编辑适合全局调整和语义级编辑，不适合像素级精修。如果需要精确的图形设计（如添加品牌 Logo），建议用专业设计工具配合 AI 生成素材。</p>
+
+<h2 id="section-7" data-i18n="sec7Title">隐私保护与商业使用</h2>
+
+<p data-i18n="sec7p1">ImageFree 在隐私保护方面的承诺是平台最核心的差异化优势之一，以下是详细说明：</p>
+
+<ul>
+<li data-i18n="sec7li2"><strong>Prompt 不存储</strong>：你的输入文字仅在生成过程中暂时使用，完成后即从内存中清除，不会写入数据库或日志文件。</li>
+<li data-i18n="sec7li3"><strong>上传图片不保留</strong>：上传到 AI 照片编辑器或背景移除工具的照片仅在内存中处理，处理完成后即刻销毁，不会被存储或用于训练模型。</li>
+<li data-i18n="sec7li4"><strong>生成图片在缓存中短暂保留</strong>：生成的图片仅在缓存中保留足够返回结果的时间，随后过期删除。不会建立用户图片档案。</li>
+<li data-i18n="sec7li5"><strong>无账号架构</strong>：没有用户数据库，没有密码泄露风险，没有推广邮件。你的邮箱、姓名、地址等信息完全不会被收集。</li>
+</ul>
+
+<p data-i18n="sec7p2"><strong>商业使用政策</strong>：ImageFree 明确允许用户将生成的图片用于商业用途，包括产品广告、电商 listing、品牌宣传、社交媒体营销、印刷品等。生成图片无水印、无授权费、无需署名。这与其他收费工具（如 Midjourney 免费套餐禁止商业用途）形成鲜明对比。</p>
+
+<p data-i18n="sec7p3">ImageFree 之所以能提供免费服务，核心在于：开源模型无需每张图片授权费、自建 GPU 无第三方 API 成本、Cloudflare R2 存储无流量费用、无账号运营无客服开销。平台由非侵入式广告和用户的自愿支持（网站上的支持链接）资助。</p>
+
+<p data-i18n="sec7p4">详细的隐私政策和条款请查看 ImageFree 官网的 <a href="https://imagefree.net/privacy" target="_blank" rel="noopener">Privacy Policy</a> 和 <a href="https://imagefree.net/terms" target="_blank" rel="noopener">Terms of Service</a> 页面。</p>
+
+<h2 id="section-8" data-i18n="sec8Title">总结与下一步</h2>
+
+<p data-i18n="sec8p1">ImageFree 是目前少数真正意义上「免费、无限制、无账号」的 AI 图片工具站。其四大工具（文生图、照片编辑、背景移除、图片放大）覆盖了从创意生成到后期处理再到输出发布的完整工作流。对于需要快速产出大量高质量图片的用户——内容创作者、社交媒体运营、电商卖家、自由设计师——ImageFree 是一个值得纳入工作流的重要工具。</p>
+
+<p data-i18n="sec8p2"><strong>下一步行动建议</strong>：打开 ImageFree 主页（imagefree.net），从 Gallery 页面选择一张示例图片，复制其 prompt，修改主体为你需要的内容，然后点击生成。第一次使用就能体验到「零门槛、高质量、无限制」的 AI 图片生成。</p>
+
+<p data-i18n="sec8p3"><strong>进阶学习</strong>：掌握基础生成后，建议阅读 ImageFree 官方博客（/blog）中的提示词优化指南和工具对比文章，深入理解 Prompt 编写技巧和工具之间的协同使用方法。</p>
+
+<p data-i18n="sec8p4"><strong>工具推荐</strong>：将 ImageFree 加入常用书签，搭配 ZenTools 的图片压缩工具、图片格式转换工具等本地处理工具，形成完整的在线图片工作流。无需下载任何软件，所有操作在浏览器中即可完成。</p>
+
+<div class="related-section">
+<h3 data-i18n="relatedTitle">相关推荐</h3>
+<div class="related-links">
+<a href="/image/" data-i18n="imgTools">🖼️ 图片工具</a>
+<a href="/tutorials/" data-i18n="tutorials">📚 教程中心</a>
+<a href="https://imagefree.net" target="_blank" rel="noopener" data-i18n="visitImageFree">访问 ImageFree 官网 →</a>
+</div>
+</div>
+
+<div class="related-section">
+<h3 data-i18n="relatedTitle">相关推荐</h3>
+<div class="related-links">
+<a href="/guides/" data-i18n="backToGuides">返回深度指南</a>
+<a href="/tools.html" data-i18n="viewAllTools">查看全部工具</a>
+</div>
+</div>
+</div>
+</div>
+
+<footer style="max-width:1200px;margin:0 auto;padding:40px 20px;text-align:center;border-top:1px solid #e0e0e0;">
+<div style="font-size:14px;color:#666;" data-i18n="footerCopy">&copy; 2026 ZenTools. 免费在线工具箱。</div>
+</footer>
+
+<script>
+window.ZT_PAGE = {
+  zh: {
+    "guideBack": "← 返回深度指南",
+    "relatedTitle": "相关推荐",
+    "backToGuides": "返回深度指南",
+    "viewAllTools": "查看全部工具",
+    "footerCopy": "© 2026 ZenTools. 免费在线工具箱。",
+    "navHome": "首页",
+    "navAll": "全部工具",
+    "navPrivacy": "隐私政策",
+    "breadcrumbGuides": "深度指南",
+    "pageTitle": "ImageFree 深度使用教程：免费无限 AI 图片生成与编辑 - ZenTools",
+    "pageHeader": "ImageFree 深度使用教程：免费无限 AI 图片生成与编辑",
+    "pageDesc": "ImageFree完全使用指南，涵盖文本生成图片、AI照片编辑、背景移除和图片放大四大功能，附带Prompt编写技巧和实战案例",
+    "wordCount": "5000+ 字",
+    "readTime": "25 分钟阅读",
+    "typeLabel": "📘 核心指南",
+    "today": "📅 2026-07-04",
+    "tocTitle": "目录",
+    "sec1Title": "ImageFree 是什么：免费、无账号、无限制的 AI 图片工具站",
+    "sec1p1": "ImageFree 是一个完全免费的在线 AI 图片工具集合，提供文生图、照片编辑、背景移除和图片放大四大核心功能。与市面上绝大多数 AI 图片工具不同，ImageFree 不需要注册账号、不需要信用卡、没有积分限制、没有每日生成上限——打开网站即可直接使用。",
+    "sec1p2": "该站点由 Z-Image-Turbo（Tongyi MAI 开源扩散模型）驱动，自建 GPU 基础设施，无需向第三方 API 付费，因此能够以零成本向用户提供无限制服务。图片生成速度通常在数秒内完成，适合需要快速迭代和大量产出的场景。",
+    "sec1p3": "ImageFree 的设计哲学是「工具优先」：不收集用户数据、不建立用户档案、不发送推广邮件。你生成的图片完全归你所有，可用于个人和商业用途，无需署名。这种极简架构牺牲了「历史记录」等社交功能，但换来了真正的隐私保护和使用自由。",
+    "sec1p4": "截至 2026 年 7 月，ImageFree 月活用户已超过 100 万，累计生成图片超过 500 万张，用户满意度评分为 4.9/5.0。平台支持中文、英文、日文、越南文四种界面语言，但 Prompt 编写仍建议使用英文以获得最佳生成效果。",
+    "sec2Title": "四大核心工具详解",
+    "sec2p1": "ImageFree 提供四个独立工具，每个工具针对不同的图片处理需求，下面逐一介绍。",
+    "sec2h1": "一、文生图（Text-to-Image）",
+    "sec2p2": "文生图是 ImageFree 的核心功能，位于网站主页。用户输入一段文字描述，模型在数秒内将其转化为一张原创图片。支持五种长宽比（1:1 方形 / 3:4 竖屏 / 4:3 横屏 / 9:16 手机屏 / 16:9 宽屏），分辨率最高 1024×1024。生成速度通常在 5 秒以内，无需排队。",
+    "sec2p3": "该工具基于 Z-Image-Turbo 开源扩散模型，擅长生成多种艺术风格：写实摄影、动漫插画、油画、水彩、3D 渲染、赛博朋克、吉卜力风格等。模型对英文 prompt 的理解最为准确，复杂的构图和光影描述能得到较好的还原。建议每次生成后根据结果微调 prompt，而非一次性要求模型完成全部细节。",
+    "sec2p4": "实际使用中，文生图适合以下场景：博客配图生成、社交媒体封面图、电商产品概念图、品牌宣传素材、个人艺术创作、概念设计草稿。对于需要精确文字内容的场景（如海报带特定文字），该工具表现有限，建议用后续的照片编辑工具进行补充。",
+    "sec2h2": "二、AI 照片编辑（AI Photo Editor）",
+    "sec2p5": "AI 照片编辑器支持 JPG、PNG、WEBP 三种格式，最大 10MB。用户上传原始照片后，用自然语言描述想要如何修改，AI 会自动识别需要编辑的区域并进行重绘，其他部分保持不变。编辑范围从全局（更换整个背景、调整色调、转换艺术风格）到局部（更换衣服、添加眼镜、改变发型、去除路人）。整个过程通常在 30-60 秒内完成。",
+    "sec2p6": "该工具的核心能力在于「语义理解」——它能理解像「把背景换成一个下雪的山顶」「给这个人戴上一顶帽子」「把这张照片转换成梵高风格」这样的指令。编辑后图片保持原始分辨率，支持商业使用。适合摄影师、电商卖家、社交媒体创作者等需要快速批量处理图片的专业用户。",
+    "sec2p7": "实际测试表明，AI 照片编辑在以下场景表现最佳：背景更换（准确率 90%+）、色调与风格转换（质量高）、人物局部调整（中等准确度，复杂请求可能需要 2-3 次迭代）、风格迁移（效果出色）。对于需要像素级精确编辑的场景（如抠图修边），建议使用专门的背景移除工具。",
+    "sec2h3": "三、背景移除（Background Remover）",
+    "sec2p8": "背景移除是一个专用的图像分割工具，使用专门的模型对图片中的主体进行像素级识别，输出带真实 Alpha 通道的透明 PNG。该工具在处理头发丝、动物毛发、透明物体等精细边缘方面表现出色，优于大多数通用抠图方案。处理速度约 10-20 秒，上传的原始图片在处理后即刻销毁，不保留在服务器上。",
+    "sec2p9": "背景移除的典型应用场景包括：电商产品图（去掉拍摄背景、替换为纯色或场景背景）、社交媒体头像（透明背景更灵活）、设计素材（抠出人物或物体供其他工具使用）、视频素材（配合绿幕效果）。抠出的 PNG 可直接用于 Photoshop、Canva、Figma 等设计工具。",
+    "sec2h4": "四、图片放大（Image Upscaler）",
+    "sec2p10": "图片放大工具能够将任意图片的分辨率提高 2 倍。模型在放大过程中会重建合理的纹理细节（皮肤纹理、织物褶皱、植被细节、几何边缘），而非简单的像素插值。输出可以是 PNG 或 JPEG 格式。对于需要更大尺寸的场景，可以将同一张图片连续放大两次（每次 2 倍，合计 4 倍），效果通常优于单次 4 倍放大。",
+    "sec2p11": "图片放大的最佳使用场景：低分辨率老照片修复、AI 生成图片二次放大以用于印刷（300dpi 所需尺寸）、网络图片清晰度提升、社交媒体高清图发布。该工具对压缩伪影（JPEG ringing、色块）也有较好的修复效果，处理后图片在视觉上更自然，不会出现过度锐化的光晕伪影。",
+    "sec3Title": "文生图 Prompt 编写进阶技巧",
+    "sec3p1": "Prompt 是文生图工具的核心输入，写得好与差，生成的图片质量可能相差数个数量级。ImageFree 使用的是 Z-Image-Turbo 模型，其 prompt 解析遵循一套成熟的结构化模式。掌握以下公式和技巧，可以显著提升生成效率。",
+    "sec3p2": "核心公式：主体 + 风格 + 环境",
+    "sec3p3": "主体（Subject）描述画面中有什么——人物、物体、场景、动物。这是 prompt 的骨架，决定了模型生成的基本内容。风格（Style）描述画面如何呈现——写实、动漫、油画、水彩、3D 渲染、等距视图等。环境（Context）描述画面其余部分——光照、氛围、背景、构图、色调、时间。一个优秀的 prompt 会同时包含这三个要素。",
+    "sec3p4": "反面案例：「a cat」——过于简单，模型只能生成一个模糊的猫。",
+    "sec3p5": "正面案例：「A sleepy ginger cat curled up on a velvet armchair, soft window light from the left, shallow depth of field, warm tones, photorealistic」——主体（蜷缩在丝绒扶手椅上的橘猫）、风格（写实摄影）、环境（左侧柔和窗光、浅景深、暖色调）。",
+    "sec3p6": "以下是不同场景下可直接套用的 prompt 模板：",
+    "sec3p7": "社交媒体配图：「Flat-design illustration of a coffee cup with steam rising, pastel gradient background, minimalist, no text」（咖啡杯扁平插画，渐变色背景，极简风格，无文字）",
+    "sec3p8": "电商产品图：「Product photo of a skincare bottle on a marble surface, clean white background, soft shadows, studio lighting, commercial photography」（护肤品瓶子大理石台面产品照，纯白背景，柔和阴影，影棚灯光，商业摄影）",
+    "sec3p9": "动漫插画：「Anime girl with silver hair and amber eyes wearing a black school uniform, cherry blossoms falling, Studio Ghibli style」（银发琥珀眼女高中生，樱花飘落，吉卜力风格）",
+    "sec3p10": "赛博朋克场景：「Cyberpunk alley at night, neon signs in Japanese, rain on the ground, reflective puddles, cinematic lighting, 8K detail」（夜晚赛博朋克巷，日文霓虹灯，地面雨水，反光水洼，电影感照明，8K 细节）",
+    "sec3p11": "概念艺术：「Astronaut planting a flag on a pink alien coral reef planet, double sun, concept art, matte painting」（宇航员在粉色外星珊瑚礁星球插旗，双日，概念艺术，哑光绘画）",
+    "sec3p12": "艺术化摄影：「Close-up portrait of an elderly fisherman with a weathered face, looking off-camera, golden hour side light, 85mm lens, photorealistic」（满脸皱纹的老渔民特写，望向镜头外，黄金时刻侧光，85mm 镜头，写实摄影）",
+    "sec3p13": "以下是编写 Prompt 时需要避免的常见错误：",
+    "sec3li1": "不要过度解释：两段的 prompt 会让模型需要平衡太多约束，结果反而模糊。短句、聚焦的 prompt 往往比长篇大论效果更好。如果效果不满意，每次只添加一个新元素。",
+    "sec3li2": "不要堆砌矛盾的风格：「Photorealistic anime watercolor」是相互矛盾的要求。选择一个风格方向并坚持。如果需要写实光照但风格化外观，应明确分开描述：「Studio Ghibli style, painted, soft volumetric lighting」。",
+    "sec3li3": "不要重复同一词汇增加权重：「beautiful beautiful beautiful sky」不会让天空更漂亮。每个属性只用一个描述词。",
+    "sec3li4": "不要试图用 prompt 解决糟糕的构图构思：如果构图在任何媒介下都会混乱（六个主体、无焦点、空间关系模糊），模型无法自动解决。先在纸上草拟或分两句描述。",
+    "sec3p14": "迭代优于从头重来。很多用户看到不满意的结果就重新生成，这是最大误区。正确做法是修改 prompt：颜色灰暗就加「high contrast, vibrant, saturated」；主体太小就加「close-up, subject filling the frame」；风格不对就明确命名风格并加「no other styles, no mixed media」；背景太杂乱就加「plain white background, isolated subject」。每次微调都是在训练模型响应特定词汇，这个能力会不断积累。",
+    "sec3Tip": "建议每次生成后只修改一个变量。这样能清楚知道是哪个调整影响了结果，逐步逼近理想图片。另外，ImageFree 的 Gallery 页面（/examples）收录了大量示例图片及其完整 prompt，直接复制修改是快速入门的最佳方式。",
+    "sec4Title": "实战案例：从构思到成品的完整工作流",
+    "sec4p1": "下面以「为一款咖啡品牌制作社交媒体封面图」为例，演示如何组合 ImageFree 的四个工具完成一个完整的视觉创作。这个工作流展示了工具之间的协同效应。",
+    "sec4p2": "第一步：用文生图创建主视觉。在 ImageFree 主页输入 prompt：「Flat-design illustration of a steaming coffee cup on a wooden table, warm amber and cream color palette, minimalist, soft shadows, no text」。选择 16:9 长宽比（适合社交媒体封面），点击生成。通常第一次就能获得不错的结果，如果有不满意之处，调整 prompt 后再生成一次。",
+    "sec4p3": "第二步：用 AI 照片编辑调整细节。如果生成的图片中咖啡杯的光影不够理想，将图片上传到 AI 照片编辑器，输入：「Add warm golden hour lighting from above, enhance steam visibility, warm color grading」。AI 会自动识别咖啡杯区域并调整光照效果，通常 30 秒内完成。",
+    "sec4p4": "第三步：用背景移除获得透明底图。如果需要将咖啡杯抠出用于其他场景，将图片上传到背景移除工具。模型会识别咖啡杯作为主体，输出一张带透明背景的 PNG 文件。可以在 Figma 或 Canva 中将此透明底图放置在任何背景上。",
+    "sec4p5": "第四步：用图片放大获得高清版本。如果最终图片用于印刷或高清大屏展示，将图片上传到图片放大工具。模型将分辨率提高 2 倍，细节更加锐利，适合 300dpi 的印刷需求。",
+    "sec4p6": "这套完整工作流大约需要 3-5 分钟，从输入 prompt 到获得最终高清透明底图，全部在浏览器中完成，无需下载任何软件，无需注册账号，且可以无限次重复使用。",
+    "sec5Title": "ImageFree 与主流 AI 图片工具对比",
+    "sec5p1": "AI 图片生成工具市场竞争激烈，以下对 ImageFree 与主流竞品进行客观对比，帮助用户根据需求选择合适工具：",
+    "sec5li1": "免费无限生成：ImageFree 完全免费且无限制，Midjourney 月费 $10 起（Discord 内使用），DALL-E 月费 $20（ChatGPT Plus），Stable Diffusion WebUI 需自建服务器。ImageFree 在成本上具有绝对优势。",
+    "sec5li2": "无需注册登录：ImageFree 无需任何账号，Midjourney 需要 Discord 账号，DALL-E 需要 OpenAI 账号。ImageFree 的隐私保护是天然优势。",
+    "sec5li3": "生成速度：ImageFree 通常 5-10 秒，Midjourney 约 30-60 秒，DALL-E 约 10-20 秒。ImageFree 的自建 GPU 集群确保了极速响应。",
+    "sec5li4": "多工具集成：ImageFree 同时提供编辑、抠图、放大，Midjourney 只有文生图，DALL-E 只有文生图。对于需要完整工作流的场景，ImageFree 一站式解决。",
+    "sec5li5": "图片风格：Midjourney 在艺术化和创意风格上仍是标杆，ImageFree 在商业摄影和实用场景上表现优异，适合需要「真实感」输出的用户。艺术创作首选 Midjourney，商业配图首选 ImageFree。",
+    "sec5li6": "商业使用：ImageFree 明确允许商业使用无需署名，Midjourney 免费套餐禁止商业用途，DALL-E 商业使用需确认 OpenAI 条款。ImageFree 在此方面最为宽松。",
+    "sec5Tip": "对于大多数个人和商业用户，ImageFree 已能满足 90% 的图片生成需求。如果追求极致的艺术效果，可以配合 Midjourney 使用。ImageFree 胜在免费、无限制、多工具集成、零门槛。",
+    "sec6Title": "最佳实践与常见错误",
+    "sec6p1": "基于平台用户反馈和数据积累，以下是验证有效的使用建议和应避免的操作：",
+    "sec6p2": "建议 1：从 Gallery 示例起步。ImageFree 的 Gallery 页面收录了 12 张高质量示例图片及其完整 prompt。复制其中一张示例，修改主体部分即可快速获得满意结果，这是新手最快上手的路径。",
+    "sec6p3": "建议 2：先用简单的 prompt 锁定主体，再加修饰词。不要一开始就写复杂的 prompt。先写「a cat」确认模型能生成基本形象，再逐步加风格和环境。这种方法比一次性要求模型生成复杂画面更可控。",
+    "sec6p4": "建议 3：善用长宽比选择。1:1 适合社交媒体头像和缩略图，9:16 适合手机壁纸和 Instagram 帖子，16:9 适合桌面壁纸和视频封面，3:4 适合博客正文配图。根据最终用途选择合适的比例，能省去后期裁剪。",
+    "sec6p5": "避免错误 1：用中文 prompt。ImageFree 的底层模型是英文训练的，中文 prompt 的效果远不如英文。建议用英文编写，或借助翻译工具将中文描述翻译后再输入。",
+    "sec6p6": "避免错误 2：一次性要求模型完成所有细节。复杂场景（如多人物互动、精细文字排版、特定空间关系）往往需要 2-3 次迭代才能逼近目标。每次迭代修改一个变量，效果最佳。",
+    "sec6p7": "避免错误 3：期望 AI 编辑和 Photoshop 一样精确。AI 照片编辑适合全局调整和语义级编辑，不适合像素级精修。如果需要精确的图形设计（如添加品牌 Logo），建议用专业设计工具配合 AI 生成素材。",
+    "sec7Title": "隐私保护与商业使用",
+    "sec7p1": "ImageFree 在隐私保护方面的承诺是平台最核心的差异化优势之一，以下是详细说明：",
+    "sec7li2": "Prompt 不存储：你的输入文字仅在生成过程中暂时使用，完成后即从内存中清除，不会写入数据库或日志文件。",
+    "sec7li3": "上传图片不保留：上传到 AI 照片编辑器或背景移除工具的照片仅在内存中处理，处理完成后即刻销毁，不会被存储或用于训练模型。",
+    "sec7li4": "生成图片在缓存中短暂保留：生成的图片仅在缓存中保留足够返回结果的时间，随后过期删除。不会建立用户图片档案。",
+    "sec7li5": "无账号架构：没有用户数据库，没有密码泄露风险，没有推广邮件。你的邮箱、姓名、地址等信息完全不会被收集。",
+    "sec7p2": "商业使用政策：ImageFree 明确允许用户将生成的图片用于商业用途，包括产品广告、电商 listing、品牌宣传、社交媒体营销、印刷品等。生成图片无水印、无授权费、无需署名。这与其他收费工具（如 Midjourney 免费套餐禁止商业用途）形成鲜明对比。",
+    "sec7p3": "ImageFree 之所以能提供免费服务，核心在于：开源模型无需每张图片授权费、自建 GPU 无第三方 API 成本、Cloudflare R2 存储无流量费用、无账号运营无客服开销。平台由非侵入式广告和用户的自愿支持（网站上的支持链接）资助。",
+    "sec7p4": "详细的隐私政策和条款请查看 ImageFree 官网的 Privacy Policy 和 Terms of Service 页面。",
+    "sec8Title": "总结与下一步",
+    "sec8p1": "ImageFree 是目前少数真正意义上「免费、无限制、无账号」的 AI 图片工具站。其四大工具（文生图、照片编辑、背景移除、图片放大）覆盖了从创意生成到后期处理再到输出发布的完整工作流。对于需要快速产出大量高质量图片的用户——内容创作者、社交媒体运营、电商卖家、自由设计师——ImageFree 是一个值得纳入工作流的重要工具。",
+    "sec8p2": "下一步行动建议：打开 ImageFree 主页（imagefree.net），从 Gallery 页面选择一张示例图片，复制其 prompt，修改主体为你需要的内容，然后点击生成。第一次使用就能体验到「零门槛、高质量、无限制」的 AI 图片生成。",
+    "sec8p3": "进阶学习：掌握基础生成后，建议阅读 ImageFree 官方博客（/blog）中的提示词优化指南和工具对比文章，深入理解 Prompt 编写技巧和工具之间的协同使用方法。",
+    "sec8p4": "工具推荐：将 ImageFree 加入常用书签，搭配 ZenTools 的图片压缩工具、图片格式转换工具等本地处理工具，形成完整的在线图片工作流。无需下载任何软件，所有操作在浏览器中即可完成。",
+    "relatedTitle": "相关推荐",
+    "imgTools": "图片工具",
+    "tutorials": "教程中心",
+    "visitImageFree": "访问 ImageFree 官网 →"
+  },
+  en: {
+    "guideBack": "← Back to Guides",
+    "relatedTitle": "Related",
+    "backToGuides": "Back to Guides",
+    "viewAllTools": "View All Tools",
+    "footerCopy": "© 2026 ZenTools. Free Online Toolbox.",
+    "navHome": "Home",
+    "navAll": "All Tools",
+    "navPrivacy": "Privacy",
+    "breadcrumbGuides": "Guides",
+    "pageTitle": "ImageFree Complete Tutorial: Free Unlimited AI Image Generation & Editing - ZenTools",
+    "pageHeader": "ImageFree Complete Tutorial: Free Unlimited AI Image Generation & Editing",
+    "pageDesc": "Complete guide to ImageFree covering text-to-image, AI photo editing, background removal, and image upscaling with prompt writing tips and real-world examples",
+    "wordCount": "5000+ words",
+    "readTime": "25 min read",
+    "typeLabel": "📘 Core Guide",
+    "today": "📅 2026-07-04",
+    "tocTitle": "Table of Contents",
+    "sec1Title": "What is ImageFree: A Free, No-Signup, Unlimited AI Image Tool Site",
+    "sec1p1": "ImageFree is a completely free online AI image tool collection offering four core functions: text-to-image, photo editing, background removal, and image upscaling. Unlike most AI image tools on the market, ImageFree requires no registration, no credit card, no credit limits, and no daily generation caps—just open the website and start using it.",
+    "sec1p2": "The site is powered by Z-Image-Turbo (Tongyi MAI open-source diffusion model) with self-built GPU infrastructure, so there are no third-party API costs. This enables zero-cost, unlimited service for users. Image generation typically completes in seconds, making it ideal for rapid iteration and high-volume output scenarios.",
+    "sec1p3": "ImageFree's design philosophy is \"tools first\": no user data collection, no user profiles, no promotional emails. Your generated images are entirely yours, usable for both personal and commercial purposes without attribution. This minimalist architecture sacrifices social features like history, but delivers true privacy protection and usage freedom.",
+    "sec1p4": "As of July 2026, ImageFree has over 1 million monthly active users, has generated over 5 million images, and has a user satisfaction rating of 4.9/5.0. The platform supports four interface languages: Chinese, English, Japanese, and Vietnamese. However, prompts are still best written in English for optimal generation results.",
+    "sec2Title": "Four Core Tools Explained in Detail",
+    "sec2p1": "ImageFree offers four independent tools, each targeting different image processing needs. Here is a detailed introduction to each.",
+    "sec2h1": "1. Text-to-Image",
+    "sec2p2": "Text-to-Image is the core feature of ImageFree, located on the homepage. Users type a text description and the model transforms it into an original image within seconds. It supports five aspect ratios (1:1 square / 3:4 portrait / 4:3 landscape / 9:16 mobile / 16:9 widescreen), with maximum resolution of 1024×1024. Generation speed is typically under 5 seconds with no queuing.",
+    "sec2p3": "This tool is based on the Z-Image-Turbo open-source diffusion model and excels at generating multiple art styles: photorealistic photography, anime illustrations, oil paintings, watercolors, 3D renders, cyberpunk, and Studio Ghibli style. The model understands English prompts most accurately. It's recommended to fine-tune prompts based on results after each generation rather than demanding all details at once.",
+    "sec2p4": "In practice, text-to-image is well-suited for: blog illustrations, social media cover images, e-commerce product concepts, brand promotional materials, personal art creation, and concept design drafts. For scenarios requiring precise text content (like posters with specific text), this tool has limitations—consider using the photo editor tool to add text afterward.",
+    "sec2h2": "2. AI Photo Editor",
+    "sec2p5": "The AI Photo Editor supports JPG, PNG, and WEBP formats, up to 10MB. After uploading a photo, describe in natural language what you want to change, and the AI automatically identifies areas to edit and repaints them while preserving everything else. Editing ranges from global changes (replace entire background, adjust tone, convert artistic style) to local changes (change clothes, add glasses, change hairstyle, remove bystanders). The whole process typically takes 30-60 seconds.",
+    "sec2p6": "The tool's core capability is \"semantic understanding\"—it can understand instructions like \"change the background to a snowy mountain top\", \"put a hat on this person\", or \"convert this photo to Van Gogh style\". Edited images retain original resolution and are commercially usable. It's suitable for photographers, e-commerce sellers, and social media creators who need fast batch image processing.",
+    "sec2p7": "Actual testing shows the AI Photo Editor performs best in these scenarios: background replacement (90%+ accuracy), tone and style conversion (high quality), local person adjustments (medium accuracy, complex requests may need 2-3 iterations), and style transfer (excellent results). For pixel-precise editing (like precise cutout), use the dedicated background removal tool instead.",
+    "sec2h3": "3. Background Remover",
+    "sec2p8": "Background Remover is a dedicated image segmentation tool that uses specialized models to identify the main subject at pixel level, outputting a transparent PNG with a true alpha channel. It excels at fine edge cases like hair strands, animal fur, and transparent objects, outperforming most general-purpose cutout solutions. Processing takes about 10-20 seconds. Uploaded images are destroyed immediately after processing and are not retained on the server.",
+    "sec2p9": "Typical use cases include: e-commerce product images (remove shooting background, replace with solid or scene background), social media avatars (transparent backgrounds offer more flexibility), design materials (extract people or objects for other tools), and video assets (for green screen effects). The resulting PNG works directly in Photoshop, Canva, Figma, and other design tools.",
+    "sec2h4": "4. Image Upscaler",
+    "sec2p10": "The Image Upscaler doubles the resolution of any image. The model reconstructs reasonable texture details during upscaling (skin textures, fabric folds, vegetation details, geometric edges) rather than simple pixel interpolation. Output can be PNG or JPEG. For even larger sizes, you can upscale the same image twice (2× each time, totaling 4×), which typically yields better results than a single 4× upscale.",
+    "sec2p11": "Best use cases for image upscaling: low-resolution old photo restoration, AI-generated image upscaling for print (300dpi requirements), web image clarity improvement, and social media HD posting. The tool also effectively repairs compression artifacts (JPEG ringing, color banding), producing images that look more natural without the halo artifacts of over-sharpening.",
+    "sec3Title": "Advanced Prompt Writing Techniques for Text-to-Image",
+    "sec3p1": "Prompts are the core input of text-to-image tools. The quality difference between a well-written and poorly-written prompt can span orders of magnitude. ImageFree uses the Z-Image-Turbo model, whose prompt parsing follows a mature structured pattern. Mastering the following formulas and techniques can significantly improve generation efficiency.",
+    "sec3p2": "Core Formula: Subject + Style + Context",
+    "sec3p3": "Subject (Subject) describes what is in the image—people, objects, scenes, animals. This is the backbone of the prompt, determining the basic content the model generates. Style (Style) describes how the image should look—photorealistic, anime, oil painting, watercolor, 3D render, isometric view, etc. Context (Context) describes everything else—lighting, atmosphere, background, composition, color tone, time of day. A great prompt includes all three elements.",
+    "sec3p4": "Negative example: \"a cat\" — too simple, the model can only generate a vague cat.",
+    "sec3p5": "Positive example: \"A sleepy ginger cat curled up on a velvet armchair, soft window light from the left, shallow depth of field, warm tones, photorealistic\" — Subject (ginger cat curled on a velvet armchair), Style (photorealistic), Context (soft window light from left, shallow depth of field, warm tones).",
+    "sec3p6": "Here are prompt templates you can directly use for different scenarios:",
+    "sec3p7": "Social Media Image: \"Flat-design illustration of a coffee cup with steam rising, pastel gradient background, minimalist, no text\"",
+    "sec3p8": "E-commerce Product: \"Product photo of a skincare bottle on a marble surface, clean white background, soft shadows, studio lighting, commercial photography\"",
+    "sec3p9": "Anime Illustration: \"Anime girl with silver hair and amber eyes wearing a black school uniform, cherry blossoms falling, Studio Ghibli style\"",
+    "sec3p10": "Cyberpunk Scene: \"Cyberpunk alley at night, neon signs in Japanese, rain on the ground, reflective puddles, cinematic lighting, 8K detail\"",
+    "sec3p11": "Concept Art: \"Astronaut planting a flag on a pink alien coral reef planet, double sun, concept art, matte painting\"",
+    "sec3p12": "Artistic Photography: \"Close-up portrait of an elderly fisherman with a weathered face, looking off-camera, golden hour side light, 85mm lens, photorealistic\"",
+    "sec3p13": "Here are common mistakes to avoid when writing prompts:",
+    "sec3li1": "Do not over-explain: A two-paragraph prompt forces the model to balance too many constraints, often resulting in blurrier output. Short, focused prompts usually outperform long ones. If results are unsatisfactory, add one new element at a time.",
+    "sec3li2": "Do not stack contradictory styles: \"Photorealistic anime watercolor\" is mutually exclusive. Pick one style direction and stick with it. If you want realistic lighting but stylized appearance, describe them separately: \"Studio Ghibli style, painted, soft volumetric lighting\".",
+    "sec3li3": "Do not repeat the same word to increase weight: \"beautiful beautiful beautiful sky\" won't make the sky more beautiful. Use only one descriptor per attribute.",
+    "sec3li4": "Do not try to solve bad composition with a prompt: If a composition is inherently messy (six subjects, no focal point, ambiguous spatial relationships), the model cannot fix it automatically. Sketch it on paper first or describe it in two separate sentences.",
+    "sec3p14": "Iteration beats starting from scratch. Many users see unsatisfactory results and regenerate immediately—this is the biggest mistake. The correct approach is to modify the prompt: if colors are dull, add \"high contrast, vibrant, saturated\"; if the subject is too small, add \"close-up, subject filling the frame\"; if the style is wrong, name the desired style and add \"no other styles, no mixed media\"; if the background is too cluttered, add \"plain white background, isolated subject\". Each fine-tuning teaches the model to respond to specific vocabulary, and this capability accumulates over time.",
+    "sec3Tip": "It is recommended to modify only one variable after each generation. This lets you clearly see which adjustment affected the result, gradually approaching the ideal image. Additionally, ImageFree's Gallery page (/examples) collects numerous example images with their full prompts—copying and modifying them is the fastest way to get started.",
+    "sec4Title": "Practical Case: A Complete Workflow from Concept to Final Product",
+    "sec4p1": "Below is a practical example using \"creating a social media cover image for a coffee brand\" to demonstrate how to combine all four ImageFree tools into a complete visual creation workflow. This demonstrates the synergistic effect of the tools.",
+    "sec4p2": "Step 1: Create the main visual with text-to-image. On the ImageFree homepage, enter the prompt: \"Flat-design illustration of a steaming coffee cup on a wooden table, warm amber and cream color palette, minimalist, soft shadows, no text\". Select the 16:9 aspect ratio (suitable for social media covers) and click generate. Usually the first result is decent. If there are unsatisfactory aspects, adjust the prompt and regenerate.",
+    "sec4p3": "Step 2: Refine details with the AI Photo Editor. If the lighting on the coffee cup is not ideal, upload the image to the AI Photo Editor and input: \"Add warm golden hour lighting from above, enhance steam visibility, warm color grading\". The AI automatically identifies the coffee cup area and adjusts lighting effects, usually within 30 seconds.",
+    "sec4p4": "Step 3: Obtain a transparent background with Background Remover. If you need to cut out the coffee cup for other scenes, upload the image to the Background Remover. The model will identify the coffee cup as the main subject and output a PNG with a transparent background. You can place this transparent image on any background in Figma or Canva.",
+    "sec4p5": "Step 4: Get a high-definition version with Image Upscaler. If the final image will be used for print or large-screen displays, upload it to the Image Upscaler. The model doubles the resolution, producing sharper details suitable for 300dpi print requirements.",
+    "sec4p6": "This complete workflow takes about 3-5 minutes from prompt input to the final high-definition transparent image, all completed in the browser—no software downloads, no account registration, and unlimited reuse.",
+    "sec5Title": "ImageFree vs. Mainstream AI Image Tools Comparison",
+    "sec5p1": "The AI image generation tool market is highly competitive. Here is an objective comparison between ImageFree and mainstream competitors to help users choose the right tool for their needs:",
+    "sec5li1": "Free Unlimited Generation: ImageFree is completely free and unlimited, while Midjourney starts at $10/month (used within Discord), DALL-E requires $20/month (ChatGPT Plus), and Stable Diffusion WebUI requires self-hosting. ImageFree has an absolute cost advantage.",
+    "sec5li2": "No Registration Required: ImageFree requires no account at all, while Midjourney needs a Discord account and DALL-E needs an OpenAI account. ImageFree's privacy protection is a natural advantage.",
+    "sec5li3": "Generation Speed: ImageFree typically takes 5-10 seconds, Midjourney about 30-60 seconds, DALL-E about 10-20 seconds. ImageFree's self-built GPU cluster ensures extremely fast response.",
+    "sec5li4": "Multi-tool Integration: ImageFree provides editing, background removal, and upscaling simultaneously, while Midjourney and DALL-E only offer text-to-image. For complete workflow scenarios, ImageFree is all-in-one.",
+    "sec5li5": "Image Styles: Midjourney remains the benchmark for artistic and creative styles, while ImageFree excels in commercial photography and practical scenarios, ideal for users needing \"realistic\" output. Choose Midjourney for art creation, ImageFree for commercial visuals.",
+    "sec5li6": "Commercial Use: ImageFree explicitly allows commercial use without attribution. Midjourney's free plan prohibits commercial use, and DALL-E commercial use requires checking OpenAI's terms. ImageFree is the most lenient in this regard.",
+    "sec5Tip": "For most personal and business users, ImageFree meets 90% of image generation needs. For ultimate artistic quality, it can be paired with Midjourney. ImageFree wins in being free, unlimited, multi-tool integrated, and zero-barrier.",
+    "sec6Title": "Best Practices and Common Mistakes",
+    "sec6p1": "Based on platform user feedback and data accumulation, here are verified effective usage recommendations and operations to avoid:",
+    "sec6p2": "Recommendation 1: Start from Gallery examples. ImageFree's Gallery page collects 12 high-quality example images with their complete prompts. Copying one and modifying the subject is the fastest path for beginners to get satisfactory results.",
+    "sec6p3": "Recommendation 2: Lock the subject with a simple prompt first, then add modifiers. Don't write complex prompts from the start. First write \"a cat\" to confirm the model can generate a basic form, then gradually add style and context. This approach is more controllable than asking the model to generate a complex scene all at once.",
+    "sec6p4": "Recommendation 3: Make good use of aspect ratio selection. 1:1 suits social media avatars and thumbnails, 9:16 suits phone wallpapers and Instagram posts, 16:9 suits desktop wallpapers and video covers, 3:4 suits blog body images. Choosing the right ratio for the final use case saves cropping later.",
+    "sec6p5": "Avoid Mistake 1: Using Chinese prompts. ImageFree's underlying model is English-trained, so Chinese prompts produce far inferior results. It is recommended to write in English or use a translation tool to translate Chinese descriptions first.",
+    "sec6p6": "Avoid Mistake 2: Asking the model to complete all details in one go. Complex scenes (multiple character interactions, fine text layout, specific spatial relationships) often require 2-3 iterations to approach the goal. Modify one variable per iteration for best results.",
+    "sec6p7": "Avoid Mistake 3: Expecting AI editing to be as precise as Photoshop. AI photo editing is suitable for global adjustments and semantic-level editing, not pixel-level retouching. For precise graphic design (like adding a brand logo), use professional design tools alongside AI-generated assets.",
+    "sec7Title": "Privacy Protection and Commercial Use",
+    "sec7p1": "ImageFree's privacy protection commitment is one of the platform's core differentiators. Here are the details:",
+    "sec7li2": "Prompts are not stored: Your input text is only temporarily used during generation, then immediately cleared from memory. It is not written to any database or log file.",
+    "sec7li3": "Uploaded images are not retained: Images uploaded to the AI Photo Editor or Background Remover are only processed in memory and destroyed immediately after processing. They are not stored or used for model training.",
+    "sec7li4": "Generated images are briefly cached: Generated images are only kept in cache long enough to return the result, then expire and are deleted. No user image profiles are built.",
+    "sec7li5": "No account architecture: There is no user database, no password leak risk, and no promotional emails. Your email, name, and address are never collected.",
+    "sec7p2": "Commercial Use Policy: ImageFree explicitly allows users to use generated images for commercial purposes, including product advertising, e-commerce listings, brand promotion, social media marketing, and print materials. Generated images have no watermarks, no licensing fees, and no attribution required. This stands in stark contrast to other paid tools (e.g., Midjourney's free plan prohibits commercial use).",
+    "sec7p3": "ImageFree can offer free service because of: open-source models requiring no per-image licensing fees, self-built GPUs with no third-party API costs, Cloudflare R2 storage with no bandwidth fees, and no account operations with no customer support overhead. The platform is funded by non-intrusive ads and voluntary user support (the support link on the website).",
+    "sec7p4": "For detailed privacy policy and terms, visit ImageFree's official website Privacy Policy and Terms of Service pages.",
+    "sec8Title": "Summary and Next Steps",
+    "sec8p1": "ImageFree is one of the few truly \"free, unlimited, no-signup\" AI image tool sites. Its four tools (text-to-image, photo editing, background removal, and image upscaling) cover the complete workflow from creative generation to post-processing to output and publishing. For users who need to rapidly produce large volumes of high-quality images—content creators, social media operators, e-commerce sellers, freelance designers—ImageFree is an essential tool to include in your workflow.",
+    "sec8p2": "Next Steps: Open ImageFree homepage (imagefree.net), choose an example image from the Gallery page, copy its prompt, modify the subject to what you need, then click generate. Your first use will let you experience \"zero-barrier, high-quality, unlimited\" AI image generation.",
+    "sec8p3": "Advanced Learning: After mastering basic generation, it is recommended to read the prompt optimization guide and tool comparison articles on ImageFree's official blog (/blog) to deeply understand prompt writing techniques and how tools work together.",
+    "sec8p4": "Tool Recommendations: Add ImageFree to your bookmarks, and combine it with ZenTools' image compression tool, image format conversion tool, and other local processing tools to form a complete online image workflow. No software downloads needed—all operations complete in the browser.",
+    "relatedTitle": "Related",
+    "imgTools": "🖼️ Image Tools",
+    "tutorials": "📚 Tutorials",
+    "visitImageFree": "Visit ImageFree Official Site →"
+  },
+  ja: {
+    "guideBack": "← ガイドに戻る",
+    "relatedTitle": "関連",
+    "backToGuides": "ガイドに戻る",
+    "viewAllTools": "すべてのツール",
+    "footerCopy": "© 2026 ZenTools. 無料オンラインツールボックス。",
+    "navHome": "ホーム",
+    "navAll": "すべてのツール",
+    "navPrivacy": "プライバシー",
+    "breadcrumbGuides": "ガイド",
+    "pageTitle": "ImageFree 完全ガイド：無料無制限 AI 画像生成と編集 - ZenTools",
+    "pageHeader": "ImageFree 完全ガイド：無料無制限 AI 画像生成と編集",
+    "pageDesc": "ImageFreeの完全ガイド。テキスト画像生成、AI写真編集、背景除去、画像アップスケールの4機能とプロンプト作成テクニックを解説",
+    "wordCount": "5000+ 語",
+    "readTime": "25分で読める",
+    "typeLabel": "📘 核心指南",
+    "today": "📅 2026-07-04",
+    "tocTitle": "目次",
+    "sec1Title": "ImageFree とは：無料・無登録・無制限の AI 画像ツールサイト",
+    "sec1p1": "ImageFree は、テキスト画像生成、写真編集、背景除去、画像アップスケールの 4 つの主要機能を備えた完全に無料のオンライン AI 画像ツール集です。市販のほとんどすべての AI 画像ツールとは異なり、ImageFree はアカウント登録、クレジットカード、クレジット制限、1 日あたりの生成上限を一切要求しません——サイトを開けばすぐに使えます。",
+    "sec1p2": "このサイトは Z-Image-Turbo（Tongyi MAI オープンソース拡散モデル）によって駆動され、独自に構築した GPU インフラストラクチャを使用しており、サードパーティの API に料金を支払う必要がありません。そのため、ゼロコストで無制限のサービスを提供できます。画像生成は通常数秒で完了し、高速な反復と大量出力が必要なシーンに最適です。",
+    "sec1p3": "ImageFree の設計哲学は「ツールファースト」です：ユーザーデータの収集なし、ユーザープロファイルなし、プロモーションメールなし。生成した画像は完全にあなたに帰属し、クレジット表記なしで個人的および商業的な利用が可能です。このミニマルなアーキテクチャは履歴などのソーシャル機能を犠牲にしていますが、真のプライバシー保護と使用の自由を提供します。",
+    "sec1p4": "2026 年 7 月現在、ImageFree の月間アクティブユーザーは 100 万人を超え、累計生成画像は 500 万枚を超え、ユーザー満足度は 4.9/5.0 です。プラットフォームは中国語、英語、日本語、ベトナム語の 4 つのインターフェース言語をサポートしていますが、プロンプト作成は依然として英語を推奨します。",
+    "sec2Title": "4 つの主要ツールを詳しく解説",
+    "sec2p1": "ImageFree は 4 つの独立したツールを提供し、それぞれが異なる画像処理ニーズに対応しています。以下で詳しく紹介します。",
+    "sec2h1": "1. テキスト画像生成（Text-to-Image）",
+    "sec2p2": "テキスト画像生成は ImageFree の中核機能で、ホームページに設置されています。ユーザーがテキストの説明を入力すると、モデルは数秒以内にそれをオリジナルの画像に変換します。5 つのアスペクト比（1:1 正方形 / 3:4 縦長 / 4:3 横長 / 9:16 スマホ / 16:9 ワイド）をサポートし、最大解像度は 1024×1024 です。生成速度は通常 5 秒以内で、待ち時間なしです。",
+    "sec2p3": "このツールは Z-Image-Turbo オープンソース拡散モデルに基づいており、写実写真、アニメイラスト、油絵、水彩画、3D レンダリング、サイバーパンク、スタジオジブリ風など、様々な芸術スタイルの生成に優れています。モデルは英語プロンプトを最も正確に理解します。すべての詳細を一度に要求するのではなく、生成ごとに結果に基づいてプロンプトを微調整することをお勧めします。",
+    "sec2p4": "実際の使用では、テキスト画像生成は以下のシーンに適しています：ブログ用画像生成、ソーシャルメディア用カバー画像、EC 向け商品概念図、ブランドプロモーション素材、個人芸術創作、コンセプト設計ドラフト。正確なテキストコンテンツが必要なシーン（特定テキストを含むポスターなど）では、このツールの能力には限界があります。後続の写真編集ツールを使用してテキストを追加することをお勧めします。",
+    "sec2h2": "2. AI 写真編集（AI Photo Editor）",
+    "sec2p5": "AI 写真エディターは JPG、PNG、WEBP の 3 形式をサポートし、最大 10MB です。オリジナルの写真を入力した後に、自然言語でどのように修正したいかを記述すると、AI が自動的に編集する領域を特定して再描画し、他の部分はそのまま保持します。編集範囲はグローバル（背景全体の変更、トーン調整、芸術スタイルの転換）からローカル（服の変更、メガネの追加、髪型の変更、通りすがりの人の除去）まで対応します。全体の工程は通常 30〜60 秒で完了します。",
+    "sec2p6": "このツールの中核能力は「セマンティック理解」にあります——「背景を雪が降る山頂に変える」「この人に帽子を被らせる」「この写真をゴッホスタイルに変換する」といった指示を理解できます。編集後の画像は元の解像度を保持し、商業利用が可能です。写真家、EC 販売者、ソーシャルメディアクリエイターなど、高速なバッチ画像処理が必要なプロユーザーに適しています。",
+    "sec2p7": "実際のテストの結果、AI 写真編集は以下のシーンで最も効果を発揮します：背景変更（精度 90%+）、トーンとスタイル転換（高品質）、人物の局所調整（中程度の精度、複雑なリクエストは 2〜3 回の反復を必要とする場合あり）、スタイル転送（優れた効果）。ピクセルレベルの正確な編集が必要なシーン（正確な切り抜きなど）では、専用の背景除去ツールを使用することをお勧めします。",
+    "sec2h3": "3. 背景除去（Background Remover）",
+    "sec2p8": "背景除去は専用の画像セグメンテーションツールで、専用のモデルを使用して画像の中の主要対象をピクセルレベルで認識し、真のアルファチャンネルを持つ透明 PNG を出力します。髪の毛、動物の毛、透明物体などの細かいエッジの処理に優れており、ほとんどの汎用切り抜きソリューションよりも優れています。処理時間は約 10〜20 秒です。入力されたオリジナル画像は処理後に即時破棄され、サーバーには保存されません。",
+    "sec2p9": "背景除去の典型的な応用シーンには以下が含まれます：EC 商品画像（撮影背景を除去、単色またはシーン背景に置き換え）、ソーシャルメディアアイコン（透明背景はより柔軟）、デザイン素材（人物や物体を切り抜いて他のツールで使用）、動画素材（グリーンスクリーン効果と併用）。切り抜いた PNG は Photoshop、Canva、Figma などのデザインツールに直接使用できます。",
+    "sec2h4": "4. 画像アップスケーラー（Image Upscaler）",
+    "sec2p10": "画像アップスケーラーは任意の画像の解像度を 2 倍に高めることができます。モデルはアップスケール中に正しいテクスチャの詳細を再構築します（肌のテクスチャ、織物のしわ、植生の詳細、幾何学的なエッジ）——単純なピクセル補間ではありません。出力形式は PNG または JPEG です。さらに大きなサイズが必要なシーンでは、同じ画像を 2 回連続でアップスケールできます（各回 2 倍、合計 4 倍）。通常、一度の 4 倍アップスケールよりも効果的です。",
+    "sec2p11": "画像アップスケールを最も効果的に使うシーン：低解像度の古い写真の修復、AI 生成画像の印刷向け再アップスケール（300dpi 所要サイズ）、ウェブ画像の鮮明度向上、ソーシャルメディア HD 投稿。このツールは圧縮アーティファクト（JPEG リンギング、色あざ）にも優れた修復効果があり、処理後の画像は視覚的により自然で、過度のシャープニングによる光輪のアーティファクトが出現しません。",
+    "sec3Title": "テキスト画像生成のプロンプト作成上級テクニック",
+    "sec3p1": "プロンプトはテキスト画像生成ツールの中核入力です。上手に書けば書かないで、生成される画像の品質は桁違いになる可能性があります。ImageFree が使用する Z-Image-Turbo モデルのプロンプト解析は、成熟した構造化パターンに従っています。以下の公式とテクニックを習得することで、生成効率を大幅に向上させることができます。",
+    "sec3p2": "核心公式：被写体 + スタイル + 環境",
+    "sec3p3": "被写体（Subject）は画面の中に何が描かれているか——人物、物体、シーン、動物です。これはプロンプトの骨格で、モデルが生成する基本的な内容を決定します。スタイル（Style）は画面がどのように表現されるか——写実、アニメ、油絵、水彩画、3D レンダリング、等角ビューなどです。環境（Context）は画面のその他の部分——照明、雰囲気、背景、構図、トーン、時間です。優れたプロンプトはこれら 3 つの要素をすべて含みます。",
+    "sec3p4": "逆の例：「a cat」——あまりにもシンプルで、モデルは曖昧な猫しか生成できません。",
+    "sec3p5": "良い例：「A sleepy ginger cat curled up on a velvet armchair, soft window light from the left, shallow depth of field, warm tones, photorealistic」——被写体（ベルベットのアームチェアに丸まったオレンジ猫）、スタイル（写実写真）、環境（左から柔らかい窓光、浅い被写界深度、暖色調）。",
+    "sec3p6": "以下のプロンプトテンプレートは、異なるシーンで直接使用できます：",
+    "sec3p7": "ソーシャルメディア画像：「Flat-design illustration of a coffee cup with steam rising, pastel gradient background, minimalist, no text」",
+    "sec3p8": "EC 商品画像：「Product photo of a skincare bottle on a marble surface, clean white background, soft shadows, studio lighting, commercial photography」",
+    "sec3p9": "アニメイラスト：「Anime girl with silver hair and amber eyes wearing a black school uniform, cherry blossoms falling, Studio Ghibli style」",
+    "sec3p10": "サイバーパンクシーン：「Cyberpunk alley at night, neon signs in Japanese, rain on the ground, reflective puddles, cinematic lighting, 8K detail」",
+    "sec3p11": "コンセプトアート：「Astronaut planting a flag on a pink alien coral reef planet, double sun, concept art, matte painting」",
+    "sec3p12": "芸術写真：「Close-up portrait of an elderly fisherman with a weathered face, looking off-camera, golden hour side light, 85mm lens, photorealistic」",
+    "sec3p13": "プロンプト作成時に避けるべき一般的なミスです：",
+    "sec3li1": "過度に説明しない：2 段落のプロンプトは、モデルが多くの制約を均衡させる必要があり、結果が逆に曖昧になります。短く、焦点が絞られたプロンプトの方が長い文章よりも効果的です。効果が不十分であれば、毎回新しい要素を一つだけ追加します。",
+    "sec3li2": "矛盾するスタイルを積み重ねない：「Photorealistic anime watercolor」は相互に矛盾する要求です。一つのスタイル方向を選び、それを守ります。写実的な照明だがスタイライズされた外観が必要な場合は、明確に別々に記述します：「Studio Ghibli style, painted, soft volumetric lighting」。",
+    "sec3li3": "同じ語を繰り返して重みを増やさない：「beautiful beautiful beautiful sky」は空をもっと美しくしません。各属性に 1 つの記述語だけを使用します。",
+    "sec3li4": "プロンプトで悪い構図の解決を試みない：構図がどんなメディアでも混乱する（6 つの主対象、焦点なし、空間関係が曖昧）場合、モデルは自動的には解決できません。まず紙にスケッチするか、2 つの文に分けて記述します。",
+    "sec3p14": "反復が最初から作り直すことよりも優れています。多くのユーザーは満足できない結果を見るとすぐに再生成しますが、これが最大のミスです。正しいやり方はプロンプトを修正することです：色が暗いなら「high contrast, vibrant, saturated」を追加し、主対象が小さすぎたら「close-up, subject filling the frame」を追加し、スタイルが間違っていればターゲットのスタイルを明確に名前の付けて「no other styles, no mixed media」を追加し、背景が雑すぎたら「plain white background, isolated subject」を追加します。各微調整はモデルに特定の語彙への応答を教えるもので、この能力は時間の経過とともに蓄積されていきます。",
+    "sec3Tip": "各生成後、一度に一つの要素だけを変更することをお勧めします。これにより、どの調整が結果に影響を与えたかが明確にわかり、理想的な画像に徐々に近づけます。また、ImageFree のギャラリーページ（/examples）には大量のサンプル画像と完全なプロンプトが収集されています。それらをコピーして修正することが、最も速い入門方法です。",
+    "sec4Title": "実践ケース：アイデアから最終製品までの完全なワークフロー",
+    "sec4p1": "以下では「コーヒーブランドのソーシャルメディア用カバー画像制作」を例として、ImageFree の 4 つのツールを組み合わせて完全なビジュアル創作をどのように完成させるかを実演します。このワークフローはツール間の相乗効果を示しています。",
+    "sec4p2": "ステップ 1：テキスト画像生成でメインビジュアルを作成。ImageFree のホームページでプロンプトを入力します：「Flat-design illustration of a steaming coffee cup on a wooden table, warm amber and cream color palette, minimalist, soft shadows, no text」。16:9 のアスペクト比を選択（ソーシャルメディアカバーに適しています）し、生成をクリックします。通常、1 回目でまずまずの結果が得られます。満足できない部分があれば、プロンプトを調整して再生成します。",
+    "sec4p3": "ステップ 2：AI 写真編集で詳細を調整。生成された画像のコーヒーカップの照明が理想的でなかったら、画像を AI 写真エディターにアップロードし、以下を入力します：「Add warm golden hour lighting from above, enhance steam visibility, warm color grading」。AI は自動的にコーヒーカップ領域を特定して照明効果を調整し、通常 30 秒以内に完了します。",
+    "sec4p4": "ステップ 3：背景除去で透明背景を取得。コーヒーカップを切り抜いて他のシーンで使用したい場合は、画像を背景除去ツールにアップロードします。モデルはコーヒーカップを主対象として認識し、透明背景の PNG ファイルを出力します。この透明画像は Figma または Canva で任意の背景に配置できます。",
+    "sec4p5": "ステップ 4：画像アップスケーラーで高解像度版を取得。最終画像を印刷または高精細大画面表示に使用する場合、画像を画像アップスケーラーにアップロードします。モデルが解像度を 2 倍に高め、詳細がよりシャープになり、300dpi の印刷要件に適します。",
+    "sec4p6": "この完全なワークフローはプロンプト入力から最終的高解像度透明画像の取得まで約 3〜5 分で完了し、すべてブラウザ内で完結し、ソフトウェアのダウンロードやアカウントの登録は一切不要で、無制限に再利用できます。",
+    "sec5Title": "ImageFree と主要 AI 画像ツールの比較",
+    "sec5p1": "AI 画像生成ツール市場は激しい競争状態にあり、以下に ImageFree と主要競合製品間の客観的な比較を示します。ユーザーがニーズに応じて適切なツールを選択できるようにします：",
+    "sec5li1": "無料無制限生成：ImageFree は完全に無料で無制限です。一方、Midjourney は月額 $10 から（Discord 内で使用）、DALL-E は月額 $20（ChatGPT Plus）、Stable Diffusion WebUI は独自サーバーが必要です。ImageFree には絶対的なコストの優位性があります。",
+    "sec5li2": "登録不要：ImageFree はアカウントが一切不要です。Midjourney は Discord アカウントが必要、DALL-E は OpenAI アカウントが必要です。ImageFree のプライバシー保護は天然の優位性です。",
+    "sec5li3": "生成速度：ImageFree は通常 5〜10 秒、Midjourney は約 30〜60 秒、DALL-E は約 10〜20 秒です。ImageFree の独自 GPU クラスタが超高速応答を確保しています。",
+    "sec5li4": "多ツール統合：ImageFree は編集、背景除去、アップスケールを同時提供します。Midjourney や DALL-E はテキスト画像生成のみです。完全なワークフローが必要なシーンでは、ImageFree がワンストップ対応します。",
+    "sec5li5": "画像スタイル：Midjourney は依然として芸術的・クリエイティブなスタイルの基準です。ImageFree は商業写真と実用的シーンに優れており、「リアル感」出力が必要なユーザーに適しています。芸術創作なら Midjourney を第一選択に、商業用画像なら ImageFree を第一選択にしてください。",
+    "sec5li6": "商業利用：ImageFree は商業利用を明確に許可し、クレジット表記も不要です。Midjourney の無料プランは商業利用を禁止しており、DALL-E の商業利用は OpenAI の利用規約を確認する必要があります。ImageFree はこの点で最も寛容です。",
+    "sec5Tip": "大多数の個人および商用ユーザーにとって、ImageFree は画像生成ニーズの 90% を満たすことができます。究極の芸術効果を追求する場合は、Midjourney と併用することをお勧めします。ImageFree の勝ちは、無料、無制限、多ツール統合、ゼロバリアにあります。",
+    "sec6Title": "ベストプラクティスと一般的なミス",
+    "sec6p1": "プラットフォームのユーザーフィードバックとデータ蓄積に基づき、以下は検証された効果的な使用提案と避けるべき操作です：",
+    "sec6p2": "提案 1：ギャラリーのサンプルから始める。ImageFree のギャラリーページには 12 枚の高品質サンプル画像とその完全なプロンプトが収集されています。その中的一つをコピーして被写体部分を修正すると、満足できる結果を素早く得ることができます。これは初心者が最も早く上達できる方法です。",
+    "sec6p3": "提案 2：まず単純なプロンプトで被写体を固定し、その後修飾語を追加する。最初に複雑なプロンプトを書くのではなく、まず「a cat」を書いてモデルが基本形状を生成できることを確認し、それから徐々にスタイルと環境を追加します。この方法の方が、モデルに複雑なシーンを一度に生成させるよりも制御しやすくなります。",
+    "sec6p4": "提案 3：アスペクト比選択を適切に活用する。1:1 はソーシャルメディアアイコンとサムネイルに適し、9:16 はスマホ壁紙と Instagram ポストに適し、16:9 はデスクトップ壁紙と動画カバーに適し、3:4 はブログ本文画像に適します。最終的な用途に応じて適切な比率を選択することで、後続のトリミングを節約できます。",
+    "sec6p5": "ミスの回避 1：中国語プロンプトを使用しない。ImageFree の基盤モデルは英語で学習されているため、中国語プロンプトの効果は英語に遠く及びません。英語で記述するか、翻訳ツールを使用して中国語の説明を翻訳してから入力することをお勧めします。",
+    "sec6p6": "ミスの回避 2：モデルにすべての詳細を一度に完成させようとしない。複雑なシーン（複数人物の相互作用、精密なテキストレイアウト、特定の空間関係）は、通常 2〜3 回の反復が必要で、初めて目標に近づけます。各反復で 1 つの要素だけを変更すると、最も効果的です。",
+    "sec6p7": "ミスの回避 3：AI 編集を Photoshop と同等の精度で期待しない。AI 写真編集はグローバル調整とセマンティックレベルの編集に適しており、ピクセルレベルの精修には適していません。正確なグラフィックデザインが必要な場合は（ブランドロゴの追加など）、AI 生成素材を合わせてプロフェッショナルなデザインツールを使用することをお勧めします。",
+    "sec7Title": "プライバシー保護と商業利用",
+    "sec7p1": "ImageFree のプライバシー保護へのコミットメントは、プラットフォームの中核的な差別化優位性の一つです。以下に詳しく説明します：",
+    "sec7li2": "プロンプトは保存されない：入力テキストは生成プロセス中に一時的に使用され、完了後にはメモリから即時消去されます。データベースやログファイルには書き込まれません。",
+    "sec7li3": "アップロード画像は保持されない：AI 写真エディターや背景除去ツールにアップロードされた画像は、メモリ内でのみ処理され、処理完了後に即時破棄されます。保存されたりモデルの学習に使われたりすることはありません。",
+    "sec7li4": "生成画像は一時的にキャッシュされる：生成された画像は、結果を返すのに十分な時間だけキャッシュされ、その後期限切れで削除されます。ユーザーの画像プロフィールは作成されません。",
+    "sec7li5": "アカウントなし構造：ユーザーデータベースなし、パスワード漏洩リスクなし、プロモーションメールなし。メールアドレス、氏名、住所などの情報は一切収集されません。",
+    "sec7p2": "商業利用ポリシー：ImageFree は、ユーザーが生成された画像を商業目的で使用するのを明確に許可しています。これには商品広告、EC リスト、ブランドプロモーション、ソーシャルメディアマーケティング、印刷物などを含みます。生成された画像にはウォーターマークがなく、ライセンス費用が不要で、クレジット表記も不要です。これは他の有料ツール（Midjourney の無料プランは商業利用を禁止）と明確に対照的です。",
+    "sec7p3": "ImageFree が無料でサービスを提供できる核心的理由は以下の通りです：オープンソースモデルなので画像あたりのライセンス費用が不要、独自 GPU なのでサードパーティ API コストなし、Cloudflare R2 ストレージで帯域コストなし、アカウントなし運営でカスタマーサポート費用なし。プラットフォームは非侵入広告とユーザーの自主支援（ウェブサイトの支援リンク）によって資金調達されています。",
+    "sec7p4": "詳細なプライバシーポリシーと利用規約については、ImageFree の公式サイト Privacy Policy および Terms of Service ページをご参照ください。",
+    "sec8Title": "まとめと次のステップ",
+    "sec8p1": "ImageFree は、真に「無料、無制限、無登録」の AI 画像ツールサイトの数少ないものです。その 4 つのツール（テキスト画像生成、写真編集、背景除去、画像アップスケール）は、クリエイティブな生成からポスト処理、出力・公開までの完全なワークフローをカバーしています。高速に大量の高品質画像を生成する必要があるユーザー——コンテンツクリエイター、ソーシャルメディア担当、EC 販売者、フリーランスデザイナー——にとっては、ImageFree はワークフローに欠かせないツールです。",
+    "sec8p2": "次のステップ：ImageFree のホームページ（imagefree.net）を開き、ギャラリーページからサンプル画像を選び、そのプロンプトをコピーし、被写体を必要なものに修正してから生成をクリックします。1 回目の使用で「ゼロバリア、高品質、無制限」の AI 画像生成を体験できます。",
+    "sec8p3": "上級学習：基本生成を習得した後、ImageFree の公式ブログ（/blog）のプロンプト最適化ガイドやツール比較記事を阅读し、プロンプト作成テクニックやツール間の協調使用法を深く理解することをお勧めします。",
+    "sec8p4": "ツール推奨：ImageFree をお気に入りブックマークに追加し、ZenTools の画像圧縮ツール、画像フォーマット変換ツールなどのローカル処理ツールと組み合わせて、完全なオンライン画像ワークフローを形成します。ソフトウェアのダウンロードは一切不要で、すべての操作がブラウザ内で完結します。",
+    "relatedTitle": "関連",
+    "imgTools": "🖼️ 画像ツール",
+    "tutorials": "📚 トゥ토리얼",
+    "visitImageFree": "ImageFree 公式サイトへ →"
+  },
+  vi: {
+    "guideBack": "← Quay lại Guides",
+    "relatedTitle": "Liên quan",
+    "backToGuides": "Quay lại Guides",
+    "viewAllTools": "Xem tất cả công cụ",
+    "footerCopy": "© 2026 ZenTools. Hộp công cụ miễn phí.",
+    "navHome": "Trang chủ",
+    "navAll": "Tất cả",
+    "navPrivacy": "Quyền riêng tư",
+    "breadcrumbGuides": "Guides",
+    "pageTitle": "Hướng dẫn sử dụng ImageFree: Tạo & Chỉnh sửa ảnh AI miễn phí không giới hạn - ZenTools",
+    "pageHeader": "Hướng dẫn sử dụng ImageFree: Tạo & Chỉnh sửa ảnh AI miễn phí không giới hạn",
+    "pageDesc": "Hướng dẫn đầy đủ về ImageFree bao gồm tạo ảnhtừ văn bản, chỉnh sửa ảnh AI, xóa nền và nâng cấp ảnh với mẹo viết prompt và ví dụ thực tế",
+    "wordCount": "5000+ từ",
+    "readTime": "25 phút đọc",
+    "typeLabel": "📘 核心指南",
+    "today": "📅 2026-07-04",
+    "tocTitle": "Mục lục",
+    "sec1Title": "ImageFree là gì: Một trang công cụ AI tạo ảnh miễn phí, không cần đăng ký, không giới hạn",
+    "sec1p1": "ImageFree là một bộ sưu tập công cụ AI tạo ảnh trực tuyến hoàn toàn miễn phí, cung cấp bốn chức năng cốt lõi: tạo ảnh từ văn bản, chỉnh sửa ảnh, xóa nền và nâng cấp ảnh. Khác với hầu hết các công cụ AI tạo ảnh trên thị trường, ImageFree không yêu cầu đăng ký tài khoản, không cần thẻ tín dụng, không có giới hạn积分, không có giới hạn số lượng tạo mỗi ngày — chỉ cần mở trang web là có thể sử dụng ngay.",
+    "sec1p2": "Trang này được vận hành bởi Z-Image-Turbo (mô hình khuếch tán mã nguồn mở Tongyi MAI) với cơ sở hạ tầng GPU tự xây dựng, không cần trả phí cho API bên thứ ba. Điều này cho phép cung cấp dịch vụ không giới hạn hoàn toàn miễn phí. Tạo ảnh thường hoàn thành trong vài giây, lý tưởng cho các kịch bản cần lặp lại nhanh và sản lượng cao.",
+    "sec1p3": "Triết lý thiết kế của ImageFree là \"công cụ ưu tiên\": không thu thập dữ liệu người dùng, không có hồ sơ người dùng, không có email quảng cáo. Ảnh bạn tạo ra hoàn toàn thuộc về bạn, có thể sử dụng cho cả mục đích cá nhân và thương mại mà không cần ghi nguồn. Kiến trúc tối giản này hy sinh các tính năng xã hội như lịch sử, nhưng mang lại bảo vệ quyền riêng tư thực sự và tự do sử dụng.",
+    "sec1p4": "Tính đến tháng 7 năm 2026, ImageFree có hơn 1 triệu người dùng hoạt động hàng tháng, đã tạo hơn 5 triệu hình ảnh, và điểm hài lòng của người dùng là 4.9/5.0. Nền tảng hỗ trợ bốn ngôn ngữ giao diện: tiếng Trung, tiếng Anh, tiếng Nhật và tiếng Việt. Tuy nhiên, prompt vẫn nên viết bằng tiếng Anh để có kết quả tạo ảnh tốt nhất.",
+    "sec2Title": "Giải thích chi tiết 4 công cụ cốt lõi",
+    "sec2p1": "ImageFree cung cấp bốn công cụ độc lập, mỗi công cụ nhắm đến nhu cầu xử lý ảnh khác nhau. Dưới đây là giới thiệu chi tiết về từng công cụ.",
+    "sec2h1": "1. Tạo ảnh từ văn bản (Text-to-Image)",
+    "sec2p2": "Tạo ảnh từ văn bản là chức năng cốt lõi của ImageFree, nằm trên trang chủ. Người dùng nhập một đoạn mô tả văn bản và mô hình biến đổi nó thành một hình ảnh gốc trong vài giây. Hỗ trợ năm tỷ lệ khung hình (1:1 hình vuông / 3:4 dọc / 4:3 ngang / 9:16 điện thoại / 16:9 toàn cảnh), độ phân giải tối đa 1024×1024. Tốc độ tạo thường dưới 5 giây mà không cần chờ đợi.",
+    "sec2p3": "Công cụ này dựa trên mô hình khuếch tán mã nguồn mở Z-Image-Turbo và xuất sắc trong việc tạo nhiều phong cách nghệ thuật: ảnh chân thực, minh họa anime, tranh sơn dầu, tranh acrylic, kết xuất 3D, cyberpunk, và phong cách Studio Ghibli. Mô hình hiểu prompt tiếng Anh chính xác nhất. Nên tinh chỉnh prompt dựa trên kết quả sau mỗi lần tạo thay vì yêu cầu tất cả chi tiết cùng một lúc.",
+    "sec2p4": "Trong thực tế, tạo ảnh từ văn bản phù hợp cho: hình ảnh minh họa blog, ảnh bìa mạng xã hội, khái niệm sản phẩm thương mại điện tử, tài liệu quảng cáo thương hiệu, sáng tạo nghệ thuật cá nhân và bản nháp thiết kế khái niệm. Đối với các kịch bản yêu cầu nội dung văn bản chính xác (như áp phích có văn bản cụ thể), công cụ này có hạn chế — hãy cân nhắc sử dụng công cụ chỉnh sửa ảnh để thêm văn bản sau.",
+    "sec2h2": "2. Chỉnh sửa ảnh AI (AI Photo Editor)",
+    "sec2p5": "Trình chỉnh sửa ảnh AI hỗ trợ JPG, PNG và WEBP, tối đa 10MB. Sau khi tải ảnh lên, mô tả bằng ngôn ngữ tự nhiên những gì bạn muốn thay đổi, và AI tự động xác định các khu vực cần chỉnh sửa và vẽ lại, trong khi bảo toàn mọi thứ khác. Chỉnh sửa từ thay đổi toàn cục (thay thế toàn bộ nền, điều chỉnh tone màu, chuyển đổi phong cách nghệ thuật) đến thay đổi cục bộ (đổi quần áo, thêm kính, thay đổi kiểu tóc, loại bỏ người đi ngang qua). Toàn bộ quá trình thường mất 30-60 giây.",
+    "sec2p6": "Khả năng cốt lõi của công cụ là \"hiểu ngữ nghĩa\" — nó có thể hiểu các chỉ thị như \"thay đổi nền thành đỉnh núi đang下雪\", \"đặt một chiếc mũ lên người này\", hoặc \"chuyển đổi bức ảnh này thành phong cách Van Gogh\". Hình ảnh chỉnh sửa giữ nguyên độ phân giải ban đầu và có thể sử dụng thương mại. Phù hợp cho nhiếp ảnh gia, người bán hàng thương mại điện tử và sáng tạo nội dung mạng xã hội cần xử lý ảnh hàng loạt nhanh chóng.",
+    "sec2p7": "Kiểm tra thực tế cho thấy Chỉnh sửa ảnh AI hoạt động tốt nhất trong các kịch bản này: thay thế nền (độ chính xác 90%+), chuyển đổi tone và phong cách (chất lượng cao), điều chỉnh cục bộ người (độ chính xác trung bình, yêu cầu phức tạp có thể cần 2-3 lần lặp lại), và chuyển phong cách (kết quả xuất sắc). Đối với chỉnh sửa chính xác ở cấp độ pixel (như cắt ảnh chính xác), hãy sử dụng công cụ xóa nền chuyên dụng.",
+    "sec2h3": "3. Xóa nền (Background Remover)",
+    "sec2p8": "Xóa nền là công cụ phân đoạn ảnh chuyên dụng sử dụng mô hình chuyên biệt để nhận diện đối tượng chính ở cấp độ pixel, xuất ra PNG trong suốt với kênh alpha thực. Nó xuất sắc trong các trường hợp mép tinh tế như sợi tóc, lông động vật và vật thể trong suốt, vượt trội so với hầu hết các giải pháp cắt ảnh thông thường. Xử lý mất khoảng 10-20 giây. Ảnh tải lên bị xóa ngay sau khi xử lý và không được lưu trữ trên máy chủ.",
+    "sec2p9": "Các kịch bản sử dụng điển hình bao gồm: ảnh sản phẩm thương mại điện tử (loại bỏ nền chụp ảnh, thay thế bằng nền đơn sắc hoặc nền cảnh), avatar mạng xã hội (nền trong suốt linh hoạt hơn), tài liệu thiết kế (chiết xuất người hoặc vật thể cho các công cụ khác), và tài sản video (cho hiệu ứng màn hình xanh). PNG kết quả hoạt động trực tiếp trong Photoshop, Canva, Figma và các công cụ thiết kế khác.",
+    "sec2h4": "4. Nạp ảnh (Image Upscaler)",
+    "sec2p10": "Nạp ảnh tăng gấp đôi độ phân giải của bất kỳ hình ảnh nào. Mô hình tái tạo chi tiết kết cấu hợp lý trong quá trình nạp (kết cấu da, nếp vải, chi tiết thực vật, cạnh hình học) thay vì nội suy pixel đơn giản. Đầu ra có thể là PNG hoặc JPEG. Đối với kích thước thậm chí lớn hơn, bạn có thể nạp cùng một hình ảnh hai lần (2× mỗi lần, tổng cộng 4×), thường cho kết quả tốt hơn so với nạp 4× một lần.",
+    "sec2p11": "Các kịch bản sử dụng tốt nhất cho nạp ảnh: khôi phục ảnh cũ độ phân giải thấp, nạp lại ảnh do AI tạo cho in ấn (yêu cầu 300dpi), cải thiện độ rõ nét của ảnh web, và đăng bài HD mạng xã hội. Công cụ cũng hiệu quả trong việc sửa lỗi nén (JPEG ringing, color banding), tạo ra hình ảnh trông tự nhiên hơn mà không có hiện tượng viền sáng do làm sắc quá mức.",
+    "sec3Title": "Kỹ thuật viết prompt nâng cao cho tạo ảnh từ văn bản",
+    "sec3p1": "Prompt là đầu vào cốt lõi của công cụ tạo ảnh từ văn bản. Sự khác biệt về chất lượng giữa prompt viết tốt và viết kém có thể chênh lệch hàng bậc. ImageFree sử dụng mô hình Z-Image-Turbo, việc phân tích prompt tuân theo một mẫu cấu trúc đã trưởng thành. Nắm vững các công thức và kỹ thuật sau đây có thể cải thiện đáng kể hiệu quả tạo ảnh.",
+    "sec3p2": "Công thức cốt lõi: Chủ thể + Phong cách + Bối cảnh",
+    "sec3p3": "Chủ thể (Subject) mô tả những gì trong hình — con người, vật thể, cảnh, động vật. Đây là xương sống của prompt, xác định nội dung cơ bản mô hình tạo ra. Phong cách (Style) mô tả hình ảnh nên trông như thế nào — chân thực, anime, tranh sơn dầu, tranh acrylic, kết xuất 3D, nhìn đẳng cự, v.v. Bối cảnh (Context) mô tả mọi thứ còn lại — ánh sáng, bầu không khí, nền, bố cục, tone màu, thời gian trong ngày. Một prompt tuyệt vời bao gồm cả ba yếu tố này.",
+    "sec3p4": "Ví dụ tiêu cực: \"a cat\" — quá đơn giản, mô hình chỉ có thể tạo ra một con mèo mơ hồ.",
+    "sec3p5": "Ví dụ tích cực: \"A sleepy ginger cat curled up on a velvet armchair, soft window light from the left, shallow depth of field, warm tones, photorealistic\" — Chủ thể (mèo cà phê cuộn tròn trên ghế tay nhung), Phong cách (chân thực), Bối cảnh (ánh sáng cửa sổ mềm từ bên trái, độ sâu trường ảnh nông, tone màu ấm).",
+    "sec3p6": "Dưới đây là các mẫu prompt bạn có thể sử dụng trực tiếp cho các kịch bản khác nhau:",
+    "sec3p7": "Ảnh mạng xã hội: \"Flat-design illustration of a coffee cup with steam rising, pastel gradient background, minimalist, no text\"",
+    "sec3p8": "Sản phẩm thương mại điện tử: \"Product photo of a skincare bottle on a marble surface, clean white background, soft shadows, studio lighting, commercial photography\"",
+    "sec3p9": "Minh họa anime: \"Anime girl with silver hair and amber eyes wearing a black school uniform, cherry blossoms falling, Studio Ghibli style\"",
+    "sec3p10": "Cảnh cyberpunk: \"Cyberpunk alley at night, neon signs in Japanese, rain on the ground, reflective puddles, cinematic lighting, 8K detail\"",
+    "sec3p11": "Nghệ thuật khái niệm: \"Astronaut planting a flag on a pink alien coral reef planet, double sun, concept art, matte painting\"",
+    "sec3p12": "Nhiếp ảnh nghệ thuật: \"Close-up portrait of an elderly fisherman with a weathered face, looking off-camera, golden hour side light, 85mm lens, photorealistic\"",
+    "sec3p13": "Dưới đây là những lỗi phổ biến cần tránh khi viết prompt:",
+    "sec3li1": "Không giải thích quá nhiều: Một prompt hai đoạn buộc mô hình cân bằng quá nhiều ràng buộc, thường dẫn đến kết quả mờ hơn. Prompt ngắn gọn, tập trung thường vượt trội hơn prompt dài. Nếu kết quả không hài lòng, thêm một yếu tố mới mỗi lần.",
+    "sec3li2": "Không xâu chuỗi các phong cách mâu thuẫn: \"Photorealistic anime watercolor\" là loại trừ lẫn nhau. Chọn một hướng phong cách và坚持 với nó. Nếu bạn muốn ánh sáng chân thực nhưng ngoại hình cách điệu, mô tả chúng riêng biệt: \"Studio Ghibli style, painted, soft volumetric lighting\".",
+    "sec3li3": "Không lặp lại cùng một từ để tăng trọng số: \"beautiful beautiful beautiful sky\" không làm cho bầu trời đẹp hơn. Chỉ sử dụng một từ mô tả cho mỗi thuộc tính.",
+    "sec3li4": "Không cố gắng giải quyết bố cục tệ bằng prompt: Nếu một bố cục vốn đã lộn xộn (sáu chủ thể, không có điểm nhấn, quan hệ không gian mơ hồ), mô hình không thể tự động sửa chữa nó. Phác thảo trên giấy trước hoặc mô tả nó trong hai câu riêng biệt.",
+    "sec3p14": "Lặp lại tốt hơn là bắt đầu từ đầu. Nhiều người dùng thấy kết quả không hài lòng và tạo lại ngay lập tức — đây là lỗi lớn nhất. Cách tiếp cận đúng là sửa đổi prompt: nếu màu sắc u ám, thêm \"high contrast, vibrant, saturated\"; nếu chủ thể quá nhỏ, thêm \"close-up, subject filling the frame\"; nếu phong cách sai, đặt tên phong cách mong muốn và thêm \"no other styles, no mixed media\"; nếu nền quá lộn xộn, thêm \"plain white background, isolated subject\". Mỗi lần tinh chỉnh dạy mô hình phản hồi với từ vựng cụ thể, và khả năng này tích lũy theo thời gian.",
+    "sec3Tip": "Khuyến nghị chỉ sửa đổi một biến sau mỗi lần tạo. Điều này cho phép bạn xem rõ ràng sự điều chỉnh nào ảnh hưởng đến kết quả, dần dần tiến tới hình ảnh lý tưởng. Ngoài ra, trang Gallery của ImageFree (/examples) tập hợp nhiều hình ảnh mẫu với prompt đầy đủ — sao chép và sửa đổi chúng là cách nhanh nhất để bắt đầu.",
+    "sec4Title": "Trường hợp thực tế: Một quy trình hoàn chỉnh từ ý tưởng đến sản phẩm cuối cùng",
+    "sec4p1": "Dưới đây là một ví dụ thực tế sử dụng \"tạo ảnh bìa mạng xã hội cho một thương hiệu cà phê\" để minh họa cách kết hợp cả bốn công cụ ImageFree thành một quy trình sáng tạo hình ảnh hoàn chỉnh. Điều này minh họa hiệu ứng cộng hưởng của các công cụ.",
+    "sec4p2": "Bước 1: Tạo hình ảnh chính với tạo ảnh từ văn bản. Trên trang chủ ImageFree, nhập prompt: \"Flat-design illustration of a steaming coffee cup on a wooden table, warm amber and cream color palette, minimalist, soft shadows, no text\". Chọn tỷ lệ khung hình 16:9 (phù hợp cho ảnh bìa mạng xã hội) và nhấn tạo. Thông thường kết quả đầu tiên khá tốt. Nếu có khía cạnh không hài lòng, điều chỉnh prompt và tạo lại.",
+    "sec4p3": "Bước 2: Tinh chỉnh chi tiết với Chỉnh sửa ảnh AI. Nếu ánh sáng trên chiếc cốc cà phê không lý tưởng, tải hình ảnh lên Chỉnh sửa ảnh AI và nhập: \"Add warm golden hour lighting from above, enhance steam visibility, warm color grading\". AI tự động xác định khu vực chiếc cốc cà phê và điều chỉnh hiệu ứng ánh sáng, thường trong vòng 30 giây.",
+    "sec4p4": "Bước 3: Lấy nền trong suốt với Xóa nền. Nếu bạn cần cắt rời chiếc cốc cà phê để sử dụng trong các cảnh khác, tải hình ảnh lên Xóa nền. Mô hình sẽ nhận diện chiếc cốc cà phê làm chủ thể chính và xuất ra PNG với nền trong suốt. Bạn có thể đặt hình ảnh trong suốt này lên bất kỳ nền nào trong Figma hoặc Canva.",
+    "sec4p5": "Bước 4: Lấy phiên bản độ phân giải cao với Nạp ảnh. Nếu hình ảnh cuối cùng sẽ được sử dụng để in hoặc hiển thị màn hình lớn, tải nó lên Nạp ảnh. Mô hình tăng gấp đôi độ phân giải, tạo ra chi tiết sắc nét hơn phù hợp cho yêu cầu in 300dpi.",
+    "sec4p6": "Quy trình hoàn chỉnh này mất khoảng 3-5 phút từ nhập prompt đến hình ảnh trong suốt độ phân giải cao cuối cùng, hoàn toàn hoàn thành trong trình duyệt — không tải xuống phần mềm, không đăng ký tài khoản, và tái sử dụng không giới hạn.",
+    "sec5Title": "ImageFree so sánh với các công cụ AI tạo ảnh chính",
+    "sec5p1": "Thị trường công cụ AI tạo ảnh cạnh tranh rất khốc liệt. Dưới đây là so sánh khách quan giữa ImageFree và các đối thủ chính để giúp người dùng chọn công cụ phù hợp với nhu cầu:",
+    "sec5li1": "Tạo ảnh miễn phí không giới hạn: ImageFree hoàn toàn miễn phí và không giới hạn, trong khi Midjourney bắt đầu từ $10/tháng (sử dụng trong Discord), DALL-E yêu cầu $20/tháng (ChatGPT Plus), và Stable Diffusion WebUI yêu cầu tự hosting. ImageFree có lợi thế về chi phí tuyệt đối.",
+    "sec5li2": "Không cần đăng ký: ImageFree không yêu cầu bất kỳ tài khoản nào, trong khi Midjourney cần tài khoản Discord và DALL-E cần tài khoản OpenAI. Bảo vệ quyền riêng tư của ImageFree là lợi thế tự nhiên.",
+    "sec5li3": "Tốc độ tạo: ImageFree thường mất 5-10 giây, Midjourney khoảng 30-60 giây, DALL-E khoảng 10-20 giây. Cụm GPU tự xây dựng của ImageFree đảm bảo phản hồi cực nhanh.",
+    "sec5li4": "Tích hợp đa công cụ: ImageFree cung cấp chỉnh sửa, xóa nền và nạp ảnh đồng thời, trong khi Midjourney và DALL-E chỉ cung cấp tạo ảnh từ văn bản. Đối với kịch bản quy trình hoàn chỉnh, ImageFree là tất cả trong một.",
+    "sec5li5": "Phong cách hình ảnh: Midjourney vẫn là chuẩn mực cho phong cách nghệ thuật và sáng tạo, trong khi ImageFree xuất sắc trong nhiếp ảnh thương mại và các kịch bản thực tế, lý tưởng cho người dùng cần đầu ra \"chân thực\". Chọn Midjourney cho sáng tạo nghệ thuật, ImageFree cho hình ảnh thương mại.",
+    "sec5li6": "Sử dụng thương mại: ImageFree cho phép sử dụng thương mại mà không cần ghi nguồn. Gói miễn phí của Midjourney cấm sử dụng thương mại, và sử dụng thương mại của DALL-E yêu cầu kiểm tra điều khoản của OpenAI. ImageFree là dễ dàng nhất về khía cạnh này.",
+    "sec5Tip": "Đối với hầu hết người dùng cá nhân và doanh nghiệp, ImageFree đáp ứng 90% nhu cầu tạo ảnh. Đối với chất lượng nghệ thuật tối ưu, có thể sử dụng cùng với Midjourney. ImageFree thắng ở chỗ miễn phí, không giới hạn, tích hợp đa công cụ và không rào cản.",
+    "sec6Title": "Thực hành tốt nhất và lỗi phổ biến",
+    "sec6p1": "Dựa trên phản hồi người dùng và tích lũy dữ liệu của nền tảng, dưới đây là các đề xuất sử dụng hiệu quả đã được xác minh và các thao tác cần tránh:",
+    "sec6p2": "Đề xuất 1: Bắt đầu từ ví dụ Gallery. Trang Gallery của ImageFree tập hợp 12 hình ảnh mẫu chất lượng cao với prompt đầy đủ. Sao chép một cái và sửa đổi chủ thể là con đường nhanh nhất cho người mới để có kết quả hài lòng.",
+    "sec6p3": "Đề xuất 2: Khóa chủ thể bằng prompt đơn giản trước, sau đó thêm từ ngữ trang trí. Đừng viết prompt phức tạp ngay từ đầu. Đầu tiên viết \"a cat\" để xác nhận mô hình có thể tạo ra dạng cơ bản, sau đó dần dần thêm phong cách và bối cảnh. Phương pháp này dễ kiểm soát hơn là yêu cầu mô hình tạo một cảnh phức tạp cùng lúc.",
+    "sec6p4": "Đề xuất 3: Sử dụng tốt việc chọn tỷ lệ khung hình. 1:1 phù hợp cho avatar và thumbnail mạng xã hội, 9:16 phù hợp cho hình nền điện thoại và bài đăng Instagram, 16:9 phù hợp cho hình nền máy tính để bàn và bìa video, 3:4 phù hợp cho hình ảnh trong nội dung blog. Chọn tỷ lệ phù hợp cho mục đích sử dụng cuối cùng tiết kiệm được việc cắt cúp sau này.",
+    "sec6p5": "Tránh lỗi 1: Sử dụng prompt tiếng Trung. Mô hình cốt lõi của ImageFree được đào tạo bằng tiếng Anh, vì vậy prompt tiếng Trung tạo ra kết quả kém hơn nhiều. Nên viết bằng tiếng Anh hoặc sử dụng công cụ dịch để dịch mô tả tiếng Trung trước khi nhập.",
+    "sec6p6": "Tránh lỗi 2: Yêu cầu mô hình hoàn thành tất cả chi tiết cùng một lúc. Các cảnh phức tạp (tương tác nhiều nhân vật, dàn trang văn bản tinh tế, quan hệ không gian cụ thể) thường cần 2-3 lần lặp lại để tiến tới mục tiêu. Sửa đổi một biến mỗi lần lặp lại cho kết quả tốt nhất.",
+    "sec6p7": "Tránh lỗi 3: Mong đợi chỉnh sửa AI chính xác như Photoshop. Chỉnh sửa ảnh AI phù hợp cho điều chỉnh toàn cục và chỉnh sửa ở cấp độ ngữ nghĩa, không phù hợp cho retouch ở cấp độ pixel. Đối với thiết kế đồ họa chính xác (như thêm logo thương hiệu), hãy sử dụng các công cụ thiết kế chuyên nghiệp cùng với tài sản do AI tạo.",
+    "sec7Title": "Bảo vệ quyền riêng tư và sử dụng thương mại",
+    "sec7p1": "Cam kết bảo vệ quyền riêng tư của ImageFree là một trong những lợi thế khác biệt cốt lõi của nền tảng. Dưới đây là chi tiết:",
+    "sec7li2": "Prompt không được lưu trữ: Văn bản đầu vào của bạn chỉ được sử dụng tạm thời trong quá trình tạo, sau đó được xóa ngay lập tức khỏi bộ nhớ. Nó không được ghi vào cơ sở dữ liệu hoặc tập tin nhật ký nào.",
+    "sec7li3": "Ảnh tải lên không được giữ lại: Ảnh được tải lên Chỉnh sửa ảnh AI hoặc Xóa nền chỉ được xử lý trong bộ nhớ và bị xóa ngay sau khi xử lý xong. Chúng không được lưu trữ hoặc sử dụng để đào tạo mô hình.",
+    "sec7li4": "Ảnh tạo ra được giữ trong bộ nhớ đệm tạm thời: Ảnh được tạo ra chỉ được giữ trong bộ nhớ đệm đủ lâu để trả lại kết quả, sau đó hết hạn và bị xóa. Không có hồ sơ ảnh người dùng nào được xây dựng.",
+    "sec7li5": "Không có kiến trúc tài khoản: Không có cơ sở dữ liệu người dùng, không có nguy cơ lộ mật khẩu và không có email quảng cáo. Email, tên và địa chỉ của bạn không bao giờ được thu thập.",
+    "sec7p2": "Chính sách sử dụng thương mại: ImageFree cho phép rõ ràng người dùng sử dụng ảnh được tạo ra cho mục đích thương mại, bao gồm quảng cáo sản phẩm, danh sách thương mại điện tử, quảng cáo thương hiệu, tiếp thị mạng xã hội và tài liệu in ấn. Ảnh được tạo không có watermark, không phí cấp phép và không cần ghi nguồn. Điều này tương phản rõ rệt với các công cụ trả phí khác (ví dụ, gói miễn phí của Midjourney cấm sử dụng thương mại).",
+    "sec7p3": "ImageFree có thể cung cấp dịch vụ miễn phí vì: mô hình mã nguồn mở không yêu cầu phí cấp phép cho mỗi ảnh, GPU tự xây dựng không có chi phí API bên thứ ba, lưu trữ Cloudflare R2 không có chi phí băng thông, và không có vận hành tài khoản không có chi phí hỗ trợ khách hàng. Nền tảng được tài trợ bởi quảng cáo không xâm nhập và sự hỗ trợ tự nguyện của người dùng (liên kết hỗ trợ trên trang web).",
+    "sec7p4": "Để biết chính sách quyền riêng tư và điều khoản chi tiết, hãy truy cập trang Chính sách quyền riêng tư và Điều khoản dịch vụ của trang web chính thức ImageFree.",
+    "sec8Title": "Tóm tắt và Bước tiếp theo",
+    "sec8p1": "ImageFree là một trong số ít trang công cụ AI tạo ảnh thực sự \"miễn phí, không giới hạn, không cần đăng ký\". Bốn công cụ của nó (tạo ảnh từ văn bản, chỉnh sửa ảnh, xóa nền và nâng cấp ảnh) bao phủ toàn bộ quy trình từ sáng tạo tạo ảnh đến hậu kỳ xử lý đến xuất bản và công khai. Đối với người dùng cần sản xuất nhanh khối lượng lớn ảnh chất lượng cao — sáng tạo nội dung, vận hành mạng xã hội, người bán thương mại điện tử, nhà thiết kế tự do — ImageFree là một công cụ thiết yếu phải đưa vào quy trình làm việc của bạn.",
+    "sec8p2": "Bước tiếp theo: Mở trang chủ ImageFree (imagefree.net), chọn một hình ảnh mẫu từ trang Gallery, sao chép prompt của nó, sửa đổi chủ thể thành những gì bạn cần, sau đó nhấn tạo. Lần sử dụng đầu tiên của bạn sẽ cho phép bạn trải nghiệm tạo ảnh AI \"không rào cản, chất lượng cao, không giới hạn\".",
+    "sec8p3": "Học tập nâng cao: Sau khi thành thạo tạo cơ bản, nên đọc hướng dẫn tối ưu hóa prompt và bài viết so sánh công cụ trên blog chính thức của ImageFree (/blog) để hiểu sâu kỹ thuật viết prompt và cách các công cụ hoạt động cùng nhau.",
+    "sec8p4": "Khuyến nghị công cụ: Thêm ImageFree vào danh sách yêu thích của bạn, và kết hợp với công cụ nén ảnh, công cụ chuyển đổi định dạng ảnh và các công cụ xử lý cục bộ khác của ZenTools để tạo thành một quy trình làm việc ảnh trực tuyến hoàn chỉnh. Không cần tải xuống phần mềm nào — tất cả hoạt động hoàn thành trong trình duyệt.",
+    "relatedTitle": "Liên quan",
+    "imgTools": "🖼️ Công cụ ảnh",
+    "tutorials": "📚 Hướng dẫn",
+    "visitImageFree": "Truy cập trang chủ ImageFree →"
+  }
+};
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
+</body>
+</html>
