@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Pure static HTML5/CSS3/Vanilla JS site (no build tools, no package.json). 410 HTML pages, 279 tools across 13 categories. Deployed via GitHub Pages from main branch root.
+Pure static HTML5/CSS3/Vanilla JS site (no build tools, no package.json). 757 HTML pages (含 358 教程页 + 28 指南页), 279 tools. Deployed via GitHub Pages from main branch root.
 
 ## Quick Commands
 
@@ -34,7 +34,7 @@ python3 -m http.server 8000
 
 ## Architecture
 
-- **Data layer**: `data/tools-data.json` (205KB) drives all tool rendering. Categories define directory structure.
+- **Data layer**: `data/tools-data.json` (~666KB) drives all tool rendering. Categories define directory structure.
 - **i18n system**: `assets/js/common-i18n.js` (public) + inline `window.ZT_PAGE` (page-specific). Engine: `ZT.applyLanguage()` in `assets/js/tool-ui.js`. Supports zh/en/ja/vi.
 - **Page generation**: Tool pages are generated from tools-data.json entries. Category slug = directory name (e.g., `image/`, `pdf/`, `ai/`).
 - **PWA**: `sw.js` (cache-first), `manifest.json` (standalone PWA).
