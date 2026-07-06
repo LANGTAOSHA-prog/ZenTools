@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">工具对比 - ZenTools 在线工具箱</title>
+<meta name="description" content="ZenTools 工具横向对比：PDF压缩、图片处理、文本比较、AI写作等各类工具的功能、性能、使用场景全方面对比，帮你快速找到最合适的工具。"/>
+<link rel="canonical" href="https://zentools.xyz/compare/"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%); min-height: 100vh; color: #e2e8f0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+.header { text-align: center; margin-bottom: 50px; }
+.header h1 { font-size: 42px; margin-bottom: 12px; font-weight: 700; background: linear-gradient(135deg, #60a5fa, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header p { font-size: 17px; opacity: 0.75; max-width: 650px; margin: 0 auto; line-height: 1.7; }
+
+.section { margin-bottom: 50px; }
+.section-title { font-size: 24px; font-weight: 700; margin-bottom: 24px; color: #f1f5f9; padding-bottom: 12px; border-bottom: 2px solid rgba(96,165,250,0.3); }
+.section-title .icon { margin-right: 8px; }
+
+/* Featured Comparison Tools */
+.featured-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+.feat-card { background: rgba(255,255,255,0.06); backdrop-filter: blur(10px); border-radius: 16px; padding: 28px; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s, border-color 0.3s; text-decoration: none; color: #e2e8f0; display: block; }
+.feat-card:hover { transform: translateY(-4px); border-color: rgba(96,165,250,0.5); }
+.feat-card .fc-icon { font-size: 36px; margin-bottom: 14px; }
+.feat-card .fc-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #f1f5f9; }
+.feat-card .fc-desc { font-size: 14px; opacity: 0.7; line-height: 1.6; margin-bottom: 14px; }
+.feat-card .fc-tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; background: rgba(96,165,250,0.15); color: #93c5fd; }
+
+/* Comparison Table */
+.compare-table-wrap { overflow-x: auto; border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; background: rgba(255,255,255,0.04); }
+.compare-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 700px; }
+.compare-table thead th { padding: 14px 18px; text-align: left; font-weight: 600; color: #94a3b8; border-bottom: 2px solid rgba(255,255,255,0.1); white-space: nowrap; }
+.compare-table thead th:first-child { color: #60a5fa; }
+.compare-table tbody td { padding: 12px 18px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #cbd5e1; }
+.compare-table tbody tr:hover { background: rgba(96,165,250,0.04); }
+.compare-table tbody td:first-child { font-weight: 600; color: #e2e8f0; }
+.compare-table .tool-link { color: #93c5fd; text-decoration: none; font-weight: 600; }
+.compare-table .tool-link:hover { text-decoration: underline; }
+.compare-table .check { color: #34d399; font-weight: 700; }
+.compare-table .cross { color: #64748b; }
+
+/* Recommendation Bar */
+.recommend-section { margin: 0 auto 40px; max-width: 900px; background: rgba(255,255,255,0.08); backdrop-filter: blur(10px); border-radius: 20px; padding: 28px; border: 1px solid rgba(255,255,255,0.12); }
+.recommend-section h2 { font-size: 1.2rem; font-weight: 700; color: #f1f5f9; margin-bottom: 6px; }
+.recommend-section p.sub { font-size: 0.88rem; color: rgba(255,255,255,0.6); margin-bottom: 16px; }
+.recommend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.recommend-item { display: block; background: rgba(255,255,255,0.95); border-radius: 12px; padding: 14px 16px; text-decoration: none; color: #1f2937; transition: transform 0.2s, box-shadow 0.2s; border: 2px solid transparent; }
+.recommend-item:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.3); border-color: #60a5fa; }
+.recommend-item .reco-title { font-weight: 600; font-size: 0.93rem; display: block; }
+.recommend-item .reco-desc { font-size: 0.78rem; color: #6b7280; margin-top: 4px; }
+
+.lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; background: rgba(255,255,255,0.12); backdrop-filter: blur(10px); border-radius: 10px; padding: 10px; border: 1px solid rgba(255,255,255,0.15); }
+.lang-switcher select { padding: 8px 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; font-size: 14px; cursor: pointer; background: rgba(255,255,255,0.1); color: #e2e8f0; }
+
+@media(max-width: 768px) { .header h1 { font-size: 28px; } .featured-grid { grid-template-columns: 1fr; } .lang-switcher { top: 10px; right: 10px; padding: 6px; } .recommend-grid { grid-template-columns: 1fr; } }
+</style>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle: '工具对比 - ZenTools 在线工具箱',
+    pageDesc: '横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。',
+    secFeatured: '功能对比工具',
+    secFeaturedDesc: '直接对比两个文件或文本的差异',
+    secImage: '图片处理工具对比',
+    secPDF: 'PDF 处理工具对比',
+    secAI: 'AI 写作工具对比',
+    recoTitle: '推荐资源',
+    recoDesc: '更多实用在线资源，提升工作效率',
+    reco1: '免费云环境资源大全',
+    reco1Url: '/yunchuang/cloud-resources.html',
+    reco1Desc: '30+ 免费云服务完整清单',
+    reco2: '免费 AI 模型 API 大全',
+    reco2Url: '/yunchuang/free-api-models.html',
+    reco2Desc: 'Hugging Face、Gemini 等 30+ 免费 API',
+    reco3: 'ZenTools 图文使用教程',
+    reco3Url: '/guides/zentools-tutorial.html',
+    reco3Desc: '从零掌握所有工具的使用方法',
+    reco4: '深度指南中心',
+    reco4Url: '/guides/',
+    reco4Desc: '全方位实用教程合集',
+    reco5: '免费 AI 模型聚合平台',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: 'Mistral/Gemma/Phi-3 智能轮询'
+  },
+  en: {
+    pageTitle: 'Tool Compare - ZenTools Online Toolbox',
+    pageDesc: 'Compare features, performance, and use cases of online tools side by side to find the best fit.',
+    secFeatured: 'Comparison Tools',
+    secFeaturedDesc: 'Directly compare differences between two files or texts',
+    secImage: 'Image Processing Tools Compare',
+    secPDF: 'PDF Processing Tools Compare',
+    secAI: 'AI Writing Tools Compare',
+    recoTitle: 'Recommended Resources',
+    recoDesc: 'Discover more useful online resources to boost productivity',
+    reco1: 'Free Cloud Resources Guide',
+    reco1Url: '/yunchuang/cloud-resources.html',
+    reco1Desc: '30+ free cloud services complete list',
+    reco2: 'Free AI Model API List',
+    reco2Url: '/yunchuang/free-api-models.html',
+    reco2Desc: 'Hugging Face, Gemini and 30+ free APIs',
+    reco3: 'ZenTools Visual Tutorial',
+    reco3Url: '/guides/zentools-tutorial.html',
+    reco3Desc: 'Master all tools from scratch',
+    reco4: 'Deep Guides Center',
+    reco4Url: '/guides/',
+    reco4Desc: 'Comprehensive practical tutorial collection',
+    reco5: 'Free AI Model Aggregator',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: 'Mistral/Gemma/Phi-3 smart failover'
+  },
+  ja: {
+    pageTitle: 'ツール比較 - ZenTools オンラインツールボックス',
+    pageDesc: 'オンラインツールの機能、パフォーマンス、ユースケースを横断的に比較し、最適なツールを見つけます。',
+    secFeatured: '比較ツール',
+    secFeaturedDesc: '2つのファイルやテキストの差分を直接比較',
+    secImage: '画像処理ツール比較',
+    secPDF: 'PDF 処理ツール比較',
+    secAI: 'AI 執筆ツール比較',
+    recoTitle: 'おすすめリソース',
+    recoDesc: '便利なオンラインリソースで作業効率を向上',
+    reco1: '無料クラウド環境リソース大全',
+    reco1Url: '/yunchuang/cloud-resources.html',
+    reco1Desc: '30+ 無料クラウドサービス完全リスト',
+    reco2: '無料 AI モデル API 大全',
+    reco2Url: '/yunchuang/free-api-models.html',
+    reco2Desc: 'Hugging Face、Gemini など 30+ 無料 API',
+    reco3: 'ZenTools ビジュアルチュートリアル',
+    reco3Url: '/guides/zentools-tutorial.html',
+    reco3Desc: 'ゼロからすべてのツールをマスター',
+    reco4: '深層ガイドセンター',
+    reco4Url: '/guides/',
+    reco4Desc: '包括的な実用チュートリアル集',
+    reco5: '無料 AI モデル集約プラットフォーム',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: 'Mistral/Gemma/Phi-3 スマートフェイルオーバー'
+  },
+  vi: {
+    pageTitle: 'So sánh Công cụ - ZenTools Hộp Công cụ Trực tuyến',
+    pageDesc: 'So sánh tính năng, hiệu năng và trường hợp sử dụng của các công cụ trực tuyến để tìm ra lựa chọn tốt nhất.',
+    secFeatured: 'Công cụ So sánh',
+    secFeaturedDesc: 'So sánh trực tiếp sự khác biệt giữa hai tệp hoặc văn bản',
+    secImage: 'So sánh Công cụ Xử lý Ảnh',
+    secPDF: 'So sánh Công cụ Xử lý PDF',
+    secAI: 'So sánh Công cụ Viết AI',
+    recoTitle: 'Tài nguyên Đề xuất',
+    recoDesc: 'Khám phá thêm tài nguyên trực tuyến hữu ích',
+    reco1: 'Tài nguyên Đám mây Miễn phí',
+    reco1Url: '/yunchuang/cloud-resources.html',
+    reco1Desc: 'Danh sách 30+ dịch vụ đám mây miễn phí',
+    reco2: 'Danh sách API Mô hình AI Miễn phí',
+    reco2Url: '/yunchuang/free-api-models.html',
+    reco2Desc: 'Hugging Face, Gemini và 30+ API miễn phí',
+    reco3: 'Hướng dẫn Trực quan ZenTools',
+    reco3Url: '/guides/zentools-tutorial.html',
+    reco3Desc: 'Làm chủ tất cả công cụ từ đầu',
+    reco4: 'Trung tâm Hướng dẫn Chuyên sâu',
+    reco4Url: '/guides/',
+    reco4Desc: 'Bộ sưu tập hướng dẫn thực tế toàn diện',
+    reco5: 'Nền tảng Tổng hợp Mô hình AI Miễn phí',
+    reco5Url: '/yunchuang/free-ai-aggregator/',
+    reco5Desc: 'Mistral/Gemma/Phi-3 chuyển mạch thông minh'
+  }
+};
+</script>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Tools Compare</h1>
+    <p data-i18n="pageDesc">横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。</p>
+  </div>
+
+  <!-- Recommendation Bar -->
+  <div class="recommend-section">
+    <h2 data-i18n="recoTitle">推荐资源</h2>
+    <p class="sub" data-i18n="recoDesc">更多实用在线资源，提升工作效率</p>
+    <div class="recommend-grid">
+      <a href="/yunchuang/cloud-resources.html" class="recommend-item">
+        <span class="reco-title" data-i18n="reco1">免费云环境资源大全</span>
+        <span class="reco-desc" data-i18n="reco1Desc">30+ 免费云服务完整清单</span>
+      </a>
+      <a href="/yunchuang/free-api-models.html" class="recommend-item">
+        <span class="reco-title" data-i18n="reco2">免费 AI 模型 API 大全</span>
+        <span class="reco-desc" data-i18n="reco2Desc">Hugging Face、Gemini 等 30+ 免费 API</span>
+      </a>
+      <a href="/guides/zentools-tutorial.html" class="recommend-item">
+        <span class="reco-title" data-i18n="reco3">ZenTools 图文使用教程</span>
+        <span class="reco-desc" data-i18n="reco3Desc">从零掌握所有工具的使用方法</span>
+      </a>
+      <a href="/guides/" class="recommend-item">
+        <span class="reco-title" data-i18n="reco4">深度指南中心</span>
+        <span class="reco-desc" data-i18n="reco4Desc">全方位实用教程合集</span>
+      </a>
+      <a href="/yunchuang/free-ai-aggregator/" class="recommend-item">
+        <span class="reco-title" data-i18n="reco5">免费 AI 模型聚合平台</span>
+        <span class="reco-desc" data-i18n="reco5Desc">Mistral/Gemma/Phi-3 智能轮询</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Section 1: Featured Comparison Tools -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📊</span><span data-i18n="secFeatured">功能对比工具</span></div>
+    <p style="opacity:0.65;margin-bottom:20px;font-size:14px" data-i18n="secFeaturedDesc">直接对比两个文件或文本的差异</p>
+    <div class="featured-grid" id="featuredGrid"></div>
+  </div>
+
+  <!-- Section 2: Image Processing Tools Compare -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🖼️</span><span data-i18n="secImage">图片处理工具对比</span></div>
+    <div class="compare-table-wrap" style="margin-bottom:12px">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>功能</th>
+            <th><a href="/image/image-compress.html" class="tool-link">图片压缩</a></th>
+            <th><a href="/image/image-convert.html" class="tool-link">格式转换</a></th>
+            <th><a href="/image/image-resize.html" class="tool-link">尺寸修改</a></th>
+            <th><a href="/image/adjust.html" class="tool-link">亮度对比度</a></th>
+            <th><a href="/image/image-crop.html" class="tool-link">图片裁剪</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>核心功能</td>
+            <td>减小文件大小，保持画质</td>
+            <td>JPG/PNG/WebP/AVIF 互转</td>
+            <td>按像素/百分比缩放</td>
+            <td>亮度/对比度/饱和度调节</td>
+            <td>自由/固定比例裁剪</td>
+          </tr>
+          <tr>
+            <td>批量处理</td>
+            <td class="check">支持</td>
+            <td class="check">支持</td>
+            <td class="check">支持</td>
+            <td class="cross">不支持</td>
+            <td class="cross">不支持</td>
+          </tr>
+          <tr>
+            <td>本地处理</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+          </tr>
+          <tr>
+            <td>保持 EXIF</td>
+            <td>部分保留</td>
+            <td>可选项</td>
+            <td class="cross">不保留</td>
+            <td>不修改</td>
+            <td class="cross">不保留</td>
+          </tr>
+          <tr>
+            <td>质量可调</td>
+            <td class="check">是</td>
+            <td class="check">是</td>
+            <td class="cross">不适用</td>
+            <td class="check">是</td>
+            <td class="cross">不适用</td>
+          </tr>
+          <tr>
+            <td>适用场景</td>
+            <td>优化网页加载速度</td>
+            <td>跨平台兼容需求</td>
+            <td>适配特定尺寸要求</td>
+            <td>照片后期调色</td>
+            <td>构图调整/去多余</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:0.78rem;opacity:0.5">数据基于当前版本，功能可能随版本更新变化</p>
+  </div>
+
+  <!-- Section 3: PDF Processing Tools Compare -->
+  <div class="section">
+    <div class="section-title"><span class="icon">📄</span><span data-i18n="secPDF">PDF 处理工具对比</span></div>
+    <div class="compare-table-wrap" style="margin-bottom:12px">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>功能</th>
+            <th><a href="/pdf/pdf-merge.html" class="tool-link">PDF 合并</a></th>
+            <th><a href="/pdf/pdf-split.html" class="tool-link">PDF 拆分</a></th>
+            <th><a href="/pdf/pdf-compress.html" class="tool-link">PDF 压缩</a></th>
+            <th><a href="/pdf/pdf-to-image.html" class="tool-link">PDF 转图片</a></th>
+            <th><a href="/pdf/pdf-diff.html" class="tool-link">PDF 对比</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>核心功能</td>
+            <td>多个PDF合并为一个</td>
+            <td>提取/删除指定页</td>
+            <td>减小PDF文件大小</td>
+            <td>PDF页面转JPG/PNG</td>
+            <td>两个PDF差异比较</td>
+          </tr>
+          <tr>
+            <td>批量处理</td>
+            <td class="check">多文件</td>
+            <td class="check">多页范围</td>
+            <td class="check">多文件</td>
+            <td class="check">整本导出</td>
+            <td class="cross">两两对比</td>
+          </tr>
+          <tr>
+            <td>本地处理</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+            <td class="check">纯浏览器</td>
+          </tr>
+          <tr>
+            <td>页码控制</td>
+            <td>可排序</td>
+            <td class="check">精细选择</td>
+            <td class="cross">不适用</td>
+            <td>可按范围</td>
+            <td class="cross">不适用</td>
+          </tr>
+          <tr>
+            <td>质量选项</td>
+            <td class="cross">不适用</td>
+            <td class="cross">不适用</td>
+            <td>低/中/高</td>
+            <td>DPI可调</td>
+            <td class="cross">不适用</td>
+          </tr>
+          <tr>
+            <td>适用场景</td>
+            <td>报告/合同合并</td>
+            <td>提取关键页面</td>
+            <td>满足上传大小限制</td>
+            <td>预览/分享截图</td>
+            <td>合同/文稿审阅</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:0.78rem;opacity:0.5">数据基于当前版本，功能可能随版本更新变化</p>
+  </div>
+
+  <!-- Section 4: AI Writing Tools Compare -->
+  <div class="section">
+    <div class="section-title"><span class="icon">🤖</span><span data-i18n="secAI">AI 写作工具对比</span></div>
+    <div class="compare-table-wrap" style="margin-bottom:12px">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>功能</th>
+            <th><a href="/ai/ai-polish.html" class="tool-link">AI 润色</a></th>
+            <th><a href="/ai/ai-summary.html" class="tool-link">AI 总结</a></th>
+            <th><a href="/ai/ai-email.html" class="tool-link">AI 邮件</a></th>
+            <th><a href="/ai/ai-title.html" class="tool-link">AI 标题</a></th>
+            <th><a href="/ai/ai-expand.html" class="tool-link">AI 扩写</a></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>核心功能</td>
+            <td>优化表达、纠错</td>
+            <td>长文提取要点</td>
+            <td>生成专业邮件</td>
+            <td>生成爆款标题</td>
+            <td>短句扩展成文</td>
+          </tr>
+          <tr>
+            <td>输入方式</td>
+            <td>粘贴文本</td>
+            <td>粘贴/URL</td>
+            <td>填写关键词</td>
+            <td>填写主题</td>
+            <td>粘贴短句</td>
+          </tr>
+          <tr>
+            <td>多语言</td>
+            <td class="check">支持</td>
+            <td class="check">支持</td>
+            <td class="check">支持</td>
+            <td class="check">支持</td>
+            <td class="check">支持</td>
+          </tr>
+          <tr>
+            <td>风格选项</td>
+            <td>正式/口语/学术</td>
+            <td class="cross">不适用</td>
+            <td>商务/通知/邀请</td>
+            <td>营销/新闻/社交</td>
+            <td>详细/简洁/创意</td>
+          </tr>
+          <tr>
+            <td>需要 API Key</td>
+            <td class="check">免费使用</td>
+            <td class="check">免费使用</td>
+            <td class="check">免费使用</td>
+            <td class="check">免费使用</td>
+            <td class="check">免费使用</td>
+          </tr>
+          <tr>
+            <td>适用场景</td>
+            <td>文章打磨/校对</td>
+            <td>快速了解长文</td>
+            <td>商务沟通</td>
+            <td>内容营销</td>
+            <td>丰富想法/填充</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="text-align:center;font-size:0.78rem;opacity:0.5">数据基于当前版本，功能可能随版本更新变化</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  var compareTools = [
+    { slug: 'image-compare', icon: '🖼️', zh: { title: '图片对比', desc: '并排对比两张图片差异，支持滑动、叠加、差异高亮三种模式，适合设计稿对比、前后效果对比。', tag: '图片工具' }, en: { title: 'Image Compare', desc: 'Compare two images side by side with slider, overlay, and difference highlight modes. Perfect for design comparison.', tag: 'Image' }, ja: { title: '画像比較', desc: '2枚の画像の違いを並べて比較。スライダー、オーバーレイ、差分ハイライトの3モード対応。', tag: '画像' }, vi: { title: 'So sánh Ảnh', desc: 'So sánh hai ảnh cạnh nhau với chế độ thanh trượt, phủ và tô sáng khác biệt. Lý tưởng cho so sánh thiết kế.', tag: 'Ảnh' }, url: '../image/image-compare.html' },
+    { slug: 'pdf-diff', icon: '📄', zh: { title: 'PDF 对比', desc: '对比两个 PDF 文档的文本差异，高亮显示增删改内容。适用于合同审阅、文稿校对、版本管理。', tag: 'PDF工具' }, en: { title: 'PDF Diff', desc: 'Compare text differences between two PDFs with highlighted additions and deletions. Great for contract review.', tag: 'PDF' }, ja: { title: 'PDF 比較', desc: '2つのPDF文書のテキスト差分を比較し、追加・削除・変更をハイライト表示。契約書レビューに最適。', tag: 'PDF' }, vi: { title: 'So sánh PDF', desc: 'So sánh khác biệt văn bản giữa hai tệp PDF với tô sáng thêm/xóa. Lý tưởng cho xem xét hợp đồng.', tag: 'PDF' }, url: '../pdf/pdf-diff.html' },
+    { slug: 'text-diff', icon: '📝', zh: { title: '文本对比', desc: '逐行对比两段文本的差异，支持行内差异高亮。适用于代码对比、文稿校对、版本差异分析。', tag: '文本工具' }, en: { title: 'Text Diff', desc: 'Compare two texts line by line with inline difference highlighting. Great for code review and version analysis.', tag: 'Text' }, ja: { title: 'テキスト比較', desc: '2つのテキストを行単位で比較し、行内の差分をハイライト表示。コードレビューや版管理に。', tag: 'テキスト' }, vi: { title: 'So sánh Văn bản', desc: 'So sánh hai văn bản từng dòng với tô sáng khác biệt nội dòng. Lý tưởng cho xem xét mã.', tag: 'Văn bản' }, url: '../text/textdiff.html' },
+    { slug: 'json-diff', icon: '📊', zh: { title: 'JSON 对比', desc: '结构化对比两个 JSON 数据，清晰展示新增、删除、修改的键值对。适合 API 响应对比、配置变更追踪。', tag: '开发工具' }, en: { title: 'JSON Diff', desc: 'Structurally compare two JSON objects, clearly showing added, removed, and modified key-value pairs.', tag: 'Dev' }, ja: { title: 'JSON 比較', desc: '2つのJSONデータを構造的に比較し、追加・削除・変更されたキーと値を明確に表示。APIレスポンスの比較に。', tag: '開発' }, vi: { title: 'So sánh JSON', desc: 'So sánh cấu trúc hai đối tượng JSON, hiển thị rõ ràng các cặp khóa-giá trị được thêm, xóa, sửa đổi.', tag: 'Dev' }, url: '../dev/diff.html' },
+    { slug: 'image-adjust', icon: '🎨', zh: { title: '亮度对比度调整', desc: '实时调整图片的亮度、对比度、饱和度、色温等参数。支持预览对比，所见即所得。', tag: '图片工具' }, en: { title: 'Brightness/Contrast', desc: 'Adjust brightness, contrast, saturation, and color temperature in real-time with preview comparison.', tag: 'Image' }, ja: { title: '明るさ・コントラスト調整', desc: '明るさ、コントラスト、彩度、色温度をリアルタイムで調整。プレビュー比較対応。', tag: '画像' }, vi: { title: 'Điều chỉnh Độ sáng/Tương phản', desc: 'Điều chỉnh độ sáng, tương phản, bão hòa và nhiệt độ màu theo thời gian thực với xem trước.', tag: 'Ảnh' }, url: '../image/adjust.html' }
+  ];
+
+  function renderFeatured(lang) {
+    var grid = document.getElementById('featuredGrid');
+    var html = '';
+    compareTools.forEach(function(t) {
+      var d = t[lang] || t.zh;
+      html += '<a href="' + t.url + '" class="feat-card">';
+      html += '<div class="fc-icon">' + t.icon + '</div>';
+      html += '<div class="fc-title">' + d.title + '</div>';
+      html += '<div class="fc-desc">' + d.desc + '</div>';
+      html += '<span class="fc-tag">' + d.tag + '</span>';
+      html += '</a>';
+    });
+    grid.innerHTML = html;
+  }
+
+  function applyI18n(lang) {
+    var data = window.ZT_PAGE[lang] || window.ZT_PAGE.zh;
+    document.title = data.pageTitle || document.title;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.getAttribute('data-i18n');
+      if (data[key]) el.textContent = data[key];
+    });
+  }
+
+  var savedLang = localStorage.getItem('zentools_lang') || navigator.language.slice(0, 2) || 'zh';
+  renderFeatured(savedLang);
+  applyI18n(savedLang);
+
+  document.getElementById('langSwitcher').value = savedLang;
+
+  window.addEventListener('zt-langchange', function(e) {
+    var lang = e.detail.lang;
+    renderFeatured(lang);
+    applyI18n(lang);
+  });
+
+  window.switchLanguage = function(lang) {
+    localStorage.setItem('zentools_lang', lang);
+    renderFeatured(lang);
+    applyI18n(lang);
+    window.dispatchEvent(new CustomEvent('zt-setlang', { detail: { lang: lang } }));
+  };
+})();
+</script>
+
+<div class="lang-switcher">
+  <select id="langSwitcher" onchange="switchLanguage(this.value)">
+    <option value="zh">中文</option>
+    <option value="en">English</option>
+    <option value="ja">日本語</option>
+    <option value="vi">Tiếng Việt</option>
+  </select>
+</div>
+</body>
+</html>
