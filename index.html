@@ -554,7 +554,22 @@
       .search-section { padding: 0 16px; }
       #toolSearch { padding: 16px 44px 16px 48px; font-size: 15px; }
     }
-  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}</style>
+  .changelog-section { max-width: 1200px; margin: 60px auto 0; padding: 0 20px; }
+  .changelog-section h2 { font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+  .changelog-list { display: flex; flex-direction: column; gap: 20px; }
+  .changelog-item { background: var(--glass); border-radius: 14px; padding: 24px; border: 1px solid var(--border); transition: transform 0.2s; }
+  .changelog-item:hover { transform: translateY(-2px); }
+  .cl-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .cl-version { display: inline-block; background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+  .cl-date { font-size: 13px; color: var(--muted); }
+  .cl-summary { font-size: 15px; color: var(--text); margin-bottom: 10px; line-height: 1.6; }
+  .cl-items { list-style: none; padding: 0; margin: 0; }
+  .cl-items li { font-size: 13px; color: var(--muted); padding: 3px 0; padding-left: 16px; position: relative; line-height: 1.6; }
+  .cl-items li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .changelog-more { text-align: center; margin-top: 20px; }
+  .changelog-more a { display: inline-block; padding: 10px 28px; background: var(--glass); border: 1px solid var(--border); border-radius: 10px; color: var(--accent); text-decoration: none; font-size: 14px; font-weight: 600; transition: all 0.2s; }
+  .changelog-more a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  @media(max-width:640px){ .changelog-item { padding: 16px; } .cl-header { gap: 8px; } }{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}</style>
 <meta name="google-adsense-account" content="ca-pub-1955887568822472">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
      crossorigin="anonymous"></script>
@@ -741,6 +756,15 @@
       </div>
     </div>
 
+    <!-- ===== 更新日志 ===== -->
+    <div class="changelog-section">
+      <h2 data-i18n="changelogTitle">更新日志</h2>
+      <div class="changelog-list" id="changelogList"></div>
+      <div class="changelog-more">
+        <a href="/changelog.html" data-i18n="changelogViewAll">查看全部 →</a>
+      </div>
+    </div>
+
     <!-- ===== 页脚 ===== -->
 <footer>
       <div class="footer-inner">
@@ -778,6 +802,7 @@
         aboutP2: '所有内容均为个人日常整理，仅供学习和参考使用。',
         aboutNotice: '本站内容仅供学习参考，不涉及经营性互联网信息服务。',
         statTools: '在线工具', statCats: '工具分类', statLocal: '纯本地处理', statTutorials: '教程',
+        changelogTitle: '更新日志', changelogViewAll: '查看全部 →',
         toolCount: '个工具', favTitle: '⭐ 收藏的工具', recentTitle: '最近使用', hotTitle: '热门工具', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
         records: [
           { title:'我的第一个 PDF 工具', desc:'记录从零开始使用 VS Code 编写 PDF 工具的过程、问题和解决方法。', link:'查看内容 →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -801,6 +826,7 @@
         aboutP2: 'All content is personal notes for learning and reference only.',
         aboutNotice: 'This site is for learning purposes only and does not involve commercial internet services.',
         statTools: 'Online Tools', statCats: 'Categories', statLocal: 'Browser Local', statTutorials: 'Tutorials',
+        changelogTitle: 'Changelog', changelogViewAll: 'View All →',
         toolCount: 'tools', favTitle: '⭐ Favorites', recentTitle: 'Recently Used', hotTitle: 'Popular Tools', footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
         records: [
           { title:'My First PDF Tool', desc:'From scratch to building a PDF tool with VS Code.', link:'Read more →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -824,6 +850,7 @@
         aboutP2: 'すべての内容は個人の学習と参考用です。',
         aboutNotice: '当サイトは学習目的のみで、営利目的の情報サービスは提供しておりません。',
         statTools: '無料ツール', statCats: 'カテゴリー', statLocal: 'ローカル処理', statTutorials: 'ガイド',
+        changelogTitle: '更新履歴', changelogViewAll: 'すべて見る →',
         toolCount: 'ツール', favTitle: '⭐ お気に入り', recentTitle: '最近使用したツール', hotTitle: '人気ツール', footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
         records: [
           { title:'初めての PDF ツール', desc:'VS Code で PDF ツールを作った記録。', link:'読む →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -847,6 +874,7 @@
         aboutP2: 'Tất cả nội dung là ghi chép cá nhân cho mục đích học tập và tham khảo.',
         aboutNotice: 'Trang web này chỉ dành cho mục đích học tập, không liên quan đến dịch vụ thương mại.',
         statTools: 'Công cụ miễn phí', statCats: 'Danh mục', statLocal: 'Xử lý local', statTutorials: 'Hướng dẫn',
+        changelogTitle: 'Nhật ký cập nhật', changelogViewAll: 'Xem tất cả →',
         toolCount: 'công cụ', favTitle: '⭐ Công cụ yêu thích', recentTitle: 'Đã dùng gần đây', hotTitle: 'Công cụ phổ biến', footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
         records: [
           { title:'Công cụ PDF đầu tiên', desc:'Xây dựng công cụ PDF từ đầu với VS Code.', link:'Xem thêm →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
@@ -1441,6 +1469,55 @@
       if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
     });
   </script>
+
+<script>
+// ===== 更新日志渲染 =====
+(function() {
+  var cl = null;
+  function getLang() { return localStorage.getItem('zentools_lang') || navigator.language.slice(0,2) || 'zh'; }
+
+  function renderChangelog(data, lang) {
+    var log = data.changelog || [];
+    var html = '';
+    log.forEach(function(entry) {
+      var summary = entry[lang] || entry.zh || '';
+      var items = (entry.items && entry.items[lang]) || (entry.items && entry.items.zh) || [];
+      html += '<div class="changelog-item">';
+      html += '<div class="cl-header">';
+      html += '<span class="cl-version">v' + entry.version + '</span>';
+      html += '<span class="cl-date">' + entry.date + '</span>';
+      html += '</div>';
+      html += '<div class="cl-summary">' + summary + '</div>';
+      if (items.length > 0) {
+        html += '<ul class="cl-items">';
+        items.forEach(function(item) { html += '<li>' + item + '</li>'; });
+        html += '</ul>';
+      }
+      html += '</div>';
+    });
+    document.getElementById('changelogList').innerHTML = html;
+  }
+
+  function loadAndRender(lang) {
+    if (cl) { renderChangelog(cl, lang); return; }
+    fetch('/data/site-info.json')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        cl = data;
+        renderChangelog(cl, lang);
+      })
+      .catch(function() {
+        document.getElementById('changelogList').innerHTML = '<p style="color:var(--muted);text-align:center">加载更新日志失败</p>';
+      });
+  }
+
+  loadAndRender(getLang());
+
+  window.addEventListener('zt-langchange', function(e) {
+    loadAndRender(e.detail.lang);
+  });
+})();
+</script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 
