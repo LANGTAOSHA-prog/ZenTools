@@ -6,6 +6,7 @@ import json
 import os
 import sys
 from datetime import date
+from _changelog_utils import build_guide_entry, append_changelog, load_site_info, save_site_info
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 GUIDES_DIR = os.path.join(SCRIPT_DIR, 'guides')
@@ -440,6 +441,19 @@ def main():
         f.write(html)
 
     print(f'✓ {GUIDE_TYPES[args.type][0]}页面已生成 (含 4 语 i18n): {out_path}')
+    try:
+        data = load_site_info()
+        changelog_entries = [
+            build_guide_entry(args.title_zh,
+                              args.title_en or args.title_zh,
+                              args.title_ja or args.title_zh,
+                              args.title_vi or args.title_zh)
+        ]
+        data = append_changelog(data, changelog_entries)
+        save_site_info(data)
+        print(f'✓ site-info.json changelog 已更新')
+    except Exception as e:
+        print(f'⚠ changelog 更新失败 (非致命): {e}')
     print(f'\n📝 下一步：编辑 {out_path} 填充真实内容')
     print(f'  每个章节在 ZT_PAGE 中都有 sec{{N}}Title / sec{{N}}p{{M}} / sec{{N}}li{{K}} / sec{{N}}Tip')
     print(f'  的 4 语翻译键，替换默认占位文本即可')

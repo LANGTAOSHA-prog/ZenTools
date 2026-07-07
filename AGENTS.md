@@ -2,72 +2,111 @@
 
 ## Project Overview
 
-Pure static HTML5/CSS3/Vanilla JS site (no build tools, no package.json). 757 HTML pages (含 358 教程页 + 28 指南页), 279 tools. Deployed via GitHub Pages from main branch root.
+Pure static HTML5/CSS3/Vanilla JS site. ~410 HTML pages, 279 tools across 13 categories. Deployed via GitHub Pages from main branch root. No package.json, no build tools, no frameworks.
 
 ## Quick Commands
 
 ```bash
-# Generate new tool page (HTML + JSON + sitemap)
-python3 _add_tool.py --slug pdf-ocr --category "PDF工具" --name-zh "PDF OCR" --name-en "PDF OCR" --name-ja "PDF OCR" --name-vi "PDF OCR" --desc-zh "OCR文字提取" --desc-en "Extract text from PDF" --desc-ja "PDFからテキスト抽出" --desc-vi "Trích xuất văn bản từ PDF" --keywords "ocr pdf"
-
-# Generate new tutorial page
-python3 _add_tutorial.py --slug pdf-ocr-tutorial --category "PDF工具" --title-zh "PDF OCR教程" --desc-zh "使用OCR提取文字" --tool-url "/pdf/pdf-ocr.html"
-
-# Generate new guide/review page
-python3 _add_guide.py --slug pdf-tools-review --type review --title-zh "PDF工具评测" --desc-zh "PDF工具横向对比" --word-count 2500 --read-minutes 20
-
-# Validate all JSON data files
-python3 _check_json.py
-
-# Sync tools-data.js from tools-data.json
-python3 _sync_tools_data_js.py
-
-# Regenerate sitemap.xml
-python3 _gen_sitemap.py
-
-# Minify JS assets
-python3 _minify_assets.py
-
-# Start local dev server (port 8000)
+# Start local dev server (HTTP server only - no build step)
 python3 -m http.server 8000
+
+# Generate new tool page (creates HTML + updates tools-data.json + regenerates sitemap)
+python3 _add_tool.py --slug pdf-ocr --category "PDF工具" \
+  --name-zh "PDF OCR" --name-en "PDF OCR" --name-ja "PDF OCR" --name-vi "PDF OCR" \
+  --desc-zh "描述" --desc-en "Description" --desc-ja "説明" --desc-vi "Mô tả" \
+  --keywords "keyword1 keyword2"
+
+# Generate new tutorial (result in /tutorials/)
+python3 _add_tutorial.py --slug my-tutorial --category "PDF工具" \
+  --title-zh "教程标题" --desc-zh "描述" --tool-url "/pdf/some-tool.html"
+
+# Generate new guide/review (result in /guides/)
+python3 _add_guide.py --slug my-review --type review \
+  --title-zh "评测标题" --desc-zh "描述" --word-count 2500 --read-minutes 20
+
+# Post-edit verification pipeline (run in this order after any data change)
+python3 _check_json.py                  # validate JSON integrity
+python3 _sync_tools_data_js.py          # JSON -> JS data sync
+python3 _gen_sitemap.py                 # regenerate sitemap.xml
+python3 _minify_assets.py               # re-minify JS/CSS
+
+# Validate JSON files only
+python3 _check_json.py
 ```
 
 ## Architecture
 
-- **Data layer**: `data/tools-data.json` (~666KB) drives all tool rendering. Categories define directory structure.
-- **i18n system**: `assets/js/common-i18n.js` (public) + inline `window.ZT_PAGE` (page-specific). Engine: `ZT.applyLanguage()` in `assets/js/tool-ui.js`. Supports zh/en/ja/vi.
-- **Page generation**: Tool pages are generated from tools-data.json entries. Category slug = directory name (e.g., `image/`, `pdf/`, `ai/`).
-- **PWA**: `sw.js` (cache-first), `manifest.json` (standalone PWA).
-- **SEO**: `sitemap.xml`, `robots.txt`, `.htaccess` (CSP/HSTS/Gzip), canonical URLs, Open Graph tags.
+- **Data layer**: `data/tools-data.json` (~666KB) drives all tool rendering. Single source of truth. Categories map to directories.
+- **i18n system**: `assets/js/common-i18n.js` (public, `window.ZT_COMMON`) + inline `window.ZT_PAGE` per page. Engine: `ZT.applyLanguage()` in `assets/js/tool-ui.js`. Merge priority: `ZT_PAGE` overrides `ZT_COMMON`. Supports zh/en/ja/vi.
+- **PWA**: `sw.js` (cache-first with 5 cache tiers: core, assets, data, html/LRU-200, pages), `manifest.json`.
+- **Anti-crash**: `assets/js/anti-crash.js` must load FIRST in `<head>`. Catches global errors, JSON corruption, switches to fallback mode after 5 errors/5s.
+- **SEO per tool page**: FAQPage + WebApplication + HowTo schema.org JSON-LD, Og tags, Twitter Card, canonical URL.
+
+## Script load order (critical)
+
+Every page `<head>` must follow this exact order:
+1. `anti-crash.min.js` (first, before anything else)
+2. Meta/SEO tags, canonical, manifest link
+3. `tool-ui.min.css`
+4. Tool-specific `<style>` block (use CSS variables only: `var(--cyan)`, `var(--purple)`, `var(--pink)`, `var(--border)`, `var(--text)`, `var(--muted)`, `var(--glass)`)
+5. AdSense script (`ca-pub-1955887568822472`)
+6. FAQPage + WebApplication + (optional) HowTo schema JSON-LD
+7. Inline `window.ZT_PAGE` with zh/en/ja/vi keys
+
+At end of `<body>`:
+8. `common-i18n.min.js`
+9. `tool-ui.min.js`
+10. Tool-specific logic
 
 ## Key Directories
 
 | Path | Content |
 |------|---------|
-| `image/`, `pdf/`, `audio/`, `video/`, `text/`, `dev/`, `life/`, `finance/`, `ai/`, `seo/`, `qr/`, `tools/` | Tool HTML pages |
-| `tutorials/` | Tutorial pages (no articles/, blog/, posts/ allowed) |
-| `assets/js/` | Core JS: `main.js` (homepage), `tool-ui.js` (tool pages), `common-i18n.js` (translations), `anti-crash.js` |
-| `assets/css/` | `style.css` (global), `tool-ui.css` (tool pages) |
-| `data/` | `tools-data.json` (source of truth) |
+| `pdf/`, `image/`, `text/`, `dev/`, `audio/`, `video/`, `ai/`, `seo/`, `life/`, `finance/`, `qr/`, `json/`, `tools/` | Tool HTML pages (each dir has its own `index.html` category page) |
+| `tutorials/` | Tutorial pages (360). No articles/, blog/, posts/ allowed. |
+| `guides/` | Deep guides and reviews (28 pages) |
+| `compare/` | Tool comparison landing page |
+| `assets/js/` | `main.js` (homepage), `tool-ui.js` (global engine), `common-i18n.js` (shared translations), `anti-crash.js` (error resilience) |
+| `assets/css/` | `tool-ui.css` (global), `style.css` (auxiliary) |
+| `data/` | `tools-data.json` (source of truth), `categories.json` |
 | `pdf_tools/` | Standalone Python PDF scripts (not part of web app) |
+
+## Tool page skeleton
+
+Every tool HTML page must contain these structural elements in order:
+```
+<body>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="z-wrap">
+    <nav><div class="nav-inner">...</div></nav>
+    <div class="page-header reveal">
+      <div class="breadcrumb">...</div>
+      <h1 data-i18n="pageTitle">...</h1>
+      <p data-i18n="pageDesc">...</p>
+    </div>
+    <div class="tool-box reveal">...</div>         <!-- core tool UI -->
+    <div class="section">
+      <div class="section-head"><h2>...</h2></div>
+      <div class="info-grid">...</div>             <!-- usage instructions, 3-col cards -->
+    </div>
+    <footer>...</footer>
+  </div>
+</body>
+```
 
 ## Conventions
 
 - **No frameworks**: Pure vanilla JS. No React/Vue/jQuery.
-- **Page i18n required**: Every new page must include `window.ZT_PAGE` translations + load `common-i18n.min.js` and `tool-ui.min.js`.
-- **Prefer .min.js**: Always reference compressed versions (`common-i18n.min.js`, `tool-ui.min.js`, `anti-crash.min.js`).
-- **Tool data JSON**: Adding a tool requires updating `data/tools-data.json` AND creating the corresponding HTML page.
-- **Google Analytics**: GA4 tracking ID `G-YOUR_MEASUREMENT_ID` is a placeholder. Replace with real ID for production.
-- **Search Console**: `YOUR_VERIFICATION_TOKEN_HERE` is a placeholder. Replace with real token for production.
-
-## Automation Hooks (`.atomcode/settings.json`)
-
-- JSON files in `data/` are auto-validated on write via `_check_json.py`.
-- Image/font/lockfile/batch-script edits are blocked.
-
-## CI
-
-`backup.yml` backs up data/config/core scripts on push to main and daily at 00:00 UTC.
+- **No build step**: All pages run directly in browser. `.min.js`/`.min.css` are the compressed versions (run `_minify_assets.py` after editing sources).
+- **CSS variables only**: Never hardcode color values. Use `var(--bg)`, `var(--text)`, `var(--muted)`, `var(--cyan)`, `var(--purple)`, `var(--pink)`, `var(--border)`, `var(--glass)`.
+- **i18n every page**: Every page must define `window.ZT_PAGE` with zh/en/ja/vi keys. Text in HTML uses `data-i18n="key"` and `data-i18n-placeholder="key"`.
+- **Fallback text must match**: The HTML text content must match the zh value in `ZT_PAGE` for the same key.
+- **Dynamic content pages**: Pages that render content via JS (compare/, guides/, tutorials/) must listen to `zt-langchange` event to re-render when language switches.
+- **Schema.org required**: Each tool page needs `FAQPage` + `WebApplication` JSON-LD. Tutorial/guide pages use `Article` schema.
+- **AdSense**: Publisher ID is `ca-pub-1955887568822472`. Already wired into tool page template.
+- **Adding a tool**: Create HTML page + add entry to `data/tools-data.json`. Then run check → sync → sitemap → minify pipeline.
+- **`.atomcode/settings.json`**: Contains a Windows-path hook for JSON validation (`D:\\Users\\taojiang\\...`). This only works on the author's machine; ignore on Linux.
 
 ## Constraints from PROJECT_RULES.md
 
@@ -76,3 +115,7 @@ python3 -m http.server 8000
 - No duplicate pages or features.
 - No temporary test files.
 - Tutorials only in `/tutorials/` (not `/articles/`, `/blog/`, `/posts/`).
+
+## CI
+
+`backup.yml` backs up data/config/core scripts on push to main and daily at 00:00 UTC.

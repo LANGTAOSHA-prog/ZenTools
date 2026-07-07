@@ -5,6 +5,7 @@ import argparse
 import os
 import sys
 from datetime import date
+from _changelog_utils import build_tutorial_entry, append_changelog, load_site_info, save_site_info
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 TUTORIALS_DIR = os.path.join(SCRIPT_DIR, 'tutorials')
@@ -408,6 +409,19 @@ def main():
     with open(out_path, 'w', encoding='utf-8', newline='\n') as f:
         f.write(html)
     print(f'✓ 教程页面已生成: {out_path}')
+    try:
+        data = load_site_info()
+        changelog_entries = [
+            build_tutorial_entry(args.title_zh,
+                                 args.title_en or args.title_zh,
+                                 args.title_ja or args.title_zh,
+                                 args.title_vi or args.title_zh)
+        ]
+        data = append_changelog(data, changelog_entries)
+        save_site_info(data)
+        print(f'✓ site-info.json changelog 已更新')
+    except Exception as e:
+        print(f'⚠ changelog 更新失败 (非致命): {e}')
     print(f'\n📝 下一步：编辑 {out_path} 填写具体内容（步骤、技巧、FAQ）')
 
 

@@ -6,6 +6,7 @@ import json
 import os
 import sys
 from datetime import date
+from _changelog_utils import build_tool_entry, append_changelog, load_site_info, save_site_info
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_PATH = os.path.join(SCRIPT_DIR, 'data', 'tools-data.json')
@@ -428,6 +429,16 @@ def main():
         )
         if update_tools_data_json(entry):
             sync_tools_data_js()
+            try:
+                data = load_site_info()
+                changelog_entries = [
+                    build_tool_entry(args.name_zh, args.name_en, args.name_ja, args.name_vi)
+                ]
+                data = append_changelog(data, changelog_entries)
+                save_site_info(data)
+                print(f'✓ site-info.json changelog 已更新')
+            except Exception as e:
+                print(f'⚠ changelog 更新失败 (非致命): {e}')
 
     if not args.no_sitemap:
         generate_sitemap()
