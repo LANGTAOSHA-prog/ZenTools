@@ -4,583 +4,557 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title data-i18n="pageTitle">深度指南 - ZenTools</title>
-<meta name="description" content="ZenTools 深度指南系列：PDF 自动化、图片批量处理、AI 写作、SEO 优化、视频编辑等全方位实用教程。"/>
+<meta name="description" content="ZenTools 深度指南系列：AI 工具教程、PDF 自动化、图片处理、SEO 优化、视频编辑等全方位实用教程。" data-i18n-placeholder="metaDesc" />
+<meta name="keywords" content="在线工具指南,AI教程,PDF教程,图片处理教程,SEO教程,视频编辑指南,ZenTools指南" />
 <link rel="canonical" href="https://zentools.xyz/guides/"/>
 <link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="深度指南 - ZenTools" data-i18n-placeholder="ogTitle"/>
+<meta property="og:description" content="全方位实用教程，助您掌握各类工具的最佳实践。" data-i18n-placeholder="ogDesc"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/guides/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="深度指南 - ZenTools"/>
+<meta name="twitter:description" content="全方位实用教程，助您掌握各类工具的最佳实践。"/>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<script src="../assets/js/common-i18n.min.js"></script>
-<script src="../assets/js/tool-ui.min.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; color: #fff; position: relative; }
-.container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
-.header { text-align: center; margin-bottom: 60px; }
-.header h1 { font-size: 48px; margin-bottom: 16px; font-weight: 700; }
-.header p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
-.guides-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
-.guide-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 30px; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid rgba(255,255,255,0.2); }
-.guide-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-.guide-icon { font-size: 48px; margin-bottom: 16px; }
-.guide-title { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-.guide-desc { font-size: 15px; opacity: 0.9; line-height: 1.6; margin-bottom: 20px; }
-.guide-meta { display: flex; gap: 20px; font-size: 13px; opacity: 0.8; }
-.guide-link { display: inline-block; margin-top: 16px; padding: 10px 20px; background: #fff; color: #667eea; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s; }
-.guide-link:hover { background: #f0f0f0; transform: translateX(5px); }
-.lang-switcher { position: fixed; top: 20px; right: 20px; z-index: 1000; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 10px; }
-.lang-switcher select { padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 14px; cursor: pointer; background: white; color: #1e293b; }
+.section-desc {
+  color: var(--muted); font-size: 16px; line-height: 1.7;
+  max-width: 720px; margin-bottom: 32px;
+}
 
-/* Recommendation bar */
-.recommend-section {
-  margin: 0 auto 40px;
-  max-width: 900px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 28px;
-  border: 1px solid rgba(255,255,255,0.25);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-}
-.recommend-section h2 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 6px;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
-}
-.recommend-section p {
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.8);
-  margin-bottom: 16px;
-}
 .recommend-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
 }
 .recommend-item {
   display: block;
   background: rgba(255,255,255,0.95);
-  border-radius: 12px;
-  padding: 14px 16px;
+  border-radius: 13px;
+  padding: 18px 20px;
   text-decoration: none;
-  color: #1f2937;
-  transition: transform 0.2s, box-shadow 0.2s;
+  color: #1e293b;
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
   border: 2px solid transparent;
-}
-.recommend-item:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-  border-color: #fff;
-}
-.recommend-item.featured {
-  background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
-  border: 2px solid #f39c12;
   position: relative;
 }
-.recommend-item.featured::before {
-  content: "🔥 热门";
-  position: absolute;
-  top: -8px;
-  right: 12px;
-  background: #e74c3c;
-  color: white;
-  font-size: 0.7rem;
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-weight: 600;
+.recommend-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  border-color: var(--cyan);
 }
-.recommend-item.featured:hover {
-  border-color: #e74c3c;
-  transform: translateY(-5px);
+.recommend-item .reco-title {
+  font-weight: 700; font-size: 0.95rem; display: block;
 }
-.recommend-item .reco-title { font-weight: 600; font-size: 0.95rem; display: block; }
-.recommend-item .reco-desc { font-size: 0.8rem; color: #6b7280; margin-top: 4px; }
+.recommend-item .reco-desc {
+  font-size: 0.8rem; color: #64748b; margin-top: 6px; line-height: 1.5;
+}
 
-@media(max-width: 768px) { .header h1 { font-size: 32px; } .guides-grid { grid-template-columns: 1fr; } .lang-switcher { top: 10px; right: 10px; padding: 8px; } .recommend-grid { grid-template-columns: 1fr; } }
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 20px;
+}
+.guide-card {
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.guide-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-h);
+  box-shadow: var(--glow-c);
+}
+.guide-card .gc-icon {
+  font-size: 38px;
+  line-height: 1;
+}
+.guide-card .gc-title {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.guide-card .gc-desc {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.guide-card .gc-meta {
+  display: flex;
+  gap: 18px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.guide-card .gc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-top: auto;
+  transition: color 0.2s;
+}
+.guide-card:hover .gc-cta { color: var(--cyan); }
+
+.hero-stats {
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+.hero-stats .hs-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.hero-stats .hs-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--cyan);
+}
+
+@media (max-width: 768px) {
+  .guides-grid { grid-template-columns: 1fr; }
+  .recommend-grid { grid-template-columns: 1fr; }
+}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "深度指南 - ZenTools",
+  "description": "全方位实用教程，助您掌握各类工具的最佳实践。",
+  "url": "https://zentools.xyz/guides/",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": "25",
+    "itemListElement": []
+  }
+}
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
 <script>
 window.ZT_PAGE = {
   zh: {
     pageTitle: '深度指南 - ZenTools',
-    pageDesc: '全方位实用教程，助您掌握各类工具的最佳实践',
-    guides: [
-      { title: 'PDF 自动化工作流指南', desc: '学习如何使用在线 PDF 工具构建自动化工作流，大幅提升办公效率。包含发票处理、合同整理、报告生成等实战案例。', words: '2600+ 字', time: '25 分钟', link: '阅读指南 →' },
-      { title: '图片批量处理最佳实践', desc: '电商、营销、办公场景下的图片批量处理完整攻略。涵盖尺寸调整、格式转换、压缩优化、水印添加等核心技能。', words: '2800+ 字', time: '20 分钟', link: '阅读指南 →' },
-      { title: 'AI 写作完整工作流', desc: '从灵感到成品的高效创作指南。详细介绍 AI 辅助写作的完整流程，包括博客文章、营销文案、技术文档等多种场景。', words: '3200+ 字', time: '25 分钟', link: '阅读指南 →' },
-      { title: 'SEO 优化完整清单', desc: '从基础到进阶的全方位 SEO 优化指南。涵盖技术 SEO、站内优化、内容策略、站外建设等各个方面，助您提升搜索排名。', words: '3500+ 字', time: '30 分钟', link: '阅读指南 →' },
-      { title: '视频编辑入门指南', desc: '从零开始学习视频编辑的完整教程。包括剪辑流程、音频处理、特效转场、导出发布等核心技能，适合新手入门。', words: '3000+ 字', time: '25 分钟', link: '阅读指南 →' },
-      { title: '出差日本必用10个在线工具', desc: '出差日本必备在线工具清单：PDF 处理、图片压缩、AI 翻译、证件照制作等。所有工具无需注册。', words: '2000+ 字', time: '8 分钟', link: '阅读指南 →' },
-      { title: '学生党PDF处理合集', desc: '学生必备 PDF 处理指南：合并论文、压缩文献、OCR 识别扫描件、提取考试重点。支持批量操作。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →' },
-      { title: '开发者效率工具清单', desc: '开发者必备在线工具合集：JSON 格式化、正则测试、时间戳转换、图片 Base64 编码等。', words: '2000+ 字', time: '8 分钟', link: '阅读指南 →' },
-      { title: '自媒体内容创作工具集', desc: '自媒体创作者全套工具：AI 写作、AI 总结、图片处理、视频剪辑、音频编辑、SEO 优化。', words: '2800+ 字', time: '12 分钟', link: '阅读指南 →' },
-      { title: '图片编辑完整工作流', desc: '从裁剪、调色到压缩、水印的完整图片编辑流程。10 个工具覆盖从拍摄到发布的全部环节。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →' },
-      { title: '视频剪辑入门5工具', desc: '无需下载专业软件，浏览器即可完成视频裁剪、压缩、提取音频、格式转换等操作。', words: '2000+ 字', time: '8 分钟', link: '阅读指南 →' },
-      { title: '音频内容创作工具集', desc: '从录制到发布：录音、裁剪、变速、反转、音量调节、淡入淡出。打造播客和有声内容。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →' },
-      { title: '财务计算与生活工具', desc: '房贷计算器、存款利息、股票手续费、单位换算、密码生成器——常用生活工具合集。', words: '2200+ 字', time: '8 分钟', link: '阅读指南 →' },
-      { title: '网站SEO优化完整指南', desc: 'Meta 标签生成、关键词研究、Robots.txt 生成、网站分析。全面提升搜索排名。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →' },
-      { title: '在线教学与演示工具集', desc: '在线教师必备：图片编辑课件、视频录制与剪辑、音频处理、文档转换，打造专业课程。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →' }
-    ],
-    recoTitle: '🔥 推荐工具',
+    metaDesc: '全方位实用教程，助您掌握各类工具的最佳实践。',
+    ogTitle: '深度指南 - ZenTools',
+    ogDesc: '全方位实用教程，助您掌握各类工具的最佳实践。',
+    crumbCur: '深度指南',
+    eyebrow: '深度指南',
+    h1Grad: '深度指南',
+    h1Sub: '全方位实用教程',
+    pageDesc: '涵盖 AI 工具、PDF 自动化、图片处理、SEO 优化、视频编辑等领域的深度教程合集。',
+    statGuides: '25+',
+    statGuidesLabel: '篇指南',
+    statTopics: '10+',
+    statTopicsLabel: '个主题',
+    statUpdates: '每周更新',
+    statUpdatesLabel: '持续迭代',
+    recoEyebrow: '推荐资源',
+    recoTitle: '推荐资源',
     recoDesc: '发现更多实用在线资源，提升工作效率',
-    reco1: '☁️ 免费云环境资源大全',
-    reco1Url: '/yunchuang/cloud-resources.html',
-    reco1Desc: 'Oracle Cloud、AWS、Google Cloud 等 30+ 免费云服务完整清单',
-    reco2: '🤖 免费 AI 模型 API 大全',
-    reco2Url: '/yunchuang/free-api-models.html',
-    reco2Desc: 'Hugging Face、Gemini、Ollama 等 30+ 免费 API 接口',
-    reco3: '🧠 Gemini 2.5 Flash 免费教程',
-    reco3Url: '/guides/gemini-25-flash-free-tutorial.html',
-    reco3Desc: '第一人称实战指南，零成本使用 Google 最新大模型',
-    reco4: '🎨 ImageFree 免费 AI 图片生成教程',
-    reco4Url: '/guides/imagefree-tutorial.html',
+    reco1Title: '免费云环境资源大全',
+    reco1Desc: 'Oracle Cloud、AWS 等 30+ 免费云服务完整清单',
+    reco2Title: 'ZenTools 图文使用教程',
+    reco2Desc: '从零掌握所有工具的使用方法',
+    reco3Title: 'Gemini 2.5 Flash 免费教程',
+    reco3Desc: '第一人称实战指南，零成本体验 Google 最新大模型',
+    reco4Title: 'ImageFree 免费 AI 图片生成教程',
     reco4Desc: '免费无限AI图片生成与编辑，四大工具详解，无需账号',
-    reco5: '免费 AI 模型聚合平台',
-    reco5Url: '/yunchuang/free-ai-aggregator/',
-    reco5Desc: '自动轮询 Mistral/Gemma/Phi-3，智能故障切换，无需 API Key'
+    reco5Title: '免费 AI 模型聚合平台',
+    reco5Desc: 'Mistral/Gemma/Phi-3 智能轮询，无需 API Key',
+    toolsEyebrow: '全部指南',
+    toolsTitle: '25+ 篇深度指南',
+    toolsDesc: '从入门教程到进阶评测，覆盖 AI、PDF、图片、视频、SEO 等领域。'
   },
   en: {
     pageTitle: 'Deep Guides - ZenTools',
-    pageDesc: 'Comprehensive practical tutorials to help you master best practices for various tools',
-    guides: [
-      { title: 'PDF Automation Workflow Guide', desc: 'Learn how to build automated workflows using online PDF tools to significantly improve office efficiency. Includes practical cases like invoice processing, contract organization, and report generation.', words: '2600+ words', time: '25 min', link: 'Read Guide →' },
-      { title: 'Image Batch Processing Best Practices', desc: 'Complete guide to image batch processing for e-commerce, marketing, and office scenarios. Covers resizing, format conversion, compression optimization, watermark addition, and core skills.', words: '2800+ words', time: '20 min', link: 'Read Guide →' },
-      { title: 'AI Writing Complete Workflow', desc: 'Efficient creation guide from inspiration to final product. Detailed introduction to the complete AI-assisted writing workflow, including blog posts, marketing copy, technical documentation, and more.', words: '3200+ words', time: '25 min', link: 'Read Guide →' },
-      { title: 'SEO Optimization Complete Checklist', desc: 'Comprehensive SEO optimization guide from basics to advanced. Covers technical SEO, on-page optimization, content strategy, off-page building, and other aspects to help improve search rankings.', words: '3500+ words', time: '30 min', link: 'Read Guide →' },
-      { title: 'Video Editing Beginner Guide', desc: 'Complete tutorial for learning video editing from scratch. Includes editing workflow, audio processing, special effects transitions, export and publishing, and core skills suitable for beginners.', words: '3000+ words', time: '25 min', link: 'Read Guide →' },
-      { title: '10 Essential Tools for Japan Business Trips', desc: 'Essential online tools for Japan trips: PDF processing, image compression, AI translation, ID photo maker. All free, no registration.', words: '2000+ words', time: '8 min', link: 'Read Guide →' },
-      { title: 'Student PDF Guide', desc: 'Essential PDF guide for students: merge papers, compress references, OCR scanned docs, extract exam highlights.', words: '2500+ words', time: '10 min', link: 'Read Guide →' },
-      { title: 'Developer Efficiency Toolkit', desc: 'Essential online tools: JSON formatter, regex tester, timestamp converter, Base64 encoder. No install needed.', words: '2000+ words', time: '8 min', link: 'Read Guide →' },
-      { title: 'Content Creator Tools', desc: 'Complete toolkit: AI writing, AI summarizer, image editing, video clipping, audio editing, SEO optimization.', words: '2800+ words', time: '12 min', link: 'Read Guide →' },
-      { title: 'Image Editing Workflow', desc: 'Complete workflow from crop, color adjust to compress, watermark. 10 tools cover every step.', words: '2500+ words', time: '10 min', link: 'Read Guide →' },
-      { title: 'Beginner Video Editing Tools', desc: 'No need for professional software. Trim, compress, extract audio, convert formats in browser.', words: '2000+ words', time: '8 min', link: 'Read Guide →' },
-      { title: 'Audio Content Creation Tools', desc: 'From recording to publishing: record, trim, speed change, reverse, volume boost, fade in/out.', words: '2500+ words', time: '10 min', link: 'Read Guide →' },
-      { title: 'Finance & Life Tools', desc: 'Mortgage calculator, deposit interest, stock fees, unit converter, password generator.', words: '2200+ words', time: '8 min', link: 'Read Guide →' },
-      { title: 'Website SEO Guide', desc: 'Meta tag generator, keyword research, Robots.txt generator, site analysis. Boost rankings.', words: '2500+ words', time: '10 min', link: 'Read Guide →' },
-      { title: 'Online Teaching Tools', desc: 'Image editing for courseware, video recording & editing, audio processing, document conversion.', words: '2500+ words', time: '10 min', link: 'Read Guide →' }
-    ],
-    recoTitle: '🔥 Recommended Tools',
+    metaDesc: 'Comprehensive practical tutorials to help you master best practices for various tools.',
+    ogTitle: 'Deep Guides - ZenTools',
+    ogDesc: 'Comprehensive practical tutorials to help you master best practices for various tools.',
+    crumbCur: 'Guides',
+    eyebrow: 'Deep Guides',
+    h1Grad: 'Deep Guides',
+    h1Sub: 'Comprehensive Practical Tutorials',
+    pageDesc: 'In-depth tutorials covering AI tools, PDF automation, image processing, SEO, video editing and more.',
+    statGuides: '25+',
+    statGuidesLabel: 'Guides',
+    statTopics: '10+',
+    statTopicsLabel: 'Topics',
+    statUpdates: 'Weekly',
+    statUpdatesLabel: 'Updated',
+    recoEyebrow: 'Resources',
+    recoTitle: 'Recommended Resources',
     recoDesc: 'Discover more useful online resources to boost productivity',
-    reco1: '☁️ Free Cloud Resources Guide',
-    reco1Url: '/yunchuang/cloud-resources.html',
-    reco1Desc: '30+ free cloud services including Oracle Cloud, AWS, Google Cloud',
-    reco2: '🤖 Free AI Model API List',
-    reco2Url: '/yunchuang/free-api-models.html',
-    reco2Desc: '30+ free APIs including Hugging Face, Gemini, Ollama',
-    reco3: '🧠 Gemini 2.5 Flash Free Tutorial',
-    reco3Url: '/guides/gemini-25-flash-free-tutorial.html',
-    reco3Desc: 'First-person guide to use Google\'s latest LLM at zero cost',
-    reco4: '🎨 ImageFree Free AI Image Tutorial',
-    reco4Url: '/guides/imagefree-tutorial.html',
-    reco4Desc: 'Free unlimited AI image generation & editing, 4 tools explained, no signup',
-    reco5: 'Free AI Model Aggregator',
-    reco5Url: '/yunchuang/free-ai-aggregator/',
-    reco5Desc: 'Auto-polling Mistral/Gemma/Phi-3, smart failover, no API Key'
+    reco1Title: 'Free Cloud Resources Guide',
+    reco1Desc: '30+ free cloud services including Oracle Cloud, AWS',
+    reco2Title: 'ZenTools Visual Tutorial',
+    reco2Desc: 'Master all tools from scratch',
+    reco3Title: 'Gemini 2.5 Flash Free Tutorial',
+    reco3Desc: 'First-person guide to use Google latest LLM at zero cost',
+    reco4Title: 'ImageFree Free AI Image Tutorial',
+    reco4Desc: 'Free unlimited AI image generation, 4 tools explained, no signup',
+    reco5Title: 'Free AI Model Aggregator',
+    reco5Desc: 'Auto-polling Mistral/Gemma/Phi-3, smart failover',
+    toolsEyebrow: 'All Guides',
+    toolsTitle: '25+ Deep Guides',
+    toolsDesc: 'From beginner tutorials to advanced reviews, covering AI, PDF, image, video, SEO and more.'
   },
   ja: {
     pageTitle: '深層ガイド - ZenTools',
-    pageDesc: '各種ツールのベストプラクティスをマスターするための包括的な実用チュートリアル',
-    guides: [
-      { title: 'PDF 自動化ワークフローガイド', desc: 'オンライン PDF ツールを使用して自動化ワークフローを構築し、オフィス効率を大幅に向上させる方法を学習します。請求書処理、契約書整理、レポート生成などの実践例を含む。', words: '2600+ 文字', time: '25 分', link: 'ガイドを読む →' },
-      { title: '画像バッチ処理ベストプラクティス', desc: 'EC、マーケティング、オフィスシナリオ向けの画像バッチ処理の完全ガイド。リサイズ、フォーマット変換、圧縮最適化、透かし追加、およびコアスキルをカバー。', words: '2800+ 文字', time: '20 分', link: 'ガイドを読む →' },
-      { title: 'AI 執筆完全ワークフロー', desc: 'インスピレーションから最終製品までの効率的な作成ガイド。ブログ投稿、マーケティングコピー、技術文書など、AI 支援執筆の完全なワークフローの詳細を紹介。', words: '3200+ 文字', time: '25 分', link: 'ガイドを読む →' },
-      { title: 'SEO 最適化完全チェックリスト', desc: '基本から高度まで、包括的な SEO 最適化ガイド。技術 SEO、オンページ最適化、コンテンツ戦略、オフページ構築などを網羅し、検索順位向上をサポート。', words: '3500+ 文字', time: '30 分', link: 'ガイドを読む →' },
-      { title: 'ビデオ編集入門ガイド', desc: 'ゼロからビデオ編集を学ぶための完全チュートリアル。編集ワークフロー、オーディオ処理、特殊効果トランジション、エクスポートと公開、初心者に適したコアスキルを含む。', words: '3000+ 文字', time: '25 分', link: 'ガイドを読む →' },
-      { title: '日本出張に必須の10ツール', desc: '日本出張に必須のオンラインツール：PDF処理、画像圧縮、AI翻訳、証明写真作成。すべて無料。', words: '2000+ 文字', time: '8 分', link: 'ガイドを読む →' },
-      { title: '学生向けPDF処理ガイド', desc: '学生必須のPDF処理ガイド：論文の結合、文献の圧縮、OCRスキャン、試験ポイント抽出。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →' },
-      { title: '開発者効率ツールキット', desc: '開発者必須ツール：JSON整形、正規表現テスト、タイムスタンプ変換、Base64エンコード。', words: '2000+ 文字', time: '8 分', link: 'ガイドを読む →' },
-      { title: 'コンテンツ作成ツール集', desc: 'AI執筆、AI要約、画像編集、動画編集、音声編集、SEO最適化の完全ツールキット。', words: '2800+ 文字', time: '12 分', link: 'ガイドを読む →' },
-      { title: '画像編集ワークフロー', desc: 'トリミング、色調整から圧縮、透かしまでの完全ワークフロー。10ツールですべてカバー。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →' },
-      { title: '初心者向け動画編集ツール', desc: 'プロソフト不要。ブラウザでトリミング、圧縮、音声抽出、フォーマット変換。', words: '2000+ 文字', time: '8 分', link: 'ガイドを読む →' },
-      { title: '音声コンテンツ作成ツール', desc: '録音から公開まで：録音、トリミング、速度変更、反転、音量調整、フェード。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →' },
-      { title: '財務計算と生活ツール', desc: '住宅ローン計算、預金利息、株式手数料、単位変換、パスワード生成。', words: '2200+ 文字', time: '8 分', link: 'ガイドを読む →' },
-      { title: 'ウェブサイトSEOガイド', desc: 'メタタグ生成、キーワード調査、Robots.txt生成、サイト分析。順位向上。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →' },
-      { title: 'オンライン教育ツール', desc: '画像編集で教材、動画録画・編集、音声処理、文書変換。プロ講義作成。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →' }
-    ],
-    recoTitle: '🔥 おすすめツール',
-    recoDesc: '便利なオンラインリソースを見つけて作業効率を向上',
-    reco1: '☁️ 無料クラウド環境リソース大全',
-    reco1Url: '/yunchuang/cloud-resources.html',
-    reco1Desc: 'Oracle Cloud、AWS、Google Cloud などの 30+ 無料クラウドサービス',
-    reco2: '🤖 無料 AI モデル API 大全',
-    reco2Url: '/yunchuang/free-api-models.html',
-    reco2Desc: 'Hugging Face、Gemini、Ollama などの 30+ 無料 API',
-    reco3: '🧠 Gemini 2.5 Flash 無料チュートリアル',
-    reco3Url: '/guides/gemini-25-flash-free-tutorial.html',
-    reco3Desc: '第一人称実践ガイド、Google の最新大模型をゼロコストで体験',
-    reco4: '🎨 ImageFree 無料 AI 画像生成チュートリアル',
-    reco4Url: '/guides/imagefree-tutorial.html',
+    metaDesc: '各種ツールのベストプラクティスをマスターするための包括的な実用チュートリアル。',
+    ogTitle: '深層ガイド - ZenTools',
+    ogDesc: '各種ツールのベストプラクティスをマスターするための包括的な実用チュートリアル。',
+    crumbCur: 'ガイド',
+    eyebrow: '深層ガイド',
+    h1Grad: '深層ガイド',
+    h1Sub: '包括的な実用チュートリアル',
+    pageDesc: 'AIツール、PDF自動化、画像処理、SEO最適化、動画編集などを網羅した深層チュートリアル集。',
+    statGuides: '25+',
+    statGuidesLabel: 'ガイド',
+    statTopics: '10+',
+    statTopicsLabel: 'テーマ',
+    statUpdates: '毎週更新',
+    statUpdatesLabel: '継続的更新',
+    recoEyebrow: 'リソース',
+    recoTitle: 'おすすめリソース',
+    recoDesc: '便利なオンラインリソースで作業効率を向上',
+    reco1Title: '無料クラウド環境リソース大全',
+    reco1Desc: 'Oracle Cloud、AWS などの 30+ 無料クラウドサービス',
+    reco2Title: 'ZenTools ビジュアルチュートリアル',
+    reco2Desc: 'ゼロからすべてのツールをマスター',
+    reco3Title: 'Gemini 2.5 Flash 無料チュートリアル',
+    reco3Desc: '第一人称実践ガイド、Google 最新大模型をゼロコストで体験',
+    reco4Title: 'ImageFree 無料 AI 画像生成チュートリアル',
     reco4Desc: '無料無制限AI画像生成と編集、4機能を詳細解説、登録不要',
-    reco5: '無料 AI モデル集約プラットフォーム',
-    reco5Url: '/yunchuang/free-ai-aggregator/',
-    reco5Desc: '自動ローテーション Mistral/Gemma/Phi-3、スマートフェイルオーバー、API キー不要'
+    reco5Title: '無料 AI モデル集約プラットフォーム',
+    reco5Desc: 'Mistral/Gemma/Phi-3 スマートフェイルオーバー',
+    toolsEyebrow: '全ガイド',
+    toolsTitle: '25+ 深層ガイド',
+    toolsDesc: '入門チュートリアルから高度なレビューまで、AI、PDF、画像、動画、SEO などをカバー。'
   },
-vi: {
+  vi: {
     pageTitle: 'Hướng dẫn Chuyên sâu - ZenTools',
-    pageDesc: 'Các hướng dẫn thực tế toàn diện giúp bạn thành thạo các phương pháp tốt nhất cho nhiều công cụ khác nhau',
-    guides: [
-      { title: 'Hướng dẫn Quy trình Tự động hóa PDF', desc: 'Học cách xây dựng quy trình tự động bằng công cụ PDF trực tuyến để tăng đáng kể hiệu quả văn phòng. Bao gồm các trường hợp thực tế như xử lý hóa đơn, tổ chức hợp đồng và tạo báo cáo.', words: '2600+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Quy trình Viết AI Hoàn chỉnh', desc: 'Hướng sáng tạo hiệu quả từ cảm hứng đến sản phẩm cuối cùng. Giới thiệu chi tiết về quy trình viết hỗ trợ AI hoàn chỉnh, bao gồm bài đăng blog, bản sao tiếp thị, tài liệu kỹ thuật và hơn thế nữa.', words: '3200+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Danh sách Kiểm tra Tối ưu hóa SEO', desc: 'Hướng dẫn tối ưu hóa SEO toàn diện từ cơ bản đến nâng cao. Bao gồm SEO kỹ thuật, tối ưu hóa trên trang, chiến lược nội dung, xây dựng bên ngoài và các khía cạnh khác để giúp cải thiện thứ hạng tìm kiếm.', words: '3500+ từ', time: '30 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Hướng dẫn Chỉnh sửa Video cho Người mới', desc: 'Hướng dẫn hoàn chỉnh để học chỉnh sửa video từ đầu. Bao gồm quy trình chỉnh sửa, xử lý âm thanh, chuyển tiếp hiệu ứng đặc biệt, xuất bản và phát hành, và các kỹ năng cốt lõi phù hợp cho người mới bắt đầu.', words: '3000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →' },
-      { title: '10 Công cụ Cần thiết cho Chuyến Công tác Nhật', desc: 'Công cụ trực tuyến cần thiết cho chuyến công tác Nhật: xử lý PDF, nén ảnh, dịch AI, tạo ảnh thẻ.', words: '2000+ từ', time: '8 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Hướng dẫn PDF cho Sinh viên', desc: 'Hướng dẫn PDF cần thiết: gộp bài luận, nén tài liệu, OCR scan, trích xuất điểm chính ôn thi.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Bộ Công cụ Hiệu quả cho Dev', desc: 'Công cụ trực tuyến thiết yếu: định dạng JSON, kiểm tra regex, chuyển đổi thời gian, mã hóa Base64.', words: '2000+ từ', time: '8 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Công cụ Sáng tạo Nội dung', desc: 'Bộ công cụ hoàn chỉnh: viết AI, tóm tắt AI, chỉnh sửa ảnh, cắt video, chỉnh sửa âm thanh, tối ưu SEO.', words: '2800+ từ', time: '12 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Quy trình Chỉnh sửa Ảnh', desc: 'Quy trình hoàn chỉnh từ cắt, chỉnh màu đến nén, dấu mờ. 10 công cụ bao phủ mọi bước.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Công cụ Chỉnh sửa Video Cơ bản', desc: 'Không cần phần mềm chuyên nghiệp. Cắt, nén, trích xuất âm thanh, chuyển đổi trong trình duyệt.', words: '2000+ từ', time: '8 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Công cụ Tạo Nội dung Âm thanh', desc: 'Từ ghi âm đến xuất bản: ghi âm, cắt, thay đổi tốc độ, đảo ngược, tăng âm lượng, mờ dần.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Công cụ Tài chính & Đời sống', desc: 'Máy tính thế chấp, lãi tiền gửi, phí chứng khoán, chuyển đổi đơn vị, tạo mật khẩu.', words: '2200+ từ', time: '8 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Hướng dẫn SEO Website', desc: 'Tạo thẻ Meta, nghiên cứu từ khóa, tạo Robots.txt, phân tích trang web. Tăng thứ hạng.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →' },
-      { title: 'Công cụ Giảng dạy Trực tuyến', desc: 'Chỉnh sửa ảnh làm giáo án, ghi & chỉnh sửa video, xử lý âm thanh, chuyển đổi tài liệu.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →' }
-    ],
-    recoTitle: '🔥 Công cụ Đề xuất',
-    recoDesc: 'Khám phá thêm tài nguyên trực tuyến hữu ích để nâng cao năng suất',
-    reco1: '☁️ Tài nguyên Đám mây Miễn phí',
-    reco1Url: '/yunchuang/cloud-resources.html',
-    reco1Desc: '30+ dịch vụ đám mây miễn phí gồm Oracle Cloud, AWS, Google Cloud',
-    reco2: '🤖 Danh sách API Mô hình AI Miễn phí',
-    reco2Url: '/yunchuang/free-api-models.html',
-    reco2Desc: '30+ API miễn phí gồm Hugging Face, Gemini, Ollama',
-    reco3: '🧠 Hướng dẫn Gemini 2.5 Flash Miễn phí',
-    reco3Url: '/guides/gemini-25-flash-free-tutorial.html',
-    reco3Desc: 'Hướng dẫn thực tế từ người thật, trải nghiệm mô hình mới nhất của Google với chi phí bằng không',
-    reco4: '🎨 Hướng dẫn ImageFree Tạo ảnh AI miễn phí',
-    reco4Url: '/guides/imagefree-tutorial.html',
-    reco4Desc: 'Tạo & chỉnh sửa ảnh AI miễn phí không giới hạn, 4 công cụ chi tiết, không cần đăng ký',
-    reco5: 'Nền tảng Tổng hợp Mô hình AI Miễn phí',
-    reco5Url: '/yunchuang/free-ai-aggregator/',
-    reco5Desc: 'Quay vòng tự động Mistral/Gemma/Phi-3, chuyển mạch thông minh, không cần API Key'
+    metaDesc: 'Các hướng dẫn thực tế toàn diện giúp bạn thành thạo các phương pháp tốt nhất cho nhiều công cụ khác nhau.',
+    ogTitle: 'Hướng dẫn Chuyên sâu - ZenTools',
+    ogDesc: 'Các hướng dẫn thực tế toàn diện giúp bạn thành thạo các phương pháp tốt nhất cho nhiều công cụ khác nhau.',
+    crumbCur: 'Hướng dẫn',
+    eyebrow: 'Hướng dẫn Chuyên sâu',
+    h1Grad: 'Hướng dẫn Chuyên sâu',
+    h1Sub: 'Hướng dẫn Thực tế Toàn diện',
+    pageDesc: 'Hướng dẫn chuyên sâu bao gồm công cụ AI, tự động hóa PDF, xử lý ảnh, SEO, chỉnh sửa video và nhiều hơn nữa.',
+    statGuides: '25+',
+    statGuidesLabel: 'Hướng dẫn',
+    statTopics: '10+',
+    statTopicsLabel: 'Chủ đề',
+    statUpdates: 'Hàng tuần',
+    statUpdatesLabel: 'Cập nhật',
+    recoEyebrow: 'Tài nguyên',
+    recoTitle: 'Tài nguyên Đề xuất',
+    recoDesc: 'Khám phá thêm tài nguyên trực tuyến hữu ích',
+    reco1Title: 'Tài nguyên Đám mây Miễn phí',
+    reco1Desc: '30+ dịch vụ đám mây miễn phí gồm Oracle Cloud, AWS',
+    reco2Title: 'Hướng dẫn Trực quan ZenTools',
+    reco2Desc: 'Làm chủ tất cả công cụ từ đầu',
+    reco3Title: 'Hướng dẫn Gemini 2.5 Flash Miễn phí',
+    reco3Desc: 'Hướng dẫn thực tế, trải nghiệm mô hình mới nhất của Google với chi phí bằng không',
+    reco4Title: 'Hướng dẫn ImageFree Tạo ảnh AI miễn phí',
+    reco4Desc: 'Tạo & chỉnh sửa ảnh AI miễn phí không giới hạn, 4 công cụ chi tiết',
+    reco5Title: 'Nền tảng Tổng hợp Mô hình AI Miễn phí',
+    reco5Desc: 'Quay vòng tự động Mistral/Gemma/Phi-3, chuyển mạch thông minh',
+    toolsEyebrow: 'Tất cả Hướng dẫn',
+    toolsTitle: '25+ Hướng dẫn Chuyên sâu',
+    toolsDesc: 'Từ hướng dẫn cơ bản đến đánh giá nâng cao, bao gồm AI, PDF, ảnh, video, SEO và nhiều hơn nữa.'
   }
 };
 </script>
 </head>
 <body>
-<div class="container">
-  <div class="header">
-    <h1 data-i18n="pageHeader">📚 深度指南</h1>
-    <p data-i18n="pageDesc">全方位实用教程，助您掌握各类工具的最佳实践</p>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<div class="z-wrap">
+
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="/">ZenTools<span>3.0</span></a>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" class="active" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/about.html" data-i18n="navAbout">关于</a>
+        <select id="langSelect" class="lang-select">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header reveal">
+    <div class="breadcrumb">
+      <a href="/" data-i18n="breadcrumbHome">首页</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="cur" data-i18n="crumbCur">深度指南</span>
+    </div>
+    <span class="page-eyebrow" data-i18n="eyebrow">深度指南</span>
+    <h1><span class="grad" data-i18n="h1Grad">深度指南</span><br/><span data-i18n="h1Sub">全方位实用教程</span></h1>
+    <p data-i18n="pageDesc">涵盖 AI 工具、PDF 自动化、图片处理、SEO 优化、视频编辑等领域的深度教程合集。</p>
+    <div class="hero-stats">
+      <div class="hs-item"><span class="hs-num" data-i18n="statGuides">25+</span><span data-i18n="statGuidesLabel">篇指南</span></div>
+      <div class="hs-item"><span class="hs-num" data-i18n="statTopics">10+</span><span data-i18n="statTopicsLabel">个主题</span></div>
+      <div class="hs-item"><span class="hs-num" data-i18n="statUpdates">每周更新</span><span data-i18n="statUpdatesLabel">持续迭代</span></div>
+    </div>
   </div>
 
-  <!-- 推荐栏 - 顶部显眼位置 -->
-  <div class="recommend-section">
-    <h2 data-i18n="recoTitle">🔥 推荐工具</h2>
-    <p data-i18n="recoDesc">发现更多实用在线资源，提升工作效率</p>
+  <div class="section">
+    <div class="section-head reveal">
+      <span class="section-eyebrow" data-i18n="recoEyebrow">推荐资源</span>
+      <h2 data-i18n="recoTitle">推荐资源</h2>
+    </div>
+    <p class="section-desc" data-i18n="recoDesc">发现更多实用在线资源，提升工作效率</p>
     <div class="recommend-grid">
       <a href="/yunchuang/cloud-resources.html" class="recommend-item">
-        <span class="reco-title" data-i18n="reco1">☁️ 免费云环境资源大全</span>
-        <span class="reco-desc" data-i18n="reco1Desc">Oracle Cloud、AWS、Google Cloud 等 30+ 免费云服务完整清单</span>
+        <span class="reco-title" data-i18n="reco1Title">免费云环境资源大全</span>
+        <span class="reco-desc" data-i18n="reco1Desc">Oracle Cloud、AWS 等 30+ 免费云服务完整清单</span>
       </a>
-      <a href="/yunchuang/free-api-models.html" class="recommend-item">
-        <span class="reco-title" data-i18n="reco2">🤖 免费 AI 模型 API 大全</span>
-        <span class="reco-desc" data-i18n="reco2Desc">Hugging Face、Gemini、Ollama 等 30+ 免费 API 接口</span>
-      </a>
-      <a href="/guides/imagefree-tutorial.html" class="recommend-item">
-        <span class="reco-title" data-i18n="reco4">🎨 ImageFree 免费 AI 图片生成教程</span>
-        <span class="reco-desc" data-i18n="reco4Desc">免费无限AI图片生成与编辑，四大工具详解，无需账号</span>
+      <a href="/guides/zentools-tutorial.html" class="recommend-item">
+        <span class="reco-title" data-i18n="reco2Title">ZenTools 图文使用教程</span>
+        <span class="reco-desc" data-i18n="reco2Desc">从零掌握所有工具的使用方法</span>
       </a>
       <a href="/guides/gemini-25-flash-free-tutorial.html" class="recommend-item">
-        <span class="reco-title" data-i18n="reco3">🧠 Gemini 2.5 Flash 免费教程</span>
-        <span class="reco-desc" data-i18n="reco3Desc">第一人称实战指南，零成本使用 Google 最新大模型</span>
+        <span class="reco-title" data-i18n="reco3Title">Gemini 2.5 Flash 免费教程</span>
+        <span class="reco-desc" data-i18n="reco3Desc">第一人称实战指南，零成本体验 Google 最新大模型</span>
       </a>
       <a href="/guides/imagefree-tutorial.html" class="recommend-item">
-        <span class="reco-title" data-i18n="reco4">🎨 ImageFree 免费 AI 图片生成教程</span>
+        <span class="reco-title" data-i18n="reco4Title">ImageFree 免费 AI 图片生成教程</span>
         <span class="reco-desc" data-i18n="reco4Desc">免费无限AI图片生成与编辑，四大工具详解，无需账号</span>
       </a>
-      <a href="/yunchuang/free-ai-aggregator/" class="recommend-item featured">
-        <span class="reco-title" data-i18n="reco5">🧠 免费 AI 模型聚合平台</span>
-        <span class="reco-desc" data-i18n="reco5Desc">自动轮询 Mistral/Gemma/Phi-3，智能故障切换，无需 API Key</span>
+      <a href="/yunchuang/free-ai-aggregator/" class="recommend-item">
+        <span class="reco-title" data-i18n="reco5Title">免费 AI 模型聚合平台</span>
+        <span class="reco-desc" data-i18n="reco5Desc">Mistral/Gemma/Phi-3 智能轮询</span>
       </a>
     </div>
   </div>
-  
-  <div class="guides-grid" id="guidesGrid"></div>
+
+  <div class="section">
+    <div class="section-head reveal">
+      <span class="section-eyebrow" data-i18n="toolsEyebrow">全部指南</span>
+      <h2 data-i18n="toolsTitle">25+ 篇深度指南</h2>
+    </div>
+    <p class="section-desc" data-i18n="toolsDesc">从入门教程到进阶评测，覆盖 AI、PDF、图片、视频、SEO 等领域。</p>
+    <div class="guides-grid reveal-stagger" id="guidesGrid"></div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links">
+        <a href="/">首页</a>
+        <a href="/guides/">深度指南</a>
+        <a href="/privacy.html">隐私政策</a>
+        <a href="/terms.html">使用条款</a>
+      </div>
+      <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+    </div>
+  </footer>
+
 </div>
 
+<script src="../assets/js/tool-ui.min.js"></script>
 <script>
-const guidesData = [
-  { 
-    slug: 'zentools-tutorial', 
-    icon: '🧰',
-    zh: { title: 'ZenTools 图文使用教程', desc: 'ZenTools 完整使用教程，涵盖 PDF 处理、图片编辑、音频视频、AI 工具等所有分类的详细操作指南，图文并茂，新手也能快速上手。', words: '5000+ 字', time: '25 分钟', link: '阅读教程 →', file: 'zentools-tutorial.html' },
-    en: { title: 'ZenTools Complete Visual Tutorial', desc: 'Complete ZenTools usage tutorial covering PDF processing, image editing, audio/video, AI tools and all categories. Illustrated step-by-step guide for beginners.', words: '5000+ words', time: '25 min', link: 'Read Tutorial →', file: 'zentools-tutorial.html' },
-    ja: { title: 'ZenTools 完全ビジュアルチュートリアル', desc: 'ZenTools の完全な使用チュートリアル。PDF処理、画像編集、音声・動画、AIツールなど全カテゴリを網羅した図解ガイド。', words: '5000+ 文字', time: '25 分', link: 'チュートリアルを読む →', file: 'zentools-tutorial.html' },
-    vi: { title: 'Hướng dẫn Trực quan ZenTools Hoàn chỉnh', desc: 'Hướng dẫn sử dụng ZenTools đầy đủ, bao gồm xử lý PDF, chỉnh sửa hình ảnh, âm thanh/video, công cụ AI và tất cả các danh mục.', words: '5000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'zentools-tutorial.html' }
-  },
-  { 
-    slug: 'imagefree-tutorial', 
-    icon: '🎨',
-    zh: { title: 'ImageFree 免费 AI 图片生成教程', desc: 'ImageFree 完全使用指南：免费无限 AI 图片生成、AI 照片编辑、背景移除、图片放大四大工具详解。含 Prompt 编写技巧和实战工作流。', words: '5000+ 字', time: '25 分钟', link: '阅读教程 →', file: 'imagefree-tutorial.html' },
-    en: { title: 'ImageFree Free AI Image Generation Tutorial', desc: 'Complete ImageFree guide: free unlimited AI image generation, AI photo editing, background removal, and image upscaling. Includes prompt writing tips and practical workflows.', words: '5000+ words', time: '25 min', link: 'Read Tutorial →', file: 'imagefree-tutorial.html' },
-    ja: { title: 'ImageFree 無料 AI 画像生成チュートリアル', desc: 'ImageFree 完全ガイド：無料無制限の AI 画像生成、AI 写真編集、背景除去、画像拡大の4大ツールを詳解。プロンプト作成のコツと実践ワークフロー付き。', words: '5000+ 文字', time: '25 分', link: 'チュートリアルを読む →', file: 'imagefree-tutorial.html' },
-    vi: { title: 'Hướng dẫn Tạo Ảnh AI Miễn phí ImageFree', desc: 'Hướng dẫn ImageFree đầy đủ: tạo ảnh AI miễn phí không giới hạn, chỉnh sửa ảnh AI, xóa phông nền và phóng to ảnh. Kèm mẹo viết prompt và quy trình thực tế.', words: '5000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'imagefree-tutorial.html' }
-  },
-  { 
-    slug: 'nex-n2-pro-review', 
-    icon: '🚀',
-    zh: { title: 'Nex-N2-Pro 深度评测', desc: 'GPT-5.5 级免费 AI Agent 模型实测！SWE-Bench Pro 超越 GPT-5.5，BrowseComp 接近 GPT-5.5。基于 Qwen3.5 后训练，专为 Agent 场景设计，限时免费使用。', words: '3500+ 字', time: '12 分钟', link: '阅读评测 →', file: 'nex-n2-pro-review.html' },
-    en: { title: 'Nex-N2-Pro Deep Review', desc: 'GPT-5.5 level free AI Agent model tested! Surpasses GPT-5.5 on SWE-Bench Pro, close to GPT-5.5 on BrowseComp. Trained on Qwen3.5, designed for Agent scenarios, free for limited time.', words: '3500+ words', time: '12 min', link: 'Read Review →', file: 'nex-n2-pro-review.html' },
-    ja: { title: 'Nex-N2-Pro 深層レビュー', desc: 'GPT-5.5 レベルの無料 AI エージェントモデルを実測！SWE-Bench Pro で GPT-5.5 を超え、BrowseComp では GPT-5.5 に迫る。Qwen3.5 後にトレーニングされ、エージェントシーン用に設計。', words: '3500+ 文字', time: '12 分', link: 'レビューを読む →', file: 'nex-n2-pro-review.html' },
-    vi: { title: 'Đánh giá Sâu Nex-N2-Pro', desc: 'Mô hình AI Agent miễn phí cấp độ GPT-5.5 được kiểm tra thực tế! Vượt qua GPT-5.5 trên SWE-Bench Pro, gần bằng GPT-5.5 trên BrowseComp. Được huấn luyện sau trên Qwen3.5.', words: '3500+ từ', time: '12 phút', link: 'Xem Đánh giá →', file: 'nex-n2-pro-review.html' }
-  },
-  { 
-    slug: 'free-api-models', 
-    icon: '🔌',
-    zh: { title: '免费 AI 模型 API 大全', desc: '2026 年实时获取免费大模型接口完整清单！包含 Hugging Face、Google Gemini、Ollama 等 30+ 免费 API，支持文本生成、图像识别、语音转文字等多种功能。', words: '3000+ 字', time: '15 分钟', link: '查看清单 →', file: 'free-api-models-guide.html' },
-    en: { title: 'Free AI Model APIs Complete List', desc: '2026 real-time complete list of free large model interfaces! Includes 30+ free APIs like Hugging Face, Google Gemini, Ollama, supporting text generation, image recognition, speech-to-text and more.', words: '3000+ words', time: '15 min', link: 'View List →', file: 'free-api-models-guide.html' },
-    ja: { title: '無料 AI モデル API 大全', desc: '2026 年のリアルタイム無料大規模モデルインターフェース完全リスト！Hugging Face、Google Gemini、Ollama などの 30+ の無料 API を含み、テキスト生成、画像認識、音声変換などをサポート。', words: '3000+ 文字', time: '15 分', link: 'リストを見る →', file: 'free-api-models-guide.html' },
-    vi: { title: 'Danh sách Hoàn chỉnh API Mô hình AI Miễn phí', desc: 'Danh sách hoàn chỉnh các giao diện mô hình lớn miễn phí theo thời gian thực năm 2026! Bao gồm 30+ API miễn phí như Hugging Face, Google Gemini, Ollama, hỗ trợ nhiều chức năng như tạo văn bản, nhận dạng hình ảnh, chuyển đổi giọng nói.', words: '3000+ từ', time: '15 phút', link: 'Xem Danh sách →', file: 'free-api-models-guide.html' }
-  },
-  { 
-    slug: 'pdf-automation', 
-    icon: '📄',
-    zh: { title: 'PDF 自动化工作流指南', desc: '学习如何使用在线 PDF 工具构建自动化工作流，大幅提升办公效率。包含发票处理、合同整理、报告生成等实战案例。', words: '2600+ 字', time: '25 分钟', link: '阅读指南 →', file: 'pdf-automation-guide.html' },
-    en: { title: 'PDF Automation Workflow Guide', desc: 'Learn how to build automated workflows using online PDF tools to significantly improve office efficiency. Includes practical cases like invoice processing, contract organization, and report generation.', words: '2600+ words', time: '25 min', link: 'Read Guide →', file: 'pdf-automation-guide.html' },
-    ja: { title: 'PDF 自動化ワークフローガイド', desc: 'オンライン PDF ツールを使用して自動化ワークフローを構築し、オフィス効率を大幅に向上させる方法を学習します。請求書処理、契約書整理、レポート生成などの実践例を含む。', words: '2600+ 文字', time: '25 分', link: 'ガイドを読む →', file: 'pdf-automation-guide.html' },
-    vi: { title: 'Hướng dẫn Quy trình Tự động hóa PDF', desc: 'Học cách xây dựng quy trình tự động bằng công cụ PDF trực tuyến để tăng đáng kể hiệu quả văn phòng. Bao gồm các trường hợp thực tế như xử lý hóa đơn, tổ chức hợp đồng và tạo báo cáo.', words: '2600+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'pdf-automation-guide.html' }
-  },
-  {
-    slug: 'image-batch', 
-    icon: '🖼️',
-    zh: { title: '图片批量处理最佳实践', desc: '电商、营销、办公场景下的图片批量处理完整攻略。涵盖尺寸调整、格式转换、压缩优化、水印添加等核心技能。', words: '2800+ 字', time: '20 分钟', link: '阅读指南 →', file: 'image-batch-processing.html' },
-    en: { title: 'Image Batch Processing Best Practices', desc: 'Complete guide to image batch processing for e-commerce, marketing, and office scenarios. Covers resizing, format conversion, compression optimization, watermark addition, and core skills.', words: '2800+ words', time: '20 min', link: 'Read Guide →', file: 'image-batch-processing.html' },
-    ja: { title: '画像バッチ処理ベストプラクティス', desc: 'EC、マーケティング、オフィスシナリオ向けの画像バッチ処理の完全ガイド。リサイズ、フォーマット変換、圧縮最適化、透かし追加、およびコアスキルをカバー。', words: '2800+ 文字', time: '20 分', link: 'ガイドを読む →', file: 'image-batch-processing.html' },
-    vi: { title: 'Thực hành Tốt nhất Xử lý Hàng loạt Ảnh', desc: 'Hướng dẫn đầy đủ về xử lý hàng loạt ảnh cho thương mại điện tử, tiếp thị và tình huống văn phòng. Bao gồm thay đổi kích thước, chuyển đổi định dạng, tối ưu hóa nén, thêm dấu nước và kỹ năng cốt lõi.', words: '2800+ từ', time: '20 phút', link: 'Xem Hướng dẫn →', file: 'image-batch-processing.html' }
-  },
-  { 
-    slug: 'ai-writing', 
-    icon: '🤖',
-    zh: { title: 'AI 写作完整工作流', desc: '从灵感到成品的高效创作指南。详细介绍 AI 辅助写作的完整流程，包括博客文章、营销文案、技术文档等多种场景。', words: '3200+ 字', time: '25 分钟', link: '阅读指南 →', file: 'ai-writing-workflow.html' },
-    en: { title: 'AI Writing Complete Workflow', desc: 'Efficient creation guide from inspiration to final product. Detailed introduction to the complete AI-assisted writing workflow, including blog posts, marketing copy, technical documentation, and more.', words: '3200+ words', time: '25 min', link: 'Read Guide →', file: 'ai-writing-workflow.html' },
-    ja: { title: 'AI 執筆完全ワークフロー', desc: 'インスピレーションから最終製品までの効率的な作成ガイド。ブログ投稿、マーケティングコピー、技術文書など、AI 支援執筆の完全なワークフローの詳細を紹介。', words: '3200+ 文字', time: '25 分', link: 'ガイドを読む →', file: 'ai-writing-workflow.html' },
-    vi: { title: 'Quy trình Viết AI Hoàn chỉnh', desc: 'Hướng sáng tạo hiệu quả từ cảm hứng đến sản phẩm cuối cùng. Giới thiệu chi tiết về quy trình viết hỗ trợ AI hoàn chỉnh, bao gồm bài đăng blog, bản sao tiếp thị, tài liệu kỹ thuật và hơn thế nữa.', words: '3200+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'ai-writing-workflow.html' }
-  },
-  { 
-    slug: 'seo-optimization', 
-    icon: '🔍',
-    zh: { title: 'SEO 优化完整清单', desc: '从基础到进阶的全方位 SEO 优化指南。涵盖技术 SEO、站内优化、内容策略、站外建设等各个方面，助您提升搜索排名。', words: '3500+ 字', time: '30 分钟', link: '阅读指南 →', file: 'seo-optimization-checklist.html' },
-    en: { title: 'SEO Optimization Complete Checklist', desc: 'Comprehensive SEO optimization guide from basics to advanced. Covers technical SEO, on-page optimization, content strategy, off-page building, and other aspects to help improve search rankings.', words: '3500+ words', time: '30 min', link: 'Read Guide →', file: 'seo-optimization-checklist.html' },
-    ja: { title: 'SEO 最適化完全チェックリスト', desc: '基本から高度まで、包括的な SEO 最適化ガイド。技術 SEO、オンページ最適化、コンテンツ戦略、オフページ構築などを網羅し、検索順位向上をサポート。', words: '3500+ 文字', time: '30 分', link: 'ガイドを読む →', file: 'seo-optimization-checklist.html' },
-    vi: { title: 'Danh sách Kiểm tra Tối ưu hóa SEO', desc: 'Hướng dẫn tối ưu hóa SEO toàn diện từ cơ bản đến nâng cao. Bao gồm SEO kỹ thuật, tối ưu hóa trên trang, chiến lược nội dung, xây dựng bên ngoài và các khía cạnh khác để giúp cải thiện thứ hạng tìm kiếm.', words: '3500+ từ', time: '30 phút', link: 'Xem Hướng dẫn →', file: 'seo-optimization-checklist.html' }
-  },
-  { 
-    slug: 'video-editing', 
-    icon: '🎬',
-    zh: { title: '视频编辑入门指南', desc: '从零开始学习视频编辑的完整教程。包括剪辑流程、音频处理、特效转场、导出发布等核心技能，适合新手入门。', words: '3000+ 字', time: '25 分钟', link: '阅读指南 →', file: 'video-editing-tips.html' },
-    en: { title: 'Video Editing Beginner Guide', desc: 'Complete tutorial for learning video editing from scratch. Includes editing workflow, audio processing, special effects transitions, export and publishing, and core skills suitable for beginners.', words: '3000+ words', time: '25 min', link: 'Read Guide →', file: 'video-editing-tips.html' },
-    ja: { title: 'ビデオ編集入門ガイド', desc: 'ゼロからビデオ編集を学ぶための完全チュートリアル。編集ワークフロー、オーディオ処理、特殊効果トランジション、エクスポートと公開、初心者に適したコアスキルを含む。', words: '3000+ 文字', time: '25 分', link: 'ガイドを読む →', file: 'video-editing-tips.html' },
-    vi: { title: 'Hướng dẫn Chỉnh sửa Video cho Người mới', desc: 'Hướng dẫn hoàn chỉnh để học chỉnh sửa video từ đầu. Bao gồm quy trình chỉnh sửa, xử lý âm thanh, chuyển tiếp hiệu ứng đặc biệt, xuất bản và phát hành, và các kỹ năng cốt lõi phù hợp cho người mới bắt đầu.', words: '3000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'video-editing-tips.html' }
-  },
-  { 
-    slug: 'alibaba-cloud-deploy-dify', 
-    icon: '📊',
-    zh: { title: '阿里云部署 Dify 完整指南', desc: '企业级 AI 应用开发平台 Dify 在阿里云上的完整部署教程。涵盖 ECS 选型、Docker 环境配置、数据库优化、生产环境调优等全流程，附真实案例和故障排查。', words: '4500+ 字', time: '35 分钟', link: '阅读指南 →', file: 'alibaba-cloud-deploy-dify.html' },
-    en: { title: 'Complete Alibaba Cloud Dify Deployment Guide', desc: 'Complete deployment tutorial for enterprise AI application platform Dify on Alibaba Cloud. Covers ECS selection, Docker environment configuration, database optimization, production tuning, with real cases and troubleshooting.', words: '4500+ words', time: '35 min', link: 'Read Guide →', file: 'alibaba-cloud-deploy-dify.html' },
-    ja: { title: 'Alibaba Cloud Dify 完全デプロイガイド', desc: '企業向け AI アプリケーション開発プラットフォーム Dify の Alibaba Cloud 上での完全デプロイチュートリアル。ECS 選択、Docker 環境設定、データベース最適化、本番環境チューニングを網羅し、実ケースとトラブルシューティング付き。', words: '4500+ 文字', time: '35 分', link: 'ガイドを読む →', file: 'alibaba-cloud-deploy-dify.html' },
-    vi: { title: 'Hướng dẫn Triển khai Dify trên Alibaba Cloud Hoàn chỉnh', desc: 'Hướng dẫn triển khai đầy đủ cho nền tảng phát triển ứng dụng AI doanh nghiệp Dify trên Alibaba Cloud. Bao gồm lựa chọn ECS, cấu hình môi trường Docker, tối ưu hóa cơ sở dữ liệu, điều chỉnh môi trường sản xuất, kèm trường hợp thực tế và khắc phục sự cố.', words: '4500+ từ', time: '35 phút', link: 'Xem Hướng dẫn →', file: 'alibaba-cloud-deploy-dify.html' }
-  },
-  { 
-    slug: 'agnes-ai-free-token', 
-    icon: '✨',
-    zh: { title: 'Agnes AI 免费 Token 接入实测', desc: '2026 年最实用的 AI 图像生成平台接入指南！包含 API Key 申请、SDK 集成、图像生成实战、成本控制等全流程，附真实测试数据和性能对比。', words: '3800+ 字', time: '28 分钟', link: '阅读指南 →', file: 'agnes-ai-free-token-tutorial.html' },
-    en: { title: 'Agnes AI Free Token Access Tutorial', desc: 'The most practical AI image generation platform integration guide of 2026! Includes API Key application, SDK integration, image generation practice, cost control, etc., with real test data and performance comparison.', words: '3800+ words', time: '28 min', link: 'Read Guide →', file: 'agnes-ai-free-token-tutorial.html' },
-    ja: { title: 'Agnes AI 無料トークン接入実測', desc: '2026 年の最も実用的な AI 画像生成プラットフォーム統合ガイド！API キー申請、SDK 統合、画像生成実践、コスト管理などの完全プロセスを実際テストデータとパフォーマンス比較付きで紹介します。', words: '3800+ 文字', time: '28 分', link: 'ガイドを読む →', file: 'agnes-ai-free-token-tutorial.html' },
-    vi: { title: 'Hướng dẫn Thực tế Tiếp nhận Token Miễn phí Agnes AI', desc: 'Hướng dẫn tích hợp nền tảng tạo ảnh AI thực tế nhất năm 2026! Bao gồm ứng dụng API Key, tích hợp SDK, thực hành tạo ảnh, kiểm soát chi phí, v.v., kèm theo dữ liệu thử nghiệm thực tế và so sánh hiệu năng.', words: '3800+ từ', time: '28 phút', link: 'Xem Hướng dẫn →', file: 'agnes-ai-free-token-tutorial.html' }
-  },
-  { 
-    slug: 'longmao-ai-review', 
-    icon: '🐱',
-    zh: { title: '龙猫 AI 平台深度评测', desc: '免费千万 Token + 全程国产算力卡！华为昇腾、寒武纪、壁仞 GPU 集群实测对比，性能、价格、安全全方位解析，开发者终极指南。', words: '4200+ 字', time: '32 分钟', link: '阅读评测 →', file: 'longmao-ai-review.html' },
-    en: { title: 'LongMao AI Deep Review', desc: '10 Million Free Tokens + Domestic GPUs! Huawei Ascend, Cambricon, Biren GPU cluster benchmark comparison, comprehensive analysis of performance, pricing, and security, ultimate guide for developers.', words: '4200+ words', time: '32 min', link: 'Read Review →', file: 'longmao-ai-review.html' },
-    ja: { title: '龍猫 AI プラットフォーム深層レビュー', desc: '無料千万トークン + 国産 GPU クラスター！華為昇騰、寒武紀、壁仞 GPU クラスターのベンチマーク比較、パフォーマンス、価格、セキュリティの包括的解析、開発者向け究極ガイド。', words: '4200+ 文字', time: '32 分', link: 'レビューを読む →', file: 'longmao-ai-review.html' },
-    vi: { title: 'Đánh giá Sâu Nền tảng LongMao AI', desc: '10 Triệu Token Miễn phí + GPU Trong nước! So sánh benchmark cụm GPU Huawei Ascend, Cambricon, Biren, phân tích toàn diện về hiệu năng, giá cả và bảo mật, hướng dẫn tối ưu cho nhà phát triển.', words: '4200+ từ', time: '32 phút', link: 'Xem Đánh giá →', file: 'longmao-ai-review.html' }
-  },
-  { 
-    slug: 'agnes-desktop-installation', 
-    icon: '💻',
-    zh: { title: 'Agnes 桌面版安装教程', desc: '手把手教你从零开始配置本地大模型！Windows/Mac/Linux全平台支持，免费无限量使用，附详细步骤和故障排查指南。', words: '4500+ 字', time: '35 分钟', link: '阅读教程 →', file: 'agnes-desktop-installation.html' },
-    en: { title: 'Agnes Desktop Installation Tutorial', desc: 'Step-by-step guide to configure local LLM from scratch! Cross-platform support (Windows/Mac/Linux), free unlimited usage, with detailed steps and troubleshooting guide.', words: '4500+ words', time: '35 min', link: 'Read Tutorial →', file: 'agnes-desktop-installation.html' },
-    ja: { title: 'Agnes デスクトップ版インストールチュートリアル', desc: 'ゼロからローカル大模型を設定する完全ガイド！Windows/Mac/Linux 全プラットフォーム対応、無料無制限使用、詳細手順とトラブルシューティング付き。', words: '4500+ 文字', time: '35 分', link: 'チュートリアルを読む →', file: 'agnes-desktop-installation.html' },
-    vi: { title: 'Hướng dẫn Cài đặt Agnes Desktop', desc: 'Hướng dẫn từng bước cấu hình LLM cục bộ từ đầu! Hỗ trợ đa nền tảng (Windows/Mac/Linux), miễn phí vô hạn, kèm theo các bước chi tiết và hướng dẫn khắc phục sự cố.', words: '4500+ từ', time: '35 phút', link: 'Xem Hướng dẫn →', file: 'agnes-desktop-installation.html' }
-  },
-  { 
-    slug: 'workbuddy-free-token-review', 
-    icon: '🤖',
-    zh: { title: 'Workbuddy 免费无限 Token 实测', desc: 'AI 编程助手终极评测！智能补全、代码解释、单元测试生成全方位体验，性能对比真实数据，开发者必备工具推荐。', words: '4800+ 字', time: '38 分钟', link: '阅读评测 →', file: 'workbuddy-free-token-review.html' },
-    en: { title: 'Workbuddy Free Unlimited Tokens Review', desc: 'Ultimate AI coding assistant review! Smart completion, code explanation, unit test generation comprehensive experience, real performance data, essential tool recommendation for developers.', words: '4800+ words', time: '38 min', link: 'Read Review →', file: 'workbuddy-free-token-review.html' },
-    ja: { title: 'Workbuddy 無料無限トークン実測', desc: 'AI コーディングアシスタント究極レビュー！スマート補完、コード説明、ユニットテスト生成の包括的体験、実際のパフォーマンスデータ、開発者必須ツール推薦。', words: '4800+ 文字', time: '38 分', link: 'レビューを読む →', file: 'workbuddy-free-token-review.html' },
-    vi: { title: 'Đánh giá Workbuddy Token Miễn phí Vô hạn', desc: 'Hướng dẫn đánh giá trợ lý lập trình AI tối ưu! Hoàn thành thông minh, giải thích mã, tạo kiểm tra đơn vị trải nghiệm toàn diện, dữ liệu hiệu năng thực tế, khuyến nghị công cụ thiết yếu cho nhà phát triển.', words: '4800+ từ', time: '38 phút', link: 'Xem Đánh giá →', file: 'workbuddy-free-token-review.html' }
-  },
-  { 
-    slug: 'qwenpaw-free-deployment', 
-    icon: '🐱',
-    zh: { title: 'QwenPaw 免费部署教程', desc: '第一人称视角亲测分享！从零开始配置本地 AI 助理，完全免费无限制，隐私安全有保障，2026 年最值得拥有的个人开发工具。', words: '5200+ 字', time: '40 分钟', link: '阅读教程 →', file: 'qwenpaw-free-deployment.html' },
-    en: { title: 'QwenPaw Free Deployment Tutorial', desc: 'First-person perspective tested guide! Configure personal AI assistant from scratch, completely free unlimited, privacy protected, most valuable personal development tool of 2026.', words: '5200+ words', time: '40 min', link: 'Read Tutorial →', file: 'qwenpaw-free-deployment.html' },
-    ja: { title: 'QwenPaw 無料デプロイチュートリアル', desc: '第一人称視点で実際に検証したガイド！スクラッチから個人 AI アシスタントを設定、完全に無料で無制限、プライバシー保護、2026 年の最も価値のある個人開発ツール。', words: '5200+ 文字', time: '40 分', link: 'チュートリアルを読む →', file: 'qwenpaw-free-deployment.html' },
-    vi: { title: 'Hướng dẫn Triển khai QwenPaw Miễn phí', desc: 'Hướng dẫn kiểm tra thực tế từ góc nhìn thứ nhất! Cấu hình trợ lý AI cá nhân từ đầu, hoàn toàn miễn phí vô hạn, bảo vệ quyền riêng tư, công cụ phát triển cá nhân có giá trị nhất năm 2026.', words: '5200+ từ', time: '40 phút', link: 'Xem Hướng dẫn →', file: 'qwenpaw-free-deployment.html' }
-  },
-  { 
-    slug: 'gemini-25-flash-free', 
-    icon: '🤖',
-    zh: { title: 'Gemini 2.5 Flash 免费使用教程', desc: '第一人称叙事实战指南！从零注册到 API 调用，完整记录免费额度获取、性能实测、踩坑经验与项目应用，手把手教你零成本体验 Google 最新大模型。', words: '6000+ 字', time: '45 分钟', link: '阅读教程 →', file: 'gemini-25-flash-free-tutorial.html' },
-    en: { title: 'Gemini 2.5 Flash Free Usage Tutorial', desc: 'First-person narrative practical guide! From registration to API calling, complete record of free quota acquisition, performance testing, pitfall experiences and project applications, step-by-step teaching you to experience Google\'s latest large model at zero cost.', words: '6000+ words', time: '45 min', link: 'Read Tutorial →', file: 'gemini-25-flash-free-tutorial.html' },
-    ja: { title: 'Gemini 2.5 Flash 無料使用チュートリアル', desc: '第一人称ナラティブ実践ガイド！登録から API 呼び出しまで、無料クォータ取得、パフォーマンステスト、トラブル経験、プロジェクト応用の完全記録、Google の最新大模型をゼロコストで体験するステップバイステップガイド。', words: '6000+ 文字', time: '45 分', link: 'チュートリアルを読む →', file: 'gemini-25-flash-free-tutorial.html' },
-    vi: { title: 'Hướng dẫn Sử dụng Gemini 2.5 Flash Miễn phí', desc: 'Hướng dẫn thực tế kể chuyện ngôi thứ nhất! Từ đăng ký đến gọi API, ghi chép đầy đủ về việc lấy hạn mức miễn phí, kiểm tra hiệu năng, kinh nghiệm vấp ngã và ứng dụng dự án, hướng dẫn từng bước trải nghiệm mô hình lớn mới nhất của Google với chi phí bằng không.', words: '6000+ từ', time: '45 phút', link: 'Xem Hướng dẫn →', file: 'gemini-25-flash-free-tutorial.html' }
-  },
+(function() {
+  'use strict';
 
-  // ===== 新场景指南（10篇）=====
-  { 
-    slug: 'travel-japan-tools', 
-    icon: '✈️',
-    zh: { title: '出差日本必用的 10 个在线工具', desc: '出差日本必备在线工具清单：PDF 处理、图片压缩、AI 翻译、证件照制作等。所有工具无需注册，浏览器直接使用。', words: '2000+ 字', time: '8 分钟', link: '阅读指南 →', file: 'travel-japan-tools.html' },
-    en: { title: '10 Essential Tools for Business Trips to Japan', desc: 'Essential online tools for Japan business trips: PDF processing, image compression, AI translation, ID photo maker. All free, no registration needed.', words: '2000+ words', time: '8 min', link: 'Read Guide →', file: 'travel-japan-tools.html' },
-    ja: { title: '出張日本に必携の10個のオンラインツール', desc: '日本出張に必須のオンラインツールリスト：PDF処理、画像圧縮、AI翻訳、証明写真作成など。すべて無料で登録不要。', words: '2000+ 文字', time: '8 分', link: 'ガイドを読む →', file: 'travel-japan-tools.html' },
-    vi: { title: '10 Công cụ Trực tuyến Cần thiết cho Chuyến Công tác Nhật Bản', desc: 'Danh sách công cụ trực tuyến cần thiết cho chuyến công tác Nhật Bản: xử lý PDF, nén ảnh, dịch AI, tạo ảnh thẻ. Tất cả miễn phí, không cần đăng ký.', words: '2000+ từ', time: '8 phút', link: 'Xem Hướng dẫn →', file: 'travel-japan-tools.html' }
-  },
-  { 
-    slug: 'student-pdf-guide', 
-    icon: '📚',
-    zh: { title: '学生党 PDF 处理合集：论文、笔记、考试资料管理', desc: '学生必备 PDF 处理指南：合并论文、压缩文献、OCR 识别扫描件、提取考试重点。ZenTools 全免费，支持批量操作。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →', file: 'student-pdf-guide.html' },
-    en: { title: 'Student PDF Guide: Managing Papers, Notes & Exam Materials', desc: 'Essential PDF guide for students: merge papers, compress references, OCR scanned docs, extract exam highlights. All free on ZenTools.', words: '2500+ words', time: '10 min', link: 'Read Guide →', file: 'student-pdf-guide.html' },
-    ja: { title: '学生向け PDF 処理ガイド：論文・ノート・試験資料管理', desc: '学生必須の PDF 処理ガイド：論文の結合、文献の圧縮、OCR スキャン、試験ポイント抽出。ZenTools 完全無料。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →', file: 'student-pdf-guide.html' },
-    vi: { title: 'Hướng dẫn PDF cho Sinh viên: Quản lý Bài luận, Ghi chú & Tài liệu Thi', desc: 'Hướng dẫn PDF cần thiết cho sinh viên: gộp bài luận, nén tài liệu tham khảo, OCR tài liệu scan, trích xuất điểm chính ôn thi.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →', file: 'student-pdf-guide.html' }
-  },
-  { 
-    slug: 'developer-efficiency-tools', 
-    icon: '💻',
-    zh: { title: '开发者效率工具清单：JSON、正则、代码调试必备', desc: '开发者必备在线工具合集：JSON 格式化、正则测试、时间戳转换、图片 Base64 编码等。无需安装，打开即用。', words: '2000+ 字', time: '8 分钟', link: '阅读指南 →', file: 'developer-efficiency-tools.html' },
-    en: { title: 'Developer Efficiency Toolkit: JSON, Regex & Code Debugging', desc: 'Essential online tools for developers: JSON formatter, regex tester, timestamp converter, Base64 encoder. No install, use instantly.', words: '2000+ words', time: '8 min', link: 'Read Guide →', file: 'developer-efficiency-tools.html' },
-    ja: { title: '開発者効率ツールキット：JSON、正規表現、デバッグ必須', desc: '開発者必須のオンラインツール集：JSON フォーマッター、正規表現テスト、タイムスタンプ変換、Base64 エンコード。インストール不要。', words: '2000+ 文字', time: '8 分', link: 'ガイドを読む →', file: 'developer-efficiency-tools.html' },
-    vi: { title: 'Bộ Công cụ Hiệu quả cho Nhà phát triển: JSON, Regex & Gỡ lỗi', desc: 'Bộ công cụ trực tuyến thiết yếu cho nhà phát triển: định dạng JSON, kiểm tra regex, chuyển đổi dấu thời gian, mã hóa Base64.', words: '2000+ từ', time: '8 phút', link: 'Xem Hướng dẫn →', file: 'developer-efficiency-tools.html' }
-  },
-  { 
-    slug: 'content-creation-tools', 
-    icon: '✍️',
-    zh: { title: '自媒体内容创作者必备的 10 个在线工具', desc: '自媒体创作者全套工具：AI 写作、AI 总结、图片处理、视频剪辑、音频编辑、SEO 优化。一站式解决方案。', words: '2800+ 字', time: '12 分钟', link: '阅读指南 →', file: 'content-creation-tools.html' },
-    en: { title: '10 Essential Tools for Content Creators', desc: 'Complete toolkit for content creators: AI writing, AI summarizer, image editing, video clipping, audio editing, SEO optimization.', words: '2800+ words', time: '12 min', link: 'Read Guide →', file: 'content-creation-tools.html' },
-    ja: { title: 'コンテンツ制作者に必須の10個のオンラインツール', desc: 'コンテンツ制作者向け完全ツールキット：AI 執筆、AI 要約、画像編集、動画クリップ、音声編集、SEO 最適化。', words: '2800+ 文字', time: '12 分', link: 'ガイドを読む →', file: 'content-creation-tools.html' },
-    vi: { title: '10 Công cụ Cần thiết cho Người Sáng tạo Nội dung', desc: 'Bộ công cụ hoàn chỉnh cho người sáng tạo nội dung: viết AI, tóm tắt AI, chỉnh sửa ảnh, cắt video, chỉnh sửa âm thanh, tối ưu SEO.', words: '2800+ từ', time: '12 phút', link: 'Xem Hướng dẫn →', file: 'content-creation-tools.html' }
-  },
-  { 
-    slug: 'image-editing-workflow', 
-    icon: '🖼️',
-    zh: { title: '图片编辑完整工作流：从拍摄到发布', desc: '从拍照到发布的完整图片编辑流程：裁剪、调色、压缩、添加水印、转换格式。10 个工具覆盖全部环节。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →', file: 'image-editing-workflow.html' },
-    en: { title: 'Complete Image Editing Workflow: From Capture to Publish', desc: 'Complete image editing workflow: crop, color adjust, compress, watermark, format conversion. 10 tools cover every step.', words: '2500+ words', time: '10 min', link: 'Read Guide →', file: 'image-editing-workflow.html' },
-    ja: { title: '完全な画像編集ワークフロー：撮影から公開まで', desc: '撮影から公開までの完全な画像編集ワークフロー：切り抜き、色調整、圧縮、透かし、フォーマット変換。10ツールですべてをカバー。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →', file: 'image-editing-workflow.html' },
-    vi: { title: 'Quy trình Chỉnh sửa Ảnh Hoàn chỉnh: Từ Chụp đến Xuất bản', desc: 'Quy trình chỉnh sửa ảnh hoàn chỉnh: cắt, điều chỉnh màu, nén, thêm dấu mờ, chuyển đổi định dạng. 10 công cụ bao phủ mọi bước.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →', file: 'image-editing-workflow.html' }
-  },
-  { 
-    slug: 'video-editing-beginners', 
-    icon: '🎬',
-    zh: { title: '视频剪辑入门：5 个浏览器工具快速上手', desc: '无需下载 Premiere 或剪映，浏览器即可剪辑视频：裁剪、压缩、提取音频、转换格式。适合新手快速入门。', words: '2000+ 字', time: '8 分钟', link: '阅读指南 →', file: 'video-editing-beginners.html' },
-    en: { title: 'Beginner Video Editing: 5 Browser-Based Tools to Get Started', desc: 'No need to download Premiere or CapCut. Edit videos in browser: trim, compress, extract audio, convert formats. Perfect for beginners.', words: '2000+ words', time: '8 min', link: 'Read Guide →', file: 'video-editing-beginners.html' },
-    ja: { title: '動画編集入門：5つのブラウザベースツールで始めよう', desc: 'Premiere や CapCut をダウンロードする必要なし。ブラウザで動画編集：トリミング、圧縮、音声抽出、フォーマット変換。初心者に最適。', words: '2000+ 文字', time: '8 分', link: 'ガイドを読む →', file: 'video-editing-beginners.html' },
-    vi: { title: 'Chỉnh sửa Video Cơ bản: 5 Công cụ Trình duyệt để Bắt đầu', desc: 'Không cần tải Premiere hay CapCut. Chỉnh sửa video trong trình duyệt: cắt, nén, trích xuất âm thanh, chuyển đổi định dạng.', words: '2000+ từ', time: '8 phút', link: 'Xem Hướng dẫn →', file: 'video-editing-beginners.html' }
-  },
-  { 
-    slug: 'audio-content-creation', 
-    icon: '🎙️',
-    zh: { title: '音频内容创作工具集：录制、编辑、转换全搞定', desc: '从录制到发布的音频创作全套工具：录音、裁剪、变速、反转、音量调节、淡入淡出。打造你的播客或有声内容。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →', file: 'audio-content-creation.html' },
-    en: { title: 'Audio Content Creation Toolkit: Record, Edit & Convert', desc: 'Complete audio creation toolkit from recording to publishing: record, trim, speed change, reverse, volume boost, fade in/out.', words: '2500+ words', time: '10 min', link: 'Read Guide →', file: 'audio-content-creation.html' },
-    ja: { title: '音声コンテンツ作成ツールキット：録音・編集・変換', desc: '録音から公開までの完全な音声作成ツールキット：録音、トリミング、速度変更、反転、音量調整、フェードイン/アウト。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →', file: 'audio-content-creation.html' },
-    vi: { title: 'Bộ Công cụ Tạo Nội dung Âm thanh: Ghi âm, Chỉnh sửa & Chuyển đổi', desc: 'Bộ công cụ tạo âm thanh hoàn chỉnh từ ghi âm đến xuất bản: ghi âm, cắt, thay đổi tốc độ, đảo ngược, tăng âm lượng, mờ dần.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →', file: 'audio-content-creation.html' }
-  },
-  { 
-    slug: 'finance-life-tools', 
-    icon: '💰',
-    zh: { title: '财务计算与生活工具：房贷、理财、日常计算一站搞定', desc: '房贷计算器、存款利息、股票手续费、单位换算、密码生成器……常用生活计算工具合集，无需下载 APP。', words: '2200+ 字', time: '8 分钟', link: '阅读指南 →', file: 'finance-life-tools.html' },
-    en: { title: 'Finance & Life Tools: Mortgage, Investment & Daily Calculations', desc: 'Mortgage calculator, deposit interest, stock fees, unit converter, password generator. Collection of everyday calculation tools.', words: '2200+ words', time: '8 min', link: 'Read Guide →', file: 'finance-life-tools.html' },
-    ja: { title: '財務計算と生活ツール：住宅ローン、投資、日常計算', desc: '住宅ローン計算、預金利息、株式手数料、単位変換、パスワード生成。日常計算ツールのコレクション。', words: '2200+ 文字', time: '8 分', link: 'ガイドを読む →', file: 'finance-life-tools.html' },
-    vi: { title: 'Công cụ Tài chính & Đời sống: Thế chấp, Đầu tư & Tính toán Hàng ngày', desc: 'Máy tính thế chấp, lãi tiền gửi, phí chứng khoán, chuyển đổi đơn vị, tạo mật khẩu. Bộ sưu tập công cụ tính toán hàng ngày.', words: '2200+ từ', time: '8 phút', link: 'Xem Hướng dẫn →', file: 'finance-life-tools.html' }
-  },
-  { 
-    slug: 'seo-optimization-guide', 
-    icon: '🔍',
-    zh: { title: '网站 SEO 优化完整指南：Meta、关键词、结构化数据', desc: 'SEO 优化全套工具：Meta 标签生成、关键词研究、Robots.txt 生成、网站分析。全面提升网站搜索排名。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →', file: 'seo-optimization-guide.html' },
-    en: { title: 'Complete Website SEO Guide: Meta, Keywords & Structured Data', desc: 'Complete SEO toolkit: Meta tag generator, keyword research, Robots.txt generator, site analysis. Boost your search rankings.', words: '2500+ words', time: '10 min', link: 'Read Guide →', file: 'seo-optimization-guide.html' },
-    ja: { title: '完全なウェブサイト SEO ガイド：メタ、キーワード、構造化データ', desc: 'SEO 完全ツールキット：メタタグ生成、キーワード調査、Robots.txt 生成、サイト分析。検索順位を向上。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →', file: 'seo-optimization-guide.html' },
-    vi: { title: 'Hướng dẫn SEO Website Hoàn chỉnh: Meta, Từ khóa & Dữ liệu Cấu trúc', desc: 'Bộ công cụ SEO hoàn chỉnh: tạo thẻ Meta, nghiên cứu từ khóa, tạo Robots.txt, phân tích trang web.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →', file: 'seo-optimization-guide.html' }
-  },
-  { 
-    slug: 'online-teaching-tools', 
-    icon: '👨‍🏫',
-    zh: { title: '在线教学与演示工具集：课件、录课、直播必备', desc: '在线教师必备工具：图片编辑制作课件、视频录制与剪辑、音频处理、文档转换。打造专业在线课程。', words: '2500+ 字', time: '10 分钟', link: '阅读指南 →', file: 'online-teaching-tools.html' },
-    en: { title: 'Online Teaching Toolkit: Lesson Plans, Recording & Live Streaming', desc: 'Essential tools for online teachers: image editing for courseware, video recording & editing, audio processing, document conversion.', words: '2500+ words', time: '10 min', link: 'Read Guide →', file: 'online-teaching-tools.html' },
-    ja: { title: 'オンライン教育ツールキット：教材作成、録画、配信', desc: 'オンライン講師必須ツール：画像編集で教材作成、動画録画・編集、音声処理、文書変換。プロ仕様のオンライン講義を作成。', words: '2500+ 文字', time: '10 分', link: 'ガイドを読む →', file: 'online-teaching-tools.html' },
-    vi: { title: 'Bộ Công cụ Giảng dạy Trực tuyến: Giáo án, Ghi hình & Phát trực tiếp', desc: 'Công cụ thiết yếu cho giáo viên trực tuyến: chỉnh sửa ảnh làm giáo án, ghi & chỉnh sửa video, xử lý âm thanh, chuyển đổi tài liệu.', words: '2500+ từ', time: '10 phút', link: 'Xem Hướng dẫn →', file: 'online-teaching-tools.html' }
-  },
-  { 
-    slug: 'imagefree-tutorial', 
-    icon: '🎨',
-    zh: { title: 'ImageFree 完全使用教程：免费无限 AI 图片生成与编辑', desc: '完全免费的 AI 图片工具深度指南：文生图、AI 照片编辑、背景移除、图片放大四大功能详解。含 Prompt 编写进阶技巧、4 步实战工作流、隐私保护政策与商业使用指南。无账号、无限制、无需水印。', words: '5000+ 字', time: '25 分钟', link: '阅读教程 →', file: 'imagefree-tutorial.html' },
-    en: { title: 'ImageFree Complete Tutorial: Free Unlimited AI Image Generation & Editing', desc: 'Comprehensive guide to the completely free AI image tool: text-to-image, AI photo editing, background removal, and image upscaling. Includes advanced prompt writing techniques, 4-step workflow, privacy policy, and commercial usage guide. No signup, no limits, no watermarks.', words: '5000+ words', time: '25 min', link: 'Read Tutorial →', file: 'imagefree-tutorial.html' },
-    ja: { title: 'ImageFree 完全ガイド：無料無制限 AI 画像生成と編集', desc: '完全に無料の AI 画像ツールの深層ガイド：テキスト画像生成、AI 写真編集、背景除去、画像アップスケールの 4 つの機能を詳細解説。プロンプト作成上級テクニック、4 ステップ実践ワークフロー、プライバシー保護ポリシー、商業利用ガイドを収録。登録不要、無制限、ウォーターマークなし。', words: '5000+ 文字', time: '25 分', link: 'ガイドを読む →', file: 'imagefree-tutorial.html' },
-    vi: { title: 'Hướng dẫn Sử dụng ImageFree: Tạo & Chỉnh sửa ảnh AI miễn phí không giới hạn', desc: 'Hướng dẫn chi tiết công cụ AI tạo ảnh hoàn toàn miễn phí: tạo ảnh từ văn bản, chỉnh sửa ảnh AI, xóa nền và nâng cấp ảnh. Bao gồm kỹ thuật viết prompt nâng cao, quy trình 4 bước thực tế, chính sách bảo vệ quyền riêng tư và hướng dẫn sử dụng thương mại. Không cần đăng ký, không giới hạn, không watermark.', words: '5000+ từ', time: '25 phút', link: 'Xem Hướng dẫn →', file: 'imagefree-tutorial.html' }
+  var guidesData = [
+    { slug: 'zentools-tutorial', icon: '🧰', file: 'zentools-tutorial.html',
+      zh: { title: 'ZenTools 图文使用教程', desc: 'ZenTools 完整使用教程，涵盖 PDF 处理、图片编辑、音频视频、AI 工具等所有分类的详细操作指南，图文并茂，新手也能快速上手。', words: '5000+ 字', time: '25 分钟' },
+      en: { title: 'ZenTools Complete Visual Tutorial', desc: 'Complete ZenTools usage tutorial covering PDF processing, image editing, audio/video, AI tools and all categories. Illustrated step-by-step guide for beginners.', words: '5000+ words', time: '25 min' },
+      ja: { title: 'ZenTools 完全ビジュアルチュートリアル', desc: 'ZenTools の完全な使用チュートリアル。PDF処理、画像編集、音声・動画、AIツールなど全カテゴリを網羅した図解ガイド。', words: '5000+ 文字', time: '25 分' },
+      vi: { title: 'Hướng dẫn Trực quan ZenTools Hoàn chỉnh', desc: 'Hướng dẫn sử dụng ZenTools đầy đủ, bao gồm xử lý PDF, chỉnh sửa hình ảnh, âm thanh/video, công cụ AI và tất cả các danh mục.', words: '5000+ từ', time: '25 phút' } },
+    { slug: 'imagefree-tutorial', icon: '🎨', file: 'imagefree-tutorial.html',
+      zh: { title: 'ImageFree 免费 AI 图片生成教程', desc: 'ImageFree 完全使用指南：免费无限 AI 图片生成、AI 照片编辑、背景移除、图片放大四大工具详解。含 Prompt 编写技巧和实战工作流。', words: '5000+ 字', time: '25 分钟' },
+      en: { title: 'ImageFree Free AI Image Generation Tutorial', desc: 'Complete ImageFree guide: free unlimited AI image generation, AI photo editing, background removal, and image upscaling. Includes prompt writing tips and practical workflows.', words: '5000+ words', time: '25 min' },
+      ja: { title: 'ImageFree 無料 AI 画像生成チュートリアル', desc: 'ImageFree 完全ガイド：無料無制限の AI 画像生成、AI 写真編集、背景除去、画像拡大の4大ツールを詳解。プロンプト作成のコツと実践ワークフロー付き。', words: '5000+ 文字', time: '25 分' },
+      vi: { title: 'Hướng dẫn Tạo Ảnh AI Miễn phí ImageFree', desc: 'Hướng dẫn ImageFree đầy đủ: tạo ảnh AI miễn phí không giới hạn, chỉnh sửa ảnh AI, xóa phông nền và phóng to ảnh. Kèm mẹo viết prompt và quy trình thực tế.', words: '5000+ từ', time: '25 phút' } },
+    { slug: 'nex-n2-pro-review', icon: '🚀', file: 'nex-n2-pro-review.html',
+      zh: { title: 'Nex-N2-Pro 深度评测', desc: 'GPT-5.5 级免费 AI Agent 模型实测！SWE-Bench Pro 超越 GPT-5.5，BrowseComp 接近 GPT-5.5。基于 Qwen3.5 后训练，专为 Agent 场景设计，限时免费使用。', words: '3500+ 字', time: '12 分钟' },
+      en: { title: 'Nex-N2-Pro Deep Review', desc: 'GPT-5.5 level free AI Agent model tested! Surpasses GPT-5.5 on SWE-Bench Pro, close to GPT-5.5 on BrowseComp. Trained on Qwen3.5, designed for Agent scenarios.', words: '3500+ words', time: '12 min' },
+      ja: { title: 'Nex-N2-Pro 深層レビュー', desc: 'GPT-5.5 レベルの無料 AI エージェントモデルを実測！SWE-Bench Pro で GPT-5.5 を超え、BrowseComp では GPT-5.5 に迫る。Qwen3.5 後にトレーニング。', words: '3500+ 文字', time: '12 分' },
+      vi: { title: 'Đánh giá Sâu Nex-N2-Pro', desc: 'Mô hình AI Agent miễn phí cấp độ GPT-5.5 được kiểm tra thực tế! Vượt qua GPT-5.5 trên SWE-Bench Pro, gần bằng GPT-5.5 trên BrowseComp.', words: '3500+ từ', time: '12 phút' } },
+    { slug: 'free-api-models', icon: '🔌', file: 'free-api-models-guide.html',
+      zh: { title: '免费 AI 模型 API 大全', desc: '2026 年实时获取免费大模型接口完整清单！包含 Hugging Face、Google Gemini、Ollama 等 30+ 免费 API，支持文本生成、图像识别、语音转文字等多种功能。', words: '3000+ 字', time: '15 分钟' },
+      en: { title: 'Free AI Model APIs Complete List', desc: '2026 real-time complete list of free large model interfaces! Includes 30+ free APIs like Hugging Face, Google Gemini, Ollama.', words: '3000+ words', time: '15 min' },
+      ja: { title: '無料 AI モデル API 大全', desc: '2026 年のリアルタイム無料大規模モデルインターフェース完全リスト！Hugging Face、Google Gemini、Ollama などの 30+ の無料 API を含む。', words: '3000+ 文字', time: '15 分' },
+      vi: { title: 'Danh sách Hoàn chỉnh API Mô hình AI Miễn phí', desc: 'Danh sách hoàn chỉnh các giao diện mô hình lớn miễn phí theo thời gian thực năm 2026! Bao gồm 30+ API miễn phí.', words: '3000+ từ', time: '15 phút' } },
+    { slug: 'pdf-automation', icon: '📄', file: 'pdf-automation-guide.html',
+      zh: { title: 'PDF 自动化工作流指南', desc: '学习如何使用在线 PDF 工具构建自动化工作流，大幅提升办公效率。包含发票处理、合同整理、报告生成等实战案例。', words: '2600+ 字', time: '25 分钟' },
+      en: { title: 'PDF Automation Workflow Guide', desc: 'Learn how to build automated workflows using online PDF tools to significantly improve office efficiency. Includes practical cases.', words: '2600+ words', time: '25 min' },
+      ja: { title: 'PDF 自動化ワークフローガイド', desc: 'オンライン PDF ツールを使用して自動化ワークフローを構築し、オフィス効率を大幅に向上させる方法を学習します。', words: '2600+ 文字', time: '25 分' },
+      vi: { title: 'Hướng dẫn Quy trình Tự động hóa PDF', desc: 'Học cách xây dựng quy trình tự động bằng công cụ PDF trực tuyến để tăng đáng kể hiệu quả văn phòng.', words: '2600+ từ', time: '25 phút' } },
+    { slug: 'image-batch', icon: '🖼️', file: 'image-batch-processing.html',
+      zh: { title: '图片批量处理最佳实践', desc: '电商、营销、办公场景下的图片批量处理完整攻略。涵盖尺寸调整、格式转换、压缩优化、水印添加等核心技能。', words: '2800+ 字', time: '20 分钟' },
+      en: { title: 'Image Batch Processing Best Practices', desc: 'Complete guide to image batch processing for e-commerce, marketing, and office scenarios. Covers resizing, format conversion, compression.', words: '2800+ words', time: '20 min' },
+      ja: { title: '画像バッチ処理ベストプラクティス', desc: 'EC、マーケティング、オフィスシナリオ向けの画像バッチ処理の完全ガイド。リサイズ、フォーマット変換、圧縮最適化をカバー。', words: '2800+ 文字', time: '20 分' },
+      vi: { title: 'Thực hành Tốt nhất Xử lý Hàng loạt Ảnh', desc: 'Hướng dẫn đầy đủ về xử lý hàng loạt ảnh cho thương mại điện tử, tiếp thị và tình huống văn phòng.', words: '2800+ từ', time: '20 phút' } },
+    { slug: 'ai-writing', icon: '🤖', file: 'ai-writing-workflow.html',
+      zh: { title: 'AI 写作完整工作流', desc: '从灵感到成品的高效创作指南。详细介绍 AI 辅助写作的完整流程，包括博客文章、营销文案、技术文档等多种场景。', words: '3200+ 字', time: '25 分钟' },
+      en: { title: 'AI Writing Complete Workflow', desc: 'Efficient creation guide from inspiration to final product. Detailed introduction to the complete AI-assisted writing workflow.', words: '3200+ words', time: '25 min' },
+      ja: { title: 'AI 執筆完全ワークフロー', desc: 'インスピレーションから最終製品までの効率的な作成ガイド。ブログ投稿、マーケティングコピー、技術文書など。', words: '3200+ 文字', time: '25 分' },
+      vi: { title: 'Quy trình Viết AI Hoàn chỉnh', desc: 'Hướng sáng tạo hiệu quả từ cảm hứng đến sản phẩm cuối cùng. Giới thiệu chi tiết về quy trình viết hỗ trợ AI hoàn chỉnh.', words: '3200+ từ', time: '25 phút' } },
+    { slug: 'seo-optimization', icon: '🔍', file: 'seo-optimization-checklist.html',
+      zh: { title: 'SEO 优化完整清单', desc: '从基础到进阶的全方位 SEO 优化指南。涵盖技术 SEO、站内优化、内容策略、站外建设等各个方面，助您提升搜索排名。', words: '3500+ 字', time: '30 分钟' },
+      en: { title: 'SEO Optimization Complete Checklist', desc: 'Comprehensive SEO optimization guide from basics to advanced. Covers technical SEO, on-page optimization, content strategy.', words: '3500+ words', time: '30 min' },
+      ja: { title: 'SEO 最適化完全チェックリスト', desc: '基本から高度まで、包括的な SEO 最適化ガイド。技術 SEO、オンページ最適化、コンテンツ戦略などを網羅。', words: '3500+ 文字', time: '30 分' },
+      vi: { title: 'Danh sách Kiểm tra Tối ưu hóa SEO', desc: 'Hướng dẫn tối ưu hóa SEO toàn diện từ cơ bản đến nâng cao. Bao gồm SEO kỹ thuật, tối ưu hóa trên trang.', words: '3500+ từ', time: '30 phút' } },
+    { slug: 'video-editing', icon: '🎬', file: 'video-editing-tips.html',
+      zh: { title: '视频编辑入门指南', desc: '从零开始学习视频编辑的完整教程。包括剪辑流程、音频处理、特效转场、导出发布等核心技能，适合新手入门。', words: '3000+ 字', time: '25 分钟' },
+      en: { title: 'Video Editing Beginner Guide', desc: 'Complete tutorial for learning video editing from scratch. Includes editing workflow, audio processing, special effects transitions.', words: '3000+ words', time: '25 min' },
+      ja: { title: 'ビデオ編集入門ガイド', desc: 'ゼロからビデオ編集を学ぶための完全チュートリアル。編集ワークフロー、オーディオ処理、特殊効果トランジションを含む。', words: '3000+ 文字', time: '25 分' },
+      vi: { title: 'Hướng dẫn Chỉnh sửa Video cho Người mới', desc: 'Hướng dẫn hoàn chỉnh để học chỉnh sửa video từ đầu. Bao gồm quy trình chỉnh sửa, xử lý âm thanh.', words: '3000+ từ', time: '25 phút' } },
+    { slug: 'alibaba-cloud-deploy-dify', icon: '📊', file: 'alibaba-cloud-deploy-dify.html',
+      zh: { title: '阿里云部署 Dify 完整指南', desc: '企业级 AI 应用开发平台 Dify 在阿里云上的完整部署教程。涵盖 ECS 选型、Docker 环境配置、数据库优化、生产环境调优等全流程。', words: '4500+ 字', time: '35 分钟' },
+      en: { title: 'Complete Alibaba Cloud Dify Deployment Guide', desc: 'Complete deployment tutorial for enterprise AI application platform Dify on Alibaba Cloud.', words: '4500+ words', time: '35 min' },
+      ja: { title: 'Alibaba Cloud Dify 完全デプロイガイド', desc: '企業向け AI アプリケーション開発プラットフォーム Dify の Alibaba Cloud 上での完全デプロイチュートリアル。', words: '4500+ 文字', time: '35 分' },
+      vi: { title: 'Hướng dẫn Triển khai Dify trên Alibaba Cloud Hoàn chỉnh', desc: 'Hướng dẫn triển khai đầy đủ cho nền tảng phát triển ứng dụng AI doanh nghiệp Dify trên Alibaba Cloud.', words: '4500+ từ', time: '35 phút' } },
+    { slug: 'agnes-ai-free-token', icon: '✨', file: 'agnes-ai-free-token-tutorial.html',
+      zh: { title: 'Agnes 免费 Token 接入实测教程', desc: '2026 年最实用的 AI 图像生成平台接入指南！包含 API Key 申请、SDK 集成、图像生成实战、成本控制等全流程。', words: '3800+ 字', time: '28 分钟' },
+      en: { title: 'Agnes AI Free Token Access Tutorial', desc: 'The most practical AI image generation platform integration guide of 2026! Includes API Key application, SDK integration.', words: '3800+ words', time: '28 min' },
+      ja: { title: 'Agnes AI 無料トークン接入実測チュートリアル', desc: '2026 年の最も実用的な AI 画像生成プラットフォーム統合ガイド！API キー申請、SDK 統合を含む。', words: '3800+ 文字', time: '28 分' },
+      vi: { title: 'Hướng dẫn Thực tế Tiếp nhận Token Miễn phí Agnes AI', desc: 'Hướng dẫn tích hợp nền tảng tạo ảnh AI thực tế nhất năm 2026! Bao gồm ứng dụng API Key, tích hợp SDK.', words: '3800+ từ', time: '28 phút' } },
+    { slug: 'longmao-ai-review', icon: '🐱', file: 'longmao-ai-review.html',
+      zh: { title: '龙猫 AI 平台深度评测', desc: '免费千万 Token + 全程国产算力卡！华为昇腾、寒武纪、壁仞 GPU 集群实测对比，性能、价格、安全全方位解析。', words: '4200+ 字', time: '32 分钟' },
+      en: { title: 'LongMao AI Deep Review', desc: '10 Million Free Tokens + Domestic GPUs! Huawei Ascend, Cambricon, Biren GPU cluster benchmark comparison.', words: '4200+ words', time: '32 min' },
+      ja: { title: '龍猫 AI プラットフォーム深層レビュー', desc: '無料千万トークン + 国産 GPU クラスター！華為昇騰、寒武紀、壁仞 GPU クラスターのベンチマーク比較。', words: '4200+ 文字', time: '32 分' },
+      vi: { title: 'Đánh giá Sâu Nền tảng LongMao AI', desc: '10 Triệu Token Miễn phí + GPU Trong nước! So sánh benchmark cụm GPU Huawei Ascend, Cambricon, Biren.', words: '4200+ từ', time: '32 phút' } },
+    { slug: 'agnes-desktop-installation', icon: '💻', file: 'agnes-desktop-installation.html',
+      zh: { title: 'Agnes 桌面版安装教程', desc: '手把手教你从零开始配置本地大模型！Windows/Mac/Linux全平台支持，免费无限量使用，附详细步骤和故障排查指南。', words: '4500+ 字', time: '35 分钟' },
+      en: { title: 'Agnes Desktop Installation Tutorial', desc: 'Step-by-step guide to configure local LLM from scratch! Cross-platform support (Windows/Mac/Linux), free unlimited usage.', words: '4500+ words', time: '35 min' },
+      ja: { title: 'Agnes デスクトップ版インストールチュートリアル', desc: 'ゼロからローカル大模型を設定する完全ガイド！Windows/Mac/Linux 全プラットフォーム対応、無料無制限使用。', words: '4500+ 文字', time: '35 分' },
+      vi: { title: 'Hướng dẫn Cài đặt Agnes Desktop', desc: 'Hướng dẫn từng bước cấu hình LLM cục bộ từ đầu! Hỗ trợ đa nền tảng (Windows/Mac/Linux), miễn phí vô hạn.', words: '4500+ từ', time: '35 phút' } },
+    { slug: 'workbuddy-free-token-review', icon: '🤖', file: 'workbuddy-free-token-review.html',
+      zh: { title: 'Workbuddy 免费无限 Token 实测评测', desc: 'AI 编程助手终极评测！智能补全、代码解释、单元测试生成全方位体验，性能对比真实数据。', words: '4800+ 字', time: '38 分钟' },
+      en: { title: 'Workbuddy Free Unlimited Tokens Review', desc: 'Ultimate AI coding assistant review! Smart completion, code explanation, unit test generation comprehensive experience.', words: '4800+ words', time: '38 min' },
+      ja: { title: 'Workbuddy 無料無限トークン実測レビュー', desc: 'AI コーディングアシスタント究極レビュー！スマート補完、コード説明、ユニットテスト生成の包括的体験。', words: '4800+ 文字', time: '38 分' },
+      vi: { title: 'Đánh giá Workbuddy Token Miễn phí Vô hạn', desc: 'Hướng dẫn đánh giá trợ lý lập trình AI tối ưu! Hoàn thành thông minh, giải thích mã, tạo kiểm tra đơn vị.', words: '4800+ từ', time: '38 phút' } },
+    { slug: 'qwenpaw-free-deployment', icon: '🐱', file: 'qwenpaw-free-deployment.html',
+      zh: { title: 'QwenPaw 免费部署教程', desc: '第一人称视角亲测分享！从零开始配置本地 AI 助理，完全免费无限制，隐私安全有保障。', words: '5200+ 字', time: '40 分钟' },
+      en: { title: 'QwenPaw Free Deployment Tutorial', desc: 'First-person perspective tested guide! Configure personal AI assistant from scratch, completely free unlimited, privacy protected.', words: '5200+ words', time: '40 min' },
+      ja: { title: 'QwenPaw 無料デプロイチュートリアル', desc: '第一人称視点で実際に検証したガイド！スクラッチから個人 AI アシスタントを設定、完全に無料で無制限。', words: '5200+ 文字', time: '40 分' },
+      vi: { title: 'Hướng dẫn Triển khai QwenPaw Miễn phí', desc: 'Hướng dẫn kiểm tra thực tế từ góc nhìn thứ nhất! Cấu hình trợ lý AI cá nhân từ đầu, hoàn toàn miễn phí vô hạn.', words: '5200+ từ', time: '40 phút' } },
+    { slug: 'gemini-25-flash-free', icon: '🧠', file: 'gemini-25-flash-free-tutorial.html',
+      zh: { title: 'Gemini 2.5 Flash 免费使用教程', desc: '第一人称叙事实战指南！从零注册到 API 调用，完整记录免费额度获取、性能实测与项目应用，零成本体验 Google 最新大模型。', words: '6000+ 字', time: '45 分钟' },
+      en: { title: 'Gemini 2.5 Flash Free Usage Tutorial', desc: 'First-person narrative practical guide! From registration to API calling, complete record of free quota acquisition and performance testing.', words: '6000+ words', time: '45 min' },
+      ja: { title: 'Gemini 2.5 Flash 無料使用チュートリアル', desc: '第一人称ナラティブ実践ガイド！登録から API 呼び出しまで、無料クォータ取得、パフォーマンステストの完全記録。', words: '6000+ 文字', time: '45 分' },
+      vi: { title: 'Hướng dẫn Sử dụng Gemini 2.5 Flash Miễn phí', desc: 'Hướng dẫn thực tế kể chuyện ngôi thứ nhất! Từ đăng ký đến gọi API, ghi chép đầy đủ về việc lấy hạn mức miễn phí.', words: '6000+ từ', time: '45 phút' } },
+
+    { slug: 'travel-japan-tools', icon: '✈️', file: 'travel-japan-tools.html',
+      zh: { title: '出差日本必用的 10 个在线工具', desc: '出差日本必备在线工具清单：PDF 处理、图片压缩、AI 翻译、证件照制作等。所有工具无需注册，浏览器直接使用。', words: '2000+ 字', time: '8 分钟' },
+      en: { title: '10 Essential Tools for Business Trips to Japan', desc: 'Essential online tools for Japan business trips: PDF processing, image compression, AI translation, ID photo maker.', words: '2000+ words', time: '8 min' },
+      ja: { title: '出張日本に必携の10個のオンラインツール', desc: '日本出張に必須のオンラインツールリスト：PDF処理、画像圧縮、AI翻訳、証明写真作成など。すべて無料で登録不要。', words: '2000+ 文字', time: '8 分' },
+      vi: { title: '10 Công cụ Trực tuyến Cần thiết cho Chuyến Công tác Nhật Bản', desc: 'Danh sách công cụ trực tuyến cần thiết cho chuyến công tác Nhật Bản: xử lý PDF, nén ảnh, dịch AI.', words: '2000+ từ', time: '8 phút' } },
+    { slug: 'student-pdf-guide', icon: '📚', file: 'student-pdf-guide.html',
+      zh: { title: '学生党 PDF 处理合集：论文、笔记、考试资料管理', desc: '学生必备 PDF 处理指南：合并论文、压缩文献、OCR 识别扫描件、提取考试重点。ZenTools 全免费，支持批量操作。', words: '2500+ 字', time: '10 分钟' },
+      en: { title: 'Student PDF Guide: Managing Papers, Notes & Exam Materials', desc: 'Essential PDF guide for students: merge papers, compress references, OCR scanned docs, extract exam highlights.', words: '2500+ words', time: '10 min' },
+      ja: { title: '学生向け PDF 処理ガイド：論文・ノート・試験資料管理', desc: '学生必須の PDF 処理ガイド：論文の結合、文献の圧縮、OCR スキャン。ZenTools 完全無料。', words: '2500+ 文字', time: '10 分' },
+      vi: { title: 'Hướng dẫn PDF cho Sinh viên: Quản lý Bài luận, Ghi chú & Tài liệu Thi', desc: 'Hướng dẫn PDF cần thiết cho sinh viên: gộp bài luận, nén tài liệu tham khảo, OCR tài liệu scan.', words: '2500+ từ', time: '10 phút' } },
+    { slug: 'developer-efficiency-tools', icon: '💻', file: 'developer-efficiency-tools.html',
+      zh: { title: '开发者效率工具清单：JSON、正则、代码调试必备', desc: '开发者必备在线工具合集：JSON 格式化、正则测试、时间戳转换、图片 Base64 编码等。无需安装，打开即用。', words: '2000+ 字', time: '8 分钟' },
+      en: { title: 'Developer Efficiency Toolkit: JSON, Regex & Code Debugging', desc: 'Essential online tools for developers: JSON formatter, regex tester, timestamp converter, Base64 encoder.', words: '2000+ words', time: '8 min' },
+      ja: { title: '開発者効率ツールキット：JSON、正規表現、デバッグ必須', desc: '開発者必須のオンラインツール集：JSON フォーマッター、正規表現テスト、タイムスタンプ変換。', words: '2000+ 文字', time: '8 分' },
+      vi: { title: 'Bộ Công cụ Hiệu quả cho Nhà phát triển: JSON, Regex & Gỡ lỗi', desc: 'Bộ công cụ trực tuyến thiết yếu cho nhà phát triển: định dạng JSON, kiểm tra regex, chuyển đổi dấu thời gian.', words: '2000+ từ', time: '8 phút' } },
+    { slug: 'content-creation-tools', icon: '✍️', file: 'content-creation-tools.html',
+      zh: { title: '自媒体内容创作者必备的 10 个在线工具', desc: '自媒体创作者全套工具：AI 写作、AI 总结、图片处理、视频剪辑、音频编辑、SEO 优化。一站式解决方案。', words: '2800+ 字', time: '12 分钟' },
+      en: { title: '10 Essential Tools for Content Creators', desc: 'Complete toolkit for content creators: AI writing, AI summarizer, image editing, video clipping, audio editing.', words: '2800+ words', time: '12 min' },
+      ja: { title: 'コンテンツ制作者に必須の10個のオンラインツール', desc: 'コンテンツ制作者向け完全ツールキット：AI 執筆、AI 要約、画像編集、動画クリップ、音声編集。', words: '2800+ 文字', time: '12 分' },
+      vi: { title: '10 Công cụ Cần thiết cho Người Sáng tạo Nội dung', desc: 'Bộ công cụ hoàn chỉnh cho người sáng tạo nội dung: viết AI, tóm tắt AI, chỉnh sửa ảnh, cắt video.', words: '2800+ từ', time: '12 phút' } },
+    { slug: 'image-editing-workflow', icon: '🖼️', file: 'image-editing-workflow.html',
+      zh: { title: '图片编辑完整工作流：从拍摄到发布', desc: '从拍照到发布的完整图片编辑流程：裁剪、调色、压缩、添加水印、转换格式。10 个工具覆盖全部环节。', words: '2500+ 字', time: '10 分钟' },
+      en: { title: 'Complete Image Editing Workflow: From Capture to Publish', desc: 'Complete image editing workflow: crop, color adjust, compress, watermark, format conversion. 10 tools cover every step.', words: '2500+ words', time: '10 min' },
+      ja: { title: '完全な画像編集ワークフロー：撮影から公開まで', desc: '撮影から公開までの完全な画像編集ワークフロー：切り抜き、色調整、圧縮、透かし、フォーマット変換。', words: '2500+ 文字', time: '10 分' },
+      vi: { title: 'Quy trình Chỉnh sửa Ảnh Hoàn chỉnh: Từ Chụp đến Xuất bản', desc: 'Quy trình chỉnh sửa ảnh hoàn chỉnh: cắt, điều chỉnh màu, nén, thêm dấu mờ, chuyển đổi định dạng.', words: '2500+ từ', time: '10 phút' } },
+    { slug: 'video-editing-beginners', icon: '🎬', file: 'video-editing-beginners.html',
+      zh: { title: '视频剪辑入门：5 个浏览器工具快速上手', desc: '无需下载 Premiere 或剪映，浏览器即可剪辑视频：裁剪、压缩、提取音频、转换格式。适合新手快速入门。', words: '2000+ 字', time: '8 分钟' },
+      en: { title: 'Beginner Video Editing: 5 Browser-Based Tools to Get Started', desc: 'No need to download Premiere or CapCut. Edit videos in browser: trim, compress, extract audio, convert formats.', words: '2000+ words', time: '8 min' },
+      ja: { title: '動画編集入門：5つのブラウザベースツールで始めよう', desc: 'Premiere や CapCut をダウンロードする必要なし。ブラウザで動画編集：トリミング、圧縮、音声抽出。', words: '2000+ 文字', time: '8 分' },
+      vi: { title: 'Chỉnh sửa Video Cơ bản: 5 Công cụ Trình duyệt để Bắt đầu', desc: 'Không cần tải Premiere hay CapCut. Chỉnh sửa video trong trình duyệt: cắt, nén, trích xuất âm thanh.', words: '2000+ từ', time: '8 phút' } },
+    { slug: 'audio-content-creation', icon: '🎙️', file: 'audio-content-creation.html',
+      zh: { title: '音频内容创作工具集：录制、编辑、转换全搞定', desc: '从录制到发布的音频创作全套工具：录音、裁剪、变速、反转、音量调节、淡入淡出。打造你的播客或有声内容。', words: '2500+ 字', time: '10 分钟' },
+      en: { title: 'Audio Content Creation Toolkit: Record, Edit & Convert', desc: 'Complete audio creation toolkit from recording to publishing: record, trim, speed change, reverse, volume boost.', words: '2500+ words', time: '10 min' },
+      ja: { title: '音声コンテンツ作成ツールキット：録音・編集・変換', desc: '録音から公開までの完全な音声作成ツールキット：録音、トリミング、速度変更、反転、音量調整。', words: '2500+ 文字', time: '10 分' },
+      vi: { title: 'Bộ Công cụ Tạo Nội dung Âm thanh: Ghi âm, Chỉnh sửa & Chuyển đổi', desc: 'Bộ công cụ tạo âm thanh hoàn chỉnh từ ghi âm đến xuất bản: ghi âm, cắt, thay đổi tốc độ, đảo ngược.', words: '2500+ từ', time: '10 phút' } },
+    { slug: 'finance-life-tools', icon: '💰', file: 'finance-life-tools.html',
+      zh: { title: '财务计算与生活工具：房贷、理财、日常计算一站搞定', desc: '房贷计算器、存款利息、股票手续费、单位换算、密码生成器……常用生活计算工具合集，无需下载 APP。', words: '2200+ 字', time: '8 分钟' },
+      en: { title: 'Finance & Life Tools: Mortgage, Investment & Daily Calculations', desc: 'Mortgage calculator, deposit interest, stock fees, unit converter, password generator.', words: '2200+ words', time: '8 min' },
+      ja: { title: '財務計算と生活ツール：住宅ローン、投資、日常計算', desc: '住宅ローン計算、預金利息、株式手数料、単位変換、パスワード生成。日常計算ツールのコレクション。', words: '2200+ 文字', time: '8 分' },
+      vi: { title: 'Công cụ Tài chính & Đời sống: Thế chấp, Đầu tư & Tính toán Hàng ngày', desc: 'Máy tính thế chấp, lãi tiền gửi, phí chứng khoán, chuyển đổi đơn vị, tạo mật khẩu.', words: '2200+ từ', time: '8 phút' } },
+    { slug: 'seo-optimization-guide', icon: '🔍', file: 'seo-optimization-guide.html',
+      zh: { title: '网站 SEO 优化完整指南：Meta、关键词、结构化数据', desc: 'SEO 优化全套工具：Meta 标签生成、关键词研究、Robots.txt 生成、网站分析。全面提升网站搜索排名。', words: '2500+ 字', time: '10 分钟' },
+      en: { title: 'Complete Website SEO Guide: Meta, Keywords & Structured Data', desc: 'Complete SEO toolkit: Meta tag generator, keyword research, Robots.txt generator, site analysis.', words: '2500+ words', time: '10 min' },
+      ja: { title: '完全なウェブサイト SEO ガイド：メタ、キーワード、構造化データ', desc: 'SEO 完全ツールキット：メタタグ生成、キーワード調査、Robots.txt 生成、サイト分析。', words: '2500+ 文字', time: '10 分' },
+      vi: { title: 'Hướng dẫn SEO Website Hoàn chỉnh: Meta, Từ khóa & Dữ liệu Cấu trúc', desc: 'Bộ công cụ SEO hoàn chỉnh: tạo thẻ Meta, nghiên cứu từ khóa, tạo Robots.txt, phân tích trang web.', words: '2500+ từ', time: '10 phút' } },
+    { slug: 'online-teaching-tools', icon: '👨‍🏫', file: 'online-teaching-tools.html',
+      zh: { title: '在线教学与演示工具集：课件、录课、直播必备', desc: '在线教师必备工具：图片编辑制作课件、视频录制与剪辑、音频处理、文档转换。打造专业在线课程。', words: '2500+ 字', time: '10 分钟' },
+      en: { title: 'Online Teaching Toolkit: Lesson Plans, Recording & Live Streaming', desc: 'Essential tools for online teachers: image editing for courseware, video recording & editing, audio processing.', words: '2500+ words', time: '10 min' },
+      ja: { title: 'オンライン教育ツールキット：教材作成、録画、配信', desc: 'オンライン講師必須ツール：画像編集で教材作成、動画録画・編集、音声処理、文書変換。', words: '2500+ 文字', time: '10 分' },
+      vi: { title: 'Bộ Công cụ Giảng dạy Trực tuyến: Giáo án, Ghi hình & Phát trực tiếp', desc: 'Công cụ thiết yếu cho giáo viên trực tuyến: chỉnh sửa ảnh làm giáo án, ghi & chỉnh sửa video.', words: '2500+ từ', time: '10 phút' } }
+  ];
+
+  function renderGuides(lang) {
+    var grid = document.getElementById('guidesGrid');
+    if (!grid) return;
+    var html = '';
+    guidesData.forEach(function(g) {
+      var d = g[lang] || g.zh;
+      html += '<a href="' + g.file + '" class="guide-card">';
+      html += '<span class="gc-icon">' + g.icon + '</span>';
+      html += '<span class="gc-title">' + d.title + '</span>';
+      html += '<span class="gc-desc">' + d.desc + '</span>';
+      html += '<span class="gc-meta"><span>' + d.words + '</span><span>' + d.time + '</span></span>';
+      html += '<span class="gc-cta">' + ((window.ZT_PAGE[lang] || window.ZT_PAGE.zh).articleCTAR || '阅读全文 →') + '</span>';
+      html += '</a>';
+    });
+    grid.innerHTML = html;
   }
-];
 
-function renderGuides(lang) {
-  let html = '';
+  function onLangChange(lang) { renderGuides(lang); }
+  renderGuides(localStorage.getItem('zentools_lang') || 'zh');
+  window.addEventListener('zt-langchange', function(e) { onLangChange(e.detail.lang); });
+})();
+</script>
 
-  guidesData.forEach(function(guide) {
-    const t = guide[lang] || guide.zh;
-    html += '<div class="guide-card">';
-    html += '<div class="guide-icon">' + guide.icon + '</div>';
-    html += '<h2 class="guide-title">' + t.title + '</h2>';
-    html += '<p class="guide-desc">' + t.desc + '</p>';
-    html += '<div class="guide-meta">';
-    html += '<span>📖 ' + t.words + '</span>';
-    html += '<span>⏱️ ' + t.time + '</span>';
-    html += '</div>';
-    html += '<a href="' + t.file + '" class="guide-link">' + t.link + '</a>';
-    html += '</div>';
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
   });
-
-  document.getElementById('guidesGrid').innerHTML = html;
-
-  // Update recommendation bar i18n
-  const pageData = window.ZT_PAGE[lang] || window.ZT_PAGE.zh;
-  ['recoTitle', 'recoDesc', 'reco1', 'reco1Desc', 'reco2', 'reco2Desc', 'reco3', 'reco3Desc', 'reco4', 'reco4Desc', 'reco5', 'reco5Desc'].forEach(function(key) {
-    const el = document.querySelector('[data-i18n="' + key + '"]');
-    if (el && pageData[key]) {
-      if (key === 'reco1' || key === 'reco2' || key === 'reco3' || key === 'reco4') {
-        el.textContent = pageData[key];
-      } else {
-        el.textContent = pageData[key];
-      }
-    }
-  });
-}
-
-// Initial render
-const savedLang = localStorage.getItem('zentools_lang') || navigator.language.slice(0, 2) || 'zh';
-renderGuides(savedLang);
-
-// Set language switcher to current language
-document.getElementById('langSwitcher').value = savedLang;
-
-// Listen for language changes
-window.addEventListener('zt-langchange', function(e) {
-  renderGuides(e.detail.lang);
-});
-
-// Language switcher handler
-function switchLanguage(lang) {
-  localStorage.setItem('zentools_lang', lang);
-  renderGuides(lang);
-  window.dispatchEvent(new CustomEvent('zt-setlang', { detail: { lang: lang } }));
 }
 </script>
 
-<!-- Language Switcher -->
-<div class="lang-switcher">
-  <select id="langSwitcher" onchange="switchLanguage(this.value)">
-    <option value="zh">中文</option>
-    <option value="en">English</option>
-    <option value="ja">日本語</option>
-    <option value="vi">Tiếng Việt</option>
-  </select>
-</div>
 </body>
 </html>
