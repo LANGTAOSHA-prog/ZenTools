@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose in 2026?</title>
+<meta name="description" content="An in-depth, practical comparison of Dify and n8n in 2026: AI capabilities, RAG pipeline, integration ecosystem, workflow design, pricing, enterprise readiness, and a clear recommendation for different team profiles."/>
+<meta name="keywords" content="Dify, n8n, AI workflow, workflow automation, Dify vs n8n, Dify review, n8n review, LLM app, RAG pipeline, AI agent, no-code automation"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/dify-vs-n8n.html"/>
+<meta property="og:type" content="article"/>
+<meta property="og:title" content="Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose in 2026?"/>
+<meta property="og:description" content="A practical, side-by-side comparison of Dify and n8n: AI capabilities, RAG pipeline, integration ecosystem, workflow design, pricing, and a clear recommendation."/>
+<meta property="og:url" content="https://zentools.xyz/tutorials/dify-vs-n8n.html"/>
+<meta property="og:image" content="https://zentools.xyz/assets/img/dify-vs-n8n-og.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose in 2026?"/>
+<meta name="twitter:description" content="A practical, side-by-side comparison of Dify and n8n for teams in 2026."/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose in 2026?",
+  "description": "An in-depth, practical comparison of Dify and n8n: AI capabilities, RAG pipeline, integration ecosystem, workflow design, pricing, enterprise readiness, and a clear recommendation.",
+  "image": "https://zentools.xyz/assets/img/dify-vs-n8n-og.png",
+  "datePublished": "2026-07-07",
+  "dateModified": "2026-07-07",
+  "inLanguage": ["en","zh","ja","vi"],
+  "author": {"@type": "Organization","name": "ZenTools Editorial","url": "https://zentools.xyz/about/"},
+  "publisher": {"@type": "Organization","name": "ZenTools","logo": {"@type": "ImageObject","url": "https://zentools.xyz/assets/img/logo.png"}},
+  "mainEntityOfPage": {"@type": "WebPage","@id": "https://zentools.xyz/tutorials/dify-vs-n8n.html"}
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question","name": "Is Dify better than n8n?","acceptedAnswer": {"@type": "Answer","text": "They serve different purposes. Dify is an AI-native platform for building LLM applications, chatbots, and RAG pipelines. n8n is a general-purpose workflow automation tool with 400+ integrations. Choose Dify if your focus is AI apps; choose n8n if you need broad SaaS integrations and business process automation."}},
+    {"@type": "Question","name": "Does n8n support AI and LLMs?","acceptedAnswer": {"@type": "Answer","text": "Yes. n8n has nodes for OpenAI, Anthropic, Hugging Face, Google AI, and others. It can call LLMs and chain them into workflows. However n8n treats AI as one capability among many, while Dify is built entirely around LLM orchestration with dedicated RAG, prompt management, and agent tools."}},
+    {"@type": "Question","name": "Can Dify replace n8n for general automation?","acceptedAnswer": {"@type": "Answer","text": "No. Dify focuses on AI-first workflows and does not offer the broad SaaS integration catalog that n8n provides (Slack, GitHub, databases, CRMs, email, etc.). If your automation involves many non-AI services, n8n is the better fit. If your automation is AI-centric, Dify excels."}},
+    {"@type": "Question","name": "Are Dify and n8n free to use?","acceptedAnswer": {"@type": "Answer","text": "Both are open-source and can be self-hosted for free. Both also offer cloud-hosted plans with free tiers and paid upgrades. Self-hosting gives you full control and no usage-based billing on the platform itself, though you still pay for the LLM API calls (OpenAI, Anthropic, etc.) separately."}},
+    {"@type": "Question","name": "Which one should I choose for building a chatbot?","acceptedAnswer": {"@type": "Answer","text": "Dify is purpose-built for this. It includes knowledge base upload, RAG pipeline, prompt orchestration, conversation history, and agent mode out of the box. While n8n can call an LLM and connect to a vector store, you would need to build much more from scratch."}}
+  ]
+}
+</script>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<style>
+.article-body{max-width:860px;margin:0 auto;padding:20px 28px;background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:0 0 16px 16px;}
+.article-body h2{font-size:22px;font-weight:700;color:var(--text);margin:38px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.article-body h3{font-size:17px;font-weight:600;color:var(--cyan);margin:26px 0 10px;}
+.article-body p,.article-body li{font-size:15px;color:var(--muted);line-height:1.9;margin-bottom:12px;}
+.article-body ul,.article-body ol{padding-left:24px;margin-bottom:14px;}
+.article-body .tip{background:rgba(0,229,255,0.06);border-left:3px solid var(--cyan);padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0;font-size:14px;color:var(--text);}
+.article-body .screenshot{text-align:center;margin:24px 0;}
+.article-body .screenshot img{max-width:100%;border-radius:12px;border:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
+.article-body .screenshot .caption{font-size:13px;color:var(--muted);margin-top:8px;}
+.figure{margin:28px 0;text-align:center;}
+.figure svg{max-width:100%;height:auto;border:1px solid var(--border);border-radius:14px;background:rgba(10,16,28,0.55);box-shadow:0 10px 30px rgba(0,0,0,0.35);}
+.figure .caption{font-size:13px;color:var(--muted);margin-top:10px;}
+.table-wrap{overflow-x:auto;margin:18px 0;}
+.table-wrap table{width:100%;border-collapse:collapse;font-size:14px;}
+.table-wrap th,.table-wrap td{padding:10px 14px;border:1px solid var(--border);text-align:left;vertical-align:top;}
+.table-wrap th{background:rgba(0,229,255,0.08);color:var(--cyan);font-weight:700;}
+.table-wrap td{color:var(--muted);}
+.table-wrap .yes{color:#4ade80;font-weight:700;}
+.table-wrap .no{color:#f87171;font-weight:700;}
+.author-box{display:flex;gap:16px;align-items:center;margin:30px 0;padding:18px 20px;background:rgba(0,229,255,0.05);border:1px solid var(--border);border-radius:14px;}
+.author-box .avatar{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#00e5ff,#a855f7);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-weight:800;color:#06121f;font-size:20px;}
+.author-box .info b{color:var(--text);font-size:15px;}
+.author-box .info p{margin:4px 0 0;font-size:13px;color:var(--muted);}
+.faq-item{margin:14px 0;padding:14px 18px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,0.02);}
+.faq-item h3{margin:0 0 8px;color:var(--text);font-size:16px;}
+.faq-item p{margin:0;font-size:14px;}
+</style>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script>
+window.ZT_PAGE = {
+  en: {
+    pageTitle: 'Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose in 2026?',
+    catLabel: '🤖 AI & Automation',
+    metaDate: '📅 2026-07-07',
+    metaRead: '⏱ 14 min read',
+    metaAuthor: '✍️ By ZenTools Editorial',
+    metaLevel: '🎯 Intermediate',
+    introTitle: '1. Why This Comparison Matters in 2026',
+    introP1: 'In 2026, every team is being asked to "add AI" to their product or internal toolkit. The question is no longer whether to adopt AI, but which platform to build on. Two open-source tools dominate the conversation: Dify, an AI-native application platform purpose-built for LLM orchestration, and n8n, a general-purpose workflow automation engine with a rapidly growing AI node set. They look similar at first glance — both offer visual workflow builders, self-hosting, and drag-and-drop nodes — but they were designed for fundamentally different problems, and picking the wrong one adds months of unnecessary work.',
+    introP2: 'This guide is written for technical founders, product managers, and engineering leads who need to decide which platform to standardize on. We compare Dify and n8n across the six dimensions that actually matter for team velocity: platform positioning, AI-native capabilities, integration breadth, RAG and knowledge management, workflow design philosophy, and enterprise readiness. Every claim is based on publicly available product behavior and documentation as of July 2026.',
+    introTip: 'Tip: The fastest litmus test — if your core workflow is "build an AI app that talks to users and a knowledge base," start with Dify. If your core workflow is "connect SaaS app A to SaaS app B and sometimes call an LLM," start with n8n.',
+    defTitle: '2. What Are Dify and n8n, Really?',
+    defP1: 'Dify is an open-source LLM application development platform. It was born out of the need to build GPT wrappers, chatbots, knowledge-base Q&A systems, and AI agents without writing boilerplate every time. Its visual canvas is a "prompt pipeline": you chain together model calls, context retrieval, tool use, and conditional branching. Dify ships with built-in RAG (upload documents, auto-chunk, vectorize, retrieve), conversation management, and a model gateway that lets you switch between OpenAI, Claude, Gemini, Llama, and local models with a dropdown.',
+    defP2: 'n8n is an open-source, fair-code workflow automation platform. It was born out of the need to connect 400+ services (Slack, GitHub, Google Sheets, PostgreSQL, Shopify, Telegram, you name it) into automated pipelines. Its visual canvas is an "integration bus": you drag in a webhook trigger, add a database lookup, call an API, send an email, and log the result. n8n added AI nodes later (OpenAI, Anthropic, Hugging Face, vector store nodes) and they are growing fast, but AI is one capability among many, not the organizing principle.',
+    difyTitle: '3. Dify: The AI-Native Application Platform',
+    difyP1: 'Dify treats the LLM as the center of gravity. Every node in a Dify workflow is oriented around a model call: you pick a model, write a system prompt, optionally inject context from a knowledge base or a tool, and route the output. The platform provides a layered architecture: at the lowest level you have model management (API keys, rate limits, fallback routing); above that, prompt orchestration (variables, context injection, output parsing); above that, knowledge management (documents, chunking, vector stores, retrieval testing); and at the top, application deployment (a shareable URL, an embeddable widget, or an API endpoint).',
+    difyP2: 'Dify\'s RAG pipeline is a first-class feature. Upload PDFs, markdown files, or web pages, and Dify automatically chunks them, generates embeddings, and stores them in a vector database (Weaviate, Qdrant, Milvus, or built-in). When a user asks a question, the system retrieves relevant chunks and injects them into the prompt — all configurable through the UI. This is what makes Dify the go-to platform for building a company wiki chatbot, a product documentation Q&A bot, or an internal knowledge assistant.',
+    difyP3: 'Dify also ships an Agent mode where the LLM can iteratively call tools, search the web, query a database, or run code. Agents in Dify support ReAct and Function Call strategies, and the visual debugger shows you exactly what the model thought, what tool it called, and what it returned. For teams building AI-native products, this observability loop is a major productivity multiplier.',
+    n8nTitle: '4. n8n: The General-Purpose Automation Engine',
+    n8nP1: 'n8n treats the workflow as the center of gravity. Its 400+ nodes span CRMs, databases, messaging platforms, cloud services, developer tools, and more. An n8n workflow can start with a GitHub webhook, check the commit message, create a Jira ticket, post a Slack notification, update a Google Sheet, and call an LLM to summarize the diff — all in one canvas. n8n is the "duct tape of the internet" done right: structured, self-hosted, and open-source.',
+    n8nP2: 'n8n\'s AI capabilities have grown significantly. You can now drag in an "OpenAI Chat Model" node, connect it to a "Vector Store" node (Pinecone, Qdrant, in-memory), feed it data from a database, and route the output through any other integration. The LangChain integration node lets you chain complex LLM operations. However, these are bolt-on components — n8n does not provide the same native prompt management, RAG tuning, or conversation session management that Dify builds into its core.',
+    n8nP3: 'Where n8n truly shines is in its integration breadth and execution reliability. It has native error handling (retry, fallback, error workflow triggers), webhook management, scheduling, and a code node for arbitrary JavaScript/Python. The community node library adds even more connectors. For teams whose primary need is "automate a business process that spans five SaaS tools, occasionally enriched by AI," n8n is the obvious choice.',
+    featuresTitle: '5. Feature Comparison at a Glance',
+    featuresP1: 'The chart below scores each platform across eight practical dimensions. Scores are relative, based on common community experience and product documentation. Use them as a starting point, not a verdict.',
+    featuresCaption: 'Capability comparison between Dify and n8n',
+    tableTitle: 'Side-by-Side Comparison Table',
+    tableHeader1: 'Dimension',
+    tableHeader2: 'Dify',
+    tableHeader3: 'n8n',
+    dim1Title: 'Core Purpose',
+    dim1Dify: 'AI application builder',
+    dim1N8n: 'Workflow automation engine',
+    dim2Title: 'AI-Native',
+    dim2Dify: 'Yes — built around LLMs',
+    dim2N8n: 'No — AI nodes are add-ons',
+    dim3Title: 'Built-in RAG',
+    dim3Dify: 'Yes — full pipeline (chunk, embed, retrieve, test)',
+    dim3N8n: 'Partial — vector store nodes, build pipeline manually',
+    dim4Title: 'Integrations',
+    dim4Dify: 'AI APIs + tools (~30 native)',
+    dim4N8n: '400+ SaaS, databases, APIs',
+    dim5Title: 'Conversation Mgmt',
+    dim5Dify: 'Yes — sessions, history, multi-turn',
+    dim5N8n: 'Manual — requires custom implementation',
+    dim6Title: 'Agent Mode',
+    dim6Dify: 'Yes — ReAct, Function Call, debugger',
+    dim6N8n: 'AI Agent node (experimental)',
+    dim7Title: 'Self-Hosting',
+    dim7Dify: 'Docker Compose, easy setup',
+    dim7N8n: 'Docker, npm, Railway, easy setup',
+    dim8Title: 'Learning Curve',
+    dim8Dify: 'Low for AI-first users',
+    dim8N8n: 'Low-to-medium, broad surface area',
+    pricingTitle: '6. Pricing and Self-Hosting',
+    pricingP1: 'Both platforms are open-source and can be self-hosted with Docker. This is the key economic advantage: you pay for infrastructure (server, database, vector store) and LLM API calls (OpenAI, Anthropic, etc.), not for the platform itself. For a small team running modest workloads, self-hosting either platform costs around $20-50/month in cloud infrastructure plus variable LLM costs.',
+    pricingP2: 'Both also offer cloud-hosted plans. Dify Cloud has a generous free tier (200 conversations/month, limited knowledge base size) with paid plans starting around $59/month for teams. n8n Cloud starts with a free tier (limited executions) and paid plans from about $20/month. Self-hosting removes usage-based billing on the platform level, which matters if you have high execution volume.',
+    pricingP3: 'A hidden cost difference: when you self-host Dify and build a RAG pipeline, you also need to run a vector database (Qdrant, Weaviate, etc.), which adds infrastructure overhead. n8n workflows are typically lighter — a single Docker container can handle hundreds of simple automations. Factor this into your infrastructure budget.',
+    usecaseTitle: '7. When to Choose Which: Practical Scenarios',
+    usecaseP1: 'Below are five real-world team scenarios with a clear recommendation. These are not theoretical; they reflect patterns we have seen across dozens of teams adopting these tools in 2025-2026.',
+    scenario1Title: 'Scenario 1: Building a customer-facing chatbot with your knowledge base',
+    scenario1Desc: 'You have product docs, FAQs, and support articles. You want a chatbot that answers customer questions conversationally, grounded in your content. Dify wins decisively: upload documents, Dify handles chunking and retrieval, and you deploy as a chat widget or API in under an hour. With n8n, you would need to manually set up a vector store, write retrieval logic, manage conversation history, and build a frontend.',
+    scenario2Title: 'Scenario 2: Automating a multi-service business process',
+    scenario2Desc: 'You need to: listen to a Typeform submission, look up the user in HubSpot, send a personalized email via SendGrid, create a task in Asana, and log everything to Google Sheets. n8n wins decisively: the entire workflow takes 15 minutes to build with drag-and-drop nodes for each service. Dify simply does not have these integrations.',
+    scenario3Title: 'Scenario 3: Internal AI assistant with RAG + tool calling',
+    scenario3Desc: 'You want an internal assistant that can answer questions from your company wiki, search Jira for ticket status, and summarize Slack threads. Dify is the stronger starting point because RAG and tool calling are first-class features. However, if you are already a heavy n8n user, n8n\'s AI Agent node plus its Slack/Jira nodes can also do this — just with more manual assembly.',
+    scenario4Title: 'Scenario 4: Content pipeline with AI enrichment',
+    scenario4Desc: 'You want to pull RSS feeds, use AI to summarize and translate articles, categorize them, and post to WordPress and social media. This is a sweet spot where both can work. n8n wins on the integration breadth (RSS, WordPress, social media nodes), while Dify wins on the AI enrichment quality (prompt management, model routing). Many teams use both: n8n for the data pipeline, Dify for the AI processing step, connected via API.',
+    scenario5Title: 'Scenario 5: Enterprise compliance and governance',
+    scenario5Desc: 'Your company requires SSO, audit logging, role-based access control, and data residency controls. Both platforms offer these in their enterprise/cloud tiers. Dify has more mature AI-specific governance (model usage tracking, prompt versioning, response quality monitoring). n8n has more mature general workflow governance (execution history, credential management, error alerting). The choice depends on which governance dimensions matter more to your compliance team.',
+    verdictTitle: '8. Final Verdict',
+    verdictP1: 'Dify and n8n are not competitors in the traditional sense. They are complementary tools that solve different layers of the modern software stack. Choosing between them is less about which is "better" and more about which problem you are solving.',
+    verdictP2: 'Choose Dify if your team\'s primary goal is AI application development: chatbots, RAG systems, AI agents, prompt pipelines. Dify gives you a purpose-built toolkit where AI is the product, not a feature. The built-in RAG pipeline, model gateway, conversation management, and agent debugger save months of development time for AI-centric projects.',
+    verdictP3: 'Choose n8n if your team\'s primary goal is business process automation: connecting SaaS tools, orchestrating data pipelines, triggering multi-step workflows across your stack. n8n gives you 400+ integrations and battle-tested execution reliability. Add AI nodes when they enrich a workflow, but do not build your entire architecture around them unless AI is your core product.',
+    verdictP4: 'Many high-performing teams use both. A common architecture: n8n handles the business logic and integration layer (triggers, data movement, notifications), and Dify handles the AI intelligence layer (RAG, agent reasoning, LLM orchestration). They communicate via webhooks or REST APIs. This "best of both" approach gives you integration breadth from n8n and AI depth from Dify.',
+    faqTitle: '9. Frequently Asked Questions',
+    faq1Q: 'Can I use both Dify and n8n together?',
+    faq1A: 'Yes. A common pattern is n8n triggering a workflow that calls Dify\'s API for AI processing, then n8n routes the result to Slack, email, or a database. Dify can also webhook back to n8n for post-processing. The two platforms complement each other well when you treat Dify as your "AI service" and n8n as your "automation backbone."',
+    faq2Q: 'Which one has better community and documentation?',
+    faq2A: 'Both have healthy open-source communities. n8n has a larger community overall (40k+ GitHub stars vs Dify\'s 30k+) and more third-party tutorials due to its broader use cases. Dify\'s community is more AI-focused and growing rapidly, with excellent official documentation for AI workflows. If you need general automation help, n8n\'s forum is richer. If you need AI orchestration help, Dify\'s docs and Discord are more relevant.',
+    faq3Q: 'How do they compare on security and data privacy?',
+    faq3A: 'Both self-hosted versions keep all data on your infrastructure, which is essential for GDPR/HIPAA compliance. Both cloud versions encrypt data in transit and at rest. Dify\'s cloud does not train on your data. n8n\'s cloud similarly does not use customer data for training. For maximum control, self-host either platform and use your own LLM API keys or local models via Ollama.',
+    faq4Q: 'What if my needs change over time?',
+    faq4A: 'Start with one, do not overthink it. Both platforms export/import workflows. If you start with Dify for an AI chatbot and later need n8n for broader automation, you can integrate them. The migration cost of building a few workflows on the "wrong" platform is far lower than the cost of delaying your build by weeks while researching the perfect choice.',
+    authorName: 'ZenTools Editorial',
+    authorBio: 'We test, compare, and document developer tools so you can build faster.',
+    prevNext: 'Continue Reading',
+    prevLabel: 'Previous:',
+    prevTitle: 'Cursor vs Windsurf',
+    nextLabel: 'Next:',
+    nextTitle: 'More comparisons coming soon'
+  },
+  zh: {
+    pageTitle: 'Dify vs n8n 全面对比：AI 应用平台还是通用自动化，你的团队该选哪个',
+    catLabel: '🤖 AI 与自动化',
+    metaDate: '📅 2026-07-07',
+    metaRead: '⏱ 14 分钟阅读',
+    metaAuthor: '✍️ ZenTools 编辑部',
+    metaLevel: '🎯 中级',
+    introTitle: '1. 为什么这个对比在 2026 年至关重要',
+    introP1: '2026 年，每个团队都被要求"给产品加 AI"。问题不再是是否采用 AI，而是在哪个平台上构建。两款开源工具主导了这一讨论：Dify，一个围绕 LLM 编排从头构建的 AI 原生应用平台；n8n，一个通用工作流自动化引擎，其 AI 节点正在快速扩展。第一眼看去它们很相似——都提供可视化工作流构建器、自托管部署和拖拽式节点——但它们是为根本不同的问题设计的，选错平台会白白增加数月的工作量。',
+    introP2: '本指南面向技术创始人、产品经理和工程负责人，帮助你在六个真正影响团队效率的维度上做决策：平台定位、AI 原生能力、集成广度、RAG 与知识管理、工作流设计哲学和企业就绪度。所有判断均基于截至 2026 年 7 月的公开产品行为和官方文档。',
+    introTip: '提示：最快的试金石——如果你的核心诉求是"构建一个能与用户和知识库对话的 AI 应用"，从 Dify 开始。如果你的核心诉求是"把 SaaS 工具 A 连接到 SaaS 工具 B，偶尔调用一下 LLM"，从 n8n 开始。',
+    defTitle: '2. Dify 和 n8n 到底是什么',
+    defP1: 'Dify 是一个开源的 LLM 应用开发平台。它诞生于无需重复写样板代码即可构建 GPT 套壳应用、聊天机器人、知识库问答系统和 AI Agent 的需求。它的可视化画布是一个"提示词管道"：你将模型调用、上下文检索、工具使用和条件分支串联起来。Dify 自带完整的 RAG（上传文档、自动分块、向量化、检索）、对话管理，以及一个可通过下拉菜单切换 OpenAI、Claude、Gemini、Llama 和本地模型的模型网关。',
+    defP2: 'n8n 是一个开源、fair-code 的工作流自动化平台。它诞生于将 400+ 服务（Slack、GitHub、Google Sheets、PostgreSQL、Shopify、Telegram，不胜枚举）连接成自动化管道的需求。它的可视化画布是一个"集成总线"：你拖入一个 Webhook 触发器，添加一个数据库查询，调用一个 API，发送一封邮件，记录一条日志。n8n 后来添加了 AI 节点（OpenAI、Anthropic、Hugging Face、向量存储节点），并且增长迅速，但 AI 只是众多能力之一，而非组织原则。',
+    difyTitle: '3. Dify：AI 原生应用平台',
+    difyP1: 'Dify 将 LLM 视为架构的重心。Dify 工作流中的每个节点都围绕模型调用展开：选择模型、编写系统提示词、可选地从知识库或工具注入上下文，然后路由输出。平台提供分层架构：最底层是模型管理（API 密钥、速率限制、故障切换路由）；其上是提示词编排（变量、上下文注入、输出解析）；再上是知识管理（文档、分块、向量存储、检索测试）；最顶层是应用部署（可分享的 URL、可嵌入的 Widget 或 API 端点）。',
+    difyP2: 'Dify 的 RAG 管道是一等公民功能。上传 PDF、Markdown 文件或网页，Dify 会自动分块、生成嵌入并存储到向量数据库（Weaviate、Qdrant、Milvus 或内置存储）。当用户提问时，系统检索相关块并注入到提示词中——全部通过 UI 配置。这使 Dify 成为构建公司 Wiki 聊天机器人、产品文档问答机器人或内部知识助手的不二之选。',
+    difyP3: 'Dify 还提供 Agent 模式，LLM 可以迭代地调用工具、搜索网页、查询数据库或运行代码。Dify 的 Agent 支持 ReAct 和 Function Call 策略，可视化调试器会准确显示模型的思考过程、调用了什么工具以及返回了什么结果。对于构建 AI 原生产品的团队来说，这种可观测性循环是巨大的生产力倍增器。',
+    n8nTitle: '4. n8n：通用自动化引擎',
+    n8nP1: 'n8n 将工作流视为架构的重心。其 400+ 节点覆盖 CRM、数据库、即时通讯平台、云服务、开发工具等。一个 n8n 工作流可以从 GitHub Webhook 开始，检查提交信息，创建 Jira 工单，发送 Slack 通知，更新 Google Sheet，并调用 LLM 来总结代码差异——全部在一个画布中完成。n8n 是将"互联网胶水"做到极致的工具：结构化、可自托管、开源。',
+    n8nP2: 'n8n 的 AI 能力已显著增长。你现在可以拖入"OpenAI Chat Model"节点，连接到"Vector Store"节点（Pinecone、Qdrant、内存存储），从数据库获取数据，并通过任何其他集成路由输出。LangChain 集成节点让你可以串联复杂的 LLM 操作。但这些都是附加组件——n8n 不提供 Dify 内置的那种原生提示词管理、RAG 调优或对话会话管理。',
+    n8nP3: 'n8n 真正出彩的地方在于集成广度和执行可靠性。它内置了错误处理（重试、回退、错误工作流触发器）、Webhook 管理、计划调度和一个可运行任意 JavaScript/Python 的代码节点。社区节点库增加了更多连接器。对于主要需求是"自动化一个跨越五个 SaaS 工具的业务流程，偶尔用 AI 增强"的团队，n8n 是显而易见的选择。',
+    featuresTitle: '5. 功能对比一览',
+    featuresP1: '下表在八个实际维度上对两个平台打分。分数是相对的，基于常见社区经验和产品文档。请将其视为起点而不是最终判决。',
+    featuresCaption: 'Dify 与 n8n 能力对比',
+    tableTitle: '并排对比表',
+    tableHeader1: '维度',
+    tableHeader2: 'Dify',
+    tableHeader3: 'n8n',
+    dim1Title: '核心定位',
+    dim1Dify: 'AI 应用构建器',
+    dim1N8n: '工作流自动化引擎',
+    dim2Title: 'AI 原生',
+    dim2Dify: '是 — 围绕 LLM 构建',
+    dim2N8n: '否 — AI 节点是附加功能',
+    dim3Title: '内置 RAG',
+    dim3Dify: '是 — 完整管道（分块、嵌入、检索、测试）',
+    dim3N8n: '部分 — 有向量存储节点，需手动搭建管道',
+    dim4Title: '集成数量',
+    dim4Dify: 'AI API + 工具（约 30 个原生）',
+    dim4N8n: '400+ SaaS、数据库、API',
+    dim5Title: '对话管理',
+    dim5Dify: '是 — 会话、历史记录、多轮对话',
+    dim5N8n: '手动 — 需要自定义实现',
+    dim6Title: 'Agent 模式',
+    dim6Dify: '是 — ReAct、Function Call、调试器',
+    dim6N8n: 'AI Agent 节点（实验性）',
+    dim7Title: '自托管',
+    dim7Dify: 'Docker Compose，简单部署',
+    dim7N8n: 'Docker、npm、Railway，简单部署',
+    dim8Title: '学习曲线',
+    dim8Dify: '对 AI 优先用户较低',
+    dim8N8n: '中低，功能覆盖面广',
+    pricingTitle: '6. 定价与自托管',
+    pricingP1: '两个平台都是开源的，可以通过 Docker 自托管。这是核心的经济优势：你只需为基础设施（服务器、数据库、向量存储）和 LLM API 调用（OpenAI、Anthropic 等）付费，平台本身免费。对于运行中等工作负载的小团队，自托管任何一个平台的云基础设施成本约为每月 20-50 美元，外加可变的 LLM 费用。',
+    pricingP2: '两个平台也都提供云托管方案。Dify Cloud 有慷慨的免费层（每月 200 次对话，知识库大小有限），团队付费方案从每月约 59 美元起。n8n Cloud 从免费层（有限执行次数）开始，付费方案从每月约 20 美元起。自托管可以消除平台层面的按用量计费，如果你有高执行量，这一点很重要。',
+    pricingP3: '一个隐藏的成本差异：当你自托管 Dify 并构建 RAG 管道时，还需要运行向量数据库（Qdrant、Weaviate 等），这会增加基础设施开销。n8n 工作流通常较轻——单个 Docker 容器可以处理数百个简单自动化任务。请将其纳入你的基础设施预算。',
+    usecaseTitle: '7. 什么时候选哪个：实战场景',
+    usecaseP1: '以下是五个真实团队场景及明确建议。这些不是理论推演，而是我们在 2025-2026 年观察到的团队选型模式。',
+    scenario1Title: '场景一：用你的知识库构建面向客户的聊天机器人',
+    scenario1Desc: '你有产品文档、FAQ 和支持文章，想构建一个能围绕你的内容进行对话式回答客户问题的聊天机器人。Dify 明确胜出：上传文档，Dify 处理分块和检索，不到一小时即可部署为聊天 Widget 或 API。用 n8n 的话，你需要手动搭建向量存储、编写检索逻辑、管理对话历史，还要构建前端。',
+    scenario2Title: '场景二：自动化跨多个服务的业务流程',
+    scenario2Desc: '你需要：监听 Typeform 提交、在 HubSpot 中查找用户、通过 SendGrid 发送个性化邮件、在 Asana 中创建任务、并将所有内容记录到 Google Sheets。n8n 明显胜出：每个服务都有拖拽节点，整个工作流 15 分钟即可搭建完成。Dify 根本没有这些集成。',
+    scenario3Title: '场景三：内部 AI 助手，带 RAG + 工具调用',
+    scenario3Desc: '你想要一个内部助手，能从公司 Wiki 回答问题、搜索 Jira 查询工单状态、总结 Slack 讨论串。Dify 是更强的起点，因为 RAG 和工具调用是一等公民。但如果你已是 n8n 重度用户，n8n 的 AI Agent 节点加上 Slack/Jira 节点也能做到——只是需要更多手动搭建。',
+    scenario4Title: '场景四：带 AI 增强的内容管道',
+    scenario4Desc: '你想拉取 RSS 源，用 AI 总结和翻译文章，分类后发布到 WordPress 和社交媒体。这是两者的甜蜜地带。n8n 在集成广度上胜出（RSS、WordPress、社交媒体节点），而 Dify 在 AI 增强质量上胜出（提示词管理、模型路由）。许多团队两者并用：n8n 处理数据管道，Dify 处理 AI 处理步骤，通过 API 连接。',
+    scenario5Title: '场景五：企业合规与治理',
+    scenario5Desc: '你的公司要求 SSO、审计日志、基于角色的访问控制和数据驻留管控。两个平台都在企业版/云版中提供这些功能。Dify 在 AI 特定治理方面更成熟（模型用量追踪、提示词版本管理、响应质量监控）。n8n 在通用工作流治理方面更成熟（执行历史、凭据管理、错误告警）。选择取决于哪个治理维度对你的合规团队更重要。',
+    verdictTitle: '8. 最终结论',
+    verdictP1: 'Dify 和 n8n 不是传统意义上的竞争对手。它们是解决现代软件栈不同层面的互补工具。选择哪一个是关于你正在解决什么问题，而不是哪个"更好"。',
+    verdictP2: '如果你的团队的首要目标是 AI 应用开发——聊天机器人、RAG 系统、AI Agent、提示词管道——选择 Dify。Dify 给你一套专用工具包，AI 本身就是产品而非功能。内置的 RAG 管道、模型网关、对话管理和 Agent 调试器为以 AI 为中心的项目节省了数月的开发时间。',
+    verdictP3: '如果你的团队的首要目标是业务流程自动化——连接 SaaS 工具、编排数据管道、触发跨技术栈的多步骤工作流——选择 n8n。n8n 给你 400+ 集成和经过实战检验的执行可靠性。在需要时添加 AI 节点来增强工作流，但不要围绕 AI 构建整个架构，除非 AI 是你的核心产品。',
+    verdictP4: '许多高效团队两者并用。一个常见架构：n8n 处理业务逻辑和集成层（触发器、数据流转、通知），Dify 处理 AI 智能层（RAG、Agent 推理、LLM 编排），通过 Webhook 或 REST API 通信。这种"各取所长"的方式让你从 n8n 获得集成广度，从 Dify 获得 AI 深度。',
+    faqTitle: '9. 常见问题',
+    faq1Q: '我可以同时使用 Dify 和 n8n 吗？',
+    faq1A: '可以。一种常见模式是 n8n 触发一个工作流，调用 Dify 的 API 进行 AI 处理，然后 n8n 将结果路由到 Slack、邮件或数据库。Dify 也可以通过 Webhook 回调 n8n 进行后处理。当把 Dify 视为"AI 服务"、n8n 视为"自动化骨干"时，两个平台相得益彰。',
+    faq2Q: '哪个的社区和文档更好？',
+    faq2A: '两者都有健康的开源社区。n8n 整体社区更大（GitHub 40k+ 星标 vs Dify 30k+），由于用例更广，第三方教程也更多。Dify 的社区更聚焦 AI，增长迅猛，官方 AI 工作流文档非常出色。如果你需要通用自动化帮助，n8n 论坛更丰富。如果你需要 AI 编排帮助，Dify 的文档和 Discord 更相关。',
+    faq3Q: '在安全和数据隐私方面如何对比？',
+    faq3A: '两种自托管版本都将所有数据保留在你自己基础设施上，这对 GDPR/HIPAA 合规至关重要。两种云版本都对传输中和静态数据进行加密。Dify Cloud 不会用你的数据训练模型。n8n Cloud 同样不使用客户数据训练。为获得最大控制权，自托管任一平台，使用你自己的 LLM API 密钥或通过 Ollama 使用本地模型。',
+    faq4Q: '如果我的需求以后变了怎么办？',
+    faq4A: '先从一个开始，不要过度思考。两个平台都支持导入导出工作流。如果你从 Dify 开始构建 AI 聊天机器人，后来需要 n8n 做更广泛的自动化，你可以将它们集成起来。在"错误"的平台上构建几个工作流的迁移成本，远低于为寻找完美选择而延迟数周构建的成本。',
+    authorName: 'ZenTools 编辑部',
+    authorBio: '我们测试、对比、记录开发者工具，帮你更快地构建产品。',
+    prevNext: '继续阅读',
+    prevLabel: '上一篇：',
+    prevTitle: 'Cursor vs Windsurf',
+    nextLabel: '下一篇：',
+    nextTitle: '更多对比评测即将上线'
+  },
+  ja: {
+    pageTitle: 'Dify vs n8n 徹底比較：AIアプリ開発か汎用自動化か、あなたのチームに最適なのは',
+    catLabel: '🤖 AIと自動化',
+    metaDate: '📅 2026-07-07',
+    metaRead: '⏱ 14分',
+    metaAuthor: '✍️ ZenTools 編集部',
+    metaLevel: '🎯 中級',
+    introTitle: '1. この比較が 2026 年に重要な理由',
+    introP1: '2026年、すべてのチームが「製品にAIを追加せよ」と言われています。問題はAIを採用するかどうかではなく、どのプラットフォームで構築するかです。2つのオープンソースツールが会話を支配しています：LLMオーケストレーションのためにゼロから構築されたAIネイティブアプリケーションプラットフォームであるDifyと、AIノードが急速に拡大している汎用ワークフロー自動化エンジンであるn8nです。一見すると似ています——両方ともビジュアルワークフロービルダー、セルフホスティング、ドラッグアンドドロップノードを提供しています——しかし根本的に異なる問題のために設計されており、間違ったものを選ぶと数ヶ月の不要な作業が追加されます。',
+    introP2: 'このガイドは、どのプラットフォームを標準化すべきかを決定する必要がある技術ファウンダー、プロダクトマネージャー、エンジニアリングリード向けです。チームの速度にとって実際に重要な6つの次元でDifyとn8nを比較します：プラットフォームの位置付け、AIネイティブ機能、統合の広さ、RAGとナレッジ管理、ワークフロー設計哲学、エンタープライズ対応。すべての主張は2026年7月時点の公開製品動作とドキュメントに基づいています。',
+    introTip: 'ヒント：最速のリトマス試験——コアワークフローが「ユーザーとナレッジベースと対話するAIアプリを構築する」ならDifyから始めましょう。コアワークフローが「SaaSアプリAをSaaSアプリBに接続し、時々LLMを呼び出す」ならn8nから始めましょう。',
+    defTitle: '2. Difyとn8nとは実際何か',
+    defP1: 'DifyはオープンソースのLLMアプリケーション開発プラットフォームです。GPTラッパー、チャットボット、ナレッジベースQ&Aシステム、AIエージェントを、毎回ボイラープレートを書かずに構築する必要性から生まれました。そのビジュアルキャンバスは「プロンプトパイプライン」です：モデル呼び出し、コンテキスト検索、ツール使用、条件分岐を連結します。Difyは完全なRAG（ドキュメントアップロード、自動チャンク、ベクトル化、検索）、会話管理、OpenAI、Claude、Gemini、Llama、ローカルモデルをドロップダウンで切り替えられるモデルゲートウェイを内蔵しています。',
+    defP2: 'n8nはオープンソースのフェアコードワークフロー自動化プラットフォームです。400以上のサービス（Slack、GitHub、Google Sheets、PostgreSQL、Shopify、Telegramなど）を自動化パイプラインに接続する必要性から生まれました。そのビジュアルキャンバスは「統合バス」です：Webhookトリガーをドラッグし、データベース検索を追加し、APIを呼び出し、メールを送信し、結果を記録します。n8nは後にAIノード（OpenAI、Anthropic、Hugging Face、ベクトルストアノード）を追加し、急速に成長していますが、AIは多数の機能の一つであり、組織原則ではありません。',
+    difyTitle: '3. Dify：AIネイティブアプリケーションプラットフォーム',
+    difyP1: 'DifyはLLMをアーキテクチャの中心に据えています。Difyワークフローのすべてのノードはモデル呼び出しを中心に構成されています：モデルを選択し、システムプロンプトを書き、オプションでナレッジベースやツールからコンテキストを注入し、出力をルーティングします。プラットフォームは階層化アーキテクチャを提供します：最下層はモデル管理（APIキー、レート制限、フォールバックルーティング）、その上はプロンプトオーケストレーション（変数、コンテキスト注入、出力解析）、さらに上はナレッジ管理（ドキュメント、チャンク、ベクトルストア、検索テスト）、最上層はアプリケーションデプロイ（共有URL、埋め込みウィジェット、APIエンドポイント）です。',
+    difyP2: 'DifyのRAGパイプラインは第一級機能です。PDF、Markdownファイル、Webページをアップロードすると、Difyは自動的にチャンク化し、埋め込みを生成し、ベクトルデータベース（Weaviate、Qdrant、Milvus、または内蔵）に保存します。ユーザーが質問すると、システムは関連チャンクを検索してプロンプトに注入します——すべてUIから設定可能です。これこそがDifyを、会社のWikiチャットボット、製品ドキュメントQ&Aボット、内部ナレッジアシスタントを構築するための最適なプラットフォームにしています。',
+    difyP3: 'Difyはエージェントモードも提供し、LLMが反復的にツールを呼び出し、Web検索、データベースクエリ、コード実行を行えます。DifyのエージェントはReActとFunction Call戦略をサポートし、ビジュアルデバッガーはモデルが何を考え、どのツールを呼び出し、何が返ってきたかを正確に表示します。AIネイティブ製品を構築するチームにとって、この可観測性ループは大きな生産性向上要因です。',
+    n8nTitle: '4. n8n：汎用自動化エンジン',
+    n8nP1: 'n8nはワークフローをアーキテクチャの中心に据えています。400以上のノードがCRM、データベース、メッセージングプラットフォーム、クラウドサービス、開発ツールなどをカバーしています。n8nワークフローはGitHub Webhookから始まり、コミットメッセージをチェックし、Jiraチケットを作成し、Slack通知を投稿し、Google Sheetを更新し、LLMを呼び出して差分を要約できます——すべて1つのキャンバス内で。n8nは「インターネットのダクトテープ」を正しく実装したものです：構造化され、セルフホスト可能で、オープンソースです。',
+    n8nP2: 'n8nのAI機能は大幅に成長しました。今では「OpenAI Chat Model」ノードをドラッグし、「Vector Store」ノード（Pinecone、Qdrant、インメモリ）に接続し、データベースからデータを供給し、他の統合を通じて出力をルーティングできます。LangChain統合ノードにより、複雑なLLM操作を連鎖できます。ただし、これらはアドオンコンポーネントです——n8nはDifyがコアに組み込んでいるようなネイティブなプロンプト管理、RAG調整、会話セッション管理を提供しません。',
+    n8nP3: 'n8nが本当に輝くのは、統合の広さと実行の信頼性です。ネイティブのエラーハンドリング（リトライ、フォールバック、エラーワークフロートリガー）、Webhook管理、スケジューリング、任意のJavaScript/Pythonを実行できるコードノードを備えています。コミュニティノードライブラリはさらに多くのコネクタを追加します。主なニーズが「5つのSaaSツールにまたがるビジネスプロセスを自動化し、時々AIで強化する」ことであるチームにとって、n8nは明白な選択です。',
+    featuresTitle: '5. 機能比較の概要',
+    featuresP1: '以下の図表は8つの実用的な次元で各プラットフォームを評価しています。スコアは相対的で、一般的なコミュニティ経験と製品ドキュメントに基づいています。最終判断ではなく出発点として使用してください。',
+    featuresCaption: 'Difyとn8nの機能比較',
+    tableTitle: '並列比較表',
+    tableHeader1: '次元',
+    tableHeader2: 'Dify',
+    tableHeader3: 'n8n',
+    dim1Title: '中核的目的',
+    dim1Dify: 'AIアプリケーションビルダー',
+    dim1N8n: 'ワークフロー自動化エンジン',
+    dim2Title: 'AIネイティブ',
+    dim2Dify: 'はい — LLMを中心に構築',
+    dim2N8n: 'いいえ — AIノードはアドオン',
+    dim3Title: '内蔵RAG',
+    dim3Dify: 'はい — 完全なパイプライン（チャンク、埋め込み、検索、テスト）',
+    dim3N8n: '部分的 — ベクトルストアノードあり、パイプラインは手動構築',
+    dim4Title: '統合数',
+    dim4Dify: 'AI API + ツール（約30のネイティブ）',
+    dim4N8n: '400以上のSaaS、データベース、API',
+    dim5Title: '会話管理',
+    dim5Dify: 'はい — セッション、履歴、マルチターン',
+    dim5N8n: '手動 — カスタム実装が必要',
+    dim6Title: 'エージェントモード',
+    dim6Dify: 'はい — ReAct、Function Call、デバッガー',
+    dim6N8n: 'AIエージェントノード（実験的）',
+    dim7Title: 'セルフホスティング',
+    dim7Dify: 'Docker Compose、簡単セットアップ',
+    dim7N8n: 'Docker、npm、Railway、簡単セットアップ',
+    dim8Title: '学習曲線',
+    dim8Dify: 'AIファーストユーザーには低い',
+    dim8N8n: '低〜中、カバー範囲が広い',
+    pricingTitle: '6. 価格とセルフホスティング',
+    pricingP1: '両プラットフォームともオープンソースで、Dockerでセルフホストできます。これが主要な経済的利点です：インフラ（サーバー、データベース、ベクトルストア）とLLM API呼び出し（OpenAI、Anthropicなど）の料金を支払うだけで、プラットフォーム自体は無料です。中程度のワークロードを実行する小規模チームの場合、どちらのプラットフォームもセルフホスティングのクラウドインフラコストは月額約20〜50ドルで、変動するLLMコストが加わります。',
+    pricingP2: '両プラットフォームともクラウドホストプランを提供しています。Dify Cloudは寛大な無料枠（月200会話、制限付きナレッジベースサイズ）があり、チーム向け有料プランは月額約59ドルからです。n8n Cloudは無料枠（制限付き実行回数）から始まり、有料プランは月額約20ドルからです。セルフホスティングはプラットフォームレベルでの使用量ベースの課金を排除するため、実行ボリュームが多い場合に重要です。',
+    pricingP3: '隠れたコストの違い：DifyをセルフホストしてRAGパイプラインを構築する場合、ベクトルデータベース（Qdrant、Weaviateなど）も実行する必要があり、インフラのオーバーヘッドが増えます。n8nワークフローは通常より軽量で、単一のDockerコンテナで数百の単純な自動化を処理できます。これをインフラ予算に考慮してください。',
+    usecaseTitle: '7. どちらを選ぶべきか：実践シナリオ',
+    usecaseP1: '以下は5つの実際のチームシナリオと明確な推奨です。これらは理論ではなく、2025-2026年にこれらのツールを採用した数十のチームで観察されたパターンを反映しています。',
+    scenario1Title: 'シナリオ1：ナレッジベースを使った顧客向けチャットボットの構築',
+    scenario1Desc: '製品ドキュメント、FAQ、サポート記事があり、コンテンツに基づいて顧客の質問に対話的に回答するチャットボットを構築したい。Difyが決定的に勝利します：ドキュメントをアップロードし、Difyがチャンク化と検索を処理し、1時間以内にチャットウィジェットまたはAPIとしてデプロイできます。n8nでは、ベクトルストアを手動でセットアップし、検索ロジックを書き、会話履歴を管理し、フロントエンドを構築する必要があります。',
+    scenario2Title: 'シナリオ2：複数サービスにまたがるビジネスプロセスの自動化',
+    scenario2Desc: 'Typeformの送信を監視し、HubSpotでユーザーを検索し、SendGridでパーソナライズされたメールを送信し、Asanaでタスクを作成し、すべてをGoogle Sheetsに記録する必要がある。n8nが決定的に勝利します：各サービスのドラッグアンドドロップノードで、ワークフロー全体を15分で構築できます。Difyにはこれらの統合がまったくありません。',
+    scenario3Title: 'シナリオ3：RAG + ツール呼び出しを備えた内部AIアシスタント',
+    scenario3Desc: '会社のWikiから質問に答え、Jiraでチケットステータスを検索し、Slackスレッドを要約できる内部アシスタントが欲しい。DifyはRAGとツール呼び出しが第一級機能であるため、より強力な出発点です。ただし、すでにn8nのヘビーユーザーであれば、n8nのAI AgentノードとSlack/Jiraノードでも可能です——ただより多くの手動作業が必要です。',
+    scenario4Title: 'シナリオ4：AI強化付きコンテンツパイプライン',
+    scenario4Desc: 'RSSフィードを取得し、AIで記事を要約・翻訳し、分類してWordPressとソーシャルメディアに投稿したい。これは両方が機能するスイートスポットです。n8nは統合の広さ（RSS、WordPress、ソーシャルメディアノード）で勝り、DifyはAI強化の品質（プロンプト管理、モデルルーティング）で勝ります。多くのチームが両方を使用します：n8nがデータパイプラインを、DifyがAI処理ステップを担当し、APIで接続します。',
+    scenario5Title: 'シナリオ5：エンタープライズコンプライアンスとガバナンス',
+    scenario5Desc: 'あなたの会社はSSO、監査ログ、ロールベースのアクセス制御、データ所在地管理を要求しています。両プラットフォームともエンタープライズ/クラウドティアでこれらを提供しています。DifyはAI固有のガバナンス（モデル使用量追跡、プロンプトバージョニング、応答品質モニタリング）がより成熟しています。n8nは一般的なワークフローガバナンス（実行履歴、認証情報管理、エラーアラート）がより成熟しています。選択は、コンプライアンスチームにとってどのガバナンス次元がより重要かによって異なります。',
+    verdictTitle: '8. 最終判断',
+    verdictP1: 'Difyとn8nは従来の意味での競合ではありません。これらは現代のソフトウェアスタックの異なる層を解決する補完的なツールです。どちらかを選ぶことは、どちらが「優れている」かではなく、どの問題を解決しているかの問題です。',
+    verdictP2: 'チームの主な目標がAIアプリケーション開発——チャットボット、RAGシステム、AIエージェント、プロンプトパイプライン——である場合、Difyを選んでください。DifyはAIそのものが機能ではなく製品である専用ツールキットを提供します。内蔵のRAGパイプライン、モデルゲートウェイ、会話管理、エージェントデバッガーは、AI中心のプロジェクトの開発期間を数ヶ月短縮します。',
+    verdictP3: 'チームの主な目標がビジネスプロセス自動化——SaaSツールの接続、データパイプラインのオーケストレーション、スタック全体にわたる多段階ワークフローのトリガー——である場合、n8nを選んでください。n8nは400以上の統合と実戦で検証された実行信頼性を提供します。ワークフローを強化するためにAIノードを追加しますが、AIがコア製品でない限り、AIを中心にアーキテクチャ全体を構築しないでください。',
+    verdictP4: '多くの高性能チームは両方を使用しています。一般的なアーキテクチャ：n8nがビジネスロジックと統合層（トリガー、データ移動、通知）を処理し、DifyがAIインテリジェンス層（RAG、エージェント推論、LLMオーケストレーション）を処理し、WebhookまたはREST APIで通信します。この「ベストオブボース」アプローチにより、n8nから統合の広さを、DifyからAIの深さを得られます。',
+    faqTitle: '9. よくある質問',
+    faq1Q: 'Difyとn8nを一緒に使えますか？',
+    faq1A: 'はい。一般的なパターンは、n8nがワークフローをトリガーしてDifyのAPIを呼び出しAI処理を行い、n8nが結果をSlack、メール、データベースにルーティングします。DifyもWebhookでn8nにコールバックして後処理を行えます。Difyを「AIサービス」、n8nを「自動化のバックボーン」として扱うと、両方のプラットフォームはよく補完し合います。',
+    faq2Q: 'コミュニティとドキュメントはどちらが良いですか？',
+    faq2A: '両方とも健全なオープンソースコミュニティを持っています。n8nは全体のコミュニティが大きく（GitHub 40k以上のスター vs Dify 30k以上）、より広いユースケースのためサードパーティのチュートリアルも多いです。DifyのコミュニティはよりAIにフォーカスしており急速に成長中で、AIワークフローに関する優れた公式ドキュメントがあります。汎用自動化のヘルプが必要な場合はn8nのフォーラムが豊富です。AIオーケストレーションのヘルプが必要な場合はDifyのドキュメントとDiscordがより関連性があります。',
+    faq3Q: 'セキュリティとデータプライバシーの比較は？',
+    faq3A: '両方のセルフホストバージョンはすべてのデータを自分のインフラストラクチャに保持するため、GDPR/HIPAAコンプライアンスに不可欠です。両方のクラウドバージョンは転送中および保存中のデータを暗号化します。Dify Cloudはあなたのデータでモデルをトレーニングしません。n8n Cloudも同様に顧客データをトレーニングに使用しません。最大限の制御のために、どちらかのプラットフォームをセルフホストし、独自のLLM APIキーまたはOllama経由のローカルモデルを使用してください。',
+    faq4Q: 'ニーズが時間とともに変わったらどうすれば？',
+    faq4A: 'まず1つから始め、考えすぎないでください。両方のプラットフォームともワークフローのエクスポート/インポートが可能です。AIチャットボットのためにDifyから始め、後でより広範な自動化のためにn8nが必要になった場合、それらを統合できます。「間違った」プラットフォームでいくつかのワークフローを構築する移行コストは、完璧な選択を研究しながら構築を数週間遅らせるコストよりもはるかに低いです。',
+    authorName: 'ZenTools 編集部',
+    authorBio: '私たちは開発者ツールをテスト、比較、文書化し、より速く構築できるよう支援します。',
+    prevNext: '読み進める',
+    prevLabel: '前：',
+    prevTitle: 'Cursor vs Windsurf',
+    nextLabel: '次：',
+    nextTitle: 'さらに多くの比較が近日公開'
+  },
+  vi: {
+    pageTitle: 'Dify vs n8n: Nền tảng ứng dụng AI hay tự động hóa tổng hợp — đội ngũ bạn nên chọn gì',
+    catLabel: '🤖 AI & Tự động hóa',
+    metaDate: '📅 2026-07-07',
+    metaRead: '⏱ 14 phút đọc',
+    metaAuthor: '✍️ Ban biên tập ZenTools',
+    metaLevel: '🎯 Trung cấp',
+    introTitle: '1. Tại sao so sánh này quan trọng trong năm 2026',
+    introP1: 'Năm 2026, mọi đội ngũ đều được yêu cầu "thêm AI" vào sản phẩm hoặc bộ công cụ nội bộ của họ. Câu hỏi không còn là có nên áp dụng AI hay không, mà là xây dựng trên nền tảng nào. Hai công cụ mã nguồn mở thống trị cuộc trò chuyện: Dify, một nền tảng ứng dụng AI-native được xây dựng cho điều phối LLM, và n8n, một công cụ tự động hóa quy trình làm việc đa năng với bộ nút AI đang phát triển nhanh chóng. Nhìn thoáng qua chúng có vẻ giống nhau — cả hai đều cung cấp trình xây dựng quy trình trực quan, tự lưu trữ và các nút kéo-thả — nhưng chúng được thiết kế cho các vấn đề cơ bản khác nhau, và chọn sai sẽ thêm hàng tháng làm việc không cần thiết.',
+    introP2: 'Hướng dẫn này dành cho các nhà sáng lập kỹ thuật, quản lý sản phẩm và trưởng nhóm kỹ thuật cần quyết định nên chuẩn hóa trên nền tảng nào. Chúng tôi so sánh Dify và n8n trên sáu khía cạnh thực sự quan trọng đối với tốc độ của đội ngũ: định vị nền tảng, khả năng AI-native, phạm vi tích hợp, RAG và quản lý tri thức, triết lý thiết kế quy trình làm việc, và sự sẵn sàng cho doanh nghiệp.',
+    introTip: 'Mẹo: Phép thử nhanh nhất — nếu quy trình cốt lõi của bạn là "xây dựng một ứng dụng AI nói chuyện với người dùng và cơ sở tri thức," hãy bắt đầu với Dify. Nếu quy trình cốt lõi của bạn là "kết nối ứng dụng SaaS A với ứng dụng SaaS B và đôi khi gọi LLM," hãy bắt đầu với n8n.',
+    defTitle: '2. Dify và n8n thực sự là gì',
+    defP1: 'Dify là một nền tảng phát triển ứng dụng LLM mã nguồn mở. Nó ra đời từ nhu cầu xây dựng trình bao bọc GPT, chatbot, hệ thống Hỏi-Đáp cơ sở tri thức và tác nhân AI mà không cần viết mã mẫu mỗi lần. Canvas trực quan của nó là một "đường ống prompt": bạn nối các lệnh gọi mô hình, truy xuất ngữ cảnh, sử dụng công cụ và phân nhánh có điều kiện. Dify đi kèm với RAG tích hợp (tải lên tài liệu, tự động phân đoạn, vector hóa, truy xuất), quản lý hội thoại và cổng mô hình cho phép bạn chuyển đổi giữa OpenAI, Claude, Gemini, Llama và các mô hình cục bộ bằng menu thả xuống.',
+    defP2: 'n8n là một nền tảng tự động hóa quy trình làm việc mã nguồn mở, fair-code. Nó ra đời từ nhu cầu kết nối hơn 400 dịch vụ (Slack, GitHub, Google Sheets, PostgreSQL, Shopify, Telegram, v.v.) thành các đường ống tự động. Canvas trực quan của nó là một "bus tích hợp": bạn kéo vào một trigger webhook, thêm tra cứu cơ sở dữ liệu, gọi API, gửi email và ghi nhật ký kết quả. n8n đã thêm các nút AI sau này và chúng đang phát triển nhanh chóng, nhưng AI là một khả năng trong số nhiều khả năng, không phải nguyên tắc tổ chức.',
+    difyTitle: '3. Dify: Nền tảng ứng dụng AI-native',
+    difyP1: 'Dify coi LLM là trung tâm của kiến trúc. Mỗi nút trong quy trình Dify đều xoay quanh một lệnh gọi mô hình: bạn chọn mô hình, viết prompt hệ thống, tùy chọn tiêm ngữ cảnh từ cơ sở tri thức hoặc công cụ, và định tuyến đầu ra. Nền tảng cung cấp kiến trúc phân lớp: ở cấp thấp nhất là quản lý mô hình (khóa API, giới hạn tốc độ, định tuyến dự phòng); phía trên là điều phối prompt (biến, tiêm ngữ cảnh, phân tích đầu ra); phía trên nữa là quản lý tri thức (tài liệu, phân đoạn, kho vector, kiểm tra truy xuất); và ở trên cùng là triển khai ứng dụng (URL có thể chia sẻ, widget nhúng, hoặc endpoint API).',
+    difyP2: 'Đường ống RAG của Dify là một tính năng hạng nhất. Tải lên PDF, tệp Markdown hoặc trang web, Dify tự động phân đoạn chúng, tạo embedding và lưu trữ trong cơ sở dữ liệu vector (Weaviate, Qdrant, Milvus hoặc tích hợp sẵn). Khi người dùng đặt câu hỏi, hệ thống truy xuất các đoạn liên quan và tiêm vào prompt — tất cả có thể cấu hình qua giao diện người dùng. Đây là điều khiến Dify trở thành nền tảng hàng đầu để xây dựng chatbot wiki công ty, bot Hỏi-Đáp tài liệu sản phẩm hoặc trợ lý tri thức nội bộ.',
+    difyP3: 'Dify cũng cung cấp chế độ Agent nơi LLM có thể gọi công cụ lặp đi lặp lại, tìm kiếm web, truy vấn cơ sở dữ liệu hoặc chạy mã. Agent trong Dify hỗ trợ các chiến lược ReAct và Function Call, và trình gỡ lỗi trực quan hiển thị chính xác mô hình đã nghĩ gì, đã gọi công cụ nào và đã trả về gì. Đối với các đội ngũ xây dựng sản phẩm AI-native, vòng lặp quan sát này là một yếu tố nhân đôi năng suất lớn.',
+    n8nTitle: '4. n8n: Công cụ tự động hóa đa năng',
+    n8nP1: 'n8n coi quy trình làm việc là trung tâm của kiến trúc. Hơn 400 nút của nó bao phủ CRM, cơ sở dữ liệu, nền tảng nhắn tin, dịch vụ đám mây, công cụ phát triển và hơn thế nữa. Một quy trình n8n có thể bắt đầu với webhook GitHub, kiểm tra thông điệp commit, tạo vé Jira, đăng thông báo Slack, cập nhật Google Sheet và gọi LLM để tóm tắt sự khác biệt — tất cả trong một canvas. n8n là "băng keo của internet" được thực hiện đúng cách: có cấu trúc, tự lưu trữ và mã nguồn mở.',
+    n8nP2: 'Khả năng AI của n8n đã phát triển đáng kể. Bây giờ bạn có thể kéo nút "OpenAI Chat Model", kết nối nó với nút "Vector Store", cung cấp dữ liệu từ cơ sở dữ liệu và định tuyến đầu ra qua bất kỳ tích hợp nào khác. Nút tích hợp LangChain cho phép bạn nối các thao tác LLM phức tạp. Tuy nhiên, đây là các thành phần bổ sung — n8n không cung cấp quản lý prompt gốc, điều chỉnh RAG hoặc quản lý phiên hội thoại như Dify tích hợp vào lõi của nó.',
+    n8nP3: 'Điểm n8n thực sự tỏa sáng là phạm vi tích hợp và độ tin cậy thực thi. Nó có xử lý lỗi gốc (thử lại, dự phòng, trigger quy trình lỗi), quản lý webhook, lập lịch và nút mã cho JavaScript/Python tùy ý. Thư viện nút cộng đồng thêm nhiều kết nối hơn nữa. Đối với các đội ngũ có nhu cầu chính là "tự động hóa một quy trình kinh doanh trải dài trên năm công cụ SaaS, đôi khi được làm giàu bởi AI," n8n là lựa chọn hiển nhiên.',
+    featuresTitle: '5. So sánh tính năng tổng quan',
+    featuresP1: 'Biểu đồ dưới đây đánh giá mỗi nền tảng trên tám khía cạnh thực tế. Điểm số là tương đối, dựa trên kinh nghiệm cộng đồng phổ biến và tài liệu sản phẩm. Sử dụng chúng như điểm khởi đầu, không phải phán quyết.',
+    featuresCaption: 'So sánh khả năng giữa Dify và n8n',
+    tableTitle: 'Bảng so sánh song song',
+    tableHeader1: 'Khía cạnh',
+    tableHeader2: 'Dify',
+    tableHeader3: 'n8n',
+    dim1Title: 'Mục đích cốt lõi',
+    dim1Dify: 'Trình xây dựng ứng dụng AI',
+    dim1N8n: 'Công cụ tự động hóa quy trình',
+    dim2Title: 'AI-native',
+    dim2Dify: 'Có — xây dựng quanh LLM',
+    dim2N8n: 'Không — nút AI là tiện ích bổ sung',
+    dim3Title: 'RAG tích hợp',
+    dim3Dify: 'Có — đường ống đầy đủ (phân đoạn, nhúng, truy xuất, kiểm tra)',
+    dim3N8n: 'Một phần — có nút kho vector, cần xây dựng thủ công',
+    dim4Title: 'Tích hợp',
+    dim4Dify: 'API AI + công cụ (~30 gốc)',
+    dim4N8n: '400+ SaaS, cơ sở dữ liệu, API',
+    dim5Title: 'Quản lý hội thoại',
+    dim5Dify: 'Có — phiên, lịch sử, đa lượt',
+    dim5N8n: 'Thủ công — cần triển khai tùy chỉnh',
+    dim6Title: 'Chế độ Agent',
+    dim6Dify: 'Có — ReAct, Function Call, trình gỡ lỗi',
+    dim6N8n: 'Nút AI Agent (thử nghiệm)',
+    dim7Title: 'Tự lưu trữ',
+    dim7Dify: 'Docker Compose, thiết lập dễ dàng',
+    dim7N8n: 'Docker, npm, Railway, thiết lập dễ dàng',
+    dim8Title: 'Đường cong học tập',
+    dim8Dify: 'Thấp cho người dùng AI-first',
+    dim8N8n: 'Thấp đến trung bình, phạm vi rộng',
+    pricingTitle: '6. Giá cả và tự lưu trữ',
+    pricingP1: 'Cả hai nền tảng đều là mã nguồn mở và có thể tự lưu trữ với Docker. Đây là lợi thế kinh tế chính: bạn trả tiền cho cơ sở hạ tầng (máy chủ, cơ sở dữ liệu, kho vector) và các lệnh gọi API LLM (OpenAI, Anthropic, v.v.), không phải cho chính nền tảng. Đối với một đội ngũ nhỏ chạy khối lượng công việc vừa phải, tự lưu trữ một trong hai nền tảng có chi phí khoảng 20-50 USD/tháng cho cơ sở hạ tầng đám mây cộng với chi phí LLM biến đổi.',
+    pricingP2: 'Cả hai cũng cung cấp các gói lưu trữ đám mây. Dify Cloud có gói miễn phí hào phóng (200 cuộc hội thoại/tháng, kích thước cơ sở tri thức hạn chế) với các gói trả phí bắt đầu từ khoảng 59 USD/tháng cho đội ngũ. n8n Cloud bắt đầu với gói miễn phí (số lần thực thi hạn chế) và các gói trả phí từ khoảng 20 USD/tháng. Tự lưu trữ loại bỏ thanh toán dựa trên mức sử dụng ở cấp nền tảng, điều này quan trọng nếu bạn có khối lượng thực thi cao.',
+    pricingP3: 'Một sự khác biệt chi phí ẩn: khi bạn tự lưu trữ Dify và xây dựng đường ống RAG, bạn cũng cần chạy cơ sở dữ liệu vector (Qdrant, Weaviate, v.v.), làm tăng chi phí cơ sở hạ tầng. Các quy trình n8n thường nhẹ hơn — một container Docker duy nhất có thể xử lý hàng trăm tự động hóa đơn giản. Hãy tính đến điều này trong ngân sách cơ sở hạ tầng của bạn.',
+    usecaseTitle: '7. Khi nào chọn cái nào: Các tình huống thực tế',
+    usecaseP1: 'Dưới đây là năm tình huống đội ngũ thực tế với khuyến nghị rõ ràng. Đây không phải là lý thuyết; chúng phản ánh các mẫu chúng tôi đã thấy qua hàng chục đội ngũ áp dụng các công cụ này trong 2025-2026.',
+    scenario1Title: 'Tình huống 1: Xây dựng chatbot hướng tới khách hàng với cơ sở tri thức của bạn',
+    scenario1Desc: 'Bạn có tài liệu sản phẩm, FAQ và bài viết hỗ trợ. Bạn muốn một chatbot trả lời câu hỏi của khách hàng một cách hội thoại, dựa trên nội dung của bạn. Dify thắng quyết định: tải tài liệu lên, Dify xử lý phân đoạn và truy xuất, và bạn triển khai dưới dạng widget trò chuyện hoặc API trong vòng chưa đầy một giờ. Với n8n, bạn sẽ cần thiết lập thủ công kho vector, viết logic truy xuất, quản lý lịch sử hội thoại và xây dựng giao diện người dùng.',
+    scenario2Title: 'Tình huống 2: Tự động hóa quy trình kinh doanh đa dịch vụ',
+    scenario2Desc: 'Bạn cần: lắng nghe gửi Typeform, tra cứu người dùng trong HubSpot, gửi email cá nhân hóa qua SendGrid, tạo nhiệm vụ trong Asana và ghi nhật ký mọi thứ vào Google Sheets. n8n thắng quyết định: toàn bộ quy trình mất 15 phút để xây dựng với các nút kéo-thả cho mỗi dịch vụ. Dify đơn giản là không có các tích hợp này.',
+    scenario3Title: 'Tình huống 3: Trợ lý AI nội bộ với RAG + gọi công cụ',
+    scenario3Desc: 'Bạn muốn một trợ lý nội bộ có thể trả lời câu hỏi từ wiki công ty, tìm kiếm trạng thái vé Jira và tóm tắt các luồng Slack. Dify là điểm khởi đầu mạnh mẽ hơn vì RAG và gọi công cụ là các tính năng hạng nhất. Tuy nhiên, nếu bạn đã là người dùng n8n nặng, nút AI Agent của n8n cùng với các nút Slack/Jira cũng có thể làm được — chỉ cần lắp ráp thủ công nhiều hơn.',
+    scenario4Title: 'Tình huống 4: Đường ống nội dung với làm giàu AI',
+    scenario4Desc: 'Bạn muốn lấy nguồn cấp RSS, sử dụng AI để tóm tắt và dịch bài viết, phân loại chúng và đăng lên WordPress và mạng xã hội. Đây là điểm ngọt ngào nơi cả hai đều hoạt động. n8n thắng về phạm vi tích hợp (RSS, WordPress, nút mạng xã hội), trong khi Dify thắng về chất lượng làm giàu AI (quản lý prompt, định tuyến mô hình). Nhiều đội ngũ sử dụng cả hai: n8n cho đường ống dữ liệu, Dify cho bước xử lý AI, kết nối qua API.',
+    scenario5Title: 'Tình huống 5: Tuân thủ và quản trị doanh nghiệp',
+    scenario5Desc: 'Công ty bạn yêu cầu SSO, nhật ký kiểm toán, kiểm soát truy cập dựa trên vai trò và kiểm soát cư trú dữ liệu. Cả hai nền tảng đều cung cấp những điều này trong các gói doanh nghiệp/đám mây của họ. Dify có quản trị AI cụ thể trưởng thành hơn (theo dõi sử dụng mô hình, phiên bản prompt, giám sát chất lượng phản hồi). n8n có quản trị quy trình chung trưởng thành hơn (lịch sử thực thi, quản lý thông tin xác thực, cảnh báo lỗi). Lựa chọn phụ thuộc vào khía cạnh quản trị nào quan trọng hơn đối với đội ngũ tuân thủ của bạn.',
+    verdictTitle: '8. Phán quyết cuối cùng',
+    verdictP1: 'Dify và n8n không phải là đối thủ cạnh tranh theo nghĩa truyền thống. Chúng là các công cụ bổ sung giải quyết các lớp khác nhau của ngăn xếp phần mềm hiện đại. Chọn giữa chúng ít hơn về cái nào "tốt hơn" và nhiều hơn về vấn đề bạn đang giải quyết.',
+    verdictP2: 'Chọn Dify nếu mục tiêu chính của đội ngũ bạn là phát triển ứng dụng AI: chatbot, hệ thống RAG, tác nhân AI, đường ống prompt. Dify cung cấp cho bạn một bộ công cụ chuyên dụng nơi AI chính là sản phẩm, không phải tính năng. Đường ống RAG tích hợp, cổng mô hình, quản lý hội thoại và trình gỡ lỗi agent tiết kiệm hàng tháng thời gian phát triển cho các dự án tập trung vào AI.',
+    verdictP3: 'Chọn n8n nếu mục tiêu chính của đội ngũ bạn là tự động hóa quy trình kinh doanh: kết nối các công cụ SaaS, điều phối đường ống dữ liệu, kích hoạt quy trình đa bước trên toàn bộ ngăn xếp của bạn. n8n cung cấp cho bạn hơn 400 tích hợp và độ tin cậy thực thi đã được kiểm chứng trong thực tế. Thêm các nút AI khi chúng làm giàu quy trình, nhưng đừng xây dựng toàn bộ kiến trúc xung quanh AI trừ khi AI là sản phẩm cốt lõi của bạn.',
+    verdictP4: 'Nhiều đội ngũ hiệu suất cao sử dụng cả hai. Một kiến trúc phổ biến: n8n xử lý logic kinh doanh và lớp tích hợp (trigger, di chuyển dữ liệu, thông báo), và Dify xử lý lớp trí tuệ AI (RAG, suy luận agent, điều phối LLM). Chúng giao tiếp qua webhook hoặc REST API. Cách tiếp cận "tốt nhất của cả hai" này mang lại cho bạn phạm vi tích hợp từ n8n và chiều sâu AI từ Dify.',
+    faqTitle: '9. Câu hỏi thường gặp',
+    faq1Q: 'Tôi có thể sử dụng cả Dify và n8n cùng nhau không?',
+    faq1A: 'Có. Một mẫu phổ biến là n8n kích hoạt quy trình gọi API của Dify để xử lý AI, sau đó n8n định tuyến kết quả đến Slack, email hoặc cơ sở dữ liệu. Dify cũng có thể webhook trở lại n8n để xử lý sau. Hai nền tảng bổ sung tốt cho nhau khi bạn coi Dify là "dịch vụ AI" và n8n là "xương sống tự động hóa."',
+    faq2Q: 'Cái nào có cộng đồng và tài liệu tốt hơn?',
+    faq2A: 'Cả hai đều có cộng đồng mã nguồn mở lành mạnh. n8n có cộng đồng tổng thể lớn hơn (40k+ sao GitHub so với 30k+ của Dify) và nhiều hướng dẫn bên thứ ba hơn do các trường hợp sử dụng rộng hơn. Cộng đồng của Dify tập trung hơn vào AI và đang phát triển nhanh chóng, với tài liệu chính thức xuất sắc cho quy trình AI. Nếu bạn cần trợ giúp về tự động hóa chung, diễn đàn của n8n phong phú hơn. Nếu bạn cần trợ giúp về điều phối AI, tài liệu và Discord của Dify phù hợp hơn.',
+    faq3Q: 'Chúng so sánh thế nào về bảo mật và quyền riêng tư dữ liệu?',
+    faq3A: 'Cả hai phiên bản tự lưu trữ đều giữ tất cả dữ liệu trên cơ sở hạ tầng của bạn, điều này rất cần thiết cho tuân thủ GDPR/HIPAA. Cả hai phiên bản đám mây đều mã hóa dữ liệu khi truyền và khi lưu trữ. Dify Cloud không đào tạo trên dữ liệu của bạn. n8n Cloud tương tự không sử dụng dữ liệu khách hàng để đào tạo. Để kiểm soát tối đa, tự lưu trữ một trong hai nền tảng và sử dụng khóa API LLM của riêng bạn hoặc mô hình cục bộ qua Ollama.',
+    faq4Q: 'Nếu nhu cầu của tôi thay đổi theo thời gian thì sao?',
+    faq4A: 'Bắt đầu với một cái, đừng suy nghĩ quá nhiều. Cả hai nền tảng đều xuất/nhập quy trình. Nếu bạn bắt đầu với Dify cho chatbot AI và sau đó cần n8n cho tự động hóa rộng hơn, bạn có thể tích hợp chúng. Chi phí di chuyển của việc xây dựng một vài quy trình trên nền tảng "sai" thấp hơn nhiều so với chi phí trì hoãn xây dựng hàng tuần trong khi nghiên cứu lựa chọn hoàn hảo.',
+    authorName: 'Ban biên tập ZenTools',
+    authorBio: 'Chúng tôi kiểm tra, so sánh và ghi lại tài liệu về các công cụ phát triển để bạn có thể xây dựng nhanh hơn.',
+    prevNext: 'Đọc tiếp',
+    prevLabel: 'Trước:',
+    prevTitle: 'Cursor vs Windsurf',
+    nextLabel: 'Tiếp theo:',
+    nextTitle: 'Thêm so sánh sắp ra mắt'
+  }
+};
+</script>
+</head>
+<body>
+<div class="blob blob-1"></div><div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>3.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/tutorials/" data-i18n="navArticles">教程中心</a><a href="/tools.html" data-i18n="navAll">全部工具</a><a href="/guides/" data-i18n="navGuides">深度指南</a><a href="/compare/" data-i18n="navCompare">工具对比</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+
+<div class="page-tutorial">
+<a class="back-link" href="/compare/">← <span data-i18n="navCompare">Compare</span></a>
+<span class="page-eyebrow" data-i18n="catLabel">🤖 AI & Automation</span>
+<h1 data-i18n="pageTitle">Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose in 2026?</h1>
+<div class="meta">
+  <span data-i18n="metaDate">📅 2026-07-07</span>
+  <span data-i18n="metaRead">⏱ 14 min read</span>
+  <span data-i18n="metaAuthor">✍️ By ZenTools Editorial</span>
+  <span data-i18n="metaLevel">🎯 Intermediate</span>
+</div>
+
+<div class="article-body">
+
+<h2 data-i18n="introTitle">1. Why This Comparison Matters in 2026</h2>
+<p data-i18n="introP1">In 2026, every team is being asked to "add AI" to their product or internal toolkit. The question is no longer whether to adopt AI, but which platform to build on. Two open-source tools dominate the conversation: Dify, an AI-native application platform purpose-built for LLM orchestration, and n8n, a general-purpose workflow automation engine with a rapidly growing AI node set. They look similar at first glance — both offer visual workflow builders, self-hosting, and drag-and-drop nodes — but they were designed for fundamentally different problems, and picking the wrong one adds months of unnecessary work.</p>
+<p data-i18n="introP2">This guide is written for technical founders, product managers, and engineering leads who need to decide which platform to standardize on. We compare Dify and n8n across the six dimensions that actually matter for team velocity: platform positioning, AI-native capabilities, integration breadth, RAG and knowledge management, workflow design philosophy, and enterprise readiness. Every claim is based on publicly available product behavior and documentation as of July 2026.</p>
+<p class="tip" data-i18n="introTip">Tip: The fastest litmus test — if your core workflow is "build an AI app that talks to users and a knowledge base," start with Dify. If your core workflow is "connect SaaS app A to SaaS app B and sometimes call an LLM," start with n8n.</p>
+
+<h2 data-i18n="defTitle">2. What Are Dify and n8n, Really?</h2>
+<p data-i18n="defP1">Dify is an open-source LLM application development platform. It was born out of the need to build GPT wrappers, chatbots, knowledge-base Q&A systems, and AI agents without writing boilerplate every time. Its visual canvas is a "prompt pipeline": you chain together model calls, context retrieval, tool use, and conditional branching. Dify ships with built-in RAG (upload documents, auto-chunk, vectorize, retrieve), conversation management, and a model gateway that lets you switch between OpenAI, Claude, Gemini, Llama, and local models with a dropdown.</p>
+<p data-i18n="defP2">n8n is an open-source, fair-code workflow automation platform. It was born out of the need to connect 400+ services (Slack, GitHub, Google Sheets, PostgreSQL, Shopify, Telegram, you name it) into automated pipelines. Its visual canvas is an "integration bus": you drag in a webhook trigger, add a database lookup, call an API, send an email, and log the result. n8n added AI nodes later (OpenAI, Anthropic, Hugging Face, vector store nodes) and they are growing fast, but AI is one capability among many, not the organizing principle.</p>
+
+<h2 data-i18n="difyTitle">3. Dify: The AI-Native Application Platform</h2>
+<p data-i18n="difyP1">Dify treats the LLM as the center of gravity. Every node in a Dify workflow is oriented around a model call: you pick a model, write a system prompt, optionally inject context from a knowledge base or a tool, and route the output. The platform provides a layered architecture: at the lowest level you have model management (API keys, rate limits, fallback routing); above that, prompt orchestration (variables, context injection, output parsing); above that, knowledge management (documents, chunking, vector stores, retrieval testing); and at the top, application deployment (a shareable URL, an embeddable widget, or an API endpoint).</p>
+<p data-i18n="difyP2">Dify's RAG pipeline is a first-class feature. Upload PDFs, markdown files, or web pages, and Dify automatically chunks them, generates embeddings, and stores them in a vector database (Weaviate, Qdrant, Milvus, or built-in). When a user asks a question, the system retrieves relevant chunks and injects them into the prompt — all configurable through the UI. This is what makes Dify the go-to platform for building a company wiki chatbot, a product documentation Q&A bot, or an internal knowledge assistant.</p>
+<p data-i18n="difyP3">Dify also ships an Agent mode where the LLM can iteratively call tools, search the web, query a database, or run code. Agents in Dify support ReAct and Function Call strategies, and the visual debugger shows you exactly what the model thought, what tool it called, and what it returned. For teams building AI-native products, this observability loop is a major productivity multiplier.</p>
+
+<h2 data-i18n="n8nTitle">4. n8n: The General-Purpose Automation Engine</h2>
+<p data-i18n="n8nP1">n8n treats the workflow as the center of gravity. Its 400+ nodes span CRMs, databases, messaging platforms, cloud services, developer tools, and more. An n8n workflow can start with a GitHub webhook, check the commit message, create a Jira ticket, post a Slack notification, update a Google Sheet, and call an LLM to summarize the diff — all in one canvas. n8n is the "duct tape of the internet" done right: structured, self-hosted, and open-source.</p>
+<p data-i18n="n8nP2">n8n's AI capabilities have grown significantly. You can now drag in an "OpenAI Chat Model" node, connect it to a "Vector Store" node (Pinecone, Qdrant, in-memory), feed it data from a database, and route the output through any other integration. The LangChain integration node lets you chain complex LLM operations. However, these are bolt-on components — n8n does not provide the same native prompt management, RAG tuning, or conversation session management that Dify builds into its core.</p>
+<p data-i18n="n8nP3">Where n8n truly shines is in its integration breadth and execution reliability. It has native error handling (retry, fallback, error workflow triggers), webhook management, scheduling, and a code node for arbitrary JavaScript/Python. The community node library adds even more connectors. For teams whose primary need is "automate a business process that spans five SaaS tools, occasionally enriched by AI," n8n is the obvious choice.</p>
+
+<h2 data-i18n="featuresTitle">5. Feature Comparison at a Glance</h2>
+<p data-i18n="featuresP1">The chart below scores each platform across eight practical dimensions. Scores are relative, based on common community experience and product documentation. Use them as a starting point, not a verdict.</p>
+
+<div class="figure">
+<svg viewBox="0 0 680 380" role="img" aria-label="Feature comparison between Dify and n8n">
+  <defs>
+    <linearGradient id="gD" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+    <linearGradient id="gN" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a855f7"/><stop offset="1" stop-color="#c084fc"/></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="680" height="380" rx="14" fill="rgba(10,16,28,0.4)"/>
+  <text x="24" y="30" fill="#e6edf6" font-size="15" font-weight="700">Capability score (relative)</text>
+  <g font-size="12" fill="#c8d0e0">
+    <g transform="translate(0,55)">
+      <text x="20" y="0">AI-native design</text><rect x="120" y="-10" width="190" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="100" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+    <g transform="translate(0,90)">
+      <text x="20" y="0">RAG pipeline</text><rect x="120" y="-10" width="185" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="110" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+    <g transform="translate(0,125)">
+      <text x="20" y="0">Prompt orchestration</text><rect x="120" y="-10" width="190" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="90" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+    <g transform="translate(0,160)">
+      <text x="20" y="0">Integrations breadth</text><rect x="120" y="-10" width="80" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="190" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+    <g transform="translate(0,195)">
+      <text x="20" y="0">Agent capabilities</text><rect x="120" y="-10" width="180" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="120" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+    <g transform="translate(0,230)">
+      <text x="20" y="0">No-code UX</text><rect x="120" y="-10" width="160" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="165" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+    <g transform="translate(0,265)">
+      <text x="20" y="0">Execution reliability</text><rect x="120" y="-10" width="130" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="180" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+    <g transform="translate(0,300)">
+      <text x="20" y="0">Enterprise governance</text><rect x="120" y="-10" width="150" height="14" rx="7" fill="url(#gD)"/><rect x="305" y="-10" width="150" height="14" rx="7" fill="url(#gN)"/>
+    </g>
+  </g>
+  <g font-size="12">
+    <rect x="500" y="335" width="14" height="14" rx="3" fill="url(#gD)"/><text x="520" y="346" fill="#c8d0e0">Dify</text>
+    <rect x="590" y="335" width="14" height="14" rx="3" fill="url(#gN)"/><text x="610" y="346" fill="#c8d0e0">n8n</text>
+  </g>
+</svg>
+<div class="caption" data-i18n="featuresCaption">Capability comparison between Dify and n8n</div>
+</div>
+
+<div class="table-wrap">
+<p data-i18n="tableTitle" style="margin:0 0 12px;font-weight:700;color:var(--text);">Side-by-Side Comparison Table</p>
+<table>
+<thead>
+<tr><th data-i18n="tableHeader1">Dimension</th><th data-i18n="tableHeader2">Dify</th><th data-i18n="tableHeader3">n8n</th></tr>
+</thead>
+<tbody>
+<tr><td data-i18n="dim1Title">Core Purpose</td><td data-i18n="dim1Dify">AI application builder</td><td data-i18n="dim1N8n">Workflow automation engine</td></tr>
+<tr><td data-i18n="dim2Title">AI-Native</td><td class="yes" data-i18n="dim2Dify">Yes — built around LLMs</td><td class="no" data-i18n="dim2N8n">No — AI nodes are add-ons</td></tr>
+<tr><td data-i18n="dim3Title">Built-in RAG</td><td class="yes" data-i18n="dim3Dify">Yes — full pipeline</td><td data-i18n="dim3N8n">Partial — needs manual setup</td></tr>
+<tr><td data-i18n="dim4Title">Integrations</td><td data-i18n="dim4Dify">AI APIs + tools (~30 native)</td><td class="yes" data-i18n="dim4N8n">400+ SaaS, databases, APIs</td></tr>
+<tr><td data-i18n="dim5Title">Conversation Mgmt</td><td class="yes" data-i18n="dim5Dify">Yes — sessions, history</td><td class="no" data-i18n="dim5N8n">Manual — custom implementation</td></tr>
+<tr><td data-i18n="dim6Title">Agent Mode</td><td class="yes" data-i18n="dim6Dify">Yes — ReAct, Function Call</td><td data-i18n="dim6N8n">AI Agent node (experimental)</td></tr>
+<tr><td data-i18n="dim7Title">Self-Hosting</td><td data-i18n="dim7Dify">Docker Compose, easy</td><td data-i18n="dim7N8n">Docker, npm, easy</td></tr>
+<tr><td data-i18n="dim8Title">Learning Curve</td><td data-i18n="dim8Dify">Low for AI-first users</td><td data-i18n="dim8N8n">Low-to-medium, broad scope</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2 data-i18n="pricingTitle">6. Pricing and Self-Hosting</h2>
+<p data-i18n="pricingP1">Both platforms are open-source and can be self-hosted with Docker. This is the key economic advantage: you pay for infrastructure (server, database, vector store) and LLM API calls (OpenAI, Anthropic, etc.), not for the platform itself. For a small team running modest workloads, self-hosting either platform costs around $20-50/month in cloud infrastructure plus variable LLM costs.</p>
+<p data-i18n="pricingP2">Both also offer cloud-hosted plans. Dify Cloud has a generous free tier (200 conversations/month, limited knowledge base size) with paid plans starting around $59/month for teams. n8n Cloud starts with a free tier (limited executions) and paid plans from about $20/month. Self-hosting removes usage-based billing on the platform level, which matters if you have high execution volume.</p>
+<p data-i18n="pricingP3">A hidden cost difference: when you self-host Dify and build a RAG pipeline, you also need to run a vector database (Qdrant, Weaviate, etc.), which adds infrastructure overhead. n8n workflows are typically lighter — a single Docker container can handle hundreds of simple automations. Factor this into your infrastructure budget.</p>
+
+<h2 data-i18n="usecaseTitle">7. When to Choose Which: Practical Scenarios</h2>
+<p data-i18n="usecaseP1">Below are five real-world team scenarios with a clear recommendation. These are not theoretical; they reflect patterns we have seen across dozens of teams adopting these tools in 2025-2026.</p>
+
+<h3 data-i18n="scenario1Title">Scenario 1: Building a customer-facing chatbot with your knowledge base</h3>
+<p data-i18n="scenario1Desc">You have product docs, FAQs, and support articles. You want a chatbot that answers customer questions conversationally, grounded in your content. Dify wins decisively: upload documents, Dify handles chunking and retrieval, and you deploy as a chat widget or API in under an hour. With n8n, you would need to manually set up a vector store, write retrieval logic, manage conversation history, and build a frontend.</p>
+
+<h3 data-i18n="scenario2Title">Scenario 2: Automating a multi-service business process</h3>
+<p data-i18n="scenario2Desc">You need to: listen to a Typeform submission, look up the user in HubSpot, send a personalized email via SendGrid, create a task in Asana, and log everything to Google Sheets. n8n wins decisively: the entire workflow takes 15 minutes to build with drag-and-drop nodes for each service. Dify simply does not have these integrations.</p>
+
+<h3 data-i18n="scenario3Title">Scenario 3: Internal AI assistant with RAG + tool calling</h3>
+<p data-i18n="scenario3Desc">You want an internal assistant that can answer questions from your company wiki, search Jira for ticket status, and summarize Slack threads. Dify is the stronger starting point because RAG and tool calling are first-class features. However, if you are already a heavy n8n user, n8n's AI Agent node plus its Slack/Jira nodes can also do this — just with more manual assembly.</p>
+
+<h3 data-i18n="scenario4Title">Scenario 4: Content pipeline with AI enrichment</h3>
+<p data-i18n="scenario4Desc">You want to pull RSS feeds, use AI to summarize and translate articles, categorize them, and post to WordPress and social media. This is a sweet spot where both can work. n8n wins on the integration breadth (RSS, WordPress, social media nodes), while Dify wins on the AI enrichment quality (prompt management, model routing). Many teams use both: n8n for the data pipeline, Dify for the AI processing step, connected via API.</p>
+
+<h3 data-i18n="scenario5Title">Scenario 5: Enterprise compliance and governance</h3>
+<p data-i18n="scenario5Desc">Your company requires SSO, audit logging, role-based access control, and data residency controls. Both platforms offer these in their enterprise/cloud tiers. Dify has more mature AI-specific governance (model usage tracking, prompt versioning, response quality monitoring). n8n has more mature general workflow governance (execution history, credential management, error alerting). The choice depends on which governance dimensions matter more to your compliance team.</p>
+
+<h2 data-i18n="verdictTitle">8. Final Verdict</h2>
+<p data-i18n="verdictP1">Dify and n8n are not competitors in the traditional sense. They are complementary tools that solve different layers of the modern software stack. Choosing between them is less about which is "better" and more about which problem you are solving.</p>
+<p data-i18n="verdictP2">Choose Dify if your team's primary goal is AI application development: chatbots, RAG systems, AI agents, prompt pipelines. Dify gives you a purpose-built toolkit where AI is the product, not a feature. The built-in RAG pipeline, model gateway, conversation management, and agent debugger save months of development time for AI-centric projects.</p>
+<p data-i18n="verdictP3">Choose n8n if your team's primary goal is business process automation: connecting SaaS tools, orchestrating data pipelines, triggering multi-step workflows across your stack. n8n gives you 400+ integrations and battle-tested execution reliability. Add AI nodes when they enrich a workflow, but do not build your entire architecture around them unless AI is your core product.</p>
+<p class="tip" data-i18n="verdictP4">Many high-performing teams use both. A common architecture: n8n handles the business logic and integration layer (triggers, data movement, notifications), and Dify handles the AI intelligence layer (RAG, agent reasoning, LLM orchestration). They communicate via webhooks or REST APIs. This "best of both" approach gives you integration breadth from n8n and AI depth from Dify.</p>
+
+<h2 data-i18n="faqTitle">9. Frequently Asked Questions</h2>
+<div class="faq-item"><h3 data-i18n="faq1Q">Can I use both Dify and n8n together?</h3><p data-i18n="faq1A">Yes. A common pattern is n8n triggering a workflow that calls Dify's API for AI processing, then n8n routes the result to Slack, email, or a database. Dify can also webhook back to n8n for post-processing. The two platforms complement each other well when you treat Dify as your "AI service" and n8n as your "automation backbone."</p></div>
+<div class="faq-item"><h3 data-i18n="faq2Q">Which one has better community and documentation?</h3><p data-i18n="faq2A">Both have healthy open-source communities. n8n has a larger community overall (40k+ GitHub stars vs Dify's 30k+) and more third-party tutorials due to its broader use cases. Dify's community is more AI-focused and growing rapidly, with excellent official documentation for AI workflows. If you need general automation help, n8n's forum is richer. If you need AI orchestration help, Dify's docs and Discord are more relevant.</p></div>
+<div class="faq-item"><h3 data-i18n="faq3Q">How do they compare on security and data privacy?</h3><p data-i18n="faq3A">Both self-hosted versions keep all data on your infrastructure, which is essential for GDPR/HIPAA compliance. Both cloud versions encrypt data in transit and at rest. Dify's cloud does not train on your data. n8n's cloud similarly does not use customer data for training. For maximum control, self-host either platform and use your own LLM API keys or local models via Ollama.</p></div>
+<div class="faq-item"><h3 data-i18n="faq4Q">What if my needs change over time?</h3><p data-i18n="faq4A">Start with one, do not overthink it. Both platforms export/import workflows. If you start with Dify for an AI chatbot and later need n8n for broader automation, you can integrate them. The migration cost of building a few workflows on the "wrong" platform is far lower than the cost of delaying your build by weeks while researching the perfect choice.</p></div>
+
+<div class="author-box">
+  <div class="avatar">ZT</div>
+  <div class="info">
+    <b data-i18n="authorName">ZenTools Editorial</b>
+    <p data-i18n="authorBio">We test, compare, and document developer tools so you can build faster.</p>
+  </div>
+</div>
+
+</div>
+
+<!-- prev-next navigation -->
+<div style="max-width:860px;margin:28px auto;display:flex;justify-content:space-between;gap:16px;padding:0 28px;flex-wrap:wrap;">
+  <a href="/tutorials/cursor-vs-windsurf.html" style="display:flex;flex-direction:column;gap:4px;padding:14px 20px;background:var(--glass);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:border-color 0.2s;flex:1;min-width:200px;">
+    <span style="font-size:12px;color:var(--muted);" data-i18n="prevLabel">Previous:</span>
+    <span style="font-weight:700;" data-i18n="prevTitle">Cursor vs Windsurf</span>
+  </a>
+  <span style="display:flex;flex-direction:column;gap:4px;padding:14px 20px;border-radius:12px;flex:1;min-width:200px;opacity:0.5;">
+    <span style="font-size:12px;color:var(--muted);" data-i18n="nextLabel">Next:</span>
+    <span style="font-weight:700;color:var(--muted);" data-i18n="nextTitle">More comparisons coming soon</span>
+  </span>
+</div>
+</div>
+</div>
+
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+</body>
+</html>
