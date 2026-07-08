@@ -116,6 +116,47 @@ Every tool HTML page must contain these structural elements in order:
 - No temporary test files.
 - Tutorials only in `/tutorials/` (not `/articles/`, `/blog/`, `/posts/`).
 
+## Google AdSense Compliance
+
+ZenTools uses Google AdSense (Publisher ID: `ca-pub-1955887568822472`). All pages must comply with the [Google Publisher Policies](https://support.google.com/adsense/answer/48182) and [ad code modification guidelines](https://support.google.com/adsense/answer/1354736). Key requirements:
+
+### Prohibited
+- Never artificially inflate clicks or impressions (no automated tools, no manual clicks on own ads)
+- Never encourage users to click ads (no "click ads to support us", no arrows/graphics pointing to ads)
+- Never hide ad units with `display:none` (except for responsive ad units)
+- Never place ads in pop-ups, pop-unders, emails, or non-content pages
+- Never place ads so they overlap content or are covered by content
+- Never use deceptive site navigation (false streaming/download claims, redirecting to irrelevant pages)
+- Never use paid-to-click, paid-to-surf, or autosurf traffic sources
+- Never use ads on pages that could confuse users into thinking they are associated with Google
+- Never manipulate ad targeting with hidden keywords or iframes
+- Never trigger ad clicks during user drag actions on mobile
+
+### Required for Compliance
+- Each tool page must contain substantive, original content (no blank or placeholder-only pages)
+- Privacy policy page must exist and describe Google ad cookies, third-party advertising, and user opt-out options
+- Site must be easy to navigate (valid navigation structure)
+- No malware, unwanted software, or deceptive redirects
+
+## Google Search Essentials
+
+To ensure all ZenTools pages are discoverable and indexable by Google Search, follow these [Search Essentials](https://developers.google.com/search/docs/essentials):
+
+### Technical Requirements (mandatory for indexing)
+1. **Googlebot not blocked**: `robots.txt` must allow `User-agent: *` with `Allow: /`. Verify via Search Console's Page Indexing report.
+2. **HTTP 200 status**: Every page must return `200 (success)`. No 404, 500, or other error pages in production.
+3. **Indexable content**: All tool pages must have meaningful textual content (not blank or error-only pages).
+
+### Key Best Practices
+- **Sitemap**: `sitemap.xml` must list all tool pages with `<lastmod>` and `<priority>`. Regenerate after any tool addition/removal via `python3 _gen_sitemap.py`.
+- **Canonical URLs**: Every page must have a self-referencing `<link rel="canonical">` tag to avoid duplicate content issues.
+- **Mobile-friendly**: All pages must be responsive (CSS must adapt to mobile viewports). Google uses mobile-first indexing.
+- **Structured data**: Each tool page requires `FAQPage` + `WebApplication` JSON-LD schema. Tutorial/guide pages use `Article` schema.
+- **Crawlable links**: All internal navigation must use standard `<a href>` tags (no JavaScript-only navigation that blocks crawlers).
+- **HTTPS**: Deployed via GitHub Pages (enforces HTTPS automatically).
+- **Title tags**: Each page must have a unique, descriptive `<title>` (under 60 characters).
+- **Meta descriptions**: Each page must have a descriptive `<meta name="description">` (130-150 characters).
+
 ## CI
 
 `backup.yml` backs up data/config/core scripts on push to main and daily at 00:00 UTC.
