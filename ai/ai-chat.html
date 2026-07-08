@@ -1,525 +1,128 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="pageTitle">AI 聊天 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-  <meta name="description" content="与 AI 智能对话，支持多轮问答、知识查询和创意讨论，免费在线使用。" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --success: #22c55e; --error: #ef4444; }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
-    
-    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-    .header .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
-    .header .logo .mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    .header .actions { display: flex; gap: 8px; align-items: center; }
-    
-    .main { flex: 1; display: flex; flex-direction: column; max-width: 900px; width: 100%; margin: 0 auto; }
-    .chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; scroll-behavior: smooth; }
-    
-    .message { display: flex; gap: 12px; animation: fadeIn 0.3s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .message.user { flex-direction: row-reverse; }
-    .message-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-    .message.user .message-avatar { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
-    .message.assistant .message-avatar { background: var(--surface2); border: 1px solid var(--border); }
-    
-    .message-content { max-width: 70%; padding: 14px 18px; border-radius: var(--radius); line-height: 1.6; }
-    .message.user .message-content { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-radius: var(--radius) var(--radius) 0 var(--radius); }
-    .message.assistant .message-content { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius) var(--radius) var(--radius) 0; }
-    .message-content p { margin-bottom: 10px; }
-    .message-content p:last-child { margin-bottom: 0; }
-    .message-content code { background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
-    .message.user .message-content code { background: rgba(0,0,0,0.15); }
-    .message-content pre { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; overflow-x: auto; margin: 10px 0; }
-    .message-content pre code { background: none; padding: 0; }
-    
-    .typing-indicator { display: flex; gap: 4px; padding: 4px; }
-    .typing-indicator span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: bounce 1.4s infinite; }
-    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
-    
-    .input-area { background: var(--surface); border-top: 1px solid var(--border); padding: 16px 24px; display: flex; gap: 12px; align-items: flex-end; }
-    .input-wrapper { flex: 1; position: relative; }
-    .input-wrapper textarea { width: 100%; min-height: 50px; max-height: 200px; padding: 12px 48px 12px 16px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 15px; font-family: inherit; resize: none; transition: border-color .3s; }
-    .input-wrapper textarea:focus { outline: none; border-color: var(--accent); }
-    .input-wrapper textarea::placeholder { color: var(--muted); }
-    .char-count { position: absolute; bottom: -20px; right: 0; font-size: 11px; color: var(--muted); }
-    
-    .btn { padding: 10px 20px; border-radius: var(--radius-pill); border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: all .3s; display: flex; align-items: center; gap: 6px; }
-    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .btn-secondary:hover { border-color: var(--accent); }
-    .btn-icon { padding: 10px 14px; border-radius: 50%; }
-    
-    .settings-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 1000; backdrop-filter: blur(5px); }
-    .settings-modal.active { display: flex; }
-    .settings-content { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 30px; width: 90%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
-    .settings-content h2 { margin-bottom: 20px; font-size: 20px; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: var(--muted); }
-    .form-group input, .form-group select { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 14px; }
-    .form-group input:focus, .form-group select:focus { outline: none; border-color: var(--accent); }
-    .form-group small { color: var(--muted); font-size: 12px; margin-top: 4px; display: block; }
-    .settings-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
-    
-    .welcome-screen { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; text-align: center; }
-    .welcome-screen .icon { font-size: 64px; margin-bottom: 20px; }
-    .welcome-screen h1 { font-size: 28px; margin-bottom: 12px; }
-    .welcome-screen p { color: var(--muted); max-width: 400px; margin-bottom: 30px; line-height: 1.6; }
-    .suggestions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; max-width: 600px; }
-    .suggestion { padding: 10px 16px; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-pill); font-size: 13px; cursor: pointer; transition: all .3s; }
-    .suggestion:hover { border-color: var(--accent); background: rgba(59,130,246,0.1); }
-    
-    .clear-btn { position: fixed; bottom: 100px; right: 24px; z-index: 50; }
-    
-    .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-    
-    @media (max-width: 640px) {
-      .message-content { max-width: 85%; }
-      .input-area { padding: 12px; }
-      .btn { padding: 8px 16px; font-size: 13px; }
-      .header { padding: 12px 16px; }
-    }
-  
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI智能对话 - 江湖小站-ZenTools</title>
+<meta name="description" content="免费在线AI智能对话工具，支持多轮对话，智能问答，知识库咨询，无需注册，即开即用。"/>
+<meta name="keywords" content="AI对话,智能聊天,在线AI,ChatBot,免费对话,AI问答"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-chat.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI智能对话 - ZenTools"/>
+<meta property="og:description" content="免费在线AI智能对话工具，支持多轮对话，智能问答。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-chat.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Chat | ZenTools"/>
+<meta name="twitter:description" content="免费在线AI智能对话工具，支持多轮对话，智能问答。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.chat-area{display:flex;flex-direction:column;height:calc(100vh - 220px);min-height:400px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.messages{flex:1;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:12px}
+.message{display:flex;gap:10px;max-width:85%;animation:fadeIn .3s}
+.message.user{margin-left:auto;flex-direction:row-reverse}
+.avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;background:var(--border)}
+.message.user .avatar{background:linear-gradient(135deg,var(--cyan),var(--purple))}
+.message.bot .avatar{background:var(--border)}
+.bubble{padding:12px 16px;border-radius:14px;font-size:14px;line-height:1.6}
+.message.user .bubble{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.message.bot .bubble{background:rgba(255,255,255,0.06);color:var(--text)}
+.input-area{padding:16px;border-top:1px solid var(--border);display:flex;gap:10px;background:rgba(255,255,255,0.02)}
+.input-area textarea{flex:1;padding:12px 16px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:none;height:46px;max-height:120px;line-height:1.4}
+.input-area textarea:focus{outline:none;border-color:var(--cyan)}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state p{margin-top:10px;font-size:14px}
+.typing{display:flex;gap:4px;padding:12px 16px}
+.typing span{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:bounce 1.4s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.tool-settings{margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
 </style>
-<script>var pageTranslations={zh: {pageTitle: 'AI 聊天 - 江湖小站-ZenTools', metaDesc: '与 AI 智能对话，支持多轮问答、知识查询和创意讨论', _AI_智能聊天: 'AI 智能聊天', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', : '发送', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'}, en: {pageTitle: 'AI 聊天 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _AI_智能聊天: 'AI 智能聊天', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'}, ja: {pageTitle: 'AI 聊天 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _AI_智能聊天: 'AI 智能聊天', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', : '发送', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'}, vi: {pageTitle: 'AI 聊天 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _AI_智能聊天: 'AI 智能聊天', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api: 'API 提供商', api_base_url: 'API Base URL', : '发送', placeholder_sh: '输入消息...（Shift+Enter 换行，Enter 发送）', placeholder_sk: 'sk-...', placeholder_https_ap: 'https://api.openai.com/v1', placeholder_gpt_4o: 'gpt-4o', ai: '与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI智能对话是否支持多轮对话？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"是的，支持多轮对话。您可以与AI进行连续的对话，AI会记住上下文。"}},{"@type":"Question","name":"是否需要注册账号才能使用？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"不需要注册账号，直接在浏览器中使用即可。"}},{"@type":"Question","name":"对话记录会保存吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"对话记录保存在您的浏览器本地，关闭页面后不会保留。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI智能对话","applicationCategory":"AIApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"免费在线AI智能对话工具，支持多轮对话。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI智能对话 - 江湖小站-ZenTools', crumbCur:'AI智能对话', eyebrow:'AI工具', h1Grad:'AI智能对话', h1Sub:'多轮对话 · 即开即用', pageDesc:'免费在线AI智能对话工具，支持多轮对话，智能问答，知识库咨询，无需注册，即开即用。', model:'模型', apiEndpoint:'API Endpoint', apiKey:'API Key', placeholder:'输入你的问题...', placeholderModel:'选择模型', emptyPrompt:'AI 你好，我可以帮你回答任何问题', emptyHint:'试试问我一个有趣的问题', btnSave:'保存', btnCancel:'取消', navAI工具Cat:'AI工具', faqQ1:'AI智能对话是否支持多轮对话？', faqA1:'是的，支持多轮对话。你可以与AI进行连续的对话，AI会记住上下文。', faqQ2:'是否需要注册账号才能使用？', faqA2:'不需要注册账号，直接在浏览器中使用即可。', faqQ3:'对话记录会保存吗？', faqA3:'对话记录保存在您的浏览器本地，关闭页面后不会保留。'},
+  en:{pageTitle:'AI Chat | ZenTools', crumbCur:'AI Chat', eyebrow:'AI TOOLS', h1Grad:'AI Chat', h1Sub:'Multi-turn Conversations', pageDesc:'Free online AI intelligent dialogue tool, supporting multi-turn conversations, Q&A. No registration required, ready to use.', model:'Model', apiEndpoint:'API Endpoint', apiKey:'API Key', placeholder:'Type your question...', placeholderModel:'Select Model', emptyPrompt:'Hello AI, I can help you with any question', emptyHint:'Try asking me something interesting', btnSave:'Save', btnCancel:'Cancel', navAI工具Cat:'AI Tools', fakQ1:'Does AI chat support multi-turn conversations?', faqA1:'Yes, multi-turn conversations are supported. AI remembers the context.', faqQ2:'Is account registration required?', faqA2:'No, just use it directly in your browser.', faqQ3:'Are conversations saved?', faqA3:'Conversations are stored locally in your browser and are not retained after closing the page.'},
+  ja:{pageTitle:'AIチャット | ZenTools', crumbCur:'AIチャット', eyebrow:'AIツール', h1Grad:'AIチャット', h1Sub:'多ターン対話', pageDesc:'無料でオンライン利用可能なAI対話ツール。多ターン対話とQ&Aをサポート。登録不要、すぐに利用可能。', model:'モデル', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', placeholder:'あなたの質問を入力...', placeholderModel:'モデルを選択', emptyPrompt:'こんにちはAI、あなたの全質問にお答えします', emptyHint:'面白い質問をしてみましょう', btnSave:'保存', btnCancel:'キャンセル', navAI工具Cat:'AIツール', faqQ1:'AIチャットは多ターン対話に対応していますか？', faqA1:'はい、多ターン対話に対応しています。AIが文脈を覚えて継続して対話できます。', faqQ2:'アカウント登録は必要ですか？', faqA2:'不要です。ブラウザですぐに利用できます。', faqQ3:'会話履歴は保存されますか？', faqA3:'会話履歴はブラウザローカルに保存され、ページを閉じると消えます。'},
+  vi:{pageTitle:'Chat AI | ZenTools', crumbCur:'Chat AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Chat AI', h1Sub:'Trò chuyện đa vòng', pageDesc:'Công cụ trò chuyện AI trực tuyến miễn phí, hỗ trợ trò chuyện đa vòng. Không cần đăng ký, sử dụng ngay.', model:'Mô hình', apiEndpoint:'API Endpoint', apiKey:'API Key', placeholder:'Nhập câu hỏi của bạn...', placeholderModel:'Chọn mô hình', emptyPrompt:'Xin chào AI, tôi có thể giúp bạn trả lời bất kỳ câu hỏi nào', emptyHint:'Hãy thử hỏi tôi một điều thú vị', btnSave:'Lưu', btnCancel:'Hủy', navAI工具Cat:'Công cụ AI', faqQ1:'Chat AI có hỗ trợ trò chuyện đa vòng không?', faqA1:'Có, hỗ trợ trò chuyện đa vòng. AI ghi nhớ ngữ cảnh và tiếp tục đối thoại.', faqQ2:'Có cần đăng ký tài khoản không?', faqA2:'Không cần, chỉ cần sử dụng trực tiếp trong trình duyệt.', faqQ3:'Lịch sử trò chuyện có được lưu lại không?', faqA3:'Lịch sử trò chuyện được lưu cục bộ trong trình duyệt và sẽ bị xóa sau khi đóng trang.'}
+};
+</script>
 </head>
 <body>
-
-<!-- Header -->
-<header class="header">
-  <div class="logo">
-    <span class="mark">⛵</span>
-    <span data-i18n="ai">AI 聊天</span>
-  </div>
-  <div class="actions">
-    <button class="btn btn-icon btn-secondary" onclick="clearChat()" title="清空对话" data-i18n="btn">🗑️</button>
-    <button class="btn btn-icon btn-secondary" onclick="openSettings()" title="设置" data-i18n="btn">⚙️</button>
-    <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
-  </div>
-<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</header>
-
-<!-- Main Content -->
-<main class="main">
-  <!-- Welcome Screen -->
-  <div class="welcome-screen" id="welcomeScreen">
-    <div class="icon">💬</div>
-    <h1 data-i18n="_AI_智能聊天">AI 智能聊天</h1>
-    <p data-i18n="ai">与 AI 自由对话，支持多轮问答、知识查询、创意讨论、代码编写等</p>
-    <div class="suggestions">
-      <div class="suggestion" onclick="useSuggestion('请帮我写一段 Python 代码，实现快速排序算法')">🐍 写一段快速排序代码</div>
-      <div class="suggestion" onclick="useSuggestion('解释一下量子纠缠的原理')">⚛️ 解释量子纠缠</div>
-      <div class="suggestion" onclick="useSuggestion('帮我写一封求职信，申请产品经理岗位')">💼 写一封求职信</div>
-      <div class="suggestion" onclick="useSuggestion('用中文写一首关于春天的诗')">🌸 写一首春天的诗</div>
-    </div>
-  </div>
-
-  <!-- Chat Container -->
-  <div class="chat-container" id="chatContainer" style="display: none;"></div>
-
-  <!-- Input Area -->
-  <div class="input-area" id="inputArea" style="display: none;">
-    <div class="input-wrapper">
-      <textarea id="userInput" placeholder="输入消息...（Shift+Enter 换行，Enter 发送）" data-i18n-placeholder="placeholder_sh" rows="1" onkeydown="handleKeyDown(event)"></textarea>
-      <div class="char-count"><span id="charCount">0</span>/4000</div>
-    </div>
-    <button class="btn btn-primary" id="sendBtn" onclick="sendMessage()">
-      <span data-i18n="">发送</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-    </button>
-  </div>
-</main>
-
-<!-- Settings Modal -->
-<div class="settings-modal" id="settingsModal">
-  <div class="settings-content">
-    <h2 data-i18n="_⚙️_API_设置">⚙️ API 设置</h2>
-    <div class="form-group">
-      <label data-i18n="api">API 提供商</label>
-      <select id="apiProvider" onchange="updateProviderFields()">
-        <option value="openai">OpenAI</option>
-        <option value="anthropic">Anthropic (Claude)</option>
-        <option value="deepseek">DeepSeek</option>
-        <option value="custom">自定义</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>API Key <span style="color: var(--error);">*</span></label>
-      <input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" />
-      <small>密钥仅保存在本地浏览器，不会上传到任何服务器</small>
-    </div>
-    <div class="form-group" id="baseUrlGroup" style="display: none;">
-      <label data-i18n="api_base_url">API Base URL</label>
-      <input type="text" id="baseUrl" placeholder="https://api.openai.com/v1" data-i18n-placeholder="placeholder_https_ap" />
-    </div>
-    <div class="form-group">
-      <label data-i18n="">模型名称</label>
-      <input type="text" id="modelName" placeholder="gpt-4o" data-i18n-placeholder="placeholder_gpt_4o" />
-      <small>留空使用默认模型</small>
-    </div>
-    <div class="settings-actions">
-      <button class="btn btn-secondary" onclick="closeSettings()" data-i18n="btn">取消</button>
-      <button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button>
-    </div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI智能对话</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI智能对话</span><br/><span data-i18n="h1Sub">多轮对话 · 即开即用</span></h1><p data-i18n="pageDesc">免费在线AI智能对话工具，支持多轮对话，智能问答，知识库咨询，无需注册，即开即用。</p></div>
+<div class="tool-box reveal">
+<div class="chat-area">
+  <div class="messages" id="messages"><div class="empty-state"><p style="font-size:32px">🤖</p><p data-i18n="emptyPrompt">AI 你好，我可以帮你回答任何问题</p><p style="font-size:12px" data-i18n="emptyHint">试试问我一个有趣的问题</p></div></div>
+  <div class="input-area">
+    <textarea id="userInput" data-i18n-placeholder="placeholder" placeholder="输入你的问题..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
+    <button class="btn btn-primary" id="sendBtn" onclick="sendMessage()">发送</button>
   </div>
 </div>
-
-<!-- Footer -->
-<footer style="text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);">
-  © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有对话均在本地处理，不会上传服务器
-</footer>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
-
+<div class="tool-settings">
+  <div class="form-group"><label data-i18n="model">模型</label><select id="modelSelect"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+  <button class="btn btn-secondary" onclick="toggleSettings()">⚙️ 设置</button>
+</div>
+<div class="modal-overlay" id="settingsModal" style="display:none">
+  <div class="modal"><h3>⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
+</div>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-// ============ State ============
-let messages = [];
-let isGenerating = false;
-let settings = {
-  provider: 'openai',
-  apiKey: '',
-  baseUrl: '',
-  model: 'gpt-4o'
-};
-
-// ============ Init ============
-function init() {
-  loadSettings();
-  loadChat();
-  if (messages.length > 0) {
-    showChat();
-    renderMessages();
-  }
-}
-
-// ============ Settings ============
-function loadSettings() {
-  const saved = localStorage.getItem('ai-chat-settings');
-  if (saved) {
-    settings = { ...settings, ...JSON.parse(saved) };
-    document.getElementById('apiProvider').value = settings.provider;
-    document.getElementById('apiKey').value = settings.apiKey;
-    document.getElementById('baseUrl').value = settings.baseUrl;
-    document.getElementById('modelName').value = settings.model;
-    updateProviderFields();
-  }
-}
-
-function saveSettings() {
-  settings.provider = document.getElementById('apiProvider').value;
-  settings.apiKey = document.getElementById('apiKey').value.trim();
-  settings.baseUrl = document.getElementById('baseUrl').value.trim();
-  settings.model = document.getElementById('modelName').value.trim() || getDefaultModel();
-  
-  if (!settings.apiKey) {
-    alert('请输入 API Key');
-    return;
-  }
-  
-  localStorage.setItem('ai-chat-settings', JSON.stringify(settings));
-  closeSettings();
-  alert('设置已保存！');
-}
-
-function updateProviderFields() {
-  const provider = document.getElementById('apiProvider').value;
-  const baseUrlGroup = document.getElementById('baseUrlGroup');
-  const modelInput = document.getElementById('modelName');
-  
-  const defaults = {
-    openai: { baseUrl: 'https://api.openai.com/v1', model: 'gpt-4o' },
-    anthropic: { baseUrl: 'https://api.anthropic.com/v1', model: 'claude-3-5-sonnet-20241022' },
-    deepseek: { baseUrl: 'https://api.deepseek.com/v1', model: 'deepseek-chat' },
-    custom: { baseUrl: '', model: '' }
-  };
-  
-  const d = defaults[provider] || defaults.openai;
-  
-  if (provider === 'custom') {
-    baseUrlGroup.style.display = 'block';
-    modelInput.placeholder = '模型名称';
-  } else {
-    baseUrlGroup.style.display = 'none';
-    document.getElementById('baseUrl').value = d.baseUrl;
-    if (!settings.model) modelInput.placeholder = d.model;
-  }
-}
-
-function getDefaultModel() {
-  const provider = document.getElementById('apiProvider').value;
-  const defaults = {
-    openai: 'gpt-4o',
-    anthropic: 'claude-3-5-sonnet-20241022',
-    deepseek: 'deepseek-chat',
-    custom: 'gpt-4o'
-  };
-  return defaults[provider] || 'gpt-4o';
-}
-
-function openSettings() {
-  document.getElementById('settingsModal').classList.add('active');
-}
-
-function closeSettings() {
-  document.getElementById('settingsModal').classList.remove('active');
-}
-
-// ============ Chat ============
-function showChat() {
-  document.getElementById('welcomeScreen').style.display = 'none';
-  document.getElementById('chatContainer').style.display = 'flex';
-  document.getElementById('inputArea').style.display = 'flex';
-}
-
-function hideChat() {
-  document.getElementById('welcomeScreen').style.display = 'flex';
-  document.getElementById('chatContainer').style.display = 'none';
-  document.getElementById('inputArea').style.display = 'none';
-}
-
-function renderMessages() {
-  const container = document.getElementById('chatContainer');
-  container.innerHTML = '';
-  
-  messages.forEach(msg => {
-    const div = document.createElement('div');
-    div.className = `message ${msg.role}`;
-    div.innerHTML = `
-      <div class="message-avatar">${msg.role === 'user' ? '👤' : '🤖'}</div>
-      <div class="message-content">${formatMessage(msg.content)}</div>
-    `;
-    container.appendChild(div);
-  });
-  
-  container.scrollTop = container.scrollHeight;
-}
-
-function formatMessage(text) {
-  if (!text) return '';
-  // Escape HTML
-  let html = text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-  
-  // Code blocks
-  html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (m, lang, code) => {
-    return `<pre><code class="language-${lang||''}">${code.trim()}</code></pre>`;
-  });
-  
-  // Inline code
-  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-  
-  // Bold
-  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  
-  // Line breaks
-  html = html.replace(/\n/g, '<br>');
-  
-  return html;
-}
-
-function handleKeyDown(e) {
-  if (e.key === 'Enter' && !e.shiftKey) {
-    e.preventDefault();
-    sendMessage();
-  }
-  
-  const target = e.target;
-  target.style.height = 'auto';
-  target.style.height = Math.min(target.scrollHeight, 200) + 'px';
-  document.getElementById('charCount').textContent = target.value.length;
-}
-
-function useSuggestion(text) {
-  document.getElementById('userInput').value = text;
-  document.getElementById('charCount').textContent = text.length;
-  sendMessage();
-}
-
-function clearChat() {
-  if (confirm('确定要清空所有对话记录吗？')) {
-    messages = [];
-    localStorage.removeItem('ai-chat-history');
-    hideChat();
-    renderMessages();
-  }
-}
-
-function loadChat() {
-  const saved = localStorage.getItem('ai-chat-history');
-  if (saved) {
-    try {
-      messages = JSON.parse(saved);
-    } catch (e) {
-      messages = [];
-    }
-  }
-}
-
-function saveChat() {
-  localStorage.setItem('ai-chat-history', JSON.stringify(messages));
-}
-
-// ============ Send Message ============
-async function sendMessage() {
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  
-  if (!text || isGenerating) return;
-  
-  if (!settings.apiKey) {
-    openSettings();
-    return;
-  }
-  
-  // Show chat UI
-  showChat();
-  
-  // Add user message
-  messages.push({ role: 'user', content: text });
-  saveChat();
-  renderMessages();
-  
-  // Clear input
-  input.value = '';
-  input.style.height = 'auto';
-  document.getElementById('charCount').textContent = '0';
-  
-  // Set generating state
-  isGenerating = true;
-  document.getElementById('sendBtn').disabled = true;
-  
-  // Add placeholder for assistant
-  const container = document.getElementById('chatContainer');
-  const assistantDiv = document.createElement('div');
-  assistantDiv.className = 'message assistant';
-  assistantDiv.innerHTML = `
-    <div class="message-avatar">🤖</div>
-    <div class="message-content">
-      <div class="typing-indicator">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-  `;
-  container.appendChild(assistantDiv);
-  container.scrollTop = container.scrollHeight;
-  
-  try {
-    const response = await fetchChatResponse(messages);
-    
-    // Remove typing indicator
-    assistantDiv.remove();
-    
-    // Add assistant message
-    messages.push({ role: 'assistant', content: response });
-    saveChat();
-    renderMessages();
-  } catch (error) {
-    // Remove typing indicator
-    assistantDiv.remove();
-    
-    // Show error
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'message assistant';
-    errorDiv.innerHTML = `
-      <div class="message-avatar">⚠️</div>
-      <div class="message-content" style="color: var(--error);">
-        请求失败：${error.message}<br>
-        <small>请检查 API Key 和网络连接</small>
-      </div>
-    `;
-    container.appendChild(errorDiv);
-    container.scrollTop = container.scrollHeight;
-  }
-  
-  isGenerating = false;
-  document.getElementById('sendBtn').disabled = false;
-  input.focus();
-}
-
-async function fetchChatResponse(history) {
-  const { provider, apiKey, baseUrl, model } = settings;
-  
-  // Prepare messages (system prompt)
-  const messages = [
-    { role: 'system', content: '你是一个有用、无害的 AI 助手。请用简洁、准确的语言回答用户问题。支持中文、英文、日文、越南语等多种语言。' },
-    ...history.map(m => ({ role: m.role, content: m.content }))
-  ];
-  
-  let url, headers, body;
-  
-  if (provider === 'anthropic') {
-    // Anthropic API
-    url = baseUrl || 'https://api.anthropic.com/v1/messages';
-    headers = {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    };
-    body = {
-      model: model || 'claude-3-5-sonnet-20241022',
-      max_tokens: 4096,
-      messages: history.filter(m => m.role !== 'system'),
-      system: '你是一个有用、无害的 AI 助手。'
-    };
-  } else {
-    // OpenAI compatible API
-    url = (baseUrl || 'https://api.openai.com/v1') + '/chat/completions';
-    headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    };
-    body = {
-      model: model || 'gpt-4o',
-      messages: messages,
-      stream: false,
-      temperature: 0.7,
-      max_tokens: 4096
-    };
-  }
-  
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(body)
-  });
-  
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.error?.message || `HTTP ${response.status}: ${response.statusText}`);
-  }
-  
-  const data = await response.json();
-  
-  if (provider === 'anthropic') {
-    return data.content[0].text;
-  } else {
-    return data.choices[0].message.content;
-  }
-}
-
-// ============ Bookmark ============
-// Already handled by HTML button
-
-// Initialize
-init();
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
 </script>
-
-
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 <script>
-(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
 </script>
+<script>
+const SK='zentools_ai_settings';
+const messages=[{role:'system',content:'You are a helpful assistant.'}];
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function appendMessage(role,content){const c=document.getElementById('messages');const es=c.querySelector('.empty-state');if(es)es.remove();const div=document.createElement('div');div.className='message '+(role==='user'?'user':'bot');div.innerHTML='<div class="avatar">'+(role==='user'?'👤':'🤖')+'</div><div class="bubble">'+esc(content)+'</div>';c.appendChild(div);c.scrollTop=c.scrollHeight}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function sendMessage(){const inp=document.getElementById('userInput');const msg=inp.value.trim();if(!msg)return;inp.value='';appendMessage('user',msg);messages.push({role:'user',content:msg});const s=getSettings();if(!s.apiKey){toggleSettings();return}const loader=document.createElement('div');loader.className='message bot';loader.innerHTML='<div class="avatar">🤖</div><div class="bubble"><div class="typing"><span></span><span></span><span></span></div></div>';document.getElementById('messages').appendChild(loader);document.getElementById('messages').scrollTop=document.getElementById('messages').scrollHeight;try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages})});if(!response.ok)throw new Error('API error');const data=await response.json();const reply=data.choices[0].message.content;messages.push({role:'assistant',content:reply});loader.remove();appendMessage('assistant',reply)}catch(e){loader.remove();appendMessage('assistant','抱歉，出现错误：'+e.message)}}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

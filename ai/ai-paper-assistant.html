@@ -1,69 +1,148 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
-<title data-i18n="pageTitle">AI 论文助手 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<meta name="description" content="AI 智能论文写作助手，协助论文构思、大纲、写作和润色" />
-<style>*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
-body{font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
-.main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-textarea{width:100%;min-height:120px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6;margin-bottom:12px}textarea:focus{outline:none;border-color:var(--accent)}
-select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;min-width:160px}select:focus{outline:none;border-color:var(--accent)}
-.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}
-.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
-.result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}.result-box.show{display:block}.result-content{font-size:14px;line-height:1.9;white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:16px;border-radius:8px;margin-top:10px;max-height:500px;overflow-y:auto}
-.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}
-.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
-.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI论文助手 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI论文写作助手，支持文献分析、摘要生成、论文润色、学术写作，免费在线使用。"/>
+<meta name="keywords" content="AI论文助手,论文写作,文献分析,摘要生成,学术写作,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-paper-assistant.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI论文助手 - ZenTools"/>
+<meta property="og:description" content="AI论文写作助手，支持文献分析、摘要生成、论文润色。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-paper-assistant.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Paper Assistant | ZenTools"/>
+<meta name="twitter:description" content="AI论文写作助手，支持文献分析、摘要生成、论文润色。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:200px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:200px;white-space:pre-wrap;line-height:1.8}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
+.tool-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tool-tag{padding:8px 16px;border-radius:999px;font-size:13px;font-weight:500;background:rgba(139,92,246,0.15);color:#c4b5fd;border:1px solid rgba(139,92,246,0.3);cursor:pointer;transition:all .3s}
+.tool-tag:hover,.tool-tag.active{background:rgba(139,92,246,0.3);color:#fff}
+input[type="text"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
+input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input[type="password"]:focus{outline:none;border-color:var(--cyan)}
 </style>
-<script>var pageTranslations={zh: {pageTitle: 'AI 论文助手 - 江湖小站-ZenTools', metaDesc: 'AI 智能论文写作助手，协助论文构思、大纲、写作和润色', _📝_论文信息: '📝 论文信息', _📄_结果: '📄 结果', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '补充详细信息：如研究背景、已有成果、具体需求等', placeholder_sk: 'sk-...'}, en: {pageTitle: 'AI 论文助手 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _论文信息: '📝 论文信息', _结果: '📄 结果', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '补充详细信息：如研究背景、已有成果、具体需求等', placeholder_sk: 'sk-...'}, ja: {pageTitle: 'AI 论文助手 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _📝_论文信息: '📝 论文信息', _📄_结果: '📄 结果', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '补充详细信息：如研究背景、已有成果、具体需求等', placeholder_sk: 'sk-...'}, vi: {pageTitle: 'AI 论文助手 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _📝_论文信息: '📝 论文信息', _📄_结果: '📄 结果', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '补充详细信息：如研究背景、已有成果、具体需求等', placeholder_sk: 'sk-...'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI论文助手支持哪些功能？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持摘要生成、文献分析、论文润色、格式规范、英文翻译等学术写作辅助功能。"}},{"@type":"Question","name":"生成的内容可以直接用于论文吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"AI生成的内容仅供参考和启发。正式论文需要人工审核和学术验证。"}},{"@type":"Question","name："支持中文和英文吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持中文和英文的论文写作和润色。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI论文助手","applicationCategory":"AIApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI论文写作助手，支持文献分析、摘要生成。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI论文助手 - 江湖小站-ZenTools', crumbCur:'AI论文助手', eyebrow:'AI工具', h1Grad:'AI论文助手', h1Sub:'学术写作智能助手', pageDesc:'AI论文写作助手，支持文献分析、摘要生成、论文润色、学术写作，免费在线使用。', cardTitle:'✍️ 输入内容', cardResult:'📄 生成结果', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'在此粘贴论文内容、文献摘要或写作需求...', btnGenerate:'🚀 生成', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', emptyResult:'生成结果将显示在这里', faqQ1:'AI论文助手支持哪些功能？', faqA1:'支持摘要生成、文献分析、论文润色、格式规范、英文翻译等学术写作辅助功能。', faqQ2:'生成的内容可以直接用于论文吗？', faqA2:'AI生成的内容仅供参考和启发。正式论文需要人工审核和学术验证。', faqQ3:'支持中文和英文吗？', faqA3:'支持中文和英文的论文写作和润色。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Paper Assistant | ZenTools', crumbCur:'AI Paper Assistant', eyebrow:'AI TOOLS', h1Grad:'AI Paper Assistant', h1Sub:'Academic Writing Assistant', pageDesc:'AI paper writing assistant. Supports literature analysis, abstract generation, paper polishing. Free to use online.', cardTitle:'✍️ Input Content', cardResult:'📄 Generated Result', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Paste paper content, literature abstract, or writing requirements...', btnGenerate:'🚀 Generate', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', emptyResult:'Generated result will appear here', faqQ1:'What functions does AI paper assistant support?', faqA1:'Supports abstract generation, literature analysis, paper polishing, formatting, English translation.', faqQ2:'Can generated content be used directly?', faqA2:'AI-generated content is for reference only. Formal papers require human review.', faqQ3:'Supports Chinese and English?', faqA3:'Yes, supports Chinese and English paper writing and polishing.'},
+  ja:{pageTitle:'AI論文アシスタント | ZenTools', crumbCur:'AI論文アシスタント', eyebrow:'AIツール', h1Grad:'AI論文アシスタント', h1Sub:'学術執筆アシスタント', pageDesc:'AI論文執筆アシスタント。文献分析、要約生成、論文ブラッシュアップに対応。オンラインで無料利用可能。', cardTitle:'✍️ 内容入力', cardResult:'📄 生成結果', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'論文内容、文献要約、執筆要件を貼り付けてください...', btnGenerate:'🚀 生成', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', emptyResult:'生成結果がここに表示されます', faqQ1:'AI論文アシスタントはどの機能に対応していますか？', faqA1:'要約生成、文献分析、論文ブラッシュアップ、フォーマット、英語翻訳などの学術執筆補助機能。', faqQ2:'生成された内容をそのまま使えますか？', faqA2:'AI生成のコンテンツは参考用です。正式な論文には人的レビューが必要です。', faqQ3:'中国語と英語に対応していますか？', faqA3:'はい、中国語と英語の論文執筆とブラッシュアップに対応しています。'},
+  vi:{pageTitle:'Trợ lý bài luận AI | ZenTools', crumbCur:'Trợ lý bài luận AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Trợ lý bài luận AI', h1Sub:'Trợ lý viết học thuật', pageDesc:'Trợ lý viết bài luận AI. Hỗ trợ phân tích tài liệu, tạo tóm tắt, tinh chỉnh bài luận. Miễn phí sử dụng.', cardTitle:'✍️ Nhập nội dung', cardResult:'📄 Kết quả tạo', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Dán nội dung bài luận, tóm tắt tài liệu hoặc yêu cầu viết...', btnGenerate:'🚀 Tạo', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', emptyResult:'Kết quả tạo sẽ hiển thị ở đây', faqQ1:'Trợ lý bài luận AI hỗ trợ những chức năng nào?', faqA1:'Hỗ trợ tạo tóm tắt, phân tích tài liệu, tinh chỉnh bài luận, định dạng, dịch tiếng Anh.', faqQ2:'Có thể dùng nội dung tạo ra trực tiếp không?', faqA2:'Nội dung do AI tạo ra chỉ để tham khảo. Bài luận chính thức cần kiểm tra của con người.', faqQ3:'Hỗ trợ tiếng Trung và tiếng Anh không?', faqA3:'Có, hỗ trợ viết và tinh chỉnh bài luận bằng tiếng Trung và tiếng Anh.'}
+};
+</script>
 </head>
 <body>
-<div class="header"><a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">📄</span> AI 论文助手</a><div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</div>
-<div class="main">
-  <div class="card">
-    <h2 data-i18n="_📝_论文信息">📝 论文信息</h2>
-    <input type="text" id="paperTopic" placeholder="论文题目/主题" data-i18n-placeholder="placeholder_" style="width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;margin-bottom:12px">
-    <div class="toolbar">
-      <select id="paperType"><option value="outline">生成论文大纲</option><option value="abstract">撰写摘要</option><option value="intro">撰写引言</option><option value="litreview">文献综述</option><option value="method">研究方法</option><option value="conclusion">结论建议</option><option value="polish">论文润色</option></select>
-      <select id="paperField"><option value="cs">计算机科学</option><option value="eng">工程学</option><option value="med">医学</option><option value="bio">生物学</option><option value="eco">经济学</option><option value="edu">教育学</option><option value="soc">社会科学</option><option value="hum">人文学科</option></select>
-    </div>
-    <textarea id="paperInput" placeholder="补充详细信息：如研究背景、已有成果、具体需求等" data-i18n-placeholder="placeholder_"></textarea>
-    <button class="btn btn-primary" onclick="generatePaper()" data-i18n="btn">📝 生成</button>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href "/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI论文助手</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI论文助手</span><br/><span data-i18n="h1Sub">学术写作智能助手</span></h1><p data-i18n="pageDesc">AI论文写作助手，支持文献分析、摘要生成、论文润色、学术写作，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
+  <div class="tool-tags">
+    <div class="tool-tag active" onclick="selectTool(this,'abstract')">📝 摘要生成</div>
+    <div class="tool-tag" onclick="selectTool(this,'polish')">✨ 论文润色</div>
+    <div class="tool-tag" onclick="selectTool(this,'translate')">🌐 中英翻译</div>
+    <div class="tool-tag" onclick="selectTool(this,'format')">📋 格式规范</div>
+    <div class="tool-tag" onclick="selectTool(this,'review')">🔍 文献分析</div>
   </div>
-  <div class="loading" id="loading"><div class="spinner"></div> AI 正在处理...</div>
-  <div class="result-box" id="resultBox"><h2 data-i18n="_📄_结果">📄 结果</h2><div id="paperResult" class="result-content"></div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="copyPaper()" data-i18n="btn">📋 复制</button></div></div>
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-header"><h2 data-i18n="cardTitle">✍️ 输入内容</h2></div>
+      <textarea id="text" data-i18n-placeholder="placeholder"></textarea>
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>🚀</span><span data-i18n="btnGenerate">🚀 生成</span></button>
+        <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <h2 data-i18n="cardResult">📄 生成结果</h2>
+        <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
+      </div>
+      <div class="output empty" id="output"><p data-i18n="emptyResult">生成结果将显示在这里</p></div>
+    </div>
+  </div>
+  <div><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button></div>
 </div>
 <div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal"><h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button></div></div>
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
 </div>
-<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
-<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 <script>
 const SK='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
-function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
-function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
-let lastResult='';
-function generatePaper(){const t=document.getElementById('paperTopic').value.trim();if(!t){alert('请输入论文题目');return}const s=gs();if(!s.apiKey){ts();return}
-const type=document.getElementById('paperType');const tp=type.options[type.selectedIndex].text;const field=document.getElementById('paperField');const fp=field.options[field.selectedIndex].text;const extra=document.getElementById('paperInput').value.trim()
-const btn=event.target;const l=document.getElementById('loading');const r=document.getElementById('resultBox');btn.disabled=true;l.classList.add('show');r.classList.remove('show')
-const p='你是一个学术论文写作专家。请帮助完成以下论文任务：\n\n任务类型：'+tp+'\n论文领域：'+fp+'\n论文题目：'+t+(extra?'\n补充信息：'+extra:'')+'\n\n请用专业的学术语言回复，直接输出内容。'
-fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:2048})})
-.then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(d=>{lastResult=d.choices[0].message.content;document.getElementById('paperResult').textContent=lastResult;r.classList.add('show')})
-.catch(e=>{document.getElementById('paperResult').textContent='请求失败：'+e;r.classList.add('show')}).finally(()=>{btn.disabled=false;l.classList.remove('show')})}
-function copyPaper(){if(lastResult)navigator.clipboard.writeText(lastResult).then(()=>alert('已复制'))}
-ls();</script>
-
-<script>
-(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+let currentTool='abstract';
+function selectTool(el,t){document.querySelectorAll('.tool-tag').forEach(function(e){e.classList.remove('active')});el.classList.add('active');currentTool=t}
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+function getPrompt(){const map={abstract:'请为以下学术论文生成一个结构化的摘要，包含研究背景、方法、结果和结论。',polish:'请对以下学术论文内容进行润色，提升语言表达的准确性和学术性，保持原意不变。',translate:'请将以下中文内容翻译为学术英语，保持专业术语的准确性。如果是英文内容，则翻译为中文。',format:'请对以下学术论文内容进行格式规范，确保引用、标题、段落结构符合学术规范。',review:'请对以下文献内容进行深度分析，总结核心观点、研究方法和贡献。'};return map[currentTool]||map.abstract}
+async function generate(){const text=document.getElementById('text').value.trim();const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!text){alert('请输入内容');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在处理...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的学术论文助手。'+getPrompt()},{role:'user',content:text}],temperature:0.3,max_tokens:4096})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const result=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML=esc(result)}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){document.getElementById('text').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">生成结果将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('生成结果将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
 </script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

@@ -1,64 +1,137 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
-<title data-i18n="pageTitle">AI 脚本生成 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<meta name="description" content="AI 智能生成各种脚本，支持视频、演讲、直播、播客等场景" />
-<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}body{font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
-.main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-textarea{width:100%;min-height:120px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;resize:vertical;border-color:var(--border);line-height:1.6;margin-bottom:12px}textarea:focus{outline:none;border-color:var(--accent)}input{width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;margin-bottom:12px}input:focus{outline:none;border-color:var(--accent)}select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px}select:focus{outline:none;border-color:var(--accent)}
-.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}.result-box.show{display:block}.result-content{font-size:14px;line-height:1.9;white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:16px;border-radius:8px;margin-top:10px;max-height:600px;overflow-y:auto}
-.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}
-.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
-.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI脚本生成 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI根据需求描述生成Shell脚本、Python脚本、自动化脚本，提升开发效率，免费在线使用。"/>
+<meta name="keywords" content="AI脚本生成,Shell脚本,Python脚本,自动化脚本,AI编程,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-script-generator.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI脚本生成 - ZenTools"/>
+<meta property="og:description" content="AI根据需求描述生成Shell脚本、Python脚本、自动化脚本。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-script-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Script Generator | ZenTools"/>
+<meta name="twitter:description" content="AI根据需求描述生成Shell脚本、Python脚本、自动化脚本。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:140px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:20px;font-family:'Fira Code','Consolas',monospace;font-size:14px;line-height:1.6;white-space:pre-wrap;max-height:500px;overflow-y:auto}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center;font-family:inherit}
+.code-block{background:rgba(0,0,0,0.3);border-radius:10px;padding:16px;margin-bottom:12px;position:relative}
+.code-block code{color:var(--cyan)}
+.language-tag{position:absolute;top:8px;right:12px;font-size:11px;color:var(--muted)}
+input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
 </style>
-<script>var pageTranslations={"zh":{pageTitle: 'AI 脚本生成 - 江湖小站-ZenTools', metaDesc: 'AI 智能生成各种脚本，支持视频、演讲、直播、播客等场景', heading_脚本信息: '📝 脚本信息', heading_脚本: '📜 脚本', heading_api_设置: '⚙️ API 设置', 设置: '⚙️ 设置', 生成脚本: '🎬 生成脚本', 复制: '📋 复制', 取消: '取消', 保存: '保存', 收藏本站: '⭐ 收藏本站', label_api_endpoi: 'API Endpoint', label_api_key: 'API Key', label_模型: '模型', ph_脚本主题_标: '脚本主题 / 标题', ph_补充要求_目标受: '补充要求：目标受众、核心信息、风格偏好等', ph_sk: 'sk-...'},"en":{pageTitle: 'AI 脚本生成 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', heading_脚本信息: '📝 脚本信息', heading_脚本: '📜 Script', heading_api_设置: '⚙️ API Settings', label_api_endpoi: 'API Endpoint', label_api_key: 'API Key', label_模型: 'Model', ph_脚本主题_标: 'Script Topic / Title', ph_补充要求_目标受: 'Extra: target audience, key message, style preferences', ph_sk: 'sk-...'},"ja":{pageTitle: 'AI 脚本生成 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', heading_脚本信息: '📝 脚本信息', heading_脚本: '📜 脚本', heading_api_设置: '⚙️ API 设置', 设置: '⚙️ 设置', 生成脚本: '🎬 生成脚本', 复制: '📋 复制', 取消: '取消', 保存: '保存', 收藏本站: '⭐ 收藏本站', label_api_endpoi: 'API Endpoint', label_api_key: 'API Key', label_模型: '模型', ph_脚本主题_标: '脚本主题 / 标题', ph_补充要求_目标受: '补充要求：目标受众、核心信息、风格偏好等', ph_sk: 'sk-...'},"vi":{pageTitle: 'AI 脚本生成 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', heading_脚本信息: '📝 脚本信息', heading_脚本: '📜 脚本', heading_api_设置: '⚙️ API 设置', 设置: '⚙️ 设置', 生成脚本: '🎬 生成脚本', 复制: '📋 复制', 取消: '取消', 保存: '保存', 收藏本站: '⭐ 收藏本站', label_api_endpoi: 'API Endpoint', label_api_key: 'API Key', label_模型: '模型', ph_脚本主题_标: '脚本主题 / 标题', ph_补充要求_目标受: '补充要求：目标受众、核心信息、风格偏好等', ph_sk: 'sk-...'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI脚本生成器支持哪些语言？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持Shell、Python、Bash、PowerShell、Node.js等多种脚本语言。"}},{"@type":"Question","name":"生成的脚本可以直接使用吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"生成的脚本包含完整注释，建议在测试环境先验证后再在生产环境使用。"}},{"@type":"Question","name":"可以生成自动化脚本吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以。支持文件批量处理、定时任务、系统监控、数据处理等自动化场景。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI脚本生成","applicationCategory":"DeveloperApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI根据需求描述生成Shell脚本、Python脚本。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI脚本生成 - 江湖小站-ZenTools', crumbCur:'AI脚本生成', eyebrow:'AI工具', h1Grad:'AI脚本生成', h1Sub:'描述需求生成脚本', pageDesc:'AI根据需求描述生成Shell脚本、Python脚本、自动化脚本，提升开发效率，免费在线使用。', cardTitle:'📝 描述脚本需求', cardResult:'💻 生成脚本', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'例如：批量重命名文件、自动备份、定时清理日志...', btnGenerate:'💻 生成脚本', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderLang:'脚本语言', emptyResult:'脚本将显示在这里', faqQ1:'AI脚本生成器支持哪些语言？', faqA1:'支持Shell、Python、Bash、PowerShell、Node.js等多种脚本语言。', faqQ2:'生成的脚本可以直接使用吗？', faqA2:'生成的脚本包含完整注释，建议在测试环境先验证后再在生产环境使用。', faqQ3:'可以生成自动化脚本吗？', faqA3:'可以。支持文件批量处理、定时任务、系统监控、数据处理等自动化场景。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Script Generator | ZenTools', crumbCur:'AI Script Generator', eyebrow:'AI TOOLS', h1Grad:'AI Script Generator', h1Sub:'Generate Scripts from Description', pageDesc:'AI generates Shell scripts, Python scripts, automation scripts. Free to use online.', cardTitle:'📝 Describe Script Need', cardResult:'💻 Generated Script', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'e.g., Batch rename files, auto backup, scheduled log cleanup...', btnGenerate:'💻 Generate Script', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderLang:'Script Language', emptyResult:'Script will appear here', faqQ1:'Which languages does AI script generator support?', faqA1:'Supports Shell, Python, Bash, PowerShell, Node.js and more.', faqQ2:'Can generated scripts be used directly?', faqA2:'Generated scripts include complete comments. Test in test environment before production.', faqQ3:'Can it generate automation scripts?', faqA3:'Yes. Supports batch file processing, scheduled tasks, system monitoring, data processing.'},
+  ja:{pageTitle:'AIスクリプト生成 | ZenTools', crumbCur:'AIスクリプト生成', eyebrow:'AIツール', h1Grad:'AIスクリプト生成', h1Sub:'要件記述からスクリプトを生成', pageDesc:'AIが要件記述に基づいてShell、Pythonスクリプトを生成。オンラインで無料利用可能。', cardTitle:'📝 スクリプト要件記述', cardResult:'💻 生成スクリプト', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'例：ファイルのバッチ名変更、自動バックアップ、スケジュールログ清理...', btnGenerate:'💻 スクリプト生成', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderLang:'スクリプト言語', emptyResult:'スクリプトがここに表示されます', faqQ1:'AIスクリプト生成ツールはどの言語をサポートしていますか？', faqA1:'Shell、Python、Bash、PowerShell、Node.jsなど。', faqQ2:'生成されたスクリプトをそのまま使えますか？', faqA2:'生成されたスクリプトにはコメントが含まれています。本番使用前にテスト環境で検証することをお勧めします。', faqQ3:'自動化スクリプトを生成できますか？', faqA3:'はい。ファイルのバッチ処理、スケジュールタスク、システム監視、データ処理など。'},
+  vi:{pageTitle:'Tạo script AI | ZenTools', crumbCur:'Tạo script AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Tạo script AI', h1Sub:'Tạo script từ mô tả', pageDesc:'AI tạo Shell script, Python script, script tự động. Miễn phí sử dụng.', cardTitle:'📝 Mô tả nhu cầu script', cardResult:'💻 Script tạo ra', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Ví dụ: đổi tên hàng loạt, sao lưu tự động, dọn dẹp nhật ký theo lịch...', btnGenerate:'💻 Tạo script', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderLang:'Ngôn ngữ script', emptyResult:'Script sẽ hiển thị ở đây', faqQ1:'Công cụ tạo script AI hỗ trợ những ngôn ngữ nào?', faqA1:'Hỗ trợ Shell, Python, Bash, PowerShell, Node.js và nhiều hơn.', faqQ2:'Có thể dùng script tạo ra trực tiếp không?', faqA2:'Script tạo ra có đầy đủ chú thích. Hãy kiểm tra trong môi trường thử nghiệm trước.', faqQ3:'Có thể tạo script tự động hóa không?', faqA3:'Có. Hỗ trợ xử lý tệp hàng loạt, tác vụ theo lịch, giám sát hệ thống.'}
+};
+</script>
 </head>
 <body>
-<div class="header"><a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">🎬</span> AI 脚本生成</a><div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="设置">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</div>
-<div class="main">
-  <div class="card">
-    <h2 data-i18n="heading_脚本信息">📝 脚本信息</h2>
-    <input type="text" id="scriptTopic" placeholder="脚本主题 / 标题" data-i18n-placeholder="ph_脚本主题_标">
-    <div class="toolbar">
-      <select id="scriptType"><option value="video">视频脚本</option><option value="speech">演讲稿</option><option value="live">直播脚本</option><option value="podcast">播客脚本</option><option value="tutorial">教程脚本</option><option value="commercial">广告脚本</option></select>
-      <select id="scriptDuration"><option value="1min">1分钟</option><option value="3min" selected>3分钟</option><option value="5min">5分钟</option><option value="10min">10分钟</option></select>
-      <select id="scriptTone"><option value="formal">正式专业</option><option value="casual">轻松自然</option><option value="passionate">激情澎湃</option><option value="humorous">幽默风趣</option></select>
-    </div>
-    <textarea id="scriptInput" placeholder="补充要求：目标受众、核心信息、风格偏好等" data-i18n-placeholder="ph_补充要求_目标受"></textarea>
-    <button class="btn btn-primary" onclick="generateScript()" data-i18n="生成脚本">🎬 生成脚本</button>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI脚本生成</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI脚本生成</span><br/><span data-i18n="h1Sub">描述需求生成脚本</span></h1><p data-i18n="pageDesc">AI根据需求描述生成Shell脚本、Python脚本、自动化脚本，提升开发效率，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div class="form-group"><label data-i18n="placeholderLang">脚本语言</label><select id="lang"><option value="Shell/Bash">Shell/Bash</option><option value="Python">Python</option><option value="PowerShell">PowerShell</option><option value="Node.js">Node.js</option><option value="Ruby">Ruby</option></select></div>
+    <div class="form-group"><label data-i18n="model">模型</label><select id="modelSelect"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+    <div class="form-group" style="display:flex;align-items:flex-end"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button></div>
   </div>
-  <div class="loading" id="loading"><div class="spinner"></div> AI 正在创作脚本...</div>
-  <div class="result-box" id="resultBox"><h2 data-i18n="heading_脚本">📜 脚本</h2><div id="scriptResult" class="result-content"></div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="copyScript()" data-i18n="复制">📋 复制</button></div></div>
+  <div class="form-group">
+    <label data-i18n="cardTitle">📝 描述脚本需求</label>
+    <textarea id="prompt" data-i18n-placeholder="placeholder"></textarea>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>💻</span><span data-i18n="btnGenerate">💻 生成脚本</span></button>
+    <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+  </div>
+  <div class="panel">
+    <div class="panel-header">
+      <h2 data-i18n="cardResult">💻 生成脚本</h2>
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
+    </div>
+    <div class="output empty" id="output"><p data-i18n="emptyResult">脚本将显示在这里</p></div>
+  </div>
 </div>
 <div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal"><h3 data-i18n="heading_api_设置">⚙️ API 设置</h3><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="label_api_endpoi">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="label_api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="ph_sk" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="label_模型">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="取消">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="保存">保存</button></div></div>
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
 </div>
-<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
-<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
-<script>const SK='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
-function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
-function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
-let lastResult='';
-function generateScript(){const t=document.getElementById('scriptTopic').value.trim();if(!t){alert('请输入脚本主题');return}const s=gs();if(!s.apiKey){ts();return}
-const st=document.getElementById('scriptType');const sd=document.getElementById('scriptDuration');const sto=document.getElementById('scriptTone');
-const typeLabels={video:'视频脚本',speech:'演讲稿',live:'直播脚本',podcast:'播客脚本',tutorial:'教程脚本',commercial:'广告脚本'};
-const durLabels={1min:'1分钟',3min:'3分钟',5min:'5分钟',10min:'10分钟'};const toneLabels={formal:'正式专业',casual:'轻松自然',passionate:'激情澎湃',humorous:'幽默风趣'};
-const extra=document.getElementById('scriptInput').value.trim();const btn=event.target;const l=document.getElementById('loading');const r=document.getElementById('resultBox');btn.disabled=true;l.classList.add('show');r.classList.remove('show')
-const p='你是一个专业脚本创作专家。请生成一个'+typeLabels[st.value]+'。\n\n主题：'+t+'\n时长：'+durLabels[sd.value]+'\n风格：'+toneLabels[sto.value]+(extra?'\n补充要求：'+extra:'')+'\n\n请输出完整脚本，包含场景说明、台词、时间标注等。'
-fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:2048})})
-.then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(d=>{lastResult=d.choices[0].message.content;document.getElementById('scriptResult').textContent=lastResult;r.classList.add('show')})
-.catch(e=>{document.getElementById('scriptResult').textContent='请求失败：'+e;r.classList.add('show')}).finally(()=>{btn.disabled=false;l.classList.remove('show')})}
-function copyScript(){if(lastResult)navigator.clipboard.writeText(lastResult).then(()=>alert('已复制'))}
-ls();</script>
-<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>
+const SK='zentools_ai_settings';
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function generate(){const prompt=document.getElementById('prompt').value.trim();const lang=document.getElementById('lang').value;const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!prompt){alert('请描述脚本需求');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在生成脚本...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'You are a professional scripting expert. Generate a clean, well-commented script.'},{role:'user',content:'Generate a '+lang+' script for the following requirement:\n\n'+prompt+'\n\nOutput only the code wrapped in markdown code blocks. Include comments explaining each section.'}],temperature:0.5,max_tokens:4096})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const content=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML='<div class="code-block"><span class="language-tag">'+lang+'</span><code>'+esc(content)+'</code></div>'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){document.getElementById('prompt').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">脚本将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('脚本将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

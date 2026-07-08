@@ -1,130 +1,144 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="manifest" href="/manifest.json" />
-  <title data-i18n="pageTitle">AI 广告文案 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-  <meta name="description" content="AI 智能生成高转化广告文案，支持多种广告形式和风格，免费在线使用。" />
-  <style>
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px;--success:#22c55e}
-    [data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
-    body{font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-    .header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
-    .header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}
-    .header .actions{display:flex;gap:8px}
-    .main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}
-    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}
-    .card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-    textarea{width:100%;min-height:120px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
-    textarea:focus{outline:none;border-color:var(--accent)}
-    select,input[type="text"]{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;transition:border-color .3s}
-    select:focus,input:focus{outline:none;border-color:var(--accent)}
-    .btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
-    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
-    .btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}
-    .btn-primary:disabled{opacity:0.5;cursor:not-allowed}
-    .btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
-    .btn-secondary:hover{border-color:var(--accent)}
-    .btn-sm{padding:6px 14px;font-size:12px}
-    .result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}
-    .result-box.show{display:block}
-    .result-content{font-size:14px;line-height:1.9;white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:16px;border-radius:8px;margin-top:10px}
-    .loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}
-    .loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}
-    .footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-    @media(max-width:640px){.row{grid-template-columns:1fr}
-    .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-  
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI文案生成 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI根据主题快速生成广告文案、营销文案、社交媒体文案，多种风格可选，免费在线使用。"/>
+<meta name="keywords" content="AI文案生成,广告文案,营销文案,社交媒体文案,AI写作,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-ad-copy.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI文案生成 - ZenTools"/>
+<meta property="og:description" content="AI根据主题快速生成广告文案、营销文案、社交媒体文案。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-ad-copy.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Ad Copy Generator | ZenTools"/>
+<meta name="twitter:description" content="AI根据主题快速生成广告文案、营销文案。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+select,input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;font-family:inherit}
+select:focus,input:focus{outline:none;border-color:var(--cyan)}
+textarea{width:100%;min-height:140px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:180px;max-height:500px;overflow-y:auto;line-height:1.8}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted)}
+.result-title{margin-bottom:16px}
+.result-title h3{font-size:18px;display:flex;align-items:center;gap:8px}
+.typing{display:flex;gap:4px;padding:20px;justify-content:center}
+.typing span{width:8px;height:8px;background:var(--muted);border-radius:50%;animation:bounce 1.4s infinite}
+.typing span:nth-child(2){animation-delay:0.2s}
+.typing span:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
 </style>
-<script>var pageTranslations={zh: {pageTitle: 'AI 广告文案 - 江湖小站-ZenTools', metaDesc: 'AI 智能生成高转化广告文案，支持多种广告形式和风格', _📝_广告信息: '📝 广告信息', _✨_生成的文案: '✨ 生成的文案', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '描述你的产品/服务，包括：\\n- 产品名称和类型\\n- 核心卖点（2-3个）\\n- 目标受众\\n- 促销信息（如果有）', placeholder_sk: 'sk-...'}, en: {pageTitle: 'AI 广告文案 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _广告信息: '📝 广告信息', _生成的文案: '✨ 生成的文案', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '描述你的产品/服务，包括：\\\\n- 产品名称和类型\\\\n- 核心卖点（2-3个）\\\\n- 目标受众\\\\n- 促销信息（如果有）', placeholder_sk: 'sk-...'}, ja: {pageTitle: 'AI 广告文案 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _📝_广告信息: '📝 广告信息', _✨_生成的文案: '✨ 生成的文案', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '描述你的产品/服务，包括：\\n- 产品名称和类型\\n- 核心卖点（2-3个）\\n- 目标受众\\n- 促销信息（如果有）', placeholder_sk: 'sk-...'}, vi: {pageTitle: 'AI 广告文案 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _📝_广告信息: '📝 广告信息', _✨_生成的文案: '✨ 生成的文案', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '描述你的产品/服务，包括：\\n- 产品名称和类型\\n- 核心卖点（2-3个）\\n- 目标受众\\n- 促销信息（如果有）', placeholder_sk: 'sk-...'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI文案生成器支持哪些文案类型？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持广告文案、营销文案、社交媒体文案、产品介绍、邮件文案、品牌故事等多种类型。"}},{"@type":"Question","name":"生成的文案可以直接使用吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"生成的文案质量较高，但建议根据实际品牌调性进行适当调整后再使用。"}},{"@type":"Question","name":"可以自定义文案风格吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以。您可以指定文案风格，如正式、活泼、专业、幽默等。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI文案生成","applicationCategory":"OtherApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI根据主题快速生成广告文案、营销文案。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI文案生成 - 江湖小站-ZenTools', crumbCur:'AI文案生成', eyebrow:'AI工具', h1Grad:'AI文案生成', h1Sub:'让AI为你的品牌写文案', pageDesc:'AI根据主题快速生成广告文案、营销文案、社交媒体文案，多种风格可选，免费在线使用。', inputPlaceholder:'请描述你的产品、服务或主题...', selectPlaceholder:'选择文案类型', selectPlaceholderStyle:'选择文案风格', btnGenerate:'🚀 生成文案', btnCopy:'📋 复制', btnClear:'清空', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', cardTitle:'📝 输入需求', cardResult:'✨ 生成文案', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', faqQ1:'AI文案生成器支持哪些文案类型？', faqA1:'支持广告文案、营销文案、社交媒体文案、产品介绍、邮件文案、品牌故事等多种类型。', faqQ2:'生成的文案可以直接使用吗？', faqA2:'生成的文案质量较高，但建议根据实际品牌调性进行适当调整后再使用。', faqQ3:'可以自定义文案风格吗？', faqA3:'可以。您可以指定文案风格，如正式、活泼、专业、幽默等。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Ad Copy Generator | ZenTools', crumbCur:'AI Ad Copy Generator', eyebrow:'AI TOOLS', h1Grad:'AI Ad Copy Generator', h1Sub:'Let AI Write Copy for Your Brand', pageDesc:'AI quickly generates ad copy, marketing copy, social media copy. Multiple styles available. Free to use online.', inputPlaceholder:'Describe your product, service or topic...', selectPlaceholder:'Select Copy Type', selectPlaceholderStyle:'Select Style', btnGenerate:'🚀 Generate Copy', btnCopy:'📋 Copy', btnClear:'Clear', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', cardTitle:'📝 Enter Requirements', cardResult:'✨ Generated Copy', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', faqQ1:'What types of copy does the AI copy generator support?', faqA1:'Supports ad copy, marketing copy, social media copy, product descriptions, email copy, brand stories and more.', faqQ2:'Can the generated copy be used directly?', faqA2:'The generated copy is of high quality, but we recommend adjusting it according to your brand tone before use.', faqQ3:'Can I customize the copy style?', faqA3:'Yes. You can specify the style, such as formal, lively, professional, humorous, etc.'},
+  ja:{pageTitle:'AIコピー生成 | ZenTools', crumbCur:'AIコピー生成', eyebrow:'AIツール', h1Grad:'AIコピー生成', h1Sub:'AIがあなたのブランドの広告文を生成', pageDesc:'AIがテーマに基づいて広告コピー、マーケティングコピー、SNSコピーを高速生成。オンラインで無料利用可能。', inputPlaceholder:'製品、サービスまたはテーマを説明してください...', selectPlaceholder:'コピータイプを選択', selectPlaceholderStyle:'スタイルを選択', btnGenerate:'🚀 コピー生成', btnCopy:'📋 コピー', btnClear:'クリア', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', cardTitle:'📝 要件入力', cardResult:'✨ 生成コピー', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', faqQ1:'AIコピー生成ツールはどのタイプに対応していますか？', faqA1:'広告コピー、マーケティングコピー、SNSコピー、製品説明、メールコピー、ブランドストーリーなど。', faqQ2:'生成されたコピーをそのまま使えますか？', faqA2:'生成されたコピーは高品質ですが、使用前にブランドのトーンに合わせて調整することをお勧めします。', faqQ3:'コピーのスタイルはカスタマイズできますか？', faqA3:'はい。フォーマル、ラビット、プロフェッショナル、ユーモアなどスタイルを指定できます。'},
+  vi:{pageTitle:'Tạo nội dung quảng cáo AI | ZenTools', crumbCur:'Tạo nội dung quảng cáo AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Tạo nội dung quảng cáo AI', h1Sub:'Để AI viết nội dung cho thương hiệu của bạn', pageDesc:'AI tạo nhanh nội dung quảng cáo, nội dung marketing, nội dung mạng xã hội. Nhiều phong cách tùy chọn. Miễn phí sử dụng.', inputPlaceholder:'Mô tả sản phẩm, dịch vụ hoặc chủ đề của bạn...', selectPlaceholder:'Chọn loại nội dung', selectPlaceholderStyle:'Chọn phong cách', btnGenerate:'🚀 Tạo nội dung', btnCopy:'📋 Sao chép', btnClear:'Xóa', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', cardTitle:'📝 Nhập yêu cầu', cardResult:'✨ Nội dung tạo ra', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', faqQ1:'Công cụ tạo nội dung AI hỗ trợ những loại nội dung nào?', faqA1:'Hỗ trợ nội dung quảng cáo, nội dung marketing, nội dung mạng xã hội, mô tả sản phẩm, email, câu chuyện thương hiệu và hơn nữa.', faqQ2:'Có thể sử dụng nội dung tạo ra ngay không?', faqA2:'Nội dung tạo ra có chất lượng cao, nhưng khuyến nghị điều chỉnh theo giọng điệu thương hiệu trước khi sử dụng.', faqQ3:'Có thể tùy chỉnh phong cách nội dung không?', faqA3:'Có. Bạn có thể chỉ định phong cách như trang trọng, vui vẻ, chuyên nghiệp, hài hước...'}
+};
+</script>
 </head>
 <body>
-<div class="header">
-  <a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">📢</span> AI 广告文案</a>
-  <div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div>
-<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</div>
-<div class="main">
-  <div class="card">
-    <h2 data-i18n="_📝_广告信息">📝 广告信息</h2>
-    <div class="row">
-      <select id="adType"><option value="social">社交媒体广告</option><option value="search">搜索广告</option><option value="display">展示广告</option><option value="video">视频广告</option><option value="email">邮件营销</option><option value="landing">落地页文案</option><option value="slogan">品牌标语</option></select>
-      <select id="tone"><option value="professional">专业权威</option><option value="casual">轻松活泼</option><option value="urgent">限时紧迫</option><option value="emotional">情感共鸣</option><option value="humorous">幽默风趣</option></select>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI文案生成</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI文案生成</span><br/><span data-i18n="h1Sub">让AI为你的品牌写文案</span></h1><p data-i18n="pageDesc">AI根据主题快速生成广告文案、营销文案、社交媒体文案，多种风格可选，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div class="form-group">
+      <label data-i18n="selectPlaceholder">选择文案类型</label>
+      <select id="copyType"><option value="广告文案">广告文案</option><option value="营销文案">营销文案</option><option value="社交媒体文案">社交媒体文案</option><option value="产品介绍">产品介绍</option><option value="邮件文案">邮件文案</option><option value="品牌故事">品牌故事</option></select>
     </div>
-    <textarea id="productInput" placeholder="描述你的产品/服务，包括：
-- 产品名称和类型
-- 核心卖点（2-3个）
-- 目标受众
-- 促销信息（如果有）" data-i18n-placeholder="placeholder_" rows="5"></textarea>
-    <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="generateAd()" data-i18n="btn">🚀 生成文案</button>
-      <button class="btn btn-secondary" onclick="document.getElementById('productInput').value='';document.getElementById('resultBox').classList.remove('show')" data-i18n="btn">清空</button>
+    <div class="form-group">
+      <label data-i18n="selectPlaceholderStyle">选择文案风格</label>
+      <select id="style"><option value="正式专业">正式专业</option><option value="活泼有趣">活泼有趣</option><option value="温馨情感">温馨情感</option><option value="幽默诙谐">幽默诙谐</option><option value="高端奢华">高端奢华</option><option value="朴实亲民">朴实亲民</option></select>
     </div>
-  </div>
-
-  <div class="loading" id="loading"><div class="spinner"></div> AI 正在创作广告文案...</div>
-
-  <div class="result-box" id="resultBox">
-    <h2 data-i18n="_✨_生成的文案">✨ 生成的文案</h2>
-    <div id="adResult" class="result-content"></div>
-    <div style="margin-top:12px;display:flex;gap:8px">
-      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btn">📋 复制</button>
-      <button class="btn btn-secondary btn-sm" onclick="regenerate()" data-i18n="btn">🔄 重新生成</button>
+    <div class="form-group">
+      <label data-i18n="model">模型</label>
+      <select id="modelSelect"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select>
     </div>
   </div>
+  <div class="form-group">
+    <label data-i18n="inputPlaceholder">请描述你的产品、服务或主题...</label>
+    <textarea id="input" data-i18n-placeholder="inputPlaceholder"></textarea>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>🚀</span><span data-i18n="btnGenerate">🚀 生成文案</span></button>
+    <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button>
+  </div>
+  <div class="panel">
+    <div class="panel-header"><h2 data-i18n="cardResult">✨ 生成文案</h2><button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button></div>
+    <div class="output empty" id="output"><p data-i18n="placeholder">生成的文案将显示在这里</p></div>
+  </div>
 </div>
-
 <div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal">
-    <h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%"></div>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button></div>
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
   </div>
 </div>
-
-<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
-
-<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
-
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href "/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-const STORAGE_KEY='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(STORAGE_KEY);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
-function ss(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(STORAGE_KEY,JSON.stringify(s));ts()}
-function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(STORAGE_KEY);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
-let lastPrompt='';
-
-function generateAd(){const p=document.getElementById('productInput').value.trim();if(!p){alert('请填写产品信息');return}
-const s=gs();if(!s.apiKey){ts();return}
-lastPrompt=p;const t=document.getElementById('adType').value;const tn=document.getElementById('tone').value
-const typeLabels={social:'社交媒体广告',search:'搜索广告',display:'展示广告',video:'视频广告',email:'邮件营销',landing:'落地页文案',slogan:'品牌标语'}
-const toneLabels={professional:'专业权威',casual:'轻松活泼',urgent:'限时紧迫',emotional:'情感共鸣',humorous:'幽默风趣'}
-const btn=event.target;const l=document.getElementById('loading');const r=document.getElementById('resultBox')
-btn.disabled=true;l.classList.add('show');r.classList.remove('show')
-const prompt='你是一个专业的广告文案撰写专家。请根据以下信息生成广告文案。\n\n广告类型：'+typeLabels[t]+'\n语气风格：'+toneLabels[tn]+'\n产品/服务信息：'+p+'\n\n请生成3个不同角度的文案版本，每个版本包含标题和正文。直接输出文案内容，不需要多余的解释。'
-fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:prompt}],max_tokens:1500})})
-.then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
-.then(d=>{document.getElementById('adResult').textContent=d.choices[0].message.content;r.classList.add('show')})
-.catch(e=>{document.getElementById('adResult').textContent='请求失败：'+e.message;r.classList.add('show')})
-.finally(()=>{btn.disabled=false;l.classList.remove('show')})}
-
-function regenerate(){if(lastPrompt)document.getElementById('productInput').value=lastPrompt;generateAd()}
-function copyResult(){const t=document.getElementById('adResult').textContent;navigator.clipboard.writeText(t).then(()=>alert('已复制'))}
-ls();
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
 </script>
-
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
 <script>
-(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
 </script>
+<script>
+const SK='zentools_ai_settings';
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function generate(){const input=document.getElementById('input').value.trim();const type=document.getElementById('copyType').value;const style=document.getElementById('style').value;const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!input){alert('请输入你的产品、服务或主题描述');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<div class="typing"><span></span><span></span><span></span></div><p style="text-align:center;color:var(--muted)">正在生成文案...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的文案创作专家，擅长各种类型的文案写作。'},{role:'user',content:'请为以下主题创作 '+type+'，要求风格：'+style+'。\n\n主题描述：\n'+input+'\n\n请输出高质量的文案，确保语言生动、有感染力。'}],temperature:0.8,max_tokens:2048})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const text=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML='<div class="result-title"><h3>📌 '+type+' · '+style+'</h3></div><div style="white-space:pre-wrap">'+esc(text)+'</div>'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){document.getElementById('input').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="placeholder">生成的文案将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('生成的文案将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

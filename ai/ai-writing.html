@@ -1,493 +1,145 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="pageTitle">AI 写作 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-  <meta name="description" content="AI 智能写作助手，根据主题生成文章、故事、邮件、诗歌等" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --success: #22c55e; --error: #ef4444; }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
-    
-    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-    .header .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
-    .header .logo .mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    
-    .main { flex: 1; display: flex; flex-direction: column; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px; gap: 20px; }
-    
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; min-height: 0; }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-    
-    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; }
-    .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .panel-header h2 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
-    
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: var(--muted); }
-    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
-    .form-group textarea { min-height: 100px; resize: vertical; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    @media (max-width: 600px) { .form-row { grid-template-columns: 1fr; } }
-    
-    .btn { padding: 10px 20px; border-radius: var(--radius-pill); border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: all .3s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .btn-secondary:hover { border-color: var(--accent); }
-    
-    .output-area { flex: 1; display: flex; flex-direction: column; min-height: 0; }
-    .output-content { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; overflow-y: auto; font-size: 15px; line-height: 1.8; }
-    .output-content h1 { font-size: 24px; margin: 20px 0 12px; }
-    .output-content h2 { font-size: 20px; margin: 16px 0 10px; }
-    .output-content h3 { font-size: 18px; margin: 14px 0 8px; }
-    .output-content p { margin-bottom: 12px; }
-    .output-content ul, .output-content ol { margin: 12px 0; padding-left: 24px; }
-    .output-content li { margin-bottom: 6px; }
-    .output-content code { background: rgba(0,0,0,0.2); padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
-    .output-content pre { background: rgba(0,0,0,0.3); padding: 12px; border-radius: 8px; overflow-x: auto; margin: 12px 0; }
-    .output-content pre code { background: none; padding: 0; }
-    
-    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    
-    .typing-indicator { display: flex; gap: 4px; padding: 20px; justify-content: center; }
-    .typing-indicator span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: bounce 1.4s infinite; }
-    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
-    
-    .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-    
-    @media (max-width: 640px) {
-      .header { padding: 12px 16px; }
-      .main { padding: 12px; }
-      .panel { padding: 16px; }
-    }
-  .lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI写作助手 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI智能写作助手，支持多种文体创作，包括文章、邮件、报告、小说、诗歌等，免费在线使用。"/>
+<meta name="keywords" content="AI写作,AI写作助手,AI创作,智能写作,内容创作,AI生成,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-writing.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI写作助手 - ZenTools"/>
+<meta property="og:description" content="AI智能写作助手，支持多种文体创作，包括文章、邮件、报告、小说、诗歌。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-writing.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Writing Assistant | ZenTools"/>
+<meta name="twitter:description" content="AI智能写作助手，支持多种文体创作。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:140px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
+input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:300px;max-height:600px;overflow-y:auto;line-height:1.8;font-size:15px;white-space:pre-wrap}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
+.tool-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.tool-tag{padding:8px 16px;border-radius:999px;font-size:13px;font-weight:500;background:rgba(6,182,212,0.15);color:#67e8f9;border:1px solid rgba(6,182,212,0.3);cursor:pointer;transition:all .3s}
+.tool-tag:hover,.tool-tag.active{background:rgba(6,182,212,0.3);color:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
 </style>
-<script>var pageTranslations={"zh":{pageTitle: 'AI 写作 - 江湖小站-ZenTools', metaDesc: 'AI 智能写作助手，根据主题生成文章、故事、邮件、诗歌等', heading_写作设置: '✍️ 写作设置', heading_生成内容: '📝 生成内容', 清空: '清空', h1_标题: 'H1 标题', h2_标题: 'H2 标题', h3_标题: 'H3 标题', 列表: '列表', 引用: '引用', 代码: '代码', 收藏本站: '⭐ 收藏本站', label_写作类型: '写作类型', label_主题_标题: '主题/标题', label_风格: '风格', label_语言: '语言', label_长度: '长度', label_额外要求: '额外要求', ph_例如_人工智能的: '例如：人工智能的未来发展', ph_例如_需要包含案: '例如：需要包含案例、数据支持、引用来源等'},"en":{pageTitle: 'AI 写作 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', heading_写作设置: '✍️ Writing Settings', heading_生成内容: '📝 Generated Content', h1_标题: 'Heading 1', h2_标题: 'Heading 2', h3_标题: 'Heading 3', label_写作类型: 'Writing Type', label_主题_标题: 'Topic / Title', label_风格: 'Style', label_语言: 'Language', label_长度: 'Length', label_额外要求: 'Extra Requirements', ph_例如_人工智能的: 'e.g., The future of AI', ph_例如_需要包含案: 'e.g., Include case studies, data, references'},"ja":{pageTitle: 'AI 写作 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', heading_写作设置: '✍️ 写作设置', heading_生成内容: '📝 生成内容', 清空: '清空', h1_标题: 'H1 标题', h2_标题: 'H2 标题', h3_标题: 'H3 标题', 列表: '列表', 引用: '引用', 代码: '代码', 收藏本站: '⭐ 收藏本站', label_写作类型: '写作类型', label_主题_标题: '主题/标题', label_风格: '风格', label_语言: '语言', label_长度: '长度', label_额外要求: '额外要求', ph_例如_人工智能的: '例如：人工智能的未来发展', ph_例如_需要包含案: '例如：需要包含案例、数据支持、引用来源等'},"vi":{pageTitle: 'AI 写作 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', heading_写作设置: '✍️ 写作设置', heading_生成内容: '📝 生成内容', 清空: '清空', h1_标题: 'H1 标题', h2_标题: 'H2 标题', h3_标题: 'H3 标题', 列表: '列表', 引用: '引用', 代码: '代码', 收藏本站: '⭐ 收藏本站', label_写作类型: '写作类型', label_主题_标题: '主题/标题', label_风格: '风格', label_语言: '语言', label_长度: '长度', label_额外要求: '额外要求', ph_例如_人工智能的: '例如：人工智能的未来发展', ph_例如_需要包含案: '例如：需要包含案例、数据支持、引用来源等'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI写作助手支持哪些文体？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持文章、邮件、报告、小说、诗歌、演讲稿、新闻稿、评论等多种文体。"}},{"@type":"Question","name":"写作内容质量如何保证？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"AI基于大语言模型生成高质量内容，建议根据实际需求进行人工审核和调整。"}},{"@type":"Question","name":"可以自定义写作风格吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以。您可以指定写作风格、语气和受众群体，AI会相应调整内容。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI写作助手","applicationCategory":"OtherApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI智能写作助手，支持多种文体创作。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI写作助手 - 江湖小站-ZenTools', crumbCur:'AI写作助手', eyebrow:'AI工具', h1Grad:'AI写作助手', h1Sub:'智能创作多种文体', pageDesc:'AI智能写作助手，支持多种文体创作，包括文章、邮件、报告、小说、诗歌等，免费在线使用。', cardTitle:'✍️ 输入主题和要求', cardResult:'📄 生成内容', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'请描述写作主题、风格要求、字数等信息...', btnGenerate:'✍️ 开始写作', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', emptyResult:'写作内容将显示在这里', faqQ1:'AI写作助手支持哪些文体？', faqA1:'支持文章、邮件、报告、小说、诗歌、演讲稿、新闻稿、评论等多种文体。', faqQ2:'写作内容质量如何保证？', faqA2:'AI基于大语言模型生成高质量内容，建议根据实际需求进行人工审核和调整。', faqQ3:'可以自定义写作风格吗？', faqA3:'可以。您可以指定写作风格、语气和受众群体，AI会相应调整内容。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Writing Assistant | ZenTools', crumbCur:'AI Writing Assistant', eyebrow:'AI TOOLS', h1Grad:'AI Writing Assistant', h1Sub:'Smart Multi-Genre Writing', pageDesc:'AI writing assistant. Supports articles, emails, reports, novels, poems and more. Free to use online.', cardTitle:'✍️ Input Topic & Requirements', cardResult:'📄 Generated Content', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Describe writing topic, style requirements, word count...', btnGenerate:'✍️ Start Writing', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', emptyResult:'Content will appear here', faqQ1:'What writing genres does AI writing assistant support?', faqA1:'Supports articles, emails, reports, novels, poems, speeches, press releases, reviews.', faqQ2:'How is content quality ensured?', faqA2:'AI generates high quality content based on large language models. We recommend human review.', faqQ3:'Can I customize the writing style?', faqA3:'Yes. You can specify style, tone and audience. AI will adjust accordingly.'},
+  ja:{pageTitle:'AI執筆アシスタント | ZenTools', crumbCur:'AI執筆アシスタント', eyebrow:'AIツール', h1Grad:'AI執筆アシスタント', h1Sub:'スマート多ジャンル執筆', pageDesc:'AI執筆アシスタント。記事、メール、レポート、小説、詩などに対応。オンラインで無料利用可能。', cardTitle:'✍️ テーマと要件入力', cardResult:'📄 生成コンテンツ', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'執筆テーマ、スタイル要件、文字数などを記述...', btnGenerate:'✍️ 執筆開始', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', emptyResult:'コンテンツがここに表示されます', faqQ1:'AI執筆アシスタントはどのジャンルに対応していますか？', faqA1:'記事、メール、レポート、小説、詩、スピーチ、プレスリリース、レビューなど。', faqQ2:'コンテンツの品質はどう保証されますか？', faqA2:'AIは大規模言語モデルに基づいて高品質コンテンツを生成します。人的レビューをお勧めします。', faqQ3:'執筆スタイルはカスタマイズできますか？', faqA3:'はい。スタイル、トーン、聴衆を指定できます。AIがそれに応じて調整します。'},
+  vi:{pageTitle:'Trợ lý viết AI | ZenTools', crumbCur:'Trợ lý viết AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Trợ lý viết AI', h1Sub:'Viết đa thể loại thông minh', pageDesc:'Trợ lý viết AI. Hỗ trợ bài viết, email, báo cáo, tiểu thuyết, thơ. Miễn phí sử dụng.', cardTitle:'✍️ Nhập chủ đề và yêu cầu', cardResult:'📄 Nội dung tạo ra', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Mô tả chủ đề viết, phong cách, số từ...', btnGenerate:'✍️ Bắt đầu viết', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', emptyResult:'Nội dung sẽ hiển thị ở đây', faqQ1:'Trợ lý viết AI hỗ trợ những thể loại nào?', faqA1:'Hỗ trợ bài viết, email, báo cáo, tiểu thuyết, thơ, bài phát biểu, bản tin, đánh giá...', faqQ2:'Chất lượng nội dung được đảm bảo như thế nào?', faqA2:'AI tạo nội dung chất lượng cao dựa trên mô hình ngôn ngữ lớn. Khuyến nghị kiểm tra của con người.', faqQ3:'Có thể tùy chỉnh phong cách viết không?', faqA3:'Có. Bạn có thể chỉ định phong cách, giọng điệu và đối tượng. AI sẽ điều chỉnh tương ứng.'}
+};
+</script>
 </head>
 <body>
-
-<!-- Header -->
-<header class="header">
-  <div class="logo">
-    <span class="mark">⛵</span>
-    <span>AI 写作</span>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI写作助手</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI写作助手</span><br/><span data-i18n="h1Sub">智能创作多种文体</span></h1><p data-i18n="pageDesc">AI智能写作助手，支持多种文体创作，包括文章、邮件、报告、小说、诗歌等，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
+  <div class="tool-tags">
+    <div class="tool-tag active" onclick="selectTool(this,'article')">📝 文章</div>
+    <div class="tool-tag" onclick="selectTool(this,'email')">📧 邮件</div>
+    <div class="tool-tag" onclick="selectTool(this,'report')">📊 报告</div>
+    <div class="tool-tag" onclick="selectTool(this,'novel')">📖 小说</div>
+    <div class="tool-tag" onclick="selectTool(this,'poem')">🎭 诗歌</div>
+    <div class="tool-tag" onclick="selectTool(this,'speech')">🎤 演讲</div>
   </div>
-  <div style="display: flex; gap: 8px;">
-    <a href="/ai/ai-chat.html" class="btn btn-secondary" style="padding: 8px 16px;">AI 聊天</a>
-    <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
+  <div class="form-group">
+    <label data-i18n="cardTitle">✍️ 输入主题和要求</label>
+    <textarea id="prompt" data-i18n-placeholder="placeholder"></textarea>
   </div>
-<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</header>
-
-<!-- Main -->
-<main class="main">
-  <div class="grid">
-    <!-- Input Panel -->
-    <div class="panel">
-      <div class="panel-header">
-        <h2 data-i18n="heading_写作设置">✍️ 写作设置</h2>
-      </div>
-      
-      <div class="form-group">
-        <label data-i18n="label_写作类型">写作类型</label>
-        <select id="writeType">
-          <option value="article">文章</option>
-          <option value="essay">短文</option>
-          <option value="story">故事</option>
-          <option value="poem">诗歌</option>
-          <option value="email">邮件</option>
-          <option value="report">报告</option>
-          <option value="outline">大纲</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label data-i18n="label_主题_标题">主题/标题</label>
-        <input type="text" id="topic" placeholder="例如：人工智能的未来发展" data-i18n-placeholder="ph_例如_人工智能的" />
-      </div>
-      
-      <div class="form-group">
-        <label data-i18n="label_风格">风格</label>
-        <select id="style">
-          <option value="professional">专业严谨</option>
-          <option value="casual">轻松随意</option>
-          <option value="creative">富有创意</option>
-          <option value="humorous">幽默风趣</option>
-          <option value="academic">学术正式</option>
-        </select>
-      </div>
-      
-      <div class="form-row">
-        <div class="form-group">
-          <label data-i18n="label_语言">语言</label>
-          <select id="language">
-            <option value="中文">中文</option>
-            <option value="英文">英文</option>
-            <option value="日文">日文</option>
-            <option value="越南语">越南语</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label data-i18n="label_长度">长度</label>
-          <select id="length">
-            <option value="short">简短 (300-500 字)</option>
-            <option value="medium" selected>中等 (800-1500 字)</option>
-            <option value="long">长篇 (2000+ 字)</option>
-          </select>
-        </div>
-      </div>
-      
-      <div class="form-group">
-        <label data-i18n="label_额外要求">额外要求</label>
-        <textarea id="requirements" placeholder="例如：需要包含案例、数据支持、引用来源等" data-i18n-placeholder="ph_例如_需要包含案"></textarea>
-      </div>
-      
-      <div style="display: flex; gap: 10px; margin-top: 10px;">
-        <button class="btn btn-primary" id="generateBtn" onclick="generateContent()">
-          <span>🚀</span>
-          <span>生成内容</span>
-        </button>
-        <button class="btn btn-secondary" onclick="clearAll()" data-i18n="清空">清空</button>
-      </div>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>✍️</span><span data-i18n="btnGenerate">✍️ 开始写作</span></button>
+    <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button>
+  </div>
+  <div class="panel">
+    <div class="panel-header">
+      <h2 data-i18n="cardResult">📄 生成内容</h2>
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
     </div>
-    
-    <!-- Output Panel -->
-    <div class="panel">
-      <div class="panel-header">
-        <h2 data-i18n="heading_生成内容">📝 生成内容</h2>
-        <div style="display: flex; gap: 6px;">
-          <button class="btn btn-icon btn-secondary" onclick="copyContent()" title="复制">📋</button>
-          <button class="btn btn-icon btn-secondary" onclick="downloadContent()" title="下载">💾</button>
-        </div>
-      </div>
-      
-      <div class="output-area">
-        <div class="output-content" id="outputContent">
-          <p style="color: var(--muted); text-align: center; padding: 40px 20px;">
-            填写左侧设置，点击"生成内容"，AI 将为您创作文章
-          </p>
-        </div>
-      </div>
-      
-      <div class="toolbar">
-        <button class="btn btn-secondary" onclick="insertHeading(1)" data-i18n="h1_标题">H1 标题</button>
-        <button class="btn btn-secondary" onclick="insertHeading(2)" data-i18n="h2_标题">H2 标题</button>
-        <button class="btn btn-secondary" onclick="insertHeading(3)" data-i18n="h3_标题">H3 标题</button>
-        <button class="btn btn-secondary" onclick="insertList()" data-i18n="列表">列表</button>
-        <button class="btn btn-secondary" onclick="insertQuote()" data-i18n="引用">引用</button>
-        <button class="btn btn-secondary" onclick="insertCode()" data-i18n="代码">代码</button>
-      </div>
-    </div>
+    <div class="output empty" id="output"><p data-i18n="emptyResult">写作内容将显示在这里</p></div>
   </div>
-</main>
-
-<!-- Footer -->
-<footer style="text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);">
-  © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有生成内容均在本地处理
-</footer>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
-
+</div>
+<div class="modal-overlay" id="settingsModal" style="display:none">
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
+</div>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href "/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-// ============ State ============
-let settings = {
-  provider: 'openai',
-  apiKey: '',
-  baseUrl: '',
-  model: 'gpt-4o'
-};
-
-// ============ Init ============
-function init() {
-  loadSettings();
-}
-
-function loadSettings() {
-  const saved = localStorage.getItem('ai-writing-settings');
-  if (saved) {
-    settings = { ...settings, ...JSON.parse(saved) };
-  }
-}
-
-function saveSettings() {
-  localStorage.setItem('ai-writing-settings', JSON.stringify(settings));
-}
-
-// ============ Generate ============
-async function generateContent() {
-  const generateBtn = document.getElementById('generateBtn');
-  const output = document.getElementById('outputContent');
-  
-  const type = document.getElementById('writeType').value;
-  const topic = document.getElementById('topic').value.trim();
-  const style = document.getElementById('style').value;
-  const language = document.getElementById('language').value;
-  const length = document.getElementById('length').value;
-  const requirements = document.getElementById('requirements').value.trim();
-  
-  if (!topic) {
-    alert('请输入主题/标题');
-    return;
-  }
-  
-  if (!settings.apiKey) {
-    const key = prompt('请输入 API Key（仅保存在本地浏览器）:');
-    if (!key) return;
-    settings.apiKey = key;
-    saveSettings();
-  }
-  
-  generateBtn.disabled = true;
-  output.innerHTML = `
-    <div class="typing-indicator">
-      <span></span><span></span><span></span>
-      <span></span><span></span>
-    </div>
-    <p style="text-align: center; color: var(--muted);">正在生成${language === '中文' ? '中文' : language === '英文' ? '英文' : language}内容...</p>
-  `;
-  
-  try {
-    const prompt = buildPrompt(type, topic, style, language, length, requirements);
-    const response = await fetchChatResponse(prompt);
-    output.innerHTML = formatContent(response);
-  } catch (error) {
-    output.innerHTML = `
-      <p style="color: var(--error); text-align: center; padding: 40px;">
-        生成失败：${error.message}<br>
-        <small>请检查 API Key 和网络连接</small>
-      </p>
-    `;
-  }
-  
-  generateBtn.disabled = false;
-}
-
-function buildPrompt(type, topic, style, language, length, requirements) {
-  const typeMap = {
-    article: '文章',
-    essay: '短文',
-    story: '故事',
-    poem: '诗歌',
-    email: '邮件',
-    report: '报告',
-    outline: '大纲'
-  };
-  
-  const styleMap = {
-    professional: '专业严谨',
-    casual: '轻松随意',
-    creative: '富有创意',
-    humorous: '幽默风趣',
-    academic: '学术正式'
-  };
-  
-  const lengthMap = {
-    short: '300-500字',
-    medium: '800-1500字',
-    long: '2000字以上'
-  };
-  
-  let prompt = `请用${language}写一篇${typeMap[type]}，`;
-  prompt += `主题为"${topic}"。\n\n`;
-  prompt += `风格要求：${styleMap[style]}。\n`;
-  prompt += `长度要求：${lengthMap[length]}。\n`;
-  if (requirements) {
-    prompt += `其他要求：${requirements}\n`;
-  }
-  prompt += `\n请直接输出内容，不要添加额外的说明文字。`;
-  
-  return prompt;
-}
-
-async function fetchChatResponse(prompt) {
-  const { provider, apiKey, baseUrl, model } = settings;
-  
-  const messages = [
-    { role: 'system', content: '你是一个专业的写作助手，擅长各种类型的文章写作。请用简洁、准确、优美的语言回答用户问题。' },
-    { role: 'user', content: prompt }
-  ];
-  
-  let url, headers, body;
-  
-  if (provider === 'anthropic') {
-    url = baseUrl || 'https://api.anthropic.com/v1/messages';
-    headers = {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': '2023-06-01',
-      'anthropic-dangerous-direct-browser-access': 'true'
-    };
-    body = {
-      model: model || 'claude-3-5-sonnet-20241022',
-      max_tokens: 8192,
-      messages: [{ role: 'user', content: prompt }],
-      system: '你是一个专业的写作助手。'
-    };
-  } else {
-    url = (baseUrl || 'https://api.openai.com/v1') + '/chat/completions';
-    headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    };
-    body = {
-      model: model || 'gpt-4o',
-      messages: messages,
-      stream: false,
-      temperature: 0.7,
-      max_tokens: 8192
-    };
-  }
-  
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(body)
-  });
-  
-  if (!response.ok) {
-    const error = await response.json().catch(() => ({}));
-    throw new Error(error.error?.message || `HTTP ${response.status}: ${response.statusText}`);
-  }
-  
-  const data = await response.json();
-  
-  if (provider === 'anthropic') {
-    return data.content[0].text;
-  } else {
-    return data.choices[0].message.content;
-  }
-}
-
-function formatContent(text) {
-  if (!text) return '';
-  
-  let html = text
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-  
-  // Headers
-  html = html.replace(/^### (.*$)/gm, '<h3>$1</h3>');
-  html = html.replace(/^## (.*$)/gm, '<h2>$1</h2>');
-  html = html.replace(/^# (.*$)/gm, '<h1>$1</h1>');
-  
-  // Code blocks
-  html = html.replace(/```(\w+)?\n([\s\S]*?)```/g, (m, lang, code) => {
-    return `<pre><code class="language-${lang||''}">${code.trim()}</code></pre>`;
-  });
-  
-  // Inline code
-  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-  
-  // Bold
-  html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-  
-  // Italic
-  html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
-  
-  // Lists
-  html = html.replace(/^\- (.*$)/gm, '<li>$1</li>');
-  html = html.replace(/^\* (.*$)/gm, '<li>$1</li>');
-  html = html.replace(/^\d+\. (.*$)/gm, '<li>$1</li>');
-  
-  // Blockquote
-  html = html.replace(/^> (.*$)/gm, '<blockquote>$1</blockquote>');
-  
-  // Line breaks
-  html = html.replace(/\n\n/g, '</p><p>');
-  html = html.replace(/\n/g, '<br>');
-  
-  // Wrap in paragraphs
-  if (!html.startsWith('<h') && !html.startsWith('<p') && !html.startsWith('<pre') && !html.startsWith('<blockquote')) {
-    html = '<p>' + html;
-  }
-  if (!html.endsWith('</p>') && !html.endsWith('</pre>') && !html.endsWith('</blockquote>')) {
-    html = html + '</p>';
-  }
-  
-  return html;
-}
-
-// ============ Toolbar ============
-function insertHeading(level) {
-  const output = document.getElementById('outputContent');
-  const text = `H${level} 标题\n`;
-  output.innerHTML += `<h${level}>${text}</h${level}>`;
-}
-
-function insertList() {
-  const output = document.getElementById('outputContent');
-  output.innerHTML += '<ul><li>列表项 1</li><li>列表项 2</li><li>列表项 3</li></ul>';
-}
-
-function insertQuote() {
-  const output = document.getElementById('outputContent');
-  output.innerHTML += '<blockquote>引用内容</blockquote>';
-}
-
-function insertCode() {
-  const output = document.getElementById('outputContent');
-  output.innerHTML += '<pre><code>// 代码示例\nconsole.log("Hello, World!");</code></pre>';
-}
-
-// ============ Actions ============
-function clearAll() {
-  document.getElementById('topic').value = '';
-  document.getElementById('requirements').value = '';
-  document.getElementById('outputContent').innerHTML = `
-    <p style="color: var(--muted); text-align: center; padding: 40px 20px;">
-      填写左侧设置，点击"生成内容"，AI 将为您创作文章
-    </p>
-  `;
-}
-
-async function copyContent() {
-  const output = document.getElementById('outputContent');
-  const text = output.innerText;
-  
-  if (!text || text.includes('正在生成') || text.includes('填写左侧')) {
-    alert('没有可复制的内容');
-    return;
-  }
-  
-  try {
-    await navigator.clipboard.writeText(text);
-    alert('内容已复制到剪贴板');
-  } catch (e) {
-    alert('复制失败，请手动复制');
-  }
-}
-
-function downloadContent() {
-  const output = document.getElementById('outputContent');
-  const text = output.innerText;
-  
-  if (!text || text.includes('正在生成') || text.includes('填写左侧')) {
-    alert('没有可下载的内容');
-    return;
-  }
-  
-  const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `AI写作-${new Date().toISOString().slice(0,10)}.txt`;
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-// Initialize
-init();
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
 </script>
-
-<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>
+const SK='zentools_ai_settings';
+let currentTool='article';
+const toolMap={article:'文章',email:'邮件',report:'报告',novel:'小说章节',poem:'诗歌',speech:'演讲稿'};
+function selectTool(el,t){document.querySelectorAll('.tool-tag').forEach(function(e){e.classList.remove('active')});el.classList.add('active');currentTool=t}
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function generate(){const prompt=document.getElementById('prompt').value.trim();const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!prompt){alert('请输入写作主题和要求');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在创作...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的 '+toolMap[currentTool]+' 创作专家。'},{role:'user',content:'请创作 '+toolMap[currentTool]+'，要求：\n\n'+prompt+'\n\n请输出高质量的原创内容。'}],temperature:0.8,max_tokens:3000})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const text=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML='<div style="margin-bottom:12px;color:var(--cyan);font-size:14px">📌 '+toolMap[currentTool]+'</div><div style="white-space:pre-wrap">'+esc(text)+'</div>'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){document.getElementById('prompt').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">写作内容将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('写作内容将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

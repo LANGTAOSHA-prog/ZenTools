@@ -1,71 +1,153 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
-<title data-i18n="pageTitle">AI 图片提示词 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<meta name="description" content="AI 智能生成和优化绘画提示词，适用于 Midjourney、Stable Diffusion 等，免费在线使用。" />
-<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
-body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
-.main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-textarea{width:100%;min-height:80px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;resize:vertical;line-height:1.6;margin-bottom:12px}textarea:focus{outline:none;border-color:var(--accent)}select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px}select:focus{outline:none;border-color:var(--accent)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}
-.result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}.result-box.show{display:block}.result-content{font-size:14px;line-height:1.8;white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:16px;border-radius:8px;margin-top:10px;font-family:'Fira Code','Consolas',monospace}
-.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}
-.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
-.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI图片描述生成 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI智能分析图片并生成详细描述，生成图片描述文字，适用于AI绘画提示词生成，免费在线使用。"/>
+<meta name="keywords" content="AI图片描述,图片分析,图像描述,AI绘画提示词,prompt生成,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-image-prompt.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI图片描述生成 - ZenTools"/>
+<meta property="og:description" content="AI智能分析图片并生成详细描述，生成图片描述文字。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-image-prompt.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Image Prompt Generator | ZenTools"/>
+<meta name="twitter:description" content="AI智能分析图片并生成详细描述，生成图片描述文字。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:120px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.upload-area{border:2px dashed var(--border);border-radius:14px;padding:40px;text-align:center;cursor:pointer;transition:all .3s;background:rgba(255,255,255,0.02)}
+.upload-area:hover,.upload-area.dragover{border-color:var(--cyan);background:rgba(6,182,212,0.05)}
+.upload-area .icon{font-size:40px;margin-bottom:10px}
+.upload-area p{color:var(--muted);font-size:14px}
+.preview-img{max-width:100%;max-height:300px;border-radius:14px;margin-top:16px;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:180px;white-space:pre-wrap}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.tag{padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;background:rgba(139,92,246,0.2);color:#c4b5fd}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
+input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
 </style>
-<script>var pageTranslations={zh: {pageTitle: 'AI 图片提示词 - 江湖小站-ZenTools', metaDesc: 'AI 智能生成和优化 AI 绘画提示词（Prompt），适用于 Midjourney、Stable Diffusion、DALL-E', _💡_描述你想要的画面: '💡 描述你想要的画面', _✨_生成的提示词: '✨ 生成的提示词', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '用自然语言描述你想要的画面，例如：\n一只白色的小猫在花园里追逐蝴蝶，阳光明媚，有各种颜色的花朵', placeholder_sk: 'sk-...'}, en: {pageTitle: 'AI 图片提示词 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _描述你想要的画面: '💡 描述你想要的画面', _生成的提示词: '✨ 生成的提示词', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '用自然语言描述你想要的画面，例如：\\n一只白色的小猫在花园里追逐蝴蝶，阳光明媚，有各种颜色的花朵', placeholder_sk: 'sk-...'}, ja: {pageTitle: 'AI 图片提示词 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _💡_描述你想要的画面: '💡 描述你想要的画面', _✨_生成的提示词: '✨ 生成的提示词', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '用自然语言描述你想要的画面，例如：\n一只白色的小猫在花园里追逐蝴蝶，阳光明媚，有各种颜色的花朵', placeholder_sk: 'sk-...'}, vi: {pageTitle: 'AI 图片提示词 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _💡_描述你想要的画面: '💡 描述你想要的画面', _✨_生成的提示词: '✨ 生成的提示词', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '用自然语言描述你想要的画面，例如：\n一只白色的小猫在花园里追逐蝴蝶，阳光明媚，有各种颜色的花朵', placeholder_sk: 'sk-...'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI图片描述生成器有什么用？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以将图片转换为详细的文字描述，适用于AI绘画提示词生成、图片内容分析、无障碍阅读等场景。"}},{"@type":"Question","name":"支持哪些图片格式？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持JPG、PNG、WEBP等常见图片格式，单张图片不超过10MB。"}},{"@type":"Question","name":"生成的描述可以用于AI绘画吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以。生成的描述包含了丰富的视觉元素信息，可以直接作为Midjourney、Stable Diffusion等AI绘画工具的提示词。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI图片描述生成","applicationCategory":"AIApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI智能分析图片并生成详细描述。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI图片描述生成 - 江湖小站-ZenTools', crumbCur:'AI图片描述生成', eyebrow:'AI工具', h1Grad:'AI图片描述生成', h1Sub:'上传图片生成详细描述', pageDesc:'AI智能分析图片并生成详细描述，生成图片描述文字，适用于AI绘画提示词生成，免费在线使用。', cardTitle:'📤 上传图片', cardResult:'📝 生成描述', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'生成的图片描述将显示在这里', uploadPrompt:'点击或拖拽上传图片', uploadSub:'支持JPG、PNG、WEBP格式，最大10MB', btnAnalyze:'🔍 分析图片', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderPrompt:'也可在此直接输入图片URL', faqQ1:'AI图片描述生成器有什么用？', faqA1:'可以将图片转换为详细的文字描述，适用于AI绘画提示词生成、图片内容分析、无障碍阅读等场景。', faqQ2:'支持哪些图片格式？', faqA2:'支持JPG、PNG、WEBP等常见图片格式，单张图片不超过10MB。', faqQ3:'生成的描述可以用于AI绘画吗？', faqA3:'可以。生成的描述包含了丰富的视觉元素信息，可以直接作为Midjourney、Stable Diffusion等AI绘画工具的提示词。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Image Prompt Generator | ZenTools', crumbCur:'AI Image Prompt Generator', eyebrow:'AI TOOLS', h1Grad:'AI Image Prompt Generator', h1Sub:'Upload Image to Generate Description', pageDesc:'AI analyzes images and generates detailed descriptions. Useful for AI art prompts. Free to use online.', cardTitle:'📤 Upload Image', cardResult:'📝 Generated Description', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Generated image description will appear here', uploadPrompt:'Click or drag to upload image', uploadSub:'Supports JPG, PNG, WEBP, max 10MB', btnAnalyze:'🔍 Analyze Image', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderPrompt:'Or paste image URL here', faqQ1:'What is the AI image prompt generator used for?', faqA1:'Converts images into detailed text descriptions. Useful for AI art prompts, image content analysis, accessibility.', faqQ2:'What image formats are supported?', faqA2:'Supports JPG, PNG, WEBP and other common formats, up to 10MB per image.', faqQ3:'Can the generated description be used for AI art?', faqA3:'Yes. The description contains rich visual elements and can be used as prompts for Midjourney, Stable Diffusion, etc.'},
+  ja:{pageTitle:'AI画像記述生成 | ZenTools', crumbCur:'AI画像記述生成', eyebrow:'AIツール', h1Grad:'AI画像記述生成', h1Sub:'画像をアップロードして記述を生成', pageDesc:'AIが画像を自動的に分析し、詳細な記述を生成。AI絵画のプロンプト生成にも活用。オンラインで無料利用可能。', cardTitle:'📤 画像アップロード', cardResult:'📝 生成記述', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'画像記述がここに表示されます', uploadPrompt:'クリックまたはドラッグして画像をアップロード', uploadSub:'JPG、PNG、WEBP対応、最大10MB', btnAnalyze:'🔍 画像分析', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderPrompt:'または画像URLを貼り付けてください', faqQ1:'AI画像記述生成ツールは何に役立ちますか？', faqA1:'画像を詳細なテキスト記述に変換します。AI絵画のプロンプト生成、画像内容分析、アクセシビリティなどに役立ちます。', faqQ2:'どの画像形式に対応していますか？', faqA2:'JPG、PNG、WEBPなど一般的な形式に対応、1画像あたり最大10MB。', faqQ3:'生成された記述をAI絵画に使用できますか？', faqA3:'はい。記述には豊富な視覚要素情報が含まれており、MidjourneyやStable Diffusionなどのプロンプトとして直接使用できます。'},
+  vi:{pageTitle:'Tạo prompt hình ảnh AI | ZenTools', crumbCur:'Tạo prompt hình ảnh AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Tạo prompt hình ảnh AI', h1Sub:'Tải ảnh lên để tạo mô tả', pageDesc:'AI phân tích hình ảnh và tạo mô tả chi tiết. Hữu ích cho gợi ý hình ảnh AI. Miễn phí sử dụng.', cardTitle:'📤 Tải ảnh lên', cardResult:'📝 Mô tả tạo ra', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Mô tả hình ảnh sẽ hiển thị ở đây', uploadPrompt:'Nhấp hoặc kéo thả để tải ảnh lên', uploadSub:'Hỗ trợ JPG, PNG, WEBP, tối đa 10MB', btnAnalyze:'🔍 Phân tích ảnh', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderPrompt:'Hoặc dán URL ảnh vào đây', faqQ1:'Công cụ tạo prompt hình ảnh AI dùng làm gì?', faqA1:'Chuyển đổi hình ảnh thành mô tả văn bản chi tiết. Hữu ích cho gợi ý hình ảnh AI, phân tích nội dung ảnh, truy cập.', faqQ2:'Hỗ trợ những định dạng ảnh nào?', faqA2:'Hỗ trợ JPG, PNG, WEBP và các định dạng phổ biến khác, tối đa 10MB mỗi ảnh.', faqQ3:'Có thể dùng mô tả tạo ra cho AI art không?', faqA3:'Có. Mô tả chứa nhiều thông tin trực quan và có thể dùng làm prompt cho Midjourney, Stable Diffusion.'}
+};
+</script>
 </head>
 <body>
-<div class="header"><a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">🎯</span> AI 图片提示词</a><div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</div>
-<div class="main">
-  <div class="card">
-    <h2 data-i18n="_💡_描述你想要的画面">💡 描述你想要的画面</h2>
-    <textarea id="sceneInput" placeholder="用自然语言描述你想要的画面，例如：&#10;一只白色的小猫在花园里追逐蝴蝶，阳光明媚，有各种颜色的花朵" rows="4"></textarea>
-    <div class="toolbar">
-      <select id="promptPlatform"><option value="midjourney">Midjourney</option><option value="sd">Stable Diffusion</option><option value="dalle">DALL-E 3</option></select>
-      <select id="promptMode"><option value="generate">生成新提示词</option><option value="optimize">优化已有提示词</option><option value="expand">扩展为详细版</option></select>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI图片描述生成</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI图片描述生成</span><br/><span data-i18n="h1Sub">上传图片生成详细描述</span></h1><p data-i18n="pageDesc">AI智能分析图片并生成详细描述，生成图片描述文字，适用于AI绘画提示词生成，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div class="grid">
+  <div class="panel">
+    <div class="panel-header"><h2 data-i18n="cardTitle">📤 上传图片</h2></div>
+    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+      <div class="icon">📤</div>
+      <p data-i18n="uploadPrompt">点击或拖拽上传图片</p>
+      <p data-i18n="uploadSub">支持JPG、PNG、WEBP格式，最大10MB</p>
     </div>
-    <button class="btn btn-primary" onclick="generatePrompt()" data-i18n="btn">🎯 生成提示词</button>
+    <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFileUpload(event)">
+    <img id="previewImg" class="preview-img" style="display:none">
+    <div class="form-group" style="margin-top:16px">
+      <label data-i18n="placeholderPrompt">也可在此直接输入图片URL</label>
+      <input type="text" id="imageUrl" placeholder="https://example.com/image.jpg" style="width:100%">
+    </div>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeImage()"><span>🔍</span><span data-i18n="btnAnalyze">🔍 分析图片</span></button>
+      <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+    </div>
   </div>
-  <div class="loading" id="loading"><div class="spinner"></div> AI 正在生成提示词...</div>
-  <div class="result-box" id="resultBox"><h2 data-i18n="_✨_生成的提示词">✨ 生成的提示词</h2><div id="promptResult" class="result-content"></div><div style="margin-top:12px;display:flex;gap:8px"><button class="btn btn-secondary btn-sm" onclick="copyPrompt()" data-i18n="btn">📋 复制</button><button class="btn btn-secondary btn-sm" onclick="useAsInput()" data-i18n="btn">🔄 继续优化</button></div></div>
+  <div class="panel">
+    <div class="panel-header">
+      <h2 data-i18n="cardResult">📝 生成描述</h2>
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
+    </div>
+    <div class="output empty" id="output"><p data-i18n="placeholder">生成的图片描述将显示在这里</p></div>
+  </div>
 </div>
+<div style="margin-top:16px"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button></div>
 <div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal"><h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button></div></div>
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4-vision">GPT-4 Vision</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
 </div>
-<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
-<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
-<script>const SK='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
-function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
-function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
-let lastResult='';
-const exampleTags=['赛博朋克城市夜景','水墨山水画','日系动漫少女','写实人物肖像','奇幻森林场景','产品摄影布光'];
-function generatePrompt(){const sc=document.getElementById('sceneInput').value.trim();if(!sc){alert('请输入画面描述');return}const s=gs();if(!s.apiKey){ts();return}
-const pl=document.getElementById('promptPlatform');const pm=document.getElementById('promptMode');
-const platLabels={midjourney:'Midjourney',sd:'Stable Diffusion',dalle:'DALL-E 3'};
-const modeLabels={generate:'生成新的AI绘画提示词',optimize:'优化用户提供的提示词，使其更精确有效',expand:'将简短的描述扩展为详细的提示词'};
-const btn=event.target;const l=document.getElementById('loading');const r=document.getElementById('resultBox');btn.disabled=true;l.classList.add('show');r.classList.remove('show')
-const p='你是一个AI绘画提示词专家，擅长为'+platLabels[pl.value]+'写提示词。请'+modeLabels[pm.value]+'。\n\n用户描述：'+sc+'\n\n请直接输出优化后的英文提示词（如有必要可附带中文解释）。如果是Midjourney，请提供多个版本。'
-fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:800})})
-.then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(d=>{lastResult=d.choices[0].message.content;document.getElementById('promptResult').textContent=lastResult;r.classList.add('show')})
-.catch(e=>{document.getElementById('promptResult').textContent='请求失败：'+e;r.classList.add('show')}).finally(()=>{btn.disabled=false;l.classList.remove('show')})}
-function copyPrompt(){if(lastResult)navigator.clipboard.writeText(lastResult).then(()=>alert('已复制'))}
-function useAsInput(){if(lastResult)document.getElementById('sceneInput').value=lastResult;document.getElementById('promptMode').value='optimize'}
-function useExample(tag){document.getElementById('sceneInput').value=tag;document.getElementById('promptMode').value='generate'}
-ls();
-</script>
-
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href "/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
 </script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>
+const SK='zentools_ai_settings';
+let imageDataUrl='';
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+function handleFileUpload(e){const f=e.target.files[0];if(!f)return;if(f.size>10*1024*1024){alert('图片不能超过10MB');return}const reader=new FileReader();reader.onload=function(ev){imageDataUrl=ev.target.result;document.getElementById('previewImg').src=imageDataUrl;document.getElementById('previewImg').style.display='block';document.getElementById('uploadArea').style.display='none';document.getElementById('imageUrl').value=''};reader.readAsDataURL(f)}
+const uploadArea=document.getElementById('uploadArea');
+uploadArea.addEventListener('dragover',function(e){e.preventDefault();this.classList.add('dragover')});
+uploadArea.addEventListener('dragleave',function(){this.classList.remove('dragover')});
+uploadArea.addEventListener('drop',function(e){e.preventDefault();this.classList.remove('dragover');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/')){const event={target:{files:[f]}};handleFileUpload(event)}});
+async function analyzeImage(){const s=getSettings();if(!s.apiKey){toggleSettings();return}let src=imageDataUrl||document.getElementById('imageUrl').value.trim();if(!src){alert('请先上传图片或输入图片URL');return}const output=document.getElementById('output');const btn=document.getElementById('analyzeBtn');btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在分析图片...</p>';try{const messages=[{role:'user',content:[{type:'text',text:'请详细描述这张图片的内容，包括主体、背景、颜色、风格、构图、光线等。如果适合用作AI绘画的提示词，请直接输出英文prompt。用中文描述图片内容即可。'},{type:'image_url',image_url:{url:src}}]}];const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages,temperature:0.5,max_tokens:1024})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const text=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML='<div style="display:flex;gap:8px;margin-bottom:12px"><span class="tag">📝 图片描述</span></div><div style="white-space:pre-wrap">'+esc(text)+'</div>'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">分析失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){imageDataUrl='';document.getElementById('fileInput').value='';document.getElementById('previewImg').style.display='none';document.getElementById('uploadArea').style.display='block';document.getElementById('imageUrl').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="placeholder">生成的图片描述将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('生成的图片描述将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

@@ -1,119 +1,137 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
-<title data-i18n="pageTitle">AI 思维导图 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<meta name="description" content="AI 智能生成思维导图，将想法可视化组织，提升工作效率，免费在线使用。" />
-<style>*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
-body{font-family:'Inter',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
-.main{flex:1;max-width:960px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-input[type="text"]{width:100%;padding:14px 18px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:15px;transition:border-color .3s;margin-bottom:12px}input:focus{outline:none;border-color:var(--accent)}
-select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;min-width:140px}select:focus{outline:none;border-color:var(--accent)}
-.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-.mindmap-container{overflow:auto;min-height:400px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-top:16px;display:none}
-.mindmap-container.show{display:block}
-.mindmap-node{position:relative;margin:6px 0}.mindmap-root{font-size:18px;font-weight:700;color:var(--accent);padding:10px 16px;background:linear-gradient(135deg,rgba(59,130,246,0.15),rgba(139,92,246,0.15));border-radius:var(--radius);display:inline-block;margin-bottom:12px}
-.mindmap-level1{margin-left:24px;border-left:2px solid var(--accent);padding-left:16px}.mindmap-level1>.node-title{font-size:15px;font-weight:600;color:var(--text);padding:6px 0;display:flex;align-items:center;gap:6px}.mindmap-level1>.node-title::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent);display:inline-block}
-.mindmap-level2{margin-left:24px;border-left:1px dashed var(--border);padding-left:14px}.mindmap-level2>.node-title{font-size:13px;color:var(--muted);padding:4px 0;display:flex;align-items:center;gap:6px}.mindmap-level2>.node-title::before{content:'•';color:var(--accent2);font-size:16px}
-.mindmap-level3{margin-left:20px}.mindmap-level3>.node-title{font-size:12px;color:var(--muted);padding:2px 0;opacity:0.7}.mindmap-level3>.node-title::before{content:'- ';color:var(--muted)}
-.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}
-.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}
-.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI思维导图 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI根据主题生成结构化思维导图数据，支持多种思维结构，免费在线使用。"/>
+<meta name="keywords" content="AI思维导图,思维结构,AI组织,知识图谱,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-mind-map.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI思维导图 - ZenTools"/>
+<meta property="og:description" content="AI根据主题生成结构化思维导图数据。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-mind-map.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Mind Map | ZenTools"/>
+<meta name="twitter:description" content="AI根据主题生成结构化思维导图数据。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
+textarea{width:100%;min-height:180px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:'Fira Code','Consolas',monospace;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:20px;font-family:'Fira Code','Consolas',monospace;font-size:14px;line-height:1.6;max-height:500px;overflow-y:auto;white-space:pre-wrap}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
+.mindmap-tree{padding-left:20px;border-left:2px solid var(--border)}
+.mindmap-node{padding:6px 0;font-size:14px}
+.mindmap-node.root{font-size:16px;font-weight:600;color:var(--cyan)}
+.mindmap-node.branch{font-size:14px;font-weight:500;color:var(--purple)}
+.mindmap-node.leaf{font-size:13px;color:var(--text)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
 </style>
-<script>var pageTranslations={zh: {pageTitle: 'AI 思维导图 - 江湖小站-ZenTools', metaDesc: 'AI 智能生成思维导图结构，支持多种主题和导出格式', _💡_输入主题: '💡 输入主题', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\'+e.message+\''}, en: {pageTitle: 'AI 思维导图 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _输入主题: '💡 输入主题', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\\'}, ja: {pageTitle: 'AI 思维导图 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _💡_输入主题: '💡 输入主题', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\'+e.message+\''}, vi: {pageTitle: 'AI 思维导图 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _💡_输入主题: '💡 输入主题', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', markdown: '📋 复制为 Markdown', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '例如：量子计算入门、Python学习路线、项目管理方法论', placeholder_sk: 'sk-...', e_messag: '请求失败：\'+e.message+\''};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI思维导图如何生成？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"输入主题或文本内容，AI会自动分析并生成结构化的思维导图数据。"}},{"@type":"Question","name":"生成的思维导图可以导出吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以。支持JSON格式导出，可以导入到主流思维导图软件中使用。"}},{"@type":"Question","name":"AI思维导图适用于哪些场景？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"适用于头脑风暴、学习计划、项目规划、知识整理、会议纪要等场景。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI思维导图","applicationCategory":"AIApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI根据主题生成结构化思维导图数据。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI思维导图 - 江湖小站-ZenTools', crumbCur:'AI思维导图', eyebrow:'AI工具', h1Grad:'AI思维导图', h1Sub:'智能生成结构化思维', pageDesc:'AI根据主题生成结构化思维导图数据，支持多种思维结构，免费在线使用。', cardTitle:'✍️ 输入主题或内容', cardResult:'🗺️ 思维导图', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'输入主题，例如：项目管理、学习计划、产品介绍...', placeholderDepth:'层级深度', btnGenerate:'🗺️ 生成思维导图', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', emptyResult:'思维导图将显示在这里', faqQ1:'AI思维导图如何生成？', faqA1:'输入主题或文本内容，AI会自动分析并生成结构化的思维导图数据。', faqQ2:'生成的思维导图可以导出吗？', faqA2:'可以。支持JSON格式导出，可以导入到主流思维导图软件中使用。', faqQ3:'AI思维导图适用于哪些场景？', faqA3:'适用于头脑风暴、学习计划、项目规划、知识整理、会议纪要等场景。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Mind Map | ZenTools', crumbCur:'AI Mind Map', eyebrow:'AI TOOLS', h1Grad:'AI Mind Map', h1Sub:'Intelligent Structured Thinking', pageDesc:'AI generates structured mind map data from topics. Free to use online.', cardTitle:'✍️ Input Topic', cardResult:'🗺️ Mind Map', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Enter a topic, e.g., Project Management, Study Plan, Product Introduction...', placeholderDepth:'Depth Level', btnGenerate:'🗺️ Generate Mind Map', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', emptyResult:'Mind map will appear here', faqQ1:'How is AI mind map generated?', faqA1:'Input a topic or text content, AI analyzes and generates structured mind map data.', faqQ2:'Can the mind map be exported?', faqA2:'Yes. Supports JSON export for import into main mind mapping software.', faqQ3:'What scenarios is AI mind map suitable for?', faqA3:'Suitable for brainstorming, study plans, project planning, knowledge organization, meeting minutes.'},
+  ja:{pageTitle:'AIマインドマップ | ZenTools', crumbCur:'AIマインドマップ', eyebrow:'AIツール', h1Grad:'AIマインドマップ', h1Sub:'インテリジェント構造化思考', pageDesc:'AIがテーマに基づいて構造化されたマインドマップデータを生成。オンラインで無料利用可能。', cardTitle:'✍️ テーマ入力', cardResult:'🗺️ マインドマップ', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'テーマを入力してください。例：プロジェクト管理、学習計画、製品紹介...', placeholderDepth:'深さレベル', btnGenerate:'🗺️ マインドマップ生成', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', emptyResult:'マインドマップがここに表示されます', faqQ1:'AIマインドマップはどのように生成されますか？', faqA1:'テーマやテキストを入力すると、AIが分析して構造化されたマインドマップデータを生成します。', faqQ2:'マインドマップはエクスポートできますか？', faqA2:'はい。JSON形式でエクスポートでき、主流のマインドマップソフトウェアにインポートできます。', faqQ3:'AIマインドマップはどのシーンに適していますか？', faqA3:'ブレインストーミング、学習計画、プロジェクト計画、知識整理、議事録などに適しています。'},
+  vi:{pageTitle:'Mindmap AI | ZenTools', crumbCur:'Mindmap AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Mindmap AI', h1Sub:'Tư duy có cấu trúc thông minh', pageDesc:'AI tạo dữ liệu mindmap có cấu trúc từ chủ đề. Miễn phí sử dụng.', cardTitle:'✍️ Nhập chủ đề', cardResult:'🗺️ Mindmap', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Nhập chủ đề, ví dụ: Quản lý dự án, Kế hoạch học tập, Giới thiệu sản phẩm...', placeholderDepth:'Độ sâu', btnGenerate:'🗺️ Tạo mindmap', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', emptyResult:'Mindmap sẽ hiển thị ở đây', faqQ1:'Mindmap AI được tạo như thế nào?', faqA1:'Nhập chủ đề hoặc văn bản, AI phân tích và tạo dữ liệu mindmap có cấu trúc.', faqQ2:'Có thể xuất mindmap không?', faqA2:'Có. Hỗ trợ xuất JSON để nhập vào phần mềm mindmap.', faqQ3:'Mindmap AI phù hợp với những tình huống nào?', faqA3:'Phù hợp cho brainstorming, kế hoạch học tập, lập kế hoạch dự án, tổ chức kiến thức, biên bản họp.'}
+};
+</script>
 </head>
 <body>
-<div class="header">
-  <a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">🧠</span> AI 思维导图</a>
-  <div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div>
-<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</div>
-<div class="main">
-  <div class="card">
-    <h2 data-i18n="_💡_输入主题">💡 输入主题</h2>
-    <input type="text" id="topicInput" placeholder="例如：量子计算入门、Python学习路线、项目管理方法论" data-i18n-placeholder="placeholder_" />
-    <div class="toolbar">
-      <select id="depth"><option value="2">浅层（2级）</option><option value="3" selected>中等（3级）</option><option value="4">深入（4级）</option></select>
-      <select id="style"><option value="general">通用知识</option><option value="academic">学术研究</option><option value="business">商业分析</option><option value="learning">学习规划</option><option value="project">项目管理</option></select>
-    </div>
-    <button class="btn btn-primary" id="generateBtn" onclick="generateMindMap()" data-i18n="btn">🧠 生成思维导图</button>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI思维导图</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI思维导图</span><br/><span data-i18n="h1Sub">智能生成结构化思维</span></h1><p data-i18n="pageDesc">AI根据主题生成结构化思维导图数据，支持多种思维结构，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div class="form-group" style="grid-column:span 2"><label data-i18n="cardTitle">✍️ 输入主题或内容</label><input type="text" id="topic" data-i18n-placeholder="placeholder" placeholder="输入主题，例如：项目管理、学习计划、产品介绍..."></div>
+    <div class="form-group"><label data-i18n="placeholderDepth">层级深度</label><select id="depth"><option value="2">2层</option><option value="3">3层</option><option value="4">4层</option></select></div>
   </div>
-
-  <div class="loading" id="loading"><div class="spinner"></div> AI 正在生成思维导图...</div>
-
-  <div class="mindmap-container" id="mindmapContainer">
-    <div id="mindmapContent"></div>
-    <div class="toolbar" style="margin-top:16px">
-      <button class="btn btn-secondary btn-sm" onclick="copyAsMarkdown()" data-i18n="markdown">📋 复制为 Markdown</button>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>🗺️</span><span data-i18n="btnGenerate">🗺️ 生成思维导图</span></button>
+    <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button>
+  </div>
+  <div class="panel">
+    <div class="panel-header">
+      <h2 data-i18n="cardResult">🗺️ 思维导图</h2>
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
     </div>
+    <div class="output empty" id="output"><p data-i18n="emptyResult">思维导图将显示在这里</p></div>
   </div>
 </div>
-
 <div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal">
-    <h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%"></div>
-    <div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button></div>
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
   </div>
 </div>
-<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
-<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
-
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
 <script>
 const SK='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
-function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
-function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
-let lastRaw='';
-
-function generateMindMap(){
-  const topic=document.getElementById('topicInput').value.trim();
-  if(!topic){alert('请输入主题');return}
-  const s=gs();if(!s.apiKey){ts();return}
-  const depth=document.getElementById('depth').value;
-  const style=document.getElementById('style').value;
-  const styleLabels={general:'通用知识框架',academic:'学术研究框架',business:'商业分析框架',learning:'学习规划框架',project:'项目管理框架'};
-  const btn=document.getElementById('generateBtn');const l=document.getElementById('loading');const mc=document.getElementById('mindmapContainer');
-  btn.disabled=true;l.classList.add('show');mc.classList.remove('show');
-  const p='你是一个思维导图专家。请为主题「'+topic+'」生成一个'+styleLabels[style]+'的思维导图，深度为'+depth+'级。\n\n请严格按以下 Markdown 格式输出，只输出内容不要其他解释：\n# '+topic+'\n## 一级分支1\n### 二级分支1.1\n#### 三级分支1.1.1（如果需要）\n### 二级分支1.2\n## 一级分支2\n...';
-  fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:1500})})
-  .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
-  .then(d=>{lastRaw=d.choices[0].message.content;renderMindMap(lastRaw);mc.classList.add('show')})
-  .catch(e=>{document.getElementById('mindmapContent').innerHTML='<span style="color:var(--error)" data-i18n="e_messag">请求失败：'+e.message+'</span>';mc.classList.add('show')})
-  .finally(()=>{btn.disabled=false;l.classList.remove('show')})
-}
-
-function renderMindMap(md){
-  const lines=md.split('\n').filter(l=>l.trim());
-  let html='';let inCode=false;
-  for(const line of lines){
-    if(line.startsWith('```')){inCode=!inCode;continue}
-    if(inCode) continue;
-    const trimmed=line.trim();
-    if(trimmed.startsWith('# ')){html+='<div class="mindmap-root">'+esc(trimmed.slice(2))+'</div>';continue}
-    if(trimmed.startsWith('## ')){html+='<div class="mindmap-level1"><div class="node-title">'+esc(trimmed.slice(3))+'</div>';continue}
-    if(trimmed.startsWith('### ')){html+='<div class="mindmap-level2"><div class="node-title">'+esc(trimmed.slice(4))+'</div>';continue}
-    if(trimmed.startsWith('#### ')){html+='<div class="mindmap-level3"><div class="node-title">'+esc(trimmed.slice(5))+'</div></div>';continue}
-    if(trimmed.startsWith('- ')||trimmed.startsWith('* ')){html+='<div class="mindmap-level3"><div class="node-title">'+esc(trimmed.slice(2))+'</div></div>';continue}
-  }
-  document.getElementById('mindmapContent').innerHTML=html;
-}
-
-function copyAsMarkdown(){if(lastRaw)navigator.clipboard.writeText(lastRaw).then(()=>alert('已复制为 Markdown'))}
-function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
-ls();
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function generate(){const topic=document.getElementById('topic').value.trim();const depth=document.getElementById('depth').value;const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!topic){alert('请输入主题');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在生成思维导图...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个思维导图专家。请根据主题生成结构化的思维导图数据，以JSON格式输出。'},{role:'user',content:'请为主题「'+topic+'」生成思维导图，深度为'+depth+'层。\n\n请以JSON格式输出，格式如下：\n{\n  "topic": "主题",\n  "branches": [\n    {\n      "topic": "分支主题",\n      "subtopics": ["子主题1", "子主题2"]\n    }\n  ]\n}'},],temperature:0.7,max_tokens:2048})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();let content=data.choices[0].message.content;content=content.replace(/```json\s*/g,'').replace(/```\s*/g,'');const mm=JSON.parse(content);output.classList.remove('empty');output.innerHTML=renderMindMap(mm)}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function renderMindMap(mm){let html='<div class="mindmap-node root">📌 '+esc(mm.topic)+'</div>';if(mm.branches){html+='<div class="mindmap-tree">';mm.branches.forEach(function(b){html+='<div class="mindmap-node branch">'+esc(b.topic)+'</div>';if(b.subtopics){html+='<div class="mindmap-tree">';b.subtopics.forEach(function(s){html+='<div class="mindmap-node leaf">• '+esc(s)+'</div>'});html+='</div>'}});html+='</div>'}return html}
+function clearAll(){document.getElementById('topic').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">思维导图将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('思维导图将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
 </script>
-
-<script>
-(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
-</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

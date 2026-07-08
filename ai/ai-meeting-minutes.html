@@ -1,67 +1,131 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
-<title data-i18n="pageTitle">AI 会议纪要 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<meta name="description" content="AI 智能生成会议纪要，自动提取讨论要点和行动项，免费在线使用。" />
-<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
-body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
-.main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-textarea{width:100%;min-height:200px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;resize:vertical;line-height:1.6;margin-bottom:12px}textarea:focus{outline:none;border-color:var(--accent)}input{width:100%;padding:12px 16px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;margin-bottom:12px}input:focus{outline:none;border-color:var(--accent)}select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px}select:focus{outline:none;border-color:var(--accent)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}
-.result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}.result-box.show{display:block}.result-content{font-size:14px;line-height:1.9;white-space:pre-wrap;background:rgba(0,0,0,0.2);padding:16px;border-radius:8px;margin-top:10px;max-height:600px;overflow-y:auto}
-.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}
-.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI会议纪要 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。"/>
+<meta name="keywords" content="AI会议纪要,会议总结,会议记录,智能纪要,AI写作,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-meeting-minutes.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI会议纪要 - ZenTools"/>
+<meta property="og:description" content="AI智能生成会议纪要，自动提取关键信息和行动项。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-meeting-minutes.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Meeting Minutes | ZenTools"/>
+<meta name="twitter:description" content="AI智能生成会议纪要，自动提取关键信息和行动项。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:200px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:200px;white-space:pre-wrap;line-height:1.8}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
+.section-h{font-size:16px;color:var(--cyan);margin:16px 0 8px;display:flex;align-items:center;gap:6px}
+input[type="text"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
 </style>
-<script>var pageTranslations={zh: {pageTitle: 'AI 会议纪要 - 江湖小站-ZenTools', metaDesc: 'AI 智能将会议录音或文字整理为结构化会议纪要', _📝_会议信息: '📝 会议信息', _📄_会议纪要: '📄 会议纪要', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '粘贴会议记录/讨论内容...\n\n支持粘贴：\n• 会议录音转写的文字\n• 会议讨论记录\n• 聊天/邮件讨论内容', placeholder_sk: 'sk-...'}, en: {pageTitle: 'AI 会议纪要 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _会议信息: '📝 会议信息', _会议纪要: '📄 会议纪要', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '粘贴会议记录/讨论内容...\\n\\n支持粘贴：\\n• 会议录音转写的文字\\n• 会议讨论记录\\n• 聊天/邮件讨论内容', placeholder_sk: 'sk-...'}, ja: {pageTitle: 'AI 会议纪要 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _📝_会议信息: '📝 会议信息', _📄_会议纪要: '📄 会议纪要', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '粘贴会议记录/讨论内容...\n\n支持粘贴：\n• 会议录音转写的文字\n• 会议讨论记录\n• 聊天/邮件讨论内容', placeholder_sk: 'sk-...'}, vi: {pageTitle: 'AI 会议纪要 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _📝_会议信息: '📝 会议信息', _📄_会议纪要: '📄 会议纪要', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '粘贴会议记录/讨论内容...\n\n支持粘贴：\n• 会议录音转写的文字\n• 会议讨论记录\n• 聊天/邮件讨论内容', placeholder_sk: 'sk-...'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI会议纪要如何生成？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"输入会议录音转写的文本、会议讨论记录或笔记，AI会自动提取关键信息并生成结构化纪要。"}},{"@type":"Question","name":"生成的会议纪要包含哪些内容？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"包含会议主题、参会人员、讨论要点、决策事项、行动项和下一步计划等。"}},{"@type":"Question","name":"可以自定义纪要格式吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以。AI会生成结构化纪要，您也可以提出格式要求。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI会议纪要","applicationCategory":"OtherApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI智能生成会议纪要。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI会议纪要 - 江湖小站-ZenTools', crumbCur:'AI会议纪要', eyebrow:'AI工具', h1Grad:'AI会议纪要', h1Sub:'智能生成会议总结', pageDesc:'AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。', cardTitle:'📝 输入会议内容', cardResult:'📋 会议纪要', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'在此粘贴会议录音转写文本、讨论记录或会议笔记...', btnGenerate:'📋 生成纪要', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderTopic:'会议主题', emptyResult:'会议纪要将显示在这里', faqQ1:'AI会议纪要如何生成？', faqA1:'输入会议录音转写的文本、会议讨论记录或笔记，AI会自动提取关键信息并生成结构化纪要。', faqQ2:'生成的会议纪要包含哪些内容？', faqA2:'包含会议主题、参会人员、讨论要点、决策事项、行动项和下一步计划等。', faqQ3:'可以自定义纪要格式吗？', faqA3:'可以。AI会生成结构化纪要，您也可以提出格式要求。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Meeting Minutes | ZenTools', crumbCur:'AI Meeting Minutes', eyebrow:'AI TOOLS', h1Grad:'AI Meeting Minutes', h1Sub:'Smart Meeting Summaries', pageDesc:'AI generates meeting minutes, extracts key info, discussion points and action items. Free to use online.', cardTitle:'📝 Input Meeting Content', cardResult:'📋 Meeting Minutes', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Paste meeting transcript, discussion notes, or meeting notes here...', btnGenerate:'📋 Generate Minutes', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderTopic:'Meeting Topic', emptyResult:'Meeting minutes will appear here', faqQ1:'How are AI meeting minutes generated?', faqA1:'Input meeting transcript, discussion records or notes. AI extracts key info and generates structured minutes.', faqQ2:'What does the generated meeting minutes contain?', faqA2:'Includes meeting topic, attendees, discussion points, decisions, action items and next steps.', faqQ3:'Can I customize the minutes format?', faqA3:'Yes. AI generates structured minutes, and you can also request specific formats.'},
+  ja:{pageTitle:'AI議事録生成 | ZenTools', crumbCur:'AI議事録生成', eyebrow:'AIツール', h1Grad:'AI議事録生成', h1Sub:'インテリジェント議事録生成', pageDesc:'AIが議事録を自動的に生成。重要な情報、討論ポイントとアクション項目を抽出。オンラインで無料利用可能。', cardTitle:'📝 会議内容入力', cardResult:'📋 議事録', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'会議の音声書き起こし、討論記録やメモを貼り付けてください...', btnGenerate:'📋 議事録生成', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderTopic:'会議テーマ', emptyResult:'議事録がここに表示されます', faqQ1:'AI議事録はどのように生成されますか？', faqA1:'会議の音声書き起こし、討論記録やメモを入力すると、AIが重要な情報を抽出して構造化された議事録を生成します。', faqQ2:'生成された議事録には何が含まれますか？', faqA2:'会議テーマ、参加者、討論ポイント、決定事項、アクション項目、次のステップなど。', faqQ3:'議事録のフォーマットはカスタマイズできますか？', faqA3:'はい。AIが構造化された議事録を生成し、フォーマット要件も指定できます。'},
+  vi:{pageTitle:'Biên bản họp AI | ZenTools', crumbCur:'Biên bản họp AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Biên bản họp AI', h1Sub:'Tạo biên bản thông minh', pageDesc:'AI tạo biên bản họp, trích xuất thông tin quan trọng, nội dung thảo luận và hành động. Miễn phí sử dụng.', cardTitle:'📝 Nhập nội dung họp', cardResult:'📋 Biên bản họp', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Dán bản ghi âm họp, ghi chép thảo luận hoặc ghi chú cuộc họp...', btnGenerate:'📋 Tạo biên bản', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderTopic:'Chủ đề họp', emptyResult:'Biên bản họp sẽ hiển thị ở đây', faqQ1:'Biên bản họp AI được tạo như thế nào?', faqA1:'Nhập văn bản chuyển lời thoại, ghi chép thảo luận hoặc ghi chú. AI trích xuất thông tin quan trọng và tạo biên bản có cấu trúc.', faqQ2:'Biên bản họp tạo ra bao gồm những gì?', faqA2:'Bao gồm chủ đề họp, người tham dự, nội dung thảo luận, quyết định, hành động và kế hoạch tiếp theo.', faqQ3:'Có thể tùy chỉnh định dạng biên bản không?', faqA3:'Có. AI tạo biên bản có cấu trúc, bạn cũng có thể yêu cầu định dạng cụ thể.'}
+};
+</script>
 </head>
 <body>
-<div class="header"><a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">📋</span> AI 会议纪要</a><div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</div>
-<div class="main">
-  <div class="card">
-    <h2 data-i18n="_📝_会议信息">📝 会议信息</h2>
-    <input type="text" id="meetingTitle" placeholder="会议主题 / 标题" data-i18n-placeholder="placeholder_" />
-    <div class="toolbar">
-      <input type="text" id="meetingParticipants" placeholder="参会人员（逗号分隔）" data-i18n-placeholder="placeholder_" style="flex:2" />
-      <select id="meetingFormat"><option value="detailed">详细纪要</option><option value="concise">简洁纪要</option><option value="action">行动项纪要</option></select>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href "/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI会议纪要</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI会议纪要</span><br/><span data-i18n="h1Sub">智能生成会议总结</span></h1><p data-i18n="pageDesc">AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div class="form-group"><label data-i18n="placeholderTopic">会议主题</label><input type="text" id="topic" placeholder="请输入会议主题"></div>
+<div class="grid">
+  <div class="panel">
+    <div class="panel-header"><h2 data-i18n="cardTitle">📝 输入会议内容</h2></div>
+    <textarea id="text" data-i18n-placeholder="placeholder"></textarea>
+    <div style="display:flex;gap:10px;margin-top:16px">
+      <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>📋</span><span data-i18n="btnGenerate">📋 生成纪要</span></button>
+      <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
     </div>
-    <textarea id="meetingInput" placeholder="粘贴会议记录/讨论内容...&#10;&#10;支持粘贴：&#10;• 会议录音转写的文字&#10;• 会议讨论记录&#10;• 聊天/邮件讨论内容" rows="8"></textarea>
-    <button class="btn btn-primary" onclick="generateMinutes()" data-i18n="btn">📋 生成会议纪要</button>
   </div>
-  <div class="loading" id="loading"><div class="spinner"></div> AI 正在整理会议纪要...</div>
-  <div class="result-box" id="resultBox"><h2 data-i18n="_📄_会议纪要">📄 会议纪要</h2><div id="minutesResult" class="result-content"></div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="copyMinutes()" data-i18n="btn">📋 复制</button><button class="btn btn-secondary btn-sm" onclick="downloadMinutes()" data-i18n="btn">⬇️ 下载</button></div></div>
+  <div class="panel">
+    <div class="panel-header">
+      <h2 data-i18n="cardResult">📋 会议纪要</h2>
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
+    </div>
+    <div class="output empty" id="output"><p data-i18n="emptyResult">会议纪要将显示在这里</p></div>
+  </div>
 </div>
+<div style="margin-top:16px"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button></div>
 <div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal"><h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button></div></div>
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
 </div>
-<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
-<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
-<script>const SK='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
-function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
-function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
-let lastResult='';
-function generateMinutes(){const content=document.getElementById('meetingInput').value.trim();if(!content){alert('请输入会议内容');return}const s=gs();if(!s.apiKey){ts();return}
-const title=document.getElementById('meetingTitle').value.trim()||'未命名会议';const participants=document.getElementById('meetingParticipants').value.trim();const fmt=document.getElementById('meetingFormat');
-const fmtLabels={detailed:'详细会议纪要（含讨论要点、意见分歧、决策）',concise:'简洁会议纪要（只包含关键结论和action）',action:'行动项纪要（主要关注待办事项和负责人）'};
-const btn=event.target;const l=document.getElementById('loading');const r=document.getElementById('resultBox');btn.disabled=true;l.classList.add('show');r.classList.remove('show')
-const p='请整理以下会议内容为'+fmtLabels[fmt.value]+'。\n\n会议主题：'+title+(participants?'\n参会人员：'+participants:'')+'\n\n会议记录：\n'+content+'\n\n请用结构化格式输出。'
-fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:2048})})
-.then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(d=>{lastResult=d.choices[0].message.content;document.getElementById('minutesResult').textContent=lastResult;r.classList.add('show')})
-.catch(e=>{document.getElementById('minutesResult').textContent='请求失败：'+e;r.classList.add('show')}).finally(()=>{btn.disabled=false;l.classList.remove('show')})}
-function copyMinutes(){if(lastResult)navigator.clipboard.writeText(lastResult).then(()=>alert('已复制'))}
-function downloadMinutes(){if(!lastResult)return;const blob=new Blob([lastResult],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='会议纪要_'+(document.getElementById('meetingTitle').value.trim()||'未命名')+'.txt';a.click()}
-ls();</script>
-
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
 </script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>
+const SK='zentools_ai_settings';
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function generate(){const text=document.getElementById('text').value.trim();const topic=document.getElementById('topic').value.trim();const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!text){alert('请输入会议内容');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在生成会议纪要...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的会议纪要助手。请根据以下内容生成结构化的会议纪要。'},{role:'user',content:(topic?'会议主题：'+topic+'\n\n':'')+'会议内容：\n\n'+text+'\n\n请生成以下结构的会议纪要：\n1. 会议基本信息\n2. 参会人员（如有）\n3. 讨论要点\n4. 决策事项\n5. 行动项（负责人+截止时间）\n6. 下次会议安排'}],temperature:0.5,max_tokens:2048})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const text=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML=esc(text).replace(/\n/g,'<br>')}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){document.getElementById('text').value='';document.getElementById('topic').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">会议纪要将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('会议纪要将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

@@ -1,67 +1,137 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="manifest" href="/manifest.json" />
-<title data-i18n="pageTitle">AI 小说生成 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<meta name="description" content="AI 智能小说创作助手，支持多种题材和风格" />
-<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#070b18;--surface:rgba(14,22,41,0.8);--surface2:rgba(20,31,55,0.9);--border:rgba(255,255,255,0.06);--text:#f0f4ff;--muted:#8899bb;--accent:#3b82f6;--accent2:#8b5cf6;--radius:14px;--radius-pill:999px}[data-theme="light"]{--bg:#f2f5f9;--surface:rgba(255,255,255,0.85);--surface2:rgba(240,244,254,0.9);--border:rgba(0,0,0,0.06);--text:#0b111e;--muted:#4a5a7a}
-body{font-family:'Inter','PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:16px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}.header .logo{font-weight:800;font-size:18px;display:flex;align-items:center;gap:10px}.header .logo .mark{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:16px}.header .actions{display:flex;gap:8px}
-.main{flex:1;max-width:900px;width:100%;margin:0 auto;padding:24px}.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px}.card h2{font-size:16px;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-textarea{width:100%;min-height:100px;padding:14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;resize:vertical;line-height:1.6;margin-bottom:12px}textarea:focus{outline:none;border-color:var(--accent)}
-select{padding:10px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px}select:focus{outline:none;border-color:var(--accent)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.btn{padding:10px 22px;border-radius:var(--radius-pill);border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(59,130,246,0.4)}.btn-primary:disabled{opacity:0.5;cursor:not-allowed}.btn-secondary{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-secondary:hover{border-color:var(--accent)}.btn-sm{padding:6px 14px;font-size:12px}
-.result-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;display:none}.result-box.show{display:block}.result-content{font-size:15px;line-height:2;white-space:pre-wrap;background:rgba(0,0,0,0.15);padding:20px;border-radius:8px;margin-top:10px;max-height:600px;overflow-y:auto}
-.loading{display:none;align-items:center;gap:8px;color:var(--muted);font-size:14px;padding:12px 0}.loading.show{display:flex}.loading .spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}
-.footer{text-align:center;padding:20px;font-size:12px;color:var(--muted)}.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI小说生成 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI根据主题和设定生成小说内容，支持多种文学风格，在线创作，免费在线使用。"/>
+<meta name="keywords" content="AI小说生成,AI写作,小说创作,AI文学,故事生成,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-novel-generator.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI小说生成 - ZenTools"/>
+<meta property="og:description" content="AI根据主题和设定生成小说内容，支持多种文学风格。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-novel-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Novel Generator | ZenTools"/>
+<meta name="twitter:description" content="AI根据主题和设定生成小说内容，支持多种文学风格。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:120px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+input[type="text"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:300px;max-height:600px;overflow-y:auto;line-height:1.8;font-size:15px}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
+input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input[type="password"]:focus{outline:none;border-color:var(--cyan)}
 </style>
-<script>var pageTranslations={zh: {pageTitle: 'AI 小说生成 - 江湖小站-ZenTools', metaDesc: 'AI 智能小说创作助手，支持多种题材和风格', _📝_小说设定: '📝 小说设定', _📖_小说内容: '📖 小说内容', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '输入小说创意：\n• 世界观设定\n• 主要角色（名字、性格、能力）\n• 故事梗概/开头段落\n• 当前章节需要发展的剧情', placeholder_sk: 'sk-...'}, en: {pageTitle: 'AI 小说生成 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', _小说设定: '📝 小说设定', _小说内容: '📖 小说内容', _API_设置: '⚙️ API Settings', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', placeholder_: '输入小说创意：\\n• 世界观设定\\n• 主要角色（名字、性格、能力）\\n• 故事梗概/开头段落\\n• 当前章节需要发展的剧情', placeholder_sk: 'sk-...'}, ja: {pageTitle: 'AI 小说生成 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', _📝_小说设定: '📝 小说设定', _📖_小说内容: '📖 小说内容', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '输入小说创意：\n• 世界观设定\n• 主要角色（名字、性格、能力）\n• 故事梗概/开头段落\n• 当前章节需要发展的剧情', placeholder_sk: 'sk-...'}, vi: {pageTitle: 'AI 小说生成 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', _📝_小说设定: '📝 小说设定', _📖_小说内容: '📖 小说内容', _⚙️_API_设置: '⚙️ API 设置', btn: '⭐ 收藏本站', api_endpoint: 'API Endpoint', api_key: 'API Key', : '模型', placeholder_: '输入小说创意：\n• 世界观设定\n• 主要角色（名字、性格、能力）\n• 故事梗概/开头段落\n• 当前章节需要发展的剧情', placeholder_sk: 'sk-...'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI小说生成器支持哪些文学风格？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持奇幻、科幻、悬疑、言情、历史、武侠、现实主义等多种文学风格。"}},{"@type":"Question","name":"生成的小说内容质量如何？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"AI生成的小说内容丰富，情节连贯，但建议在发布前进行人工润色和调整。"}},{"@type":"Question","name":"可以续写章节吗？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"可以。您可以指定从某个情节继续生成后续内容。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI小说生成","applicationCategory":"OtherApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI根据主题和设定生成小说内容。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI小说生成 - 江湖小站-ZenTools', crumbCur:'AI小说生成', eyebrow:'AI工具', h1Grad:'AI小说生成', h1Sub:'智能创作精彩故事', pageDesc:'AI根据主题和设定生成小说内容，支持多种文学风格，在线创作，免费在线使用。', cardTitle:'📚 创作设定', cardResult:'📖 小说内容', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'请描述小说的主题、背景、人物设定等...', placeholderStyle:'选择文学风格', placeholderChapter:'章节标题', btnGenerate:'📖 生成章节', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', emptyResult:'小说内容将显示在这里', faqQ1:'AI小说生成器支持哪些文学风格？', faqA1:'支持奇幻、科幻、悬疑、言情、历史、武侠、现实主义等多种文学风格。', faqQ2:'生成的小说内容质量如何？', faqA2:'AI生成的小说内容丰富，情节连贯，但建议在发布前进行人工润色和调整。', faqQ3:'可以续写章节吗？', faqA3:'可以。您可以指定从某个情节继续生成后续内容。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Novel Generator | ZenTools', crumbCur:'AI Novel Generator', eyebrow:'AI TOOLS', h1Grad:'AI Novel Generator', h1Sub:'Intelligent Story Creation', pageDesc:'AI generates novel content based on themes and settings. Multiple literary styles. Free to use online.', cardTitle:'📚 Story Settings', cardResult:'📖 Novel Content', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Describe the novel theme, background, character settings...', placeholderStyle:'Select Literary Style', placeholderChapter:'Chapter Title', btnGenerate:'📖 Generate Chapter', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', emptyResult:'Novel content will appear here', faqQ1:'What literary styles does the AI novel generator support?', faqA1:'Supports fantasy, sci-fi, mystery, romance, historical, martial arts, realism and more.', faqQ2:'How good is the generated novel content?', faqA2:'AI-generated content is rich and coherent. We recommend manual polishing before publishing.', faqQ3:'Can I continue writing chapters?', faqA3:'Yes. You can specify to continue from a certain plot.'},
+  ja:{pageTitle:'AI小説生成 | ZenTools', crumbCur:'AI小説生成', eyebrow:'AIツール', h1Grad:'AI小説生成', h1Sub:'インテリジェントストーリー創作', pageDesc:'AIがテーマと設定に基づいて小説を生成。複数の文学スタイルに対応。オンラインで無料利用可能。', cardTitle:'📚 ストーリー設定', cardResult:'📖 小説内容', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'小説のテーマ、背景、キャラクター設定を記述してください...', placeholderStyle:'文学スタイルを選択', placeholderChapter:'章タイトル', btnGenerate:'📖 章を生成', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', emptyResult:'小説内容がここに表示されます', faqQ1:'AI小説生成ツールはどの文学スタイルに対応していますか？', faqA1:'ファンタジー、SF、ミステリ、ロマンス、歴史、武俠、リアリズムなど。', faqQ2:'生成された小説の品質はどうですか？', faqA2:'AI生成の内容は豊富で連貫しています。公開前に手動でブラッシュアップすることをお勧めします。', faqQ3:'続きの章を書くことはできますか？', faqA3:'はい。特定のストーリーから続けて生成できます。'},
+  vi:{pageTitle:'Tạo tiểu thuyết AI | ZenTools', crumbCur:'Tạo tiểu thuyết AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Tạo tiểu thuyết AI', h1Sub:'Sáng tạo truyện thông minh', pageDesc:'AI tạo nội dung tiểu thuyết theo chủ đề và thiết lập. Nhiều phong cách văn học. Miễn phí sử dụng.', cardTitle:'📚 Thiết lập truyện', cardResult:'📖 Nội dung', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Mô tả chủ đề truyện, bối cảnh, thiết lập nhân vật...', placeholderStyle:'Chọn phong cách văn học', placeholderChapter:'Tiêu đề chương', btnGenerate:'📖 Tạo chương', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', emptyResult:'Nội dung tiểu thuyết sẽ hiển thị ở đây', faqQ1:'Công cụ tạo tiểu thuyết AI hỗ trợ những phong cách nào?', faqA1:'Hỗ trợ fantasy, sci-fi, mystery, romance, lịch sử, võ hiệp, hiện thực và nhiều hơn.', faqQ2:'Chất lượng nội dung tiểu thuyết tạo ra sao?', faqA2:'Nội dung do AI tạo ra phong phú và liên tục. Khuyến nghị tinh chỉnh trước khi xuất bản.', faqQ3:'Có thể tiếp tục viết chương không?', faqA3:'Có. Bạn có thể chỉ định tiếp tục từ một tình tiết nào đó.'}
+};
+</script>
 </head>
 <body>
-<div class="header"><a href="/" class="logo" style="text-decoration:none;color:inherit"><span class="mark">📖</span> AI 小说生成</a><div class="actions"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btn">⚙️ 设置</button><a href="/ai/" class="btn btn-secondary btn-sm">← 返回</a></div><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</div>
-<div class="main">
-  <div class="card">
-    <h2 data-i18n="_📝_小说设定">📝 小说设定</h2>
-    <div class="toolbar">
-      <select id="novelGenre"><option value="fantasy">玄幻奇幻</option><option value="xianxia">仙侠修真</option><option value="urban">都市生活</option><option value="scifi">科幻未来</option><option value="history">历史架空</option><option value="romance">言情恋爱</option><option value="horror">悬疑惊悚</option><option value="wuxia">武侠江湖</option></select>
-      <select id="novelLength"><option value="short">短篇（约1000字）</option><option value="chapter" selected>章节（约3000字）</option><option value="long">长篇续写（约5000字）</option></select>
-    </div>
-    <textarea id="novelInput" placeholder="输入小说创意：&#10;• 世界观设定&#10;• 主要角色（名字、性格、能力）&#10;• 故事梗概/开头段落&#10;• 当前章节需要发展的剧情" rows="5"></textarea>
-    <button class="btn btn-primary" onclick="generateNovel()" data-i18n="btn">✍️ 开始创作</button>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI小说生成</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI小说生成</span><br/><span data-i18n="h1Sub">智能创作精彩故事</span></h1><p data-i18n="pageDesc">AI根据主题和设定生成小说内容，支持多种文学风格，在线创作，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div class="form-group"><label data-i18n="placeholderStyle">选择文学风格</label><select id="style"><option value="奇幻">奇幻</option><option value="科幻">科幻</option><option value="悬疑">悬疑</option><option value="言情">言情</option><option value="历史">历史</option><option value="武侠">武侠</option><option value="现实主义">现实主义</option></select></div>
+    <div class="form-group"><label data-i18n="placeholderChapter">章节标题</label><input type="text" id="chapter" placeholder="第一章：..."></div>
+    <div class="form-group"><label data-i18n="model">模型</label><select id="modelSelect"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
   </div>
-  <div class="loading" id="loading"><div class="spinner"></div> AI 正在创作小说...</div>
-  <div class="result-box" id="resultBox"><h2 data-i18n="_📖_小说内容">📖 小说内容</h2><div id="novelResult" class="result-content"></div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="copyNovel()" data-i18n="btn">📋 复制</button></div></div>
+  <div class="form-group">
+    <label data-i18n="cardTitle">📚 创作设定</label>
+    <textarea id="prompt" data-i18n-placeholder="placeholder"></textarea>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>📖</span><span data-i18n="btnGenerate">📖 生成章节</span></button>
+    <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button>
+  </div>
+  <div class="panel">
+    <div class="panel-header">
+      <h2 data-i18n="cardResult">📖 小说内容</h2>
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
+    </div>
+    <div class="output empty" id="output"><p data-i18n="emptyResult">小说内容将显示在这里</p></div>
+  </div>
 </div>
 <div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal"><h3 data-i18n="_⚙️_API_设置">⚙️ API 设置</h3><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_endpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="api_key">API Key</label><input type="password" id="apiKey" placeholder="sk-..." data-i18n-placeholder="placeholder_sk" style="width:100%"></div><div style="margin:16px 0"><label style="display:block;margin-bottom:6px;font-size:13px;color:var(--muted)" data-i18n="">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="gpt-4">GPT-4</option><option value="gpt-4-turbo">GPT-4 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btn">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btn">保存</button></div></div>
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
 </div>
-<div class="footer">© 2026 <a href="/" style="color:var(--accent);">江湖小站-ZenTools</a></div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn">⭐ 收藏本站</button>
-<style>.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}.modal{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;max-width:440px;width:90%}.modal h3{font-size:18px;margin-bottom:8px}</style>
-<script>const SK='zentools_ai_settings';
-function ls(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'https://api.openai.com/v1/chat/completions';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-3.5-turbo'}catch(e){}
-function ss(){localStorage.setItem(SK,JSON.stringify({endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value}));ts()}
-function ts(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')ls()}
-function gs(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-3.5-turbo'}}
-let lastResult='';
-function generateNovel(){const i=document.getElementById('novelInput').value.trim();if(!i){alert('请输入小说创意设定');return}const s=gs();if(!s.apiKey){ts();return}
-const g=document.getElementById('novelGenre');const l=document.getElementById('novelLength');
-const genreLabels={fantasy:'玄幻奇幻',xianxia:'仙侠修真',urban:'都市生活',scifi:'科幻未来',history:'历史架空',romance:'言情恋爱',horror:'悬疑惊悚',wuxia:'武侠江湖'};
-const lenLabels={short:'短篇（约1000字）',chapter:'章节（约3000字）',long:'长篇续写（约5000字）'};
-const btn=event.target;const ld=document.getElementById('loading');const r=document.getElementById('resultBox');btn.disabled=true;ld.classList.add('show');r.classList.remove('show')
-const p='你是一个小说创作大师，擅长'+genreLabels[g.value]+'题材。请根据以下设定创作'+lenLabels[l.value]+'：\n\n'+i+'\n\n请直接输出小说正文，注意情节张力、人物对话和环境描写。'
-fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'user',content:p}],max_tokens:3072})})
-.then(r=>r.ok?r.json():Promise.reject('HTTP '+r.status)).then(d=>{lastResult=d.choices[0].message.content;document.getElementById('novelResult').textContent=lastResult;r.classList.add('show')})
-.catch(e=>{document.getElementById('novelResult').textContent='请求失败：'+e;r.classList.add('show')}).finally(()=>{btn.disabled=false;ld.classList.remove('show')})}
-function copyNovel(){if(lastResult)navigator.clipboard.writeText(lastResult).then(()=>alert('已复制'))}
-ls();</script>
-
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-(function(){var t=window.pageTranslations||{};function apply(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){apply(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;apply(sv);})();
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
 </script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>
+const SK='zentools_ai_settings';
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function generate(){const prompt=document.getElementById('prompt').value.trim();const style=document.getElementById('style').value;const chapter=document.getElementById('chapter').value.trim();const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!prompt){alert('请输入小说设定');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在创作小说...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的小说作家，擅长 '+style+' 文学创作。'},{role:'user',content:'请创作小说「'+chapter+'」的章节内容。\n\n风格：'+style+'\n\n创作设定：\n'+prompt+'\n\n请输出高质量的原创小说内容，字数不少于800字。'}],temperature:0.9,max_tokens:4096})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const text=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML='<div style="margin-bottom:12px;color:var(--cyan);font-size:14px">📌 '+style+' · '+esc(chapter)+'</div><div style="white-space:pre-wrap">'+esc(text)+'</div>'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){document.getElementById('prompt').value='';document.getElementById('chapter').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">小说内容将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('小说内容将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>

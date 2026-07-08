@@ -1,244 +1,136 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="pageTitle">AI 改写 - 江湖小站-ZenTools</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-  <meta name="description" content="AI 智能改写文本，支持同义改写、扩写、缩写、风格转换" />
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root { --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9); --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb; --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2); --radius: 14px; --radius-pill: 999px; --success: #22c55e; --error: #ef4444; }
-    [data-theme="light"] { --bg: #f2f5f9; --surface: rgba(255,255,255,0.85); --surface2: rgba(240,244,254,0.9); --border: rgba(0,0,0,0.06); --text: #0b111e; --muted: #4a5a7a; }
-    body { font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
-    
-    .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(10px); }
-    .header .logo { font-weight: 800; font-size: 18px; display: flex; align-items: center; gap: 10px; }
-    .header .logo .mark { width: 32px; height: 32px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), var(--accent2)); display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    
-    .main { flex: 1; display: flex; flex-direction: column; max-width: 1200px; width: 100%; margin: 0 auto; padding: 20px; gap: 20px; }
-    
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; flex: 1; min-height: 0; }
-    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
-    
-    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; }
-    .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
-    .panel-header h2 { font-size: 18px; display: flex; align-items: center; gap: 8px; }
-    
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: var(--muted); }
-    .form-group select, .form-group textarea { width: 100%; padding: 10px 14px; border-radius: var(--radius); border: 1px solid var(--border); background: var(--surface2); color: var(--text); font-size: 14px; font-family: inherit; }
-    .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); }
-    .form-group textarea { min-height: 200px; resize: vertical; }
-    
-    .btn { padding: 10px 20px; border-radius: var(--radius-pill); border: none; cursor: pointer; font-weight: 600; font-size: 14px; transition: all .3s; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; }
-    .btn-primary:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
-    .btn-secondary:hover { border-color: var(--accent); }
-    
-    .output-content { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; overflow-y: auto; font-size: 15px; line-height: 1.8; }
-    
-    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    
-    .typing-indicator { display: flex; gap: 4px; padding: 20px; justify-content: center; }
-    .typing-indicator span { width: 8px; height: 8px; background: var(--muted); border-radius: 50%; animation: bounce 1.4s infinite; }
-    .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
-    
-    .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}
-    
-    @media (max-width: 640px) {
-      .header { padding: 12px 16px; }
-      .main { padding: 12px; }
-      .panel { padding: 16px; }
-    }
-  .lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid var(--border,rgba(255,255,255,0.12));border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:var(--accent,#3b82f6)}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI同义词替换 - 江湖小站-ZenTools</title>
+<meta name="description" content="AI智能同义词替换，保持语义不变的同时优化表达，适用于学术写作、内容创作，免费在线使用。"/>
+<meta name="keywords" content="AI同义词替换,同义词,词义替换,文本改写,AI写作,免费工具"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-paraphrase.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI同义词替换 - ZenTools"/>
+<meta property="og:description" content="AI智能同义词替换，保持语义不变的同时优化表达。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-paraphrase.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Paraphrase | ZenTools"/>
+<meta name="twitter:description" content="AI智能同义词替换，保持语义不变的同时优化表达。"/>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+textarea{width:100%;min-height:180px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--cyan)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--cyan)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:180px;white-space:pre-wrap;line-height:1.8}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--cyan)}
+input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--cyan)}
+.diff{display:flex;gap:12px;margin-top:12px;align-items:center}
+.diff span{padding:2px 8px;border-radius:4px;font-size:12px}
+.diff .added{background:rgba(16,185,129,0.2);color:#6ee7b7}
+.diff .removed{background:rgba(239,68,68,0.2);color:#fca5a5;text-decoration:line-through}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
 </style>
-<script>var pageTranslations={"zh":{pageTitle: 'AI 改写 - 江湖小站-ZenTools', metaDesc: 'AI 智能改写文本，支持同义改写、扩写、缩写、风格转换', heading_原文输入: '📝 原文输入', heading_改写结果: '🔄 改写结果', 清空: '清空', 粘贴: '粘贴', 1_首先: '1. 首先', 2_其次: '2. 其次', 3_最后: '3. 最后', 结论: '结论', 分隔线: '分隔线', 收藏本站: '⭐ 收藏本站', label_改写模式: '改写模式', label_原文: '原文', ph_在此输入需要改写: '在此输入需要改写的文本...'},"en":{pageTitle: 'AI 改写 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process locally in your browser.', heading_原文输入: '📝 Original Text', heading_改写结果: '🔄 Rewritten', _首先: '1. First', _其次: '2. Second', _最后: '3. Last', label_改写模式: 'Rewrite Mode', label_原文: 'Source Text', ph_在此输入需要改写: 'Enter text to rewrite...'},"ja":{pageTitle: 'AI 改写 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料オンラインツール。', heading_原文输入: '📝 原文输入', heading_改写结果: '🔄 改写结果', 清空: '清空', 粘贴: '粘贴', 1_首先: '1. 首先', 2_其次: '2. 其次', 3_最后: '3. 最后', 结论: '结论', 分隔线: '分隔线', 收藏本站: '⭐ 收藏本站', label_改写模式: '改写模式', label_原文: '原文', ph_在此输入需要改写: '在此输入需要改写的文本...'},"vi":{pageTitle: 'AI 改写 - Công cụ Trực tuyến Miễn phí | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí. Xử lý trong trình duyệt.', heading_原文输入: '📝 原文输入', heading_改写结果: '🔄 改写结果', 清空: '清空', 粘贴: '粘贴', 1_首先: '1. 首先', 2_其次: '2. 其次', 3_最后: '3. 最后', 结论: '结论', 分隔线: '分隔线', 收藏本站: '⭐ 收藏本站', label_改写模式: '改写模式', label_原文: '原文', ph_在此输入需要改写: '在此输入需要改写的文本...'};</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI同义词替换如何保持语义？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"AI使用语义分析技术，在替换词汇时确保上下文语义不变，同时提升表达的丰富性和多样性。"}},{"@type":"Question","name":"适用于哪些场景？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"适用于学术写作、内容创作、SEO优化、降低重复率等多种场景。"}},{"@type":"Question","name":"支持哪些语言？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持中文和英文的同义词替换。"}}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI同义词替换","applicationCategory":"OtherApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI智能同义词替换，保持语义不变。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI同义词替换 - 江湖小站-ZenTools', crumbCur:'AI同义词替换', eyebrow:'AI工具', h1Grad:'AI同义词替换', h1Sub:'智能改写 · 语义不变', pageDesc:'AI智能同义词替换，保持语义不变的同时优化表达，适用于学术写作、内容创作，免费在线使用。', cardTitle:'✍️ 输入文本', cardResult:'📄 替换结果', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'在此粘贴需要替换同义词的文本内容...', btnReplace:'🔄 开始替换', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderLevel:'替换程度', emptyResult:'替换结果将显示在这里', faqQ1:'AI同义词替换如何保持语义？', faqA1:'AI使用语义分析技术，在替换词汇时确保上下文语义不变，同时提升表达的丰富性和多样性。', faqQ2:'适用于哪些场景？', faqA2:'适用于学术写作、内容创作、SEO优化、降低重复率等多种场景。', faqQ3:'支持哪些语言？', faqA3:'支持中文和英文的同义词替换。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Paraphrase | ZenTools', crumbCur:'AI Paraphrase', eyebrow:'AI TOOLS', h1Grad:'AI Paraphrase', h1Sub:'Smart Rewriting', pageDesc:'AI synonym replacement that preserves meaning while improving expression. Free to use online.', cardTitle:'✍️ Input Text', cardResult:'📄 Result', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Paste text that needs synonym replacement here...', btnReplace:'🔄 Replace', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderLevel:'Replacement Level', emptyResult:'Result will appear here', faqQ1:'How does AI paraphrase preserve meaning?', faqA1:'AI uses semantic analysis to ensure context meaning is preserved while improving expression.', faqQ2:'What scenarios is it suitable for?', faqA2:'Suitable for academic writing, content creation, SEO optimization, reducing similarity.', faqQ3:'Which languages are supported?', faqA3:'Supports Chinese and English synonym replacement.'},
+  ja:{pageTitle:'AI言い換え | ZenTools', crumbCur:'AI言い換え', eyebrow:'AIツール', h1Grad:'AI言い換え', h1Sub:'インテリジェント書き換え', pageDesc:'AIが意味を保ちながら表現を最適化。学術執筆、コンテンツ作成にも活用。オンラインで無料利用可能。', cardTitle:'✍️ テキスト入力', cardResult:'📄 結果', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'言い換えるテキストを貼り付けてください...', btnReplace:'🔄 言い換え', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderLevel:'置き換えレベル', emptyResult:'結果がここに表示されます', faqQ1:'AI言い換えはどうやって意味を保ちますか？', faqA1:'AIが意味解析技術を使用し、文脈の意味を保ちながら表現の豊かさを向上させます。', faqQ2:'どのシーンに適していますか？', faqA2:'学術執筆、コンテンツ作成、SEO最適化、類似率削減など。', faqQ3:'どの言語に対応していますか？', faqA3:'中国語と英語の同義語置き換えに対応しています。'},
+  vi:{pageTitle:'Paraphrase AI | ZenTools', crumbCur:'Paraphrase AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Paraphrase AI', h1Sub:'Viết lại thông minh', pageDesc:'Thay thế từ đồng nghĩa AI, giữ ý nghĩa đồng thời tối ưu biểu đạt. Miễn phí sử dụng.', cardTitle:'✍️ Nhập văn bản', cardResult:'📄 Kết quả', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Dán văn bản cần thay thế từ đồng nghĩa...', btnReplace:'🔄 Thay thế', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderLevel:'Mức độ thay thế', emptyResult:'Kết quả sẽ hiển thị ở đây', faqQ1:'Paraphrase AI giữ ý nghĩa như thế nào?', faqA1:'AI sử dụng phân tích ngữ nghĩa, đảm bảo ý nghĩa ngữ cảnh không đổi, đồng thời nâng cao biểu đạt.', faqQ2:'Phù hợp với những tình huống nào?', faqA2:'Phù hợp cho viết học thuật, sáng tạo nội dung, tối ưu SEO, giảm tỷ lệ trùng lặp.', faqQ3:'Hỗ trợ những ngôn ngữ nào?', faqA3:'Hỗ trợ thay thế từ đồng nghĩa tiếng Trung và tiếng Anh.'}
+};
+</script>
 </head>
 <body>
-
-<header class="header">
-  <div class="logo">
-    <span class="mark">⛵</span>
-    <span>AI 改写</span>
-  </div>
-  <div style="display: flex; gap: 8px;">
-    <a href="/ai/ai-chat.html" class="btn btn-secondary" style="padding: 8px 16px;">AI 聊天</a>
-    <a href="/" class="btn btn-secondary" style="padding: 8px 16px;">返回首页</a>
-  </div>
-<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-</header>
-
-<main class="main">
-  <div class="grid">
-    <div class="panel">
-      <div class="panel-header">
-        <h2 data-i18n="heading_原文输入">📝 原文输入</h2>
-      </div>
-      <div class="form-group">
-        <label data-i18n="label_改写模式">改写模式</label>
-        <select id="rewriteMode">
-          <option value="paraphrase">同义改写 - 保持原意，换种说法</option>
-          <option value="expand">扩写 - 丰富内容，增加细节</option>
-          <option value="summarize">缩写 - 精简内容，保留核心</option>
-          <option value="formal">正式化 - 转为正式/商务风格</option>
-          <option value="casual">口语化 - 转为轻松/口语风格</option>
-          <option value="simplify">简化 - 降低阅读难度</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label data-i18n="label_原文">原文</label>
-        <textarea id="inputText" placeholder="在此输入需要改写的文本..." data-i18n-placeholder="ph_在此输入需要改写"></textarea>
-      </div>
-      <div style="display: flex; gap: 10px;">
-        <button class="btn btn-primary" id="rewriteBtn" onclick="rewriteText()">
-          <span>✨</span>
-          <span>开始改写</span>
-        </button>
-        <button class="btn btn-secondary" onclick="clearAll()" data-i18n="清空">清空</button>
-        <button class="btn btn-secondary" onclick="pasteFromClipboard()" data-i18n="粘贴">粘贴</button>
-      </div>
-    </div>
-    
-    <div class="panel">
-      <div class="panel-header">
-        <h2 data-i18n="heading_改写结果">🔄 改写结果</h2>
-        <div style="display: flex; gap: 6px;">
-          <button class="btn btn-icon btn-secondary" onclick="copyResult()" title="复制">📋</button>
-          <button class="btn btn-icon btn-secondary" onclick="swapText()" title="交换">🔄</button>
-        </div>
-      </div>
-      <div class="output-content" id="outputContent">
-        <p style="color: var(--muted); text-align: center; padding: 40px 20px;">
-          改写结果将显示在这里
-        </p>
-      </div>
-      <div class="toolbar">
-        <button class="btn btn-secondary" onclick="insertText('首先，')" data-i18n="1_首先">1. 首先</button>
-        <button class="btn btn-secondary" onclick="insertText('其次，')" data-i18n="2_其次">2. 其次</button>
-        <button class="btn btn-secondary" onclick="insertText('最后，')" data-i18n="3_最后">3. 最后</button>
-        <button class="btn btn-secondary" onclick="insertText('因此，')" data-i18n="结论">结论</button>
-        <button class="btn btn-secondary" onclick="insertText('\n\n---\n\n')" data-i18n="分隔线">分隔线</button>
-      </div>
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="z-wrap">
+<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI同义词替换</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI同义词替换</span><br/><span data-i18n="h1Sub">智能改写 · 语义不变</span></h1><p data-i18n="pageDesc">AI智能同义词替换，保持语义不变的同时优化表达，适用于学术写作、内容创作，免费在线使用。</p></div>
+<div class="tool-box reveal">
+<div class="grid">
+  <div class="panel">
+    <div class="panel-header"><h2 data-i18n="cardTitle">✍️ 输入文本</h2></div>
+    <textarea id="text" data-i18n-placeholder="placeholder"></textarea>
+    <div style="display:flex;gap:10px;margin-top:16px;align-items:center">
+      <div style="display:flex;gap:8px;align-items:center"><label data-i18n="placeholderLevel">替换程度</label><select id="level" style="width:auto"><option value="light">轻微改写</option><option value="medium" selected>中等改写</option><option value="heavy">大幅改写</option></select></div>
+      <button class="btn btn-primary" id="replaceBtn" onclick="replace()"><span>🔄</span><span data-i18n="btnReplace">🔄 开始替换</span></button>
+      <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
     </div>
   </div>
-</main>
-
-<footer style="text-align: center; padding: 20px; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);">
-  © 2026 <a href="/" style="color: var(--accent);">江湖小站-ZenTools</a> · 所有处理均在本地完成
-</footer>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="收藏本站">⭐ 收藏本站</button>
-
+  <div class="panel">
+    <div class="panel-header">
+      <h2 data-i18n="cardResult">📄 替换结果</h2>
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
+    </div>
+    <div class="output empty" id="output"><p data-i18n="emptyResult">替换结果将显示在这里</p></div>
+  </div>
+</div>
+<div style="margin-top:16px"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button></div>
+<div class="modal-overlay" id="settingsModal" style="display:none">
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
+</div>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
 <script>
-let settings = { apiKey: '' };
-
-async function rewriteText() {
-  const input = document.getElementById('inputText');
-  const output = document.getElementById('outputContent');
-  const mode = document.getElementById('rewriteMode').value;
-  const text = input.value.trim();
-  
-  if (!text) { alert('请输入需要改写的文本'); return; }
-  if (!settings.apiKey) {
-    const key = prompt('请输入 API Key（仅保存在本地浏览器）:');
-    if (!key) return;
-    settings.apiKey = key;
-  }
-  
-  const btn = document.getElementById('rewriteBtn');
-  btn.disabled = true;
-  output.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div><p style="text-align:center;color:var(--muted);">正在改写...</p>';
-  
-  const modePrompts = {
-    paraphrase: '请改写以下文本，保持原意但换种说法表达。不要添加额外内容，直接输出改写结果：',
-    expand: '请扩写以下文本，增加细节和例子，使其更丰富完整：',
-    summarize: '请缩写以下文本，保留核心意思，精简表达：',
-    formal: '请将以下文本改写为正式/商务风格：',
-    casual: '请将以下文本改写为轻松/口语化风格：',
-    simplify: '请简化以下文本，降低阅读难度，让普通人也能轻松理解：'
-  };
-  
-  try {
-    const response = await fetchChat(modePrompts[mode] + '\n\n' + text);
-    output.innerHTML = formatText(response);
-  } catch (error) {
-    output.innerHTML = '<p style="color:var(--error);text-align:center;padding:40px;">改写失败：' + error.message + '</p>';
-  }
-  
-  btn.disabled = false;
-}
-
-async function fetchChat(prompt) {
-  const url = 'https://api.openai.com/v1/chat/completions';
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + settings.apiKey
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o',
-      messages: [
-        { role: 'system', content: '你是一个专业的文本改写助手。' },
-        { role: 'user', content: prompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 4096
-    })
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
   });
-  
-  if (!response.ok) {
-    const err = await response.json().catch(() => ({}));
-    throw new Error(err.error?.message || '请求失败');
-  }
-  
-  const data = await response.json();
-  return data.choices[0].message.content;
-}
-
-function formatText(text) {
-  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
-}
-
-function clearAll() {
-  document.getElementById('inputText').value = '';
-  document.getElementById('outputContent').innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px 20px;">改写结果将显示在这里</p>';
-}
-
-async function pasteFromClipboard() {
-  try {
-    const text = await navigator.clipboard.readText();
-    document.getElementById('inputText').value = text;
-  } catch (e) {
-    alert('无法读取剪贴板，请手动粘贴');
-  }
-}
-
-function copyResult() {
-  const text = document.getElementById('outputContent').innerText;
-  navigator.clipboard.writeText(text).then(() => alert('已复制')).catch(() => alert('复制失败'));
-}
-
-function swapText() {
-  const input = document.getElementById('inputText');
-  const output = document.getElementById('outputContent');
-  const temp = input.value;
-  input.value = output.innerText;
-  output.innerHTML = formatText(temp);
-}
-
-function insertText(text) {
-  const output = document.getElementById('outputContent');
-  output.innerHTML += text;
 }
 </script>
-
-<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);})();</script>
+<script>
+const SK='zentools_ai_settings';
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+async function replace(){const text=document.getElementById('text').value.trim();const level=document.getElementById('level').value;const output=document.getElementById('output');const btn=document.getElementById('replaceBtn');if(!text){alert('请输入文本内容');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}const levelMap={light:'轻微改写（替换部分词汇）',medium:'中等改写（替换较多词汇和句式）',heavy:'大幅改写（完全重新组织表达）'};btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在替换...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的文本改写助手。请对以下文本进行 '+levelMap[level]+'。保持原意不变，只改变表达方式。只输出改写后的文本，不要添加任何解释。'},{role:'user',content:text}],temperature:0.5,max_tokens:2048})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const result=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML='<div class="result-title" style="margin-bottom:12px;color:var(--cyan);font-size:14px">✅ '+levelMap[level]+'</div><div style="white-space:pre-wrap">'+esc(result)+'</div>'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">替换失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function clearAll(){document.getElementById('text').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">替换结果将显示在这里</p>'}
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('替换结果将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+loadSettings();
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
 </body>
 </html>
