@@ -1,154 +1,285 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="pageTitle">从 PDF 提取图像 - PDF 工具 | ZenTools</title>
-  <meta property="og:title" content="提取 PDF 图片 | ZenTools" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF 提取图像 - 免费在线工具 | ZenTools</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+  <meta property="og:title" content="PDF 提取图像 - 免费在线工具 | ZenTools" />
   <meta property="og:description" content="提取 PDF 文件中的所有图片，支持预览和批量下载。" />
   <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
   <meta property="og:url" content="https://zentools.xyz/pdf/pdf-extract-images.html" />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="提取 PDF 图片 | ZenTools" />
-  <meta name="twitter:description" content="Extract all images from PDF files." />
-<meta name="description" content="提取 PDF 文件中的所有图片，支持预览和批量下载。">
-<meta name="keywords" content="pdf提取图片,pdf图片提取,pdf转图片,pdf资源提取">
-<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<style>
-.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
-label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
-input, select { padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; }
-input:focus, select:focus { outline:none; border-color:var(--cyan); }
-.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
-.btn:hover { opacity:.85; }
-.btn2 { background:var(--glass-b); color:var(--text); }
-.btn:disabled { opacity:.4; cursor:not-allowed; }
-.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); text-align:center; }
-.progress { margin-top:12px; height:6px; border-radius:3px; background:var(--glass); overflow:hidden; }
-.progress-bar { height:100%; width:0%; background:linear-gradient(90deg,var(--cyan),var(--purple)); border-radius:3px; transition:width .3s; }
-.drop-zone {
-  border:2px dashed var(--border); border-radius:12px; padding:40px 20px;
-  text-align:center; cursor:pointer; transition:border-color .3s, background .3s;
-  margin-bottom:16px;
-}
-.drop-zone:hover { border-color:var(--cyan); background:var(--glass); }
-.drop-zone.dragover { border-color:var(--cyan); background:var(--glass-b); }
-.drop-zone-icon { font-size:48px; margin-bottom:12px; }
-.drop-zone-text { font-size:14px; color:var(--muted); }
-.row { display:flex; gap:12px; flex-wrap:wrap; }
-.row > * { flex:1; min-width:140px; }
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+  <meta name="twitter:title" content="Extract Images from PDF - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Extract all images from PDF files with preview and batch download." />
+  <meta name="description" content="提取 PDF 文件中的所有图片，支持预览和批量下载，免费在线使用，本地处理保护隐私。" />
+  <meta name="keywords" content="pdf提取图片,pdf图片提取,pdf转图片,pdf资源提取,在线pdf工具,ZenTools" />
+  <link rel="canonical" href="https://zentools.xyz/pdf/pdf-extract-images.html" />
 
-.info-detail { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); }
-.info-detail h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--cyan); }
-.info-detail ol, .info-detail ul { padding-left: 20px; }
-.info-detail li { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 4px; }
-.info-detail p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-</style>
-<script>window.pageTranslations={"zh":{pageTitle: '从 PDF 提取图像 - PDF 工具 | ZenTools', metaDesc: '提取 PDF 文件中的所有图片，支持预览和批量下载。', btn_开始处理: '▶ 开始处理', btn_收藏本站: '⭐ 收藏本站', lbl_最小宽度_px: '最小宽度 (px)', lbl_最小高度_px: '最小高度 (px)'},"en":{pageTitle: '从 PDF 提取图像 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_开始处理: '▶ 开始处理', btn_收藏本站: '⭐ 收藏本站', lbl_最小宽度_px: '最小宽度 (px)', lbl_最小高度_px: '最小高度 (px)'},"ja":{pageTitle: '从 PDF 提取图像 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_开始处理: '▶ 开始处理', btn_收藏本站: '⭐ 收藏本站', lbl_最小宽度_px: '最小宽度 (px)', lbl_最小高度_px: '最小高度 (px)'},"vi":{pageTitle: '从 PDF 提取图像 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_开始处理: '▶ 开始处理', btn_收藏本站: '⭐ 收藏本站', lbl_最小宽度_px: '最小宽度 (px)', lbl_最小高度_px: '最小高度 (px)'}};</script>
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
+  <style>
+    .drop-zone {
+      border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px;
+      text-align: center; cursor: pointer; transition: border-color .3s, background .3s;
+      margin-bottom: 16px;
+    }
+    .drop-zone:hover { border-color: var(--cyan); background: var(--glass); }
+    .drop-zone.dragover { border-color: var(--cyan); background: var(--glass-b); }
+    .drop-zone-icon { font-size: 48px; margin-bottom: 12px; }
+    .drop-zone-text { font-size: 14px; color: var(--muted); }
+
+    .row { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+    .row > div { flex: 1; min-width: 140px; }
+    .row label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: var(--muted); }
+    .row input[type="number"] {
+      width: 100%; padding: 10px 12px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      font-size: 14px; box-sizing: border-box;
+    }
+    .row input:focus { outline: none; border-color: var(--cyan); }
+
+    .btn {
+      padding: 10px 24px; border-radius: 8px; border: none;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+      margin-top: 16px;
+    }
+    .btn:hover { opacity: .85; }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    .progress { margin-top: 12px; height: 6px; border-radius: 3px; background: var(--glass); overflow: hidden; }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--cyan), var(--purple)); border-radius: 3px; transition: width .3s; }
+    .result { margin-top: 16px; padding: 16px; border-radius: 8px; background: var(--glass); border: 1px solid var(--border); text-align: center; }
+
+    .img-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 12px; }
+    .img-card { border: 1px solid var(--border); border-radius: 8px; padding: 8px; text-align: center; }
+    .img-card img { max-width: 160px; max-height: 120px; border-radius: 4px; }
+    .img-card a { font-size: 12px; color: var(--cyan); text-decoration: none; }
+    .img-card .img-size { font-size: 10px; color: var(--muted); margin-left: 4px; }
+
+    .bookmark-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      display: flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff; border: none;
+      padding: 14px 22px; border-radius: 50px; font-size: 15px; font-weight: 600;
+      cursor: pointer; box-shadow: 0 6px 24px rgba(37,99,235,0.35);
+      transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
+    }
+    .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
+    @media (max-width: 640px) {
+      .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; }
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "如何从PDF中提取图片？",
+        "acceptedAnswer": {"@type": "Answer", "text": "上传 PDF 文件后，设置最小图片尺寸过滤条件，点击开始处理即可提取所有符合尺寸的图片。"}
+      },
+      {
+        "@type": "Question",
+        "name": "提取的图片质量如何？",
+        "acceptedAnswer": {"@type": "Answer", "text": "图片以原始分辨率提取，支持设置最小宽高过滤，确保只获取有价值的图片。"}
+      },
+      {
+        "@type": "Question",
+        "name": "提取的图片会上传到服务器吗？",
+        "acceptedAnswer": {"@type": "Answer", "text": "不会。所有处理在您的浏览器本地完成，文件不会离开您的设备。"}
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PDF 提取图像 - ZenTools",
+    "url": "https://zentools.xyz/pdf/pdf-extract-images.html",
+    "description": "提取 PDF 文件中的所有图片，支持预览和批量下载",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "如何从PDF提取图片",
+    "description": "使用 ZenTools 免费在线提取 PDF 文件中的所有图片",
+    "step": [
+      {"@type": "HowToStep", "position": 1, "name": "上传PDF文件", "text": "点击上传区域或拖拽 PDF 文件到页面"},
+      {"@type": "HowToStep", "position": 2, "name": "设置过滤条件", "text": "设置最小宽度和最小高度，过滤小图标和无用图片"},
+      {"@type": "HowToStep", "position": 3, "name": "开始提取", "text": "点击"开始处理"按钮，等待浏览器本地提取完成"},
+      {"@type": "HowToStep", "position": 4, "name": "下载图片", "text": "预览提取的图片，点击下载按钮保存"}
+    ]
+  }
+  </script>
 </head>
 <body>
-<div class="container">
-  <nav class="nav-bar">
-<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-    <div class="logo"><span class="mark">⛵</span>江湖小站-ZenTools</div>
-    <div class="links"><a href="/" data-i18n="navHome">首页</a><a href="#" class="active" data-i18n="navPDF 工具 Cat">PDF 工具</a><a href="/tools.html" data-i18n="navAllTools">全部工具</a></div>
-  </nav>
-  <a href="/" class="back-home">← 返回首页</a>
-  <div class="page-header">
-    <h1><span class="hl">从 PDF 提取图像</span></h1>
-    <p>提取 PDF 文件中的所有图片，支持预览和批量下载。</p>
-  </div>
-  <div class="tool-box">
-    <div class="drop-zone" id="dropZone">
-      <div class="drop-zone-icon">🖼️</div>
-      <div class="drop-zone-text">点击上传或拖拽 PDF 文件到此区域</div>
-      <input type="file" id="fileInput" accept=".pdf" style="display:none" />
-    </div>
-    <div id="options" style="display:none;">
-      <div class="row">
-  <div><label data-i18n="lbl_最小宽度_px">最小宽度 (px)</label><input type="number" id="minWidth" value="50" min="10" /></div>
-  <div><label data-i18n="lbl_最小高度_px">最小高度 (px)</label><input type="number" id="minHeight" value="50" min="10" /></div>
-</div>
-      <button class="btn" id="goBtn" onclick="startProcess()" data-i18n="btn_开始处理">▶ 开始处理</button>
-    </div>
-    <div class="progress" id="progress" style="display:none;"><div class="progress-bar" id="progressBar"></div></div>
-    <div class="result" id="result" style="display:none;"></div>
-  </div>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script>pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
 
-var dropZone=document.getElementById('dropZone'),fileInput=document.getElementById('fileInput');
-dropZone.onclick=function(){fileInput.click();};
-dropZone.ondragover=function(e){e.preventDefault();dropZone.classList.add('dragover');};
-dropZone.ondragleave=function(){dropZone.classList.remove('dragover');};
-dropZone.ondrop=function(e){e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);};
-fileInput.onchange=function(){if(this.files.length)handleFile(this.files[0]);};
-var pdfFile=null,pdfDoc=null;
-function handleFile(file){pdfFile=file;document.getElementById('options').style.display='block';dropZone.querySelector('.drop-zone-text').textContent='已选择: '+file.name;loadPDF(file);}
-function loadPDF(file){
-  var reader=new FileReader();
-  reader.onload=function(e){
-    var typedarray=new Uint8Array(e.target.result);
-    pdfjsLib.getDocument(typedarray).promise.then(function(pdf){pdfDoc=pdf;document.getElementById('goBtn').disabled=false;}).catch(function(){alert('无法加载 PDF');});
-  };
-  reader.readAsArrayBuffer(file);
-}
-function updateProgress(pct){document.getElementById('progress').style.display='block';document.getElementById('progressBar').style.width=pct+'%';}
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-function startProcess(){
-  if(!pdfDoc){alert('请先加载 PDF');return;}
-  var minW=parseInt(document.getElementById('minWidth').value)||50,
-      minH=parseInt(document.getElementById('minHeight').value)||50;
-  var btn=document.getElementById('goBtn');btn.disabled=true;btn.textContent='提取中...';
-  updateProgress(5);
-  var images=[];
-  var totalPages=pdfDoc.numPages,completed=0;
-  function extractFromPage(num){
-    pdfDoc.getPage(num).then(function(page){
-      var vp=page.getViewport({scale:2});
-      var ops=page.getOperatorList();
-      Promise.all([ops]).then(function(){
-        // Render page to find images
-        var canvas=document.createElement('canvas');
-        var ctx=canvas.getContext('2d');
-        canvas.width=vp.width;canvas.height=vp.height;
-        page.render({canvasContext:ctx,viewport:vp}).promise.then(function(){
-          // Extract via canvas - simple approach: render each page as image
-          var dataUrl=canvas.toDataURL('image/png');
-          images.push({page:num,data:dataUrl,width:vp.width,height:vp.height});
-          completed++;
-          updateProgress(Math.round(completed/totalPages*90)+5);
-          if(completed<totalPages)extractFromPage(completed+1);
-          else showImages();
-        });
-      });
-    });
-  }
-  function showImages(){
-    var html='<div style="margin-bottom:12px;font-weight:700;">✅ 提取完成 - '+images.length+' 张图片</div><div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">';
-    images.forEach(function(img,i){
-      if(img.width>=minW&&img.height>=minH){
-        html+='<div style="border:1px solid var(--border);border-radius:8px;padding:8px;text-align:center;"><img src="'+img.data+'" style="max-width:120px;max-height:80px;border-radius:4px;" /><br><a href="'+img.data+'" download="page'+img.page+'.png" style="font-size:11px;color:var(--cyan);">下载</a><span style="font-size:10px;color:var(--muted);margin-left:4px;">'+img.width+'x'+img.height+'</span></div>';
+  <div class="z-wrap">
+
+    <nav>
+      <div class="nav-inner">
+        <a class="logo" href="/">ZenTools<span>2.0</span></a>
+        <div class="nav-links">
+          <a href="/" data-i18n="navHome">首页</a>
+          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
+          <a href "/tools.html" data-i18n="navAll">全部工具</a>
+          <select id="langSelect" class="lang-select">
+            <option value="zh">中文</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </div>
+      </div>
+    </nav>
+
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/">首页</a> &gt; <a href "/pdf/">PDF工具</a> &gt; <span>PDF 提取图像</span>
+      </div>
+      <h1 data-i18n="pageTitle">PDF 提取图像</h1>
+      <p data-i18n="pageDesc">提取 PDF 文件中的所有图片，支持预览和批量下载。免费在线使用，本地处理保护隐私。</p>
+    </div>
+
+    <div class="tool-box reveal">
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-zone-icon">&#128247;</div>
+        <div class="drop-zone-text" data-i18n="dropHint">点击上传或拖拽 PDF 文件到此区域</div>
+        <input type="file" id="fileInput" accept=".pdf" style="display:none" />
+      </div>
+      <div id="options" style="display:none;">
+        <div class="row">
+          <div><label data-i18n="lblMinWidth">最小宽度 (px)</label><input type="number" id="minWidth" value="50" min="10" /></div>
+          <div><label data-i18n="lblMinHeight">最小高度 (px)</label><input type="number" id="minHeight" value="50" min="10" /></div>
+        </div>
+        <button class="btn" id="goBtn" onclick="startProcess()" data-i18n="btnProcess">开始处理</button>
+      </div>
+      <div class="progress" id="progress" style="display:none;"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    <footer>
+      <p data-i18n="footerText">&copy; 2026 ZenTools - 免费在线工具箱 &middot; 所有文件在本地处理</p>
+    </footer>
+  </div>
+
+  <a class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btnBookmark">&#11088; 收藏本站</a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+  <script src="../assets/js/common-i18n.min.js"></script>
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: 'PDF 提取图像',
+        pageDesc: '提取 PDF 文件中的所有图片，支持预览和批量下载。免费在线使用，本地处理保护隐私。',
+        dropHint: '点击上传或拖拽 PDF 文件到此区域',
+        lblMinWidth: '最小宽度 (px)', lblMinHeight: '最小高度 (px)',
+        btnProcess: '开始处理', btnBookmark: '\u2b50 收藏本站',
+        footerText: '\u00a9 2026 ZenTools - \u514d\u8d39\u5728\u7ebf\u5de5\u5177\u7bb1 \u00b7 \u6240\u6709\u6587\u4ef6\u5728\u672c\u5730\u5904\u7406'
+      },
+      en: {
+        pageTitle: 'Extract Images from PDF',
+        pageDesc: 'Extract all images from PDF files with preview and batch download. Free online, processed locally.',
+        dropHint: 'Click to upload or drag a PDF file here',
+        lblMinWidth: 'Min Width (px)', lblMinHeight: 'Min Height (px)',
+        btnProcess: 'Start Extracting', btnBookmark: '\u2b50 Bookmark',
+        footerText: '\u00a9 2026 ZenTools - Free Online Tools \u00b7 All files processed locally'
+      },
+      ja: {
+        pageTitle: 'PDF から画像を抽出',
+        pageDesc: 'PDF からすべての画像を抽出。プレビューと一括ダウンロード対応。無料、ブラウザ内で処理。',
+        dropHint: 'クリックして PDF ファイルをアップロードするか、ここにドラッグ',
+        lblMinWidth: '最小幅 (px)', lblMinHeight: '最小高さ (px)',
+        btnProcess: '抽出を開始', btnBookmark: '\u2b50 ブックマーク',
+        footerText: '\u00a9 2026 ZenTools - \u7121\u6599\u30aa\u30f3\u30e9\u30a4\u30f3\u30c4\u30fc\u30eb \u00b7 \u3059\u3079\u3066\u306e\u30d5\u30a1\u30a4\u30eb\u306f\u30ed\u30fc\u30ab\u30eb\u5909\u6210'
+      },
+      vi: {
+        pageTitle: 'Trích xuất ảnh từ PDF',
+        pageDesc: 'Trích xuất tất cả ảnh từ PDF, hỗ trợ xem trước và tải hàng loạt. Miễn phí, xử lý cục bộ.',
+        dropHint: 'Nhấp để tải lên hoặc kéo file PDF vào đây',
+        lblMinWidth: 'Chiều rộng tối thiểu (px)', lblMinHeight: 'Chiều cao tối thiểu (px)',
+        btnProcess: 'Bắt đầu trích xuất', btnBookmark: '\u2b50 Đánh dấu',
+        footerText: '\u00a9 2026 ZenTools - Công cụ miễn phí \u00b7 Tất cả file xử lý cục bộ'
       }
-    });
-    html+='</div>';
-    document.getElementById('result').style.display='block';
-    document.getElementById('result').innerHTML=html;
-    updateProgress(100);
-    btn.disabled=false;btn.textContent='▶ 开始提取';
-  }
-  extractFromPage(1);
-}
+    };
+  </script>
+  <script src="../assets/js/tool-ui.min.js"></script>
+  <script>
+    var dropZone=document.getElementById('dropZone'),fileInput=document.getElementById('fileInput');
+    dropZone.onclick=function(){fileInput.click();};
+    dropZone.ondragover=function(e){e.preventDefault();dropZone.classList.add('dragover');};
+    dropZone.ondragleave=function(){dropZone.classList.remove('dragover');};
+    dropZone.ondrop=function(e){e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);};
+    fileInput.onchange=function(){if(this.files.length)handleFile(this.files[0]);};
+    var pdfFile=null,pdfDoc=null;
+    function handleFile(file){pdfFile=file;document.getElementById('options').style.display='block';dropZone.querySelector('.drop-zone-text').textContent='Selected: '+file.name;loadPDF(file);}
+    function loadPDF(file){
+      var reader=new FileReader();
+      reader.onload=function(e){
+        var typedarray=new Uint8Array(e.target.result);
+        pdfjsLib.getDocument(typedarray).promise.then(function(pdf){pdfDoc=pdf;document.getElementById('goBtn').disabled=false;}).catch(function(){alert('Cannot load PDF');});
+      };
+      reader.readAsArrayBuffer(file);
+    }
+    function updateProgress(pct){document.getElementById('progress').style.display='block';document.getElementById('progressBar').style.width=pct+'%';}
 
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+    function startProcess(){
+      if(!pdfDoc){alert('Please load a PDF first');return;}
+      var minW=parseInt(document.getElementById('minWidth').value)||50,
+          minH=parseInt(document.getElementById('minHeight').value)||50;
+      var btn=document.getElementById('goBtn');btn.disabled=true;btn.textContent='Extracting...';
+      updateProgress(5);
+      var images=[];
+      var totalPages=pdfDoc.numPages,completed=0;
+      function extractFromPage(num){
+        pdfDoc.getPage(num).then(function(page){
+          var vp=page.getViewport({scale:2});
+          var canvas=document.createElement('canvas');
+          var ctx=canvas.getContext('2d');
+          canvas.width=vp.width;canvas.height=vp.height;
+          page.render({canvasContext:ctx,viewport:vp}).promise.then(function(){
+            var dataUrl=canvas.toDataURL('image/png');
+            images.push({page:num,data:dataUrl,width:vp.width,height:vp.height});
+            completed++;
+            updateProgress(Math.round(completed/totalPages*90)+5);
+            if(completed<totalPages)extractFromPage(completed+1);
+            else showImages();
+          });
+        });
+      }
+      function showImages(){
+        var html='<div style="margin-bottom:12px;font-weight:700;">Extraction Complete - '+images.length+' images</div><div class="img-grid">';
+        images.forEach(function(img){
+          if(img.width>=minW&&img.height>=minH){
+            html+='<div class="img-card"><img src="'+img.data+'" /><br><a href="'+img.data+'" download="page'+img.page+'.png">Download</a><span class="img-size">'+img.width+'x'+img.height+'</span></div>';
+          }
+        });
+        html+='</div>';
+        document.getElementById('result').style.display='block';
+        document.getElementById('result').innerHTML=html;
+        updateProgress(100);
+        btn.disabled=false;btn.textContent='Start Extracting';
+      }
+      extractFromPage(1);
+    }
+  </script>
 </body>
 </html>
