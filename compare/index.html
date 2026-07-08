@@ -21,249 +21,168 @@
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
   <style>
-    /* ===== 全局 ===== */
     .section-desc {
-      color: var(--muted); font-size: 14px; line-height: 1.7;
-      max-width: 600px; margin: 0 auto 28px; text-align: center;
-    }
-    .cmp-hero .section-desc { margin-bottom: 36px; }
-    .breadcrumb-sep { opacity: 0.35; margin: 0 4px; }
-    .breadcrumb-row {
-      max-width: 1200px; margin: 0 auto; padding: 20px 24px 0;
-    }
-    .breadcrumb-row .bc-inner {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted);
-    }
-    .breadcrumb-row .bc-inner a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb-row .bc-inner a:hover { color: var(--cyan); }
-    .breadcrumb-row .bc-inner .cur { color: var(--cyan); }
-    .cmp-hero {
-      position: relative; overflow: hidden;
-      padding: 100px 24px 70px;
-      text-align: center;
-    }
-    .cmp-hero-bg {
-      position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 50% 60% at 30% 20%, rgba(0,229,255,.08) 0%, transparent 55%),
-        radial-gradient(ellipse 50% 60% at 70% 80%, rgba(168,85,247,.08) 0%, transparent 55%);
-      pointer-events: none;
-    }
-    .cmp-hero-inner { position: relative; max-width: 800px; margin: 0 auto; }
-    .cmp-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 2.5px; color: var(--cyan); text-transform: uppercase;
-      margin-bottom: 24px; opacity: 0.8;
-    }
-    .cmp-eyebrow::before, .cmp-eyebrow::after {
-      content: ''; display: inline-block; width: 16px; height: 1px;
-      background: var(--cyan); vertical-align: middle; margin: 0 10px; opacity: 0.4;
-    }
-    .cmp-hero h1 {
-      font-size: clamp(40px, 7vw, 68px); font-weight: 800;
-      letter-spacing: -2px; line-height: 1; margin-bottom: 20px;
-    }
-    .cmp-h1-grad {
-      background: linear-gradient(135deg, var(--cyan) 0%, #a855f7 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      position: relative; display: inline-block;
-    }
-    .cmp-h1-grad::after {
-      content: 'VS';
-      position: absolute; right: -50px; top: 50%; transform: translateY(-50%);
-      font-size: 0.25em; font-weight: 800; letter-spacing: 0;
-      background: linear-gradient(135deg, #f59e0b, #ef4444);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      opacity: 0.7;
-    }
-    .cmp-sub {
-      font-size: 18px; font-weight: 400; color: var(--muted);
-      margin-bottom: 16px; letter-spacing: 0.5px;
-    }
-    .cmp-desc {
-      font-size: 15px; color: var(--muted); line-height: 1.8;
-      max-width: 600px; margin: 0 auto 36px; opacity: 0.7;
+      color: var(--muted); font-size: 16px; line-height: 1.7;
+      max-width: 720px; margin-bottom: 32px;
     }
 
-    /* Hero stats */
-    .cmp-stats { display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; }
-    .cmp-stat { text-align: center; }
-    .cmp-stat-num {
-      font-size: 32px; font-weight: 800; line-height: 1; margin-bottom: 6px;
-      background: linear-gradient(135deg, var(--cyan), #a855f7);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    .recommend-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
     }
-    .cmp-stat-label { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+    .recommend-item {
+      display: block;
+      background: rgba(255,255,255,0.95);
+      border-radius: 13px;
+      padding: 18px 20px;
+      text-decoration: none;
+      color: #1e293b;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      border: 2px solid transparent;
+    }
+    .recommend-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+      border-color: var(--cyan);
+    }
+    .recommend-item .reco-title {
+      font-weight: 700; font-size: 0.95rem; display: block;
+    }
+    .recommend-item .reco-desc {
+      font-size: 0.8rem; color: #64748b; margin-top: 6px; line-height: 1.5;
+    }
 
-    /* ===== 推荐资源：水平 pill 行 ===== */
-    .reco-section {
-      max-width: 1200px; margin: 0 auto; padding: 20px 24px 50px;
-      display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+    .article-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
     }
-    .reco-pill {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 10px 20px; border-radius: 999px;
-      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      text-decoration: none; color: var(--text); font-size: 13px; font-weight: 600;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
-    }
-    .reco-pill:hover {
-      border-color: var(--cyan); background: rgba(0,229,255,0.05);
-      transform: translateY(-2px);
-    }
-    .reco-pill .rp-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: var(--cyan);
-    }
-    .reco-pill .rp-desc { font-size: 11px; color: var(--muted); font-weight: 400; }
-
-    /* ===== 功能对比工具：VS 双色调卡片 ===== */
-    .cmp-tools-section {
-      max-width: 1200px; margin: 0 auto; padding: 30px 24px 50px;
-    }
-    .cmp-tools-section .section-head { text-align: center; margin-bottom: 28px; }
-    .cmp-tools-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 16px;
-    }
-    .cmp-tool-card {
-      position: relative; overflow: hidden;
-      background: rgba(255,255,255,0.02);
+    .article-card {
+      background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 24px 22px;
-      text-decoration: none; color: var(--text);
-      transition: border-color 0.25s, transform 0.25s;
+      padding: 28px 32px;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      backdrop-filter: blur(8px);
     }
-    .cmp-tool-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0;
-      height: 2px; background: linear-gradient(90deg, var(--cyan), transparent);
-      opacity: 0; transition: opacity 0.25s;
-    }
-    .cmp-tool-card::after {
-      content: ''; position: absolute; top: 0; right: 0; bottom: 0;
-      width: 2px; background: linear-gradient(180deg, transparent, #a855f7, transparent);
-      opacity: 0; transition: opacity 0.25s;
-    }
-    .cmp-tool-card:hover {
-      border-color: rgba(168,85,247,.25);
+    .article-card:hover {
+      border-color: var(--border-h);
       transform: translateY(-4px);
+      box-shadow: var(--glow-c);
     }
-    .cmp-tool-card:hover::before,
-    .cmp-tool-card:hover::after { opacity: 1; }
-    .cmp-tool-card .ct-icon {
-      font-size: 28px; line-height: 1; margin-bottom: 14px; display: block;
-    }
-    .cmp-tool-card .ct-title {
-      font-size: 16px; font-weight: 700; margin-bottom: 8px; color: var(--text);
-    }
-    .cmp-tool-card .ct-desc {
-      font-size: 12.5px; color: var(--muted); line-height: 1.7;
-      margin-bottom: 16px;
-      display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
-    }
-    .cmp-tool-card .ct-tag {
-      display: inline-block; font-size: 10.5px; font-weight: 700;
-      padding: 4px 10px; border-radius: 6px;
-      background: rgba(0,229,255,0.08); color: var(--cyan);
+    .article-card .ac-cat {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan);
       letter-spacing: 0.5px;
-    }
-    .cmp-tool-card .ct-vs {
-      position: absolute; top: 18px; right: 18px;
-      font-size: 11px; font-weight: 800; letter-spacing: 1px;
-      color: #a855f7; opacity: 0.4;
-    }
-
-    /* ===== 对比评测文章：编辑式大卡片 ===== */
-    .cmp-articles-section {
-      max-width: 900px; margin: 0 auto; padding: 30px 24px 60px;
-    }
-    .cmp-articles-section .section-head { text-align: center; margin-bottom: 28px; }
-    .cmp-article-card {
-      display: block; text-decoration: none; color: var(--text);
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 18px; padding: 28px 32px; margin-bottom: 18px;
-      transition: border-color 0.25s, transform 0.25s;
-      position: relative; overflow: hidden;
-    }
-    .cmp-article-card::before {
-      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
-      width: 3px; background: linear-gradient(180deg, var(--cyan), #a855f7);
-      opacity: 0; transition: opacity 0.25s;
-    }
-    .cmp-article-card:hover {
-      border-color: rgba(0,229,255,.15);
-      transform: translateY(-3px);
-    }
-    .cmp-article-card:hover::before { opacity: 1; }
-    .cmp-article-card .ac-row {
-      display: flex; align-items: center; gap: 14px; margin-bottom: 12px; flex-wrap: wrap;
-    }
-    .cmp-article-card .ac-cat {
-      font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--cyan);
       text-transform: uppercase;
     }
-    .cmp-article-card .ac-meta {
-      font-size: 12px; color: var(--muted);
+    .article-card .ac-title {
+      font-size: 20px;
+      font-weight: 700;
+      line-height: 1.4;
+      color: var(--text);
     }
-    .cmp-article-card .ac-title {
-      font-size: 20px; font-weight: 700; line-height: 1.4; margin-bottom: 12px;
-      background: linear-gradient(135deg, var(--text), rgba(255,255,255,0.7));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    .article-card .ac-meta {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
     }
-    .cmp-article-card .ac-summary {
-      font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 16px;
+    .article-card .ac-summary {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
     }
-    .cmp-article-card .ac-tags {
-      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px;
+    .article-card .ac-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
-    .cmp-article-card .ac-tags span {
-      font-size: 10.5px; font-weight: 600;
-      padding: 4px 10px; border-radius: 6px;
-      background: rgba(168,85,247,0.1); color: #a855f7;
-      border: 1px solid rgba(168,85,247,0.15);
+    .article-card .ac-tags span {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(0,229,255,0.08);
+      border: 1px solid rgba(0,229,255,0.15);
+      color: var(--cyan);
     }
-    .cmp-article-card .ac-cta {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 13px; font-weight: 700; color: var(--cyan);
-      transition: gap 0.2s;
+    .article-card .ac-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--purple);
+      margin-top: 4px;
+      transition: color 0.2s;
     }
-    .cmp-article-card:hover .ac-cta { gap: 10px; }
+    .article-card:hover .ac-cta { color: var(--cyan); }
 
-    /* ===== 友情链接（如果有的话）===== */
-    .links-section { max-width: 1200px; margin: 0 auto; padding: 0 24px 60px; }
-    .links-header { text-align: center; margin-bottom: 24px; }
-    .links-header h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .links-header p { font-size: 13px; color: var(--muted); }
-    .links-grid { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-    .link-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px 20px;
-      display: flex; align-items: center; gap: 14px;
-      transition: transform 0.2s, border-color 0.2s;
-      text-decoration: none; min-width: 280px;
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
     }
-    .link-card:hover { transform: translateY(-3px); border-color: var(--cyan); }
-    .link-icon {
-      width: 42px; height: 42px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; background: rgba(255,255,255,0.04); flex-shrink: 0;
+    .feat-card {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 32px 28px;
+      border: 1px solid var(--border);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
     }
-    .link-info { flex: 1; min-width: 0; }
-    .link-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .link-desc { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .feat-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-h);
+      box-shadow: var(--glow-c);
+    }
+    .feat-card .fc-icon {
+      font-size: 38px;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .feat-card .fc-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+    .feat-card .fc-desc {
+      font-size: 14px;
+      opacity: 0.65;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .feat-card .fc-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(0,229,255,0.1);
+      color: var(--cyan);
+    }
 
-    /* ===== 响应式 ===== */
+    .breadcrumb-sep {
+      opacity: 0.35;
+      margin: 0 4px;
+    }
+
     @media (max-width: 768px) {
-      .cmp-hero { padding: 60px 20px 50px; }
-      .cmp-hero h1 { font-size: clamp(32px, 8vw, 50px); }
-      .cmp-h1-grad::after { display: none; }
-      .cmp-stats { gap: 28px; }
-      .cmp-stat-num { font-size: 26px; }
-      .cmp-tools-grid { grid-template-columns: 1fr; }
-      .cmp-article-card { padding: 22px 20px; }
-      .cmp-article-card .ac-title { font-size: 17px; }
-      .reco-section { padding: 16px 20px 30px; }
+      .featured-grid { grid-template-columns: 1fr; }
+      .recommend-grid { grid-template-columns: 1fr; }
+      .feat-card { padding: 24px 20px; }
     }
   </style>
   <script src="../assets/js/common-i18n.min.js"></script>
@@ -454,73 +373,67 @@
     </div>
   </nav>
 
-  <!-- ===== 面包屑 ===== -->
-  <div class="breadcrumb-row">
-    <div class="bc-inner">
-      <a href="/" data-i18n="navHome">首页</a>
+  <!-- ===== 页面头部 ===== -->
+  <div class="page-header reveal">
+    <div class="breadcrumb">
+      <a href="/" data-i18n="breadcrumbHome">首页</a>
       <span class="breadcrumb-sep">/</span>
-      <span data-i18n="crumbCur">工具对比</span>
+      <span class="cur" data-i18n="crumbCur">工具对比</span>
+    </div>
+    <span class="page-eyebrow" data-i18n="eyebrow">工具对比</span>
+    <h1><span class="grad" data-i18n="h1Grad">工具对比</span><br /><span data-i18n="h1Sub">横向对比所有工具</span></h1>
+    <p data-i18n="pageDesc">对比 PDF 压缩、图片处理、文本比较等各类工具的详细参数与适用场景。差异一目了然，选择更轻松。</p>
+  </div>
+
+  <!-- ===== 推荐资源区 ===== -->
+  <div class="section">
+    <div class="section-head reveal">
+      <span class="section-eyebrow" data-i18n="recoEyebrow">推荐资源</span>
+      <h2 data-i18n="recoTitle">推荐资源</h2>
+    </div>
+    <p class="section-desc" data-i18n="recoDesc">更多实用在线资源，提升工作效率</p>
+    <div class="recommend-grid">
+      <a href="/yunchuang/cloud-resources.html" class="recommend-item">
+        <span class="reco-title" data-i18n="reco1Title">免费云环境资源大全</span>
+        <span class="reco-desc" data-i18n="reco1Desc">30+ 免费云服务完整清单</span>
+      </a>
+      <a href="/yunchuang/free-api-models.html" class="recommend-item">
+        <span class="reco-title" data-i18n="reco2Title">免费 AI 模型 API 大全</span>
+        <span class="reco-desc" data-i18n="reco2Desc">Hugging Face、Gemini 等 30+ 免费 API</span>
+      </a>
+      <a href="/guides/zentools-tutorial.html" class="recommend-item">
+        <span class="reco-title" data-i18n="reco3Title">ZenTools 图文使用教程</span>
+        <span class="reco-desc" data-i18n="reco3Desc">从零掌握所有工具的使用方法</span>
+      </a>
+      <a href="/guides/" class="recommend-item">
+        <span class="reco-title" data-i18n="reco4Title">深度指南中心</span>
+        <span class="reco-desc" data-i18n="reco4Desc">全方位实用教程合集</span>
+      </a>
+      <a href="/yunchuang/free-ai-aggregator/" class="recommend-item">
+        <span class="reco-title" data-i18n="reco5Title">免费 AI 模型聚合平台</span>
+        <span class="reco-desc" data-i18n="reco5Desc">Mistral/Gemma/Phi-3 智能轮询</span>
+      </a>
     </div>
   </div>
 
-  <!-- ===== 对比主题 Hero ===== -->
-  <section class="cmp-hero">
-    <div class="cmp-hero-bg"></div>
-    <div class="cmp-hero-inner">
-      <span class="cmp-eyebrow" data-i18n="eyebrow">工具对比</span>
-      <h1><span class="cmp-h1-grad" data-i18n="h1Grad">工具对比</span></h1>
-      <p class="cmp-sub" data-i18n="h1Sub">横向对比所有工具</p>
-      <p class="cmp-desc" data-i18n="pageDesc">对比 PDF 压缩、图片处理、文本比较等各类工具的详细参数与适用场景。差异一目了然，选择更轻松。</p>
-      <div class="cmp-stats">
-        <div class="cmp-stat"><div class="cmp-stat-num">5</div><div class="cmp-stat-label">对比工具</div></div>
-        <div class="cmp-stat"><div class="cmp-stat-num">2</div><div class="cmp-stat-label">深度评测</div></div>
-        <div class="cmp-stat"><div class="cmp-stat-num">5+</div><div class="cmp-stat-label">推荐资源</div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 推荐资源：水平 pill 行 ===== -->
-  <div class="reco-section">
-    <a href="/yunchuang/cloud-resources.html" class="reco-pill">
-      <span class="rp-dot"></span><span data-i18n="reco1Title">免费云环境资源大全</span>
-      <span class="rp-desc" data-i18n="reco1Desc">30+ 免费云服务</span>
-    </a>
-    <a href="/yunchuang/free-api-models.html" class="reco-pill">
-      <span class="rp-dot"></span><span data-i18n="reco2Title">免费 AI 模型 API 大全</span>
-      <span class="rp-desc" data-i18n="reco2Desc">30+ 免费 API</span>
-    </a>
-    <a href="/guides/zentools-tutorial.html" class="reco-pill">
-      <span class="rp-dot"></span><span data-i18n="reco3Title">ZenTools 图文使用教程</span>
-      <span class="rp-desc" data-i18n="reco3Desc">从零掌握所有工具</span>
-    </a>
-    <a href="/guides/" class="reco-pill">
-      <span class="rp-dot"></span><span data-i18n="reco4Title">深度指南中心</span>
-      <span class="rp-desc" data-i18n="reco4Desc">全方位教程合集</span>
-    </a>
-    <a href="/yunchuang/free-ai-aggregator/" class="reco-pill">
-      <span class="rp-dot"></span><span data-i18n="reco5Title">免费 AI 模型聚合平台</span>
-      <span class="rp-desc" data-i18n="reco5Desc">智能轮询切换</span>
-    </a>
-  </div>
-
-  <!-- ===== 功能对比工具 ===== -->
-  <div class="cmp-tools-section">
+  <!-- ===== 功能对比工具区 ===== -->
+  <div class="section">
     <div class="section-head reveal">
       <span class="section-eyebrow" data-i18n="toolsEyebrow">功能工具</span>
       <h2 data-i18n="toolsTitle">功能对比工具</h2>
     </div>
     <p class="section-desc" data-i18n="toolsDesc">直接对比两个文件或文本的差异</p>
-    <div class="cmp-tools-grid reveal-stagger" id="featuredGrid"></div>
+    <div class="featured-grid reveal-stagger" id="featuredGrid"></div>
   </div>
 
-  <!-- ===== 对比评测文章 ===== -->
-  <div class="cmp-articles-section">
+  <!-- ===== 对比评测文章区 ===== -->
+  <div class="section">
     <div class="section-head reveal">
       <span class="section-eyebrow" data-i18n="reviewEyebrow">深度评测</span>
       <h2 data-i18n="reviewTitle">对比评测文章</h2>
     </div>
     <p class="section-desc" data-i18n="reviewDesc">深度横向对比不同工具和平台，帮你做出明智选择。</p>
-    <div class="cmp-article-list reveal-stagger" id="articleGrid"></div>
+    <div class="article-grid reveal-stagger" id="articleGrid"></div>
   </div>
 
   <!-- ===== 页脚 ===== -->
@@ -651,46 +564,43 @@
     }
   ];
 
-    function renderFeatured(lang) {
-      var grid = document.getElementById('featuredGrid');
-      if (!grid) return;
-      var html = '';
-      compareTools.forEach(function(t) {
-        var d = t[lang] || t.zh;
-        html += '<a href="' + t.url + '" class="cmp-tool-card">';
-        html += '<span class="ct-vs">VS</span>';
-        html += '<span class="ct-icon">' + t.icon + '</span>';
-        html += '<span class="ct-title">' + d.title + '</span>';
-        html += '<span class="ct-desc">' + d.desc + '</span>';
-        html += '<span class="ct-tag">' + d.tag + '</span>';
-        html += '</a>';
-      });
-      grid.innerHTML = html;
-    }
+  function renderFeatured(lang) {
+    var grid = document.getElementById('featuredGrid');
+    if (!grid) return;
+    var html = '';
+    compareTools.forEach(function(t) {
+      var d = t[lang] || t.zh;
+      html += '<a href="' + t.url + '" class="feat-card">';
+      html += '<span class="fc-icon">' + t.icon + '</span>';
+      html += '<span class="fc-title">' + d.title + '</span>';
+      html += '<span class="fc-desc">' + d.desc + '</span>';
+      html += '<span class="fc-tag">' + d.tag + '</span>';
+      html += '</a>';
+    });
+    grid.innerHTML = html;
+  }
 
-    function renderArticles(lang) {
-      var grid = document.getElementById('articleGrid');
-      if (!grid) return;
-      var html = '';
-      reviewArticles.forEach(function(a) {
-        var d = a[lang] || a.zh;
-        html += '<a href="' + a.url + '" class="cmp-article-card">';
-        html += '<div class="ac-row">';
-        html += '<span class="ac-cat" data-i18n="articleCat">工具对比</span>';
-        html += '<span class="ac-meta">' + d.meta + '</span>';
-        html += '</div>';
-        html += '<span class="ac-title">' + d.title + '</span>';
-        html += '<span class="ac-summary">' + d.summary + '</span>';
-        html += '<div class="ac-tags">';
-        d.tags.forEach(function(tag) {
-          html += '<span>' + tag + '</span>';
-        });
-        html += '</div>';
-        html += '<span class="ac-cta">' + ((window.ZT_PAGE[lang] || window.ZT_PAGE.zh).articleCTAR || '阅读全文 →') + '</span>';
-        html += '</a>';
+  function renderArticles(lang) {
+    var grid = document.getElementById('articleGrid');
+    if (!grid) return;
+    var html = '';
+    reviewArticles.forEach(function(a) {
+      var d = a[lang] || a.zh;
+      html += '<a href="' + a.url + '" class="article-card">';
+      html += '<span class="ac-cat" data-i18n="articleCat">工具对比</span>';
+      html += '<span class="ac-title">' + d.title + '</span>';
+      html += '<span class="ac-meta">' + d.meta + '</span>';
+      html += '<span class="ac-summary">' + d.summary + '</span>';
+      html += '<span class="ac-tags">';
+      d.tags.forEach(function(tag) {
+        html += '<span>' + tag + '</span>';
       });
-      grid.innerHTML = html;
-    }
+      html += '</span>';
+      html += '<span class="ac-cta">' + ((window.ZT_PAGE[lang] || window.ZT_PAGE.zh).articleCTAR || '阅读全文 →') + '</span>';
+      html += '</a>';
+    });
+    grid.innerHTML = html;
+  }
 
   function updateMetaTags(lang) {
     var data = window.ZT_PAGE[lang] || window.ZT_PAGE.zh;
