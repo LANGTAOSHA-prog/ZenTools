@@ -90,18 +90,18 @@
 
     <footer>© 2026 ZenTools</footer></div><script>
 const translations={
-window.ZT_PAGE = translations;
-zh:{back:"← 返回首页",title:"视频裁剪",desc:"裁剪视频片段，设置起止时间。",ad:"广告位（Google AdSense）",start:"开始时间（秒）",end:"结束时间（秒）",preview:"预览裁剪段",download:"下载裁剪视频",choose:"请先选择视频文件"
+zh:{back:"← 返回首页",title:"视频裁剪",desc:"裁剪视频片段，设置起止时间。",ad:"广告位（Google AdSense）",start:"开始时间（秒）",end:"结束时间（秒）",preview:"预览裁剪段",download:"下载裁剪视频",choose:"请先选择视频文件",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Cutter",desc:"Cut video clips by setting start and end time.",ad:"Ad Space",start:"Start (seconds)",end:"End (seconds)",preview:"Preview",download:"Download",choose:"Please select a video first"
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Cutter",desc:"Cut video clips by setting start and end time.",ad:"Ad Space",start:"Start (seconds)",end:"End (seconds)",preview:"Preview",download:"Download",choose:"Please select a video first",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
 let currentLang="zh",videoFile=null;const v=document.getElementById("preview");document.getElementById("videoInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;videoFile=f;const u=URL.createObjectURL(f);v.src=u;v.onloadedmetadata=function(){document.getElementById("endTime").value=Math.floor(v.duration);};});
 function previewClip(){if(!videoFile){alert(translations[currentLang].choose);return;}v.currentTime=parseFloat(document.getElementById("startTime").value)||0;v.play();}
 function downloadClip(){if(!videoFile){alert(translations[currentLang].choose);return;}const s=parseFloat(document.getElementById("startTime").value)||0,e=parseFloat(document.getElementById("endTime").value)||0;if(e<=s){alert("End time must be after start time");return;}const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");canvas.width=v.videoWidth;canvas.height=v.videoHeight;const stream=canvas.captureStream(30);const recorder=new MediaRecorder(stream,{mimeType:'video/webm'});const chunks=[];recorder.ondataavailable=function(ev){if(ev.data.size>0)chunks.push(ev.data);};recorder.onstop=function(){const blob=new Blob(chunks,{type:'video/webm'});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download='cut-'+videoFile.name.replace(/\.[^.]+$/,'.webm');a.click();};v.currentTime=s;v.play();recorder.start();setTimeout(function(){v.pause();recorder.stop();},(e-s)*1000);}

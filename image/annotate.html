@@ -90,18 +90,18 @@
 
     <footer>© 2026 ZenTools</footer></div><script>
 const translations={
-window.ZT_PAGE = translations;
-zh:{back:"← 返回首页",title:"图片涂鸦标注",desc:"在图片上自由绘制线条、箭头和文字标注。",ad:"广告位（Google AdSense）",pen:"画笔",arrow:"箭头",text_tool:"文字",eraser:"橡皮",size:"大小",clear:"清空绘制",download:"下载图片",choose:"请先选择一张图片"
+zh:{back:"← 返回首页",title:"图片涂鸦标注",desc:"在图片上自由绘制线条、箭头和文字标注。",ad:"广告位（Google AdSense）",pen:"画笔",arrow:"箭头",text_tool:"文字",eraser:"橡皮",size:"大小",clear:"清空绘制",download:"下载图片",choose:"请先选择一张图片",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Drawing & Annotation",desc:"Draw lines, arrows and text on images.",ad:"Ad Space",pen:"Pen",arrow:"Arrow",text_tool:"Text",eraser:"Eraser",size:"Size",clear:"Clear",download:"Download",choose:"Please select an image first"
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Drawing & Annotation",desc:"Draw lines, arrows and text on images.",ad:"Ad Space",pen:"Pen",arrow:"Arrow",text_tool:"Text",eraser:"Eraser",size:"Size",clear:"Clear",download:"Download",choose:"Please select an image first",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
 let currentLang="zh",imgFile=null,currentTool="pen",isDrawing=false,lastX=0,lastY=0;
 const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
 document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){cs.width=Math.min(img.width,900);cs.height=img.height*(cs.width/img.width);ctx.drawImage(img,0,0,cs.width,cs.height);};img.src=ev.target.result;};r.readAsDataURL(f);});

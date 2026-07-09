@@ -90,18 +90,18 @@
 
     <footer>© 2026 ZenTools</footer></div><script>
 const translations={
-window.ZT_PAGE = translations;
-zh:{back:"← 返回首页",title:"视频倒放",desc:"将视频倒着播放，生成反向视频。",ad:"广告位（Google AdSense）",process:"生成倒放视频",download:"下载倒放视频",choose:"请先选择视频文件",processing:"正在处理..."
+zh:{back:"← 返回首页",title:"视频倒放",desc:"将视频倒着播放，生成反向视频。",ad:"广告位（Google AdSense）",process:"生成倒放视频",download:"下载倒放视频",choose:"请先选择视频文件",processing:"正在处理...",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Reverse",desc:"Reverse video playback.",ad:"Ad Space",process:"Generate Reverse",download:"Download",choose:"Please select a video first",processing:"Processing..."
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Reverse",desc:"Reverse video playback.",ad:"Ad Space",process:"Generate Reverse",download:"Download",choose:"Please select a video first",processing:"Processing...",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
 let currentLang="zh",videoFile=null,revBlob=null;const v=document.getElementById("preview");
 document.getElementById("videoInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;videoFile=f;v.src=URL.createObjectURL(f);});
 function processReverse(){if(!videoFile){alert(translations[currentLang].choose);return;}alert(translations[currentLang].processing);const c=document.createElement("canvas"),ctx=c.getContext("2d");c.width=v.videoWidth;c.height=v.videoHeight;const s=c.captureStream(30),rec=new MediaRecorder(s,{mimeType:'video/webm'}),chunks=[];rec.ondataavailable=function(e){if(e.data.size>0)chunks.push(e.data);};rec.onstop=function(){revBlob=new Blob(chunks,{type:'video/webm'});const u=URL.createObjectURL(revBlob);const old=v.src;v.src=u;if(old&&old.startsWith('blob:'))URL.revokeObjectURL(old);};const frames=[];v.play();var cap=function(){if(v.currentTime<v.duration){const c2=document.createElement("canvas");c2.width=v.videoWidth;c2.height=v.videoHeight;c2.getContext("2d").drawImage(v,0,0);frames.push(c2);requestAnimationFrame(cap);}else{v.pause();frames.reverse();let idx=0;rec.start();var playRev=function(){if(idx<frames.length){ctx.clearRect(0,0,c.width,c.height);ctx.drawImage(frames[idx],0,0,c.width,c.height);idx++;requestAnimationFrame(playRev);}else{rec.stop();}};playRev();}};cap();}

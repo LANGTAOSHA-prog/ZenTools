@@ -90,18 +90,18 @@
 
     <footer>© 2026 ZenTools</footer></div><script>
 const translations={
-window.ZT_PAGE = translations;
-zh:{back:"← 返回首页",title:"视频截图",desc:"从视频中截取指定时间点的帧图片。",ad:"广告位（Google AdSense）",time:"截取时间（秒）",capture:"截图",choose:"请先选择视频文件"
+zh:{back:"← 返回首页",title:"视频截图",desc:"从视频中截取指定时间点的帧图片。",ad:"广告位（Google AdSense）",time:"截取时间（秒）",capture:"截图",choose:"请先选择视频文件",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Screenshot",desc:"Capture frames from video at specific time.",ad:"Ad Space",time:"Capture at (seconds)",capture:"Capture",choose:"Please select a video first"
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Screenshot",desc:"Capture frames from video at specific time.",ad:"Ad Space",time:"Capture at (seconds)",capture:"Capture",choose:"Please select a video first",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
 let currentLang="zh",videoFile=null;const v=document.getElementById("preview");
 document.getElementById("videoInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;videoFile=f;v.src=URL.createObjectURL(f);});
 function captureFrame(){if(!videoFile){alert(translations[currentLang].choose);return;}const t=parseFloat(document.getElementById("captureTime").value)||0;v.currentTime=t;v.play();setTimeout(function(){v.pause();const c=document.createElement("canvas");c.width=v.videoWidth;c.height=v.videoHeight;c.getContext("2d").drawImage(v,0,0);const d=c.toDataURL("image/png");const r=document.getElementById("result");r.innerHTML='<img src=\"'+d+'\" id=\"capturedImg\"><br><button onclick=\"downloadFrame()\" class=\"green\" data-i18n=\"download\">下载截图</button>';window._frameData=d;},500);}

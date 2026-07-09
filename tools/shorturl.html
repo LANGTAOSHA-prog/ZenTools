@@ -134,34 +134,34 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 </div>
 <script>
 const translations={
-window.pageTranslations = translations;
-window.ZT_PAGE = translations;
 
- zh:{pageTitle:"短链接生成器 - ZenTools",back:"← 返回首页",title:"短链接生成器",desc:"生成浏览器本地短链接代码。",ad:"广告位（Google AdSense）",placeholder:"输入长链接...",make:"生成短链接",copy:"复制",empty:"请输入链接",copied:"已复制",noteTitle:"说明",noteText:"GitHub Pages 纯前端无法真正创建可跳转的服务器短链接。本工具会生成本地短链接样式代码，适合展示、记录或后续接入短链接服务。"
+ zh:{pageTitle:"短链接生成器 - ZenTools",back:"← 返回首页",title:"短链接生成器",desc:"生成浏览器本地短链接代码。",ad:"广告位（Google AdSense）",placeholder:"输入长链接...",make:"生成短链接",copy:"复制",empty:"请输入链接",copied:"已复制",noteTitle:"说明",noteText:"GitHub Pages 纯前端无法真正创建可跳转的服务器短链接。本工具会生成本地短链接样式代码，适合展示、记录或后续接入短链接服务。",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
         tutorialStep3: '下载结果'},
- ja:{pageTitle:"短縮URL生成 - ZenTools",back:"← ホームに戻る",title:"短縮URL生成",desc:"ブラウザ内で短縮URL風コードを生成。",ad:"広告スペース",placeholder:"長いURLを入力...",make:"生成",copy:"コピー",empty:"URLを入力してください",copied:"コピーしました",noteTitle:"説明",noteText:"GitHub Pagesのみでは実際の短縮URLサーバーは作成できません。このツールは表示・記録用コードを生成します。"
+ ja:{pageTitle:"短縮URL生成 - ZenTools",back:"← ホームに戻る",title:"短縮URL生成",desc:"ブラウザ内で短縮URL風コードを生成。",ad:"広告スペース",placeholder:"長いURLを入力...",make:"生成",copy:"コピー",empty:"URLを入力してください",copied:"コピーしました",noteTitle:"説明",noteText:"GitHub Pagesのみでは実際の短縮URLサーバーは作成できません。このツールは表示・記録用コードを生成します。",
         tutorialEyebrow: '使い方',
         tutorialTitle: '3ステップで完了',
         tutorialStep1: 'アップロード',
         tutorialStep2: '処理',
         tutorialStep3: 'ダウンロード'},
- en:{pageTitle:"Short URL Generator - ZenTools",back:"← Back to Home",title:"Short URL Generator",desc:"Generate local short-link style codes.",ad:"Ad Space",placeholder:"Enter long URL...",make:"Generate Short Link",copy:"Copy",empty:"Please enter a URL",copied:"Copied",noteTitle:"Notice",noteText:"A pure GitHub Pages frontend cannot create real server-side redirect short links. This tool generates local short-link style codes for display, notes, or later integration."
+ en:{pageTitle:"Short URL Generator - ZenTools",back:"← Back to Home",title:"Short URL Generator",desc:"Generate local short-link style codes.",ad:"Ad Space",placeholder:"Enter long URL...",make:"Generate Short Link",copy:"Copy",empty:"Please enter a URL",copied:"Copied",noteTitle:"Notice",noteText:"A pure GitHub Pages frontend cannot create real server-side redirect short links. This tool generates local short-link style codes for display, notes, or later integration.",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'},
- vi:{pageTitle:"Tạo link rút gọn - ZenTools",back:"← Quay lại trang chủ",title:"Tạo link rút gọn",desc:"Tạo mã link rút gọn dạng cục bộ.",ad:"Vị trí quảng cáo",placeholder:"Nhập liên kết dài...",make:"Tạo link",copy:"Sao chép",empty:"Vui lòng nhập liên kết",copied:"Đã sao chép",noteTitle:"Lưu ý",noteText:"GitHub Pages thuần frontend không thể tạo link rút gọn chuyển hướng thật. Công cụ này tạo mã dạng link rút gọn để hiển thị hoặc tích hợp sau."
+ vi:{pageTitle:"Tạo link rút gọn - ZenTools",back:"← Quay lại trang chủ",title:"Tạo link rút gọn",desc:"Tạo mã link rút gọn dạng cục bộ.",ad:"Vị trí quảng cáo",placeholder:"Nhập liên kết dài...",make:"Tạo link",copy:"Sao chép",empty:"Vui lòng nhập liên kết",copied:"Đã sao chép",noteTitle:"Lưu ý",noteText:"GitHub Pages thuần frontend không thể tạo link rút gọn chuyển hướng thật. Công cụ này tạo mã dạng link rút gọn để hiển thị hoặc tích hợp sau.",
         tutorialEyebrow: 'CÁCH SỬ DỤNG',
         tutorialTitle: 'Hoàn thành 3 bước',
         tutorialStep1: 'Tải lên',
         tutorialStep2: 'Xử lý',
         tutorialStep3: 'Tải xuống'}
 };
+window.pageTranslations = translations;
+window.ZT_PAGE = translations;
 
 const languageSelect=document.getElementById("langSelect");
 let currentLang="zh";
@@ -179,6 +179,7 @@ setLanguage(savedLang);
 function hash(s){let h=0;for(let i=0;i<s.length;i++){h=((h<<5)-h)+s.charCodeAt(i);h|=0;}return Math.abs(h).toString(36);}
 function makeShort(){const data=translations[currentLang]||translations.zh;const url=document.getElementById("longUrl").value.trim();if(!url){alert(data.empty);return;}document.getElementById("shortUrl").value=location.origin+location.pathname.replace(/[^\/]+$/,"")+"s/"+hash(url);}
 function copyShort(){const input=document.getElementById("shortUrl");input.select();document.execCommand("copy");alert((translations[currentLang]||translations.zh).copied);}
+</script>
 <script>
 const seoData = {
   title: "短链接生成器 - 免费在线工具 | ZenTools",

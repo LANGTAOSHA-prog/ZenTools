@@ -283,8 +283,6 @@ const languageSelect = document.getElementById("langSelect");
 let currentLang = "zh";
 
 const translations = {
-window.pageTranslations = translations;
-window.ZT_PAGE = translations;
 
   zh:{
     pageTitle:"二维码生成器 - ZenTools",
@@ -299,7 +297,7 @@ window.ZT_PAGE = translations;
     guideTitle:"使用说明",
     guideText:"1. 输入网址、文字或联系方式。\n2. 点击生成二维码。\n3. 生成后可以下载二维码图片。",
     privacyTitle:"隐私说明",
-    privacyText:"二维码生成在浏览器本地完成，输入内容正常情况下不会上传到服务器。"
+    privacyText:"二维码生成在浏览器本地完成，输入内容正常情况下不会上传到服务器。",
   
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
@@ -319,7 +317,7 @@ window.ZT_PAGE = translations;
     guideTitle:"使い方",
     guideText:"1. URL、テキスト、連絡先を入力します。\n2. QRコードを生成をクリックします。\n3. 生成後、画像をダウンロードできます。",
     privacyTitle:"プライバシーについて",
-    privacyText:"QRコードの生成はブラウザ内で行われ、通常入力内容はサーバーへアップロードされません。"
+    privacyText:"QRコードの生成はブラウザ内で行われ、通常入力内容はサーバーへアップロードされません。",
   
         tutorialEyebrow: '使い方',
         tutorialTitle: '3ステップで完了',
@@ -339,7 +337,7 @@ window.ZT_PAGE = translations;
     guideTitle:"How to Use",
     guideText:"1. Enter a URL, text, or contact information.\n2. Click Generate QR Code.\n3. Download the QR image after it is generated.",
     privacyTitle:"Privacy Notice",
-    privacyText:"QR code generation is completed locally in your browser, and your input is normally not uploaded to a server."
+    privacyText:"QR code generation is completed locally in your browser, and your input is normally not uploaded to a server.",
   
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
@@ -359,7 +357,7 @@ window.ZT_PAGE = translations;
     guideTitle:"Hướng dẫn sử dụng",
     guideText:"1. Nhập liên kết, văn bản hoặc thông tin liên hệ.\n2. Nhấn tạo mã QR.\n3. Tải ảnh mã QR sau khi tạo.",
     privacyTitle:"Thông tin quyền riêng tư",
-    privacyText:"Mã QR được tạo trực tiếp trong trình duyệt và nội dung nhập thường không được tải lên máy chủ."
+    privacyText:"Mã QR được tạo trực tiếp trong trình duyệt và nội dung nhập thường không được tải lên máy chủ.",
   
         tutorialEyebrow: 'CÁCH SỬ DỤNG',
         tutorialTitle: 'Hoàn thành 3 bước',
@@ -367,6 +365,8 @@ window.ZT_PAGE = translations;
         tutorialStep2: 'Xử lý',
         tutorialStep3: 'Tải xuống'}
 };
+window.pageTranslations = translations;
+window.ZT_PAGE = translations;
 
 function setLanguage(lang){
   currentLang = lang;
@@ -419,6 +419,7 @@ function generateQR(){
     downloadBtn.href = canvas.toDataURL("image/png");
   });
 }
+</script>
 <script>
 const seoData = {
   title: "二维码生成器 - 免费在线工具 | ZenTools",

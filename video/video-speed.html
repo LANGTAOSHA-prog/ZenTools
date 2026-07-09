@@ -90,18 +90,18 @@
 
     <footer>© 2026 ZenTools</footer></div><script>
 const translations={
-window.ZT_PAGE = translations;
-zh:{back:"← 返回首页",title:"视频变速",desc:"调整视频播放速度，支持 0.25x 到 4x。",ad:"广告位（Google AdSense）",speed:"速度",download:"下载变速视频",choose:"请先选择视频文件"
+zh:{back:"← 返回首页",title:"视频变速",desc:"调整视频播放速度，支持 0.25x 到 4x。",ad:"广告位（Google AdSense）",speed:"速度",download:"下载变速视频",choose:"请先选择视频文件",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Speed",desc:"Change video playback speed, 0.25x to 4x.",ad:"Ad Space",speed:"Speed",download:"Download",choose:"Please select a video first"
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Speed",desc:"Change video playback speed, 0.25x to 4x.",ad:"Ad Space",speed:"Speed",download:"Download",choose:"Please select a video first",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
 let currentLang="zh",videoFile=null;const v=document.getElementById("preview"),sl=document.getElementById("speedSlider"),lb=document.getElementById("speedLabel");
 sl.addEventListener("input",function(){const val=parseFloat(this.value);lb.textContent=val+'x';if(videoFile&&v.src){v.playbackRate=val;}});
 document.getElementById("videoInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;videoFile=f;const u=URL.createObjectURL(f);v.src=u;v.playbackRate=parseFloat(sl.value);});

@@ -90,18 +90,18 @@
 
     <footer>© 2026 ZenTools</footer></div><script>
 const translations={
-window.ZT_PAGE = translations;
-zh:{back:"← 返回首页",title:"视频合并",desc:"将多个视频依次拼接为一个视频文件。",ad:"广告位（Google AdSense）",merge:"开始合并",download:"下载合并视频",choose:"请选择至少2个视频",nosupport:"Canvas capture not supported for merged output, please try a different browser"
+zh:{back:"← 返回首页",title:"视频合并",desc:"将多个视频依次拼接为一个视频文件。",ad:"广告位（Google AdSense）",merge:"开始合并",download:"下载合并视频",choose:"请选择至少2个视频",nosupport:"Canvas capture not supported for merged output, please try a different browser",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Merger",desc:"Merge multiple videos into one file.",ad:"Ad Space",merge:"Start Merge",download:"Download",choose:"Select at least 2 videos",nosupport:"Canvas capture not supported for merged output, please try a different browser"
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Merger",desc:"Merge multiple videos into one file.",ad:"Ad Space",merge:"Start Merge",download:"Download",choose:"Select at least 2 videos",nosupport:"Canvas capture not supported for merged output, please try a different browser",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
 let currentLang="zh",videoFiles=[];const fl=document.getElementById("fileList"),v=document.getElementById("preview");let mergedBlob=null;
 document.getElementById("videoInput").addEventListener("change",function(e){const fs=Array.from(e.target.files||[]);videoFiles=videoFiles.concat(fs);renderList();});
 function renderList(){fl.innerHTML=videoFiles.map(function(f,i){return '<div class=\"file-item\"><span class=\"name\">'+(i+1)+'. '+f.name+'</span><span class=\"del\" onclick=\"removeFile('+i+')\">✕</span></div>';}).join('');}

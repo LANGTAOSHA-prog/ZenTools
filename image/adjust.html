@@ -90,18 +90,18 @@
 
     <footer>© 2026 ZenTools</footer></div><script>
 const translations={
-window.ZT_PAGE = translations;
-zh:{back:"← 返回首页",title:"亮度对比度调整",desc:"自由调整图片的亮度、对比度、饱和度和色相。",ad:"广告位（Google AdSense）",brightness:"亮度",contrast:"对比度",saturation:"饱和度",reset:"重置",download:"下载图片",choose:"请先选择一张图片"
+zh:{back:"← 返回首页",title:"亮度对比度调整",desc:"自由调整图片的亮度、对比度、饱和度和色相。",ad:"广告位（Google AdSense）",brightness:"亮度",contrast:"对比度",saturation:"饱和度",reset:"重置",download:"下载图片",choose:"请先选择一张图片",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Brightness & Contrast",desc:"Adjust brightness, contrast, saturation of images.",ad:"Ad Space",brightness:"Brightness",contrast:"Contrast",saturation:"Saturation",reset:"Reset",download:"Download",choose:"Please select an image first"
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Brightness & Contrast",desc:"Adjust brightness, contrast, saturation of images.",ad:"Ad Space",brightness:"Brightness",contrast:"Contrast",saturation:"Saturation",reset:"Reset",download:"Download",choose:"Please select an image first",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
 let currentLang="zh",imgFile=null,originalImg=null;
 const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
 document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){originalImg=img;cs.width=Math.min(img.width,800);cs.height=img.height*(cs.width/img.width);applyAll();};img.src=ev.target.result;};r.readAsDataURL(f);});

@@ -262,8 +262,6 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <script>
 
 const translations={
-window.pageTranslations = translations;
-window.ZT_PAGE = translations;
 
  zh:{pageTitle:"世界时间 - ZenTools",back:"← 返回首页",title:"世界时间",desc:"查看多个城市的当前时间。",// 中文 zh
 introTitle:"工具介绍",
@@ -296,31 +294,33 @@ faq2A:"可以，页面已适配手机、平板和电脑浏览器。",
 faq3Q:"需要安装软件吗？",
 faq3A:"不需要，打开网页即可查看世界时间。",
 relatedTitle:"相关工具推荐",
-relatedHome:"查看更多工具",ad:"广告位（Google AdSense）"
+relatedHome:"查看更多工具",ad:"广告位（Google AdSense）",
         tutorialEyebrow: '使用流程',
         tutorialTitle: '三步完成',
         tutorialStep1: '上传文件',
         tutorialStep2: '本地处理',
         tutorialStep3: '下载结果'},
- ja:{pageTitle:"世界時間 - ZenTools",back:"← ホームに戻る",title:"世界時間",desc:"複数都市の現在時刻を確認。",ad:"広告スペース"
+ ja:{pageTitle:"世界時間 - ZenTools",back:"← ホームに戻る",title:"世界時間",desc:"複数都市の現在時刻を確認。",ad:"広告スペース",
         tutorialEyebrow: '使い方',
         tutorialTitle: '3ステップで完了',
         tutorialStep1: 'アップロード',
         tutorialStep2: '処理',
         tutorialStep3: 'ダウンロード'},
- en:{pageTitle:"World Time - ZenTools",back:"← Back to Home",title:"World Time",desc:"Check current time in multiple cities.",ad:"Ad Space"
+ en:{pageTitle:"World Time - ZenTools",back:"← Back to Home",title:"World Time",desc:"Check current time in multiple cities.",ad:"Ad Space",
         tutorialEyebrow: 'HOW TO USE',
         tutorialTitle: 'Done in 3 Steps',
         tutorialStep1: 'Upload',
         tutorialStep2: 'Process',
         tutorialStep3: 'Download'},
- vi:{pageTitle:"Giờ thế giới - ZenTools",back:"← Quay lại trang chủ",title:"Giờ thế giới",desc:"Xem giờ hiện tại ở nhiều thành phố.",ad:"Vị trí quảng cáo"
+ vi:{pageTitle:"Giờ thế giới - ZenTools",back:"← Quay lại trang chủ",title:"Giờ thế giới",desc:"Xem giờ hiện tại ở nhiều thành phố.",ad:"Vị trí quảng cáo",
         tutorialEyebrow: 'CÁCH SỬ DỤNG',
         tutorialTitle: 'Hoàn thành 3 bước',
         tutorialStep1: 'Tải lên',
         tutorialStep2: 'Xử lý',
         tutorialStep3: 'Tải xuống'}
 };
+window.pageTranslations = translations;
+window.ZT_PAGE = translations;
 
 const languageSelect=document.getElementById("langSelect");
 let currentLang="zh";
@@ -342,6 +342,7 @@ const zones=[["Tokyo","Asia/Tokyo"],["Shanghai","Asia/Shanghai"],["New York","Am
 function updateTimes(){const box=document.getElementById("timeGrid");box.innerHTML="";zones.forEach(z=>{const d=new Date().toLocaleString([], {timeZone:z[1], hour12:false});const div=document.createElement("div");div.className="box";div.innerHTML=`<h3>${z[0]}</h3><p>${z[1]}</p><div class="big">${d}</div>`;box.appendChild(div);});}
 updateTimes();setInterval(updateTimes,1000);
 
+</script>
 <script>
 const seoData = {
   title: "世界时间 - 免费在线工具 | ZenTools",
