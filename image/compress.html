@@ -105,7 +105,77 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
     </div>
   </div>
 
-  <footer>© 2026 ZenTools</footer>
+  
+    <style>
+    .tool-tutorial-svg {
+      padding: 28px 0 12px;
+      text-align: center;
+    }
+    .tutorial-svg-head {
+      margin-bottom: 16px;
+    }
+    .tutorial-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--clr-tut);
+      background: color-mix(in srgb, var(--clr-tut) 10%, transparent);
+      padding: 4px 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .tutorial-svg-head h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    .tool-tutorial-svg svg text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+</style>
+    <style>.tool-tutorial-svg{--clr-tut:#27c27b}</style>
+    
+    <div class="tool-tutorial-svg reveal">
+      <div class="tutorial-svg-head">
+        <span class="tutorial-eyebrow">使用流程</span>
+        <h3>三步完成</h3>
+      </div>
+      <svg viewBox="0 0 380 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:420px;margin:0 auto">
+        <!-- Step 1 -->
+        <g transform="translate(20,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">1</text>
+          <rect x="3" y="5" width="14" height="14" rx="2" fill="none" stroke="#27c27b" stroke-width="2"/><circle cx="8" cy="9" r="1.5" fill="#27c27b"/><path d="M3 15L7 11L11 14L14 11L17 15" fill="none" stroke="#27c27b" stroke-width="2"/>
+        </g>
+        <!-- Arrow 1-2 -->
+        <path d="M90 50 L140 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M136 45 L142 50 L136 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 2 -->
+        <g transform="translate(150,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">2</text>
+          <rect x="3" y="5" width="14" height="14" rx="2" fill="none" stroke="#27c27b" stroke-width="2"/><circle cx="8" cy="9" r="1.5" fill="#27c27b"/><path d="M3 15L7 11L11 14L14 11L17 15" fill="none" stroke="#27c27b" stroke-width="2"/><circle cx="16" cy="16" r="3" fill="#27c27b" opacity="0.3"/>
+        </g>
+        <!-- Arrow 2-3 -->
+        <path d="M220 50 L270 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M266 45 L272 50 L266 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 3 -->
+        <g transform="translate(280,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">3</text>
+          <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#27c27b" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#27c27b" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Labels -->
+        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
+        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
+        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
+      </svg>
+    </div>
+
+    <footer>© 2026 ZenTools</footer>
 </div>
 
 <script>
@@ -130,7 +200,12 @@ window.ZT_PAGE = translations;
     guideText:"1. 上传图片文件。\n2. 选择压缩质量。\n3. 点击开始压缩。\n4. 点击下载图片保存结果。",
     privacyTitle:"隐私说明",
     privacyText:"图片在浏览器本地压缩，正常情况下不会上传到服务器。"
-  },
+  
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},
   ja:{
     pageTitle:"画像圧縮ツール - 無料オンラインツール | ZenTools",
     back:"← ホームに戻る",
@@ -149,7 +224,12 @@ window.ZT_PAGE = translations;
     guideText:"1. 画像をアップロードします。\n2. 圧縮品質を選択します。\n3. 圧縮開始をクリックします。\n4. 画像を保存します。",
     privacyTitle:"プライバシーについて",
     privacyText:"画像はブラウザ内で処理され、通常サーバーへ送信されません。"
-  },
+  
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},
   en:{
     pageTitle:"Image Compressor - Free Online Tool | ZenTools",
     back:"← Back to Home",
@@ -168,7 +248,12 @@ window.ZT_PAGE = translations;
     guideText:"1. Upload an image file.\n2. Choose compression quality.\n3. Click Start Compress.\n4. Download the result.",
     privacyTitle:"Privacy Notice",
     privacyText:"Images are compressed locally in your browser and normally are not uploaded to a server."
-  },
+  
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},
   vi:{
     pageTitle:"Nén ảnh - Công cụ miễn phí | ZenTools",
     back:"← Quay lại trang chủ",
@@ -187,7 +272,12 @@ window.ZT_PAGE = translations;
     guideText:"1. Tải ảnh lên.\n2. Chọn chất lượng nén.\n3. Nhấn bắt đầu nén.\n4. Tải ảnh kết quả.",
     privacyTitle:"Thông tin quyền riêng tư",
     privacyText:"Ảnh được xử lý trong trình duyệt và không tải lên máy chủ."
-  }
+  
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}
 };
 
 const languageSelect=document.getElementById("langSelect");

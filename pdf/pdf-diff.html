@@ -119,6 +119,76 @@
         </div>
     </main>
 
+    
+    <style>
+    .tool-tutorial-svg {
+      padding: 28px 0 12px;
+      text-align: center;
+    }
+    .tutorial-svg-head {
+      margin-bottom: 16px;
+    }
+    .tutorial-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--clr-tut);
+      background: color-mix(in srgb, var(--clr-tut) 10%, transparent);
+      padding: 4px 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .tutorial-svg-head h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    .tool-tutorial-svg svg text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+</style>
+    <style>.tool-tutorial-svg{--clr-tut:#f43145}</style>
+    
+    <div class="tool-tutorial-svg reveal">
+      <div class="tutorial-svg-head">
+        <span class="tutorial-eyebrow">使用流程</span>
+        <h3>三步完成</h3>
+      </div>
+      <svg viewBox="0 0 380 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:420px;margin:0 auto">
+        <!-- Step 1 -->
+        <g transform="translate(20,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">1</text>
+          <path d="M12 2L20 4V14C20 17.3 17.3 20 14 20H6C3.8 20 2 18.2 2 16V8L12 2Z" fill="none" stroke="#f43145" stroke-width="2"/>
+        </g>
+        <!-- Arrow 1-2 -->
+        <path d="M90 50 L140 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M136 45 L142 50 L136 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 2 -->
+        <g transform="translate(150,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">2</text>
+          <circle cx="12" cy="12" r="9" fill="none" stroke="#f43145" stroke-width="2"/><path d="M9 12L11 14L15 10" fill="none" stroke="#f43145" stroke-width="2.5" stroke-linecap="round"/>
+        </g>
+        <!-- Arrow 2-3 -->
+        <path d="M220 50 L270 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M266 45 L272 50 L266 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 3 -->
+        <g transform="translate(280,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">3</text>
+          <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#f43145" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#f43145" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Labels -->
+        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
+        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
+        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
+      </svg>
+    </div>
+
     <footer class="site-footer">
         <div class="container">
             <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
@@ -139,7 +209,12 @@
           label_page:'指定页面', opt_all:'全部页面',
           btn_compare:'开始对比', text_diff:'文本差异', visual_diff:'视觉差异',
           footer_text:'© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理'
-        },
+        
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},
         en: {
           nav_home:'Home', nav_categories:'Categories', nav_about:'About',
           title:'PDF Compare', subtitle:'Compare content differences between two PDF files',
@@ -149,7 +224,12 @@
           label_page:'Page', opt_all:'All pages',
           btn_compare:'Compare', text_diff:'Text Diff', visual_diff:'Visual Diff',
           footer_text:'© 2026 ZenTools - Free Online Tools · All files processed locally'
-        },
+        
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},
         ja: {
           nav_home:'ホーム', nav_categories:'カテゴリー', nav_about:'概要',
           title:'PDF 比較', subtitle:'2 つの PDF ファイルの内容の違いを比較',
@@ -159,7 +239,12 @@
           label_page:'ページ', opt_all:'すべてのページ',
           btn_compare:'比較開始', text_diff:'テキストの違い', visual_diff:'ビジュアルの違い',
           footer_text:'© 2026 ZenTools - 無料オンラインツール · すべてのファイルはローカル処理'
-        },
+        
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},
         vi: {
           nav_home:'Trang chủ', nav_categories:'Danh mục', nav_about:'Giới thiệu',
           title:'So sánh PDF', subtitle:'So sánh sự khác biệt nội dung giữa hai file PDF',
@@ -169,7 +254,12 @@
           label_page:'Trang', opt_all:'Tất cả',
           btn_compare:'So sánh', text_diff:'Khác biệt văn bản', visual_diff:'Khác biệt trực quan',
           footer_text:'© 2026 ZenTools - Công cụ miễn phí · Tất cả file xử lý cục bộ'
-        }
+        
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}
       };
     </script>
     <script src="../assets/js/tool-ui.min.js"></script>

@@ -25,10 +25,30 @@
 <div class="diff-result" id="result"><h3 data-i18n="resultTitle" style="font-size:15px;font-weight:600;margin-bottom:8px;">对比结果</h3><pre id="diffOutput"></pre></div>
 <div class="status" id="status"></div></div>
 <script>
-window.ZT_PAGE={zh:{crumbCur:'文本对比',eyebrow:'文本工具',h1Grad:'文本对比',h1Sub:'对比两段文本差异',pageDesc:'并排对比两段文本内容，高亮显示新增和删除的行。',labelA:'原始文本',labelB:'修改后文本',placeholderA:'原始文本...',placeholderB:'修改后文本...',compareBtn:'开始对比',resultTitle:'对比结果',statusIdentical:'✅ 两段文本完全相同',statusDiff:'差异如下：'},
-en:{crumbCur:'Text Diff',h1Grad:'Text Diff',h1Sub:'Compare Two Texts',pageDesc:'Side-by-side comparison of two texts, highlighting additions and deletions.',labelA:'Original Text',labelB:'Modified Text',placeholderA:'Original text...',placeholderB:'Modified text...',compareBtn:'Compare',resultTitle:'Result',statusIdentical:'✅ Texts are identical',statusDiff:'Differences found:'},
-ja:{crumbCur:'テキスト比較',h1Grad:'テキスト比較',h1Sub:'2つのテキストを比較',pageDesc:'2つのテキストを並べて比較し、追加・削除をハイライト。',labelA:'元のテキスト',labelB:'修正後テキスト',compareBtn:'比較',resultTitle:'比較結果',statusIdentical:'✅ テキストは同一です',statusDiff:'差異があります：'},
-vi:{crumbCur:'So sánh văn bản',h1Grad:'So sánh văn bản',h1Sub:'So sánh hai văn bản',pageDesc:'So sánh hai văn bản, làm nổi bật thêm và xóa.',labelA:'Văn bản gốc',labelB:'Văn bản sửa đổi',compareBtn:'So sánh',resultTitle:'Kết quả',statusIdentical:'✅ Hai văn bản giống hệt nhau',statusDiff:'Sự khác biệt:'}
+window.ZT_PAGE={zh:{crumbCur:'文本对比',eyebrow:'文本工具',h1Grad:'文本对比',h1Sub:'对比两段文本差异',pageDesc:'并排对比两段文本内容，高亮显示新增和删除的行。',labelA:'原始文本',labelB:'修改后文本',placeholderA:'原始文本...',placeholderB:'修改后文本...',compareBtn:'开始对比',resultTitle:'对比结果',statusIdentical:'✅ 两段文本完全相同',statusDiff:'差异如下：'
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},
+en:{crumbCur:'Text Diff',h1Grad:'Text Diff',h1Sub:'Compare Two Texts',pageDesc:'Side-by-side comparison of two texts, highlighting additions and deletions.',labelA:'Original Text',labelB:'Modified Text',placeholderA:'Original text...',placeholderB:'Modified text...',compareBtn:'Compare',resultTitle:'Result',statusIdentical:'✅ Texts are identical',statusDiff:'Differences found:'
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},
+ja:{crumbCur:'テキスト比較',h1Grad:'テキスト比較',h1Sub:'2つのテキストを比較',pageDesc:'2つのテキストを並べて比較し、追加・削除をハイライト。',labelA:'元のテキスト',labelB:'修正後テキスト',compareBtn:'比較',resultTitle:'比較結果',statusIdentical:'✅ テキストは同一です',statusDiff:'差異があります：'
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},
+vi:{crumbCur:'So sánh văn bản',h1Grad:'So sánh văn bản',h1Sub:'So sánh hai văn bản',pageDesc:'So sánh hai văn bản, làm nổi bật thêm và xóa.',labelA:'Văn bản gốc',labelB:'Văn bản sửa đổi',compareBtn:'So sánh',resultTitle:'Kết quả',statusIdentical:'✅ Hai văn bản giống hệt nhau',statusDiff:'Sự khác biệt:'
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}
 };
 </script><script src="../assets/js/tool-ui.min.js"></script><script>
 function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
@@ -57,3 +77,73 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 </body></html>
+    <style>
+    .tool-tutorial-svg {
+      padding: 28px 0 12px;
+      text-align: center;
+    }
+    .tutorial-svg-head {
+      margin-bottom: 16px;
+    }
+    .tutorial-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--clr-tut);
+      background: color-mix(in srgb, var(--clr-tut) 10%, transparent);
+      padding: 4px 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .tutorial-svg-head h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    .tool-tutorial-svg svg text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+</style>
+    <style>.tool-tutorial-svg{--clr-tut:#f59e0b}</style>
+    
+    <div class="tool-tutorial-svg reveal">
+      <div class="tutorial-svg-head">
+        <span class="tutorial-eyebrow">使用流程</span>
+        <h3>三步完成</h3>
+      </div>
+      <svg viewBox="0 0 380 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:420px;margin:0 auto">
+        <!-- Step 1 -->
+        <g transform="translate(20,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">1</text>
+          <path d="M4 3H16L18 5V18H6C4.9 18 4 17.1 4 16V3Z" fill="none" stroke="#f59e0b" stroke-width="2"/><path d="M7 9H15M7 12H15M7 15H12" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Arrow 1-2 -->
+        <path d="M90 50 L140 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M136 45 L142 50 L136 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 2 -->
+        <g transform="translate(150,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">2</text>
+          <path d="M4 3H16L18 5V18H6C4.9 18 4 17.1 4 16V3Z" fill="none" stroke="#f59e0b" stroke-width="2"/><path d="M7 9H15M7 12H15M7 15H12" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#f59e0b" opacity="0.3"/>
+        </g>
+        <!-- Arrow 2-3 -->
+        <path d="M220 50 L270 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M266 45 L272 50 L266 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 3 -->
+        <g transform="translate(280,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">3</text>
+          <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Labels -->
+        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
+        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
+        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
+      </svg>
+    </div>
+
+    

@@ -15,8 +15,98 @@
 </head><body>
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-<div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">贷款计算器</h1><p class="desc" data-i18n="pageDesc">支持等额本息和等额本金两种还款方式。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="loanAmount" placeholder="贷款金额（元）" value="1000000"><input type="number" id="loanRate" placeholder="年利率（%）" value="4.2" step="0.05"><input type="number" id="loanYears" placeholder="贷款年限" value="30"><div class="radios"><label><input type="radio" name="method" value="equal" checked> <span data-i18n="equal">等额本息</span></label><label><input type="radio" name="method" value="principal"> <span data-i18n="principal">等额本金</span></label></div><button onclick="calcLoan()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="monthPay">0</div><div class="lbl" data-i18n="monthPayLbl">月供（元）</div></div><div class="result-item"><div class="val" id="totalInterest">0</div><div class="lbl" data-i18n="interestLbl">总利息（元）</div></div><div class="result-item"><div class="val" id="totalPayment">0</div><div class="lbl" data-i18n="totalLbl">还款总额（元）</div></div></div><div id="schedule" style="max-height:400px;overflow-y:auto"></div></div></div><footer>© 2026 ZenTools</footer></div><script>
-window.ZT_PAGE ={zh:{pageTitle:'贷款计算器',pageDesc:'支持等额本息和等额本金两种还款方式。',ad:'广告位',back:'← 返回首页',calc:'开始计算',equal:'等额本息',principal:'等额本金',monthPayLbl:'月供（元）',interestLbl:'总利息（元）',totalLbl:'还款总额（元）'},en:{pageTitle:'Loan Calculator',pageDesc:'Supports equal payment and equal principal methods.',ad:'Ad Space',back:'← Back',calc:'Calculate',equal:'Equal Payment',principal:'Equal Principal',monthPayLbl:'Monthly Payment',interestLbl:'Total Interest',totalLbl:'Total Payment'},ja:{pageTitle:'ローン計算機',pageDesc:'元利均等・元金均等方式に対応。',ad:'広告',back:'← 戻る',calc:'計算',equal:'元利均等',principal:'元金均等',monthPayLbl:'月額返済',interestLbl:'総利息',totalLbl:'総返済額'},vi:{pageTitle:'Máy tính khoản vay',pageDesc:'Hỗ trợ trả đều và trả gốc cố định.',ad:'QC',back:'← Quay lại',calc:'Tính',equal:'Trả đều',principal:'Trả gốc cố định',monthPayLbl:'Trả hàng tháng',interestLbl:'Tổng lãi',totalLbl:'Tổng trả'}};
+<div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">贷款计算器</h1><p class="desc" data-i18n="pageDesc">支持等额本息和等额本金两种还款方式。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="loanAmount" placeholder="贷款金额（元）" value="1000000"><input type="number" id="loanRate" placeholder="年利率（%）" value="4.2" step="0.05"><input type="number" id="loanYears" placeholder="贷款年限" value="30"><div class="radios"><label><input type="radio" name="method" value="equal" checked> <span data-i18n="equal">等额本息</span></label><label><input type="radio" name="method" value="principal"> <span data-i18n="principal">等额本金</span></label></div><button onclick="calcLoan()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="monthPay">0</div><div class="lbl" data-i18n="monthPayLbl">月供（元）</div></div><div class="result-item"><div class="val" id="totalInterest">0</div><div class="lbl" data-i18n="interestLbl">总利息（元）</div></div><div class="result-item"><div class="val" id="totalPayment">0</div><div class="lbl" data-i18n="totalLbl">还款总额（元）</div></div></div><div id="schedule" style="max-height:400px;overflow-y:auto"></div></div></div>
+    <style>
+    .tool-tutorial-svg {
+      padding: 28px 0 12px;
+      text-align: center;
+    }
+    .tutorial-svg-head {
+      margin-bottom: 16px;
+    }
+    .tutorial-eyebrow {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--clr-tut);
+      background: color-mix(in srgb, var(--clr-tut) 10%, transparent);
+      padding: 4px 12px;
+      border-radius: 10px;
+      margin-bottom: 8px;
+    }
+    .tutorial-svg-head h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 0;
+    }
+    .tool-tutorial-svg svg text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+</style>
+    <style>.tool-tutorial-svg{--clr-tut:#10b981}</style>
+    
+    <div class="tool-tutorial-svg reveal">
+      <div class="tutorial-svg-head">
+        <span class="tutorial-eyebrow">使用流程</span>
+        <h3>三步完成</h3>
+      </div>
+      <svg viewBox="0 0 380 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:420px;margin:0 auto">
+        <!-- Step 1 -->
+        <g transform="translate(20,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">1</text>
+          <circle cx="12" cy="12" r="9" fill="none" stroke="#10b981" stroke-width="2"/><path d="M12 6V18M8 9H14C15.1 9 16 9.9 16 11C16 12.1 15.1 13 14 13H10C8.9 13 8 12.1 8 11C8 9.9 8.9 9 10 9H16M8 15H14C15.1 15 16 15.9 16 17C16 18.1 15.1 19 14 19H10C8.9 19 8 18.1 8 17C8 15.9 8.9 15 10 15H16" fill="none" stroke="#10b981" stroke-width="1.5"/>
+        </g>
+        <!-- Arrow 1-2 -->
+        <path d="M90 50 L140 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M136 45 L142 50 L136 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 2 -->
+        <g transform="translate(150,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">2</text>
+          <circle cx="12" cy="12" r="9" fill="none" stroke="#10b981" stroke-width="2"/><path d="M12 6V18M8 9H14C15.1 9 16 9.9 16 11C16 12.1 15.1 13 14 13H10C8.9 13 8 12.1 8 11C8 9.9 8.9 9 10 9H16M8 15H14C15.1 15 16 15.9 16 17C16 18.1 15.1 19 14 19H10C8.9 19 8 18.1 8 17C8 15.9 8.9 15 10 15H16" fill="none" stroke="#10b981" stroke-width="1.5"/><circle cx="16" cy="16" r="3" fill="#10b981" opacity="0.3"/>
+        </g>
+        <!-- Arrow 2-3 -->
+        <path d="M220 50 L270 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <path d="M266 45 L272 50 L266 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <!-- Step 3 -->
+        <g transform="translate(280,20)">
+          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
+          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">3</text>
+          <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Labels -->
+        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
+        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
+        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
+      </svg>
+    </div>
+
+    <footer>© 2026 ZenTools</footer></div><script>
+window.ZT_PAGE ={zh:{pageTitle:'贷款计算器',pageDesc:'支持等额本息和等额本金两种还款方式。',ad:'广告位',back:'← 返回首页',calc:'开始计算',equal:'等额本息',principal:'等额本金',monthPayLbl:'月供（元）',interestLbl:'总利息（元）',totalLbl:'还款总额（元）'
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{pageTitle:'Loan Calculator',pageDesc:'Supports equal payment and equal principal methods.',ad:'Ad Space',back:'← Back',calc:'Calculate',equal:'Equal Payment',principal:'Equal Principal',monthPayLbl:'Monthly Payment',interestLbl:'Total Interest',totalLbl:'Total Payment'
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},ja:{pageTitle:'ローン計算機',pageDesc:'元利均等・元金均等方式に対応。',ad:'広告',back:'← 戻る',calc:'計算',equal:'元利均等',principal:'元金均等',monthPayLbl:'月額返済',interestLbl:'総利息',totalLbl:'総返済額'
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},vi:{pageTitle:'Máy tính khoản vay',pageDesc:'Hỗ trợ trả đều và trả gốc cố định.',ad:'QC',back:'← Quay lại',calc:'Tính',equal:'Trả đều',principal:'Trả gốc cố định',monthPayLbl:'Trả hàng tháng',interestLbl:'Tổng lãi',totalLbl:'Tổng trả'
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}};
 function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
 document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
 function calcLoan(){const a=parseFloat(document.getElementById('loanAmount').value)||0,r=(parseFloat(document.getElementById('loanRate').value)||0)/100/12,n=(parseFloat(document.getElementById('loanYears').value)||0)*12,method=document.querySelector('input[name="method"]:checked').value;if(!a||!n){alert('Please fill in all fields');return;}const rs=document.getElementById('result');rs.style.display='block';const mp=document.getElementById('monthPay'),ti=document.getElementById('totalInterest'),tp=document.getElementById('totalPayment'),sc=document.getElementById('schedule');if(method==='equal'){const pay=a*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);const total=pay*n,interest=total-a;mp.textContent=pay.toFixed(2);ti.textContent=interest.toFixed(2);tp.textContent=total.toFixed(2);let html='<table><tr><th>期数</th><th>月供</th><th>本金</th><th>利息</th><th>剩余本金</th></tr>';let bal=a;for(let i=1;i<=n;i++){const intAmt=bal*r;const prinAmt=pay-intAmt;bal-=prinAmt;if(i<=12||i>n-3||i%60===0)html+='<tr><td>'+i+'</td><td>'+pay.toFixed(2)+'</td><td>'+prinAmt.toFixed(2)+'</td><td>'+intAmt.toFixed(2)+'</td><td>'+Math.max(0,bal).toFixed(2)+'</td></tr>';}html+='</table>';sc.innerHTML=html;}else{const prin=a/n;let totalI=0,html='<table><tr><th>期数</th><th>月供</th><th>本金</th><th>利息</th><th>剩余本金</th></tr>';let bal=a;for(let i=1;i<=n;i++){const intAmt=bal*r;const payP=prin+intAmt;totalI+=intAmt;bal-=prin;if(i===1){mp.textContent=payP.toFixed(2);}if(i<=12||i>n-3||i%60===0)html+='<tr><td>'+i+'</td><td>'+payP.toFixed(2)+'</td><td>'+prin.toFixed(2)+'</td><td>'+intAmt.toFixed(2)+'</td><td>'+Math.max(0,bal).toFixed(2)+'</td></tr>';}html+='</table>';ti.textContent=totalI.toFixed(2);tp.textContent=(a+totalI).toFixed(2);sc.innerHTML=html;}}
