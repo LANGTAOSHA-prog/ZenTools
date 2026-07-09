@@ -60,7 +60,47 @@
   <div class="tool-box">
     <div class="row">
       <div><label data-i18n="lbl_本金_元">本金 (元)</label><input type="number" id="rPrincipal" value="10000" /></div>
-    <style>
+    
+    
+      <div><label data-i18n="lbl_年利率">年利率 (%)</label><input type="number" id="rRate" value="3.5" step="0.1" /></div>
+    </div>
+    <div class="row">
+      <div><label data-i18n="lbl_期限_年">期限 (年)</label><input type="number" id="rYears" value="3" /></div>
+      <div><label data-i18n="lbl_计算方式">计算方式</label><select id="rType"><option value="simple">单利</option><option value="compound" selected>复利</option></select></div>
+    </div>
+    <div style="margin-top:16px;"><button class="btn" onclick="calcRate()" data-i18n="btn_计算">计算</button></div>
+    <div class="result" id="rResult" style="line-height:2;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function calcRate(){
+  var p=parseFloat(document.getElementById('rPrincipal').value)||0;
+  var r=parseFloat(document.getElementById('rRate').value)||0;
+  var n=parseFloat(document.getElementById('rYears').value)||0;
+  var type=document.getElementById('rType').value;
+  var total,interest;
+  if(type==='simple'){
+    interest=p*r/100*n;
+    total=p+interest;
+  }else{
+    total=p*Math.pow(1+r/100,n);
+    interest=total-p;
+  }
+  document.getElementById('rResult').innerHTML=
+    '<div>本金: <span class="highlight">'+p.toFixed(2)+'</span> 元</div>'+
+    '<div>年利率: <span class="highlight">'+r+'%</span></div>'+
+    '<div>期限: <span class="highlight">'+n+'</span> 年 ('+(type==='simple'?'单利':'复利')+')</div>'+
+    '<div style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px;">利息总额: <span class="highlight">'+interest.toFixed(2)+'</span> 元</div>'+
+    '<div>本息合计: <span class="highlight">'+total.toFixed(2)+'</span> 元</div>'+
+    '<div style="margin-top:8px;font-size:12px;color:var(--muted);">月利率: '+(r/12).toFixed(3)+'% | 日利率: '+(r/365).toFixed(4)+'%</div>';
+}
+calcRate();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -128,44 +168,5 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-      <div><label data-i18n="lbl_年利率">年利率 (%)</label><input type="number" id="rRate" value="3.5" step="0.1" /></div>
-    </div>
-    <div class="row">
-      <div><label data-i18n="lbl_期限_年">期限 (年)</label><input type="number" id="rYears" value="3" /></div>
-      <div><label data-i18n="lbl_计算方式">计算方式</label><select id="rType"><option value="simple">单利</option><option value="compound" selected>复利</option></select></div>
-    </div>
-    <div style="margin-top:16px;"><button class="btn" onclick="calcRate()" data-i18n="btn_计算">计算</button></div>
-    <div class="result" id="rResult" style="line-height:2;"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-function calcRate(){
-  var p=parseFloat(document.getElementById('rPrincipal').value)||0;
-  var r=parseFloat(document.getElementById('rRate').value)||0;
-  var n=parseFloat(document.getElementById('rYears').value)||0;
-  var type=document.getElementById('rType').value;
-  var total,interest;
-  if(type==='simple'){
-    interest=p*r/100*n;
-    total=p+interest;
-  }else{
-    total=p*Math.pow(1+r/100,n);
-    interest=total-p;
-  }
-  document.getElementById('rResult').innerHTML=
-    '<div>本金: <span class="highlight">'+p.toFixed(2)+'</span> 元</div>'+
-    '<div>年利率: <span class="highlight">'+r+'%</span></div>'+
-    '<div>期限: <span class="highlight">'+n+'</span> 年 ('+(type==='simple'?'单利':'复利')+')</div>'+
-    '<div style="border-top:1px solid var(--border);margin-top:8px;padding-top:8px;">利息总额: <span class="highlight">'+interest.toFixed(2)+'</span> 元</div>'+
-    '<div>本息合计: <span class="highlight">'+total.toFixed(2)+'</span> 元</div>'+
-    '<div style="margin-top:8px;font-size:12px;color:var(--muted);">月利率: '+(r/12).toFixed(3)+'% | 日利率: '+(r/365).toFixed(4)+'%</div>';
-}
-calcRate();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

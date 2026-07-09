@@ -16,7 +16,50 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 <div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">股票手续费计算器</h1><p class="desc" data-i18n="pageDesc">计算 A 股买卖交易产生的印花税、佣金等费用。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="stockPrice" placeholder="股票价格（元/股）" value="10"><input type="number" id="stockShares" placeholder="股票数量（股）" value="1000"><div class="radios" style="display:flex;gap:15px;flex-wrap:wrap;margin:10px 0"><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="buy" checked style="width:auto;margin:0"> <span data-i18n="buy">买入</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="sell" style="width:auto;margin:0"> <span data-i18n="sell">卖出</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="both" style="width:auto;margin:0"> <span data-i18n="both">买卖双向</span></label></div><button onclick="calcStock()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="totalFee">0</div><div class="lbl" data-i18n="totalFee">总手续费（元）</div></div><div class="result-item"><div class="val" id="actualCost">0</div><div class="lbl" data-i18n="actualCost">实际成本（元）</div></div><div class="result-item"><div class="val" id="costPerShare">0</div><div class="lbl" data-i18n="costPerShare">每股成本</div></div></div><table class="fee-table" id="feeDetail"></table></div></div>
-    <style>
+    
+    <footer>© 2026 ZenTools</footer></div><script>
+window.ZT_PAGE ={zh:{pageTitle:'股票手续费计算器',pageDesc:'计算 A 股买卖交易产生的印花税、佣金等费用。',ad:'广告位',back:'← 返回首页',calc:'开始计算',buy:'买入',sell:'卖出',both:'买卖双向',totalFee:'总手续费（元）',actualCost:'实际成本（元）',costPerShare:'每股成本',stamp:'印花税',commission:'券商佣金',transfer:'过户费',total:'合计',
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{pageTitle:'Stock Fee Calculator',pageDesc:'Calculate A-share stock transaction fees.',ad:'Ad Space',back:'← Back',calc:'Calculate',buy:'Buy',sell:'Sell',both:'Both',totalFee:'Total Fee',actualCost:'Total Cost',costPerShare:'Cost/Share',stamp:'Stamp Duty',commission:'Commission',transfer:'Transfer Fee',total:'Total',
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},ja:{pageTitle:'株式手数料計算機',pageDesc:'A株の取引手数料を計算。',ad:'広告',back:'← 戻る',calc:'計算',buy:'買い',sell:'売り',both:'両方',totalFee:'総手数料',actualCost:'実質コスト',costPerShare:'1株あたり',stamp:'印紙税',commission:'手数料',transfer:'振替料',total:'合計',
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},vi:{pageTitle:'Máy tính phí chứng khoán',pageDesc:'Tính phí giao dịch cổ phiếu A.',ad:'QC',back:'← Quay lại',calc:'Tính',buy:'Mua',sell:'Bán',both:'Cả hai',totalFee:'Tổng phí',actualCost:'Tổng chi phí',costPerShare:'Giá/cổ phiếu',stamp:'Thuế tem',commission:'Hoa hồng',transfer:'Phí chuyển',total:'Tổng',
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}};
+function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
+document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
+function calcStock(){const p=parseFloat(document.getElementById('stockPrice').value)||0,q=parseInt(document.getElementById('stockShares').value)||0,dir=document.querySelector('input[name="direction"]:checked').value;if(!p||!q){alert('Please fill in all fields');return;}const amount=p*q;const commissionRate=0.00025;const minCommission=5;const stampRate=0.0005;const transferRate=0.00001;let totalFee=0,detail=[];const calcOne=function(label,rate,isStamp,isTransfer){let fee=amount*rate;if(isStamp&&dir==='buy')return null;if(!isStamp&&!isTransfer&&fee<minCommission)fee=minCommission;totalFee+=fee;return{label:label,amount:fee};};const addDetail=function(label,rate,isStamp,isTransfer){const r=calcOne(label,rate,isStamp,isTransfer);if(r)detail.push(r);};addDetail(pageT[sl].commission,commissionRate,false,false);addDetail(pageT[sl].stamp,stampRate,true,false);addDetail(pageT[sl].transfer,transferRate,false,true);if(dir==='both'){totalFee*=2;detail=detail.concat(detail.map(function(d){return{label:d.label+'('+pageT[sl].sell+')',amount:d.amount};}));detail.forEach(function(d,i){if(i<3)d.label=d.label+'('+pageT[sl].buy+')';});}const actual=amount+totalFee;const cps=actual/q;document.getElementById('result').style.display='block';document.getElementById('totalFee').textContent=totalFee.toFixed(2);document.getElementById('actualCost').textContent=actual.toFixed(2);document.getElementById('costPerShare').textContent=cps.toFixed(4);let html='<tr><th>费用项目</th><th>金额（元）</th></tr>';detail.forEach(function(d){html+='<tr><td>'+d.label+'</td><td>'+d.amount.toFixed(2)+'</td></tr>';});html+='<tr><td><strong>'+pageT[sl].total+'</strong></td><td><strong>'+totalFee.toFixed(2)+'</strong></td></tr>';document.getElementById('feeDetail').innerHTML=html;}
+</script>
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -84,46 +127,4 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer></div><script>
-window.ZT_PAGE ={zh:{pageTitle:'股票手续费计算器',pageDesc:'计算 A 股买卖交易产生的印花税、佣金等费用。',ad:'广告位',back:'← 返回首页',calc:'开始计算',buy:'买入',sell:'卖出',both:'买卖双向',totalFee:'总手续费（元）',actualCost:'实际成本（元）',costPerShare:'每股成本',stamp:'印花税',commission:'券商佣金',transfer:'过户费',total:'合计',
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{pageTitle:'Stock Fee Calculator',pageDesc:'Calculate A-share stock transaction fees.',ad:'Ad Space',back:'← Back',calc:'Calculate',buy:'Buy',sell:'Sell',both:'Both',totalFee:'Total Fee',actualCost:'Total Cost',costPerShare:'Cost/Share',stamp:'Stamp Duty',commission:'Commission',transfer:'Transfer Fee',total:'Total',
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},ja:{pageTitle:'株式手数料計算機',pageDesc:'A株の取引手数料を計算。',ad:'広告',back:'← 戻る',calc:'計算',buy:'買い',sell:'売り',both:'両方',totalFee:'総手数料',actualCost:'実質コスト',costPerShare:'1株あたり',stamp:'印紙税',commission:'手数料',transfer:'振替料',total:'合計',
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},vi:{pageTitle:'Máy tính phí chứng khoán',pageDesc:'Tính phí giao dịch cổ phiếu A.',ad:'QC',back:'← Quay lại',calc:'Tính',buy:'Mua',sell:'Bán',both:'Cả hai',totalFee:'Tổng phí',actualCost:'Tổng chi phí',costPerShare:'Giá/cổ phiếu',stamp:'Thuế tem',commission:'Hoa hồng',transfer:'Phí chuyển',total:'Tổng',
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}};
-function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
-document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
-function calcStock(){const p=parseFloat(document.getElementById('stockPrice').value)||0,q=parseInt(document.getElementById('stockShares').value)||0,dir=document.querySelector('input[name="direction"]:checked').value;if(!p||!q){alert('Please fill in all fields');return;}const amount=p*q;const commissionRate=0.00025;const minCommission=5;const stampRate=0.0005;const transferRate=0.00001;let totalFee=0,detail=[];const calcOne=function(label,rate,isStamp,isTransfer){let fee=amount*rate;if(isStamp&&dir==='buy')return null;if(!isStamp&&!isTransfer&&fee<minCommission)fee=minCommission;totalFee+=fee;return{label:label,amount:fee};};const addDetail=function(label,rate,isStamp,isTransfer){const r=calcOne(label,rate,isStamp,isTransfer);if(r)detail.push(r);};addDetail(pageT[sl].commission,commissionRate,false,false);addDetail(pageT[sl].stamp,stampRate,true,false);addDetail(pageT[sl].transfer,transferRate,false,true);if(dir==='both'){totalFee*=2;detail=detail.concat(detail.map(function(d){return{label:d.label+'('+pageT[sl].sell+')',amount:d.amount};}));detail.forEach(function(d,i){if(i<3)d.label=d.label+'('+pageT[sl].buy+')';});}const actual=amount+totalFee;const cps=actual/q;document.getElementById('result').style.display='block';document.getElementById('totalFee').textContent=totalFee.toFixed(2);document.getElementById('actualCost').textContent=actual.toFixed(2);document.getElementById('costPerShare').textContent=cps.toFixed(4);let html='<tr><th>费用项目</th><th>金额（元）</th></tr>';detail.forEach(function(d){html+='<tr><td>'+d.label+'</td><td>'+d.amount.toFixed(2)+'</td></tr>';});html+='<tr><td><strong>'+pageT[sl].total+'</strong></td><td><strong>'+totalFee.toFixed(2)+'</strong></td></tr>';document.getElementById('feeDetail').innerHTML=html;}
-</script>
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

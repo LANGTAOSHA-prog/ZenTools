@@ -84,7 +84,40 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
   <div class="tool-box">
     <div class="row">
   <div><label data-i18n="lbl_颜色_1">颜色 1</label><input type="color" id="ggColor1" value="#00e5ff" onchange="updateGG()" /></div>
-    <style>
+    
+    
+  <div><label data-i18n="lbl_颜色_2">颜色 2</label><input type="color" id="ggColor2" value="#a855f7" onchange="updateGG()" /></div>
+  <div><label data-i18n="lbl_角度_deg">角度 (deg)</label><input type="number" id="ggAngle" value="135" min="0" max="360" onchange="updateGG()" /></div>
+</div>
+<div id="ggPreview" style="width:100%;height:120px;border-radius:12px;margin-top:12px;border:1px solid var(--border);background:linear-gradient(135deg,#00e5ff,#a855f7);"></div>
+<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+  <button class="btn" onclick="copyGradient()" data-i18n="btn_复制_css">复制 CSS</button>
+  <button class="btn btn2" onclick="randomGG()" data-i18n="btn_随机">随机</button>
+</div>
+<div class="result" id="ggResult"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function updateGG(){
+  var c1=document.getElementById('ggColor1').value,c2=document.getElementById('ggColor2').value,a=document.getElementById('ggAngle').value||135;
+  document.getElementById('ggPreview').style.background='linear-gradient('+a+'deg,'+c1+','+c2+')';
+  var css='background: linear-gradient('+a+'deg, '+c1+', '+c2+');';
+  document.getElementById('ggResult').textContent=css;
+}
+function copyGradient(){navigator.clipboard.writeText(document.getElementById('ggResult').textContent).then(function(){document.getElementById('ggResult').textContent+='\n\n✅ 已复制';});}
+function randomGG(){
+  var r=function(){return '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');};
+  document.getElementById('ggColor1').value=r();document.getElementById('ggColor2').value=r();
+  document.getElementById('ggAngle').value=Math.floor(Math.random()*360);
+  updateGG();
+}
+updateGG();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -152,37 +185,5 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-  <div><label data-i18n="lbl_颜色_2">颜色 2</label><input type="color" id="ggColor2" value="#a855f7" onchange="updateGG()" /></div>
-  <div><label data-i18n="lbl_角度_deg">角度 (deg)</label><input type="number" id="ggAngle" value="135" min="0" max="360" onchange="updateGG()" /></div>
-</div>
-<div id="ggPreview" style="width:100%;height:120px;border-radius:12px;margin-top:12px;border:1px solid var(--border);background:linear-gradient(135deg,#00e5ff,#a855f7);"></div>
-<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
-  <button class="btn" onclick="copyGradient()" data-i18n="btn_复制_css">复制 CSS</button>
-  <button class="btn btn2" onclick="randomGG()" data-i18n="btn_随机">随机</button>
-</div>
-<div class="result" id="ggResult"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-function updateGG(){
-  var c1=document.getElementById('ggColor1').value,c2=document.getElementById('ggColor2').value,a=document.getElementById('ggAngle').value||135;
-  document.getElementById('ggPreview').style.background='linear-gradient('+a+'deg,'+c1+','+c2+')';
-  var css='background: linear-gradient('+a+'deg, '+c1+', '+c2+');';
-  document.getElementById('ggResult').textContent=css;
-}
-function copyGradient(){navigator.clipboard.writeText(document.getElementById('ggResult').textContent).then(function(){document.getElementById('ggResult').textContent+='\n\n✅ 已复制';});}
-function randomGG(){
-  var r=function(){return '#'+Math.floor(Math.random()*16777215).toString(16).padStart(6,'0');};
-  document.getElementById('ggColor1').value=r();document.getElementById('ggColor2').value=r();
-  document.getElementById('ggAngle').value=Math.floor(Math.random()*360);
-  updateGG();
-}
-updateGG();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

@@ -92,7 +92,68 @@
     
   <div class="row">
     <div><label data-i18n="lbl_金额_元">金额 (元)</label><input type="number" id="vatAmount" value="10000" /></div>
-    <style>
+    
+    
+    <div><label data-i18n="lbl_增值税率">增值税率 (%)</label>
+      <select id="vatRate">
+        <option value="13">13% - 一般货物</option>
+        <option value="9">9% - 农产品/图书</option>
+        <option value="6" selected>6% - 服务</option>
+        <option value="3">3% - 小规模</option>
+        <option value="0">0% - 免税</option>
+      </select>
+    </div>
+  </div>
+  <label data-i18n="lbl_金额类型">金额类型</label>
+  <select id="vatType">
+    <option value="exclude">不含税价 → 计算含税价</option>
+    <option value="include">含税价 → 计算不含税价</option>
+  </select>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="calcVAT()" data-i18n="btn_计算">计算</button>
+  </div>
+  <div class="result" id="vatResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+
+function calcVAT() {
+  const amount = parseFloat(document.getElementById('vatAmount').value) || 0;
+  const rate = parseFloat(document.getElementById('vatRate').value) / 100 || 0;
+  const type = document.getElementById('vatType').value;
+  let exclusive, inclusive, vat;
+  if (type === 'exclude') {
+    exclusive = amount;
+    vat = amount * rate;
+    inclusive = amount + vat;
+  } else {
+    inclusive = amount;
+    vat = amount * rate / (1 + rate);
+    exclusive = amount - vat;
+  }
+  const el = document.getElementById('vatResult');
+  el.style.display = 'block';
+  el.innerHTML =
+    '<div class="row">' +
+    '<div><div style="color:var(--muted);font-size:12px;">不含税价</div><div class="highlight">' + exclusive.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">增值税 (' + (rate * 100) + '%)</div><div class="highlight" style="color:#f59e0b;">' + vat.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">含税价</div><div class="highlight">' + inclusive.toFixed(2) + ' 元</div></div>' +
+    '</div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -160,65 +221,5 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-    <div><label data-i18n="lbl_增值税率">增值税率 (%)</label>
-      <select id="vatRate">
-        <option value="13">13% - 一般货物</option>
-        <option value="9">9% - 农产品/图书</option>
-        <option value="6" selected>6% - 服务</option>
-        <option value="3">3% - 小规模</option>
-        <option value="0">0% - 免税</option>
-      </select>
-    </div>
-  </div>
-  <label data-i18n="lbl_金额类型">金额类型</label>
-  <select id="vatType">
-    <option value="exclude">不含税价 → 计算含税价</option>
-    <option value="include">含税价 → 计算不含税价</option>
-  </select>
-  <div style="margin-top:16px;">
-    <button class="btn" onclick="calcVAT()" data-i18n="btn_计算">计算</button>
-  </div>
-  <div class="result" id="vatResult" style="display:none;"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-
-function calcVAT() {
-  const amount = parseFloat(document.getElementById('vatAmount').value) || 0;
-  const rate = parseFloat(document.getElementById('vatRate').value) / 100 || 0;
-  const type = document.getElementById('vatType').value;
-  let exclusive, inclusive, vat;
-  if (type === 'exclude') {
-    exclusive = amount;
-    vat = amount * rate;
-    inclusive = amount + vat;
-  } else {
-    inclusive = amount;
-    vat = amount * rate / (1 + rate);
-    exclusive = amount - vat;
-  }
-  const el = document.getElementById('vatResult');
-  el.style.display = 'block';
-  el.innerHTML =
-    '<div class="row">' +
-    '<div><div style="color:var(--muted);font-size:12px;">不含税价</div><div class="highlight">' + exclusive.toFixed(2) + ' 元</div></div>' +
-    '<div><div style="color:var(--muted);font-size:12px;">增值税 (' + (rate * 100) + '%)</div><div class="highlight" style="color:#f59e0b;">' + vat.toFixed(2) + ' 元</div></div>' +
-    '<div><div style="color:var(--muted);font-size:12px;">含税价</div><div class="highlight">' + inclusive.toFixed(2) + ' 元</div></div>' +
-    '</div>';
-}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

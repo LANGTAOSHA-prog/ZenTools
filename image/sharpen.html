@@ -88,7 +88,51 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
     </div>
   </div>
   
-    <style>
+    
+    <footer>© 2026 ZenTools</footer>
+</div>
+<script>
+window.ZT_PAGE ={zh:{pageTitle:"图片锐化工具 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"图片锐化",desc:"调整图片清晰度，让模糊图片更清晰。",ad:"广告位（Google AdSense）",strength:"强度",process:"开始锐化",download:"下载图片",clear:"清空",previewTitle:"预览",done:"锐化完成",guideTitle:"使用说明",guideText:"1. 上传图片。\n2. 调节锐化强度。\n3. 点击开始锐化。\n4. 下载处理后的图片。",privacyTitle:"隐私说明",privacyText:"所有处理在浏览器本地完成，图片不会上传到服务器。",empty:"请先选择图片",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},ja:{pageTitle:"画像シャープ化ツール - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"画像シャープ化",desc:"画像のシャープネスを調整します。",ad:"広告スペース",strength:"強さ",process:"シャープ化",download:"ダウンロード",clear:"クリア",previewTitle:"プレビュー",done:"完了",guideTitle:"使い方",guideText:"1. 画像をアップロード。\n2. 強さを調整。\n3. シャープ化を実行。\n4. ダウンロード。",privacyTitle:"プライバシー",privacyText:"すべてブラウザ内で処理されます。",empty:"画像を選択してください",
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},en:{pageTitle:"Image Sharpen Tool - Free Online Tool | ZenTools",back:"← Back to Home",title:"Sharpen Image",desc:"Make blurry images clearer.",ad:"Ad Space",strength:"Strength",process:"Sharpen",download:"Download",clear:"Clear",previewTitle:"Preview",done:"Done",guideTitle:"Guide",guideText:"1. Upload an image.\n2. Adjust strength.\n3. Click Sharpen.\n4. Download result.",privacyTitle:"Privacy",privacyText:"All processing is done locally.",empty:"Please select an image",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},vi:{pageTitle:"Công cụ làm sắc nét ảnh - Công cụ miễn phí | ZenTools",back:"← Quay lại",title:"Làm sắc nét",desc:"Làm rõ ảnh mờ.",ad:"Vị trí QC",strength:"Cường độ",process:"Làm sắc nét",download:"Tải xuống",clear:"Xóa",previewTitle:"Xem trước",done:"Hoàn tất",guideTitle:"Hướng dẫn",guideText:"1. Tải ảnh lên.\n2. Điều chỉnh cường độ.\n3. Nhấn Làm sắc nét.\n4. Tải xuống.",privacyTitle:"Quyền riêng tư",privacyText:"Xử lý trong trình duyệt.",empty:"Vui lòng chọn ảnh",
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}};
+let curLang="zh",originalData=null,canvas,ctx,imgW,imgH;
+const $=(id)=>document.getElementById(id);
+function applyLang(lang){const d=T[lang]||T.zh;curLang=lang;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});localStorage.setItem('zentools_lang',lang)}
+document.addEventListener('DOMContentLoaded',()=>{const sl=localStorage.getItem('zentools_lang')||'zh';$('languageSelect').value=sl;applyLang(sl);$('languageSelect').addEventListener('change',e=>applyLang(e.target.value));$('strength').addEventListener('input',e=>$('strengthVal').textContent=e.target.value);canvas=$('canvas');ctx=canvas.getContext('2d');$('imageInput').addEventListener('change',loadImage)});
+function loadImage(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){imgW=Math.min(img.width,800);imgH=img.height*(imgW/img.width);canvas.style.display='block';canvas.width=imgW;canvas.height=imgH;ctx.drawImage(img,0,0,imgW,imgH);originalData=ctx.getImageData(0,0,imgW,imgH);$('result').textContent=''};img.src=ev.target.result};r.readAsDataURL(f)}
+function processSharpen(){if(!originalData){$('result').textContent=T[curLang].empty;return}const w=imgW,h=imgH,src=originalData.data,dst=new Uint8ClampedArray(src);const s=parseInt($('strength').value)/100;const kernel=[0,-1*s,0,-1*s,1+4*s, -1*s,0,-1*s,0];const idx=function(x,y){return(y*w+x)*4};for(let y=1;y<h-1;y++){for(let x=1;x<w-1;x++){for(let c=0;c<3;c++){let v=0;v+=src[idx(x-1,y-1)+c]*kernel[0];v+=src[idx(x,y-1)+c]*kernel[1];v+=src[idx(x+1,y-1)+c]*kernel[2];v+=src[idx(x-1,y)+c]*kernel[3];v+=src[idx(x,y)+c]*kernel[4];v+=src[idx(x+1,y)+c]*kernel[5];v+=src[idx(x-1,y+1)+c]*kernel[6];v+=src[idx(x,y+1)+c]*kernel[7];v+=src[idx(x+1,y+1)+c]*kernel[8];dst[idx(x,y)+c]=Math.max(0,Math.min(255,v))}dst[idx(x,y)+3]=src[idx(x,y)+3]}}const id=new ImageData(dst,w,h);ctx.putImageData(id,0,0);$('result').textContent=T[curLang].done}
+function downloadResult(){const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='sharpen.png';a.click()}
+function clearAll(){$('imageInput').value='';originalData=null;canvas.style.display='none';ctx.clearRect(0,0,canvas.width,canvas.height);$('result').textContent=''}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ <span data-i18n="bookmark">收藏本站</span></button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -156,48 +200,5 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer>
-</div>
-<script>
-window.ZT_PAGE ={zh:{pageTitle:"图片锐化工具 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"图片锐化",desc:"调整图片清晰度，让模糊图片更清晰。",ad:"广告位（Google AdSense）",strength:"强度",process:"开始锐化",download:"下载图片",clear:"清空",previewTitle:"预览",done:"锐化完成",guideTitle:"使用说明",guideText:"1. 上传图片。\n2. 调节锐化强度。\n3. 点击开始锐化。\n4. 下载处理后的图片。",privacyTitle:"隐私说明",privacyText:"所有处理在浏览器本地完成，图片不会上传到服务器。",empty:"请先选择图片",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},ja:{pageTitle:"画像シャープ化ツール - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"画像シャープ化",desc:"画像のシャープネスを調整します。",ad:"広告スペース",strength:"強さ",process:"シャープ化",download:"ダウンロード",clear:"クリア",previewTitle:"プレビュー",done:"完了",guideTitle:"使い方",guideText:"1. 画像をアップロード。\n2. 強さを調整。\n3. シャープ化を実行。\n4. ダウンロード。",privacyTitle:"プライバシー",privacyText:"すべてブラウザ内で処理されます。",empty:"画像を選択してください",
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},en:{pageTitle:"Image Sharpen Tool - Free Online Tool | ZenTools",back:"← Back to Home",title:"Sharpen Image",desc:"Make blurry images clearer.",ad:"Ad Space",strength:"Strength",process:"Sharpen",download:"Download",clear:"Clear",previewTitle:"Preview",done:"Done",guideTitle:"Guide",guideText:"1. Upload an image.\n2. Adjust strength.\n3. Click Sharpen.\n4. Download result.",privacyTitle:"Privacy",privacyText:"All processing is done locally.",empty:"Please select an image",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},vi:{pageTitle:"Công cụ làm sắc nét ảnh - Công cụ miễn phí | ZenTools",back:"← Quay lại",title:"Làm sắc nét",desc:"Làm rõ ảnh mờ.",ad:"Vị trí QC",strength:"Cường độ",process:"Làm sắc nét",download:"Tải xuống",clear:"Xóa",previewTitle:"Xem trước",done:"Hoàn tất",guideTitle:"Hướng dẫn",guideText:"1. Tải ảnh lên.\n2. Điều chỉnh cường độ.\n3. Nhấn Làm sắc nét.\n4. Tải xuống.",privacyTitle:"Quyền riêng tư",privacyText:"Xử lý trong trình duyệt.",empty:"Vui lòng chọn ảnh",
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}};
-let curLang="zh",originalData=null,canvas,ctx,imgW,imgH;
-const $=(id)=>document.getElementById(id);
-function applyLang(lang){const d=T[lang]||T.zh;curLang=lang;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});localStorage.setItem('zentools_lang',lang)}
-document.addEventListener('DOMContentLoaded',()=>{const sl=localStorage.getItem('zentools_lang')||'zh';$('languageSelect').value=sl;applyLang(sl);$('languageSelect').addEventListener('change',e=>applyLang(e.target.value));$('strength').addEventListener('input',e=>$('strengthVal').textContent=e.target.value);canvas=$('canvas');ctx=canvas.getContext('2d');$('imageInput').addEventListener('change',loadImage)});
-function loadImage(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){imgW=Math.min(img.width,800);imgH=img.height*(imgW/img.width);canvas.style.display='block';canvas.width=imgW;canvas.height=imgH;ctx.drawImage(img,0,0,imgW,imgH);originalData=ctx.getImageData(0,0,imgW,imgH);$('result').textContent=''};img.src=ev.target.result};r.readAsDataURL(f)}
-function processSharpen(){if(!originalData){$('result').textContent=T[curLang].empty;return}const w=imgW,h=imgH,src=originalData.data,dst=new Uint8ClampedArray(src);const s=parseInt($('strength').value)/100;const kernel=[0,-1*s,0,-1*s,1+4*s, -1*s,0,-1*s,0];const idx=function(x,y){return(y*w+x)*4};for(let y=1;y<h-1;y++){for(let x=1;x<w-1;x++){for(let c=0;c<3;c++){let v=0;v+=src[idx(x-1,y-1)+c]*kernel[0];v+=src[idx(x,y-1)+c]*kernel[1];v+=src[idx(x+1,y-1)+c]*kernel[2];v+=src[idx(x-1,y)+c]*kernel[3];v+=src[idx(x,y)+c]*kernel[4];v+=src[idx(x+1,y)+c]*kernel[5];v+=src[idx(x-1,y+1)+c]*kernel[6];v+=src[idx(x,y+1)+c]*kernel[7];v+=src[idx(x+1,y+1)+c]*kernel[8];dst[idx(x,y)+c]=Math.max(0,Math.min(255,v))}dst[idx(x,y)+3]=src[idx(x,y)+3]}}const id=new ImageData(dst,w,h);ctx.putImageData(id,0,0);$('result').textContent=T[curLang].done}
-function downloadResult(){const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='sharpen.png';a.click()}
-function clearAll(){$('imageInput').value='';originalData=null;canvas.style.display='none';ctx.clearRect(0,0,canvas.width,canvas.height);$('result').textContent=''}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ <span data-i18n="bookmark">收藏本站</span></button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body>
 </html>

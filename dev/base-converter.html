@@ -84,7 +84,41 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
     
 <div class="row">
   <div><label data-i18n="lbl_二进制_2">二进制 (2)</label><input type="text" id="binInput" value="1010" oninput="fromBase('bin')" /></div>
-    <style>
+    
+    
+  <div><label data-i18n="lbl_八进制_8">八进制 (8)</label><input type="text" id="octInput" value="12" oninput="fromBase('oct')" /></div>
+</div>
+<div class="row">
+  <div><label data-i18n="lbl_十进制_10">十进制 (10)</label><input type="text" id="decInput" value="10" oninput="fromBase('dec')" /></div>
+  <div><label data-i18n="lbl_十六进制_16">十六进制 (16)</label><input type="text" id="hexInput2" value="a" oninput="fromBase('hex')" /></div>
+</div>
+<div style="margin-top:8px;font-size:12px;color:var(--muted);">
+  ASCII: <span id="asciiChar">
+</span>
+</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+
+function fromBase(src){
+  var val;
+  if(src==='bin')val=parseInt(document.getElementById('binInput').value,2);
+  else if(src==='oct')val=parseInt(document.getElementById('octInput').value,8);
+  else if(src==='dec')val=parseInt(document.getElementById('decInput').value,10);
+  else val=parseInt(document.getElementById('hexInput2').value,16);
+  if(isNaN(val))return;
+  document.getElementById('binInput').value=val.toString(2);
+  document.getElementById('octInput').value=val.toString(8);
+  document.getElementById('decInput').value=val.toString(10);
+  document.getElementById('hexInput2').value=val.toString(16);
+  document.getElementById('asciiChar').textContent=val>=32&&val<=126?String.fromCharCode(val):'(不可见)';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -152,38 +186,5 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-  <div><label data-i18n="lbl_八进制_8">八进制 (8)</label><input type="text" id="octInput" value="12" oninput="fromBase('oct')" /></div>
-</div>
-<div class="row">
-  <div><label data-i18n="lbl_十进制_10">十进制 (10)</label><input type="text" id="decInput" value="10" oninput="fromBase('dec')" /></div>
-  <div><label data-i18n="lbl_十六进制_16">十六进制 (16)</label><input type="text" id="hexInput2" value="a" oninput="fromBase('hex')" /></div>
-</div>
-<div style="margin-top:8px;font-size:12px;color:var(--muted);">
-  ASCII: <span id="asciiChar">
-</span>
-</div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-
-function fromBase(src){
-  var val;
-  if(src==='bin')val=parseInt(document.getElementById('binInput').value,2);
-  else if(src==='oct')val=parseInt(document.getElementById('octInput').value,8);
-  else if(src==='dec')val=parseInt(document.getElementById('decInput').value,10);
-  else val=parseInt(document.getElementById('hexInput2').value,16);
-  if(isNaN(val))return;
-  document.getElementById('binInput').value=val.toString(2);
-  document.getElementById('octInput').value=val.toString(8);
-  document.getElementById('decInput').value=val.toString(10);
-  document.getElementById('hexInput2').value=val.toString(16);
-  document.getElementById('asciiChar').textContent=val>=32&&val<=126?String.fromCharCode(val):'(不可见)';
-}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

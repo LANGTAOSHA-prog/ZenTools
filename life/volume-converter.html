@@ -79,7 +79,37 @@ input:focus, select:focus { outline:none; border-color:var(--cyan); }
     <input type="number" id="volValue" value="1" step="any" oninput="convertVol()" />
     <div class="row">
       <div><label>从</label><select id="volFrom" onchange="convertVol()"><option value="l" selected>升 (L)</option><option value="ml">毫升 (mL)</option><option value="m3">立方米 (m³)</option><option value="cm3">立方厘米 (cm³)</option><option value="gal">加仑 (gal)</option><option value="qt">夸脱 (qt)</option><option value="pt">品脱 (pt)</option><option value="cup">杯 (cup)</option><option value="floz">液体盎司 (fl oz)</option><option value="cuft">立方英尺 (ft³)</option></select></div>
-    <style>
+    
+    
+      <div><label>到</label><select id="volTo" onchange="convertVol()"><option value="l">升 (L)</option><option value="ml" selected>毫升 (mL)</option><option value="m3">立方米 (m³)</option><option value="cm3">立方厘米 (cm³)</option><option value="gal">加仑 (gal)</option><option value="qt">夸脱 (qt)</option><option value="pt">品脱 (pt)</option><option value="cup">杯 (cup)</option><option value="floz">液体盎司 (fl oz)</option><option value="cuft">立方英尺 (ft³)</option></select></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;">
+      <button class="btn" onclick="convertVol()" data-i18n="btn_转换">转换</button>
+      <button class="btn btn2" onclick="swapVol()" data-i18n="btn_互换">⇄ 互换</button>
+    </div>
+    <div class="result" id="volResult">1 升 = 1000 毫升</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var volUnits={l:1,ml:0.001,m3:1000,cm3:0.001,gal:3.78541,qt:0.946353,pt:0.473176,cup:0.236588,floz:0.0295735,cuft:28.3168};
+function convertVol(){
+  var v=parseFloat(document.getElementById('volValue').value)||0;
+  var f=document.getElementById('volFrom').value,t=document.getElementById('volTo').value;
+  var r=v*volUnits[f]/volUnits[t];
+  document.getElementById('volResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;
+}
+function swapVol(){
+  var f=document.getElementById('volFrom'),t=document.getElementById('volTo');
+  var tmp=f.value;f.value=t.value;t.value=tmp;
+  convertVol();
+}
+convertVol();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -147,34 +177,5 @@ input:focus, select:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-      <div><label>到</label><select id="volTo" onchange="convertVol()"><option value="l">升 (L)</option><option value="ml" selected>毫升 (mL)</option><option value="m3">立方米 (m³)</option><option value="cm3">立方厘米 (cm³)</option><option value="gal">加仑 (gal)</option><option value="qt">夸脱 (qt)</option><option value="pt">品脱 (pt)</option><option value="cup">杯 (cup)</option><option value="floz">液体盎司 (fl oz)</option><option value="cuft">立方英尺 (ft³)</option></select></div>
-    </div>
-    <div style="margin-top:16px;display:flex;gap:10px;">
-      <button class="btn" onclick="convertVol()" data-i18n="btn_转换">转换</button>
-      <button class="btn btn2" onclick="swapVol()" data-i18n="btn_互换">⇄ 互换</button>
-    </div>
-    <div class="result" id="volResult">1 升 = 1000 毫升</div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-var volUnits={l:1,ml:0.001,m3:1000,cm3:0.001,gal:3.78541,qt:0.946353,pt:0.473176,cup:0.236588,floz:0.0295735,cuft:28.3168};
-function convertVol(){
-  var v=parseFloat(document.getElementById('volValue').value)||0;
-  var f=document.getElementById('volFrom').value,t=document.getElementById('volTo').value;
-  var r=v*volUnits[f]/volUnits[t];
-  document.getElementById('volResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;
-}
-function swapVol(){
-  var f=document.getElementById('volFrom'),t=document.getElementById('volTo');
-  var tmp=f.value;f.value=t.value;t.value=tmp;
-  convertVol();
-}
-convertVol();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

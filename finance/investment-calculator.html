@@ -94,7 +94,65 @@
   <input type="number" id="initial" value="10000" min="0" />
   <div class="row">
     <div><label data-i18n="lbl_每月定投_元">每月定投 (元)</label><input type="number" id="monthly" value="1000" min="0" /></div>
-    <style>
+    
+    
+    <div><label data-i18n="lbl_年化收益率">年化收益率 (%)</label><input type="number" id="annualRate" value="8" step="0.1" /></div>
+    <div><label data-i18n="lbl_投资年限">投资年限</label><input type="number" id="years" value="10" min="1" /></div>
+  </div>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="calcInvestment()" data-i18n="btn_计算收益">计算收益</button>
+  </div>
+  <div class="result" id="invResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+
+function calcInvestment() {
+  const initial = parseFloat(document.getElementById('initial').value) || 0;
+  const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+  const rate = parseFloat(document.getElementById('annualRate').value) / 100 || 0;
+  const years = parseInt(document.getElementById('years').value) || 1;
+  const monthlyRate = rate / 12;
+  const months = years * 12;
+  // Initial compounding
+  let futureInitial = initial * Math.pow(1 + monthlyRate, months);
+  // Monthly investment compounding (ordinary annuity)
+  let futureMonthly = 0;
+  if (monthlyRate > 0) {
+    futureMonthly = monthly * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
+  } else {
+    futureMonthly = monthly * months;
+  }
+  const total = futureInitial + futureMonthly;
+  const totalInvested = initial + monthly * months;
+  const earnings = total - totalInvested;
+  const el = document.getElementById('invResult');
+  el.style.display = 'block';
+  el.innerHTML =
+    '<div class="row">' +
+    '<div><div style="color:var(--muted);font-size:12px;">投入本金</div><div class="highlight">' + totalInvested.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">总收益</div><div class="highlight" style="color:#10b981;">+' + earnings.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">最终金额</div><div class="highlight">' + total.toFixed(2) + ' 元</div></div>' +
+    '</div>' +
+    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">' +
+    '年化收益率: ' + (rate * 100).toFixed(1) + '% | 投资期限: ' + years + ' 年 (' + months + ' 个月)<br/>' +
+    '月收益率: ' + (monthlyRate * 100).toFixed(3) + '%' +
+    '</div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -162,62 +220,5 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-    <div><label data-i18n="lbl_年化收益率">年化收益率 (%)</label><input type="number" id="annualRate" value="8" step="0.1" /></div>
-    <div><label data-i18n="lbl_投资年限">投资年限</label><input type="number" id="years" value="10" min="1" /></div>
-  </div>
-  <div style="margin-top:16px;">
-    <button class="btn" onclick="calcInvestment()" data-i18n="btn_计算收益">计算收益</button>
-  </div>
-  <div class="result" id="invResult" style="display:none;"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-
-function calcInvestment() {
-  const initial = parseFloat(document.getElementById('initial').value) || 0;
-  const monthly = parseFloat(document.getElementById('monthly').value) || 0;
-  const rate = parseFloat(document.getElementById('annualRate').value) / 100 || 0;
-  const years = parseInt(document.getElementById('years').value) || 1;
-  const monthlyRate = rate / 12;
-  const months = years * 12;
-  // Initial compounding
-  let futureInitial = initial * Math.pow(1 + monthlyRate, months);
-  // Monthly investment compounding (ordinary annuity)
-  let futureMonthly = 0;
-  if (monthlyRate > 0) {
-    futureMonthly = monthly * (Math.pow(1 + monthlyRate, months) - 1) / monthlyRate;
-  } else {
-    futureMonthly = monthly * months;
-  }
-  const total = futureInitial + futureMonthly;
-  const totalInvested = initial + monthly * months;
-  const earnings = total - totalInvested;
-  const el = document.getElementById('invResult');
-  el.style.display = 'block';
-  el.innerHTML =
-    '<div class="row">' +
-    '<div><div style="color:var(--muted);font-size:12px;">投入本金</div><div class="highlight">' + totalInvested.toFixed(2) + ' 元</div></div>' +
-    '<div><div style="color:var(--muted);font-size:12px;">总收益</div><div class="highlight" style="color:#10b981;">+' + earnings.toFixed(2) + ' 元</div></div>' +
-    '<div><div style="color:var(--muted);font-size:12px;">最终金额</div><div class="highlight">' + total.toFixed(2) + ' 元</div></div>' +
-    '</div>' +
-    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">' +
-    '年化收益率: ' + (rate * 100).toFixed(1) + '% | 投资期限: ' + years + ' 年 (' + months + ' 个月)<br/>' +
-    '月收益率: ' + (monthlyRate * 100).toFixed(3) + '%' +
-    '</div>';
-}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

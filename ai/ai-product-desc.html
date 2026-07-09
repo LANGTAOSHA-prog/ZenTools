@@ -102,7 +102,59 @@ window.ZT_PAGE = {
 <div class="tool-box reveal">
   <div class="row">
     <div><label data-i18n="labelName">产品名称</label><input type="text" id="pdName" data-i18n-placeholder="placeholderName" /></div>
-    <style>
+    
+    
+    <div><label data-i18n="labelCat">类别</label><input type="text" id="pdCat" data-i18n-placeholder="placeholderCat" /></div>
+  </div>
+  <label data-i18n="labelFeatures">产品特点（每行一个）</label>
+  <textarea id="pdFeatures" rows="4" data-i18n-placeholder="placeholderFeatures"></textarea>
+  <label data-i18n="labelPlatform">目标平台</label>
+  <select id="pdPlatform">
+    <option value="淘宝">淘宝</option><option value="京东">京东</option><option value="亚马逊">亚马逊</option>
+  </select>
+  <button class="btn" onclick="genPD()" style="margin-top:12px;" data-i18n="btnGen">生成描述</button>
+  <div class="result" id="pdResult" style="display:none;"></div>
+</div>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">ZenTools</div>
+    <div class="footer-links">
+      <a href="/">首页</a>
+      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
+      <a href="/privacy.html">隐私政策</a>
+    </div>
+    <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p>
+  </div>
+</footer>
+</div>
+<!-- Related tools script -->
+<script>
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="bookmark">⭐ 收藏本站</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function genPD(){
+  var n=document.getElementById('pdName').value.trim(),c=document.getElementById('pdCat').value.trim(),f=document.getElementById('pdFeatures').value.trim(),p=document.getElementById('pdPlatform').value;
+  if(!n){alert('请输入产品名称');return;}
+  var prompt='请为产品“'+n+'”写一段'+p+'类型的产品描述。';
+  if(c)prompt+='\n类别：'+c;
+  if(f)prompt+='\n特点：\n'+f;
+  prompt+='\n\n要求：突出卖点、包含关键词、提到使用场景、解决痛点。';
+  document.getElementById('pdResult').style.display='block';document.getElementById('pdResult').textContent=prompt;
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -170,56 +222,5 @@ window.ZT_PAGE = {
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-    <div><label data-i18n="labelCat">类别</label><input type="text" id="pdCat" data-i18n-placeholder="placeholderCat" /></div>
-  </div>
-  <label data-i18n="labelFeatures">产品特点（每行一个）</label>
-  <textarea id="pdFeatures" rows="4" data-i18n-placeholder="placeholderFeatures"></textarea>
-  <label data-i18n="labelPlatform">目标平台</label>
-  <select id="pdPlatform">
-    <option value="淘宝">淘宝</option><option value="京东">京东</option><option value="亚马逊">亚马逊</option>
-  </select>
-  <button class="btn" onclick="genPD()" style="margin-top:12px;" data-i18n="btnGen">生成描述</button>
-  <div class="result" id="pdResult" style="display:none;"></div>
-</div>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">ZenTools</div>
-    <div class="footer-links">
-      <a href="/">首页</a>
-      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-      <a href="/privacy.html">隐私政策</a>
-    </div>
-    <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p>
-  </div>
-</footer>
-</div>
-<!-- Related tools script -->
-<script>
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="bookmark">⭐ 收藏本站</button>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script src="../assets/js/common-i18n.min.js"></script>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-function genPD(){
-  var n=document.getElementById('pdName').value.trim(),c=document.getElementById('pdCat').value.trim(),f=document.getElementById('pdFeatures').value.trim(),p=document.getElementById('pdPlatform').value;
-  if(!n){alert('请输入产品名称');return;}
-  var prompt='请为产品“'+n+'”写一段'+p+'类型的产品描述。';
-  if(c)prompt+='\n类别：'+c;
-  if(f)prompt+='\n特点：\n'+f;
-  prompt+='\n\n要求：突出卖点、包含关键词、提到使用场景、解决痛点。';
-  document.getElementById('pdResult').style.display='block';document.getElementById('pdResult').textContent=prompt;
-}
-</script>
 </body>
 </html>

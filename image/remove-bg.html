@@ -84,7 +84,52 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
     </div>
   </div>
   
-    <style>
+    
+    <footer>© 2026 ZenTools</footer>
+</div>
+<script>
+window.ZT_PAGE ={zh:{pageTitle:"图片去背景工具 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"图片去背景",desc:"一键去除图片背景，点击颜色即可设为透明。",ad:"广告位（Google AdSense）",tolerance:"容差",process:"开始去背景",download:"下载图片",clear:"清空",previewTitle:"预览",done:"处理完成",guideTitle:"使用说明",guideText:"1. 上传图片。\n2. 调节容差控制去背景敏感度。\n3. 点击开始去背景。\n4. 下载 PNG 格式图片（透明背景）。",privacyTitle:"隐私说明",privacyText:"所有处理在浏览器本地完成，图片不会上传到服务器。",empty:"请先选择图片",pick:"点击图片上的颜色设为透明",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},ja:{pageTitle:"画像背景除去ツール - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"画像背景除去",desc:"画像の背景をワンクリックで除去。",ad:"広告スペース",tolerance:"許容差",process:"背景除去",download:"ダウンロード",clear:"クリア",previewTitle:"プレビュー",done:"処理完了",guideTitle:"使い方",guideText:"1. 画像をアップロード。\n2. 許容差を調整。\n3. 背景除去を実行。\n4. PNG形式で保存。",privacyTitle:"プライバシー",privacyText:"すべてブラウザ内で処理され、画像はサーバーへ送信されません。",empty:"画像を選択してください",pick:"画像の色をクリックして透明に",
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},en:{pageTitle:"Remove Background Tool - Free Online Tool | ZenTools",back:"← Back to Home",title:"Remove Background",desc:"Remove image background with one click.",ad:"Ad Space",tolerance:"Tolerance",process:"Remove BG",download:"Download",clear:"Clear",previewTitle:"Preview",done:"Done",guideTitle:"Guide",guideText:"1. Upload an image.\n2. Adjust tolerance.\n3. Click Remove BG.\n4. Download as PNG.",privacyTitle:"Privacy",privacyText:"All processing is done locally in your browser.",empty:"Please select an image",pick:"Click a color on the image to make it transparent",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},vi:{pageTitle:"Công cụ xóa nền ảnh - Công cụ miễn phí | ZenTools",back:"← Quay lại",title:"Xóa nền ảnh",desc:"Xóa nền ảnh chỉ bằng một cú nhấp chuột.",ad:"Vị trí QC",tolerance:"Sai số",process:"Xóa nền",download:"Tải xuống",clear:"Xóa",previewTitle:"Xem trước",done:"Hoàn tất",guideTitle:"Hướng dẫn",guideText:"1. Tải ảnh lên.\n2. Điều chỉnh sai số.\n3. Nhấn Xóa nền.\n4. Tải xuống PNG.",privacyTitle:"Quyền riêng tư",privacyText:"Xử lý hoàn toàn trong trình duyệt.",empty:"Vui lòng chọn ảnh",pick:"Nhấp vào màu trên ảnh để làm trong suốt",
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}};
+let curLang="zh",imgFile=null,originalData=null,canvas,ctx;
+const $=(id)=>document.getElementById(id);
+function applyLang(lang){const d=T[lang]||T.zh;curLang=lang;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});localStorage.setItem('zentools_lang',lang)}
+document.addEventListener('DOMContentLoaded',()=>{const sl=localStorage.getItem('zentools_lang')||'zh';$('languageSelect').value=sl;applyLang(sl);$('languageSelect').addEventListener('change',e=>applyLang(e.target.value));$('tolerance').addEventListener('input',e=>$('toleranceVal').textContent=e.target.value);canvas=$('canvas');ctx=canvas.getContext('2d');$('imageInput').addEventListener('change',loadImage)});
+function loadImage(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){canvas.style.display='block';canvas.width=Math.min(img.width,800);canvas.height=img.height*(canvas.width/img.width);ctx.drawImage(img,0,0,canvas.width,canvas.height);originalData=ctx.getImageData(0,0,canvas.width,canvas.height);$('result').textContent='';canvas.style.cursor='crosshair';canvas.onclick=handleCanvasClick};img.src=ev.target.result};r.readAsDataURL(f)}
+function handleCanvasClick(e){const rect=canvas.getBoundingClientRect(),x=Math.round((e.clientX-rect.left)*(canvas.width/rect.width)),y=Math.round((e.clientY-rect.top)*(canvas.height/rect.height));if(!originalData)return;const tol=parseInt($('tolerance').value);const src=originalData.data,idx=(y*canvas.width+x)*4;const tr=src[idx],tg=src[idx+1],tb=src[idx+2];const out=new Uint8ClampedArray(src);for(let i=0;i<out.length;i+=4){const dr=out[i]-tr,dg=out[i+1]-tg,db=out[i+2]-tb;if(Math.sqrt(dr*dr+dg*dg+db*db)<=tol*3)out[i+3]=0}const id=new ImageData(out,canvas.width,canvas.height);ctx.putImageData(id,0,0);$('result').textContent=T[curLang].done}
+function processRemoveBg(){if(!originalData){$('result').textContent=T[curLang].empty;return}const tol=parseInt($('tolerance').value);const src=originalData.data,out=new Uint8ClampedArray(src);const bgR=src[0],bgG=src[1],bgB=src[2];for(let i=0;i<out.length;i+=4){const dr=out[i]-bgR,dg=out[i+1]-bgG,db=out[i+2]-bgB;if(Math.sqrt(dr*dr+dg*dg+db*db)<=tol*3)out[i+3]=0}const id=new ImageData(out,canvas.width,canvas.height);ctx.putImageData(id,0,0);$('result').textContent=T[curLang].done}
+function downloadResult(){const l=$('download');if(l)l.href=canvas.toDataURL('image/png');else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='remove-bg.png';a.click()}}
+function clearAll(){$('imageInput').value='';originalData=null;canvas.style.display='none';ctx.clearRect(0,0,canvas.width,canvas.height);$('result').textContent='';canvas.onclick=null}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ <span data-i18n="bookmark">收藏本站</span></button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -152,49 +197,5 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer>
-</div>
-<script>
-window.ZT_PAGE ={zh:{pageTitle:"图片去背景工具 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"图片去背景",desc:"一键去除图片背景，点击颜色即可设为透明。",ad:"广告位（Google AdSense）",tolerance:"容差",process:"开始去背景",download:"下载图片",clear:"清空",previewTitle:"预览",done:"处理完成",guideTitle:"使用说明",guideText:"1. 上传图片。\n2. 调节容差控制去背景敏感度。\n3. 点击开始去背景。\n4. 下载 PNG 格式图片（透明背景）。",privacyTitle:"隐私说明",privacyText:"所有处理在浏览器本地完成，图片不会上传到服务器。",empty:"请先选择图片",pick:"点击图片上的颜色设为透明",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},ja:{pageTitle:"画像背景除去ツール - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"画像背景除去",desc:"画像の背景をワンクリックで除去。",ad:"広告スペース",tolerance:"許容差",process:"背景除去",download:"ダウンロード",clear:"クリア",previewTitle:"プレビュー",done:"処理完了",guideTitle:"使い方",guideText:"1. 画像をアップロード。\n2. 許容差を調整。\n3. 背景除去を実行。\n4. PNG形式で保存。",privacyTitle:"プライバシー",privacyText:"すべてブラウザ内で処理され、画像はサーバーへ送信されません。",empty:"画像を選択してください",pick:"画像の色をクリックして透明に",
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},en:{pageTitle:"Remove Background Tool - Free Online Tool | ZenTools",back:"← Back to Home",title:"Remove Background",desc:"Remove image background with one click.",ad:"Ad Space",tolerance:"Tolerance",process:"Remove BG",download:"Download",clear:"Clear",previewTitle:"Preview",done:"Done",guideTitle:"Guide",guideText:"1. Upload an image.\n2. Adjust tolerance.\n3. Click Remove BG.\n4. Download as PNG.",privacyTitle:"Privacy",privacyText:"All processing is done locally in your browser.",empty:"Please select an image",pick:"Click a color on the image to make it transparent",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},vi:{pageTitle:"Công cụ xóa nền ảnh - Công cụ miễn phí | ZenTools",back:"← Quay lại",title:"Xóa nền ảnh",desc:"Xóa nền ảnh chỉ bằng một cú nhấp chuột.",ad:"Vị trí QC",tolerance:"Sai số",process:"Xóa nền",download:"Tải xuống",clear:"Xóa",previewTitle:"Xem trước",done:"Hoàn tất",guideTitle:"Hướng dẫn",guideText:"1. Tải ảnh lên.\n2. Điều chỉnh sai số.\n3. Nhấn Xóa nền.\n4. Tải xuống PNG.",privacyTitle:"Quyền riêng tư",privacyText:"Xử lý hoàn toàn trong trình duyệt.",empty:"Vui lòng chọn ảnh",pick:"Nhấp vào màu trên ảnh để làm trong suốt",
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}};
-let curLang="zh",imgFile=null,originalData=null,canvas,ctx;
-const $=(id)=>document.getElementById(id);
-function applyLang(lang){const d=T[lang]||T.zh;curLang=lang;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});localStorage.setItem('zentools_lang',lang)}
-document.addEventListener('DOMContentLoaded',()=>{const sl=localStorage.getItem('zentools_lang')||'zh';$('languageSelect').value=sl;applyLang(sl);$('languageSelect').addEventListener('change',e=>applyLang(e.target.value));$('tolerance').addEventListener('input',e=>$('toleranceVal').textContent=e.target.value);canvas=$('canvas');ctx=canvas.getContext('2d');$('imageInput').addEventListener('change',loadImage)});
-function loadImage(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){canvas.style.display='block';canvas.width=Math.min(img.width,800);canvas.height=img.height*(canvas.width/img.width);ctx.drawImage(img,0,0,canvas.width,canvas.height);originalData=ctx.getImageData(0,0,canvas.width,canvas.height);$('result').textContent='';canvas.style.cursor='crosshair';canvas.onclick=handleCanvasClick};img.src=ev.target.result};r.readAsDataURL(f)}
-function handleCanvasClick(e){const rect=canvas.getBoundingClientRect(),x=Math.round((e.clientX-rect.left)*(canvas.width/rect.width)),y=Math.round((e.clientY-rect.top)*(canvas.height/rect.height));if(!originalData)return;const tol=parseInt($('tolerance').value);const src=originalData.data,idx=(y*canvas.width+x)*4;const tr=src[idx],tg=src[idx+1],tb=src[idx+2];const out=new Uint8ClampedArray(src);for(let i=0;i<out.length;i+=4){const dr=out[i]-tr,dg=out[i+1]-tg,db=out[i+2]-tb;if(Math.sqrt(dr*dr+dg*dg+db*db)<=tol*3)out[i+3]=0}const id=new ImageData(out,canvas.width,canvas.height);ctx.putImageData(id,0,0);$('result').textContent=T[curLang].done}
-function processRemoveBg(){if(!originalData){$('result').textContent=T[curLang].empty;return}const tol=parseInt($('tolerance').value);const src=originalData.data,out=new Uint8ClampedArray(src);const bgR=src[0],bgG=src[1],bgB=src[2];for(let i=0;i<out.length;i+=4){const dr=out[i]-bgR,dg=out[i+1]-bgG,db=out[i+2]-bgB;if(Math.sqrt(dr*dr+dg*dg+db*db)<=tol*3)out[i+3]=0}const id=new ImageData(out,canvas.width,canvas.height);ctx.putImageData(id,0,0);$('result').textContent=T[curLang].done}
-function downloadResult(){const l=$('download');if(l)l.href=canvas.toDataURL('image/png');else{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='remove-bg.png';a.click()}}
-function clearAll(){$('imageInput').value='';originalData=null;canvas.style.display='none';ctx.clearRect(0,0,canvas.width,canvas.height);$('result').textContent='';canvas.onclick=null}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ <span data-i18n="bookmark">收藏本站</span></button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body>
 </html>

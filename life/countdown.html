@@ -84,7 +84,49 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
   <div class="tool-box">
     <div class="row">
   <div><label data-i18n="lbl_目标日期">目标日期</label><input type="date" id="cdDate" /></div>
-    <style>
+    
+    
+  <div><label data-i18n="lbl_目标时间">目标时间</label><input type="time" id="cdTime" value="00:00" /></div>
+</div>
+<label data-i18n="lbl_事件名称_可选">事件名称（可选）</label>
+<input type="text" id="cdName" placeholder="例如：生日、项目截止日" data-i18n-placeholder="ph_例如_生日_项目" />
+<div style="display:flex;gap:10px;margin-top:16px;">
+  <button class="btn" onclick="startCD()" data-i18n="btn_开始倒计时">开始倒计时</button>
+  <button class="btn btn2" onclick="localStorage.removeItem('zt_countdown');document.getElementById('cdResult').style.display='none';" data-i18n="btn_清除">清除</button>
+</div>
+<div class="result" id="cdResult" style="display:none;">
+  <div style="display:flex;gap:16px;justify-content:center;text-align:center;flex-wrap:wrap;">
+    <div><div class="highlight" id="cdDays">0</div><div style="font-size:12px;color:var(--muted);">天</div></div>
+    <div><div class="highlight" id="cdHours">0</div><div style="font-size:12px;color:var(--muted);">时</div></div>
+    <div><div class="highlight" id="cdMins">0</div><div style="font-size:12px;color:var(--muted);">分</div></div>
+    <div><div class="highlight" id="cdSecs">0</div><div style="font-size:12px;color:var(--muted);">秒</div></div>
+  </div>
+  <div style="text-align:center;margin-top:8px;" id="cdLabel"></div>
+</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var _cdInterval;
+function startCD(){
+  var date=document.getElementById('cdDate').value, time=document.getElementById('cdTime').value||'00:00';
+  if(!date){alert('请选择日期');return;}
+  var target=new Date(date+'T'+time+':00').getTime();
+  _cdInterval&&clearInterval(_cdInterval);
+  _cdInterval=setInterval(function(){
+    var now=Date.now(), diff=target-now;
+    if(diff<=0){document.getElementById('cdDays').textContent='0';document.getElementById('cdHours').textContent='0';document.getElementById('cdMins').textContent='0';document.getElementById('cdSecs').textContent='0';document.getElementById('cdResult').style.display='block';document.getElementById('cdLabel').textContent='✅ 时间已到！';clearInterval(_cdInterval);return;}
+    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
+    document.getElementById('cdDays').textContent=d;document.getElementById('cdHours').textContent=h;document.getElementById('cdMins').textContent=m;document.getElementById('cdSecs').textContent=s;
+  },1000);
+  var n=document.getElementById('cdName').value;document.getElementById('cdLabel').textContent=n?'⏰ '+n:'';
+  document.getElementById('cdResult').style.display='block';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -152,46 +194,5 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-  <div><label data-i18n="lbl_目标时间">目标时间</label><input type="time" id="cdTime" value="00:00" /></div>
-</div>
-<label data-i18n="lbl_事件名称_可选">事件名称（可选）</label>
-<input type="text" id="cdName" placeholder="例如：生日、项目截止日" data-i18n-placeholder="ph_例如_生日_项目" />
-<div style="display:flex;gap:10px;margin-top:16px;">
-  <button class="btn" onclick="startCD()" data-i18n="btn_开始倒计时">开始倒计时</button>
-  <button class="btn btn2" onclick="localStorage.removeItem('zt_countdown');document.getElementById('cdResult').style.display='none';" data-i18n="btn_清除">清除</button>
-</div>
-<div class="result" id="cdResult" style="display:none;">
-  <div style="display:flex;gap:16px;justify-content:center;text-align:center;flex-wrap:wrap;">
-    <div><div class="highlight" id="cdDays">0</div><div style="font-size:12px;color:var(--muted);">天</div></div>
-    <div><div class="highlight" id="cdHours">0</div><div style="font-size:12px;color:var(--muted);">时</div></div>
-    <div><div class="highlight" id="cdMins">0</div><div style="font-size:12px;color:var(--muted);">分</div></div>
-    <div><div class="highlight" id="cdSecs">0</div><div style="font-size:12px;color:var(--muted);">秒</div></div>
-  </div>
-  <div style="text-align:center;margin-top:8px;" id="cdLabel"></div>
-</div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-var _cdInterval;
-function startCD(){
-  var date=document.getElementById('cdDate').value, time=document.getElementById('cdTime').value||'00:00';
-  if(!date){alert('请选择日期');return;}
-  var target=new Date(date+'T'+time+':00').getTime();
-  _cdInterval&&clearInterval(_cdInterval);
-  _cdInterval=setInterval(function(){
-    var now=Date.now(), diff=target-now;
-    if(diff<=0){document.getElementById('cdDays').textContent='0';document.getElementById('cdHours').textContent='0';document.getElementById('cdMins').textContent='0';document.getElementById('cdSecs').textContent='0';document.getElementById('cdResult').style.display='block';document.getElementById('cdLabel').textContent='✅ 时间已到！';clearInterval(_cdInterval);return;}
-    var d=Math.floor(diff/86400000),h=Math.floor((diff%86400000)/3600000),m=Math.floor((diff%3600000)/60000),s=Math.floor((diff%60000)/1000);
-    document.getElementById('cdDays').textContent=d;document.getElementById('cdHours').textContent=h;document.getElementById('cdMins').textContent=m;document.getElementById('cdSecs').textContent=s;
-  },1000);
-  var n=document.getElementById('cdName').value;document.getElementById('cdLabel').textContent=n?'⏰ '+n:'';
-  document.getElementById('cdResult').style.display='block';
-}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

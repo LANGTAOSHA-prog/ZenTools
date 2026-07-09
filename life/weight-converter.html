@@ -72,7 +72,25 @@ input:focus, select:focus { outline:none; border-color:var(--cyan); }
     <input type="number" id="wValue" value="1" step="any" oninput="convertW()" />
     <div class="row">
       <div><label>从</label><select id="wFrom" onchange="convertW()"><option value="kg">千克 (kg)</option><option value="g" selected>克 (g)</option><option value="mg">毫克 (mg)</option><option value="ton">吨 (t)</option><option value="lb">磅 (lb)</option><option value="oz">盎司 (oz)</option><option value="jin">斤</option><option value="st">英石 (st)</option></select></div>
-    <style>
+    
+    
+      <div><label>到</label><select id="wTo" onchange="convertW()"><option value="kg">千克 (kg)</option><option value="g">克 (g)</option><option value="mg">毫克 (mg)</option><option value="ton">吨 (t)</option><option value="lb" selected>磅 (lb)</option><option value="oz">盎司 (oz)</option><option value="jin">斤</option><option value="st">英石 (st)</option></select></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;"><button class="btn" onclick="convertW()" data-i18n="btn_转换">转换</button><button class="btn btn2" onclick="swapW()" data-i18n="btn_互换">⇄ 互换</button></div>
+    <div class="result" id="wResult">1 克 = 0.002205 磅</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var wU={kg:1,g:0.001,mg:0.000001,ton:1000,lb:0.453592,oz:0.0283495,jin:0.5,st:6.35029};
+function convertW(){var v=parseFloat(document.getElementById('wValue').value)||0,f=document.getElementById('wFrom').value,t=document.getElementById('wTo').value;var r=v*wU[f]/wU[t];document.getElementById('wResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;}
+function swapW(){var f=document.getElementById('wFrom'),t=document.getElementById('wTo');var tmp=f.value;f.value=t.value;t.value=tmp;convertW();}
+convertW();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -140,22 +158,5 @@ input:focus, select:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-      <div><label>到</label><select id="wTo" onchange="convertW()"><option value="kg">千克 (kg)</option><option value="g">克 (g)</option><option value="mg">毫克 (mg)</option><option value="ton">吨 (t)</option><option value="lb" selected>磅 (lb)</option><option value="oz">盎司 (oz)</option><option value="jin">斤</option><option value="st">英石 (st)</option></select></div>
-    </div>
-    <div style="margin-top:16px;display:flex;gap:10px;"><button class="btn" onclick="convertW()" data-i18n="btn_转换">转换</button><button class="btn btn2" onclick="swapW()" data-i18n="btn_互换">⇄ 互换</button></div>
-    <div class="result" id="wResult">1 克 = 0.002205 磅</div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-var wU={kg:1,g:0.001,mg:0.000001,ton:1000,lb:0.453592,oz:0.0283495,jin:0.5,st:6.35029};
-function convertW(){var v=parseFloat(document.getElementById('wValue').value)||0,f=document.getElementById('wFrom').value,t=document.getElementById('wTo').value;var r=v*wU[f]/wU[t];document.getElementById('wResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;}
-function swapW(){var f=document.getElementById('wFrom'),t=document.getElementById('wTo');var tmp=f.value;f.value=t.value;t.value=tmp;convertW();}
-convertW();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

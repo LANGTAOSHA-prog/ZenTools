@@ -20,7 +20,55 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 <div class="container"><div class="top-bar"><a href="index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option></select></div><div class="card"><h1 data-i18n="title">图片前后对比</h1><p class="desc" data-i18n="desc">上传两张图片，拖动滑块对比原图和处理后的效果差异。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><div class="split-group"><div style="flex:1"><label data-i18n="beforeLabel" style="color:var(--muted);font-size:14px">原图（左侧）</label><input type="file" id="beforeInput" accept="image/*"></div><div style="flex:1"><label data-i18n="afterLabel" style="color:var(--muted);font-size:14px">处理后（右侧）</label><input type="file" id="afterInput" accept="image/*"></div></div><div class="compare-wrap" id="compareWrap"><img id="imgBefore" src="" alt="Before"><div class="img-after" id="imgAfterWrap"><img id="imgAfter" src="" alt="After"></div><div class="compare-slider" id="compareSlider"></div></div><div style="text-align:center;color:var(--muted);font-size:13px;margin-top:8px" data-i18n="hint">← 拖动中间滑块对比左右图片 →</div></div>
-    <style>
+    
+    <footer>© 2026 ZenTools</footer></div><script>
+const translations={
+zh:{back:"← 返回首页",title:"图片前后对比",desc:"上传两张图片，拖动滑块对比原图和处理后的效果差异。",ad:"广告位（Google AdSense）",beforeLabel:"原图（左侧）",afterLabel:"处理后（右侧）",hint:"← 拖动中间滑块对比左右图片 →",chooseBefore:"请先选择原图",chooseAfter:"请先选择处理后图片",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Compare",desc:"Upload two images and compare them with a draggable slider.",ad:"Ad Space",beforeLabel:"Before (Left)",afterLabel:"After (Right)",hint:"← Drag the slider to compare →",chooseBefore:"Please select the before image first",chooseAfter:"Please select the after image first",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
+let currentLang="zh";
+let beforeLoaded=false,afterLoaded=false;
+const wrap=document.getElementById("compareWrap"),slider=document.getElementById("compareSlider"),imgBefore=document.getElementById("imgBefore"),imgAfter=document.getElementById("imgAfter"),afterWrap=document.getElementById("imgAfterWrap");
+let isDragging=false;
+document.getElementById("beforeInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){imgBefore.src=ev.target.result;imgBefore.onload=function(){beforeLoaded=true;syncImages();};};r.readAsDataURL(f);});
+document.getElementById("afterInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){imgAfter.src=ev.target.result;imgAfter.onload=function(){afterLoaded=true;syncImages();};};r.readAsDataURL(f);});
+function syncImages(){if(!beforeLoaded||!afterLoaded)return;const maxW=800;let w=imgBefore.naturalWidth,h=imgBefore.naturalHeight;if(w>maxW){h=h*maxW/w;w=maxW;}wrap.style.width=w+"px";wrap.style.height=h+"px";}
+slider.addEventListener("mousedown",function(e){isDragging=true;e.preventDefault();});
+slider.addEventListener("touchstart",function(e){isDragging=true;e.preventDefault();});
+document.addEventListener("mousemove",function(e){if(!isDragging)return;moveSlider(e.clientX);});
+document.addEventListener("touchmove",function(e){if(!isDragging)return;moveSlider(e.touches[0].clientX);},{passive:true});
+document.addEventListener("mouseup",function(){isDragging=false;});
+document.addEventListener("touchend",function(){isDragging=false;});
+function moveSlider(clientX){var rect=wrap.getBoundingClientRect();var x=Math.max(0,Math.min(clientX-rect.left,rect.width));var pct=(x/rect.width*100).toFixed(1);slider.style.left=pct+"%";afterWrap.style.width=pct+"%";}
+// Initialize at 50%
+slider.style.left="50%";afterWrap.style.width="50%";
+const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
+</script>
+<script>
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -88,51 +136,4 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer></div><script>
-const translations={
-zh:{back:"← 返回首页",title:"图片前后对比",desc:"上传两张图片，拖动滑块对比原图和处理后的效果差异。",ad:"广告位（Google AdSense）",beforeLabel:"原图（左侧）",afterLabel:"处理后（右侧）",hint:"← 拖动中间滑块对比左右图片 →",chooseBefore:"请先选择原图",chooseAfter:"请先选择处理后图片",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Compare",desc:"Upload two images and compare them with a draggable slider.",ad:"Ad Space",beforeLabel:"Before (Left)",afterLabel:"After (Right)",hint:"← Drag the slider to compare →",chooseBefore:"Please select the before image first",chooseAfter:"Please select the after image first",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'}};
-window.ZT_PAGE = translations;
-let currentLang="zh";
-let beforeLoaded=false,afterLoaded=false;
-const wrap=document.getElementById("compareWrap"),slider=document.getElementById("compareSlider"),imgBefore=document.getElementById("imgBefore"),imgAfter=document.getElementById("imgAfter"),afterWrap=document.getElementById("imgAfterWrap");
-let isDragging=false;
-document.getElementById("beforeInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){imgBefore.src=ev.target.result;imgBefore.onload=function(){beforeLoaded=true;syncImages();};};r.readAsDataURL(f);});
-document.getElementById("afterInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){imgAfter.src=ev.target.result;imgAfter.onload=function(){afterLoaded=true;syncImages();};};r.readAsDataURL(f);});
-function syncImages(){if(!beforeLoaded||!afterLoaded)return;const maxW=800;let w=imgBefore.naturalWidth,h=imgBefore.naturalHeight;if(w>maxW){h=h*maxW/w;w=maxW;}wrap.style.width=w+"px";wrap.style.height=h+"px";}
-slider.addEventListener("mousedown",function(e){isDragging=true;e.preventDefault();});
-slider.addEventListener("touchstart",function(e){isDragging=true;e.preventDefault();});
-document.addEventListener("mousemove",function(e){if(!isDragging)return;moveSlider(e.clientX);});
-document.addEventListener("touchmove",function(e){if(!isDragging)return;moveSlider(e.touches[0].clientX);},{passive:true});
-document.addEventListener("mouseup",function(){isDragging=false;});
-document.addEventListener("touchend",function(){isDragging=false;});
-function moveSlider(clientX){var rect=wrap.getBoundingClientRect();var x=Math.max(0,Math.min(clientX-rect.left,rect.width));var pct=(x/rect.width*100).toFixed(1);slider.style.left=pct+"%";afterWrap.style.width=pct+"%";}
-// Initialize at 50%
-slider.style.left="50%";afterWrap.style.width="50%";
-const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
-</script>
-<script>
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

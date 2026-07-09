@@ -88,7 +88,51 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
     </div>
   </div>
   
-    <style>
+    
+    <footer>© 2026 ZenTools</footer>
+</div>
+<script>
+window.ZT_PAGE ={zh:{pageTitle:"图片圆角工具 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"图片圆角裁剪",desc:"为图片添加圆角效果，支持自定义圆角半径。",ad:"广告位（Google AdSense）",radius:"圆角半径",process:"生成圆角",download:"下载图片",clear:"清空",previewTitle:"预览",done:"生成完成",guideTitle:"使用说明",guideText:"1. 上传图片。\n2. 调节圆角半径。\n3. 点击生成圆角。\n4. 下载 PNG 格式图片（透明背景）。",privacyTitle:"隐私说明",privacyText:"所有处理在浏览器本地完成，图片不会上传到服务器。",empty:"请先选择图片",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},ja:{pageTitle:"画像角丸ツール - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"画像角丸加工",desc:"画像の角を丸くします。",ad:"広告スペース",radius:"角丸半径",process:"角丸加工",download:"ダウンロード",clear:"クリア",previewTitle:"プレビュー",done:"完了",guideTitle:"使い方",guideText:"1. 画像をアップロード。\n2. 半径を調整。\n3. 角丸加工を実行。\n4. PNG形式で保存。",privacyTitle:"プライバシー",privacyText:"すべてブラウザ内で処理されます。",empty:"画像を選択してください",
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},en:{pageTitle:"Rounded Corners Tool - Free Online Tool | ZenTools",back:"← Back to Home",title:"Rounded Corners",desc:"Add rounded corners to your images.",ad:"Ad Space",radius:"Corner Radius",process:"Apply",download:"Download",clear:"Clear",previewTitle:"Preview",done:"Done",guideTitle:"Guide",guideText:"1. Upload an image.\n2. Adjust corner radius.\n3. Click Apply.\n4. Download PNG.",privacyTitle:"Privacy",privacyText:"All processing is done locally.",empty:"Please select an image",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},vi:{pageTitle:"Công cụ bo góc ảnh - Công cụ miễn phí | ZenTools",back:"← Quay lại",title:"Bo góc ảnh",desc:"Thêm góc bo tròn cho ảnh.",ad:"Vị trí QC",radius:"Bán kính",process:"Áp dụng",download:"Tải xuống",clear:"Xóa",previewTitle:"Xem trước",done:"Hoàn tất",guideTitle:"Hướng dẫn",guideText:"1. Tải ảnh lên.\n2. Điều chỉnh bán kính.\n3. Nhấn Áp dụng.\n4. Tải PNG.",privacyTitle:"Quyền riêng tư",privacyText:"Xử lý trong trình duyệt.",empty:"Vui lòng chọn ảnh",
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}};
+let curLang="zh",originalData=null,canvas,ctx,imgW,imgH;
+const $=(id)=>document.getElementById(id);
+function applyLang(lang){const d=T[lang]||T.zh;curLang=lang;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});localStorage.setItem('zentools_lang',lang)}
+document.addEventListener('DOMContentLoaded',()=>{const sl=localStorage.getItem('zentools_lang')||'zh';$('languageSelect').value=sl;applyLang(sl);$('languageSelect').addEventListener('change',e=>applyLang(e.target.value));$('radius').addEventListener('input',e=>$('radiusVal').textContent=e.target.value+'%');canvas=$('canvas');ctx=canvas.getContext('2d');$('imageInput').addEventListener('change',loadImage)});
+function loadImage(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){imgW=Math.min(img.width,800);imgH=img.height*(imgW/img.width);canvas.style.display='block';canvas.width=imgW;canvas.height=imgH;ctx.drawImage(img,0,0,imgW,imgH);originalData=ctx.getImageData(0,0,imgW,imgH);$('result').textContent=''};img.src=ev.target.result};r.readAsDataURL(f)}
+function processRounded(){if(!originalData){$('result').textContent=T[curLang].empty;return}const w=imgW,h=imgH,rPct=parseInt($('radius').value)/100;const rad=Math.min(w,h)*rPct;canvas.width=w;canvas.height=h;const img=new Image();img.onload=function(){ctx.clearRect(0,0,w,h);ctx.beginPath();ctx.moveTo(rad,0);ctx.lineTo(w-rad,0);ctx.quadraticCurveTo(w,0,w,rad);ctx.lineTo(w,h-rad);ctx.quadraticCurveTo(w,h,w-rad,h);ctx.lineTo(rad,h);ctx.quadraticCurveTo(0,h,0,h-rad);ctx.lineTo(0,rad);ctx.quadraticCurveTo(0,0,rad,0);ctx.closePath();ctx.clip();ctx.drawImage(img,0,0,w,h);$('result').textContent=T[curLang].done};img.src=canvas.toDataURL()}
+function downloadResult(){const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='rounded-corners.png';a.click()}
+function clearAll(){$('imageInput').value='';originalData=null;canvas.style.display='none';ctx.clearRect(0,0,canvas.width,canvas.height);$('result').textContent=''}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ <span data-i18n="bookmark">收藏本站</span></button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -156,48 +200,5 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer>
-</div>
-<script>
-window.ZT_PAGE ={zh:{pageTitle:"图片圆角工具 - 免费在线工具 | ZenTools",back:"← 返回首页",title:"图片圆角裁剪",desc:"为图片添加圆角效果，支持自定义圆角半径。",ad:"广告位（Google AdSense）",radius:"圆角半径",process:"生成圆角",download:"下载图片",clear:"清空",previewTitle:"预览",done:"生成完成",guideTitle:"使用说明",guideText:"1. 上传图片。\n2. 调节圆角半径。\n3. 点击生成圆角。\n4. 下载 PNG 格式图片（透明背景）。",privacyTitle:"隐私说明",privacyText:"所有处理在浏览器本地完成，图片不会上传到服务器。",empty:"请先选择图片",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},ja:{pageTitle:"画像角丸ツール - 無料オンラインツール | ZenTools",back:"← ホームに戻る",title:"画像角丸加工",desc:"画像の角を丸くします。",ad:"広告スペース",radius:"角丸半径",process:"角丸加工",download:"ダウンロード",clear:"クリア",previewTitle:"プレビュー",done:"完了",guideTitle:"使い方",guideText:"1. 画像をアップロード。\n2. 半径を調整。\n3. 角丸加工を実行。\n4. PNG形式で保存。",privacyTitle:"プライバシー",privacyText:"すべてブラウザ内で処理されます。",empty:"画像を選択してください",
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},en:{pageTitle:"Rounded Corners Tool - Free Online Tool | ZenTools",back:"← Back to Home",title:"Rounded Corners",desc:"Add rounded corners to your images.",ad:"Ad Space",radius:"Corner Radius",process:"Apply",download:"Download",clear:"Clear",previewTitle:"Preview",done:"Done",guideTitle:"Guide",guideText:"1. Upload an image.\n2. Adjust corner radius.\n3. Click Apply.\n4. Download PNG.",privacyTitle:"Privacy",privacyText:"All processing is done locally.",empty:"Please select an image",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},vi:{pageTitle:"Công cụ bo góc ảnh - Công cụ miễn phí | ZenTools",back:"← Quay lại",title:"Bo góc ảnh",desc:"Thêm góc bo tròn cho ảnh.",ad:"Vị trí QC",radius:"Bán kính",process:"Áp dụng",download:"Tải xuống",clear:"Xóa",previewTitle:"Xem trước",done:"Hoàn tất",guideTitle:"Hướng dẫn",guideText:"1. Tải ảnh lên.\n2. Điều chỉnh bán kính.\n3. Nhấn Áp dụng.\n4. Tải PNG.",privacyTitle:"Quyền riêng tư",privacyText:"Xử lý trong trình duyệt.",empty:"Vui lòng chọn ảnh",
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}};
-let curLang="zh",originalData=null,canvas,ctx,imgW,imgH;
-const $=(id)=>document.getElementById(id);
-function applyLang(lang){const d=T[lang]||T.zh;curLang=lang;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle;document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});localStorage.setItem('zentools_lang',lang)}
-document.addEventListener('DOMContentLoaded',()=>{const sl=localStorage.getItem('zentools_lang')||'zh';$('languageSelect').value=sl;applyLang(sl);$('languageSelect').addEventListener('change',e=>applyLang(e.target.value));$('radius').addEventListener('input',e=>$('radiusVal').textContent=e.target.value+'%');canvas=$('canvas');ctx=canvas.getContext('2d');$('imageInput').addEventListener('change',loadImage)});
-function loadImage(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){imgW=Math.min(img.width,800);imgH=img.height*(imgW/img.width);canvas.style.display='block';canvas.width=imgW;canvas.height=imgH;ctx.drawImage(img,0,0,imgW,imgH);originalData=ctx.getImageData(0,0,imgW,imgH);$('result').textContent=''};img.src=ev.target.result};r.readAsDataURL(f)}
-function processRounded(){if(!originalData){$('result').textContent=T[curLang].empty;return}const w=imgW,h=imgH,rPct=parseInt($('radius').value)/100;const rad=Math.min(w,h)*rPct;canvas.width=w;canvas.height=h;const img=new Image();img.onload=function(){ctx.clearRect(0,0,w,h);ctx.beginPath();ctx.moveTo(rad,0);ctx.lineTo(w-rad,0);ctx.quadraticCurveTo(w,0,w,rad);ctx.lineTo(w,h-rad);ctx.quadraticCurveTo(w,h,w-rad,h);ctx.lineTo(rad,h);ctx.quadraticCurveTo(0,h,0,h-rad);ctx.lineTo(0,rad);ctx.quadraticCurveTo(0,0,rad,0);ctx.closePath();ctx.clip();ctx.drawImage(img,0,0,w,h);$('result').textContent=T[curLang].done};img.src=canvas.toDataURL()}
-function downloadResult(){const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='rounded-corners.png';a.click()}
-function clearAll(){$('imageInput').value='';originalData=null;canvas.style.display='none';ctx.clearRect(0,0,canvas.width,canvas.height);$('result').textContent=''}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ <span data-i18n="bookmark">收藏本站</span></button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body>
 </html>

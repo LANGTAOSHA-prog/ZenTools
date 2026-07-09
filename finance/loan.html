@@ -16,7 +16,50 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 <div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">贷款计算器</h1><p class="desc" data-i18n="pageDesc">支持等额本息和等额本金两种还款方式。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="loanAmount" placeholder="贷款金额（元）" value="1000000"><input type="number" id="loanRate" placeholder="年利率（%）" value="4.2" step="0.05"><input type="number" id="loanYears" placeholder="贷款年限" value="30"><div class="radios"><label><input type="radio" name="method" value="equal" checked> <span data-i18n="equal">等额本息</span></label><label><input type="radio" name="method" value="principal"> <span data-i18n="principal">等额本金</span></label></div><button onclick="calcLoan()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="monthPay">0</div><div class="lbl" data-i18n="monthPayLbl">月供（元）</div></div><div class="result-item"><div class="val" id="totalInterest">0</div><div class="lbl" data-i18n="interestLbl">总利息（元）</div></div><div class="result-item"><div class="val" id="totalPayment">0</div><div class="lbl" data-i18n="totalLbl">还款总额（元）</div></div></div><div id="schedule" style="max-height:400px;overflow-y:auto"></div></div></div>
-    <style>
+    
+    <footer>© 2026 ZenTools</footer></div><script>
+window.ZT_PAGE ={zh:{pageTitle:'贷款计算器',pageDesc:'支持等额本息和等额本金两种还款方式。',ad:'广告位',back:'← 返回首页',calc:'开始计算',equal:'等额本息',principal:'等额本金',monthPayLbl:'月供（元）',interestLbl:'总利息（元）',totalLbl:'还款总额（元）',
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{pageTitle:'Loan Calculator',pageDesc:'Supports equal payment and equal principal methods.',ad:'Ad Space',back:'← Back',calc:'Calculate',equal:'Equal Payment',principal:'Equal Principal',monthPayLbl:'Monthly Payment',interestLbl:'Total Interest',totalLbl:'Total Payment',
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},ja:{pageTitle:'ローン計算機',pageDesc:'元利均等・元金均等方式に対応。',ad:'広告',back:'← 戻る',calc:'計算',equal:'元利均等',principal:'元金均等',monthPayLbl:'月額返済',interestLbl:'総利息',totalLbl:'総返済額',
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},vi:{pageTitle:'Máy tính khoản vay',pageDesc:'Hỗ trợ trả đều và trả gốc cố định.',ad:'QC',back:'← Quay lại',calc:'Tính',equal:'Trả đều',principal:'Trả gốc cố định',monthPayLbl:'Trả hàng tháng',interestLbl:'Tổng lãi',totalLbl:'Tổng trả',
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}};
+function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
+document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
+function calcLoan(){const a=parseFloat(document.getElementById('loanAmount').value)||0,r=(parseFloat(document.getElementById('loanRate').value)||0)/100/12,n=(parseFloat(document.getElementById('loanYears').value)||0)*12,method=document.querySelector('input[name="method"]:checked').value;if(!a||!n){alert('Please fill in all fields');return;}const rs=document.getElementById('result');rs.style.display='block';const mp=document.getElementById('monthPay'),ti=document.getElementById('totalInterest'),tp=document.getElementById('totalPayment'),sc=document.getElementById('schedule');if(method==='equal'){const pay=a*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);const total=pay*n,interest=total-a;mp.textContent=pay.toFixed(2);ti.textContent=interest.toFixed(2);tp.textContent=total.toFixed(2);let html='<table><tr><th>期数</th><th>月供</th><th>本金</th><th>利息</th><th>剩余本金</th></tr>';let bal=a;for(let i=1;i<=n;i++){const intAmt=bal*r;const prinAmt=pay-intAmt;bal-=prinAmt;if(i<=12||i>n-3||i%60===0)html+='<tr><td>'+i+'</td><td>'+pay.toFixed(2)+'</td><td>'+prinAmt.toFixed(2)+'</td><td>'+intAmt.toFixed(2)+'</td><td>'+Math.max(0,bal).toFixed(2)+'</td></tr>';}html+='</table>';sc.innerHTML=html;}else{const prin=a/n;let totalI=0,html='<table><tr><th>期数</th><th>月供</th><th>本金</th><th>利息</th><th>剩余本金</th></tr>';let bal=a;for(let i=1;i<=n;i++){const intAmt=bal*r;const payP=prin+intAmt;totalI+=intAmt;bal-=prin;if(i===1){mp.textContent=payP.toFixed(2);}if(i<=12||i>n-3||i%60===0)html+='<tr><td>'+i+'</td><td>'+payP.toFixed(2)+'</td><td>'+prin.toFixed(2)+'</td><td>'+intAmt.toFixed(2)+'</td><td>'+Math.max(0,bal).toFixed(2)+'</td></tr>';}html+='</table>';ti.textContent=totalI.toFixed(2);tp.textContent=(a+totalI).toFixed(2);sc.innerHTML=html;}}
+</script>
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -84,46 +127,4 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer></div><script>
-window.ZT_PAGE ={zh:{pageTitle:'贷款计算器',pageDesc:'支持等额本息和等额本金两种还款方式。',ad:'广告位',back:'← 返回首页',calc:'开始计算',equal:'等额本息',principal:'等额本金',monthPayLbl:'月供（元）',interestLbl:'总利息（元）',totalLbl:'还款总额（元）',
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{pageTitle:'Loan Calculator',pageDesc:'Supports equal payment and equal principal methods.',ad:'Ad Space',back:'← Back',calc:'Calculate',equal:'Equal Payment',principal:'Equal Principal',monthPayLbl:'Monthly Payment',interestLbl:'Total Interest',totalLbl:'Total Payment',
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},ja:{pageTitle:'ローン計算機',pageDesc:'元利均等・元金均等方式に対応。',ad:'広告',back:'← 戻る',calc:'計算',equal:'元利均等',principal:'元金均等',monthPayLbl:'月額返済',interestLbl:'総利息',totalLbl:'総返済額',
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},vi:{pageTitle:'Máy tính khoản vay',pageDesc:'Hỗ trợ trả đều và trả gốc cố định.',ad:'QC',back:'← Quay lại',calc:'Tính',equal:'Trả đều',principal:'Trả gốc cố định',monthPayLbl:'Trả hàng tháng',interestLbl:'Tổng lãi',totalLbl:'Tổng trả',
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}};
-function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
-document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
-function calcLoan(){const a=parseFloat(document.getElementById('loanAmount').value)||0,r=(parseFloat(document.getElementById('loanRate').value)||0)/100/12,n=(parseFloat(document.getElementById('loanYears').value)||0)*12,method=document.querySelector('input[name="method"]:checked').value;if(!a||!n){alert('Please fill in all fields');return;}const rs=document.getElementById('result');rs.style.display='block';const mp=document.getElementById('monthPay'),ti=document.getElementById('totalInterest'),tp=document.getElementById('totalPayment'),sc=document.getElementById('schedule');if(method==='equal'){const pay=a*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);const total=pay*n,interest=total-a;mp.textContent=pay.toFixed(2);ti.textContent=interest.toFixed(2);tp.textContent=total.toFixed(2);let html='<table><tr><th>期数</th><th>月供</th><th>本金</th><th>利息</th><th>剩余本金</th></tr>';let bal=a;for(let i=1;i<=n;i++){const intAmt=bal*r;const prinAmt=pay-intAmt;bal-=prinAmt;if(i<=12||i>n-3||i%60===0)html+='<tr><td>'+i+'</td><td>'+pay.toFixed(2)+'</td><td>'+prinAmt.toFixed(2)+'</td><td>'+intAmt.toFixed(2)+'</td><td>'+Math.max(0,bal).toFixed(2)+'</td></tr>';}html+='</table>';sc.innerHTML=html;}else{const prin=a/n;let totalI=0,html='<table><tr><th>期数</th><th>月供</th><th>本金</th><th>利息</th><th>剩余本金</th></tr>';let bal=a;for(let i=1;i<=n;i++){const intAmt=bal*r;const payP=prin+intAmt;totalI+=intAmt;bal-=prin;if(i===1){mp.textContent=payP.toFixed(2);}if(i<=12||i>n-3||i%60===0)html+='<tr><td>'+i+'</td><td>'+payP.toFixed(2)+'</td><td>'+prin.toFixed(2)+'</td><td>'+intAmt.toFixed(2)+'</td><td>'+Math.max(0,bal).toFixed(2)+'</td></tr>';}html+='</table>';ti.textContent=totalI.toFixed(2);tp.textContent=(a+totalI).toFixed(2);sc.innerHTML=html;}}
-</script>
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

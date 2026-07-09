@@ -62,7 +62,26 @@
     <input type="number" id="tValue" value="25" step="any" oninput="convertT()" />
     <div class="row">
       <div><label>从</label><select id="tFrom" onchange="convertT()"><option value="c" selected>摄氏度 (°C)</option><option value="f">华氏度 (°F)</option><option value="k">开尔文 (K)</option></select></div>
-    <style>
+    
+    
+      <div><label>到</label><select id="tTo" onchange="convertT()"><option value="c">摄氏度 (°C)</option><option value="f" selected>华氏度 (°F)</option><option value="k">开尔文 (K)</option></select></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;"><button class="btn" onclick="convertT()" data-i18n="btn_转换">转换</button><button class="btn btn2" onclick="swapT()" data-i18n="btn_互换">⇄ 互换</button></div>
+    <div class="result" id="tResult">25 °C = 77 °F</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function toBase(v,f){if(f==='c')return v;if(f==='f')return(v-32)*5/9;if(f==='k')return v-273.15;}
+function fromBase(v,t){if(t==='c')return v;if(t==='f')return v*9/5+32;if(t==='k')return v+273.15;}
+function convertT(){var v=parseFloat(document.getElementById('tValue').value)||0,f=document.getElementById('tFrom').value,t=document.getElementById('tTo').value;var base=toBase(v,f);var r=fromBase(base,t);document.getElementById('tResult').textContent=v+' °'+f.toUpperCase()+' = '+r.toFixed(2)+' °'+t.toUpperCase();}
+function swapT(){var f=document.getElementById('tFrom'),t=document.getElementById('tTo');var tmp=f.value;f.value=t.value;t.value=tmp;convertT();}
+convertT();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -130,23 +149,5 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-      <div><label>到</label><select id="tTo" onchange="convertT()"><option value="c">摄氏度 (°C)</option><option value="f" selected>华氏度 (°F)</option><option value="k">开尔文 (K)</option></select></div>
-    </div>
-    <div style="margin-top:16px;display:flex;gap:10px;"><button class="btn" onclick="convertT()" data-i18n="btn_转换">转换</button><button class="btn btn2" onclick="swapT()" data-i18n="btn_互换">⇄ 互换</button></div>
-    <div class="result" id="tResult">25 °C = 77 °F</div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-function toBase(v,f){if(f==='c')return v;if(f==='f')return(v-32)*5/9;if(f==='k')return v-273.15;}
-function fromBase(v,t){if(t==='c')return v;if(t==='f')return v*9/5+32;if(t==='k')return v+273.15;}
-function convertT(){var v=parseFloat(document.getElementById('tValue').value)||0,f=document.getElementById('tFrom').value,t=document.getElementById('tTo').value;var base=toBase(v,f);var r=fromBase(base,t);document.getElementById('tResult').textContent=v+' °'+f.toUpperCase()+' = '+r.toFixed(2)+' °'+t.toUpperCase();}
-function swapT(){var f=document.getElementById('tFrom'),t=document.getElementById('tTo');var tmp=f.value;f.value=t.value;t.value=tmp;convertT();}
-convertT();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

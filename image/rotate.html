@@ -19,7 +19,50 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 <div class="container"><div class="top-bar"><a href="index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option></select></div><div class="card"><h1 data-i18n="title">图片旋转与翻转</h1><p class="desc" data-i18n="desc">旋转图片角度或水平/垂直翻转。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="file" id="imageInput" accept="image/*"><div class="btn-group"><button onclick="rotate(-90)">↺ 左旋90°</button><button onclick="rotate(90)">↻ 右旋90°</button><button onclick="flip('h')">↔ 水平翻转</button><button onclick="flip('v')">↕ 垂直翻转</button></div><div class="btn-group"><input type="range" id="angleSlider" min="0" max="360" value="0" style="width:200px"><span id="angleLabel">0°</span><button onclick="rotateCustom()" data-i18n="apply">应用角度</button></div><canvas id="canvas"></canvas><button onclick="downloadImage()" class="green" data-i18n="download">下载图片</button></div>
-    <style>
+    
+    <footer>© 2026 ZenTools</footer></div><script>
+const translations={
+zh:{back:"← 返回首页",title:"图片旋转与翻转",desc:"旋转图片角度或水平/垂直翻转。",ad:"广告位（Google AdSense）",apply:"应用角度",download:"下载图片",choose:"请先选择一张图片",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Rotate & Flip",desc:"Rotate or flip images horizontally/vertically.",ad:"Ad Space",apply:"Apply",download:"Download",choose:"Please select an image first",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
+let currentLang="zh",imgFile=null,angle=0,flipH=false,flipV=false;
+const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
+document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){angle=0;flipH=false;flipV=false;document.getElementById("angleSlider").value=0;document.getElementById("angleLabel").textContent="0°";drawCanvas(img);};img.src=ev.target.result;};r.readAsDataURL(f);});
+function drawCanvas(img){const maxW=800,maxH=600;let w=img.width,h=img.height;if(w>maxW){h=h*maxW/w;w=maxW;}if(h>maxH){w=w*maxH/h;h=maxH;}cs.width=w;cs.height=h;ctx.clearRect(0,0,w,h);ctx.save();if(flipH){ctx.translate(w,0);ctx.scale(-1,1);}if(flipV){ctx.translate(0,h);ctx.scale(1,-1);}ctx.drawImage(img,0,0,w,h);ctx.restore();}
+function rotate(deg){if(!imgFile){alert(translations[currentLang].choose);return;}angle=(angle+deg+360)%360;document.getElementById("angleSlider").value=angle;document.getElementById("angleLabel").textContent=angle+"°";applyTransform();}
+function flip(dir){if(!imgFile){alert(translations[currentLang].choose);return;}if(dir==='h')flipH=!flipH;else flipV=!flipV;applyTransform();}
+function rotateCustom(){if(!imgFile){alert(translations[currentLang].choose);return;}angle=parseInt(document.getElementById("angleSlider").value);document.getElementById("angleLabel").textContent=angle+"°";applyTransform();}
+function applyTransform(){const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){const rad=angle*Math.PI/180;const cos=Math.abs(Math.cos(rad)),sin=Math.abs(Math.sin(rad));let w=img.width,h=img.height;cs.width=Math.ceil(w*cos+h*sin);cs.height=Math.ceil(w*sin+h*cos);ctx.clearRect(0,0,cs.width,cs.height);ctx.save();ctx.translate(cs.width/2,cs.height/2);ctx.rotate(rad);if(flipH)ctx.scale(-1,1);if(flipV)ctx.scale(1,-1);ctx.drawImage(img,-w/2,-h/2,w,h);ctx.restore();};img.src=ev.target.result;};r.readAsDataURL(imgFile);}
+document.getElementById("angleSlider").addEventListener("input",function(){document.getElementById("angleLabel").textContent=this.value+"°";});
+function downloadImage(){if(!imgFile){alert(translations[currentLang].choose);return;}const link=document.createElement("a");link.download="rotated-"+imgFile.name;link.href=cs.toDataURL("image/png");link.click();}
+const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
+</script>
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -87,46 +130,4 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer></div><script>
-const translations={
-zh:{back:"← 返回首页",title:"图片旋转与翻转",desc:"旋转图片角度或水平/垂直翻转。",ad:"广告位（Google AdSense）",apply:"应用角度",download:"下载图片",choose:"请先选择一张图片",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Rotate & Flip",desc:"Rotate or flip images horizontally/vertically.",ad:"Ad Space",apply:"Apply",download:"Download",choose:"Please select an image first",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'}};
-window.ZT_PAGE = translations;
-let currentLang="zh",imgFile=null,angle=0,flipH=false,flipV=false;
-const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
-document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){angle=0;flipH=false;flipV=false;document.getElementById("angleSlider").value=0;document.getElementById("angleLabel").textContent="0°";drawCanvas(img);};img.src=ev.target.result;};r.readAsDataURL(f);});
-function drawCanvas(img){const maxW=800,maxH=600;let w=img.width,h=img.height;if(w>maxW){h=h*maxW/w;w=maxW;}if(h>maxH){w=w*maxH/h;h=maxH;}cs.width=w;cs.height=h;ctx.clearRect(0,0,w,h);ctx.save();if(flipH){ctx.translate(w,0);ctx.scale(-1,1);}if(flipV){ctx.translate(0,h);ctx.scale(1,-1);}ctx.drawImage(img,0,0,w,h);ctx.restore();}
-function rotate(deg){if(!imgFile){alert(translations[currentLang].choose);return;}angle=(angle+deg+360)%360;document.getElementById("angleSlider").value=angle;document.getElementById("angleLabel").textContent=angle+"°";applyTransform();}
-function flip(dir){if(!imgFile){alert(translations[currentLang].choose);return;}if(dir==='h')flipH=!flipH;else flipV=!flipV;applyTransform();}
-function rotateCustom(){if(!imgFile){alert(translations[currentLang].choose);return;}angle=parseInt(document.getElementById("angleSlider").value);document.getElementById("angleLabel").textContent=angle+"°";applyTransform();}
-function applyTransform(){const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){const rad=angle*Math.PI/180;const cos=Math.abs(Math.cos(rad)),sin=Math.abs(Math.sin(rad));let w=img.width,h=img.height;cs.width=Math.ceil(w*cos+h*sin);cs.height=Math.ceil(w*sin+h*cos);ctx.clearRect(0,0,cs.width,cs.height);ctx.save();ctx.translate(cs.width/2,cs.height/2);ctx.rotate(rad);if(flipH)ctx.scale(-1,1);if(flipV)ctx.scale(1,-1);ctx.drawImage(img,-w/2,-h/2,w,h);ctx.restore();};img.src=ev.target.result;};r.readAsDataURL(imgFile);}
-document.getElementById("angleSlider").addEventListener("input",function(){document.getElementById("angleLabel").textContent=this.value+"°";});
-function downloadImage(){if(!imgFile){alert(translations[currentLang].choose);return;}const link=document.createElement("a");link.download="rotated-"+imgFile.name;link.href=cs.toDataURL("image/png");link.click();}
-const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
-</script>
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

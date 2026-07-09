@@ -89,7 +89,28 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
 </select>
 <div id="dcDiff">
   <div class="row"><div><label data-i18n="lbl_开始日期">开始日期</label><input type="date" id="dcStart" /></div>
-    <style>
+    
+    <div><label data-i18n="lbl_结束日期">结束日期</label><input type="date" id="dcEnd" /></div></div>
+  <button class="btn" onclick="calcDateDiff()" style="margin-top:12px;" data-i18n="btn_计算天数差">计算天数差</button>
+</div>
+<div id="dcAdd" style="display:none;">
+  <div class="row"><div><label data-i18n="lbl_基准日期">基准日期</label><input type="date" id="dcBase" /></div><div><label data-i18n="lbl_天数">天数</label><input type="number" id="dcDays" value="30" /></div></div>
+  <button class="btn" onclick="calcDateAdd()" style="margin-top:12px;" data-i18n="btn_计算">计算</button>
+</div>
+<div class="result" id="dcResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function toggleDCMode(){var v=document.getElementById('dcMode').value;document.getElementById('dcDiff').style.display=v==='diff'?'':'none';document.getElementById('dcAdd').style.display=v==='add'?'':'none';}
+function calcDateDiff(){var s=document.getElementById('dcStart').value,e=document.getElementById('dcEnd').value;if(!s||!e)return;var d=Math.round((new Date(e)-new Date(s))/86400000);showDC('★ 日期差: <span class=highlight>'+Math.abs(d)+' 天</span><br>'+(!d?'同一天':d>0?'结束日在开始日之后':'结束日在开始日之前'));}
+function calcDateAdd(){var b=document.getElementById('dcBase').value,d=parseInt(document.getElementById('dcDays').value);if(!b||isNaN(d))return;var r=new Date(b);r.setDate(r.getDate()+d);showDC('★ '+b+' + '+d+' 天 = <span class=highlight>'+r.toISOString().slice(0,10)+'</span>');}
+function showDC(t){var el=document.getElementById('dcResult');el.style.display='block';el.innerHTML=t;}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -157,25 +178,5 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <div><label data-i18n="lbl_结束日期">结束日期</label><input type="date" id="dcEnd" /></div></div>
-  <button class="btn" onclick="calcDateDiff()" style="margin-top:12px;" data-i18n="btn_计算天数差">计算天数差</button>
-</div>
-<div id="dcAdd" style="display:none;">
-  <div class="row"><div><label data-i18n="lbl_基准日期">基准日期</label><input type="date" id="dcBase" /></div><div><label data-i18n="lbl_天数">天数</label><input type="number" id="dcDays" value="30" /></div></div>
-  <button class="btn" onclick="calcDateAdd()" style="margin-top:12px;" data-i18n="btn_计算">计算</button>
-</div>
-<div class="result" id="dcResult" style="display:none;"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-function toggleDCMode(){var v=document.getElementById('dcMode').value;document.getElementById('dcDiff').style.display=v==='diff'?'':'none';document.getElementById('dcAdd').style.display=v==='add'?'':'none';}
-function calcDateDiff(){var s=document.getElementById('dcStart').value,e=document.getElementById('dcEnd').value;if(!s||!e)return;var d=Math.round((new Date(e)-new Date(s))/86400000);showDC('★ 日期差: <span class=highlight>'+Math.abs(d)+' 天</span><br>'+(!d?'同一天':d>0?'结束日在开始日之后':'结束日在开始日之前'));}
-function calcDateAdd(){var b=document.getElementById('dcBase').value,d=parseInt(document.getElementById('dcDays').value);if(!b||isNaN(d))return;var r=new Date(b);r.setDate(r.getDate()+d);showDC('★ '+b+' + '+d+' 天 = <span class=highlight>'+r.toISOString().slice(0,10)+'</span>');}
-function showDC(t){var el=document.getElementById('dcResult');el.style.display='block';el.innerHTML=t;}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

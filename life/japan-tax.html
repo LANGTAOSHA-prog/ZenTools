@@ -56,7 +56,51 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <h2 data-i18n="noticeTitle">注意事项</h2><p data-i18n="noticeText">本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。</p>
 </div>
 </div>
-    <style>
+    
+    <footer>© 2026 ZenTools. All Rights Reserved.</footer></div>
+<script>
+const translations={
+window.ZT_PAGE = translations;
+"zh": {"back": "← 返回首页", "ad": "广告位（Google AdSense）", "calculate": "开始计算", "copy": "复制结果", "clear": "清空", "copied": "已复制", "resultTip": "结果会显示在这里。", "guideTitle": "使用说明", "noticeTitle": "注意事项", "noticeText": "本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。", "empty": "请输入必要数值", "pageTitle": "日本税金计算 - 免费在线工具 | ZenTools", "title": "日本税金计算", "desc": "简易估算日本所得税与住民税。", "guideText": "输入年收入和基础扣除，系统会用简化税率估算税金。", "annualIncomePh": "年收入（日元）", "deductionPh": "基础扣除（日元）"}, "ja": {"back": "← ホームに戻る", "ad": "広告スペース", "calculate": "計算する", "copy": "結果をコピー", "clear": "クリア", "copied": "コピーしました", "resultTip": "結果がここに表示されます。", "guideTitle": "使い方", "noticeTitle": "注意事項", "noticeText": "このツールは簡易計算です。実際の金額は公式情報、会社、銀行、専門家の計算を確認してください。", "empty": "必要な数値を入力してください", "pageTitle": "日本税金計算 - Free Online Tool | ZenTools", "title": "日本税金計算", "desc": "日本の所得税と住民税を簡易計算します。", "guideText": "年収と控除額を入力して税金を概算します。", "annualIncomePh": "年収（円）", "deductionPh": "基礎控除（円）"}, "en": {"back": "← Back to Home", "ad": "Ad Space", "calculate": "Calculate", "copy": "Copy Result", "clear": "Clear", "copied": "Copied", "resultTip": "Result will appear here.", "guideTitle": "How to Use", "noticeTitle": "Notice", "noticeText": "This is a simple estimate. Actual amounts should be confirmed with official sources, employers, banks, or professionals.", "empty": "Please enter required values", "pageTitle": "Japan Tax Calculator - Free Online Tool | ZenTools", "title": "Japan Tax Calculator", "desc": "Estimate Japanese income tax and resident tax.", "guideText": "Enter annual income and deductions to estimate taxes.", "annualIncomePh": "Annual income (JPY)", "deductionPh": "Deduction (JPY)"}, "vi": {"back": "← Quay lại trang chủ", "ad": "Vị trí quảng cáo", "calculate": "Tính toán", "copy": "Sao chép kết quả", "clear": "Xóa", "copied": "Đã sao chép", "resultTip": "Kết quả sẽ hiển thị ở đây.", "guideTitle": "Hướng dẫn", "noticeTitle": "Lưu ý", "noticeText": "Công cụ này chỉ ước tính đơn giản. Số tiền thực tế cần xác nhận theo thông tin chính thức, công ty, ngân hàng hoặc chuyên gia.", "empty": "Vui lòng nhập các giá trị cần thiết", "pageTitle": "Máy tính thuế Nhật Bản - Free Online Tool | ZenTools", "title": "Máy tính thuế Nhật Bản", "desc": "Ước tính thuế thu nhập và thuế cư trú tại Nhật.", "guideText": "Nhập thu nhập năm và khoản khấu trừ để ước tính thuế.", "annualIncomePh": "Thu nhập năm (JPY)", "deductionPh": "Khấu trừ (JPY)"}};
+
+const languageSelect=document.getElementById("langSelect");
+let currentLang="zh";
+function setLanguage(lang){
+ currentLang=lang;
+ const data=translations[lang]||translations.zh;
+ document.documentElement.lang=lang; document.title=data.pageTitle;
+ document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
+ localStorage.setItem("zentools_lang",lang);
+}
+languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
+const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang; setLanguage(savedLang);
+function yen(n){return Math.round(n).toLocaleString()+" 円";}
+function money(n){return Math.round(n).toLocaleString();}
+function showResult(t){document.getElementById("result").textContent=t;}
+function clearInputs(){document.querySelectorAll("input").forEach(i=>{if(i.type!=="date")i.value="";});document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
+function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
+
+function incomeTax(t){const b=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[Infinity,.45,4796000]];for(const [l,r,d] of b){if(t<=l)return Math.max(0,t*r-d)}return 0}function calculate(){const d=translations[currentLang]||translations.zh;const i=parseFloat(document.getElementById('annualIncome').value)||0, de=parseFloat(document.getElementById('deduction').value)||0;if(i<=0){alert(d.empty);return;}const taxable=Math.max(0,i-de), it=incomeTax(taxable), surtax=it*.021, resident=taxable*.10,total=it+surtax+resident;showResult(`课税所得估算：${yen(taxable)}\n所得税估算：${yen(it)}\n复兴特别所得税估算：${yen(surtax)}\n住民税估算：${yen(resident)}\n合计估算：${yen(total)}`);}
+</script>
+
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -124,47 +168,4 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools. All Rights Reserved.</footer></div>
-<script>
-const translations={
-window.ZT_PAGE = translations;
-"zh": {"back": "← 返回首页", "ad": "广告位（Google AdSense）", "calculate": "开始计算", "copy": "复制结果", "clear": "清空", "copied": "已复制", "resultTip": "结果会显示在这里。", "guideTitle": "使用说明", "noticeTitle": "注意事项", "noticeText": "本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。", "empty": "请输入必要数值", "pageTitle": "日本税金计算 - 免费在线工具 | ZenTools", "title": "日本税金计算", "desc": "简易估算日本所得税与住民税。", "guideText": "输入年收入和基础扣除，系统会用简化税率估算税金。", "annualIncomePh": "年收入（日元）", "deductionPh": "基础扣除（日元）"}, "ja": {"back": "← ホームに戻る", "ad": "広告スペース", "calculate": "計算する", "copy": "結果をコピー", "clear": "クリア", "copied": "コピーしました", "resultTip": "結果がここに表示されます。", "guideTitle": "使い方", "noticeTitle": "注意事項", "noticeText": "このツールは簡易計算です。実際の金額は公式情報、会社、銀行、専門家の計算を確認してください。", "empty": "必要な数値を入力してください", "pageTitle": "日本税金計算 - Free Online Tool | ZenTools", "title": "日本税金計算", "desc": "日本の所得税と住民税を簡易計算します。", "guideText": "年収と控除額を入力して税金を概算します。", "annualIncomePh": "年収（円）", "deductionPh": "基礎控除（円）"}, "en": {"back": "← Back to Home", "ad": "Ad Space", "calculate": "Calculate", "copy": "Copy Result", "clear": "Clear", "copied": "Copied", "resultTip": "Result will appear here.", "guideTitle": "How to Use", "noticeTitle": "Notice", "noticeText": "This is a simple estimate. Actual amounts should be confirmed with official sources, employers, banks, or professionals.", "empty": "Please enter required values", "pageTitle": "Japan Tax Calculator - Free Online Tool | ZenTools", "title": "Japan Tax Calculator", "desc": "Estimate Japanese income tax and resident tax.", "guideText": "Enter annual income and deductions to estimate taxes.", "annualIncomePh": "Annual income (JPY)", "deductionPh": "Deduction (JPY)"}, "vi": {"back": "← Quay lại trang chủ", "ad": "Vị trí quảng cáo", "calculate": "Tính toán", "copy": "Sao chép kết quả", "clear": "Xóa", "copied": "Đã sao chép", "resultTip": "Kết quả sẽ hiển thị ở đây.", "guideTitle": "Hướng dẫn", "noticeTitle": "Lưu ý", "noticeText": "Công cụ này chỉ ước tính đơn giản. Số tiền thực tế cần xác nhận theo thông tin chính thức, công ty, ngân hàng hoặc chuyên gia.", "empty": "Vui lòng nhập các giá trị cần thiết", "pageTitle": "Máy tính thuế Nhật Bản - Free Online Tool | ZenTools", "title": "Máy tính thuế Nhật Bản", "desc": "Ước tính thuế thu nhập và thuế cư trú tại Nhật.", "guideText": "Nhập thu nhập năm và khoản khấu trừ để ước tính thuế.", "annualIncomePh": "Thu nhập năm (JPY)", "deductionPh": "Khấu trừ (JPY)"}};
-
-const languageSelect=document.getElementById("langSelect");
-let currentLang="zh";
-function setLanguage(lang){
- currentLang=lang;
- const data=translations[lang]||translations.zh;
- document.documentElement.lang=lang; document.title=data.pageTitle;
- document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
- document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
- localStorage.setItem("zentools_lang",lang);
-}
-languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang; setLanguage(savedLang);
-function yen(n){return Math.round(n).toLocaleString()+" 円";}
-function money(n){return Math.round(n).toLocaleString();}
-function showResult(t){document.getElementById("result").textContent=t;}
-function clearInputs(){document.querySelectorAll("input").forEach(i=>{if(i.type!=="date")i.value="";});document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
-function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
-
-function incomeTax(t){const b=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[Infinity,.45,4796000]];for(const [l,r,d] of b){if(t<=l)return Math.max(0,t*r-d)}return 0}function calculate(){const d=translations[currentLang]||translations.zh;const i=parseFloat(document.getElementById('annualIncome').value)||0, de=parseFloat(document.getElementById('deduction').value)||0;if(i<=0){alert(d.empty);return;}const taxable=Math.max(0,i-de), it=incomeTax(taxable), surtax=it*.021, resident=taxable*.10,total=it+surtax+resident;showResult(`课税所得估算：${yen(taxable)}\n所得税估算：${yen(it)}\n复兴特别所得税估算：${yen(surtax)}\n住民税估算：${yen(resident)}\n合计估算：${yen(total)}`);}
-</script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

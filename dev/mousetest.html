@@ -52,7 +52,74 @@
 <div class="coord-detail" id="detail" data-i18n="detailHint">移动鼠标查看坐标</div>
 </div>
 <div class="
-    <style>
+    
+    info-grid">
+<div class="info-cell"><div class="ic-label" data-i18n="clicks">点击次数</div><div class="ic-value" id="clickCount">0</div></div>
+<div class="info-cell"><div class="ic-label" data-i18n="scroll">滚轮</div><div class="ic-value" id="scrollCount">0</div></div>
+<div class="info-cell"><div class="ic-label" data-i18n="lastBtn">最后按键</div><div class="ic-value" id="lastBtn">-</div></div>
+</div>
+</div>
+<!-- Google AdSense -->
+<div style="max-width:900px;margin:0 auto 24px;padding:0 24px;">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'鼠标测试 - ZenTools',crumbCur:'鼠标测试',eyebrow:'开发工具',h1Grad:'鼠标测试',h1Sub:'点击 · 滚轮 · 坐标',pageDesc:'检测鼠标左右键、滚轮和移动轨迹。',toolTitle:'鼠标检测',areaText:'在这里移动、点击或滚动鼠标',coordLabel:'鼠标信息',detailHint:'移动鼠标查看坐标',clicks:'点击次数',scroll:'滚轮',lastBtn:'最后按键',
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},
+en:{pageTitle:'Mouse Test - ZenTools',crumbCur:'Mouse Test',eyebrow:'DEV TOOLS',h1Grad:'Mouse Test',h1Sub:'Click · Scroll · Coordinates',pageDesc:'Test mouse clicks, wheel and movement.',toolTitle:'Mouse Test',areaText:'Move, click, or scroll your mouse here',coordLabel:'Mouse Info',detailHint:'Move mouse to see coordinates',clicks:'Clicks',scroll:'Scroll',lastBtn:'Last Button',
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'},
+ja:{pageTitle:'マウステスト - ZenTools',crumbCur:'マウステスト',h1Grad:'マウステスト',h1Sub:'クリック · スクロール · 座標',toolTitle:'マウステスト',areaText:'ここでマウスを動かす、クリック、スクロール',coordLabel:'マウス情報',detailHint:'マウスを動かして座標確認',clicks:'クリック数',scroll:'スクロール',lastBtn:'最後のボタン',
+        tutorialEyebrow: '使い方',
+        tutorialTitle: '3ステップで完了',
+        tutorialStep1: 'アップロード',
+        tutorialStep2: '処理',
+        tutorialStep3: 'ダウンロード'},
+vi:{pageTitle:'Kiểm tra chuột - ZenTools',crumbCur:'Kiểm tra chuột',h1Grad:'Kiểm tra chuột',h1Sub:'Nhấp · Cuộn · Tọa độ',toolTitle:'Kiểm tra chuột',areaText:'Di chuyển, nhấp hoặc cuộn chuột tại đây',coordLabel:'Thông tin chuột',detailHint:'Di chuyển chuột để xem tọa độ',clicks:'Số lần nhấp',scroll:'Cuộn',lastBtn:'Nút cuối',
+        tutorialEyebrow: 'CÁCH SỬ DỤNG',
+        tutorialTitle: 'Hoàn thành 3 bước',
+        tutorialStep1: 'Tải lên',
+        tutorialStep2: 'Xử lý',
+        tutorialStep3: 'Tải xuống'}
+};
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+let clickCnt=0,scrollCnt=0;
+const area=document.getElementById('area'),coord=document.getElementById('coord'),detail=document.getElementById('detail');
+area.addEventListener('mousemove',function(e){coord.textContent='X: '+e.offsetX+', Y: '+e.offsetY;document.getElementById('detail').textContent='button: '+e.buttons;});
+area.addEventListener('click',function(e){clickCnt++;document.getElementById('clickCount').textContent=clickCnt;document.getElementById('lastBtn').textContent='button '+e.button;coord.textContent='X: '+e.offsetX+', Y: '+e.offsetY;});
+area.addEventListener('wheel',function(e){e.preventDefault();scrollCnt++;document.getElementById('scrollCount').textContent=scrollCnt;detail.textContent='deltaY: '+(e.deltaY>0?'↓':'↑');},{passive:false});
+</script>
+
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -120,71 +187,5 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    info-grid">
-<div class="info-cell"><div class="ic-label" data-i18n="clicks">点击次数</div><div class="ic-value" id="clickCount">0</div></div>
-<div class="info-cell"><div class="ic-label" data-i18n="scroll">滚轮</div><div class="ic-value" id="scrollCount">0</div></div>
-<div class="info-cell"><div class="ic-label" data-i18n="lastBtn">最后按键</div><div class="ic-value" id="lastBtn">-</div></div>
-</div>
-</div>
-<!-- Google AdSense -->
-<div style="max-width:900px;margin:0 auto 24px;padding:0 24px;">
-<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-</div>
-<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/dev/">开发工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
-</div>
-<script>
-window.ZT_PAGE={
-zh:{pageTitle:'鼠标测试 - ZenTools',crumbCur:'鼠标测试',eyebrow:'开发工具',h1Grad:'鼠标测试',h1Sub:'点击 · 滚轮 · 坐标',pageDesc:'检测鼠标左右键、滚轮和移动轨迹。',toolTitle:'鼠标检测',areaText:'在这里移动、点击或滚动鼠标',coordLabel:'鼠标信息',detailHint:'移动鼠标查看坐标',clicks:'点击次数',scroll:'滚轮',lastBtn:'最后按键',
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},
-en:{pageTitle:'Mouse Test - ZenTools',crumbCur:'Mouse Test',eyebrow:'DEV TOOLS',h1Grad:'Mouse Test',h1Sub:'Click · Scroll · Coordinates',pageDesc:'Test mouse clicks, wheel and movement.',toolTitle:'Mouse Test',areaText:'Move, click, or scroll your mouse here',coordLabel:'Mouse Info',detailHint:'Move mouse to see coordinates',clicks:'Clicks',scroll:'Scroll',lastBtn:'Last Button',
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},
-ja:{pageTitle:'マウステスト - ZenTools',crumbCur:'マウステスト',h1Grad:'マウステスト',h1Sub:'クリック · スクロール · 座標',toolTitle:'マウステスト',areaText:'ここでマウスを動かす、クリック、スクロール',coordLabel:'マウス情報',detailHint:'マウスを動かして座標確認',clicks:'クリック数',scroll:'スクロール',lastBtn:'最後のボタン',
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},
-vi:{pageTitle:'Kiểm tra chuột - ZenTools',crumbCur:'Kiểm tra chuột',h1Grad:'Kiểm tra chuột',h1Sub:'Nhấp · Cuộn · Tọa độ',toolTitle:'Kiểm tra chuột',areaText:'Di chuyển, nhấp hoặc cuộn chuột tại đây',coordLabel:'Thông tin chuột',detailHint:'Di chuyển chuột để xem tọa độ',clicks:'Số lần nhấp',scroll:'Cuộn',lastBtn:'Nút cuối',
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}
-};
-</script>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-let clickCnt=0,scrollCnt=0;
-const area=document.getElementById('area'),coord=document.getElementById('coord'),detail=document.getElementById('detail');
-area.addEventListener('mousemove',function(e){coord.textContent='X: '+e.offsetX+', Y: '+e.offsetY;document.getElementById('detail').textContent='button: '+e.buttons;});
-area.addEventListener('click',function(e){clickCnt++;document.getElementById('clickCount').textContent=clickCnt;document.getElementById('lastBtn').textContent='button '+e.button;coord.textContent='X: '+e.offsetX+', Y: '+e.offsetY;});
-area.addEventListener('wheel',function(e){e.preventDefault();scrollCnt++;document.getElementById('scrollCount').textContent=scrollCnt;detail.textContent='deltaY: '+(e.deltaY>0?'↓':'↑');},{passive:false});
-</script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body>
 </html>

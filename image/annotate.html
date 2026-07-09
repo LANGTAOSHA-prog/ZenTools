@@ -19,7 +19,48 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 <div class="container"><div class="top-bar"><a href="index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option></select></div><div class="card"><h1 data-i18n="title">图片涂鸦标注</h1><p class="desc" data-i18n="desc">在图片上自由绘制线条、箭头和文字标注。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="file" id="imageInput" accept="image/*"><div class="toolbar"><button class="active" data-tool="pen" onclick="setTool('pen')" data-i18n="pen">🖊 画笔</button><button data-tool="arrow" onclick="setTool('arrow')" data-i18n="arrow">➡ 箭头</button><button data-tool="text" onclick="setTool('text')" data-i18n="text_tool">🔤 文字</button><button data-tool="eraser" onclick="setTool('eraser')" data-i18n="eraser">🧹 橡皮</button><label><input type="color" id="colorPicker" value="#ff4444"></label><label><span data-i18n="size">大小</span> <input type="range" id="sizePicker" min="1" max="20" value="4" style="width:80px;display:inline"></label><button onclick="clearCanvas()" class="red" data-i18n="clear">清空</button></div><canvas id="canvas"></canvas><button onclick="downloadImage()" class="green" data-i18n="download">下载图片</button></div>
-    <style>
+    
+    <footer>© 2026 ZenTools</footer></div><script>
+const translations={
+zh:{back:"← 返回首页",title:"图片涂鸦标注",desc:"在图片上自由绘制线条、箭头和文字标注。",ad:"广告位（Google AdSense）",pen:"画笔",arrow:"箭头",text_tool:"文字",eraser:"橡皮",size:"大小",clear:"清空绘制",download:"下载图片",choose:"请先选择一张图片",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Drawing & Annotation",desc:"Draw lines, arrows and text on images.",ad:"Ad Space",pen:"Pen",arrow:"Arrow",text_tool:"Text",eraser:"Eraser",size:"Size",clear:"Clear",download:"Download",choose:"Please select an image first",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
+let currentLang="zh",imgFile=null,currentTool="pen",isDrawing=false,lastX=0,lastY=0;
+const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
+document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){cs.width=Math.min(img.width,900);cs.height=img.height*(cs.width/img.width);ctx.drawImage(img,0,0,cs.width,cs.height);};img.src=ev.target.result;};r.readAsDataURL(f);});
+function setTool(t){currentTool=t;document.querySelectorAll("[data-tool]").forEach(b=>b.classList.remove("active"));document.querySelector(`[data-tool="${t}"]`).classList.add("active");}
+cs.addEventListener("mousedown",function(e){isDrawing=true;const r=cs.getBoundingClientRect();lastX=(e.clientX-r.left)*(cs.width/r.width);lastY=(e.clientY-r.top)*(cs.height/r.height);if(currentTool==="text"){const t=prompt("输入文字：");if(t){ctx.font="bold 24px Arial";ctx.fillStyle=document.getElementById("colorPicker").value;ctx.fillText(t,lastX,lastY);}}});cs.addEventListener("mousemove",function(e){if(!isDrawing)return;const r=cs.getBoundingClientRect();const x=(e.clientX-r.left)*(cs.width/r.width),y=(e.clientY-r.top)*(cs.height/r.height);const color=document.getElementById("colorPicker").value,size=parseInt(document.getElementById("sizePicker").value);if(currentTool==="pen"||currentTool==="eraser"){ctx.beginPath();ctx.strokeStyle=currentTool==="eraser"?ctx.createPattern(new Image()):color;ctx.lineWidth=size;ctx.lineCap="round";if(currentTool==="eraser"){ctx.strokeStyle="#000";ctx.globalCompositeOperation="destination-out";}ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke();ctx.globalCompositeOperation="source-over";lastX=x;lastY=y;}else if(currentTool==="arrow"){drawArrow(lastX,lastY,x,y,color,size);lastX=x;lastY=y;}});cs.addEventListener("mouseup",function(){isDrawing=false;});
+function drawArrow(x1,y1,x2,y2,color,size){ctx.beginPath();ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=size;ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();const angle=Math.atan2(y2-y1,x2-x1);const headLen=15;ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-headLen*Math.cos(angle-Math.PI/6),y2-headLen*Math.sin(angle-Math.PI/6));ctx.lineTo(x2-headLen*Math.cos(angle+Math.PI/6),y2-headLen*Math.sin(angle+Math.PI/6));ctx.closePath();ctx.fill();}
+function clearCanvas(){if(!imgFile)return;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){ctx.clearRect(0,0,cs.width,cs.height);ctx.drawImage(img,0,0,cs.width,cs.height);};img.src=ev.target.result;};r.readAsDataURL(imgFile);}
+function downloadImage(){if(!imgFile){alert(translations[currentLang].choose);return;}const link=document.createElement("a");link.download="annotated-"+imgFile.name;link.href=cs.toDataURL("image/png");link.click();}
+const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
+</script>
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -87,44 +128,4 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer></div><script>
-const translations={
-zh:{back:"← 返回首页",title:"图片涂鸦标注",desc:"在图片上自由绘制线条、箭头和文字标注。",ad:"广告位（Google AdSense）",pen:"画笔",arrow:"箭头",text_tool:"文字",eraser:"橡皮",size:"大小",clear:"清空绘制",download:"下载图片",choose:"请先选择一张图片",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Drawing & Annotation",desc:"Draw lines, arrows and text on images.",ad:"Ad Space",pen:"Pen",arrow:"Arrow",text_tool:"Text",eraser:"Eraser",size:"Size",clear:"Clear",download:"Download",choose:"Please select an image first",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'}};
-window.ZT_PAGE = translations;
-let currentLang="zh",imgFile=null,currentTool="pen",isDrawing=false,lastX=0,lastY=0;
-const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
-document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){cs.width=Math.min(img.width,900);cs.height=img.height*(cs.width/img.width);ctx.drawImage(img,0,0,cs.width,cs.height);};img.src=ev.target.result;};r.readAsDataURL(f);});
-function setTool(t){currentTool=t;document.querySelectorAll("[data-tool]").forEach(b=>b.classList.remove("active"));document.querySelector(`[data-tool="${t}"]`).classList.add("active");}
-cs.addEventListener("mousedown",function(e){isDrawing=true;const r=cs.getBoundingClientRect();lastX=(e.clientX-r.left)*(cs.width/r.width);lastY=(e.clientY-r.top)*(cs.height/r.height);if(currentTool==="text"){const t=prompt("输入文字：");if(t){ctx.font="bold 24px Arial";ctx.fillStyle=document.getElementById("colorPicker").value;ctx.fillText(t,lastX,lastY);}}});cs.addEventListener("mousemove",function(e){if(!isDrawing)return;const r=cs.getBoundingClientRect();const x=(e.clientX-r.left)*(cs.width/r.width),y=(e.clientY-r.top)*(cs.height/r.height);const color=document.getElementById("colorPicker").value,size=parseInt(document.getElementById("sizePicker").value);if(currentTool==="pen"||currentTool==="eraser"){ctx.beginPath();ctx.strokeStyle=currentTool==="eraser"?ctx.createPattern(new Image()):color;ctx.lineWidth=size;ctx.lineCap="round";if(currentTool==="eraser"){ctx.strokeStyle="#000";ctx.globalCompositeOperation="destination-out";}ctx.beginPath();ctx.moveTo(lastX,lastY);ctx.lineTo(x,y);ctx.stroke();ctx.globalCompositeOperation="source-over";lastX=x;lastY=y;}else if(currentTool==="arrow"){drawArrow(lastX,lastY,x,y,color,size);lastX=x;lastY=y;}});cs.addEventListener("mouseup",function(){isDrawing=false;});
-function drawArrow(x1,y1,x2,y2,color,size){ctx.beginPath();ctx.strokeStyle=color;ctx.fillStyle=color;ctx.lineWidth=size;ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();const angle=Math.atan2(y2-y1,x2-x1);const headLen=15;ctx.beginPath();ctx.moveTo(x2,y2);ctx.lineTo(x2-headLen*Math.cos(angle-Math.PI/6),y2-headLen*Math.sin(angle-Math.PI/6));ctx.lineTo(x2-headLen*Math.cos(angle+Math.PI/6),y2-headLen*Math.sin(angle+Math.PI/6));ctx.closePath();ctx.fill();}
-function clearCanvas(){if(!imgFile)return;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){ctx.clearRect(0,0,cs.width,cs.height);ctx.drawImage(img,0,0,cs.width,cs.height);};img.src=ev.target.result;};r.readAsDataURL(imgFile);}
-function downloadImage(){if(!imgFile){alert(translations[currentLang].choose);return;}const link=document.createElement("a");link.download="annotated-"+imgFile.name;link.href=cs.toDataURL("image/png");link.click();}
-const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
-</script>
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

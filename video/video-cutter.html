@@ -19,7 +19,43 @@
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
 <div class="container"><div class="top-bar"><a href="index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option></select></div><div class="card"><h1 data-i18n="title">视频裁剪</h1><p class="desc" data-i18n="desc">裁剪视频片段，设置起止时间。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="file" id="videoInput" accept="video/*"><div class="row"><div><label data-i18n="start">开始时间（秒）</label><input type="number" id="startTime" value="0" min="0" step="0.5"></div><div><label data-i18n="end">结束时间（秒）</label><input type="number" id="endTime" value="10" min="0" step="0.5"></div></div><video id="preview" controls></video><button onclick="previewClip()" data-i18n="preview">预览裁剪段</button><button onclick="downloadClip()" class="green" data-i18n="download">下载裁剪视频</button></div>
-    <style>
+    
+    <footer>© 2026 ZenTools</footer></div><script>
+const translations={
+zh:{back:"← 返回首页",title:"视频裁剪",desc:"裁剪视频片段，设置起止时间。",ad:"广告位（Google AdSense）",start:"开始时间（秒）",end:"结束时间（秒）",preview:"预览裁剪段",download:"下载裁剪视频",choose:"请先选择视频文件",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Cutter",desc:"Cut video clips by setting start and end time.",ad:"Ad Space",start:"Start (seconds)",end:"End (seconds)",preview:"Preview",download:"Download",choose:"Please select a video first",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
+let currentLang="zh",videoFile=null;const v=document.getElementById("preview");document.getElementById("videoInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;videoFile=f;const u=URL.createObjectURL(f);v.src=u;v.onloadedmetadata=function(){document.getElementById("endTime").value=Math.floor(v.duration);};});
+function previewClip(){if(!videoFile){alert(translations[currentLang].choose);return;}v.currentTime=parseFloat(document.getElementById("startTime").value)||0;v.play();}
+function downloadClip(){if(!videoFile){alert(translations[currentLang].choose);return;}const s=parseFloat(document.getElementById("startTime").value)||0,e=parseFloat(document.getElementById("endTime").value)||0;if(e<=s){alert("End time must be after start time");return;}const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");canvas.width=v.videoWidth;canvas.height=v.videoHeight;const stream=canvas.captureStream(30);const recorder=new MediaRecorder(stream,{mimeType:'video/webm'});const chunks=[];recorder.ondataavailable=function(ev){if(ev.data.size>0)chunks.push(ev.data);};recorder.onstop=function(){const blob=new Blob(chunks,{type:'video/webm'});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download='cut-'+videoFile.name.replace(/\.[^.]+$/,'.webm');a.click();};v.currentTime=s;v.play();recorder.start();setTimeout(function(){v.pause();recorder.stop();},(e-s)*1000);}
+const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(d[k])el.textContent=d[k];});});
+</script>
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -87,39 +123,4 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer></div><script>
-const translations={
-zh:{back:"← 返回首页",title:"视频裁剪",desc:"裁剪视频片段，设置起止时间。",ad:"广告位（Google AdSense）",start:"开始时间（秒）",end:"结束时间（秒）",preview:"预览裁剪段",download:"下载裁剪视频",choose:"请先选择视频文件",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Video Cutter",desc:"Cut video clips by setting start and end time.",ad:"Ad Space",start:"Start (seconds)",end:"End (seconds)",preview:"Preview",download:"Download",choose:"Please select a video first",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'}};
-window.ZT_PAGE = translations;
-let currentLang="zh",videoFile=null;const v=document.getElementById("preview");document.getElementById("videoInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;videoFile=f;const u=URL.createObjectURL(f);v.src=u;v.onloadedmetadata=function(){document.getElementById("endTime").value=Math.floor(v.duration);};});
-function previewClip(){if(!videoFile){alert(translations[currentLang].choose);return;}v.currentTime=parseFloat(document.getElementById("startTime").value)||0;v.play();}
-function downloadClip(){if(!videoFile){alert(translations[currentLang].choose);return;}const s=parseFloat(document.getElementById("startTime").value)||0,e=parseFloat(document.getElementById("endTime").value)||0;if(e<=s){alert("End time must be after start time");return;}const canvas=document.createElement("canvas"),ctx=canvas.getContext("2d");canvas.width=v.videoWidth;canvas.height=v.videoHeight;const stream=canvas.captureStream(30);const recorder=new MediaRecorder(stream,{mimeType:'video/webm'});const chunks=[];recorder.ondataavailable=function(ev){if(ev.data.size>0)chunks.push(ev.data);};recorder.onstop=function(){const blob=new Blob(chunks,{type:'video/webm'});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download='cut-'+videoFile.name.replace(/\.[^.]+$/,'.webm');a.click();};v.currentTime=s;v.play();recorder.start();setTimeout(function(){v.pause();recorder.stop();},(e-s)*1000);}
-const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n");if(d[k])el.textContent=d[k];});});
-</script>
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

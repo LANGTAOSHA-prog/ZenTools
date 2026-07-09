@@ -84,7 +84,40 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
   <div class="tool-box">
     <div class="row">
   <div><label data-i18n="lbl_出生日期">出生日期</label><input type="date" id="birthDate" /></div>
-    <style>
+    
+    
+  <div><label data-i18n="lbl_目标日期">目标日期</label><input type="date" id="targetDate" /></div>
+</div>
+<div style="margin-top:16px;">
+  <button class="btn" onclick="calcAge()" data-i18n="btn_计算年龄">计算年龄</button>
+  <button class="btn btn2" onclick="document.getElementById('birthDate').valueAsDate=new Date();calcAge()" data-i18n="btn_今天">今天</button>
+</div>
+<div class="result" id="ageResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function calcAge(){
+  var b=document.getElementById('birthDate').value;if(!b){alert('请选择出生日期');return;}
+  var t=document.getElementById('targetDate').value||new Date().toISOString().slice(0,10);
+  var bd=new Date(b),td=new Date(t);
+  if(bd>td){alert('出生日期不能晚于目标日期');return;}
+  var y=td.getFullYear()-bd.getFullYear(),m=td.getMonth()-bd.getMonth(),d=td.getDate()-bd.getDate();
+  if(d<0){m--;var pm=new Date(td.getFullYear(),td.getMonth(),0);d+=pm.getDate();}
+  if(m<0){y--;m+=12;}
+  var totalD=Math.floor((td-bd)/86400000);
+  // Next birthday
+  var nb=new Date(td.getFullYear(),bd.getMonth(),bd.getDate());
+  if(nb<=td)nb.setFullYear(nb.getFullYear()+1);
+  var days2bd=Math.ceil((nb-td)/86400000);
+  document.getElementById('ageResult').style.display='block';
+  document.getElementById('ageResult').innerHTML='<div class="row"><div><div style="color:var(--muted);font-size:12px;">年龄</div><div class="highlight">'+y+'岁 '+m+'个月 '+d+'天</div></div><div><div style="color:var(--muted);font-size:12px;">总天数</div><div class="highlight">'+totalD+' 天</div></div><div><div style="color:var(--muted);font-size:12px;">下个生日</div><div class="highlight" style="color:#10b981;">'+days2bd+' 天后</div></div></div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -152,37 +185,5 @@ input:focus, textarea:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-  <div><label data-i18n="lbl_目标日期">目标日期</label><input type="date" id="targetDate" /></div>
-</div>
-<div style="margin-top:16px;">
-  <button class="btn" onclick="calcAge()" data-i18n="btn_计算年龄">计算年龄</button>
-  <button class="btn btn2" onclick="document.getElementById('birthDate').valueAsDate=new Date();calcAge()" data-i18n="btn_今天">今天</button>
-</div>
-<div class="result" id="ageResult" style="display:none;"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-function calcAge(){
-  var b=document.getElementById('birthDate').value;if(!b){alert('请选择出生日期');return;}
-  var t=document.getElementById('targetDate').value||new Date().toISOString().slice(0,10);
-  var bd=new Date(b),td=new Date(t);
-  if(bd>td){alert('出生日期不能晚于目标日期');return;}
-  var y=td.getFullYear()-bd.getFullYear(),m=td.getMonth()-bd.getMonth(),d=td.getDate()-bd.getDate();
-  if(d<0){m--;var pm=new Date(td.getFullYear(),td.getMonth(),0);d+=pm.getDate();}
-  if(m<0){y--;m+=12;}
-  var totalD=Math.floor((td-bd)/86400000);
-  // Next birthday
-  var nb=new Date(td.getFullYear(),bd.getMonth(),bd.getDate());
-  if(nb<=td)nb.setFullYear(nb.getFullYear()+1);
-  var days2bd=Math.ceil((nb-td)/86400000);
-  document.getElementById('ageResult').style.display='block';
-  document.getElementById('ageResult').innerHTML='<div class="row"><div><div style="color:var(--muted);font-size:12px;">年龄</div><div class="highlight">'+y+'岁 '+m+'个月 '+d+'天</div></div><div><div style="color:var(--muted);font-size:12px;">总天数</div><div class="highlight">'+totalD+' 天</div></div><div><div style="color:var(--muted);font-size:12px;">下个生日</div><div class="highlight" style="color:#10b981;">'+days2bd+' 天后</div></div></div>';
-}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

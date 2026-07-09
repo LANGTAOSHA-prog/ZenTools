@@ -56,7 +56,51 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <h2 data-i18n="noticeTitle">注意事项</h2><p data-i18n="noticeText">本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。</p>
 </div>
 </div>
-    <style>
+    
+    <footer>© 2026 ZenTools. All Rights Reserved.</footer></div>
+<script>
+const translations={
+window.ZT_PAGE = translations;
+"zh": {"back": "← 返回首页", "ad": "广告位（Google AdSense）", "calculate": "开始计算", "copy": "复制结果", "clear": "清空", "copied": "已复制", "resultTip": "结果会显示在这里。", "guideTitle": "使用说明", "noticeTitle": "注意事项", "noticeText": "本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。", "empty": "请输入必要数值", "pageTitle": "日本工资计算器 - 免费在线工具 | ZenTools", "title": "日本工资计算器", "desc": "估算日本月薪、年收入与到手收入。", "guideText": "输入月薪、奖金和扣除比例，即可估算年收入与月到手。", "monthlySalaryPh": "月薪（日元）", "bonusPh": "年奖金（日元，可选）", "deductRatePh": "扣除比例 %"}, "ja": {"back": "← ホームに戻る", "ad": "広告スペース", "calculate": "計算する", "copy": "結果をコピー", "clear": "クリア", "copied": "コピーしました", "resultTip": "結果がここに表示されます。", "guideTitle": "使い方", "noticeTitle": "注意事項", "noticeText": "このツールは簡易計算です。実際の金額は公式情報、会社、銀行、専門家の計算を確認してください。", "empty": "必要な数値を入力してください", "pageTitle": "日本給与計算機 - Free Online Tool | ZenTools", "title": "日本給与計算機", "desc": "日本の月給、年収、手取りを概算します。", "guideText": "月給、賞与、控除率を入力して年収と手取りを概算します。", "monthlySalaryPh": "月給（円）", "bonusPh": "年間賞与（円・任意）", "deductRatePh": "控除率 %"}, "en": {"back": "← Back to Home", "ad": "Ad Space", "calculate": "Calculate", "copy": "Copy Result", "clear": "Clear", "copied": "Copied", "resultTip": "Result will appear here.", "guideTitle": "How to Use", "noticeTitle": "Notice", "noticeText": "This is a simple estimate. Actual amounts should be confirmed with official sources, employers, banks, or professionals.", "empty": "Please enter required values", "pageTitle": "Japan Salary Calculator - Free Online Tool | ZenTools", "title": "Japan Salary Calculator", "desc": "Estimate monthly salary, annual income, and take-home pay in Japan.", "guideText": "Enter monthly salary, bonus, and deduction rate to estimate annual and take-home income.", "monthlySalaryPh": "Monthly salary (JPY)", "bonusPh": "Annual bonus (JPY, optional)", "deductRatePh": "Deduction rate %"}, "vi": {"back": "← Quay lại trang chủ", "ad": "Vị trí quảng cáo", "calculate": "Tính toán", "copy": "Sao chép kết quả", "clear": "Xóa", "copied": "Đã sao chép", "resultTip": "Kết quả sẽ hiển thị ở đây.", "guideTitle": "Hướng dẫn", "noticeTitle": "Lưu ý", "noticeText": "Công cụ này chỉ ước tính đơn giản. Số tiền thực tế cần xác nhận theo thông tin chính thức, công ty, ngân hàng hoặc chuyên gia.", "empty": "Vui lòng nhập các giá trị cần thiết", "pageTitle": "Máy tính lương Nhật Bản - Free Online Tool | ZenTools", "title": "Máy tính lương Nhật Bản", "desc": "Ước tính lương tháng, thu nhập năm và lương nhận tay ở Nhật.", "guideText": "Nhập lương tháng, thưởng và tỷ lệ khấu trừ để ước tính thu nhập.", "monthlySalaryPh": "Lương tháng (JPY)", "bonusPh": "Thưởng năm (JPY, tùy chọn)", "deductRatePh": "Tỷ lệ khấu trừ %"}};
+
+const languageSelect=document.getElementById("langSelect");
+let currentLang="zh";
+function setLanguage(lang){
+ currentLang=lang;
+ const data=translations[lang]||translations.zh;
+ document.documentElement.lang=lang; document.title=data.pageTitle;
+ document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
+ localStorage.setItem("zentools_lang",lang);
+}
+languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
+const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang; setLanguage(savedLang);
+function yen(n){return Math.round(n).toLocaleString()+" 円";}
+function money(n){return Math.round(n).toLocaleString();}
+function showResult(t){document.getElementById("result").textContent=t;}
+function clearInputs(){document.querySelectorAll("input").forEach(i=>{if(i.type!=="date")i.value="";});document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
+function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
+
+function calculate(){const d=translations[currentLang]||translations.zh;const m=parseFloat(document.getElementById('monthlySalary').value)||0,b=parseFloat(document.getElementById('bonus').value)||0,r=(parseFloat(document.getElementById('deductRate').value)||0)/100;if(m<=0){alert(d.empty);return;}const a=m*12+b, ded=a*r, net=a-ded;showResult(`年收入估算：${yen(a)}\n扣除估算：${yen(ded)}\n年到手估算：${yen(net)}\n月到手估算：${yen(net/12)}`);}
+</script>
+
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -124,47 +168,4 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools. All Rights Reserved.</footer></div>
-<script>
-const translations={
-window.ZT_PAGE = translations;
-"zh": {"back": "← 返回首页", "ad": "广告位（Google AdSense）", "calculate": "开始计算", "copy": "复制结果", "clear": "清空", "copied": "已复制", "resultTip": "结果会显示在这里。", "guideTitle": "使用说明", "noticeTitle": "注意事项", "noticeText": "本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。", "empty": "请输入必要数值", "pageTitle": "日本工资计算器 - 免费在线工具 | ZenTools", "title": "日本工资计算器", "desc": "估算日本月薪、年收入与到手收入。", "guideText": "输入月薪、奖金和扣除比例，即可估算年收入与月到手。", "monthlySalaryPh": "月薪（日元）", "bonusPh": "年奖金（日元，可选）", "deductRatePh": "扣除比例 %"}, "ja": {"back": "← ホームに戻る", "ad": "広告スペース", "calculate": "計算する", "copy": "結果をコピー", "clear": "クリア", "copied": "コピーしました", "resultTip": "結果がここに表示されます。", "guideTitle": "使い方", "noticeTitle": "注意事項", "noticeText": "このツールは簡易計算です。実際の金額は公式情報、会社、銀行、専門家の計算を確認してください。", "empty": "必要な数値を入力してください", "pageTitle": "日本給与計算機 - Free Online Tool | ZenTools", "title": "日本給与計算機", "desc": "日本の月給、年収、手取りを概算します。", "guideText": "月給、賞与、控除率を入力して年収と手取りを概算します。", "monthlySalaryPh": "月給（円）", "bonusPh": "年間賞与（円・任意）", "deductRatePh": "控除率 %"}, "en": {"back": "← Back to Home", "ad": "Ad Space", "calculate": "Calculate", "copy": "Copy Result", "clear": "Clear", "copied": "Copied", "resultTip": "Result will appear here.", "guideTitle": "How to Use", "noticeTitle": "Notice", "noticeText": "This is a simple estimate. Actual amounts should be confirmed with official sources, employers, banks, or professionals.", "empty": "Please enter required values", "pageTitle": "Japan Salary Calculator - Free Online Tool | ZenTools", "title": "Japan Salary Calculator", "desc": "Estimate monthly salary, annual income, and take-home pay in Japan.", "guideText": "Enter monthly salary, bonus, and deduction rate to estimate annual and take-home income.", "monthlySalaryPh": "Monthly salary (JPY)", "bonusPh": "Annual bonus (JPY, optional)", "deductRatePh": "Deduction rate %"}, "vi": {"back": "← Quay lại trang chủ", "ad": "Vị trí quảng cáo", "calculate": "Tính toán", "copy": "Sao chép kết quả", "clear": "Xóa", "copied": "Đã sao chép", "resultTip": "Kết quả sẽ hiển thị ở đây.", "guideTitle": "Hướng dẫn", "noticeTitle": "Lưu ý", "noticeText": "Công cụ này chỉ ước tính đơn giản. Số tiền thực tế cần xác nhận theo thông tin chính thức, công ty, ngân hàng hoặc chuyên gia.", "empty": "Vui lòng nhập các giá trị cần thiết", "pageTitle": "Máy tính lương Nhật Bản - Free Online Tool | ZenTools", "title": "Máy tính lương Nhật Bản", "desc": "Ước tính lương tháng, thu nhập năm và lương nhận tay ở Nhật.", "guideText": "Nhập lương tháng, thưởng và tỷ lệ khấu trừ để ước tính thu nhập.", "monthlySalaryPh": "Lương tháng (JPY)", "bonusPh": "Thưởng năm (JPY, tùy chọn)", "deductRatePh": "Tỷ lệ khấu trừ %"}};
-
-const languageSelect=document.getElementById("langSelect");
-let currentLang="zh";
-function setLanguage(lang){
- currentLang=lang;
- const data=translations[lang]||translations.zh;
- document.documentElement.lang=lang; document.title=data.pageTitle;
- document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
- document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
- localStorage.setItem("zentools_lang",lang);
-}
-languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang; setLanguage(savedLang);
-function yen(n){return Math.round(n).toLocaleString()+" 円";}
-function money(n){return Math.round(n).toLocaleString();}
-function showResult(t){document.getElementById("result").textContent=t;}
-function clearInputs(){document.querySelectorAll("input").forEach(i=>{if(i.type!=="date")i.value="";});document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
-function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
-
-function calculate(){const d=translations[currentLang]||translations.zh;const m=parseFloat(document.getElementById('monthlySalary').value)||0,b=parseFloat(document.getElementById('bonus').value)||0,r=(parseFloat(document.getElementById('deductRate').value)||0)/100;if(m<=0){alert(d.empty);return;}const a=m*12+b, ded=a*r, net=a-ded;showResult(`年收入估算：${yen(a)}\n扣除估算：${yen(ded)}\n年到手估算：${yen(net)}\n月到手估算：${yen(net/12)}`);}
-</script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body></html>

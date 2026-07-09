@@ -92,7 +92,52 @@
     
   <div class="row">
     <div><label data-i18n="lbl_当前金额_元">当前金额 (元)</label><input type="number" id="infAmount" value="100000" /></div>
-    <style>
+    
+    
+    <div><label data-i18n="lbl_年通胀率">年通胀率 (%)</label><input type="number" id="infRate" value="3" step="0.1" /></div>
+    <div><label data-i18n="lbl_年限">年限</label><input type="number" id="infYears" value="10" min="1" /></div>
+  </div>
+  <div style="margin-top:16px;">
+    <button class="btn" onclick="calcInflation()" data-i18n="btn_计算">计算</button>
+  </div>
+  <div class="result" id="infResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+
+function calcInflation() {
+  const amount = parseFloat(document.getElementById('infAmount').value) || 0;
+  const rate = parseFloat(document.getElementById('infRate').value) / 100 || 0;
+  const years = parseInt(document.getElementById('infYears').value) || 1;
+  const futureValue = amount * Math.pow(1 + rate, years);
+  const loss = futureValue - amount;
+  const pctLoss = (1 - 1 / Math.pow(1 + rate, years)) * 100;
+  const el = document.getElementById('infResult');
+  el.style.display = 'block';
+  el.innerHTML =
+    '<div class="row">' +
+    '<div><div style="color:var(--muted);font-size:12px;">' + years + ' 年后名义价值</div><div class="highlight">' + futureValue.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">实际购买力相当于</div><div class="highlight">' + amount.toFixed(2) + ' 元</div></div>' +
+    '<div><div style="color:var(--muted);font-size:12px;">购买力损失</div><div class="highlight" style="color:#f43f5e;">-' + pctLoss.toFixed(1) + '%</div></div>' +
+    '</div>' +
+    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">' +
+    '年通胀率 ' + (rate * 100).toFixed(1) + '% 下，' + years + ' 年后 ' + amount.toFixed(0) + ' 元的实际购买力仅相当于现在的 ' + (amount / futureValue * 100).toFixed(1) + '%' +
+    '</div>';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -160,49 +205,5 @@
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-    <div><label data-i18n="lbl_年通胀率">年通胀率 (%)</label><input type="number" id="infRate" value="3" step="0.1" /></div>
-    <div><label data-i18n="lbl_年限">年限</label><input type="number" id="infYears" value="10" min="1" /></div>
-  </div>
-  <div style="margin-top:16px;">
-    <button class="btn" onclick="calcInflation()" data-i18n="btn_计算">计算</button>
-  </div>
-  <div class="result" id="infResult" style="display:none;"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-
-function calcInflation() {
-  const amount = parseFloat(document.getElementById('infAmount').value) || 0;
-  const rate = parseFloat(document.getElementById('infRate').value) / 100 || 0;
-  const years = parseInt(document.getElementById('infYears').value) || 1;
-  const futureValue = amount * Math.pow(1 + rate, years);
-  const loss = futureValue - amount;
-  const pctLoss = (1 - 1 / Math.pow(1 + rate, years)) * 100;
-  const el = document.getElementById('infResult');
-  el.style.display = 'block';
-  el.innerHTML =
-    '<div class="row">' +
-    '<div><div style="color:var(--muted);font-size:12px;">' + years + ' 年后名义价值</div><div class="highlight">' + futureValue.toFixed(2) + ' 元</div></div>' +
-    '<div><div style="color:var(--muted);font-size:12px;">实际购买力相当于</div><div class="highlight">' + amount.toFixed(2) + ' 元</div></div>' +
-    '<div><div style="color:var(--muted);font-size:12px;">购买力损失</div><div class="highlight" style="color:#f43f5e;">-' + pctLoss.toFixed(1) + '%</div></div>' +
-    '</div>' +
-    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--muted);">' +
-    '年通胀率 ' + (rate * 100).toFixed(1) + '% 下，' + years + ' 年后 ' + amount.toFixed(0) + ' 元的实际购买力仅相当于现在的 ' + (amount / futureValue * 100).toFixed(1) + '%' +
-    '</div>';
-}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

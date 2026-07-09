@@ -79,7 +79,37 @@ input:focus, select:focus { outline:none; border-color:var(--cyan); }
     <input type="number" id="areaValue" value="1" step="any" oninput="convertArea()" />
     <div class="row">
       <div><label>从</label><select id="areaFrom" onchange="convertArea()"><option value="sqm">平方米 (m²)</option><option value="sqkm">平方公里 (km²)</option><option value="ha">公顷 (ha)</option><option value="mu" selected>亩</option><option value="sqft">平方英尺 (ft²)</option><option value="sqin">平方英寸 (in²)</option><option value="acre">英亩 (acre)</option><option value="sqyd">平方码 (yd²)</option></select></div>
-    <style>
+    
+    
+      <div><label>到</label><select id="areaTo" onchange="convertArea()"><option value="sqm" selected>平方米 (m²)</option><option value="sqkm">平方公里 (km²)</option><option value="ha">公顷 (ha)</option><option value="mu">亩</option><option value="sqft">平方英尺 (ft²)</option><option value="sqin">平方英寸 (in²)</option><option value="acre">英亩 (acre)</option><option value="sqyd">平方码 (yd²)</option></select></div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;">
+      <button class="btn" onclick="convertArea()" data-i18n="btn_转换">转换</button>
+      <button class="btn btn2" onclick="swapArea()" data-i18n="btn_互换">⇄ 互换</button>
+    </div>
+    <div class="result" id="areaResult">1 亩 = 666.666667 平方米</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+var areaUnits={sqm:1,sqkm:1000000,ha:10000,mu:666.66666667,sqft:0.092903,sqin:0.00064516,acre:4046.8564224,sqyd:0.83612736};
+function convertArea(){
+  var v=parseFloat(document.getElementById('areaValue').value)||0;
+  var f=document.getElementById('areaFrom').value,t=document.getElementById('areaTo').value;
+  var r=v*areaUnits[f]/areaUnits[t];
+  document.getElementById('areaResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;
+}
+function swapArea(){
+  var f=document.getElementById('areaFrom'),t=document.getElementById('areaTo');
+  var tmp=f.value;f.value=t.value;t.value=tmp;
+  convertArea();
+}
+convertArea();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -147,34 +177,5 @@ input:focus, select:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-      <div><label>到</label><select id="areaTo" onchange="convertArea()"><option value="sqm" selected>平方米 (m²)</option><option value="sqkm">平方公里 (km²)</option><option value="ha">公顷 (ha)</option><option value="mu">亩</option><option value="sqft">平方英尺 (ft²)</option><option value="sqin">平方英寸 (in²)</option><option value="acre">英亩 (acre)</option><option value="sqyd">平方码 (yd²)</option></select></div>
-    </div>
-    <div style="margin-top:16px;display:flex;gap:10px;">
-      <button class="btn" onclick="convertArea()" data-i18n="btn_转换">转换</button>
-      <button class="btn btn2" onclick="swapArea()" data-i18n="btn_互换">⇄ 互换</button>
-    </div>
-    <div class="result" id="areaResult">1 亩 = 666.666667 平方米</div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-var areaUnits={sqm:1,sqkm:1000000,ha:10000,mu:666.66666667,sqft:0.092903,sqin:0.00064516,acre:4046.8564224,sqyd:0.83612736};
-function convertArea(){
-  var v=parseFloat(document.getElementById('areaValue').value)||0;
-  var f=document.getElementById('areaFrom').value,t=document.getElementById('areaTo').value;
-  var r=v*areaUnits[f]/areaUnits[t];
-  document.getElementById('areaResult').textContent=v+' '+f+' = '+r.toFixed(6)+' '+t;
-}
-function swapArea(){
-  var f=document.getElementById('areaFrom'),t=document.getElementById('areaTo');
-  var tmp=f.value;f.value=t.value;t.value=tmp;
-  convertArea();
-}
-convertArea();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

@@ -84,7 +84,45 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
     
 <div class="row">
   <div><label data-i18n="lbl_unix_时间戳">Unix 时间戳 (秒)</label><input type="text" id="tsInput" oninput="tsToDate()" /></div>
-    <style>
+    
+    
+  <div><label data-i18n="lbl_日期时间">日期时间</label><input type="text" id="dateInput" oninput="dateToTs()" /></div>
+</div>
+<div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
+  <button class="btn" onclick="tsToDate()" data-i18n="btn_时间戳_日期">时间戳 → 日期</button>
+  <button class="btn btn2" onclick="dateToTs()" data-i18n="btn_日期_时间戳">日期 → 时间戳</button>
+  <button class="btn btn2" onclick="nowTS()" data-i18n="btn_当前时间戳">当前时间戳</button>
+</div>
+<div class="result" id="tsResult" style="display:none;"></div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+
+function tsToDate(){
+  var v=document.getElementById('tsInput').value.trim();
+  var ts=parseInt(v)||Math.floor(Date.now()/1000);
+  var d=new Date(ts*1000);
+  document.getElementById('tsInput').value=ts;
+  document.getElementById('dateInput').value=d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+' '+pad2(d.getHours())+':'+pad2(d.getMinutes())+':'+pad2(d.getSeconds());
+  showTS();
+}
+function dateToTs(){
+  var v=document.getElementById('dateInput').value.trim();
+  if(!v){document.getElementById('tsInput').value='';return;}
+  var d=new Date(v);if(isNaN(d.getTime()))return;
+  document.getElementById('tsInput').value=Math.floor(d.getTime()/1000);
+  showTS();
+}
+function nowTS(){document.getElementById('tsInput').value=Math.floor(Date.now()/1000);tsToDate();}
+function showTS(){var el=document.getElementById('tsResult');el.style.display='block';el.innerHTML='<span style="color:var(--muted);">▶ UTC: </span>'+new Date(parseInt(document.getElementById('tsInput').value)*1000).toUTCString();}
+function pad2(n){return n.toString().padStart(2,'0');}
+tsToDate();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -152,42 +190,5 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-  <div><label data-i18n="lbl_日期时间">日期时间</label><input type="text" id="dateInput" oninput="dateToTs()" /></div>
-</div>
-<div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;">
-  <button class="btn" onclick="tsToDate()" data-i18n="btn_时间戳_日期">时间戳 → 日期</button>
-  <button class="btn btn2" onclick="dateToTs()" data-i18n="btn_日期_时间戳">日期 → 时间戳</button>
-  <button class="btn btn2" onclick="nowTS()" data-i18n="btn_当前时间戳">当前时间戳</button>
-</div>
-<div class="result" id="tsResult" style="display:none;"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-
-function tsToDate(){
-  var v=document.getElementById('tsInput').value.trim();
-  var ts=parseInt(v)||Math.floor(Date.now()/1000);
-  var d=new Date(ts*1000);
-  document.getElementById('tsInput').value=ts;
-  document.getElementById('dateInput').value=d.getFullYear()+'-'+pad2(d.getMonth()+1)+'-'+pad2(d.getDate())+' '+pad2(d.getHours())+':'+pad2(d.getMinutes())+':'+pad2(d.getSeconds());
-  showTS();
-}
-function dateToTs(){
-  var v=document.getElementById('dateInput').value.trim();
-  if(!v){document.getElementById('tsInput').value='';return;}
-  var d=new Date(v);if(isNaN(d.getTime()))return;
-  document.getElementById('tsInput').value=Math.floor(d.getTime()/1000);
-  showTS();
-}
-function nowTS(){document.getElementById('tsInput').value=Math.floor(Date.now()/1000);tsToDate();}
-function showTS(){var el=document.getElementById('tsResult');el.style.display='block';el.innerHTML='<span style="color:var(--muted);">▶ UTC: </span>'+new Date(parseInt(document.getElementById('tsInput').value)*1000).toUTCString();}
-function pad2(n){return n.toString().padStart(2,'0');}
-tsToDate();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

@@ -73,7 +73,49 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <button onclick="downloadImage()" class="download-btn" data-i18n="download">下载图片</button>
 </div>
 
-    <style>
+    
+    <footer>© 2026 ZenTools</footer>
+</div>
+<script>
+const translations={
+zh:{back:"← 返回首页",title:"图片滤镜",desc:"为图片添加多种滤镜效果，所有处理在浏览器本地完成。",ad:"广告位（Google AdSense）",download:"下载图片",original:"原图",choose:"请先选择一张图片",
+        tutorialEyebrow: '使用流程',
+        tutorialTitle: '三步完成',
+        tutorialStep1: '上传文件',
+        tutorialStep2: '本地处理',
+        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Filters",desc:"Apply filters to images, all processing is done locally.",ad:"Ad Space",download:"Download",original:"Original",choose:"Please select an image first",
+        tutorialEyebrow: 'HOW TO USE',
+        tutorialTitle: 'Done in 3 Steps',
+        tutorialStep1: 'Upload',
+        tutorialStep2: 'Process',
+        tutorialStep3: 'Download'}};
+window.ZT_PAGE = translations;
+let currentLang="zh",currentFilter="none",imgFile=null;
+const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
+document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){cs.width=Math.min(img.width,800);cs.height=img.height*(cs.width/img.width);applyFilter();};img.src=ev.target.result;};r.readAsDataURL(f);});
+document.querySelectorAll(".filter-btn").forEach(b=>{b.addEventListener("click",function(){document.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));this.classList.add("active");currentFilter=this.dataset.filter;if(imgFile)applyFilter();});});
+function applyFilter(){const img=new Image();const r=new FileReader();r.onload=function(ev){img.onload=function(){ctx.clearRect(0,0,cs.width,cs.height);ctx.drawImage(img,0,0,cs.width,cs.height);const d=currentFilter;if(d==="grayscale"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){const g=i.data[p]*.299+i.data[p+1]*.587+i.data[p+2]*.114;i.data[p]=i.data[p+1]=i.data[p+2]=g;}ctx.putImageData(i,0,0);}else if(d==="sepia"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){const r=i.data[p],g=i.data[p+1],b=i.data[p+2];i.data[p]=Math.min(255,r*.393+g*.769+b*.189);i.data[p+1]=Math.min(255,r*.349+g*.686+b*.168);i.data[p+2]=Math.min(255,r*.272+g*.534+b*.131);}ctx.putImageData(i,0,0);}else if(d==="invert"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){i.data[p]=255-i.data[p];i.data[p+1]=255-i.data[p+1];i.data[p+2]=255-i.data[p+2];}ctx.putImageData(i,0,0);}else if(d==="blur"){ctx.filter="blur(5px)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="bright"){ctx.filter="brightness(1.4)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="contrast"){ctx.filter="contrast(1.8)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="saturate"){ctx.filter="saturate(2)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else{ctx.drawImage(img,0,0,cs.width,cs.height);}};img.src=ev.target.result;};r.readAsDataURL(imgFile);}
+function downloadImage(){if(!imgFile){alert(translations[currentLang].choose);return;}const link=document.createElement("a");link.download="filtered-"+imgFile.name;link.href=cs.toDataURL("image/png");link.click();}
+const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
+</script>
+
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -141,46 +183,5 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer>© 2026 ZenTools</footer>
-</div>
-<script>
-const translations={
-zh:{back:"← 返回首页",title:"图片滤镜",desc:"为图片添加多种滤镜效果，所有处理在浏览器本地完成。",ad:"广告位（Google AdSense）",download:"下载图片",original:"原图",choose:"请先选择一张图片",
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{back:"← Back to Home",title:"Image Filters",desc:"Apply filters to images, all processing is done locally.",ad:"Ad Space",download:"Download",original:"Original",choose:"Please select an image first",
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'}};
-window.ZT_PAGE = translations;
-let currentLang="zh",currentFilter="none",imgFile=null;
-const cs=document.getElementById("canvas"),ctx=cs.getContext("2d");
-document.getElementById("imageInput").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;imgFile=f;const r=new FileReader();r.onload=function(ev){const img=new Image();img.onload=function(){cs.width=Math.min(img.width,800);cs.height=img.height*(cs.width/img.width);applyFilter();};img.src=ev.target.result;};r.readAsDataURL(f);});
-document.querySelectorAll(".filter-btn").forEach(b=>{b.addEventListener("click",function(){document.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));this.classList.add("active");currentFilter=this.dataset.filter;if(imgFile)applyFilter();});});
-function applyFilter(){const img=new Image();const r=new FileReader();r.onload=function(ev){img.onload=function(){ctx.clearRect(0,0,cs.width,cs.height);ctx.drawImage(img,0,0,cs.width,cs.height);const d=currentFilter;if(d==="grayscale"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){const g=i.data[p]*.299+i.data[p+1]*.587+i.data[p+2]*.114;i.data[p]=i.data[p+1]=i.data[p+2]=g;}ctx.putImageData(i,0,0);}else if(d==="sepia"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){const r=i.data[p],g=i.data[p+1],b=i.data[p+2];i.data[p]=Math.min(255,r*.393+g*.769+b*.189);i.data[p+1]=Math.min(255,r*.349+g*.686+b*.168);i.data[p+2]=Math.min(255,r*.272+g*.534+b*.131);}ctx.putImageData(i,0,0);}else if(d==="invert"){const i=ctx.getImageData(0,0,cs.width,cs.height);for(let p=0;p<i.data.length;p+=4){i.data[p]=255-i.data[p];i.data[p+1]=255-i.data[p+1];i.data[p+2]=255-i.data[p+2];}ctx.putImageData(i,0,0);}else if(d==="blur"){ctx.filter="blur(5px)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="bright"){ctx.filter="brightness(1.4)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="contrast"){ctx.filter="contrast(1.8)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else if(d==="saturate"){ctx.filter="saturate(2)";ctx.drawImage(img,0,0,cs.width,cs.height);ctx.filter="none";}else{ctx.drawImage(img,0,0,cs.width,cs.height);}};img.src=ev.target.result;};r.readAsDataURL(imgFile);}
-function downloadImage(){if(!imgFile){alert(translations[currentLang].choose);return;}const link=document.createElement("a");link.download="filtered-"+imgFile.name;link.href=cs.toDataURL("image/png");link.click();}
-const ls=document.getElementById("langSelect");ls.addEventListener("change",function(){currentLang=this.value;const d=translations[currentLang]||translations.zh;document.title=d.title;document.querySelectorAll("[data-i18n]").forEach(e=>{const k=e.getAttribute("data-i18n");if(d[k])e.textContent=d[k];});});
-</script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
 </body>
 </html>

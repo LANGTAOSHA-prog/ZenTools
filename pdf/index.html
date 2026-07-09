@@ -77,7 +77,6 @@ window.pageTranslations={
 <a href="/guides/zentools-tutorial.html" class="guide-card"><strong>ZenTools图文使用教程</strong><span>一步一步教你使用ZenTools所有核心工具，从入门到精通</span></a>
 </div></div>
 
-
 <div class="subcat-section reveal" id="subcat-merge">
     <div class="section-head">
         <h2>合并与拆分</h2>
@@ -102,7 +101,6 @@ window.pageTranslations={
         <p class="subcat-desc">在线编辑PDF文字和图片、压缩文件大小、旋转页面、裁剪边距、添加页码等。全面优化文档质量和使用体验。</p>
     </div>
 </div>
-
 
 <div class="section" id="tools"><div class="section-head reveal"><span class="section-eyebrow">全部工具</span><h2 data-i18n="h_all_tools">46 款PDF工具，立即可用</h2></div>
 <div class="cat-grid reveal-stagger" id="toolsGrid"></div></div>
@@ -146,7 +144,38 @@ window.pageTranslations={
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
-    <style>
+    
+    <footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/pdf/">PDF工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer></div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+const CATEGORY_KEY = 'PDF工具';
+function renderTools(tools) {
+  const c = document.getElementById('toolsGrid'); if (!c) return;
+  const f = tools.filter(t => t.category === CATEGORY_KEY);
+  if (!f.length) { c.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);">暂无工具，敬请期待</div>'; return; }
+  let html = '';
+  for (const t of f) {
+    const h = t.url || '#';
+    html += '<a class="cat-card" href="' + h + '"><div class="icon">' + (t.icon || '🔧') + '</div><div class="name">' + t.name + '</div><div class="desc">' + (t.description || '') + '</div>' + (t.featured ? '<span class="badge">热门</span>' : '') + '</a>';
+  }
+  c.innerHTML = html;
+}
+function load() {
+  fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); }).catch(() => {});
+}
+document.addEventListener('DOMContentLoaded', load);
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_bookmark">收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -214,34 +243,4 @@ window.pageTranslations={
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    <footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/pdf/">PDF工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer></div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-const CATEGORY_KEY = 'PDF工具';
-function renderTools(tools) {
-  const c = document.getElementById('toolsGrid'); if (!c) return;
-  const f = tools.filter(t => t.category === CATEGORY_KEY);
-  if (!f.length) { c.innerHTML = '<div class="empty-state" style="grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);">暂无工具，敬请期待</div>'; return; }
-  let html = '';
-  for (const t of f) {
-    const h = t.url || '#';
-    html += '<a class="cat-card" href="' + h + '"><div class="icon">' + (t.icon || '🔧') + '</div><div class="name">' + t.name + '</div><div class="desc">' + (t.description || '') + '</div>' + (t.featured ? '<span class="badge">热门</span>' : '') + '</a>';
-  }
-  c.innerHTML = html;
-}
-function load() {
-  fetch('/data/tools-data.json').then(r => r.ok ? r.json() : Promise.reject()).then(d => { if (d?.tools?.length) renderTools(d.tools); }).catch(() => {});
-}
-document.addEventListener('DOMContentLoaded', load);
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_bookmark">收藏本站，下次办公快人一步</button>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body></html>

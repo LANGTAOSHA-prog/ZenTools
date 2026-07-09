@@ -84,7 +84,53 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
     
 <div class="row">
   <div><label data-i18n="lbl_hex">HEX</label><input type="text" id="hexInput" value="#00e5ff" oninput="fromHEX()" /></div>
-    <style>
+    
+    
+  <div><label data-i18n="lbl_rgb">RGB</label><input type="text" id="rgbInput" value="rgb(0,229,255)" oninput="fromRGB()" /></div>
+  <div><label data-i18n="lbl_hsl">HSL</label><input type="text" id="hslInput" value="hsl(186,100%,50%)" oninput="fromHSL()" /></div>
+</div>
+<div style="margin-top:16px;">
+  <div id="colorPreview" style="width:100%;height:80px;border-radius:12px;border:1px solid var(--border);background:#00e5ff;"></div>
+</div>
+<div class="result" id="colorResult">
+  <div style="margin-top:8px;font-size:13px;color:var(--muted);">≡ 输入任意格式，其他自动转换</div>
+</div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+
+function fromHEX() {
+  var h=document.getElementById('hexInput').value.trim(); if(!h.startsWith('#')) return;
+  var m=h.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i); if(!m) return;
+  var r=parseInt(m[1],16),g=parseInt(m[2],16),b=parseInt(m[3],16);
+  document.getElementById('rgbInput').value='rgb('+r+','+g+','+b+')';
+  document.getElementById('hslInput').value='hsl('+rgb2hsl(r,g,b)+')';
+  document.getElementById('colorPreview').style.background=h;
+}
+function fromRGB() {
+  var v=document.getElementById('rgbInput').value.match(/(\d+)/g); if(!v||v.length<3) return;
+  var r=+v[0],g=+v[1],b=+v[2];
+  document.getElementById('hexInput').value='#'+pad(r)+pad(g)+pad(b);
+  document.getElementById('hslInput').value='hsl('+rgb2hsl(r,g,b)+')';
+  document.getElementById('colorPreview').style.background='rgb('+r+','+g+','+b+')';
+}
+function fromHSL() {
+  var v=document.getElementById('hslInput').value.match(/[\d.]+/g); if(!v||v.length<3) return;
+  var h=+v[0],s=+v[1]/100,l=+v[2]/100;
+  var rgb=hsl2rgb(h,s,l);
+  document.getElementById('hexInput').value='#'+pad(rgb[0])+pad(rgb[1])+pad(rgb[2]);
+  document.getElementById('rgbInput').value='rgb('+rgb.join(',')+')';
+  document.getElementById('colorPreview').style.background='hsl('+h+','+s*100+'%,'+l*100+'%)';
+}
+function pad(n){return n.toString(16).padStart(2,'0');}
+function rgb2hsl(r,g,b){r/=255;g/=255;b/=255;var M=Math.max(r,g,b),m=Math.min(r,g,b),d=M-m,l=(M+m)/2;if(!d)return'0,0%,'+Math.round(l*100)+'%';var h=d===0?0:(M===r?((g-b)/d%6):(M===g?(b-r)/d+2:(r-g)/d+4))*60;h=h<0?h+360:h;return Math.round(h)+','+Math.round((d/(1-Math.abs(2*l-1)))*100)+'%,'+Math.round(l*100)+'%';}
+function hsl2rgb(h,s,l){h/=360;var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h*6)%2-1)),m=l-c/2,[r,g,b]=[[c,x,0],[x,c,0],[0,c,x],[0,x,c],[x,0,c],[c,0,x]][Math.floor(h*6)%6]||[0,0,0];return[Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)];}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -152,50 +198,5 @@ textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-  <div><label data-i18n="lbl_rgb">RGB</label><input type="text" id="rgbInput" value="rgb(0,229,255)" oninput="fromRGB()" /></div>
-  <div><label data-i18n="lbl_hsl">HSL</label><input type="text" id="hslInput" value="hsl(186,100%,50%)" oninput="fromHSL()" /></div>
-</div>
-<div style="margin-top:16px;">
-  <div id="colorPreview" style="width:100%;height:80px;border-radius:12px;border:1px solid var(--border);background:#00e5ff;"></div>
-</div>
-<div class="result" id="colorResult">
-  <div style="margin-top:8px;font-size:13px;color:var(--muted);">≡ 输入任意格式，其他自动转换</div>
-</div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-
-function fromHEX() {
-  var h=document.getElementById('hexInput').value.trim(); if(!h.startsWith('#')) return;
-  var m=h.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i); if(!m) return;
-  var r=parseInt(m[1],16),g=parseInt(m[2],16),b=parseInt(m[3],16);
-  document.getElementById('rgbInput').value='rgb('+r+','+g+','+b+')';
-  document.getElementById('hslInput').value='hsl('+rgb2hsl(r,g,b)+')';
-  document.getElementById('colorPreview').style.background=h;
-}
-function fromRGB() {
-  var v=document.getElementById('rgbInput').value.match(/(\d+)/g); if(!v||v.length<3) return;
-  var r=+v[0],g=+v[1],b=+v[2];
-  document.getElementById('hexInput').value='#'+pad(r)+pad(g)+pad(b);
-  document.getElementById('hslInput').value='hsl('+rgb2hsl(r,g,b)+')';
-  document.getElementById('colorPreview').style.background='rgb('+r+','+g+','+b+')';
-}
-function fromHSL() {
-  var v=document.getElementById('hslInput').value.match(/[\d.]+/g); if(!v||v.length<3) return;
-  var h=+v[0],s=+v[1]/100,l=+v[2]/100;
-  var rgb=hsl2rgb(h,s,l);
-  document.getElementById('hexInput').value='#'+pad(rgb[0])+pad(rgb[1])+pad(rgb[2]);
-  document.getElementById('rgbInput').value='rgb('+rgb.join(',')+')';
-  document.getElementById('colorPreview').style.background='hsl('+h+','+s*100+'%,'+l*100+'%)';
-}
-function pad(n){return n.toString(16).padStart(2,'0');}
-function rgb2hsl(r,g,b){r/=255;g/=255;b/=255;var M=Math.max(r,g,b),m=Math.min(r,g,b),d=M-m,l=(M+m)/2;if(!d)return'0,0%,'+Math.round(l*100)+'%';var h=d===0?0:(M===r?((g-b)/d%6):(M===g?(b-r)/d+2:(r-g)/d+4))*60;h=h<0?h+360:h;return Math.round(h)+','+Math.round((d/(1-Math.abs(2*l-1)))*100)+'%,'+Math.round(l*100)+'%';}
-function hsl2rgb(h,s,l){h/=360;var c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h*6)%2-1)),m=l-c/2,[r,g,b]=[[c,x,0],[x,c,0],[0,c,x],[0,x,c],[x,0,c],[c,0,x]][Math.floor(h*6)%6]||[0,0,0];return[Math.round((r+m)*255),Math.round((g+m)*255),Math.round((b+m)*255)];}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>

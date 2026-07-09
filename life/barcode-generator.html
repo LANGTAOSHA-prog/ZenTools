@@ -91,7 +91,75 @@ input:focus, textarea:focus, select:focus { outline:none; border-color:var(--cya
           <option value="itf">ITF-14</option>
         </select>
       </div>
-    <style>
+    
+    
+      <div><label data-i18n="lbl_显示文字">显示文字</label>
+        <select id="showText">
+          <option value="1">显示</option>
+          <option value="0">隐藏</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-top:16px;display:flex;gap:10px;">
+      <button class="btn" onclick="generateBarcode()" data-i18n="btn_生成条形码">生成条形码</button>
+      <button class="btn btn2" onclick="downloadBarcode()" data-i18n="btn_下载_png">下载 PNG</button>
+    </div>
+    <div class="result" id="barcodeResult">
+      <canvas id="barcodeCanvas" style="max-width:100%;"></canvas>
+      <div id="barcodeInfo" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
+    </div>
+  </div>
+</div>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+function generateBarcode(){
+  var text=document.getElementById('barcodeInput').value.trim()||'123456789012';
+  var format=document.getElementById('barcodeFormat').value;
+  var showText=document.getElementById('showText').value==='1';
+  var canvas=document.getElementById('barcodeCanvas');
+  var ctx=canvas.getContext('2d');
+  var w=400,h=160,barH=120,margin=20;
+  canvas.width=w;canvas.height=h;
+  ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
+  // Simple barcode simulation - draw bars based on text
+  var bars=[],seed=0;
+  for(var i=0;i<text.length;i++){
+    seed=(seed*31+text.charCodeAt(i))%99999;
+    var bw=(seed%3+1)*2;
+    bars.push(bw);
+  }
+  var totalW=bars.reduce(function(a,b){return a+b;},0);
+  var availW=w-margin*2;
+  var scale=availW/totalW;
+  var x=margin;
+  ctx.fillStyle='#000';
+  for(var i=0;i<bars.length;i++){
+    var bw=Math.round(bars[i]*scale);
+    ctx.fillRect(x,8,bw,barH);
+    x+=bw+scale;
+  }
+  if(showText){
+    ctx.fillStyle='#000';
+    ctx.font='12px monospace';
+    ctx.textAlign='center';
+    ctx.fillText(text,w/2,barH+24);
+  }
+  document.getElementById('barcodeInfo').textContent='格式: '+format.toUpperCase()+' | 内容: '+text+' | 长度: '+text.length+' 字符';
+  document.getElementById('barcodePreview').style.display='block';
+}
+function downloadBarcode(){
+  var canvas=document.getElementById('barcodeCanvas');
+  var link=document.createElement('a');
+  link.download='barcode.png';
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+}
+generateBarcode();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<style>
     .tool-tutorial-svg {
       padding: 28px 0 12px;
       text-align: center;
@@ -159,72 +227,5 @@ input:focus, textarea:focus, select:focus { outline:none; border-color:var(--cya
         <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
-
-    
-      <div><label data-i18n="lbl_显示文字">显示文字</label>
-        <select id="showText">
-          <option value="1">显示</option>
-          <option value="0">隐藏</option>
-        </select>
-      </div>
-    </div>
-    <div style="margin-top:16px;display:flex;gap:10px;">
-      <button class="btn" onclick="generateBarcode()" data-i18n="btn_生成条形码">生成条形码</button>
-      <button class="btn btn2" onclick="downloadBarcode()" data-i18n="btn_下载_png">下载 PNG</button>
-    </div>
-    <div class="result" id="barcodeResult">
-      <canvas id="barcodeCanvas" style="max-width:100%;"></canvas>
-      <div id="barcodeInfo" style="margin-top:8px;font-size:12px;color:var(--muted);"></div>
-    </div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-function generateBarcode(){
-  var text=document.getElementById('barcodeInput').value.trim()||'123456789012';
-  var format=document.getElementById('barcodeFormat').value;
-  var showText=document.getElementById('showText').value==='1';
-  var canvas=document.getElementById('barcodeCanvas');
-  var ctx=canvas.getContext('2d');
-  var w=400,h=160,barH=120,margin=20;
-  canvas.width=w;canvas.height=h;
-  ctx.fillStyle='#fff';ctx.fillRect(0,0,w,h);
-  // Simple barcode simulation - draw bars based on text
-  var bars=[],seed=0;
-  for(var i=0;i<text.length;i++){
-    seed=(seed*31+text.charCodeAt(i))%99999;
-    var bw=(seed%3+1)*2;
-    bars.push(bw);
-  }
-  var totalW=bars.reduce(function(a,b){return a+b;},0);
-  var availW=w-margin*2;
-  var scale=availW/totalW;
-  var x=margin;
-  ctx.fillStyle='#000';
-  for(var i=0;i<bars.length;i++){
-    var bw=Math.round(bars[i]*scale);
-    ctx.fillRect(x,8,bw,barH);
-    x+=bw+scale;
-  }
-  if(showText){
-    ctx.fillStyle='#000';
-    ctx.font='12px monospace';
-    ctx.textAlign='center';
-    ctx.fillText(text,w/2,barH+24);
-  }
-  document.getElementById('barcodeInfo').textContent='格式: '+format.toUpperCase()+' | 内容: '+text+' | 长度: '+text.length+' 字符';
-  document.getElementById('barcodePreview').style.display='block';
-}
-function downloadBarcode(){
-  var canvas=document.getElementById('barcodeCanvas');
-  var link=document.createElement('a');
-  link.download='barcode.png';
-  link.href=canvas.toDataURL('image/png');
-  link.click();
-}
-generateBarcode();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
 </body>
 </html>
