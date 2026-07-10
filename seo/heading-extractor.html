@@ -127,14 +127,14 @@ function extractHeadings() {
   // Stats
   const stats = document.getElementById('headingStats');
   stats.style.display = 'flex';
-  let html = '';
+  let statsHtml = '';
   tags.forEach(t => {
-    if (counts[t] > 0) html += '<span class="stat">' + t.toUpperCase() + ': ' + counts[t] + '</span>';
+    if (counts[t] > 0) statsHtml += '<span class="stat">' + t.toUpperCase() + ': ' + counts[t] + '</span>';
   });
   // Validation
-  if (counts['h1'] === 0) html += '<span class="stat" style="color:#f43f5e;">⚠️ 缺少 H1</span>';
-  if (counts['h1'] > 1) html += '<span class="stat" style="color:#f59e0b;">⚠️ 多个 H1 (' + counts['h1'] + '个)</span>';
-  stats.innerHTML = html;
+  if (counts['h1'] === 0) statsHtml += '<span class="stat" style="color:#f43f5e;">⚠️ 缺少 H1</span>';
+  if (counts['h1'] > 1) statsHtml += '<span class="stat" style="color:#f59e0b;">⚠️ 多个 H1 (' + counts['h1'] + '个)</span>';
+  stats.innerHTML = statsHtml;
 }
 </script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
