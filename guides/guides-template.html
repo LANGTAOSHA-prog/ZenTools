@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title data-i18n="pageTitle">{{TITLE_ZH}} - ZenTools</title>
+<title data-i18n-page="pageTitle">{{TITLE_ZH}} - ZenTools</title>
 <meta name="description" content="{{DESC_ZH}}"/>
 <link rel="canonical" href="https://zentools.xyz/guides/{{SLUG}}.html"/>
 <link rel="manifest" href="/manifest.json"/>
@@ -42,16 +42,16 @@
 </head>
 <body>
 <div class="guide-hero">
-  <h1 data-i18n="pageHeader">{{HEADER}}</h1>
-  <p data-i18n="pageDesc">{{DESC_ZH}}</p>
+  <h1 data-i18n-page="pageHeader">{{HEADER}}</h1>
+  <p data-i18n-page="pageDesc">{{DESC_ZH}}</p>
   <div class="guide-meta">
-    <span data-i18n="wordCount">{{WORDS}}</span>
-    <span data-i18n="readTime">{{TIME}}</span>
+    <span data-i18n-page="wordCount">{{WORDS}}</span>
+    <span data-i18n-page="readTime">{{TIME}}</span>
   </div>
 </div>
 
 <div class="guide-back">
-  <a href="/guides/" class="back-link">← <span data-i18n="backToGuides">返回深度指南</span></a>
+  <a href="/guides/" class="back-link">← <span data-i18n-page="backToGuides">返回深度指南</span></a>
 </div>
 
 <div class="guide-container">
@@ -60,7 +60,7 @@
   </div>
   
   <div class="related-section">
-    <h3 data-i18n="relatedGuides">相关指南</h3>
+    <h3 data-i18n-page="relatedGuides">相关指南</h3>
     <div class="related-links">
 {{RELATED}}
     </div>
@@ -71,7 +71,12 @@
 </div>
 
 <script>
-window.ZT_PAGE = {{TRANSLATIONS}};
+window.ZT_PAGE = {
+  zh: { pageTitle: '{{TITLE_ZH}} - ZenTools', pageHeader: '{{HEADER}}', pageDesc: '{{DESC_ZH}}', wordCount: '{{WORDS}}', readTime: '{{TIME}}', backToGuides: '返回深度指南', relatedGuides: '相关指南' },
+  en: { pageTitle: '{{TITLE_EN}} - ZenTools', pageHeader: '{{HEADER_EN}}', pageDesc: '{{DESC_EN}}', wordCount: '{{WORDS_EN}}', readTime: '{{TIME_EN}}', backToGuides: 'Back to Guides', relatedGuides: 'Related Guides' },
+  ja: { pageTitle: '{{TITLE_JA}} - ZenTools', pageHeader: '{{HEADER_JA}}', pageDesc: '{{DESC_JA}}', wordCount: '{{WORDS_JA}}', readTime: '{{TIME_JA}}', backToGuides: 'ガイドに戻る', relatedGuides: '関連ガイド' },
+  vi: { pageTitle: '{{TITLE_VI}} - ZenTools', pageHeader: '{{HEADER_VI}}', pageDesc: '{{DESC_VI}}', wordCount: '{{WORDS_VI}}', readTime: '{{TIME_VI}}', backToGuides: 'Quay lại Hướng dẫn', relatedGuides: 'Hướng dẫn liên quan' }
+};
 </script>
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz/guides/{{SLUG}}.html')">⭐ 收藏本站</button>
 <script>

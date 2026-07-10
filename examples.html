@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="manifest" href="/manifest.json" />
-  <title>简单页面示例 - 江湖小站</title>
+  <title data-i18n-page="pageTitle">简单页面示例 - 江湖小站</title>
 <meta name="description" content="记录个人网页制作中的简单页面示例，包括页面结构、导航栏、首页视觉、内容布局和图片展示位置。">
 
 <style>
@@ -145,12 +145,13 @@ footer{
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
      crossorigin="anonymous"></script>
 <link rel="canonical" href="https://zentools.xyz/examples.html"/>
+  <script src="assets/js/common-i18n.min.js"></script>
 </head>
 
 <body>
 
 <header>
-    <h1>简单页面示例</h1>
+    <h1 data-i18n-page="pageHeader">简单页面示例</h1>
     <p>
         记录一个简单网页页面的制作示例，用来整理我在网页排版、
         页面结构、导航栏设计和首页展示方面的一些学习记录。
@@ -169,7 +170,7 @@ footer{
 <div class="container">
 
     <div class="card">
-        <h2>页面示例说明</h2>
+        <h2 data-i18n-page="sec1">页面示例说明</h2>
         <p>
             这个页面示例主要用来记录个人在学习网页制作时看到的一种常见首页结构。
             页面整体采用深色背景、顶部导航栏、中间大标题和按钮入口的方式，
@@ -190,7 +191,7 @@ footer{
     </div>
 
     <div class="card">
-        <h2>页面结构记录</h2>
+        <h2 data-i18n-page="sec2">页面结构记录</h2>
         <p>
             从截图可以看出，页面最上方是导航栏，左侧放网站名称，
             右侧放几个主要入口，比如工具库、教程中心、关于页面等。
@@ -204,7 +205,7 @@ footer{
     </div>
 
     <div class="card">
-        <h2>按钮和入口设计</h2>
+        <h2 data-i18n-page="sec3">按钮和入口设计</h2>
         <p>
             在大标题下方通常会放两个按钮，一个作为主要入口，
             另一个作为辅助入口。比如一个按钮跳转到工具列表，
@@ -217,7 +218,7 @@ footer{
     </div>
 
     <div class="card">
-        <h2>适合使用的场景</h2>
+        <h2 data-i18n-page="sec4">适合使用的场景</h2>
         <ul>
             <li>个人学习记录网站首页</li>
             <li>网页制作练习页面</li>
@@ -228,7 +229,7 @@ footer{
     </div>
 
     <div class="card">
-        <h2>我从这个示例学到的内容</h2>
+        <h2 data-i18n-page="sec5">我从这个示例学到的内容</h2>
         <p>
             通过这个页面示例，我主要学习到了首页排版的基本思路：
             先用导航栏告诉用户有哪些栏目，再用大标题说明网站主题，
@@ -242,7 +243,7 @@ footer{
     </div>
 
     <div class="card">
-        <h2>个人说明</h2>
+        <h2 data-i18n-page="sec6">个人说明</h2>
         <p>
             本页面只是个人学习网页制作过程中的一个简单示例记录，
             用于整理页面结构和排版思路，不涉及商业服务、在线交易或会员功能。
@@ -266,6 +267,51 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js').catch(() => {});
   });
 }
+</script>
+
+<script>
+window.ZT_PAGE = {
+  "zh": {
+    "pageTitle": "简单页面示例 - 江湖小站",
+    "pageHeader": "简单页面示例",
+    "sec1": "页面示例说明",
+    "sec2": "页面结构记录",
+    "sec3": "按钮和入口设计",
+    "sec4": "适合使用的场景",
+    "sec5": "我从这个示例学到的内容",
+    "sec6": "个人说明"
+  },
+  "en": {
+    "pageTitle": "Simple Page Example - Jianghu Station",
+    "pageHeader": "Simple Page Example",
+    "sec1": "About This Example Page",
+    "sec2": "Page Structure Notes",
+    "sec3": "Button & Entry Design",
+    "sec4": "When to Use This",
+    "sec5": "What I Learned from This Example",
+    "sec6": "Personal Notes"
+  },
+  "ja": {
+    "pageTitle": "シンプルなページ例 - 江湖小站",
+    "pageHeader": "シンプルなページ例",
+    "sec1": "このページ例について",
+    "sec2": "ページ構造の記録",
+    "sec3": "ボタンと入り口のデザイン",
+    "sec4": "活用シーン",
+    "sec5": "この例から学んだこと",
+    "sec6": "個人的なメモ"
+  },
+  "vi": {
+    "pageTitle": "Ví dụ trang đơn giản - Jianghu Station",
+    "pageHeader": "Ví dụ trang đơn giản",
+    "sec1": "Giới thiệu về trang ví dụ",
+    "sec2": "Ghi chép cấu trúc trang",
+    "sec3": "Thiết kế nút và lối vào",
+    "sec4": "Khi nào nên dùng",
+    "sec5": "Những gì tôi học được từ ví dụ này",
+    "sec6": "Ghi chú cá nhân"
+  }
+};
 </script>
 </body>
 </html>
