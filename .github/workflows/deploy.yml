@@ -1,0 +1,57 @@
+# =============================================
+# ZenTools 自动部署 — GitHub Actions → 阿里云 ECS
+# =============================================
+# 架构：push 到 main → GitHub 海外 runner 检出代码 → rsync 推送到 ECS
+# 说明：
+#   - 服务器在中国大陆，主动拉取 GitHub 极不稳定，故采用「runner 推送」模式
+#   - runner 访问 GitHub 稳定；服务器只需开放 22 端口接收（SSH 稳定）
+#   - 纯静态站，rsync 完成即实时生效，Nginx 无需 reload
+# ---------------------------------------------
+# 需要在仓库 Settings → Secrets and variables → Actions 配置：
+#   ECS_HOST     阿里云 ECS 公网 IP（如 39.96.10.135）
+#   ECS_USER     SSH 用户名（如 root）
+#   ECS_PORT     SSH 端口（如 22）
+#   ECS_SSH_KEY  专用部署私钥（无口令，含首尾 BEGIN/END 行的完整内容）
+# ---------------------------------------------
+# 前置：ECS 安全组需放行 22 端口入站（GitHub runner IP 动态，需允许 0.0.0.0/0，
+#       或参考 https://api.github.com/meta 的 actions 段配置）
+# =============================================
+
+name: 部署到阿里云 ECS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: rsync 同步到 ECS
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: rsync 推送到服务器
+        uses: easingthemes/ssh-deploy@v5.1.0
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.ECS_HOST }}
+          REMOTE_USER: ${{ secrets.ECS_USER }}
+          REMOTE_PORT: ${{ secrets.ECS_PORT }}
+          TARGET: /var/www/html
+          # -rlptgoDz: 递归/软链/权限/时间/属主属组/设备/压缩；--delete 保持严格镜像
+          ARGS: "-rlptgoDz --delete"
+          # 保护服务器上不该被删/覆盖的文件与目录
+          EXCLUDE: "/.git/, /.github/, webhook.py, *.bak"
+          # 同步后在服务器执行的校验
+          SCRIPT_AFTER: |
+            cd /var/www/html
+            echo "==> 部署版本校验"
+            test -f index.html && echo "✅ index.html OK" || (echo "❌ index.html 缺失" && exit 1)
+            echo "==> 部署完成: $(date '+%Y-%m-%d %H:%M:%S %Z')"
