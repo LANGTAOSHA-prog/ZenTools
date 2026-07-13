@@ -1,1625 +1,398 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="canonical" href="https://zentools.xyz/" />
-  <title>ZenTools - 个人学习记录与经验整理</title>
-  <meta name="description" content="ZenTools 是一个个人学习记录页面，提供 PDF、图片、文本、AI 等免费在线工具，以及个人学习笔记和经验整理。" />
-  <meta name="keywords" content="ZenTools,ZenTools,免费在线工具,PDF工具,图片工具,学习笔记" />
-  <meta name="baidu-site-verification" content="codeva-Al7SOJ5bzC" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZenTools | 隐私优先 · 免费全能在线工具平台</title>
+<meta name="description" content="ZenTools 专业免费在线工具合集，所有工具浏览器本地运算，文件不上传服务器，安全私密、高效极速。">
+<style>
+/* ==============================================
+   ZenTools 官方品牌变量 V1.0（严格遵从手册）
+   ============================================== */
+:root {
+    /* 品牌主色 */
+    --zen-primary: #0066FF;
+    --zen-secondary: #00C2B8;
+    --zen-gradient: linear-gradient(135deg, #0066FF 0%, #00C2B8 100%);
 
-  <!-- ===== Google Search Console 验证 ===== -->
-  <meta name="google-site-verification" content="YOUR_VERIFICATION_TOKEN_HERE" />
-  <meta name="msvalidate.01" content="C57D51A3148DAAF5039D630D0D0964D1" />
+    /* 状态辅助色 */
+    --zen-success: #22C55E;
+    --zen-warning: #F97316;
+    --zen-danger: #EF4444;
 
-  <!-- ===== Open Graph / Facebook ===== -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://zentools.xyz/" />
-  <meta property="og:title" content="ZenTools - 300+ 免费在线工具箱" />
-  <meta property="og:description" content="免费 · 安全 · 无需上传，提供 PDF、图片、文本、AI、视频等 300+ 工具，所有工具在浏览器本地运行，保护你的隐私。" />
-  <meta property="og:site_name" content="ZenTools" />
-  <meta property="og:locale" content="zh_CN" />
-  <meta property="og:image" content="https://zentools.xyz/icon-512x512.png" />
-  <meta property="og:image:width" content="512" />
-  <meta property="og:image:height" content="512" />
+    /* 浅色模式中性色 */
+    --zen-text-main: #111827;
+    --zen-text-sub: #4B5563;
+    --zen-text-placeholder: #9CA3AF;
+    --zen-bg-base: #F9FAFB;
+    --zen-bg-card: #FFFFFF;
+    --zen-border: #E5E7EB;
 
-  <!-- ===== Twitter Card ===== -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="ZenTools - 300+ 免费在线工具箱" />
-  <meta name="twitter:description" content="免费 · 安全 · 无需上传，提供 PDF、图片、文本、AI、视频等 300+ 工具，所有工具在浏览器本地运行，保护你的隐私。" />
+    /* 全局圆角规范 */
+    --zen-radius-base: 12px;
+    --zen-radius-card: 16px;
+    --zen-radius-btn: 8px;
+    --zen-radius-tag: 6px;
 
-  <!-- ===== 结构化数据 (JSON-LD) ===== -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "ZenTools",
-    "url": "https://zentools.xyz/",
-    "description": "免费在线工具箱，提供 PDF、图片、文本、AI 等 300+ 工具，所有工具在浏览器本地运行，保护隐私。",
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": "https://zentools.xyz/?q={search_term_string}",
-      "query-input": "required name=search_term_string"
-    },
-    "author": {
-      "@type": "Person",
-      "name": "LANGTAOSHA"
-    },
-    "license": "https://zentools.xyz/terms.html",
-    "sameAs": [
-      "https://github.com/LANGTAOSHA-prog/ZenTools"
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "ZenTools",
-    "url": "https://zentools.xyz/",
-    "description": "免费在线工具箱，提供 PDF、图片、文本、AI 等 300+ 工具，所有工具在浏览器本地运行，保护隐私。",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "CNY"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "1250"
-    },
-    "featureList": "PDF 工具，图片工具，文本工具，AI 工具，视频工具，音频工具，金融工具，开发工具，SEO 工具"
-  }
-  </script>
+    /* 统一间距 */
+    --zen-card-padding: 20px;
+}
 
-  <!-- ===== 资源预加载 ===== -->
-  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-  <link rel="preconnect" href="https://www.googletagmanager.com" />
-  <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+/* 暗黑模式全局覆盖 */
+.dark {
+    --zen-text-main: #F9FAFB;
+    --zen-text-sub: #D1D5DB;
+    --zen-text-placeholder: #64748B;
+    --zen-bg-base: #0F172A;
+    --zen-bg-card: #1E293B;
+    --zen-border: #334155;
+}
 
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="assets/css/tool-ui.min.css" />
-  <link rel="preload" href="/favicon.svg" as="image" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/favicon.svg" />
+/* ==============================================
+   全局重置 & 基础排版
+   ============================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-  <!-- ===== 防崩 1.0 — 最先加载 ===== -->
-  <script src="assets/js/anti-crash.min.js" defer></script>
-  <style>
-    /* ===== 导航栏扩展：工具箱巨型下拉菜单 ===== */
-    .nav-group { position: relative; }
-    .nav-trigger {
-      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
-      color: var(--muted); cursor: pointer; transition: color 0.2s, background 0.2s;
-      display: inline-flex; align-items: center; gap: 4px; border: none;
-      background: transparent; font-family: inherit;
-    }
-    .nav-trigger:hover, .nav-trigger.active { color: var(--text); background: var(--glass-b); }
-    .nav-trigger .arrow { font-size: 10px; transition: transform 0.2s; }
-    .nav-group:hover .nav-trigger .arrow { transform: rotate(180deg); }
+body {
+    font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif;
+    background-color: var(--zen-bg-base);
+    color: var(--zen-text-main);
+    line-height: 1.5;
+    transition: background-color 0.35s ease, color 0.35s ease;
+    -webkit-font-smoothing: antialiased;
+}
 
-    .mega-menu {
-      position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
-      margin-top: 6px; min-width: 680px; max-width: 90vw; max-height: 70vh; overflow-y: auto;
-      background: rgba(10,12,20,0.94); backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid var(--border); border-radius: 16px;
-      padding: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
-      z-index: 200;
-    }
-    .nav-group:hover .mega-menu {
-      opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
-    }
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
 
-    .mega-grid {
-      display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
-    }
-    .mega-cat {
-      grid-column: 1 / -1;
-      display: flex; align-items: center; gap: 8px;
-      padding: 4px 0; margin-top: 4px; border-bottom: 1px solid var(--border);
-      font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
-    }
-    .mega-cat:first-child { margin-top: 0; }
-    .mega-item {
-      display: flex; flex-direction: column; gap: 2px;
-      padding: 6px 8px; border-radius: 8px;
-      transition: background 0.15s;
-    }
-    .mega-item:hover { background: var(--glass-b); }
-    .mega-item .mi-icon { font-size: 16px; }
-    .mega-item .mi-name { font-size: 12px; font-weight: 600; line-height: 1.2; }
-    .mega-item .mi-desc { display: none; }
-    .mega-empty { grid-column: 1 / -1; padding: 8px; text-align: center; color: var(--muted); font-size: 12px; }
+/* ==============================================
+   导航栏（磨砂极简 SaaS 官方样式）
+   ============================================== */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.75);
+    border-bottom: 1px solid var(--zen-border);
+    z-index: 999;
+    transition: all 0.3s;
+}
+.dark nav {
+    background: rgba(15,23,42,0.75);
+}
 
-    /* ===== 面包屑 ===== */
-    .breadcrumb-row {
-      max-width: 1200px; margin: 0 auto; padding: 24px 24px 0;
-    }
-    .breadcrumb-row .bc-inner {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted);
-    }
-    .breadcrumb-row .bc-inner a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-    .breadcrumb-row .bc-inner a:hover { color: var(--cyan); }
-    .breadcrumb-row .bc-inner span { opacity: 0.5; }
+.nav-inner {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
-    /* ===== Hero ===== */
-    .hero {
-      min-height: 85vh; position: relative; overflow: hidden;
-      display: flex; align-items: center; justify-content: center;
-      padding: 80px 24px 120px;
-    }
-    .hero-bg {
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 60% at 40% 20%, rgba(0,229,255,.06) 0%, transparent 55%),
-                  radial-gradient(ellipse 50% 40% at 70% 70%, rgba(168,85,247,.05) 0%, transparent 55%),
-                  radial-gradient(ellipse 40% 30% at 20% 80%, rgba(245,158,11,.03) 0%, transparent 50%);
-      pointer-events: none;
-    }
-    .hero .blob-hero {
-      position: absolute; border-radius: 50%; filter: blur(140px); pointer-events: none;
-      animation: floatHero 14s ease-in-out infinite;
-    }
-    .blob-h1 { width: 600px; height: 600px; background: var(--cyan); opacity: .06; top: -15%; left: -15%; }
-    .blob-h2 { width: 450px; height: 450px; background: var(--purple); opacity: .04; bottom: -10%; right: -5%; animation-delay: -7s; }
-    @keyframes floatHero { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-20px) scale(1.05); } 66% { transform: translate(-20px,10px) scale(0.95); } }
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 22px;
+    font-weight: 700;
+}
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--zen-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 18px;
+}
+.logo-text-blue {
+    color: var(--zen-primary);
+}
+.logo-text-teal {
+    color: var(--zen-secondary);
+}
 
-    .hero-inner { max-width: 800px; margin: 0 auto; position: relative; text-align: center; }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; font-weight: 600; color: var(--muted);
-      letter-spacing: 2px; text-transform: uppercase;
-      margin-bottom: 28px; opacity: 0.7;
-    }
-    .hero-tag .tag-dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; }
+.nav-right {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.btn-outline {
+    padding: 9px 18px;
+    border: 1px solid var(--zen-border);
+    border-radius: var(--zen-radius-btn);
+    background: transparent;
+    color: var(--zen-text-sub);
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+.btn-outline:hover {
+    border-color: var(--zen-primary);
+    color: var(--zen-primary);
+}
+
+.btn-primary {
+    padding: 10px 22px;
+    border-radius: var(--zen-radius-btn);
+    border: none;
+    background: var(--zen-gradient);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 12px rgba(0,102,255,0.18);
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,102,255,0.25);
+}
+
+/* ==============================================
+   Hero 首页Banner
+   ============================================== */
+.hero {
+    padding-top: 160px;
+    padding-bottom: 100px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 18px;
+}
+
+.hero-gradient-text {
+    background: var(--zen-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.hero-desc {
+    font-size: 18px;
+    color: var(--zen-text-sub);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+}
+
+.hero-tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.tag {
+    padding: 6px 14px;
+    border-radius: var(--zen-radius-tag);
+    font-size: 13px;
+    background: rgba(0,102,255,0.08);
+    color: var(--zen-primary);
+}
+.dark .tag {
+    background: rgba(0,102,255,0.15);
+}
+
+/* ==============================================
+   工具卡片区域
+   ============================================== */
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.section-sub {
+    text-align: center;
+    color: var(--zen-text-sub);
+    margin-bottom: 48px;
+}
+
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 24px;
+    margin-bottom: 80px;
+}
+
+.tool-card {
+    background: var(--zen-bg-card);
+    border: 1px solid var(--zen-border);
+    border-radius: var(--zen-radius-card);
+    padding: var(--zen-card-padding);
+    transition: all 0.3s ease;
+}
+.tool-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    border-color: var(--zen-primary);
+}
+
+.tool-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--zen-radius-base);
+    background: linear-gradient(135deg, rgba(0,102,255,0.1), rgba(0,194,184,0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+}
+
+.tool-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.tool-card p {
+    font-size: 14px;
+    color: var(--zen-text-sub);
+    line-height: 1.65;
+}
+
+/* ==============================================
+   页脚
+   ============================================== */
+footer {
+    border-top: 1px solid var(--zen-border);
+    padding: 40px 0;
+    text-align: center;
+    color: var(--zen-text-sub);
+    font-size: 14px;
+}
+
+/* 适配移动端 */
+@media (max-width: 768px) {
     .hero h1 {
-      font-size: clamp(44px, 7vw, 80px); font-weight: 800;
-      letter-spacing: -2.5px; line-height: 1.05; margin-bottom: 20px;
+        font-size: 30px;
     }
-    .hero h1 .grad {
-      background: linear-gradient(135deg, #00e5ff 0%, #a855f7 50%, #f59e0b 100%);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    .hero {
+        padding-top: 120px;
     }
-    .hero h1 .sub { display: block; font-size: 0.5em; font-weight: 500; letter-spacing: 0; color: var(--muted); margin-top: 8px; }
-    .hero-desc {
-      font-size: 18px; color: var(--muted); line-height: 1.8;
-      max-width: 520px; margin: 0 auto 40px;
+    .tool-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     }
-
-    /* Hero 操作按钮 */
-    .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px; }
-    .btn-hero {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 32px; border-radius: 12px; font-size: 15px; font-weight: 600;
-      text-decoration: none; transition: all 0.25s; border: none; cursor: pointer;
+}
+@media (max-width: 480px) {
+    .tool-grid {
+        grid-template-columns: 1fr;
     }
-    .btn-hero.primary {
-      background: linear-gradient(135deg, #00e5ff, #a855f7);
-      color: #0a0c14; box-shadow: 0 8px 30px rgba(0,229,255,.2);
+    .nav-right .btn-outline {
+        display: none;
     }
-    .btn-hero.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,229,255,.3); }
-    .btn-hero.ghost {
-      background: transparent; color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-hero.ghost:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,229,255,.05); }
-
-    /* Hero 统计数字 */
-    .hero-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
-    .stat-block { text-align: center; min-width: 80px; }
-    .stat-block .sb-num { font-size: 36px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
-    .stat-block .sb-num.c1 { color: var(--cyan); }
-    .stat-block .sb-num.c2 { color: var(--purple); }
-    .stat-block .sb-num.c3 { color: #34d399; }
-    .stat-block .sb-num.c4 { color: #f59e0b; }
-    .stat-block .sb-label { font-size: 13px; color: var(--muted); }
-
-    /* ===== 滚动提示箭头 ===== */
-    .scroll-hint {
-      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-      opacity: 0.4; animation: bounceDown 2s ease-in-out infinite;
-    }
-    .scroll-hint span { font-size: 11px; color: var(--muted); letter-spacing: 1px; }
-    .scroll-hint .sh-arrow { font-size: 16px; }
-    @keyframes bounceDown { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
-
-    /* ===== 搜索框 ===== */
-    .search-section {
-      max-width: 620px; margin: 0 auto; padding: 40px 24px 60px;
-    }
-    .search-wrap { position: relative; }
-    .search-wrap .search-icon {
-      position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
-      font-size: 16px; opacity: 0.35; pointer-events: none;
-    }
-    #toolSearch {
-      width: 100%; padding: 16px 48px 16px 48px;
-      border: 1px solid var(--border); border-radius: 14px;
-      background: rgba(255,255,255,0.03); color: var(--text); font-size: 15px;
-      transition: border-color 0.25s, box-shadow 0.25s;
-      outline: none;
-    }
-    #toolSearch:focus {
-      border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,229,255,.08);
-    }
-    #toolSearch::placeholder { color: var(--muted); opacity: 0.5; }
-    .search-clear {
-      position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-      background: none; border: none; color: var(--muted); font-size: 14px;
-      cursor: pointer; display: none; padding: 4px 6px; border-radius: 4px;
-    }
-    .search-clear:hover { color: var(--text); background: rgba(255,255,255,.05); }
-    .search-stats { display: none; font-size: 12px; color: var(--muted); margin-top: 8px; padding-left: 4px; }
-
-    /* 搜索下拉 */
-    .sd-history { border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 4px; }
-    .sd-history .sd-h-title { font-size: 11px; font-weight: 700; color: var(--muted); padding: 10px 16px 6px; letter-spacing: 0.3px; opacity: 0.6; display: flex; align-items: center; justify-content: space-between; }
-    .sd-history .sd-h-title .sd-h-clear { cursor: pointer; font-size: 11px; color: var(--muted); opacity: 0.5; background:none; border:none; padding:0; }
-    .sd-history .sd-h-title .sd-h-clear:hover { opacity:1; color:var(--cyan); }
-    .sd-history .sd-h-item { display: flex; align-items: center; gap: 10px; padding: 8px 16px; cursor: pointer; transition: background 0.15s; border-radius: 6px; margin: 0 4px; }
-    .sd-history .sd-h-item:hover { background: rgba(0,229,255,0.08); }
-    .sd-history .sd-h-item .sd-h-icon { font-size: 14px; opacity: 0.5; flex-shrink: 0; }
-    .sd-history .sd-h-item .sd-h-text { font-size: 13px; color: var(--muted); flex: 1; }
-    .sd-history .sd-h-item .sd-h-del { font-size: 11px; color: var(--muted); opacity: 0.3; cursor: pointer; background: none; border: none; padding: 2px 6px; border-radius: 4px; }
-    .sd-history .sd-h-item .sd-h-del:hover { opacity: 0.8; color: #ef4444; background: rgba(239,68,68,0.1); }
-
-    .search-dropdown {
-      position: absolute; top: 100%; left: 0; right: 0; z-index: 9999;
-      margin-top: 6px; max-height: 420px; overflow-y: auto;
-      background: rgba(10,12,20,0.97); backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid var(--border); border-radius: 14px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      display: none;
-    }
-    .search-dropdown.show { display: block; }
-    .search-dropdown .sd-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 16px; cursor: pointer; transition: background 0.15s;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .search-dropdown .sd-item:last-child { border-bottom: none; }
-    .search-dropdown .sd-item:hover,
-    .search-dropdown .sd-item.sd-highlight { background: rgba(0,229,255,0.08); }
-    .search-dropdown .sd-icon {
-      flex-shrink: 0; width: 36px; height: 36px; display: flex;
-      align-items: center; justify-content: center;
-      background: rgba(255,255,255,0.05); border-radius: 10px;
-      font-size: 18px;
-    }
-    .search-dropdown .sd-info { flex: 1; min-width: 0; }
-    .search-dropdown .sd-info .sd-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
-    .search-dropdown .sd-info .sd-desc { font-size: 12px; color: var(--muted); line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .search-dropdown .sd-cat { flex-shrink: 0; font-size: 11px; color: var(--muted); background: rgba(255,255,255,0.05); padding: 4px 10px; border-radius: 6px; white-space: nowrap; }
-    .search-dropdown .sd-empty { padding: 32px 16px; text-align: center; color: var(--muted); font-size: 14px; }
-    .search-dropdown .sd-empty .sd-empty-icon { font-size: 28px; margin-bottom: 8px; }
-    .search-dropdown .sd-footer { padding: 10px 16px; text-align: center; font-size: 11px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.04); opacity: 0.6; }
-    .cat-section.search-hidden { display: none; }
-
-    /* ===== 更新日志时间轴 ===== */
-    .cl-section { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
-    .cl-section .section-head { text-align: center; margin-bottom: 40px; }
-    .cl-timeline { position: relative; padding-left: 40px; }
-    .cl-timeline::before {
-      content: ''; position: absolute; left: 15px; top: 0; bottom: 0;
-      width: 2px; background: linear-gradient(to bottom, var(--cyan), var(--purple), transparent);
-      opacity: 0.3;
-    }
-    .cl-entry { position: relative; margin-bottom: 32px; }
-    .cl-entry:last-child { margin-bottom: 0; }
-    .cl-dot {
-      position: absolute; left: -31px; top: 6px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: var(--cyan); border: 2px solid var(--bg);
-      box-shadow: 0 0 12px rgba(0,229,255,.3);
-      z-index: 1;
-    }
-    .cl-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px; transition: border-color 0.2s;
-    }
-    .cl-card:hover { border-color: rgba(0,229,255,.15); }
-    .cl-card .cl-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
-    .cl-card .cl-ver {
-      font-size: 12px; font-weight: 700; padding: 3px 10px; border-radius: 10px;
-      background: linear-gradient(135deg, rgba(0,229,255,.15), rgba(168,85,247,.15));
-      color: var(--cyan);
-    }
-    .cl-card .cl-date { font-size: 13px; color: var(--muted); }
-    .cl-card .cl-summary { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 12px; line-height: 1.6; }
-    .cl-card .cl-items { list-style: none; padding: 0; margin: 0; }
-    .cl-card .cl-items li {
-      font-size: 13px; color: var(--muted); padding: 4px 0; padding-left: 18px;
-      position: relative; line-height: 1.7;
-    }
-    .cl-card .cl-items li::before {
-      content: ''; position: absolute; left: 0; top: 11px;
-      width: 5px; height: 5px; border-radius: 50%; background: var(--muted); opacity: 0.5;
-    }
-    .cl-more { text-align: center; margin-top: 24px; }
-    .cl-more a {
-      display: inline-block; padding: 10px 28px; font-size: 14px; font-weight: 600;
-      border-radius: 10px; border: 1px solid var(--border); color: var(--muted);
-      text-decoration: none; transition: all 0.2s;
-    }
-    .cl-more a:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,229,255,.05); }
-
-    /* ===== 工具分类展示 ===== */
-    .cat-section { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
-    .cat-section .section-head { text-align: center; margin-bottom: 36px; }
-    .cat-group { margin-bottom: 48px; }
-    .cat-group:last-child { margin-bottom: 0; }
-    .cat-header {
-      display: flex; align-items: center; gap: 14px; margin-bottom: 20px;
-      padding-bottom: 14px; border-bottom: 1px solid var(--border);
-      text-decoration: none; transition: border-color 0.2s;
-    }
-    a.cat-header:hover { border-bottom-color: var(--cyan); }
-    .cat-icon {
-      width: 44px; height: 44px; border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 700; flex-shrink: 0;
-    }
-    .cat-name { font-size: 20px; font-weight: 700; color: var(--text); }
-    .cat-count { font-size: 13px; color: var(--muted); margin-left: auto; }
-    .tools-mini-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 12px;
-    }
-    .mini-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 14px; padding: 18px;
-      display: flex; flex-direction: column; gap: 8px;
-      transition: transform 0.2s, border-color 0.2s, background 0.2s;
-      text-decoration: none;
-    }
-    .mini-card:hover {
-      transform: translateY(-4px); border-color: rgba(168,85,247,.3);
-      background: rgba(255,255,255,0.04);
-    }
-    .mini-card .mc-icon { font-size: 24px; }
-    .mini-card .mc-name { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.3; }
-    .mini-card .mc-desc { font-size: 12px; color: var(--muted); line-height: 1.6; flex: 1; }
-
-    /* 收藏 & 最近使用 */
-    .fav-section { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-    .fav-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
-    .fav-item {
-      display: flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 10px; padding: 8px 14px;
-      transition: transform 0.2s, border-color 0.2s;
-      font-size: 13px; text-decoration: none; color: var(--text);
-    }
-    .fav-item:hover { transform: translateY(-2px); border-color: rgba(0,229,255,.3); }
-    .fav-item .fi-icon { font-size: 16px; }
-    .fav-item .fi-name { font-weight: 600; white-space: nowrap; }
-    .fav-item .fi-tag { font-size: 10px; color: var(--muted); background: rgba(255,255,255,.04); padding: 2px 8px; border-radius: 6px; }
-
-    .fav-btn {
-      position: fixed; bottom: 80px; right: 24px; z-index: 99;
-      width: 44px; height: 44px; border-radius: 50%;
-      border: 1px solid var(--border); background: rgba(10,12,20,0.9);
-      color: #f59e0b; font-size: 22px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-    }
-    .fav-btn:hover { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0,0,0,0.4); }
-
-    /* ===== 记录区 ===== */
-    .section-records { max-width: 1200px; margin: 0 auto; padding: 60px 24px; }
-    .section-records .section-head { text-align: center; margin-bottom: 32px; }
-    .records-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .rec-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 18px; padding: 26px;
-      display: flex; flex-direction: column; gap: 14px;
-      transition: transform 0.25s, border-color 0.25s, background 0.25s;
-      text-decoration: none;
-    }
-    .rec-card:hover {
-      transform: translateY(-6px); border-color: rgba(0,229,255,.2);
-      background: rgba(255,255,255,0.04);
-    }
-    .rec-icon {
-      width: 48px; height: 48px; border-radius: 12px; display: flex;
-      align-items: center; justify-content: center; font-size: 22px;
-    }
-    .rec-title { font-size: 16px; font-weight: 700; color: var(--text); }
-    .rec-desc { font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1; }
-    .rec-link { font-size: 13px; font-weight: 600; color: var(--cyan); display: inline-flex; align-items: center; gap: 4px; transition: gap 0.2s; }
-    .rec-card:hover .rec-link { gap: 8px; }
-
-    /* ===== 关于区 ===== */
-    .section-about { max-width: 800px; margin: 0 auto; padding: 60px 24px; }
-    .section-about .section-head { text-align: center; margin-bottom: 28px; }
-    .about-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 20px; padding: 36px;
-    }
-    .about-card p { font-size: 15px; color: var(--muted); line-height: 1.9; }
-    .about-card p + p { margin-top: 16px; }
-    .notice-bar {
-      display: flex; align-items: flex-start; gap: 14px;
-      background: rgba(0,229,255,.06); border: 1px solid rgba(0,229,255,.15);
-      border-radius: 14px; padding: 18px 20px; margin-top: 24px;
-    }
-    .notice-bar p { font-size: 13px; margin: 0; line-height: 1.6; }
-
-    /* ===== 友情链接 ===== */
-    .links-section { max-width: 1200px; margin: 0 auto; padding: 0 24px 60px; }
-    .links-header { text-align: center; margin-bottom: 24px; }
-    .links-header h2 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-    .links-header p { font-size: 13px; color: var(--muted); }
-    .links-grid { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
-    .link-card {
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px 20px;
-      display: flex; align-items: center; gap: 14px;
-      transition: transform 0.2s, border-color 0.2s;
-      text-decoration: none; min-width: 280px;
-    }
-    .link-card:hover { transform: translateY(-3px); border-color: var(--cyan); }
-    .link-icon {
-      width: 42px; height: 42px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 18px; background: rgba(255,255,255,0.04); flex-shrink: 0;
-    }
-    .link-info { flex: 1; min-width: 0; }
-    .link-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-    .link-desc { font-size: 12px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-    /* 骨架屏 */
-    .skeleton {
-      background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
-      background-size: 200% 100%;
-      animation: skel-load 1.5s infinite;
-      border-radius: 8px;
-    }
-    @keyframes skel-load { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-    .skeleton-text { height: 16px; margin-bottom: 8px; }
-    .skeleton-text.long { width: 100%; }
-    .skeleton-text.medium { width: 70%; }
-    .skeleton-text.short { width: 40%; }
-    .skeleton-circle { width: 48px; height: 48px; border-radius: 50%; }
-    .skeleton-card { padding: 20px; border-radius: 16px; min-height: 100px; }
-
-    /* 适配 tool-ui.css footer */
-    .z-wrap footer { margin-top: 0; }
-
-    /* ===== 汉堡菜单 ===== */
-    .hamburger {
-      display: none; align-items: center; justify-content: center;
-      width: 40px; height: 40px; border-radius: 10px; border: none;
-      background: var(--glass-b); color: var(--text); cursor: pointer;
-      font-size: 20px; transition: background 0.2s; flex-shrink: 0;
-    }
-    .hamburger:hover { background: rgba(255,255,255,0.12); }
-    .hamburger.active { background: var(--cyan); color: #000; }
-
-    /* 移动端侧滑菜单 */
-    .mobile-overlay {
-      position: fixed; inset: 0; z-index: 300;
-      background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
-      opacity: 0; visibility: hidden;
-      transition: opacity 0.3s, visibility 0.3s;
-    }
-    .mobile-overlay.open { opacity: 1; visibility: visible; }
-    .mobile-drawer {
-      position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw;
-      background: rgba(10,12,20,0.97); border-left: 1px solid var(--border);
-      padding: 24px 20px; z-index: 310; overflow-y: auto;
-      transform: translateX(100%); transition: transform 0.3s;
-      backdrop-filter: blur(24px);
-    }
-    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
-    .mobile-drawer .close-btn {
-      display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; border-radius: 10px; border: none;
-      background: var(--glass-b); color: var(--text); cursor: pointer;
-      font-size: 18px; margin-bottom: 20px; margin-left: auto;
-    }
-    .mobile-drawer .close-btn:hover { background: rgba(255,255,255,0.12); }
-    .mobile-drawer a {
-      display: block; padding: 12px 16px; border-radius: 12px;
-      font-size: 16px; font-weight: 600; color: var(--muted);
-      transition: color 0.2s, background 0.2s;
-    }
-    .mobile-drawer a:hover { color: var(--text); background: var(--glass-b); }
-    .mobile-drawer .m-cat {
-      font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--cyan); padding: 16px 16px 6px; margin-top: 8px; border-top: 1px solid var(--border);
-    }
-    .mobile-drawer .m-cat:first-of-type { border-top: none; margin-top: 0; }
-    .mobile-drawer .m-item {
-      display: flex; align-items: center; gap: 10px;
-      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
-      color: var(--muted); transition: color 0.2s, background 0.2s;
-    }
-    .mobile-drawer .m-item:hover { color: var(--text); background: var(--glass-b); }
-    .mobile-drawer .m-item .mi-icon { font-size: 16px; width: 24px; text-align: center; }
-    .mobile-drawer .mobile-tools { margin-bottom: 20px; }
-
-    /* ===== 响应式 ===== */
-    @media (max-width: 900px) {
-      .records-grid { grid-template-columns: repeat(2, 1fr); }
-      .tools-mini-grid { grid-template-columns: repeat(2, 1fr); }
-      .hero-stats { gap: 20px; }
-      .stat-block .sb-num { font-size: 28px; }
-    }
-    @media (max-width: 640px) {
-      .hero { min-height: 80vh; padding: 60px 16px 100px; }
-      .hero h1 { font-size: clamp(32px, 8vw, 52px); letter-spacing: -1.5px; }
-      .hero-desc { font-size: 15px; }
-      .hero-stats { gap: 16px; }
-      .stat-block .sb-num { font-size: 24px; }
-      .stat-block .sb-label { font-size: 11px; }
-      .breadcrumb-row { padding: 16px 16px 0; }
-      .records-grid { grid-template-columns: 1fr; }
-      .tools-mini-grid { grid-template-columns: 1fr; }
-      .cat-section { padding: 40px 16px; }
-      .section-records, .section-about { padding: 40px 16px; }
-      .about-card { padding: 24px 18px; }
-      .hero-actions { flex-direction: column; align-items: center; }
-      .btn-hero { width: 100%; max-width: 300px; justify-content: center; }
-      .search-section { padding: 30px 16px 40px; }
-      .cl-section { padding: 40px 16px; }
-      .cl-timeline { padding-left: 30px; }
-      .cl-dot { left: -25px; width: 10px; height: 10px; }
-      .cl-timeline::before { left: 11px; }
-      .cl-card { padding: 18px; }
-    }
-    .bookmark-float {
-      position: fixed; bottom: 24px; right: 24px; z-index: 999;
-      display: flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff;
-      border: none; padding: 14px 22px; border-radius: 50px;
-      font-size: 15px; font-weight: 600; cursor: pointer;
-      box-shadow: 0 6px 24px rgba(37,99,235,0.35);
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-    }
-    .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
-    .bookmark-float:active { transform: scale(0.96); }
-    @media (max-width: 640px) {
-      .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; }
-    }
-    .seo-links {
-      display: flex; flex-wrap: wrap; gap: 12px; padding: 32px 0 0;
-      border-top: 1px solid var(--border); margin: 24px 0 0;
-      font-size: 13px;
-    }
-    .seo-links a { color: var(--muted); text-decoration: none; }
-    .seo-links a:hover { color: var(--cyan); }
-  </style>
-<meta name="google-adsense-account" content="ca-pub-1955887568822472">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
+}
+</style>
 </head>
 <body>
 
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-  <div class="z-wrap">
-
-    <!-- ===== 导航栏 ===== -->
-     <nav>
-      <div class="nav-inner">
-        <a class="logo" href="/">ZenTools<span>3.0</span></a>
-        <div class="nav-links">
-          <a href="/" data-i18n="navHome" style="color:var(--text);">首页</a>
-          <div class="nav-group">
-            <button class="nav-trigger"><span data-i18n="navTools">工具箱</span><span class="arrow">▼</span></button>
-            <div class="mega-menu" id="megaMenu"></div>
-          </div>
-          <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
-           <a href="/knowledge/" data-i18n="navKB">知识库</a>
-          <a href="/guides/" data-i18n="navGuides">深度指南</a>
-          <a href="/yunchuang/reviews.html" data-i18n="navReview">深度评测</a>
-          <a href="/compare/" data-i18n="navCompare">工具对比</a>
-          <a href="/yunchuang/" data-i18n="navCloud">云创 - 免费云情报站</a>
-          <a href="/about.html" data-i18n="navAbout">关于</a>
-          <select id="langSelect" class="lang-select">
-            <option value="zh">中文</option>
-            <option value="en">English</option>
-            <option value="ja">日本語</option>
-            <option value="vi">Tiếng Việt</option>
-          </select>
-          <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
+<!-- 导航栏 -->
+<nav>
+    <div class="container nav-inner">
+        <div class="brand-logo">
+            <div class="logo-icon">Z</div>
+            <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span></div>
         </div>
-      </div>
-    </nav>
-
-    <!-- ===== 面包屑 ===== -->
-    <div class="breadcrumb-row">
-      <div class="bc-inner">
-        <a href="/" data-i18n="navHome">首页</a>
-      </div>
-    </div>
-
-    <!-- ===== 移动端侧滑菜单 ===== -->
-    <div class="mobile-overlay" id="mobileOverlay">
-      <div class="mobile-drawer" id="mobileDrawer">
-        <button class="close-btn" id="mobileClose">✕</button>
-        <div class="mobile-tools" id="mobileTools">
-          <div class="m-cat">导航</div>
-          <a href="/" data-i18n="navHome">首页</a>
-          <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
-          <a href="/knowledge/" data-i18n="navKB">知识库</a>
-          <a href="/guides/" data-i18n="navGuides">深度指南</a>
-          <a href="/yunchuang/reviews.html" data-i18n="navReview">深度评测</a>
-          <a href="/compare/" data-i18n="navCompare">工具对比</a>
-          <a href="/yunchuang/" data-i18n="navCloud">云创 - 免费云情报站</a>
-          <a href="/about.html" data-i18n="navAbout">关于</a>
+        <div class="nav-right">
+            <button class="btn-outline" id="switchTheme">🌙 暗黑模式</button>
+            <button class="btn-primary">全部工具</button>
         </div>
-      </div>
     </div>
+</nav>
 
-    <!-- ===== Hero ===== -->
-    <section class="hero">
-      <div class="hero-bg"></div>
-      <div class="blob-hero blob-h1"></div>
-      <div class="blob-hero blob-h2"></div>
-      <div class="hero-inner">
-        <div class="hero-tag"><span class="tag-dot"></span>ZenTools v3.0</div>
-        <h1><span class="grad">ZenTools</span><span class="sub" data-i18n="heroSubtitle">免费在线工具箱</span></h1>
-        <p class="hero-desc" data-i18n="heroDesc">免费 · 安全 · 无需上传，所有工具在浏览器本地运行，保护你的隐私。</p>
-        <div class="hero-actions">
-          <a href="#tools" class="btn-hero primary" data-i18n="startUse">浏览工具</a>
-          <a href="#records" class="btn-hero ghost" data-i18n="viewRecords">查看记录</a>
-        </div>
-        <div class="hero-stats">
-          <div class="stat-block"><div class="sb-num c1" id="statToolsCount">0</div><div class="sb-label">工具</div></div>
-          <div class="stat-block"><div class="sb-num c2" id="statCatCount">0</div><div class="sb-label">分类</div></div>
-          <div class="stat-block"><div class="sb-num c3" id="statTutorialCount">0</div><div class="sb-label">教程</div></div>
-          <div class="stat-block"><div class="sb-num c4">100%</div><div class="sb-label">本地</div></div>
-        </div>
-      </div>
-      <div class="scroll-hint"><span>向下浏览</span><span class="sh-arrow">↓</span></div>
-    </section>
-
-    <!-- ===== 搜索区 ===== -->
-    <div class="search-section">
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input type="text" id="toolSearch" placeholder="搜索工具，例如：PDF、图片压缩、AI 写作..." data-i18n-placeholder="searchPlaceholder" autocomplete="off">
-        <button class="search-clear" id="searchClear">✕</button>
-        <div class="search-stats" id="searchStats"></div>
-        <div class="search-dropdown" id="searchDropdown"></div>
-      </div>
-    </div>
-
-    <!-- ===== 更新日志时间轴 ===== -->
-    <div class="cl-section">
-      <div class="section-head reveal">
-        <span class="section-eyebrow">Changelog</span>
-        <h2 data-i18n="changelogTitle">更新日志</h2>
-      </div>
-      <div class="cl-timeline" id="changelogList"></div>
-      <div class="cl-more">
-        <a href="/changelog.html" data-i18n="changelogViewAll">查看全部</a>
-      </div>
-    </div>
-
-    <!-- ===== 工具分类 ===== -->
-    <div id="tools">
-      <div id="toolsContainer"></div>
-    </div>
-
-    <!-- ===== 个人记录 ===== -->
-    <div class="section-records" id="records">
-      <div class="section-head reveal">
-        <span class="section-eyebrow" data-i18n="recEyebrow">记录内容</span>
-        <h2 data-i18n="recTitle">整理了哪些内容？</h2>
-      </div>
-      <div class="records-grid" id="recordsGrid">
-        <a class="rec-card" href="articles/my-first-pdf-tool.html">
-          <div class="rec-icon" style="background:rgba(16,185,129,.12)">📄</div>
-          <div class="rec-title">我的第一个 PDF 工具</div>
-          <div class="rec-desc">记录从零开始使用 VS Code 编写 PDF 工具的过程、问题和解决方法。</div>
-          <span class="rec-link">查看内容 →</span>
-        </a>
-        <a class="rec-card" href="notes.html">
-          <div class="rec-icon" style="background:rgba(0,229,255,.12)">📘</div>
-          <div class="rec-title">个人学习笔记</div>
-          <div class="rec-desc">记录日常学习过程中遇到的问题、理解过程和整理心得。</div>
-          <span class="rec-link">查看内容 →</span>
-        </a>
-        <a class="rec-card" href="tutorials/">
-          <div class="rec-icon" style="background:rgba(0,229,255,.12)">🎓</div>
-          <div class="rec-title">教程中心</div>
-          <div class="rec-desc">PDF合并、图片压缩、视频转GIF、AI写作等在线工具使用教程。</div>
-          <span class="rec-link">进入教程中心 →</span>
-        </a>
-        <a class="rec-card" href="tutorials/cursor-vs-windsurf.html">
-          <div class="rec-icon" style="background:rgba(168,85,247,.12)">⚖️</div>
-          <div class="rec-title">Cursor vs Windsurf 全面对比</div>
-          <div class="rec-desc">从功能、定价、AI 能力到隐私，深度对比两款主流 AI 编程工具，帮你选出最合适的那一个。</div>
-          <span class="rec-link">阅读对比 →</span>
-        </a>
-        <a class="rec-card" href="tutorials/dify-vs-n8n.html">
-          <div class="rec-icon" style="background:rgba(0,229,255,.12)">🔀</div>
-          <div class="rec-title">Dify vs n8n 全面对比</div>
-          <div class="rec-desc">AI 应用平台还是通用自动化引擎？六大维度深度对比，帮你团队做出明智选择。</div>
-          <span class="rec-link">阅读对比 →</span>
-        </a>
-        <a class="rec-card featured" href="knowledge/">
-          <div class="rec-icon" style="background:linear-gradient(135deg,rgba(0,229,255,.15),rgba(168,85,247,.15))">📚</div>
-          <div class="rec-title">知识库</div>
-          <div class="rec-desc">AI 教程 · 提示词工程 · 工作流 · 模型对比 · API 教程 · 部署指南。持续积累的高价值内容。</div>
-          <span class="rec-link">探索知识库 →</span>
-        </a>
-        <a class="rec-card" href="articles/web-design-notes.html">
-          <div class="rec-icon" style="background:rgba(168,85,247,.12)">💻</div>
-          <div class="rec-title">网页制作记录</div>
-          <div class="rec-desc">整理网页排版、页面结构、样式调整和常见问题处理方法。</div>
-          <span class="rec-link">查看内容 →</span>
-        </a>
-        <a class="rec-card" href="file-processing.html">
-          <div class="rec-icon" style="background:rgba(20,184,166,.12)">📄</div>
-          <div class="rec-title">文件处理经验</div>
-          <div class="rec-desc">记录文档整理、文件保存、格式处理等日常操作经验。</div>
-          <span class="rec-link">查看内容 →</span>
-        </a>
-        <a class="rec-card" href="image/image-organize.html">
-          <div class="rec-icon" style="background:rgba(245,158,11,.12)">🖼️</div>
-          <div class="rec-title">图片整理方法</div>
-          <div class="rec-desc">整理图片排版、尺寸调整、简单处理和保存方面的经验。</div>
-          <span class="rec-link">查看内容 →</span>
-        </a>
-        <a class="rec-card" href="examples.html">
-          <div class="rec-icon" style="background:rgba(244,63,94,.1)">🧩</div>
-          <div class="rec-title">简单页面示例</div>
-          <div class="rec-desc">保存一些个人制作的小页面示例，方便以后查看和修改。</div>
-          <span class="rec-link">查看内容 →</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- ===== 关于本站 ===== -->
-    <div class="section-about" id="about">
-      <div class="section-head reveal">
-        <span class="section-eyebrow" data-i18n="aboutEyebrow">关于本站</span>
-        <h2 data-i18n="aboutTitle">这里是什么？</h2>
-      </div>
-      <div class="about-card" id="aboutCard">
-        <p>本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。</p>
-        <p>所有内容均为个人日常整理，仅供学习和参考使用。网站内容仅供个人学习和经验分享使用，不涉及企业信息、商品销售、在线交易、论坛社区、新闻发布、教育培训等经营性或需要专项审批的内容。</p>
-        <div class="notice-bar">
-          <span style="font-size:18px;">💡</span>
-          <p><strong>说明：</strong>本站内容仅供学习参考，不涉及经营性互联网信息服务。</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== 友情链接 ===== -->
-    <div class="links-section">
-      <div class="links-header">
-        <h2>友情链接</h2>
-        <p>感谢以下朋友网站的支持</p>
-      </div>
-      <div class="links-grid">
-        <a href="https://langtaosha-prog.github.io/tedingjinenglianxi/index.html" class="link-card" target="_blank" rel="noopener noreferrer">
-          <div class="link-icon">📚</div>
-          <div class="link-info">
-            <div class="link-title">建筑分野特定技能学习</div>
-            <div class="link-desc">个人技能练习与学习记录平台</div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- ===== 页脚 ===== -->
-<footer>
-      <div class="footer-inner">
-        <div class="footer-logo">ZenTools</div>
-        <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/changelog.html">更新日志</a>
-          <a href="/privacy.html">隐私政策</a>
-        </div>
-        <p class="footer-copy" id="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
-        <p class="footer-copy" style="margin-top:6px;">
-          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" style="color:var(--muted);">鲁ICP备2026030242号-1</a>
-          <span style="color:var(--muted);"> | </span>
-          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank" rel="noopener noreferrer" style="color:var(--muted);">鲁公网安备37098302001324号</a>
+<!-- 主视觉Banner -->
+<section class="hero">
+    <div class="container">
+        <h1>专业工具 · <span class="hero-gradient-text">无限可能</span></h1>
+        <p class="hero-desc">
+            ZenTools 免费全能在线工具合集，<strong>所有工具浏览器本地运算</strong>，文件全程不上传服务器，保障你的隐私与数据安全。
         </p>
-      </div>
-    </footer>
+        <div class="hero-tags">
+            <span class="tag">🧩 本地运算</span>
+            <span class="tag">🔒 隐私优先</span>
+            <span class="tag">♾️ 永久免费</span>
+            <span class="tag">🚫 无广告</span>
+        </div>
+        <button class="btn-primary" style="padding:14px 36px;font-size:16px;">开始使用工具</button>
+    </div>
+</section>
 
-    <!-- ===== SEO 静态分类链接（Googlebot 直接可爬）===== -->
-    <nav class="seo-links" aria-label="工具分类导航">
-      <a href="/pdf/">PDF工具</a>
-      <a href="/image/">图片工具</a>
-      <a href="/text/">文本工具</a>
-      <a href="/dev/">开发工具</a>
-      <a href="/audio/">音频工具</a>
-      <a href="/video/">视频工具</a>
-      <a href="/ai/">AI工具</a>
-      <a href="/seo/">SEO工具</a>
-      <a href="/life/">生活工具</a>
-      <a href="/finance/">金融工具</a>
-      <a href="/qr/">二维码工具</a>
-      <a href="/tools/">全部工具</a>
-      <a href="/tutorials/">教程中心</a>
-      <a href="/guides/">深度指南</a>
-      <a href="/compare/">工具对比</a>
-    </nav>
-
-  </div>
-
-  <!-- ===== 脚本 ===== -->
-  <script>
-    window.ZT_PAGE = {
-        zh: {
-        pageTitle: 'ZenTools - 个人学习记录与经验整理',
-        navHome: '首页', navArticles: '教程中心', navKB: '知识库', navGuides: '深度指南', navReview: '深度评测', navCompare: '工具对比', navCloud: '云创 - 免费云情报站', navAbout: '关于', navTools: '工具箱',
-        badge: '300+ 免费工具 · 纯本地处理 · 无需注册',
-        heroSubtitle: '免费在线工具箱',
-        heroDesc: '免费 · 安全 · 无需上传，所有工具在浏览器本地运行，保护你的隐私。',
-        startUse: '🛠️ 浏览工具', viewRecords: '📘 查看记录',
-        recEyebrow: '记录内容', recTitle: '整理了哪些内容？',
-        aboutEyebrow: '关于本站', aboutTitle: '这里是什么？',
-        aboutP1: '本站主要记录本人在学习和使用电脑、网页、文档、图片等过程中遇到的问题和解决方法。',
-        aboutP2: '所有内容均为个人日常整理，仅供学习和参考使用。',
-        aboutNotice: '本站内容仅供学习参考，不涉及经营性互联网信息服务。',
-        statTools: '在线工具', statCats: '工具分类', statLocal: '纯本地处理', statTutorials: '教程',
-        changelogTitle: '更新日志', changelogViewAll: '查看全部 →',
-        toolCount: '个工具', favTitle: '⭐ 收藏的工具', recentTitle: '最近使用', hotTitle: '热门工具', footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
-        records: [
-          { title:'我的第一个 PDF 工具', desc:'记录从零开始使用 VS Code 编写 PDF 工具的过程、问题和解决方法。', link:'查看内容 →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
-          { title:'个人学习笔记', desc:'记录日常学习过程中遇到的问题、理解过程和整理心得。', link:'查看内容 →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
-          { title:'网页制作记录', desc:'整理网页排版、页面结构、样式调整和常见问题处理方法。', link:'查看内容 →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
-          { title:'文件处理经验', desc:'记录文档整理、文件保存、格式处理等日常操作经验。', link:'查看内容 →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
-          { title:'图片整理方法', desc:'整理图片排版、尺寸调整、简单处理和保存方面的经验。', link:'查看内容 →', url:'image/image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
-          { title:'简单页面示例', desc:'保存一些个人制作的小页面示例，方便以后查看和修改。', link:'查看内容 →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
-        ]
-      },
-        en: {
-        pageTitle: 'ZenTools - Personal Learning & Free Online Tools',
-        navHome: 'Home', navArticles: 'Guides', navKB: 'Knowledge Base', navGuides: 'Deep Guides', navReview: 'Reviews', navCompare: 'Compare', navCloud: 'Yunchuang - Free Cloud Intelligence', navAbout: 'About', navTools: 'Tools',
-        badge: '300+ Free Tools · Local Only · No Signup',
-        heroSubtitle: 'Free Online Toolkit',
-        heroDesc: 'Free · Safe · No upload required. All tools run locally in your browser, protecting your privacy.',
-        startUse: '🛠️ Browse Tools', viewRecords: '📘 View Notes',
-        recEyebrow: 'RECORDS', recTitle: 'What\'s Inside?',
-        aboutEyebrow: 'ABOUT', aboutTitle: 'What is this?',
-        aboutP1: 'A personal site documenting my learning journey with computers, web development, documents, images and more.',
-        aboutP2: 'All content is personal notes for learning and reference only.',
-        aboutNotice: 'This site is for learning purposes only and does not involve commercial internet services.',
-        statTools: 'Online Tools', statCats: 'Categories', statLocal: 'Browser Local', statTutorials: 'Tutorials',
-        changelogTitle: 'Changelog', changelogViewAll: 'View All →',
-        toolCount: 'tools', favTitle: '⭐ Favorites', recentTitle: 'Recently Used', hotTitle: 'Popular Tools', footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
-        records: [
-          { title:'My First PDF Tool', desc:'From scratch to building a PDF tool with VS Code.', link:'Read more →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
-          { title:'Learning Notes', desc:'Daily learning notes, problems and solutions.', link:'Read more →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
-          { title:'Web Design Notes', desc:'Layout tips, structure, styling and troubleshooting.', link:'Read more →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
-          { title:'File Processing', desc:'Document organization, file saving and format handling.', link:'Read more →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
-          { title:'Image Organization', desc:'Image layout, resizing, processing and storage tips.', link:'Read more →', url:'image/image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
-          { title:'Sample Pages', desc:'Personal demo pages for future reference.', link:'Read more →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
-        ]
-      },
-        ja: {
-        pageTitle: 'ZenTools - 個人学習記録と無料ツール',
-        navHome: 'ホーム', navArticles: 'ガイド', navKB: 'ナレッジベース', navGuides: '深層ガイド', navReview: '詳細レビュー', navCompare: 'ツール比較', navCloud: '雲創 - 無料クラウドインテリジェンス', navAbout: '概要', navTools: 'ツール',
-        badge: '300+ 無料ツール · ローカル処理 · 登録不要',
-        heroSubtitle: '無料オンラインツールボックス',
-        heroDesc: '無料 · 安全 · アップロード不要。すべてブラウザ上でローカル処理、プライバシー保護。',
-        startUse: '🛠️ ツールを見る', viewRecords: '📘 記録を見る',
-        recEyebrow: '記録内容', recTitle: 'どんな内容？',
-        aboutEyebrow: '概要', aboutTitle: 'これは何？',
-        aboutP1: 'パソコンやウェブ、書類、画像などの学習過程で出会った問題と解決方法を記録しています。',
-        aboutP2: 'すべての内容は個人の学習と参考用です。',
-        aboutNotice: '当サイトは学習目的のみで、営利目的の情報サービスは提供しておりません。',
-        statTools: '無料ツール', statCats: 'カテゴリー', statLocal: 'ローカル処理', statTutorials: 'ガイド',
-        changelogTitle: '更新履歴', changelogViewAll: 'すべて見る →',
-        toolCount: 'ツール', favTitle: '⭐ お気に入り', recentTitle: '最近使用したツール', hotTitle: '人気ツール', footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
-        records: [
-          { title:'初めての PDF ツール', desc:'VS Code で PDF ツールを作った記録。', link:'読む →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
-          { title:'学習ノート', desc:'日常の学習記録、問題と解決方法。', link:'読む →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
-          { title:'ウェブ制作記録', desc:'レイアウト、構造、スタイル調整のヒント。', link:'読む →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
-          { title:'ファイル処理', desc:'書類整理、保存、形式変換の経験。', link:'読む →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
-          { title:'画像整理方法', desc:'画像のレイアウト、サイズ調整、保存方法。', link:'読む →', url:'image/image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
-          { title:'サンプルページ', desc:'個人制作のページサンプル。', link:'読む →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
-        ]
-      },
-        vi: {
-        pageTitle: 'ZenTools - Học tập cá nhân & Công cụ miễn phí',
-        navHome: 'Trang chủ', navArticles: 'Hướng dẫn', navKB: 'Kiến thức', navGuides: 'Hướng dẫn chuyên sâu', navReview: 'Đánh giá', navCompare: 'So sánh', navCloud: 'Yunchuang - Tri thức Đám mây Miễn phí', navAbout: 'Giới thiệu', navTools: 'Công cụ',
-        badge: '300+ Công cụ miễn phí · Xử lý local · Không cần đăng ký',
-        heroSubtitle: 'Hộp công cụ trực tuyến miễn phí',
-        heroDesc: 'Miễn phí · An toàn · Không cần tải lên. Tất cả công cụ chạy local trong trình duyệt, bảo vệ quyền riêng tư.',
-        startUse: '🛠️ Xem công cụ', viewRecords: '📘 Xem ghi chép',
-        recEyebrow: 'GHI CHÉP', recTitle: 'Có gì bên trong?',
-        aboutEyebrow: 'GIỚI THIỆU', aboutTitle: 'Đây là gì?',
-        aboutP1: 'Trang web ghi lại hành trình học tập về máy tính, phát triển web, tài liệu, hình ảnh và nhiều hơn nữa.',
-        aboutP2: 'Tất cả nội dung là ghi chép cá nhân cho mục đích học tập và tham khảo.',
-        aboutNotice: 'Trang web này chỉ dành cho mục đích học tập, không liên quan đến dịch vụ thương mại.',
-        statTools: 'Công cụ miễn phí', statCats: 'Danh mục', statLocal: 'Xử lý local', statTutorials: 'Hướng dẫn',
-        changelogTitle: 'Nhật ký cập nhật', changelogViewAll: 'Xem tất cả →',
-        toolCount: 'công cụ', favTitle: '⭐ Công cụ yêu thích', recentTitle: 'Đã dùng gần đây', hotTitle: 'Công cụ phổ biến', footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
-        records: [
-          { title:'Công cụ PDF đầu tiên', desc:'Xây dựng công cụ PDF từ đầu với VS Code.', link:'Xem thêm →', url:'articles/my-first-pdf-tool.html', icon:'📄', bg:'rgba(16,185,129,.12)' },
-          { title:'Ghi chép học tập', desc:'Ghi chép học tập hàng ngày, vấn đề và giải pháp.', link:'Xem thêm →', url:'notes.html', icon:'📘', bg:'rgba(0,229,255,.12)' },
-          { title:'Ghi chép thiết kế web', desc:'Mẹo bố cục, cấu trúc, kiểu dáng và xử lý sự cố.', link:'Xem thêm →', url:'articles/web-design-notes.html', icon:'💻', bg:'rgba(168,85,247,.12)' },
-          { title:'Xử lý tệp', desc:'Sắp xếp tài liệu, lưu tệp và xử lý định dạng.', link:'Xem thêm →', url:'file-processing.html', icon:'📄', bg:'rgba(20,184,166,.12)' },
-          { title:'Phương pháp sắp xếp ảnh', desc:'Bố cục ảnh, thay đổi kích thước, xử lý và lưu trữ.', link:'Xem thêm →', url:'image/image-organize.html', icon:'🖼️', bg:'rgba(245,158,11,.12)' },
-          { title:'Trang mẫu', desc:'Các trang demo cá nhân để tham khảo sau.', link:'Xem thêm →', url:'examples.html', icon:'🧩', bg:'rgba(244,63,94,.1)' }
-
-        ]
-      }
-    };
-  </script>
-  <script src="assets/js/common-i18n.min.js"></script>
-  <script src="assets/js/tool-ui.min.js"></script>
-  <script>
-    // ===== 缓存数据 =====
-    let _toolsData = null;
-
-    // ===== 获取当前语言的翻译 =====
-    function getDict(lang) {
-      if (!lang) lang = localStorage.getItem('zentools_lang') || 'zh';
-      return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
-    }
-
-    // ===== 获取工具的多语言名称 =====
-    function tName(tool, lang) {
-      if (lang === 'zh') return tool.name;
-      return tool['name__' + lang] || tool['name__en'] || tool.name;
-    }
-    function tDesc(tool, lang) {
-      if (lang === 'zh') return tool.description;
-      return tool['description__' + lang] || tool['description__en'] || tool.description;
-    }
-    function tCat(cats, catsEn, catsJa, catsVi, lang, index) {
-      if (lang === 'zh') return cats[index];
-      const map = { en: catsEn, ja: catsJa, vi: catsVi };
-      return (map[lang] && map[lang][index]) || cats[index];
-    }
-
-    // ===== 分类颜色映射 =====
-    const catColors = {
-      'PDF工具': { color: '#f43145', bg: 'rgba(244,49,69,.12)' },
-      '图片工具': { color: '#27c27b', bg: 'rgba(39,194,123,.12)' },
-      '文本工具': { color: '#2d8cff', bg: 'rgba(45,140,255,.12)' },
-      '视频工具': { color: '#8a45ff', bg: 'rgba(138,69,255,.12)' },
-      '音频工具': { color: '#3278ff', bg: 'rgba(50,120,255,.12)' },
-      '生活工具': { color: '#ffb324', bg: 'rgba(255,179,36,.12)' },
-      '金融工具': { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
-      'AI工具':   { color: '#8b4cff', bg: 'rgba(139,76,255,.12)' },
-      '开发工具': { color: '#22b978', bg: 'rgba(34,185,120,.12)' },
-      'SEO工具':  { color: '#10b981', bg: 'rgba(16,185,129,.12)' },
-      '办公工具': { color: '#f59e0b', bg: 'rgba(245,158,11,.12)' },
-      '设计工具': { color: '#ec4899', bg: 'rgba(236,72,153,.12)' },
-    };
-    const catIconMap = {
-      'PDF工具': 'PDF', '图片工具': 'IMG', '文本工具': 'T',
-      '视频工具': '▶', '音频工具': '♪', '生活工具': '☁',
-      '金融工具': '₿', 'AI工具': 'AI', '开发工具': '</>',
-      'SEO工具': 'SEO', '办公工具': 'OF', '设计工具': 'DT',
-    };
-    function getCatIcon(cat) { return catIconMap[cat] || '🔧'; }
-
-    const catSlug = { 'PDF工具':'pdf', '图片工具':'image', '开发工具':'dev', '生活工具':'life', '音频工具':'audio', '视频工具':'video', '文本工具':'text', 'AI工具':'ai', '金融工具':'finance', 'SEO工具':'seo', '设计工具':'design', '办公工具':'' };
-
-    // ===== 渲染首页 =====
-    function renderHome(data, lang) {
-      const tools = data.tools || [];
-      const cats = data.categories || [];
-      const catsEn = data.categories__en || [];
-      const catsJa = data.categories__ja || [];
-      const catsVi = data.categories__vi || [];
-      const dict = getDict(lang);
-
-      // 按分类分组
-      const grouped = {};
-      tools.forEach(t => {
-        const cat = t.category || '其他';
-        if (!grouped[cat]) grouped[cat] = [];
-        grouped[cat].push(t);
-      });
-
-            // 统计条 - 迷你化显示
-      const statToolsCount = document.getElementById('statToolsCount');
-      const statCatCount = document.getElementById('statCatCount');
-      const statTutorialCount = document.getElementById('statTutorialCount');
-      if (statToolsCount) statToolsCount.textContent = tools.length;
-      if (statCatCount) statCatCount.textContent = Object.keys(grouped).length;
-      
-      // 加载教程数量
-      loadTutorialCount(dict);
-      
-      // 最近使用 & 收藏
-      try {
-        const recent = JSON.parse(localStorage.getItem('zt_recent')) || [];
-        const favs = JSON.parse(localStorage.getItem('zt_favorites')) || [];
-        const container2 = document.getElementById('toolsContainer');
-        if (container2 && (recent.length || favs.length)) {
-          // 语言切换时清除旧区块，避免重复插入
-          document.querySelectorAll('.fav-section').forEach(el => el.remove());
-          let html = '<div class="fav-section">';
-          if (favs.length) {
-            html += '<div class="section-head reveal" style="margin-top:40px;"><span class="section-eyebrow">\u2b50</span><h2>' + (dict.favTitle || '\u6536\u85cf\u7684\u5de5\u5177') + '</h2></div><div class="fav-grid">';
-            favs.slice(0, 8).forEach(function(f) {
-              const t = tools.find(function(t2) { return t2.url === f.url; });
-              if (t) html += '<a class="fav-item" href="' + t.url + '"><span class="fi-icon">' + (t.icon || '\U0001f527') + '</span><span class="fi-name">' + tName(t, lang) + '</span><span class="fi-tag">' + t.category + '</span></a>';
-            });
-            html += '</div>';
-          }
-          if (recent.length) {
-            html += '<div class="section-head reveal" style="margin-top:40px;"><h2>' + (dict.recentTitle || '\u6700\u8fd1\u4f7f\u7528') + '</h2></div><div class="fav-grid">';
-            recent.slice(0, 8).forEach(function(r) {
-              const t = tools.find(function(t2) { return t2.url === r.url; });
-              if (t) html += '<a class="fav-item" href="' + t.url + '"><span class="fi-icon">' + (t.icon || '\U0001f527') + '</span><span class="fi-name">' + tName(t, lang) + '</span><span class="fi-tag">' + t.category + '</span></a>';
-            });
-            html += '</div>';
-          }
-          html += '</div>';
-          container2.insertAdjacentHTML('beforebegin', html);
-        }
-      } catch(e) {}
-
-      // 热门工具（基于点击统计）
-      try {
-        var clicksStr = localStorage.getItem('zt_clicks');
-        if (clicksStr) {
-          var clicks = JSON.parse(clicksStr);
-          var entries = Object.entries(clicks).sort(function(a, b) { return b[1] - a[1]; });
-          var top10 = entries.slice(0, 10);
-          var hotHtml = '<div class="fav-section" style="margin-top:40px;"><div class="section-head reveal"><h2>' + (dict.hotTitle || '\u70ed\u95e8\u5de5\u5177') + '</h2></div><div class="fav-grid">';
-          var added = 0;
-          top10.forEach(function(e) {
-            var t = tools.find(function(t2) { return t2.url === e[0] || t2.url.indexOf(e[0].replace('/','-')) >= 0 || e[0].indexOf(t2.url) >= 0; });
-            if (t && added < 8) {
-              hotHtml += '<a class="fav-item" href="' + t.url + '"><span class="fi-icon">' + (t.icon || '\U0001f527') + '</span><span class="fi-name">' + tName(t, lang) + '</span><span class="fi-tag">' + e[1] + '\u6b21</span></a>';
-              added++;
-            }
-          });
-          hotHtml += '</div></div>';
-          if (added) {
-            var c = document.getElementById('toolsContainer');
-            if (c) c.insertAdjacentHTML('beforebegin', hotHtml);
-          }
-        }
-      } catch(e) {}
-
-      // 巨型下拉菜单 - 显示所有分类
-      const megaMenu = document.getElementById('megaMenu');
-      if (megaMenu) {
-        const catOrder = data.categories || Object.keys(grouped);
-        let megaHtml = '<div class="mega-grid">';
-        catOrder.forEach(function(cat) {
-          const catIdx = cats.indexOf(cat);
-          const catName = tCat(cats, catsEn, catsJa, catsVi, lang, catIdx);
-          const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
-          const tls = grouped[cat] || [];
-          megaHtml += '<div class="mega-cat" style="color:' + cc.color + '"><span>' + catName + '</span><span style="font-size:11px;opacity:0.5">' + tls.length + '</span></div>';
-          if (tls.length === 0) {
-            megaHtml += '<div class="mega-empty">—</div>';
-          } else {
-            tls.forEach(function(t) {
-              megaHtml += '<a class="mega-item" href="' + t.url + '" onclick="trackToolClick(\'' + t.url.replace("'", "\'") + '\', \'' + t.name.replace("'", "\'") + '\'); return true;"><div class="mi-icon">' + (t.icon || '🔧') + '</div><div class="mi-name">' + tName(t, lang) + '</div></a>';
-            });
-          }
-        });
-        megaHtml += '</div>';
-        megaMenu.innerHTML = megaHtml;
-      }
-
-      // 工具分类区 - 只展示核心分类，其余引导到全部工具页
-      const container = document.getElementById('toolsContainer');
-      if (container) {
-        const curatedCats = ['PDF工具', '图片工具', '开发工具', '生活工具', '音频工具', '视频工具', '文本工具', 'AI工具', '金融工具', 'SEO工具', '设计工具', '办公工具'];
-        container.innerHTML = Object.keys(grouped).filter(c => grouped[c].length > 0 && curatedCats.includes(c)).map(cat => {
-          const cc = catColors[cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
-          const tools = grouped[cat];
-          const catName = tCat(cats, catsEn, catsJa, catsVi, lang, cats.indexOf(cat));
-          const slug = catSlug[cat];
-          const catHref = slug ? '/' + slug + '/' : '/tools.html';
-          return `<div class="cat-section">
-            <a href="${catHref}" class="cat-header reveal" style="color:inherit;text-decoration:none;">
-              <div class="cat-icon" style="background:${cc.bg};color:${cc.color}">${getCatIcon(cat)}</div>
-              <span class="cat-name">${catName}</span>
-              <span class="cat-count">${tools.length} ${dict.toolCount}</span>
-            </a>
-            <div class="tools-mini-grid reveal-stagger">
-              ${tools.slice(0, 8).map(t => `
-                <a class="mini-card" href="${t.url}" data-keywords="${(t.keywords || '') + ' ' + (t.name__en || '') + ' ' + (t.name__ja || '') + ' ' + (t.name__vi || '')}">
-                  <div class="mc-icon">${t.icon || '🔧'}</div>
-                  <div class="mc-name">${tName(t, lang)}</div>
-                  <div class="mc-desc">${tDesc(t, lang)}</div>
-                </a>
-              `).join('')}
+<!-- 工具卡片区域 -->
+<section style="padding-bottom: 80px;">
+    <div class="container">
+        <h2 class="section-title">精选工具合集</h2>
+        <p class="section-sub">覆盖办公、图片、PDF、开发、日常效率全场景</p>
+        <div class="tool-grid">
+            <div class="tool-card">
+                <div class="tool-icon">📄</div>
+                <h3>PDF 工具箱</h3>
+                <p>PDF合并、拆分、压缩、转换，本地处理不泄露文档内容</p>
             </div>
-          </div>`;
-        }).join('');
-      }
+            <div class="tool-card">
+                <div class="tool-icon">🖼️</div>
+                <h3>图片处理</h3>
+                <p>图片压缩、格式转换、尺寸裁剪、背景处理，高清无损</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">⚙️</div>
+                <h3>开发者工具</h3>
+                <p>JSON格式化、编解码、时间戳、哈希计算，开发效率神器</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">✍️</div>
+                <h3>文本工具</h3>
+                <p>字数统计、繁简转换、排版清理、文本对比</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">🧮</div>
+                <h3>日常效率工具</h3>
+                <p>单位换算、随机生成、配色工具、日期计算</p>
+            </div>
+            <div class="tool-card">
+                <div class="tool-icon">✨</div>
+                <h3>AI 轻工具</h3>
+                <p>本地AI文本处理、内容优化，极速无延迟</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-      // 个人记录区
-      const recordsGrid = document.getElementById('recordsGrid');
-      if (recordsGrid && dict.records) {
-        recordsGrid.innerHTML = dict.records.map(r => `
-          <a class="rec-card" href="${r.url}">
-            <div class="rec-icon" style="background:${r.bg}">${r.icon}</div>
-            <div class="rec-title">${r.title}</div>
-            <div class="rec-desc">${r.desc}</div>
-            <span class="rec-link">${r.link}</span>
-          </a>
-        `).join('');
-      }
-
-      // 关于区 + 页脚
-      const aboutCard = document.getElementById('aboutCard');
-      if (aboutCard) {
-        aboutCard.innerHTML = `
-          <p>${dict.aboutP1}</p>
-          <p>${dict.aboutP2}</p>
-          <div class="notice-bar"><span style="font-size:18px;">💡</span><p><strong>${dict.aboutTitle}：</strong>${dict.aboutNotice}</p></div>
-        `;
-      }
-      const footerCopy = document.getElementById('footerCopy');
-      if (footerCopy) footerCopy.textContent = dict.footerCopy;
-
-      // 重新触发滚动动画
-      setTimeout(() => {
-        document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
-          el.classList.remove('visible');
-          const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-          }, { threshold: 0.08 });
-          obs.observe(el);
-        });
-      }, 100);
-    }
-
-    // ===== 加载并渲染（防崩增强版）=====
-    async function loadAndRender(lang) {
-      // 检查是否处于备用模式
-      if (window.ZT_CRASH && window.ZT_CRASH.fallbackMode) {
-        console.warn('[防崩] 备用模式中，使用内置数据');
-        _toolsData = window.ZT_CRASH.FALLBACK_DATA;
-        renderHome(_toolsData, lang);
-        return;
-      }
-      if (!_toolsData) {
-        try {
-          const res = await fetch('data/tools-data.json');
-          if (!res.ok) throw new Error('Failed');
-          _toolsData = await res.json();
-        } catch (err) {
-          console.error('工具数据加载失败:', err);
-          // 备用模式自动激活
-          if (window.ZT_CRASH) {
-            window.ZT_CRASH.errorCount++;
-            window.ZT_CRASH.errorLog.push({ time: new Date().toLocaleString('zh-CN'), type: 'data', msg: 'tools-data.json 加载失败' });
-            if (window.ZT_CRASH.FALLBACK_DATA) {
-              console.warn('[防崩] 使用备用数据渲染');
-              _toolsData = window.ZT_CRASH.FALLBACK_DATA;
-              renderHome(_toolsData, lang);
-              return;
-            }
-          }
-          const container = document.getElementById('toolsContainer');
-          if (container) container.innerHTML = '<div class="cat-section" style="text-align:center;padding:80px 24px;"><p style="color:var(--muted);font-size:16px;">⚠️ 工具数据加载失败，请刷新页面重试。</p></div>';
-          return;
-        }
-      }
-      renderHome(_toolsData, lang);
-    }
-
-    // ===== 异步加载教程数量 =====
-    async function loadTutorialCount(dict) {
-      try {
-        // Parse tutorials array directly from tutorials/index.html
-        const res = await fetch('/tutorials/index.html');
-        if (!res.ok) throw new Error('Failed');
-        const html = await res.text();
-        
-        // Extract tutorials array using regex
-        const match = html.match(/var tutorials = \[(.*?)\];/s);
-        if (match) {
-          const tutorialsStr = match[1];
-          // Count slug entries
-          const count = (tutorialsStr.match(/slug:/g) || []).length;
-          
-          if (count > 0) {
-            document.getElementById('statTutorialCount').textContent = count;
-          }
-        }
-      } catch(e) {
-        // silently fail - tutorial count is non-critical
-        console.warn('Tutorial count load failed:', e.message);
-      }
-    }
-    
-    // ===== 监听语言切换 =====
-    window.addEventListener('zt-langchange', function(e) {
-      const lang = e.detail.lang;
-      loadAndRender(lang);
-    });
-
-    // ===== 初始加载 =====
-    function detectBrowserLanguage() {
-      const browserLang = navigator.language || navigator.userLanguage || '';
-      const langCode = browserLang.toLowerCase();
-      
-      // 映射浏览器语言到支持的语言
-      if (langCode.startsWith('zh') || langCode.startsWith('cht')) return 'zh';
-      if (langCode.startsWith('en')) return 'en';
-      if (langCode.startsWith('ja')) return 'ja';
-      if (langCode.startsWith('vi')) return 'vi';
-      
-      // 默认返回 zh
-      return 'zh';
-    }
-    
-    const storedLang = localStorage.getItem('zentools_lang');
-    const initLang = storedLang || detectBrowserLanguage();
-    loadAndRender(initLang);
-  </script>
-  <script>
-    // ===== 工具搜索（下拉即时搜索）——带搜索历史 =====
-    const searchInput = document.getElementById('toolSearch');
-    const searchClear = document.getElementById('searchClear');
-    const searchStats = document.getElementById('searchStats');
-    const searchDropdown = document.getElementById('searchDropdown');
-    let sdIndex = -1;
-
-    // ---- 搜索历史 ----
-    var STORAGE_KEY = 'zt_search_history';
-    function getHistory() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch(e) { return []; }
-    }
-    function addToHistory(query) {
-      var q = query.trim();
-      if (!q || q.length < 2) return;
-      var h = getHistory();
-      var idx = h.indexOf(q);
-      if (idx > -1) h.splice(idx, 1);
-      h.unshift(q);
-      if (h.length > 10) h = h.slice(0, 10);
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(h)); } catch(e) {}
-    }
-    function clearHistory() {
-      try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-      renderDropdown('');
-    }
-    function removeHistoryItem(query) {
-      var h = getHistory();
-      var idx = h.indexOf(query);
-      if (idx > -1) { h.splice(idx, 1); try { localStorage.setItem(STORAGE_KEY, JSON.stringify(h)); } catch(e) {} }
-      renderDropdown(searchInput.value);
-    }
-
-    // ---- 渲染搜索历史（空输入时显示）----
-    function renderHistory() {
-      var h = getHistory();
-      if (!h.length) { searchDropdown.classList.remove('show'); return; }
-      var html = '<div class="sd-history"><div class="sd-h-title"><span>⏰ 最近搜索</span><button class="sd-h-clear" onclick="clearHistory()">清除全部</button></div>';
-      h.forEach(function(item) {
-        var safe = item.replace(/'/g, "\\'");
-        html += '<div class="sd-h-item" onclick="document.getElementById(\'toolSearch\').value=\'" + safe + "\';renderDropdown(\'" + safe + "\');addToHistory(\'" + safe + "\');searchClear.style.display=\'block\'"><span class="sd-h-icon">🔍</span><span class="sd-h-text">' + item + '</span><button class="sd-h-del" onclick="event.stopPropagation();removeHistoryItem(\'" + safe + "\')">✕</button></div>';
-      });
-      html += '</div><div class="sd-footer">输入关键词搜索 · ↑↓ 选择 · Enter 打开</div>';
-      searchDropdown.innerHTML = html;
-      searchDropdown.classList.add('show');
-    }
-
-    // ---- 渲染下拉结果 ----
-    function renderDropdown(query) {
-      var q = query.trim().toLowerCase();
-      if (!q) {
-        if (searchInput === document.activeElement) {
-          renderHistory();
-        } else {
-          searchDropdown.classList.remove('show');
-        }
-        return;
-      }
-      if (!_toolsData || !_toolsData.tools) {
-        searchDropdown.classList.remove('show');
-        return;
-      }
-      var lang = localStorage.getItem('zentools_lang') || 'zh';
-      var results = _toolsData.tools.filter(function(t) {
-        var fields = [
-          t.name, t.name__en, t.name__ja, t.name__vi,
-          t.description, t.description__en, t.description__ja, t.description__vi,
-          t.keywords || '', t.slug, t.category || ''
-        ];
-        var textMatch = fields.some(function(f) { return f && f.toLowerCase().includes(q); });
-        if (textMatch) return true;
-        try {
-          var py = toolPinyinText(t);
-          if (py.full && py.full.includes(q)) return true;
-          if (py.first && py.first.includes(q)) return true;
-        } catch(e) {}
-        return false;
-      }).slice(0, 12);
-
-      if (!results.length) {
-        searchDropdown.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">🔍</div>没有找到匹配的工具</div><div class="sd-footer">试试其他关键词</div>';
-        searchDropdown.classList.add('show');
-        return;
-      }
-      sdIndex = -1;
-      try {
-        var re = new RegExp('(' + q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
-        searchDropdown.innerHTML = results.map(function(t) {
-          try {
-            var name = tName(t, lang);
-            var desc = tDesc(t, lang);
-            var cat = t.category || '';
-            var icon = t.icon || '🔧';
-            var nameHtml = name.replace(re, '<em>$1</em>');
-            var descHtml = desc.replace(re, '<em>$1</em>');
-            var catLabel = tCatLocal(cat, lang);
-            return '<a class="sd-item" href="' + (t.url || '#') + '">' +
-              '<div class="sd-icon">' + icon + '</div>' +
-              '<div class="sd-info"><div class="sd-name">' + nameHtml + '</div><div class="sd-desc">' + descHtml + '</div></div>' +
-              '<span class="sd-cat">' + catLabel + '</span></a>';
-          } catch(e) {
-            return '<a class="sd-item" href="' + (t.url || '#') + '"><div class="sd-icon">🔧</div><div class="sd-info"><div class="sd-name">' + (t.name || '') + '</div></div></a>';
-          }
-        }).join('') + '<div class="sd-footer">共 ' + results.length + ' 个结果，按 ↑↓ 键选择，按 Enter 打开</div>';
-      } catch(e) {
-        searchDropdown.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">⚠️</div>加载结果时出错</div>';
-      }
-      searchDropdown.classList.add('show');
-    }
-
-    function tCatLocal(cat, lang) {
-      if (lang === 'zh' || !_toolsData || !_toolsData.categories) return cat;
-      var key = 'categories__' + lang;
-      var arr = _toolsData[key];
-      var zhArr = _toolsData.categories;
-      if (arr && zhArr) {
-        var idx = zhArr.indexOf(cat);
-        if (idx >= 0 && idx < arr.length) return arr[idx];
-      }
-      return cat;
-    }
-
-    searchInput.addEventListener('input', function() {
-      var v = this.value;
-      renderDropdown(v);
-      searchClear.style.display = v.trim() ? 'block' : 'none';
-    });
-    searchInput.addEventListener('keydown', function(e) {
-      var items = searchDropdown.querySelectorAll('.sd-item');
-      if (!items.length) return;
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (sdIndex >= 0) items[sdIndex].classList.remove('sd-highlight');
-        sdIndex = Math.min(sdIndex + 1, items.length - 1);
-        items[sdIndex].classList.add('sd-highlight');
-        items[sdIndex].scrollIntoView({ block: 'nearest' });
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (sdIndex >= 0) items[sdIndex].classList.remove('sd-highlight');
-        sdIndex = Math.max(sdIndex - 1, 0);
-        items[sdIndex].classList.add('sd-highlight');
-        items[sdIndex].scrollIntoView({ block: 'nearest' });
-      } else if (e.key === 'Enter') {
-        if (sdIndex >= 0) {
-          e.preventDefault();
-          items[sdIndex].click();
-        }
-      } else if (e.key === 'Escape') {
-        searchDropdown.classList.remove('show');
-        searchInput.blur();
-      }
-    });
-    searchInput.addEventListener('blur', function() {
-      setTimeout(function() {
-        searchDropdown.classList.remove('show');
-        if (!searchInput.value.trim()) searchClear.style.display = 'none';
-      }, 200);
-    });
-    searchInput.addEventListener('focus', function() {
-      var v = this.value.trim();
-      if (v) {
-        renderDropdown(v);
-        searchClear.style.display = 'block';
-      } else {
-        renderHistory();
-      }
-    });
-    searchClear.addEventListener('click', function() {
-      searchInput.value = ''; searchInput.focus(); searchDropdown.classList.remove('show');
-      searchClear.style.display = 'none';
-      setTimeout(function() { if (searchInput === document.activeElement) renderHistory(); }, 100);
-    });
-
-    // 点击外部关闭下拉
-    document.addEventListener('click', function(e) {
-      var wrap = document.querySelector('.search-wrap');
-      if (wrap && !wrap.contains(e.target)) searchDropdown.classList.remove('show');
-    });
-
-    // 点击搜索结果时保存记录
-    searchDropdown.addEventListener('mousedown', function(e) {
-      var item = e.target.closest('.sd-item');
-      if (item && item.href) {
-        addToHistory(searchInput.value.trim());
-        return;
-      }
-      // 点击历史项时也保存
-      var hItem = e.target.closest('.sd-h-item');
-      if (hItem) {
-        var textEl = hItem.querySelector('.sd-h-text');
-        if (textEl) addToHistory(textEl.textContent);
-      }
-    });
-
-    const searchPlaceholders = {
-      zh: '搜索工具，例如：PDF、图片压缩、AI写作...',
-      en: 'Search tools, e.g. PDF, image compress, AI writing...',
-      ja: 'ツールを検索（例：PDF、画像圧縮、AI作成...）',
-      vi: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
-    };
-    // 语言切换 → 同步更新搜索占位符（主流程在 tool-ui.js ZT.applyLanguage + zt-langchange 中处理）
-    // ===== 移动端侧滑菜单 =====
-    const overlay = document.getElementById('mobileOverlay');
-    const drawer = document.getElementById('mobileDrawer');
-    const hamBtn = document.getElementById('hamburgerBtn');
-    const closeBtn = document.getElementById('mobileClose');
-    const mobileTools = document.getElementById('mobileTools');
-
-    function openMenu() {
-      overlay.classList.add('open');
-      hamBtn.classList.add('active');
-      hamBtn.textContent = '✕';
-      document.body.style.overflow = 'hidden';
-      // 填充工具列表
-      if (_toolsData && mobileTools) {
-        const lang = localStorage.getItem('zentools_lang') || 'zh';
-        const cats = _toolsData.categories || [];
-        const catsEn = _toolsData.categories__en || [];
-        const catsJa = _toolsData.categories__ja || [];
-        const catsVi = _toolsData.categories__vi || [];
-        const tCat = function(cats, catsEn, catsJa, catsVi, lang, index) {
-          if (lang === 'zh') return cats[index];
-          const map = { en: catsEn, ja: catsJa, vi: catsVi };
-          return (map[lang] && map[lang][index]) || cats[index];
-        };
-        const grouped = {};
-        _toolsData.tools.forEach(function(t) {
-          const cat = t.category || '其他';
-          if (!grouped[cat]) grouped[cat] = [];
-          grouped[cat].push(t);
-        });
-        let html = '<div class="m-cat">导航</div><a href="/" data-i18n="navHome">首页</a><a href="/articles.html">教程中心</a><a href="/about.html">关于</a><a href="/contact.html">联系我们</a>';
-        cats.forEach(function(cat, idx) {
-          const tls = grouped[cat] || [];
-          if (tls.length === 0) return;
-          const catName = tCat(cats, catsEn, catsJa, catsVi, lang, idx);
-          html += '<div class="m-cat">' + catName + ' (' + tls.length + ')</div>';
-          tls.forEach(function(t) {
-            html += '<a class="m-item" href="' + t.url + '"><span class="mi-icon">' + (t.icon || '🔧') + '</span>' + (t['name__' + lang] || t['name__en'] || t.name) + '</a>';
-          });
-        });
-        mobileTools.innerHTML = html;
-        // 重新应用 i18n（仅更新抽屉内的文本节点）
-        mobileTools.querySelectorAll('[data-i18n]').forEach(function(el) {
-          const dict = window.ZT_PAGE && window.ZT_PAGE[lang];
-          if (dict) {
-            const key = el.getAttribute('data-i18n');
-            if (dict[key]) el.textContent = dict[key];
-          }
-        });
-      }
-    }
-
-    function closeMenu() {
-      overlay.classList.remove('open');
-      hamBtn.classList.remove('active');
-      hamBtn.textContent = '☰';
-      document.body.style.overflow = '';
-    }
-
-    hamBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      if (overlay.classList.contains('open')) { closeMenu(); } else { openMenu(); }
-    });
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', function(e) {
-      if (!drawer.contains(e.target)) closeMenu();
-    });
-    // Esc 键关闭
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
-    });
-  </script>
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        © 2026 ZenTools · zentools.xyz<br>
+        隐私优先 · 本地运算 · 永久免费无广告
+    </div>
+</footer>
 
 <script>
-// ===== 更新日志渲染 =====
-(function() {
-  var cl = null;
-  function getLang() { return localStorage.getItem('zentools_lang') || navigator.language.slice(0,2) || 'zh'; }
-
-    function renderChangelog(data, lang) {
-      var log = data.changelog || [];
-      var html = '';
-      log.forEach(function(entry) {
-        var summary = entry[lang] || entry.zh || '';
-        var items = (entry.items && entry.items[lang]) || (entry.items && entry.items.zh) || [];
-        html += '<div class="cl-entry">';
-        html += '<span class="cl-dot"></span>';
-        html += '<div class="cl-card">';
-        html += '<div class="cl-meta">';
-        html += '<span class="cl-ver">v' + entry.version + '</span>';
-        html += '<span class="cl-date">' + entry.date + '</span>';
-        html += '</div>';
-        html += '<div class="cl-summary">' + summary + '</div>';
-        if (items.length > 0) {
-          html += '<ul class="cl-items">';
-          items.forEach(function(item) { html += '<li>' + item + '</li>'; });
-          html += '</ul>';
-        }
-        html += '</div>';
-        html += '</div>';
-      });
-      document.getElementById('changelogList').innerHTML = html;
-    }
-
-  function loadAndRender(lang) {
-    if (cl) { renderChangelog(cl, lang); return; }
-    fetch('/data/site-info.json')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        cl = data;
-        renderChangelog(cl, lang);
-      })
-      .catch(function() {
-        document.getElementById('changelogList').innerHTML = '<p style="color:var(--muted);text-align:center">加载更新日志失败</p>';
-      });
-  }
-
-  loadAndRender(getLang());
-
-  window.addEventListener('zt-langchange', function(e) {
-    loadAndRender(e.detail.lang);
-  });
-})();
+// 完美双模式切换
+const switchTheme = document.getElementById('switchTheme');
+switchTheme.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    switchTheme.textContent = document.documentElement.classList.contains('dark') ? '☀️ 浅色模式' : '🌙 暗黑模式';
+});
 </script>
 
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-    window.addEventListener('load', () => {
-
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.register('/sw.js').then((registration) => {
-        console.log('SW registered:', registration.scope);
-        
-        // 检测更新
-        registration.addEventListener('updatefound', () => {
-          const newWorker = registration.installing;
-          newWorker.addEventListener('statechange', () => {
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              // 有新版本可用，提示用户刷新
-              if (confirm('发现新版本，是否立即刷新？')) {
-                window.location.reload();
-              }
-            }
-          });
-        });
-      })
-      .catch((error) => {
-        console.log('SW registration failed:', error);
-      });
-    }
-  });
-</script>
 </body>
-
 </html>
