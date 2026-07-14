@@ -13,8 +13,11 @@
 #   ECS_PORT     SSH 端口（如 22）
 #   ECS_SSH_KEY  专用部署私钥（无口令，含首尾 BEGIN/END 行的完整内容）
 # ---------------------------------------------
-# 前置：ECS 安全组需放行 22 端口入站（GitHub runner IP 动态，需允许 0.0.0.0/0，
-#       或参考 https://api.github.com/meta 的 actions 段配置）
+# 更新日志自动同步：
+#   - 每次 push 自动扫描 tools-data.json 的新工具（四语）写入 site-info.json
+#   - 自动提取 commit 消息中以 `cl:` 开头的行作为更新条目
+#   - 有变更则用 [skip ci] 自动提交回 main，避免触发死循环
+#   - 随后 rsync 会把这个最新 site-info.json 一起部署到 ECS
 # =============================================
 
 name: 部署到阿里云 ECS
@@ -23,6 +26,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -36,6 +42,37 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 自动更新更新日志（扫描新工具 + 提取 cl: 标记）
+        run: |
+          python _sync_changelog.py --scan
+          BEFORE="${{ github.event.before }}"
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            git log --format=%B -1 > /tmp/cl_commits.txt
+          else
+            git log --format=%B "${BEFORE}..${{ github.event.after }}" > /tmp/cl_commits.txt
+          fi
+          grep -i '^cl:' /tmp/cl_commits.txt > /tmp/cl_lines.txt || true
+          echo "=== 提取到的 cl: 标记 ==="
+          cat /tmp/cl_lines.txt
+          python _sync_changelog.py --from-commits /tmp/cl_lines.txt
+
+      - name: 提交更新日志（如有变更）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/site-info.json
+          if git diff --cached --quiet; then
+            echo "无 changelog 变更，跳过提交"
+          else
+            git commit -m "chore: 自动更新更新日志 [skip ci]"
+            git push
+          fi
 
       - name: rsync 推送到服务器
         uses: easingthemes/ssh-deploy@v5.1.0
