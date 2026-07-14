@@ -601,15 +601,15 @@
           <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
         </div>
         <div class="nav-links">
-          <a href="/" style="color:var(--zen-text-main);font-weight:600;">首页</a>
+          <a href="/" style="color:var(--zen-text-main);font-weight:600;" data-i18n-page="navHome">首页</a>
           <div class="nav-group">
-            <button class="nav-trigger"><span>工具箱</span><span class="arrow">▼</span></button>
+            <button class="nav-trigger"><span data-i18n-page="navTools">工具箱</span><span class="arrow">▼</span></button>
             <div class="mega-menu" id="megaMenu"></div>
           </div>
-          <a href="/tutorials/">教程中心</a>
-          <a href="/guides/">深度指南</a>
-          <a href="/compare/">工具对比</a>
-          <a href="/about.html">关于</a>
+          <a href="/tutorials/" data-i18n-page="navArticles">教程中心</a>
+          <a href="/guides/" data-i18n-page="navGuides">深度指南</a>
+          <a href="/compare/" data-i18n-page="navCompare">工具对比</a>
+          <a href="/about.html" data-i18n-page="navAbout">关于</a>
           <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
           <select class="lang-select" id="langSelect">
             <option value="zh">中文</option>
@@ -628,11 +628,11 @@
         <button class="close-btn" id="mobileClose">✕</button>
         <div class="mobile-tools" id="mobileTools">
           <div class="m-cat">导航</div>
-          <a href="/">首页</a>
-          <a href="/tutorials/">教程中心</a>
-          <a href="/guides/">深度指南</a>
-          <a href="/compare/">工具对比</a>
-          <a href="/about.html">关于</a>
+          <a href="/" data-i18n-page="navHome">首页</a>
+          <a href="/tutorials/" data-i18n-page="navArticles">教程中心</a>
+          <a href="/guides/" data-i18n-page="navGuides">深度指南</a>
+          <a href="/compare/" data-i18n-page="navCompare">工具对比</a>
+          <a href="/about.html" data-i18n-page="navAbout">关于</a>
         </div>
       </div>
     </div>
@@ -642,8 +642,8 @@
       <div class="hero-bg"></div>
       <div class="container">
         <div class="hero-tag"><span class="tag-dot"></span>ZenTools v3.1</div>
-        <h1><span class="hero-gradient-text">专业在线工具平台</span></h1>
-        <p class="hero-desc">隐私优先 · 所有工具浏览器本地运算，文件全程不上传服务器，保障你的数据安全。</p>
+        <h1><span class="hero-gradient-text" data-i18n-page="heroSubtitle">专业在线工具平台</span></h1>
+        <p class="hero-desc" data-i18n-page="heroDesc">隐私优先 · 所有工具浏览器本地运算，文件全程不上传服务器，保障你的数据安全。</p>
         <div class="hero-tags">
           <span class="tag">本地运算</span>
           <span class="tag">隐私安全</span>
@@ -651,13 +651,13 @@
           <span class="tag">300+ 工具</span>
         </div>
         <div class="hero-actions">
-          <a href="#tools" class="btn-hero primary">浏览工具</a>
+          <a href="#tools" class="btn-hero primary" data-i18n-page="startUse">浏览工具</a>
         </div>
         <div class="hero-stats">
-          <div class="stat-block"><div class="sb-num c1" id="statToolsCount">0</div><div class="sb-label">工具</div></div>
-          <div class="stat-block"><div class="sb-num c2" id="statCatCount">0</div><div class="sb-label">分类</div></div>
-          <div class="stat-block"><div class="sb-num c3" id="statTutorialCount">0</div><div class="sb-label">教程</div></div>
-          <div class="stat-block"><div class="sb-num c4">100%</div><div class="sb-label">本地</div></div>
+          <div class="stat-block"><div class="sb-num c1" id="statToolsCount">0</div><div class="sb-label" data-i18n-page="statTools">工具</div></div>
+          <div class="stat-block"><div class="sb-num c2" id="statCatCount">0</div><div class="sb-label" data-i18n-page="statCats">分类</div></div>
+          <div class="stat-block"><div class="sb-num c3" id="statTutorialCount">0</div><div class="sb-label" data-i18n-page="statTutorials">教程</div></div>
+          <div class="stat-block"><div class="sb-num c4">100%</div><div class="sb-label" data-i18n-page="statLocal">本地</div></div>
         </div>
         <div class="scroll-hint"><span>向下浏览</span></div>
       </div>
@@ -1018,7 +1018,7 @@
     // 语言切换
     document.getElementById('langSelect').addEventListener('change', function() {
       localStorage.setItem('zentools_lang', this.value);
-      window.dispatchEvent(new CustomEvent('zt-langchange', { detail: { lang: this.value } }));
+      applyLanguage(this.value);
     });
     if (document.getElementById('langSelect')) document.getElementById('langSelect').value = initLang;
 
@@ -1059,7 +1059,8 @@
         const gT = function(c, cEn, cJa, cVi, l, idx) { if (l === 'zh') return c[idx]; const m = { en: cEn, ja: cJa, vi: cVi }; return (m[l] && m[l][idx]) || c[idx]; };
         const grouped = {};
         _toolsData.tools.forEach(function(t) { const cat = t.category || '其他'; if (!grouped[cat]) grouped[cat] = []; grouped[cat].push(t); });
-        let html = '<div class="m-cat">导航</div><a href="/">首页</a><a href="/tutorials/">教程中心</a><a href="/about.html">关于</a>';
+        const d = getDict(lang);
+        let html = '<div class="m-cat">导航</div><a href="/">' + d.navHome + '</a><a href="/tutorials/">' + d.navArticles + '</a><a href="/about.html">' + d.navAbout + '</a>';
         cats.forEach(function(cat, idx) {
           const tls = grouped[cat] || [];
           if (tls.length === 0) return;
