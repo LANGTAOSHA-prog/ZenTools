@@ -43,24 +43,11 @@ jobs:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: 设置 Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.x'
-
       - name: 自动更新更新日志（扫描新工具 + 提取 cl: 标记）
         run: |
-          python _sync_changelog.py --scan
-          BEFORE="${{ github.event.before }}"
-          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
-            git log --format=%B -1 > /tmp/cl_commits.txt
-          else
-            git log --format=%B "${BEFORE}..${{ github.event.after }}" > /tmp/cl_commits.txt
-          fi
-          grep -i '^cl:' /tmp/cl_commits.txt > /tmp/cl_lines.txt || true
-          echo "=== 提取到的 cl: 标记 ==="
-          cat /tmp/cl_lines.txt
-          python _sync_changelog.py --from-commits /tmp/cl_lines.txt
+          python3 _sync_changelog.py --scan
+          python3 _extract_cl.py
+          python3 _sync_changelog.py --from-commits /tmp/cl_lines.txt
 
       - name: 提交更新日志（如有变更）
         run: |
@@ -90,5 +77,5 @@ jobs:
           SCRIPT_AFTER: |
             cd /var/www/html
             echo "==> 部署版本校验"
-            test -f index.html && echo "✅ index.html OK" || (echo "❌ index.html 缺失" && exit 1)
+            test -f index.html && echo "OK index.html" || (echo "MISSING index.html" && exit 1)
             echo "==> 部署完成: $(date '+%Y-%m-%d %H:%M:%S %Z')"
