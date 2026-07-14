@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=360">
+<title>ZenTools Quick</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 360px; min-height: 400px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, system-ui, sans-serif;
+    background: #F9FAFB; color: #111827;
+    padding: 16px;
+  }
+  .header {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .logo {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: linear-gradient(135deg, #0066FF, #00C2B8);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px; font-weight: 700;
+  }
+  .title { font-size: 18px; font-weight: 700; }
+  .title span { color: #0066FF; }
+  .title span + span { color: #00C2B8; }
+  .subtitle { font-size: 12px; color: #6B7280; margin-top: -2px; }
+
+  .search-box {
+    width: 100%; padding: 10px 14px; border: 1px solid #E5E7EB;
+    border-radius: 10px; font-size: 14px; outline: none;
+    background: #fff; margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: #0066FF; box-shadow: 0 0 0 3px rgba(0,102,255,0.1); }
+
+  .cat { margin-bottom: 12px; }
+  .cat-title {
+    font-size: 11px; font-weight: 700; color: #9CA3AF;
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; padding-left: 2px;
+  }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .tool {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 10px 4px; border-radius: 10px; cursor: pointer;
+    transition: background 0.2s; text-decoration: none;
+  }
+  .tool:hover { background: rgba(0,102,255,0.08); }
+  .tool .icon { font-size: 22px; line-height: 1; }
+  .tool .name { font-size: 11px; color: #4B5563; text-align: center; line-height: 1.2; }
+
+  .empty { text-align: center; padding: 40px 16px; color: #9CA3AF; font-size: 14px; }
+
+  @media (prefers-color-scheme: dark) {
+    body { background: #0F172A; color: #F9FAFB; }
+    .search-box { background: #1E293B; border-color: #334155; color: #F9FAFB; }
+    .search-box:focus { border-color: #0066FF; }
+    .tool .name { color: #D1D5DB; }
+    .tool:hover { background: rgba(0,102,255,0.15); }
+    .cat-title { color: #64748B; }
+    .empty { color: #64748B; }
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">Z</div>
+    <div>
+      <div class="title"><span>Zen</span><span>Tools</span></div>
+      <div class="subtitle">一键打开 · 高频工具</div>
+    </div>
+  </div>
+  <input class="search-box" id="search" type="text" placeholder="搜索工具..." autofocus>
+  <div id="content"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
