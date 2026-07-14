@@ -667,7 +667,7 @@
     <div class="search-section">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="text" id="toolSearch" placeholder="搜索工具，例如：PDF、图片压缩、AI 写作..." autocomplete="off">
+        <input type="text" id="toolSearch" placeholder="用一句话描述需求，例如：把 PDF 压缩到 1MB…" autocomplete="off">
         <button class="search-clear" id="searchClear">✕</button>
         <div class="search-dropdown" id="searchDropdown"></div>
       </div>
@@ -733,7 +733,8 @@
         toolCount: '个工具',
         favTitle: '⭐ 收藏的工具', recentTitle: '最近使用', hotTitle: '热门工具',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
-        searchPlaceholder: '搜索工具，例如：PDF、图片压缩、AI 写作...'
+        searchPlaceholder: '用一句话描述需求，例如：把 PDF 压缩到 1MB…',
+        searchHints: ['把 PDF 压缩到 1MB', '给图片去掉背景', '把两张照片拼成一张', '提取视频里的声音', '写一段产品营销文案']
       },
       en: {
         pageTitle: 'ZenTools - Professional Online Tools',
@@ -747,7 +748,8 @@
         toolCount: 'tools',
         favTitle: '⭐ Favorites', recentTitle: 'Recently Used', hotTitle: 'Popular',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
-        searchPlaceholder: 'Search tools, e.g. PDF, image compress, AI writing...'
+        searchPlaceholder: 'Describe what you need, e.g. Compress a PDF to 1MB…',
+        searchHints: ['Compress a PDF to 1MB', 'Remove background from an image', 'Extract audio from a video', 'Write a product marketing copy', 'Convert PDF to Word']
       },
       ja: {
         pageTitle: 'ZenTools - プロフェッショナルオンラインツール',
@@ -761,7 +763,8 @@
         toolCount: 'ツール',
         favTitle: '⭐ お気に入り', recentTitle: '最近使用', hotTitle: '人気',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
-        searchPlaceholder: 'ツールを検索（例：PDF、画像圧縮、AI作成...）'
+        searchPlaceholder: 'やりたいことを言葉で、例：PDFを1MBに圧縮…',
+        searchHints: ['PDFを1MBに圧縮', '画像の背景を消す', '動画から音声を抽出', '商品の宣伝文を書く', 'PDFをWordに変換']
       },
       vi: {
         pageTitle: 'ZenTools - Nền tảng công cụ trực tuyến',
@@ -775,7 +778,8 @@
         toolCount: 'công cụ',
         favTitle: '⭐ Yêu thích', recentTitle: 'Đã dùng gần đây', hotTitle: 'Phổ biến',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
-        searchPlaceholder: 'Tìm công cụ, vd: PDF, nén ảnh, AI viết...'
+        searchPlaceholder: 'Mô tả nhu cầu, vd: Nén PDF xuống 1MB…',
+        searchHints: ['Nén PDF xuống 1MB', 'Xoá nền ảnh', 'Tách tiếng từ video', 'Viết bài quảng cáo sản phẩm', 'Chuyển PDF sang Word']
       }
     };
   </script>
@@ -1086,6 +1090,301 @@
   </script>
 
   <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站</button>
+
+  <style>
+    .sd-hints { padding: 14px 16px; }
+    .sd-hints .sd-h-intro { font-size: 12px; color: var(--zen-text-placeholder); margin-bottom: 10px; }
+    .sd-hint { display: inline-block; margin: 0 8px 8px 0; padding: 7px 14px; font-size: 13px; line-height: 1.2; border-radius: 999px; background: rgba(0,102,255,0.06); color: var(--zen-text-main); cursor: pointer; border: 1px solid rgba(0,102,255,0.14); transition: background .15s, border-color .15s; }
+    .sd-hint:hover { background: rgba(0,102,255,0.13); border-color: rgba(0,102,255,0.28); }
+    .dark .sd-hint { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); color: var(--zen-text-main); }
+    .dark .sd-hint:hover { background: rgba(255,255,255,0.1); }
+  </style>
+
+  <script>
+  /* ============================================================
+     自然语言搜索引擎（覆盖上面的 renderDropdown / renderHistory）
+     思路：把用户的长句做「反向子串匹配」——只要句子里出现了某个
+     工具的关键词 / 同义词（口语），对应工具即命中，再按相关度打分排序。
+     ============================================================ */
+  (function () {
+    // 口语 / 同义词 -> 概念子串（在 工具 name+keywords+description 中做子串命中）
+    var SYN = [
+      { syn: ['照片', '相片', '相册里的图', '我的图'], concept: ['图片'] },
+      { syn: ['变小', '缩小', '减肥', '压小', '体积', '省空间', '容量'], concept: ['压缩'] },
+      { syn: ['抠图', '去底', '透明背景', '背景去掉', '去掉背景', '扣图'], concept: ['去背景', '背景'] },
+      { syn: ['写作文', '写文章', '写文案', '写东西', '生成文章', '写个', '起草', '拟一份'], concept: ['文案', '创作', '文章', '写作'] },
+      { syn: ['转成', '转换成', '变成', '转为', '弄成'], concept: ['转换'] },
+      { syn: ['加字幕', '配字幕', '上字幕', '加个字幕'], concept: ['字幕'] },
+      { syn: ['截图', '截屏', '屏幕截图', '抓屏'], concept: ['截图', '截屏'] },
+      { syn: ['加水印', '去水印', '去掉水印', '去除水印'], concept: ['水印'] },
+      { syn: ['加密', '设密码', '加密码', '上锁'], concept: ['加密', '密码'] },
+      { syn: ['解密', '去密码', '取消密码', '破解密码', '解锁'], concept: ['解密', '去密码'] },
+      { syn: ['合并', '拼在一起', '合到一起', '拼成', '装订'], concept: ['合并'] },
+      { syn: ['拆分', '分开', '拆开', '分割', '切开'], concept: ['拆分'] },
+      { syn: ['旋转', '转正', '调正', '摆正'], concept: ['旋转'] },
+      { syn: ['排序', '重新排列', '重新排', '整理顺序'], concept: ['排序'] },
+      { syn: ['提取页面', '抽取页面', '删除页面', '去掉几页', '删掉几页'], concept: ['页面', '提取'] },
+      { syn: ['识别文字', '提取文字', '图片转文字', '图里文字', '扫描文字'], concept: ['文字识别', 'ocr', '文字'] },
+      { syn: ['二维码', '扫码', '生成码'], concept: ['二维码'] },
+      { syn: ['计时', '倒计时', '倒数'], concept: ['计时', '秒表'] },
+      { syn: ['算利息', '算房贷', '算税', '算税费', '算钱'], concept: ['利息', '房贷', '税费', '计算'] },
+      { syn: ['正则', '正则表达式', '匹配规则'], concept: ['正则'] },
+      { syn: ['对比文本', '比较文本', '找不同', '差异'], concept: ['文本对比', 'diff'] },
+      { syn: ['摘要', '总结一下', '归纳', '提炼'], concept: ['摘要'] },
+      { syn: ['关键词', 'seo词'], concept: ['关键词'] },
+      { syn: ['放大', '变清晰', '高清', '清楚点'], concept: ['放大', '清晰'] },
+      { syn: ['模糊', '虚化', '柔化'], concept: ['模糊'] },
+      { syn: ['动图', '动态图', '会动的图'], concept: ['gif', '动图'] },
+      { syn: ['提取音频', '提取声音', '去掉声音', '只要声音'], concept: ['音频', '提取'] },
+      { syn: ['转gif', '做成动图', '生成动图'], concept: ['gif'] },
+      { syn: ['设计网页', '做网站', '网页'], concept: ['网页设计'] },
+      { syn: ['画一张', '画个图', 'ai画图', '画个', '作图'], concept: ['绘图', '设计', 'ai绘图'] },
+      { syn: ['写脚本', '视频文案', '拍摄脚本', '短视频脚本'], concept: ['脚本', '视频脚本'] },
+      { syn: ['随机', '随便', '抽签', '抓阄'], concept: ['随机', '抽奖', '选择'] },
+      { syn: ['seo', '搜索引擎优化', '排名'], concept: ['seo', '关键词'] },
+      { syn: ['翻译', '译成中文', '翻成英文', '语言转换'], concept: ['翻译'] },
+      { syn: ['pdf转word', 'pdf转doc', 'pdf转文档'], concept: ['转word', '转doc'] },
+      { syn: ['pdf转excel', 'pdf转表格'], concept: ['转excel', '转xlsx'] },
+      { syn: ['pdf转ppt', 'pdf转幻灯片'], concept: ['转ppt', '转pptx'] },
+      { syn: ['pdf转图片', 'pdf导出图'], concept: ['转图片', '导出图片'] },
+      { syn: ['图片转pdf', '图合成pdf'], concept: ['图片转pdf', '转pdf'] },
+      { syn: ['jpg转png', 'png转jpg', '格式转换'], concept: ['jpg转png', 'png转jpg', '转换'] }
+    ];
+
+    // —— 倒排索引：把每个工具的 名称/关键词/分类/slug 拆成「窗口」(CJK 2字窗口 + 拉丁词) ——
+    var winIndex = {};   // 窗口字符串 -> [{i, w}]  w=权重
+    var exactIndex = {}; // 完整词(拉丁词 / 完整关键词) -> [i]，用于强匹配 +3
+    function cjkWindows(s) {
+      var out = [];
+      var clean = (s || '').toLowerCase();
+      var cjk = clean.replace(/[a-z0-9]+/g, ' ');
+      cjk.split(/\s+/).forEach(function (p) {
+        for (var i = 0; i + 2 <= p.length; i++) out.push(p.substr(i, 2));
+      });
+      return out;
+    }
+    function latinWords(s) {
+      return ((s || '').toLowerCase().match(/[a-z0-9]+/g) || []);
+    }
+    function addWin(w, i, weight) {
+      if (!w) return;
+      if (!winIndex[w]) winIndex[w] = [];
+      winIndex[w].push({ i: i, w: weight });
+    }
+    function addExact(t, i) {
+      if (!t) return;
+      if (!exactIndex[t]) exactIndex[t] = [];
+      if (exactIndex[t].indexOf(i) < 0) exactIndex[t].push(i);
+    }
+
+    var _nlBuilt = false;
+    function ensureNLIndex() {
+      if (_nlBuilt || !_toolsData || !_toolsData.tools) return;
+      var tools = _toolsData.tools;
+      tools.forEach(function (t, i) {
+        // 名称：CJK 2字窗口(权重3) + 拉丁词(权重3, 强)
+        cjkWindows(t.name).forEach(function (w) { addWin(w, i, 3); });
+        latinWords(t.name).forEach(function (w) { if (w.length >= 2) { addWin(w, i, 3); addExact(w, i); } });
+        // 关键词
+        (t.keywords || '').split(/\s+/).forEach(function (tok) {
+          if (!tok) return;
+          if (/^[a-z0-9]+$/i.test(tok)) {
+            if (tok.length >= 2) { addWin(tok.toLowerCase(), i, 3); addExact(tok.toLowerCase(), i); }
+          } else {
+            cjkWindows(tok).forEach(function (w) { addWin(w, i, 2); });
+            if (tok.length >= 2) addExact(tok.toLowerCase(), i);
+          }
+        });
+        // 分类：CJK 窗口(1) + 拉丁词(2)
+        cjkWindows(t.category).forEach(function (w) { addWin(w, i, 1); });
+        latinWords(t.category).forEach(function (w) { if (w.length >= 2) addWin(w, i, 2); });
+        // slug 拉丁词
+        latinWords(t.slug).forEach(function (w) { if (w.length >= 2) addWin(w.toLowerCase(), i, 1); });
+        // 多语言名称（英文等），提升非中文自然语言命中
+        ['name__en', 'name__ja', 'name__vi'].forEach(function (f) {
+          var v = t[f];
+          if (!v) return;
+          cjkWindows(v).forEach(function (w) { addWin(w, i, 3); });
+          latinWords(v).forEach(function (w) { if (w.length >= 2) { addWin(w.toLowerCase(), i, 3); addExact(w.toLowerCase(), i); } });
+        });
+      });
+      // 同义词：预计算命中工具集（按概念子串）
+      SYN.forEach(function (e) {
+        e._tools = [];
+        tools.forEach(function (t, i) {
+          var hay = ((t.keywords || '') + ' ' + (t.name || '') + ' ' + (t.category || '') + ' ' + (t.description || '')).toLowerCase();
+          for (var c = 0; c < e.concept.length; c++) {
+            if (hay.indexOf(e.concept[c]) >= 0) { e._tools.push(i); break; }
+          }
+        });
+      });
+      _nlBuilt = true;
+    }
+
+    function normalize(s) {
+      return (s || '').toLowerCase().replace(/[^a-z0-9一-龥]+/g, ' ').replace(/\s+/g, ' ').trim();
+    }
+
+    function getWindows(qn) {
+      var wins = [];
+      latinWords(qn).forEach(function (w) { if (w.length >= 2) wins.push(w); });
+      var cjk = qn.replace(/[a-z0-9]+/g, ' ');
+      cjk.split(/\s+/).forEach(function (p) {
+        for (var s = 0; s + 2 <= p.length; s++) wins.push(p.substr(s, 2));
+      });
+      return wins;
+    }
+
+    function nlSearch(query, lang) {
+      ensureNLIndex();
+      var qn = normalize(query);
+      var tools = _toolsData.tools;
+      var score = {};
+      function add(i, w, term) {
+        if (score[i] === undefined) score[i] = { s: 0, terms: [] };
+        score[i].s += w;
+        if (term && score[i].terms.indexOf(term) < 0) score[i].terms.push(term);
+      }
+      // 1) 窗口匹配（双向子串，处理「视频…音频」这类散说）
+      getWindows(qn).forEach(function (w) {
+        if (winIndex[w]) winIndex[w].forEach(function (o) { add(o.i, o.w, w); });
+      });
+      // 2) 完整词强匹配（拉丁词 / 完整关键词，如 pdf、gif、pdf压缩）
+      var exactTokens = latinWords(qn).concat(
+        qn.split(' ').filter(function (x) { return x.length >= 2 && /[一-龥]/.test(x); })
+      );
+      exactTokens.forEach(function (tok) {
+        if (exactIndex[tok]) exactIndex[tok].forEach(function (i) { add(i, 3, tok); });
+      });
+      // 3) 完整名称 / 分类 强匹配
+      tools.forEach(function (t, i) {
+        var nm = (lang === 'zh' ? (t.name || '') : (t['name__' + lang] || t['name__en'] || t.name || '')).toLowerCase();
+        if (nm && qn.indexOf(nm) >= 0) add(i, 6, nm);
+        var cat = (t.category || '').toLowerCase();
+        if (cat && qn.indexOf(cat) >= 0) add(i, 2, cat);
+      });
+      // 4) 口语 / 同义词
+      SYN.forEach(function (e) {
+        for (var v = 0; v < e.syn.length; v++) {
+          if (qn.indexOf(e.syn[v]) >= 0) {
+            e._tools.forEach(function (i) { add(i, 1, e.syn[v]); });
+            break;
+          }
+        }
+      });
+      // 5) 兜底：描述软匹配
+      if (Object.keys(score).length === 0 && qn.length >= 2) {
+        var wins = getWindows(qn);
+        tools.forEach(function (t, j) {
+          var hay = ((t.keywords || '') + ' ' + (t.name || '') + ' ' + (t.description || '')).toLowerCase();
+          var hits = 0;
+          for (var w = 0; w < wins.length; w++) { if (hay.indexOf(wins[w]) >= 0) { hits++; if (hits >= 3) break; } }
+          if (hits >= 2) add(j, 1, null);
+        });
+      }
+      var arr = Object.keys(score).map(function (k) { return { i: +k, s: score[k].s, terms: score[k].terms }; });
+      arr.sort(function (a, b) {
+        if (b.s !== a.s) return b.s - a.s;
+        var fa = tools[a.i].featured ? 1 : 0, fb = tools[b.i].featured ? 1 : 0;
+        if (fb !== fa) return fb - fa;
+        return a.i - b.i;
+      });
+      return arr.slice(0, 12).map(function (x) { return { tool: tools[x.i], terms: x.terms }; });
+    }
+
+    function escRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+
+    window.renderDropdown = function (query) {
+      var q = (query || '').trim();
+      if (!q) { if (searchInput === document.activeElement) renderHistory(); else searchDropdown.classList.remove('show'); return; }
+      if (!_toolsData || !_toolsData.tools) { searchDropdown.classList.remove('show'); return; }
+      var lang = localStorage.getItem('zentools_lang') || 'zh';
+      var res = nlSearch(q, lang);
+      sdIndex = -1;
+      if (!res.length) {
+        searchDropdown.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">🔍</div>没有找到相关工具</div><div class="sd-footer">试试用自然语言描述，例如：把 PDF 压缩到 1MB</div>';
+        searchDropdown.classList.add('show');
+        return;
+      }
+      try {
+        searchDropdown.innerHTML = res.map(function (r) {
+          try {
+            var t = r.tool;
+            var name = tName(t, lang);
+            var desc = tDesc(t, lang);
+            var cat = t.category || '';
+            var icon = t.icon || '🔧';
+            var terms = r.terms.filter(function (x) { return x && x.length >= 2; });
+            var re = null;
+            if (terms.length) {
+              try { re = new RegExp('(' + terms.map(escRe).join('|') + ')', 'gi'); } catch (e) { re = null; }
+            }
+            var nameHtml = re ? name.replace(re, '<em>$1</em>') : name;
+            var descHtml = re ? desc.replace(re, '<em>$1</em>') : desc;
+            return '<a class="sd-item" href="' + (t.url || '#') + '"><div class="sd-icon">' + icon + '</div><div class="sd-info"><div class="sd-name">' + nameHtml + '</div><div class="sd-desc">' + descHtml + '</div></div><span class="sd-cat">' + cat + '</span></a>';
+          } catch (e) {
+            return '<a class="sd-item" href="' + (r.tool.url || '#') + '"><div class="sd-icon">🔧</div><div class="sd-info"><div class="sd-name">' + (r.tool.name || '') + '</div></div></a>';
+          }
+        }).join('') + '<div class="sd-footer">共 ' + res.length + ' 个结果 · 支持自然语言搜索</div>';
+        searchDropdown.classList.add('show');
+      } catch (e) {
+        searchDropdown.innerHTML = '<div class="sd-empty"><div class="sd-empty-icon">⚠️</div>加载结果时出错</div>';
+      }
+    };
+
+    window.renderHistory = function () {
+      var h = getHistory();
+      var d = getDict(localStorage.getItem('zentools_lang') || 'zh');
+      var html = '';
+      if (h.length) {
+        html += '<div class="sd-history"><div class="sd-h-title"><span>⏰ 最近搜索</span><button class="sd-h-clear" onclick="clearHistory()">清除全部</button></div>';
+        h.forEach(function (item) {
+          var safe = item.replace(/'/g, "\\'");
+          html += '<div class="sd-h-item" onclick="document.getElementById(\'toolSearch\').value=\'' + safe + '\';renderDropdown(\'' + safe + '\');addToHistory(\'' + safe + '\');searchClear.style.display=\'block\'"><span class="sd-h-icon">🔍</span><span class="sd-h-text">' + item + '</span><button class="sd-h-del" onclick="event.stopPropagation();removeHistoryItem(\'' + safe + '\')">✕</button></div>';
+        });
+        html += '</div>';
+      }
+      var hints = (d && d.searchHints) || [];
+      if (hints.length) {
+        html += '<div class="sd-hints"><div class="sd-h-intro">💡 用自然语言搜索，点试试：</div>';
+        hints.forEach(function (hh) {
+          html += '<span class="sd-hint" data-q="' + hh.replace(/"/g, '&quot;') + '">' + hh + '</span>';
+        });
+        html += '</div>';
+      }
+      if (!html) { searchDropdown.classList.remove('show'); return; }
+      searchDropdown.innerHTML = html;
+      searchDropdown.classList.add('show');
+    };
+
+    // 示例提示点击
+    searchDropdown.addEventListener('mousedown', function (e) {
+      var hnt = e.target.closest('.sd-hint');
+      if (hnt) {
+        e.preventDefault();
+        var q = hnt.getAttribute('data-q');
+        searchInput.value = q;
+        renderDropdown(q);
+        addToHistory(q);
+        searchClear.style.display = 'block';
+      }
+    });
+
+    // 语言切换时若下拉打开则刷新示例
+    var langSel2 = document.getElementById('langSelect');
+    if (langSel2) langSel2.addEventListener('change', function () {
+      if (searchDropdown.classList.contains('show') && !searchInput.value.trim()) renderHistory();
+    });
+
+    // 支持 URL ?q= 自然语言直达
+    try {
+      var uq = new URLSearchParams(location.search).get('q');
+      if (uq) setTimeout(function () {
+        if (searchInput) { searchInput.value = uq; searchInput.focus(); renderDropdown(uq); if (searchClear) searchClear.style.display = 'block'; }
+      }, 500);
+    } catch (e) {}
+  })();
+  </script>
 
   <script>
     // 暗黑模式切换
