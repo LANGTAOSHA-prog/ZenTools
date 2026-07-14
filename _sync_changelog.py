@@ -59,6 +59,19 @@ def scan_mode():
     if entries:
         data = append_changelog(data, entries)
         save_site_info(data)
+        # fire-once：已记录的工具在 tools-data.json 中标 new:false，避免下次重复记录
+        if os.path.exists(TOOLS_DATA_PATH):
+            with open(TOOLS_DATA_PATH, 'r', encoding='utf-8') as f:
+                tools_data = json.load(f)
+            changed = False
+            for t in tools_data.get('tools', []):
+                if t.get('new'):
+                    t['new'] = False
+                    changed = True
+            if changed:
+                with open(TOOLS_DATA_PATH, 'w', encoding='utf-8') as f:
+                    json.dump(tools_data, f, ensure_ascii=False, indent=2)
+                print("✓ 已将已记录工具的 new 标记置为 false（fire-once，避免重复记录）")
         print(f"✓ 已追加 {len(entries)} 条变更记录")
     else:
         print("  没有发现新的变更记录")
