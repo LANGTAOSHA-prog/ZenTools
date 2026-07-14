@@ -627,7 +627,7 @@
       <div class="mobile-drawer" id="mobileDrawer">
         <button class="close-btn" id="mobileClose">✕</button>
         <div class="mobile-tools" id="mobileTools">
-          <div class="m-cat">导航</div>
+          <div class="m-cat" data-i18n-page="navSection">导航</div>
           <a href="/" data-i18n-page="navHome">首页</a>
           <a href="/tutorials/" data-i18n-page="navArticles">教程中心</a>
           <a href="/guides/" data-i18n-page="navGuides">深度指南</a>
@@ -724,7 +724,7 @@
       zh: {
         pageTitle: 'ZenTools - 专业在线工具平台',
         navHome: '首页', navTools: '工具箱', navArticles: '教程中心',
-        navGuides: '深度指南', navCompare: '工具对比', navAbout: '关于',
+        navGuides: '深度指南', navCompare: '工具对比', navAbout: '关于', navSection: '导航',
         heroSubtitle: '专业在线工具平台',
         heroDesc: '隐私优先 · 所有工具浏览器本地运算，文件全程不上传服务器。',
         startUse: '浏览工具',
@@ -738,7 +738,7 @@
       en: {
         pageTitle: 'ZenTools - Professional Online Tools',
         navHome: 'Home', navTools: 'Tools', navArticles: 'Guides',
-        navGuides: 'Deep Guides', navCompare: 'Compare', navAbout: 'About',
+        navGuides: 'Deep Guides', navCompare: 'Compare', navAbout: 'About', navSection: 'Nav',
         heroSubtitle: 'Professional Tools For Everyone',
         heroDesc: 'Privacy first. All tools run locally in your browser. No file upload, no server.',
         startUse: 'Browse Tools',
@@ -752,7 +752,7 @@
       ja: {
         pageTitle: 'ZenTools - プロフェッショナルオンラインツール',
         navHome: 'ホーム', navTools: 'ツール', navArticles: 'ガイド',
-        navGuides: '深層ガイド', navCompare: '比較', navAbout: '概要',
+        navGuides: '深層ガイド', navCompare: '比較', navAbout: '概要', navSection: 'メニュー',
         heroSubtitle: 'プロフェッショナルツールプラットフォーム',
         heroDesc: 'プライバシー優先。すべてブラウザでローカル処理、サーバーへのアップロードなし。',
         startUse: 'ツールを見る',
@@ -766,7 +766,7 @@
       vi: {
         pageTitle: 'ZenTools - Nền tảng công cụ trực tuyến',
         navHome: 'Trang chủ', navTools: 'Công cụ', navArticles: 'Hướng dẫn',
-        navGuides: 'Hướng dẫn chuyên sâu', navCompare: 'So sánh', navAbout: 'Giới thiệu',
+        navGuides: 'Hướng dẫn chuyên sâu', navCompare: 'So sánh', navAbout: 'Giới thiệu', navSection: 'Menu',
         heroSubtitle: 'Nền tảng công cụ trực tuyến chuyên nghiệp',
         heroDesc: 'Quyền riêng tư được ưu tiên. Tất cả công cụ xử lý local, không tải lên máy chủ.',
         startUse: 'Xem công cụ',
@@ -1019,6 +1019,8 @@
     document.getElementById('langSelect').addEventListener('change', function() {
       localStorage.setItem('zentools_lang', this.value);
       applyLanguage(this.value);
+      var sEl = document.getElementById('toolSearch');
+      if (sEl && window.ZT_PAGE && window.ZT_PAGE[this.value]) sEl.placeholder = window.ZT_PAGE[this.value].searchPlaceholder;
     });
     if (document.getElementById('langSelect')) document.getElementById('langSelect').value = initLang;
 
@@ -1042,6 +1044,11 @@
     document.addEventListener('click', function(e) { var wrap = document.querySelector('.search-wrap'); if (wrap && !wrap.contains(e.target)) searchDropdown.classList.remove('show'); });
     searchDropdown.addEventListener('mousedown', function(e) { var item = e.target.closest('.sd-item'); if (item && item.href) { addToHistory(searchInput.value.trim()); return; } var hItem = e.target.closest('.sd-h-item'); if (hItem) { var textEl = hItem.querySelector('.sd-h-text'); if (textEl) addToHistory(textEl.textContent); } });
 
+    // 初始设置搜索框 placeholder（多语言；引擎只处理 textContent，不影响 placeholder 属性）
+    if (searchInput && window.ZT_PAGE && window.ZT_PAGE[initLang]) {
+      searchInput.placeholder = window.ZT_PAGE[initLang].searchPlaceholder;
+    }
+
     // ===== 移动端侧滑 =====
     const overlay = document.getElementById('mobileOverlay');
     const drawer = document.getElementById('mobileDrawer');
@@ -1060,7 +1067,7 @@
         const grouped = {};
         _toolsData.tools.forEach(function(t) { const cat = t.category || '其他'; if (!grouped[cat]) grouped[cat] = []; grouped[cat].push(t); });
         const d = getDict(lang);
-        let html = '<div class="m-cat">导航</div><a href="/">' + d.navHome + '</a><a href="/tutorials/">' + d.navArticles + '</a><a href="/about.html">' + d.navAbout + '</a>';
+        let html = '<div class="m-cat">' + d.navSection + '</div><a href="/">' + d.navHome + '</a><a href="/tutorials/">' + d.navArticles + '</a><a href="/about.html">' + d.navAbout + '</a>';
         cats.forEach(function(cat, idx) {
           const tls = grouped[cat] || [];
           if (tls.length === 0) return;
