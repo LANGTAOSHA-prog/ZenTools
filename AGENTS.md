@@ -24,6 +24,10 @@ python3 _add_tutorial.py --slug my-tutorial --category "PDF工具" \
 python3 _add_guide.py --slug my-review --type review \
   --title-zh "评测标题" --desc-zh "描述" --word-count 2500 --read-minutes 20
 
+# Batch-unify tool pages to current --zen-* design system
+# Run after _add_tool.py or any new tool HTML is created
+python3 _batch_unify_ui.py              # migrate all tool/category pages to current UI
+
 # Post-edit verification pipeline (run in this order after any data change)
 python3 _check_json.py                  # validate JSON integrity
 python3 _sync_tools_data_js.py          # JSON -> JS data sync
@@ -193,7 +197,8 @@ Every page must include these 3 code blocks:
 - **Dynamic content pages**: Pages that render content via JS (compare/, guides/, tutorials/) must listen to `zt-langchange` event to re-render when language switches.
 - **Schema.org required**: Each tool page needs `FAQPage` + `WebApplication` JSON-LD. Tutorial/guide pages use `Article` schema.
 - **AdSense**: Publisher ID is `ca-pub-1955887568822472`. Already wired into tool page template.
-- **Adding a tool**: Create HTML page + add entry to `data/tools-data.json`. Then run check → sync → sitemap → minify pipeline.
+- **Adding a tool**: Create HTML page + add entry to `data/tools-data.json`. Then run `_batch_unify_ui.py` to auto-apply the --zen-* design system (nav, hero, footer, theme toggle, mobile drawer). Finally run check → sync → sitemap → minify pipeline.
+- **`_batch_unify_ui.py`**: Bulk-migrates all tool pages and category indexes under `pdf/`, `image/`, `text/`, `dev/`, `audio/`, `video/`, `ai/`, `seo/`, `life/`, `finance/`, `qr/`, `json/`, `tools/` to the current design system. Safe to re-run — unchanged files are skipped. Must run after any `_add_tool.py` invocation to ensure new pages match the site-wide UI.
 - **`.atomcode/settings.json`**: Contains a Windows-path hook for JSON validation (`D:\\Users\\taojiang\\...`). This only works on the author's machine; ignore on Linux.
 
 ## Constraints from PROJECT_RULES.md
