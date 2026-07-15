@@ -192,7 +192,7 @@
       const url = this._getPageUrl();
       this._recent = this._recent.filter(r => r.url !== url);
       this._recent.unshift({ name, url, time: Date.now() });
-      if (this._recent.length > 20) this._recent = this._recent.slice(0, 20);
+      if (this._recent.length > 50) this._recent = this._recent.slice(0, 50);
       localStorage.setItem(this._key_recent, JSON.stringify(this._recent));
     },
     toggleFav(name) {
@@ -227,6 +227,145 @@
   };
   ZT.track.init();
   ZT.track.addFavBtn();
+
+  // ===== #6b 用户中心数据管理（ZT.user）=====
+  ZT.user = {
+    _key_groups: 'zt_fav_groups',
+    _key_subs: 'zt_subscriptions',
+
+    // --- 收藏分组 ---
+    getFavGroups() {
+      try { return JSON.parse(localStorage.getItem(this._key_groups)) || ['默认','办公常用','学习必备','开发工具']; }
+      catch(e) { return ['默认','办公常用','学习必备','开发工具']; }
+    },
+    addFavGroup(name) {
+      if (!name) return;
+      var groups = this.getFavGroups();
+      if (groups.indexOf(name) < 0) { groups.push(name); localStorage.setItem(this._key_groups, JSON.stringify(groups)); }
+    },
+    removeFavGroup(name) {
+      if (name === '默认') return;
+      var groups = this.getFavGroups().filter(g => g !== name);
+      var favs = ZT.track._fav;
+      favs.forEach(f => { if ((f.group||'默认') === name) f.group = '默认'; });
+      localStorage.setItem(ZT.track._key_fav, JSON.stringify(favs));
+      localStorage.setItem(this._key_groups, JSON.stringify(groups));
+    },
+    moveFavToGroup(url, group) {
+      var favs = ZT.track._fav;
+      var f = favs.find(f => f.url === url);
+      if (f) { f.group = group || '默认'; localStorage.setItem(ZT.track._key_fav, JSON.stringify(favs)); }
+    },
+    clearAllFavs() {
+      ZT.track._fav = [];
+      localStorage.setItem(ZT.track._key_fav, JSON.stringify([]));
+    },
+
+    // --- 历史记录 ---
+    clearRecent() {
+      ZT.track._recent = [];
+      localStorage.setItem(ZT.track._key_recent, JSON.stringify([]));
+    },
+    getRecentGrouped() {
+      var grouped = {};
+      ZT.track._recent.forEach(r => {
+        var day = new Date(r.time).toISOString().slice(0,10);
+        if (!grouped[day]) grouped[day] = [];
+        grouped[day].push(r);
+      });
+      return grouped;
+    },
+
+    // --- 分类订阅 ---
+    getSubscriptions() {
+      try { return JSON.parse(localStorage.getItem(this._key_subs)) || {categories:[],notifyOnNew:true,dismissed:[]}; }
+      catch(e) { return {categories:[],notifyOnNew:true,dismissed:[]}; }
+    },
+    toggleCategorySubscription(cat) {
+      var subs = this.getSubscriptions();
+      var idx = subs.categories.indexOf(cat);
+      if (idx >= 0) subs.categories.splice(idx,1); else subs.categories.push(cat);
+      localStorage.setItem(this._key_subs, JSON.stringify(subs));
+    },
+    isSubscribed(cat) { return this.getSubscriptions().categories.indexOf(cat) >= 0; },
+    dismissNewTool(slug) {
+      var subs = this.getSubscriptions();
+      if (subs.dismissed.indexOf(slug) < 0) subs.dismissed.push(slug);
+      localStorage.setItem(this._key_subs, JSON.stringify(subs));
+    },
+
+    // --- 个人热门排行 ---
+    getMyTop(limit) {
+      limit = limit || 20;
+      try {
+        var clicks = JSON.parse(localStorage.getItem('zt_clicks')) || {};
+        return Object.entries(clicks).sort((a,b) => b[1]-a[1]).slice(0,limit).map(e => ({url:e[0],count:e[1]}));
+      } catch(e) { return []; }
+    },
+
+    // --- 数据导出/导入 ---
+    exportAll() {
+      var data = {
+        favorites: ZT.track._fav,
+        recent: ZT.track._recent,
+        clicks: JSON.parse(localStorage.getItem('zt_clicks') || '{}'),
+        subscriptions: this.getSubscriptions(),
+        favGroups: this.getFavGroups(),
+        theme: localStorage.getItem('zentools_theme'),
+        lang: localStorage.getItem('zentools_lang'),
+        exportTime: new Date().toISOString()
+      };
+      var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = 'zentools-data-' + new Date().toISOString().slice(0,10) + '.json';
+      a.click(); URL.revokeObjectURL(url);
+    },
+    importAll(jsonStr) {
+      try {
+        var data = JSON.parse(jsonStr);
+        if (data.favorites) { localStorage.setItem(ZT.track._key_fav, JSON.stringify(data.favorites)); ZT.track._fav = data.favorites; }
+        if (data.recent) { localStorage.setItem(ZT.track._key_recent, JSON.stringify(data.recent)); ZT.track._recent = data.recent; }
+        if (data.clicks) localStorage.setItem('zt_clicks', JSON.stringify(data.clicks));
+        if (data.subscriptions) localStorage.setItem(this._key_subs, JSON.stringify(data.subscriptions));
+        if (data.favGroups) localStorage.setItem(this._key_groups, JSON.stringify(data.favGroups));
+        if (data.theme) localStorage.setItem('zentools_theme', data.theme);
+        if (data.lang) localStorage.setItem('zentools_lang', data.lang);
+        return true;
+      } catch(e) { return false; }
+    }
+  };
+
+  // ===== #6c 新工具提醒条（订阅功能）=====
+  (function() {
+    var subs = ZT.user.getSubscriptions();
+    if (!subs.categories.length || subs.notifyOnNew === false) return;
+    fetch('/data/tools-data.json').then(function(r) { return r.json(); }).then(function(data) {
+      var newTools = (data.tools||[]).filter(function(t) {
+        return t.new === true && subs.categories.indexOf(t.category) >= 0 && subs.dismissed.indexOf(t.slug) < 0;
+      });
+      if (!newTools.length) return;
+      var lang = localStorage.getItem('zentools_lang') || 'zh';
+      var msgs = {
+        zh: {text:'你关注的分类有 ' + newTools.length + ' 个新工具上线！', view:'查看', dismiss:'知道了'},
+        en: {text:newTools.length + ' new tools in your subscribed categories!', view:'View', dismiss:'Got it'},
+        ja: {text:'フォロー中のカテゴリに' + newTools.length + 'つの新ツールが追加されました！', view:'見る', dismiss:'OK'},
+        vi: {text:newTools.length + ' công cụ mới trong danh mục bạn theo dõi!', view:'Xem', dismiss:'Đã hiểu'}
+      };
+      var m = msgs[lang] || msgs.zh;
+      var el = document.createElement('div');
+      el.className = 'zt-new-tools-bar';
+      el.innerHTML = '<span class="zt-nt-icon">🔔</span><span>' + m.text + '</span>' +
+        '<a href="/my.html#subscriptions" class="zt-nt-view">' + m.view + '</a>' +
+        '<button class="zt-nt-close">' + m.dismiss + '</button>';
+      el.querySelector('.zt-nt-close').addEventListener('click', function() {
+        el.remove();
+        newTools.forEach(function(t) { ZT.user.dismissNewTool(t.slug); });
+      });
+      var nav = document.querySelector('nav');
+      if (nav) nav.insertAdjacentElement('afterend', el); else document.body.insertBefore(el, document.body.firstChild);
+    }).catch(function() {});
+  })();
 
   // ===== #9 工具间快捷跳转（互补工具推荐） =====
   (function() {

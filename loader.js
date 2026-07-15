@@ -20,11 +20,27 @@ function toggleTheme() {
 
 /**
  * 最近使用记录（最多 5 条）
+ * 已迁移到 ZT.track 的 zt_recent，此处保留兼容
  */
 function loadRecent() {
-  const list = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
-  const container = document.getElementById('recentList');
-  const section = document.getElementById('recentSection');
+  // 迁移旧版 zentools_recent 到 zt_recent
+  try {
+    var old = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
+    if (old.length) {
+      var recent = JSON.parse(localStorage.getItem('zt_recent') || '[]');
+      old.forEach(function(url) {
+        if (url && !recent.find(function(r) { return r.url === url; })) {
+          recent.push({ name: url.split('/').pop().replace('.html',''), url: url, time: Date.now() });
+        }
+      });
+      localStorage.setItem('zt_recent', JSON.stringify(recent.slice(0, 50)));
+      localStorage.removeItem('zentools_recent');
+    }
+  } catch(e) {}
+
+  var list = JSON.parse(localStorage.getItem('zt_recent') || '[]');
+  var container = document.getElementById('recentList');
+  var section = document.getElementById('recentSection');
   if (!list.length) {
     if (section) section.classList.remove('visible');
     return;
@@ -32,7 +48,7 @@ function loadRecent() {
   if (section) section.classList.add('visible');
   if (container) {
     container.innerHTML = list
-      .map(url => `<a href="${url}">${url.split('/').pop().replace('.html','')}</a>`)
+      .map(function(r) { return '<a href="' + r.url + '">' + (r.name || r.url.split('/').pop().replace('.html','')) + '</a>'; })
       .join('');
   }
 }

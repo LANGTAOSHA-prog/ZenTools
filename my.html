@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">用户中心 - ZenTools</title>
+<meta name="description" content="ZenTools 用户中心：管理你的工具收藏、使用历史、分类订阅和热门榜单。所有数据保存在浏览器本地，隐私安全。" data-i18n-placeholder="metaDesc"/>
+<meta name="keywords" content="用户中心,收藏工具,使用历史,工具订阅,热门工具,ZenTools"/>
+<link rel="canonical" href="https://zentools.xyz/my.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#00e5ff"/>
+<meta property="og:title" content="用户中心 - ZenTools" data-i18n-placeholder="ogTitle"/>
+<meta property="og:description" content="管理你的工具收藏、使用历史、分类订阅和热门榜单" data-i18n-placeholder="ogDesc"/>
+<meta property="og:url" content="https://zentools.xyz/my.html"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="用户中心 - ZenTools"/>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="assets/css/tool-ui.min.css"/>
+<style>
+/* Tab 导航 */
+.my-tabs { display:flex; gap:4px; max-width:1200px; margin:0 auto 24px; padding:0 20px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+.my-tab { padding:12px 20px; border:none; background:none; color:var(--muted); font-size:15px; font-weight:600; cursor:pointer; border-bottom:2px solid transparent; transition:color 0.2s,border-color 0.2s; }
+.my-tab.active { color:var(--cyan); border-bottom-color:var(--cyan); }
+.my-tab:hover:not(.active) { color:var(--text); }
+
+.my-content { max-width:1200px; margin:0 auto; padding:0 20px 60px; }
+.my-panel { display:none; }
+.my-panel.active { display:block; animation:fadeIn 0.3s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* 分组按钮 */
+.my-group-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.my-group-btn { padding:6px 16px; border-radius:20px; border:1px solid var(--border); background:var(--glass); color:var(--muted); font-size:13px; cursor:pointer; transition:all 0.2s; }
+.my-group-btn.active { background:rgba(0,229,255,0.1); border-color:var(--cyan); color:var(--cyan); }
+
+/* 操作栏 */
+.my-actions { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+.my-action-btn { padding:8px 16px; border-radius:8px; border:1px solid var(--border); background:var(--glass); color:var(--text); font-size:13px; cursor:pointer; transition:background 0.2s; }
+.my-action-btn.danger { border-color:rgba(244,63,94,0.3); color:var(--pink); }
+.my-action-btn:hover { background:rgba(255,255,255,0.06); }
+
+/* 列表项 */
+.my-list { display:flex; flex-direction:column; gap:8px; }
+.my-item { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:12px; background:var(--glass); border:1px solid var(--border); transition:transform 0.15s,border-color 0.15s; text-decoration:none; color:var(--text); }
+.my-item:hover { transform:translateY(-2px); border-color:var(--cyan); }
+.my-item .mi-icon { font-size:24px; flex-shrink:0; }
+.my-item .mi-info { flex:1; min-width:0; }
+.my-item .mi-name { font-size:14px; font-weight:600; color:var(--text); }
+.my-item .mi-meta { font-size:12px; color:var(--muted); margin-top:2px; }
+.my-item .mi-group-tag { font-size:11px; padding:2px 10px; border-radius:12px; background:rgba(168,85,247,0.1); color:var(--purple); white-space:nowrap; }
+.my-item .mi-actions { display:flex; gap:6px; flex-shrink:0; }
+.my-item .mi-btn { width:30px; height:30px; border-radius:8px; border:1px solid var(--border); background:var(--glass); color:var(--muted); font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:color 0.15s,border-color 0.15s; }
+.my-item .mi-btn:hover { color:var(--pink); border-color:var(--pink); }
+
+.my-empty { text-align:center; padding:50px 24px; color:var(--muted); font-size:15px; display:none; }
+
+/* 历史日期分组 */
+.my-date-group { margin-bottom:24px; }
+.my-date-label { font-size:12px; font-weight:700; color:var(--muted); letter-spacing:0.05em; padding-bottom:8px; border-bottom:1px solid var(--border); margin-bottom:12px; }
+
+/* 订阅分类卡片 */
+.my-subs-info { color:var(--muted); font-size:14px; line-height:1.7; margin-bottom:20px; padding:16px 20px; background:var(--glass); border-radius:12px; border:1px solid var(--border); }
+.my-subs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; margin-bottom:30px; }
+.my-subs-card { position:relative; padding:20px; border-radius:14px; background:var(--glass); border:1px solid var(--border); text-align:center; cursor:pointer; transition:border-color 0.2s,background 0.2s; }
+.my-subs-card:hover { border-color:var(--cyan); }
+.my-subs-card.subscribed { border-color:var(--cyan); background:rgba(0,229,255,0.06); }
+.my-subs-card .msc-icon { font-size:28px; margin-bottom:8px; }
+.my-subs-card .msc-name { font-size:14px; font-weight:600; color:var(--text); }
+.my-subs-card .msc-count { font-size:12px; color:var(--muted); margin-top:4px; }
+.my-subs-card .msc-check { position:absolute; top:8px; right:10px; font-size:16px; color:var(--cyan); font-weight:700; }
+
+.my-new-badge { display:inline-flex; padding:1px 8px; border-radius:10px; background:rgba(0,229,255,0.12); color:var(--cyan); font-size:10px; font-weight:700; margin-left:6px; }
+
+/* 热门排行 */
+.my-hot-tabs { display:flex; gap:8px; margin-bottom:20px; }
+.my-hot-tab { padding:8px 20px; border-radius:20px; border:1px solid var(--border); background:none; color:var(--muted); font-size:13px; cursor:pointer; transition:all 0.2s; }
+.my-hot-tab.active { background:var(--cyan); color:var(--bg); border-color:var(--cyan); font-weight:600; }
+.hot-rank { font-size:20px; font-weight:800; min-width:28px; text-align:center; flex-shrink:0; }
+.hot-rank.r1,.hot-rank.r2,.hot-rank.r3 { background:linear-gradient(135deg,#f59e0b,#fbbf24); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hot-rank.r4to10 { color:var(--muted); }
+
+/* 弹窗 */
+.my-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:9999; }
+.my-modal { background:var(--glass); backdrop-filter:blur(20px); border:1px solid var(--border); border-radius:16px; padding:28px; max-width:400px; width:90%; }
+.my-modal h3 { margin:0 0 16px; color:var(--text); font-size:18px; }
+.my-modal-list { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.my-modal-item { padding:10px 16px; border-radius:8px; border:1px solid var(--border); background:var(--glass); color:var(--text); font-size:14px; cursor:pointer; text-align:left; }
+.my-modal-item:hover { border-color:var(--cyan); color:var(--cyan); }
+.my-modal-add { display:flex; gap:8px; margin-bottom:12px; }
+.my-modal-add input { flex:1; padding:8px 12px; border-radius:8px; border:1px solid var(--border); background:var(--glass); color:var(--text); font-size:14px; }
+.my-modal-add button { padding:8px 16px; border-radius:8px; border:none; background:var(--cyan); color:var(--bg); font-size:13px; font-weight:600; cursor:pointer; }
+.my-modal-close { width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); background:none; color:var(--muted); font-size:14px; cursor:pointer; }
+
+@media(max-width:768px) {
+  .my-tabs { gap:4px; }
+  .my-tab { padding:10px 14px; font-size:13px; }
+  .my-subs-grid { grid-template-columns:repeat(3,1fr); }
+  .my-item .mi-group-tag { display:none; }
+}
+@media(max-width:480px) {
+  .my-subs-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "用户中心 - ZenTools",
+  "description": "管理你的工具收藏、使用历史、分类订阅和热门榜单",
+  "url": "https://zentools.xyz/my.html"
+}
+</script>
+<script src="assets/js/common-i18n.min.js"></script>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle:'用户中心 - ZenTools', metaDesc:'ZenTools 用户中心：管理你的工具收藏、使用历史、分类订阅和热门榜单。所有数据保存在浏览器本地，隐私安全。',
+    ogTitle:'用户中心 - ZenTools', ogDesc:'管理你的工具收藏、使用历史、分类订阅和热门榜单',
+    crumbCur:'用户中心', eyebrow:'个人工具管理', h1Grad:'我的工具箱',
+    h1Sub:'收藏 · 历史 · 订阅 · 热门', pageDesc:'管理你的工具收藏、使用历史、分类订阅和热门榜单。所有数据保存在浏览器本地，隐私安全。',
+    tabFav:'⭐ 收藏', tabHistory:'📋 历史', tabSubs:'🔔 订阅', tabHot:'🔥 热门',
+    groupAll:'全部', addGroup:'+ 新分组', addGroupPlaceholder:'输入新分组名称',
+    exportData:'导出数据', importData:'导入数据', clearFavs:'清空收藏', clearHistory:'清空历史',
+    clearFavsConfirm:'确定要清空所有收藏吗？此操作不可撤销。', clearHistoryConfirm:'确定要清空所有使用历史吗？',
+    favEmpty:'还没有收藏任何工具，使用工具页面右上角的 ★ 按钮添加', historyEmpty:'还没有使用记录',
+    moveFavTo:'移入分组', removeFav:'取消收藏', cancel:'取消',
+    subsInfo:'关注你感兴趣的分类，新工具上线时会在首页提醒你',
+    newToolsTitle:'新上线工具提醒', newBadge:'NEW', noNewTools:'暂无新工具提醒',
+    hotEditor:'编辑推荐', hotPersonal:'我的排行', clicksUnit:'次使用', cntTools:'个工具',
+    today:'今天', yesterday:'昨天', noClicks:'还没有使用记录，使用工具后这里会显示你的个人排行',
+    importSuccess:'数据已导入', importFail:'导入失败，请检查文件格式',
+    navHome:'首页', navAll:'全部工具', navArticles:'教程中心', navGuides:'深度指南', navCompare:'工具对比', navAbout:'关于'
+  },
+  en: {
+    pageTitle:'My Space - ZenTools', metaDesc:'ZenTools My Space: manage your favorites, history, subscriptions and hot tools. All data stored locally in browser.',
+    ogTitle:'My Space - ZenTools', ogDesc:'Manage your favorites, history, subscriptions and hot tools',
+    crumbCur:'My Space', eyebrow:'Personal Tools', h1Grad:'My Toolbox',
+    h1Sub:'Favorites · History · Subscriptions · Popular', pageDesc:'Manage your favorites, history, subscriptions and hot tools. All data stored locally in your browser.',
+    tabFav:'⭐ Favorites', tabHistory:'📋 History', tabSubs:'🔔 Subscribe', tabHot:'🔥 Popular',
+    groupAll:'All', addGroup:'+ New Group', addGroupPlaceholder:'Enter group name',
+    exportData:'Export', importData:'Import', clearFavs:'Clear All', clearHistory:'Clear History',
+    clearFavsConfirm:'Are you sure you want to clear all favorites? This cannot be undone.', clearHistoryConfirm:'Are you sure you want to clear all usage history?',
+    favEmpty:'No favorites yet. Use the ★ button on any tool page to add.', historyEmpty:'No usage history yet.',
+    moveFavTo:'Move to group', removeFav:'Remove', cancel:'Cancel',
+    subsInfo:'Follow categories you like. We will notify you when new tools are added.',
+    newToolsTitle:'New Tool Alerts', newBadge:'NEW', noNewTools:'No new tool alerts',
+    hotEditor:'Editor Picks', hotPersonal:'My Ranking', clicksUnit:'uses', cntTools:'tools',
+    today:'Today', yesterday:'Yesterday', noClicks:'No usage yet. Use tools to build your personal ranking.',
+    importSuccess:'Data imported', importFail:'Import failed. Please check file format.',
+    navHome:'Home', navAll:'All Tools', navArticles:'Articles', navGuides:'Guides', navCompare:'Compare', navAbout:'About'
+  },
+  ja: {
+    pageTitle:'マイスペース - ZenTools', metaDesc:'ZenTools マイスペース：お気に入り、履歴、フォロー、人気ツールを管理。データはブラウザにローカル保存。',
+    ogTitle:'マイスペース - ZenTools', ogDesc:'お気に入り、履歴、フォロー、人気ツールを管理',
+    crumbCur:'マイスペース', eyebrow:'パーソナルツール', h1Grad:'マイツールボックス',
+    h1Sub:'お気に入り · 履歴 · フォロー · 人気', pageDesc:'お気に入り、履歴、フォロー、人気ツールを管理。データはブラウザにローカル保存。',
+    tabFav:'⭐ お気に入り', tabHistory:'📋 履歴', tabSubs:'🔔 フォロー', tabHot:'🔥 人気',
+    groupAll:'すべて', addGroup:'+ 新しいグループ', addGroupPlaceholder:'グループ名を入力',
+    exportData:'エクスポート', importData:'インポート', clearFavs:'すべてクリア', clearHistory:'履歴クリア',
+    clearFavsConfirm:'すべてのお気に入りをクリアしますか？復元できません。', clearHistoryConfirm:'すべての使用履歴をクリアしますか？',
+    favEmpty:'お気に入りがありません。ツールページの★ボタンで追加してください。', historyEmpty:'使用履歴がありません。',
+    moveFavTo:'グループに移動', removeFav:'削除', cancel:'キャンセル',
+    subsInfo:'興味のあるカテゴリをフォローすると、新ツール追加時に通知します。',
+    newToolsTitle:'新ツール通知', newBadge:'NEW', noNewTools:'新ツール通知なし',
+    hotEditor:'編集者おすすめ', hotPersonal:'マイランキング', clicksUnit:'回使用', cntTools:'ツール',
+    today:'今日', yesterday:'昨日', noClicks:'使用履歴がありません。ツールを使うと個人ランキングが表示されます。',
+    importSuccess:'データをインポートしました', importFail:'インポート失敗。ファイル形式を確認してください。',
+    navHome:'ホーム', navAll:'すべてのツール', navArticles:'記事', navGuides:'ガイド', navCompare:'ツール比較', navAbout:'概要'
+  },
+  vi: {
+    pageTitle:'Trang cá nhân - ZenTools', metaDesc:'ZenTools Trang cá nhân: quản lý yêu thích, lịch sử, theo dõi và công cụ phổ biến. Dữ liệu lưu local trên trình duyệt.',
+    ogTitle:'Trang cá nhân - ZenTools', ogDesc:'Quản lý yêu thích, lịch sử, theo dõi và công cụ phổ biến',
+    crumbCur:'Trang cá nhân', eyebrow:'Công cụ cá nhân', h1Grad:'Hộp công cụ của tôi',
+    h1Sub:'Yêu thích · Lịch sử · Theo dõi · Phổ biến', pageDesc:'Quản lý yêu thích, lịch sử, theo dõi và công cụ phổ biến. Dữ liệu lưu local trên trình duyệt.',
+    tabFav:'⭐ Yêu thích', tabHistory:'📋 Lịch sử', tabSubs:'🔔 Theo dõi', tabHot:'🔥 Phổ biến',
+    groupAll:'Tất cả', addGroup:'+ Nhóm mới', addGroupPlaceholder:'Nhập tên nhóm',
+    exportData:'Xuất', importData:'Nhập', clearFavs:'Xoá tất cả', clearHistory:'Xoá lịch sử',
+    clearFavsConfirm:'Bạn có chắc muốn xoá tất cả yêu thích? Không thể hoàn tác.', clearHistoryConfirm:'Bạn có chắc muốn xoá tất cả lịch sử?',
+    favEmpty:'Chưa có yêu thích. Dùng nút ★ trên trang công cụ để thêm.', historyEmpty:'Chưa có lịch sử sử dụng.',
+    moveFavTo:'Chuyển vào nhóm', removeFav:'Xoá', cancel:'Huỷ',
+    subsInfo:'Theo dõi danh mục bạn thích. Chúng tôi sẽ nhắc khi có công cụ mới.',
+    newToolsTitle:'Nhắc công cụ mới', newBadge:'MỚI', noNewTools:'Không có nhắc công cụ mới',
+    hotEditor:'Đề xuất', hotPersonal:'Xếp hạng cá nhân', clicksUnit:'lần dùng', cntTools:'công cụ',
+    today:'Hôm nay', yesterday:'Hôm qua', noClicks:'Chưa có lịch sử. Dùng công cụ để xây dựng xếp hạng cá nhân.',
+    importSuccess:'Dữ liệu đã nhập', importFail:'Nhập thất bại. Kiểm tra định dạng tệp.',
+    navHome:'Trang chủ', navAll:'Tất cả', navArticles:'Bài viết', navGuides:'Hướng dẫn', navCompare:'So sánh', navAbout:'Giới thiệu'
+  }
+};
+</script>
+</head>
+<body>
+
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+
+<div class="z-wrap">
+
+  <nav>
+    <div class="nav-inner">
+      <a class="logo" href="/">ZenTools<span>3.0</span></a>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" class="active" data-i18n="navMy">用户中心</a>
+        <a href="/about.html" data-i18n="navAbout">关于</a>
+        <select id="langSelect" class="lang-select">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-header reveal">
+    <div class="breadcrumb">
+      <a href="/" data-i18n="breadcrumbHome">首页</a>
+      <span class="breadcrumb-sep">/</span>
+      <span class="cur" data-i18n="crumbCur">用户中心</span>
+    </div>
+    <span class="page-eyebrow" data-i18n="eyebrow">个人工具管理</span>
+    <h1><span class="grad" data-i18n="h1Grad">我的工具箱</span><br/><span data-i18n="h1Sub">收藏 · 历史 · 订阅 · 热门</span></h1>
+    <p data-i18n="pageDesc">管理你的工具收藏、使用历史、分类订阅和热门榜单。所有数据保存在浏览器本地，隐私安全。</p>
+  </div>
+
+  <div class="my-tabs">
+    <button class="my-tab active" data-tab="favorites" data-i18n="tabFav">⭐ 收藏</button>
+    <button class="my-tab" data-tab="history" data-i18n="tabHistory">📋 历史</button>
+    <button class="my-tab" data-tab="subscriptions" data-i18n="tabSubs">🔔 订阅</button>
+    <button class="my-tab" data-tab="hotlist" data-i18n="tabHot">🔥 热门</button>
+  </div>
+
+  <div class="my-content">
+    <!-- 收藏 Tab -->
+    <div class="my-panel active" id="panelFavorites">
+      <div class="my-group-bar" id="favGroupBar"></div>
+      <div class="my-actions">
+        <button class="my-action-btn" id="exportBtn" data-i18n="exportData">导出数据</button>
+        <button class="my-action-btn" id="importBtn" data-i18n="importData">导入数据</button>
+        <button class="my-action-btn danger" id="clearFavsBtn" data-i18n="clearFavs">清空收藏</button>
+      </div>
+      <div class="my-list" id="favList"></div>
+      <div class="my-empty" id="favEmpty" data-i18n="favEmpty">还没有收藏任何工具，使用工具页面右上角的 ★ 按钮添加</div>
+    </div>
+
+    <!-- 历史 Tab -->
+    <div class="my-panel" id="panelHistory">
+      <div class="my-actions">
+        <button class="my-action-btn danger" id="clearHistoryBtn" data-i18n="clearHistory">清空历史</button>
+      </div>
+      <div class="my-list" id="historyList"></div>
+      <div class="my-empty" id="historyEmpty" data-i18n="historyEmpty">还没有使用记录</div>
+    </div>
+
+    <!-- 订阅 Tab -->
+    <div class="my-panel" id="panelSubscriptions">
+      <div class="my-subs-info" data-i18n="subsInfo">关注你感兴趣的分类，新工具上线时会在首页提醒你</div>
+      <div class="my-subs-grid" id="subsGrid"></div>
+      <div id="newToolsSection" style="display:none;">
+        <h3 style="font-size:18px;margin:30px 0 16px;color:var(--text);" data-i18n="newToolsTitle">新上线工具提醒</h3>
+        <div class="my-list" id="newToolsList"></div>
+      </div>
+    </div>
+
+    <!-- 热门 Tab -->
+    <div class="my-panel" id="panelHotlist">
+      <div class="my-hot-tabs">
+        <button class="my-hot-tab active" data-type="editor" data-i18n="hotEditor">编辑推荐</button>
+        <button class="my-hot-tab" data-type="personal" data-i18n="hotPersonal">我的排行</button>
+      </div>
+      <div class="my-list" id="hotList"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links">
+        <a href="/">首页</a>
+        <a href="/tools.html">全部工具</a>
+        <a href="/guides/">深度指南</a>
+        <a href="/professions.html">职业工具</a>
+        <a href="/my.html">用户中心</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/js/tool-ui.min.js"></script>
+<script src="assets/js/my.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+</body>
+</html>
