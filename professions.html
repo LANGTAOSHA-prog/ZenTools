@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">职业工具 - ZenTools</title>
+<meta name="description" content="按职业分类查找在线工具：办公商务、内容创作、设计创意、营销增长、技术开发、教育教学、生活消费、影音媒体。280+ 工具按职业精选，浏览器本地运行，隐私安全。" data-i18n-placeholder="metaDesc"/>
+<meta name="keywords" content="职业工具,按职业找工具,开发者工具,设计师工具,自媒体工具,办公工具,营销工具,ZenTools"/>
+<link rel="canonical" href="https://zentools.xyz/professions.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#0066FF"/>
+<meta property="og:title" content="职业工具 - ZenTools" data-i18n-placeholder="ogTitle"/>
+<meta property="og:description" content="按职业分类查找最适合你的在线工具，280+ 工具按 8 大职业群精选。" data-i18n-placeholder="ogDesc"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/professions.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="职业工具 - ZenTools"/>
+<meta name="twitter:description" content="按职业分类查找最适合你的在线工具"/>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="assets/css/tool-ui.min.css"/>
+<script src="assets/js/anti-crash.min.js" defer></script>
+<style>
+:root {
+  --zen-primary: #0066FF;
+  --zen-secondary: #00C2B8;
+  --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+  --zen-success: #22C55E;
+  --zen-warning: #F97316;
+  --zen-danger: #EF4444;
+  --zen-text-main: #111827;
+  --zen-text-sub: #4B5563;
+  --zen-text-placeholder: #9CA3AF;
+  --zen-bg-base: #F9FAFB;
+  --zen-bg-card: #FFFFFF;
+  --zen-border: #E5E7EB;
+  --zen-radius-base: 12px;
+  --zen-radius-card: 16px;
+  --zen-radius-btn: 8px;
+  --zen-radius-tag: 6px;
+  --zen-card-padding: 20px;
+}
+.dark {
+  --zen-text-main: #F9FAFB;
+  --zen-text-sub: #D1D5DB;
+  --zen-text-placeholder: #64748B;
+  --zen-bg-base: #0F172A;
+  --zen-bg-card: #1E293B;
+  --zen-border: #334155;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif;
+  background: var(--zen-bg-base);
+  color: var(--zen-text-main);
+  line-height: 1.5;
+  transition: background 0.35s, color 0.35s;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== 导航（与主页一致） ===== */
+.site-nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.75);
+  border-bottom: 1px solid var(--zen-border);
+  transition: background 0.3s;
+}
+.dark .site-nav { background: rgba(15,23,42,0.75); }
+.nav-inner {
+  height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.brand-logo { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; flex-shrink: 0; }
+.logo-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--zen-gradient);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 20px; font-weight: 700;
+}
+.logo-text-blue { color: var(--zen-primary); }
+.logo-text-teal { color: var(--zen-secondary); }
+.logo-ver { font-size: 11px; color: var(--zen-text-placeholder); font-weight: 400; margin-left: 2px; }
+.nav-links { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end; }
+.nav-links a, .nav-trigger {
+  padding: 8px 14px; border-radius: var(--zen-radius-btn);
+  font-size: 14px; font-weight: 500;
+  color: var(--zen-text-sub); cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  background: none; border: none; font-family: inherit;
+}
+.nav-links a:hover, .nav-trigger:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+.dark .nav-links a:hover, .dark .nav-trigger:hover { background: rgba(255,255,255,0.06); }
+.nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+.hamburger, .theme-toggle, .lang-select {
+  all: unset;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 8px 12px; border-radius: var(--zen-radius-btn);
+  font-size: 14px; font-weight: 500;
+  color: var(--zen-text-sub); cursor: pointer;
+  transition: background 0.2s;
+}
+.hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+.dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+.lang-select { font-family: inherit; font-size: 13px; }
+.hamburger { display: none; }
+
+/* ===== 移动侧滑 ===== */
+.mobile-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.mobile-overlay.open { opacity: 1; visibility: visible; }
+.mobile-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw;
+  background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border);
+  padding: 24px 20px; z-index: 310; overflow-y: auto;
+  transform: translateX(100%); transition: transform 0.3s;
+  backdrop-filter: blur(24px);
+}
+.dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+.mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+.mobile-drawer .close-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: var(--zen-radius-btn);
+  border: 1px solid var(--zen-border);
+  background: transparent; color: var(--zen-text-sub); cursor: pointer;
+  font-size: 18px; margin-bottom: 20px; margin-left: auto;
+}
+.mobile-drawer .close-btn:hover { background: rgba(0,0,0,0.04); }
+.dark .mobile-drawer .close-btn:hover { background: rgba(255,255,255,0.06); }
+.mobile-drawer a {
+  display: block; padding: 12px 16px; border-radius: var(--zen-radius-btn);
+  font-size: 16px; font-weight: 500; color: var(--zen-text-sub);
+  transition: color 0.2s, background 0.2s;
+}
+.mobile-drawer a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+.dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+
+/* ===== Hero（与主页一致） ===== */
+.page-hero {
+  padding-top: 150px; padding-bottom: 40px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 20%, rgba(0,102,255,.05) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 70% 70%, rgba(0,194,184,.04) 0%, transparent 50%);
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; color: var(--zen-text-placeholder);
+  letter-spacing: 2px; margin-bottom: 24px;
+}
+.tag-dot { width: 6px; height: 6px; background: var(--zen-primary); border-radius: 50%; }
+.page-hero h1 {
+  font-size: clamp(36px, 6vw, 56px); font-weight: 800;
+  letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px;
+}
+.hero-gradient-text {
+  background: var(--zen-gradient);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub {
+  font-size: 17px; color: var(--zen-text-sub); line-height: 1.7;
+  max-width: 560px; margin: 0 auto 28px;
+}
+.hero-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+.tag {
+  padding: 6px 14px; border-radius: var(--zen-radius-tag);
+  font-size: 13px; background: rgba(0,102,255,0.08); color: var(--zen-primary);
+}
+.dark .tag { background: rgba(0,102,255,0.15); }
+.hero-stats { display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; }
+.stat-block { text-align: center; min-width: 80px; }
+.stat-block .sb-num { font-size: 34px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.stat-block .sb-num.c1 { color: var(--zen-primary); }
+.stat-block .sb-num.c2 { color: var(--zen-secondary); }
+.stat-block .sb-num.c3 { color: var(--zen-success); }
+.stat-block .sb-label { font-size: 13px; color: var(--zen-text-placeholder); }
+
+/* ===== Section ===== */
+.section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+.section-head { text-align: center; margin-bottom: 36px; }
+.section-eyebrow {
+  font-size: 11px; font-weight: 700; color: var(--zen-text-placeholder);
+  letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; display: block;
+}
+.section-head h2 { font-size: 26px; font-weight: 700; }
+.section-desc { color: var(--zen-text-sub); font-size: 16px; line-height: 1.7; max-width: 720px; margin: 0 auto 32px; text-align: center; }
+
+/* 职业卡片网格 */
+.prof-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.prof-card {
+  background: var(--zen-bg-card); border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-card); padding: 28px; cursor: pointer; color: var(--zen-text-main);
+  display: flex; flex-direction: column; gap: 12px; text-decoration: none;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.prof-card:hover { transform: translateY(-4px); border-color: rgba(0,102,255,0.3); box-shadow: 0 8px 30px rgba(0,102,255,0.08); }
+.prof-card.active { border-color: var(--zen-secondary); box-shadow: 0 8px 30px rgba(0,194,184,0.12); }
+.prof-card .pc-icon { font-size: 42px; line-height: 1; }
+.prof-card .pc-title { font-size: 20px; font-weight: 700; }
+.prof-card .pc-count { font-size: 13px; color: var(--zen-primary); font-weight: 600; }
+.prof-card .pc-desc { font-size: 14px; color: var(--zen-text-sub); line-height: 1.6; }
+.prof-card .pc-cta { font-size: 14px; font-weight: 700; color: var(--zen-secondary); margin-top: auto; }
+
+/* 工具列表网格 */
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.tool-link {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--zen-bg-card); border: 1px solid var(--zen-border);
+  border-radius: var(--zen-radius-base); padding: 14px 18px; text-decoration: none; color: var(--zen-text-main);
+  transition: transform 0.2s, border-color 0.2s; font-size: 14px;
+}
+.tool-link:hover { transform: translateY(-2px); border-color: rgba(0,102,255,0.3); }
+.tool-link .tl-icon { font-size: 20px; flex-shrink: 0; }
+.tool-link .tl-name { font-weight: 600; }
+.tool-link .tl-cat { margin-left: auto; font-size: 12px; color: var(--zen-text-sub); white-space: nowrap; }
+
+/* 返回链接 */
+.back-link { margin-top: 28px; text-align: center; }
+.btn-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 10px 24px; border-radius: var(--zen-radius-btn); border: 1px solid var(--zen-border);
+  color: var(--zen-text-sub); text-decoration: none; transition: all 0.2s; font-size: 14px;
+}
+.btn-back:hover { border-color: var(--zen-primary); color: var(--zen-primary); }
+
+/* 工具区过渡 */
+#toolsSection { animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ===== 页脚 ===== */
+footer {
+  border-top: 1px solid var(--zen-border);
+  padding: 36px 0; text-align: center;
+}
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.footer-logo {
+  font-size: 18px; font-weight: 700; margin-bottom: 12px;
+  background: var(--zen-gradient);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.footer-links {
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+  margin-bottom: 14px; font-size: 13px;
+}
+.footer-links a { color: var(--zen-text-sub); transition: color 0.2s; }
+.footer-links a:hover { color: var(--zen-primary); }
+.footer-copy { font-size: 13px; color: var(--zen-text-placeholder); }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+  .hamburger { display: inline-flex; }
+  .page-hero { padding-top: 120px; }
+  .page-hero h1 { font-size: clamp(30px, 7vw, 40px); }
+  .prof-grid { grid-template-columns: 1fr; }
+  .tools-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 20px; }
+  .stat-block .sb-num { font-size: 28px; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .nav-inner { height: 60px; gap: 8px; }
+  .brand-logo { font-size: 18px; gap: 6px; }
+  .logo-icon { width: 30px; height: 30px; font-size: 16px; }
+  .logo-ver { font-size: 10px; }
+  .page-hero { padding-top: 100px; }
+  .page-hero h1 { font-size: clamp(24px, 7vw, 30px); }
+  .hero-stats { gap: 16px; }
+  .stat-block .sb-num { font-size: 24px; }
+  .section { padding: 28px 16px; }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "职业工具 - ZenTools",
+  "description": "按职业分类查找在线工具：办公商务、内容创作、设计创意、营销增长、技术开发、教育教学、生活消费、影音媒体。",
+  "url": "https://zentools.xyz/professions.html",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": "8",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"办公商务"},
+      {"@type":"ListItem","position":2,"name":"内容创作"},
+      {"@type":"ListItem","position":3,"name":"设计创意"},
+      {"@type":"ListItem","position":4,"name":"营销增长"},
+      {"@type":"ListItem","position":5,"name":"技术开发"},
+      {"@type":"ListItem","position":6,"name":"教育教学"},
+      {"@type":"ListItem","position":7,"name":"生活消费"},
+      {"@type":"ListItem","position":8,"name":"影音媒体"}
+    ]
+  }
+}
+</script>
+<script src="assets/js/common-i18n.min.js"></script>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle: '职业工具 - ZenTools',
+    metaDesc: '按职业分类查找在线工具：办公商务、内容创作、设计创意、营销增长、技术开发、教育教学、生活消费、影音媒体。280+ 工具按职业精选，浏览器本地运行，隐私安全。',
+    ogTitle: '职业工具 - ZenTools',
+    ogDesc: '按职业分类查找最适合你的在线工具，280+ 工具按 8 大职业群精选。',
+    h1Grad: '职业工具',
+    h1Sub: '找到最适合你职业的在线工具',
+    pageDesc: '不同职业有不同的工具需求。我们根据 280+ 工具的使用场景，为 8 大职业群体精选了最适合的工具组合，所有工具浏览器本地运行，文件不上传服务器。',
+    tag1: '8 大职业群', tag2: '280+ 工具', tag3: '本地运行',
+    statGroups: '8', statGroupsLabel: '大职业群',
+    statTags: '28', statTagsLabel: '个细分职业',
+    statTools: '280+', statToolsLabel: '款工具',
+    groupsEyebrow: '职业分类', groupsTitle: '8 大职业工具群',
+    groupsDesc: '点击职业卡片查看该职业最适合的工具列表',
+    backToGroups: '← 返回职业列表',
+    toolCountLabel: '个工具',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
+    navHome: '首页', navTools: '工具箱', navArticles: '教程中心',
+    navGuides: '深度指南', navCompare: '工具对比', navProfessions: '职业工具', navMy: '用户中心', navAbout: '关于', navSection: '导航'
+  },
+  en: {
+    pageTitle: 'Professions - ZenTools',
+    metaDesc: 'Find online tools by profession: office, content creation, design, marketing, tech, education, life, media. 280+ tools curated for 8 profession groups, all run locally in browser.',
+    ogTitle: 'Professions - ZenTools',
+    ogDesc: 'Find the best tools for your profession. 280+ tools curated for 8 professional groups.',
+    h1Grad: 'Professional Tools',
+    h1Sub: 'Find the best tools for your profession',
+    pageDesc: 'Different professions need different tools. We curated 280+ tools into 8 professional groups based on use cases. All tools run locally in your browser.',
+    tag1: '8 Groups', tag2: '280+ Tools', tag3: 'Local Processing',
+    statGroups: '8', statGroupsLabel: 'Profession Groups',
+    statTags: '28', statTagsLabel: 'Sub-professions',
+    statTools: '280+', statToolsLabel: 'Tools',
+    groupsEyebrow: 'Categories', groupsTitle: '8 Profession Tool Groups',
+    groupsDesc: 'Click a profession card to explore its recommended tools',
+    backToGroups: '← Back to Professions',
+    toolCountLabel: 'tools',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
+    navHome: 'Home', navTools: 'Tools', navArticles: 'Guides',
+    navGuides: 'Deep Guides', navCompare: 'Compare', navProfessions: 'By Profession', navMy: 'My Space', navAbout: 'About', navSection: 'Nav'
+  },
+  ja: {
+    pageTitle: '職業別ツール - ZenTools',
+    metaDesc: '職業別にオンラインツールを探す：オフィス、コンテンツ制作、デザイン、マーケティング、開発、教育、生活、メディア。280+のツールを8つの職業群に厳選。',
+    ogTitle: '職業別ツール - ZenTools',
+    ogDesc: 'あなたの職業に最適なツールを見つけよう。280+のツールを8つの職業群に厳選。',
+    h1Grad: '職業別ツール',
+    h1Sub: 'あなたの職業に最適なツールを見つけよう',
+    pageDesc: '職業によって必要なツールは異なります。280+のツールを使用场景に基づき8つの職業群に厳選しました。すべてブラウザでローカル実行。',
+    tag1: '8グループ', tag2: '280+ ツール', tag3: 'ローカル処理',
+    statGroups: '8', statGroupsLabel: '職業グループ',
+    statTags: '28', statTagsLabel: '細分職業',
+    statTools: '280+', statToolsLabel: 'ツール',
+    groupsEyebrow: 'カテゴリー', groupsTitle: '8つの職業ツールグループ',
+    groupsDesc: '職業カードをクリックして推奨ツールを表示',
+    backToGroups: '← 職業リストに戻る',
+    toolCountLabel: 'ツール',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
+    navHome: 'ホーム', navTools: 'ツール', navArticles: 'ガイド',
+    navGuides: '深層ガイド', navCompare: '比較', navProfessions: '職業別ツール', navMy: 'マイスペース', navAbout: '概要', navSection: 'メニュー'
+  },
+  vi: {
+    pageTitle: 'Công cụ theo Nghề - ZenTools',
+    metaDesc: 'Tìm công cụ trực tuyến theo nghề: văn phòng, sáng tạo nội dung, thiết kế, tiếp thị, công nghệ, giáo dục, đời sống, truyền thông. 280+ công cụ cho 8 nhóm nghề.',
+    ogTitle: 'Công cụ theo Nghề - ZenTools',
+    ogDesc: 'Tìm công cụ phù hợp nhất cho nghề của bạn. 280+ công cụ cho 8 nhóm nghề.',
+    h1Grad: 'Công cụ Nghề nghiệp',
+    h1Sub: 'Tìm công cụ phù hợp nhất với nghề của bạn',
+    pageDesc: 'Mỗi nghề cần các công cụ khác nhau. Chúng tôi đã chọn 280+ công cụ thành 8 nhóm nghề dựa trên tình huống sử dụng. Tất cả chạy local trên trình duyệt.',
+    tag1: '8 Nhóm', tag2: '280+ Công cụ', tag3: 'Xử lý Local',
+    statGroups: '8', statGroupsLabel: 'Nhóm nghề',
+    statTags: '28', statTagsLabel: 'Nghề chi tiết',
+    statTools: '280+', statToolsLabel: 'Công cụ',
+    groupsEyebrow: 'Danh mục', groupsTitle: '8 Nhóm Công cụ Nghề nghiệp',
+    groupsDesc: 'Nhấp vào thẻ nghề để xem công cụ được đề xuất',
+    backToGroups: '← Quay lại danh sách nghề',
+    toolCountLabel: 'công cụ',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
+    navHome: 'Trang chủ', navTools: 'Công cụ', navArticles: 'Hướng dẫn',
+    navGuides: 'Hướng dẫn chuyên sâu', navCompare: 'So sánh', navProfessions: 'Theo Nghề', navMy: 'Trang cá nhân', navAbout: 'Giới thiệu', navSection: 'Menu'
+  }
+};
+</script>
+</head>
+<body>
+
+<div class="z-wrap">
+
+  <!-- ===== 导航（与主页一致） ===== -->
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navTools">工具箱</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" class="active" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <a href="/about.html" data-i18n="navAbout">关于</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+        <select class="lang-select" id="langSelect">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== 移动侧滑 ===== -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose">✕</button>
+      <div id="mobileTools">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navTools">工具箱</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <a href="/about.html" data-i18n="navAbout">关于</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-tag"><span class="tag-dot"></span>By Profession</div>
+      <h1><span class="hero-gradient-text" data-i18n="h1Grad">职业工具</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub">找到最适合你职业的在线工具</p>
+      <div class="hero-tags">
+        <span class="tag" data-i18n="tag1">8 大职业群</span>
+        <span class="tag" data-i18n="tag2">280+ 工具</span>
+        <span class="tag" data-i18n="tag3">本地运行</span>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-block"><div class="sb-num c1" data-i18n="statGroups">8</div><div class="sb-label" data-i18n="statGroupsLabel">大职业群</div></div>
+        <div class="stat-block"><div class="sb-num c2" data-i18n="statTags">28</div><div class="sb-label" data-i18n="statTagsLabel">个细分职业</div></div>
+        <div class="stat-block"><div class="sb-num c3" data-i18n="statTools">280+</div><div class="sb-label" data-i18n="statToolsLabel">款工具</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="section-eyebrow" data-i18n="groupsEyebrow">职业分类</span>
+      <h2 data-i18n="groupsTitle">8 大职业工具群</h2>
+    </div>
+    <p class="section-desc" data-i18n="groupsDesc">点击职业卡片查看该职业最适合的工具列表</p>
+    <div class="prof-grid" id="profGrid"></div>
+  </div>
+
+  <div class="section" id="toolsSection" style="display:none;">
+    <div class="section-head">
+      <span class="section-eyebrow" id="toolsEyebrow"></span>
+      <h2 id="toolsTitle"></h2>
+    </div>
+    <p class="section-desc" id="toolsDesc"></p>
+    <div class="tools-grid" id="toolsGrid"></div>
+    <div class="back-link">
+      <a href="#profGrid" class="btn-back" data-i18n="backToGroups">← 返回职业列表</a>
+    </div>
+  </div>
+
+  <!-- ===== 页脚 ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links">
+        <a href="/">首页</a>
+        <a href="/tools.html">全部工具</a>
+        <a href="/guides/">深度指南</a>
+        <a href="/professions.html">职业工具</a>
+        <a href="/my.html">用户中心</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/js/tool-ui.min.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // 8 大职业群定义：标签映射 + 4 语翻译
+  var profGroups = [
+    {
+      id: 'office', icon: '💼',
+      tags: ['办公用户', '财务人员', '律师'],
+      zh: { name: '办公商务', desc: '律师、财务、行政等商务办公人员的效率工具集' },
+      en: { name: 'Office & Business', desc: 'Efficiency tools for lawyers, finance and business professionals' },
+      ja: { name: 'オフィス・ビジネス', desc: '弁護士、財務、事務などビジネスパーソンの効率ツール' },
+      vi: { name: 'Văn phòng & Kinh doanh', desc: 'Công cụ hiệu quả cho luật sư, tài chính, hành chính' }
+    },
+    {
+      id: 'creator', icon: '✍️',
+      tags: ['内容创作者', '文案写手', '自媒体运营'],
+      zh: { name: '内容创作', desc: '自媒体、文案、内容创作者的创作利器' },
+      en: { name: 'Content Creation', desc: 'Creation tools for content creators, copywriters and influencers' },
+      ja: { name: 'コンテンツ制作', desc: 'メディア、ライター、クリエイターの制作ツール' },
+      vi: { name: 'Sáng tạo Nội dung', desc: 'Công cụ cho nhà sáng tạo nội dung, copywriter, influencer' }
+    },
+    {
+      id: 'design', icon: '🎨',
+      tags: ['设计师', 'UI/UX从业者', '创意工作者'],
+      zh: { name: '设计创意', desc: '设计师、UI/UX 从业者的设计工具箱' },
+      en: { name: 'Design & Creative', desc: 'Design toolkit for designers and UI/UX professionals' },
+      ja: { name: 'デザイン・クリエイティブ', desc: 'デザイナー、UI/UX専門家のデザインツールキット' },
+      vi: { name: 'Thiết kế & Sáng tạo', desc: 'Bộ công cụ thiết kế cho designer và UI/UX' }
+    },
+    {
+      id: 'marketing', icon: '📈',
+      tags: ['营销人员', '电商运营', 'SEO从业者', '网站运营'],
+      zh: { name: '营销增长', desc: '电商运营、SEO、营销人的增长武器' },
+      en: { name: 'Marketing & Growth', desc: 'Growth tools for e-commerce, SEO and marketing professionals' },
+      ja: { name: 'マーケティング・成長', desc: 'EC運営、SEO、マーケターの成長ツール' },
+      vi: { name: 'Tiếp thị & Tăng trưởng', desc: 'Công cụ tăng trưởng cho TMĐT, SEO, marketing' }
+    },
+    {
+      id: 'tech', icon: '💻',
+      tags: ['开发者', '运维人员', '技术爱好者'],
+      zh: { name: '技术开发', desc: '开发者、运维、技术爱好者的效率装备' },
+      en: { name: 'Tech & Development', desc: 'Efficiency gear for developers, DevOps and tech enthusiasts' },
+      ja: { name: '技術・開発', desc: '開発者、運用、技術愛好者の効率装備' },
+      vi: { name: 'Công nghệ & Phát triển', desc: 'Công cụ cho developer, DevOps, tech enthusiast' }
+    },
+    {
+      id: 'education', icon: '📚',
+      tags: ['学生', '教育工作者', '语言学习者'],
+      zh: { name: '教育教学', desc: '学生、教师、学习者的学习帮手' },
+      en: { name: 'Education & Teaching', desc: 'Learning tools for students, teachers and learners' },
+      ja: { name: '教育・指導', desc: '学生、教師、学習者の学習サポートツール' },
+      vi: { name: 'Giáo dục & Giảng dạy', desc: 'Công cụ học tập cho sinh viên, giáo viên, người học' }
+    },
+    {
+      id: 'life', icon: '🏠',
+      tags: ['普通用户', '家庭用户', '旅行者', '投资者', '理财用户', '购房者'],
+      zh: { name: '生活消费', desc: '家庭、旅行、理财用户的日常生活工具' },
+      en: { name: 'Life & Consumer', desc: 'Everyday tools for families, travelers and finance users' },
+      ja: { name: '生活・消費', desc: '家庭、旅行、資産管理の日常ツール' },
+      vi: { name: 'Đời sống & Tiêu dùng', desc: 'Công cụ hàng ngày cho gia đình, du lịch, tài chính' }
+    },
+    {
+      id: 'media', icon: '🎬',
+      tags: ['视频创作者', '播客制作者', '音频编辑'],
+      zh: { name: '影音媒体', desc: '视频、音频、播客创作者的专业装备' },
+      en: { name: 'Media & AV', desc: 'Professional gear for video, audio and podcast creators' },
+      ja: { name: 'メディア・AV', desc: '動画、音声、ポッドキャストクリエイターの専門装備' },
+      vi: { name: 'Truyền thông & AV', desc: 'Trang bị chuyên nghiệp cho nhà sáng tạo video, audio, podcast' }
+    }
+  ];
+
+  var allTools = [];
+  var currentGroupId = null;
+  var currentLang = localStorage.getItem('zentools_lang') || 'zh';
+
+  // 获取工具数据
+  function loadTools(callback) {
+    if (allTools.length > 0) { callback(allTools); return; }
+    fetch('data/tools-data.json')
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        allTools = data.tools || [];
+        callback(allTools);
+      })
+      .catch(function() {
+        if (typeof toolsData !== 'undefined') {
+          allTools = toolsData;
+          callback(allTools);
+        }
+      });
+  }
+
+  function getToolsForGroup(groupTags) {
+    return allTools.filter(function(t) {
+      if (!t.ai || !t.ai.audience) return false;
+      var tags = t.ai.audience.split('、');
+      return tags.some(function(tag) {
+        return groupTags.indexOf(tag.trim()) !== -1;
+      });
+    });
+  }
+
+  function getToolName(t, lang) {
+    if (lang === 'en') return t.name__en || t.name;
+    if (lang === 'ja') return t.name__ja || t.name;
+    if (lang === 'vi') return t.name__vi || t.name;
+    return t.name;
+  }
+  function getGroupName(g, lang) { var d = g[lang] || g.zh; return d.name; }
+  function getGroupDesc(g, lang) { var d = g[lang] || g.zh; return d.desc; }
+
+  function getCategoryLabel(cat, lang) {
+    var map = {
+      'PDF工具': { en: 'PDF', ja: 'PDF', vi: 'PDF' },
+      '图片工具': { en: 'Image', ja: '画像', vi: 'Ảnh' },
+      'AI工具': { en: 'AI', ja: 'AI', vi: 'AI' },
+      '视频工具': { en: 'Video', ja: '動画', vi: 'Video' },
+      '音频工具': { en: 'Audio', ja: '音声', vi: 'Âm thanh' },
+      '文本工具': { en: 'Text', ja: 'テキスト', vi: 'Văn bản' },
+      '开发工具': { en: 'Dev', ja: '開発', vi: 'Dev' },
+      '生活工具': { en: 'Life', ja: '生活', vi: 'Đời sống' },
+      '金融工具': { en: 'Finance', ja: '金融', vi: 'Tài chính' },
+      'SEO工具': { en: 'SEO', ja: 'SEO', vi: 'SEO' },
+      '设计工具': { en: 'Design', ja: 'デザイン', vi: 'Thiết kế' },
+      '办公工具': { en: 'Office', ja: 'オフィス', vi: 'Văn phòng' },
+      '教育工具': { en: 'Edu', ja: '教育', vi: 'Giáo dục' }
+    };
+    if (lang === 'zh') return cat;
+    return (map[cat] && map[cat][lang]) || cat;
+  }
+
+  function renderProfGrid(lang) {
+    var grid = document.getElementById('profGrid');
+    if (!grid) return;
+    var html = '';
+    profGroups.forEach(function(g) {
+      var toolCount = getToolsForGroup(g.tags).length;
+      var name = getGroupName(g, lang);
+      var desc = getGroupDesc(g, lang);
+      var countLabel = (window.ZT_PAGE[lang] || window.ZT_PAGE.zh).toolCountLabel || '个工具';
+      var ctaText = lang === 'zh' ? '查看工具 →' : lang === 'en' ? 'View Tools →' : lang === 'ja' ? 'ツールを見る →' : 'Xem công cụ →';
+      html += '<a href="#toolsSection" class="prof-card" data-group="' + g.id + '">';
+      html += '<span class="pc-icon">' + g.icon + '</span>';
+      html += '<span class="pc-title">' + name + '</span>';
+      html += '<span class="pc-count">' + toolCount + ' ' + countLabel + '</span>';
+      html += '<span class="pc-desc">' + desc + '</span>';
+      html += '<span class="pc-cta">' + ctaText + '</span>';
+      html += '</a>';
+    });
+    grid.innerHTML = html;
+
+    var cards = grid.querySelectorAll('.prof-card');
+    cards.forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        var groupId = this.getAttribute('data-group');
+        showToolsForGroup(groupId, lang);
+        var toolsSection = document.getElementById('toolsSection');
+        if (toolsSection) {
+          toolsSection.style.display = 'block';
+          toolsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        cards.forEach(function(c) { c.classList.remove('active'); });
+        this.classList.add('active');
+      });
+    });
+  }
+
+  function showToolsForGroup(groupId, lang) {
+    currentGroupId = groupId;
+    var group = profGroups.find(function(g) { return g.id === groupId; });
+    if (!group) return;
+
+    var tools = getToolsForGroup(group.tags);
+    var name = getGroupName(group, lang);
+    var desc = getGroupDesc(group, lang);
+    var countLabel = (window.ZT_PAGE[lang] || window.ZT_PAGE.zh).toolCountLabel || '个工具';
+
+    document.getElementById('toolsEyebrow').textContent = group.icon + ' ' + name;
+    document.getElementById('toolsTitle').textContent = name + '（' + tools.length + ' ' + countLabel + '）';
+    document.getElementById('toolsDesc').textContent = desc;
+
+    var grid = document.getElementById('toolsGrid');
+    var html = '';
+    tools.forEach(function(t) {
+      var tName = getToolName(t, lang);
+      var tCat = getCategoryLabel(t.category || '', lang);
+      var tUrl = t.url || ('/' + (t.slug || '') + '.html');
+      var tIcon = t.icon || '🔧';
+      html += '<a href="' + tUrl + '" class="tool-link">';
+      html += '<span class="tl-icon">' + tIcon + '</span>';
+      html += '<span class="tl-name">' + tName + '</span>';
+      html += '<span class="tl-cat">' + tCat + '</span>';
+      html += '</a>';
+    });
+    grid.innerHTML = html;
+  }
+
+  loadTools(function() { renderProfGrid(currentLang); });
+
+  window.addEventListener('zt-langchange', function(e) {
+    currentLang = e.detail.lang;
+    renderProfGrid(currentLang);
+    if (currentGroupId) { showToolsForGroup(currentGroupId, currentLang); }
+  });
+})();
+</script>
+
+<script>
+// 暗黑模式切换（与主页一致）
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') { document.documentElement.classList.add('dark'); }
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">用户中心 - ZenTools</title>
+<meta name="description" content="ZenTools 用户中心：管理你的工具收藏、使用历史、分类订阅和热门榜单。所有数据保存在浏览器本地，隐私安全。" data-i18n-placeholder="metaDesc"/>
+<meta name="keywords" content="用户中心,收藏工具,使用历史,工具订阅,热门工具,ZenTools"/>
+<link rel="canonical" href="https://zentools.xyz/my.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#0066FF"/>
+<meta property="og:title" content="用户中心 - ZenTools" data-i18n-placeholder="ogTitle"/>
+<meta property="og:description" content="管理你的工具收藏、使用历史、分类订阅和热门榜单" data-i18n-placeholder="ogDesc"/>
+<meta property="og:url" content="https://zentools.xyz/my.html"/>
+<meta property="og:type" content="website"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="用户中心 - ZenTools"/>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="assets/css/tool-ui.min.css"/>
+<script src="assets/js/anti-crash.min.js" defer></script>
+<style>
+:root {
+  --zen-primary: #0066FF;
+  --zen-secondary: #00C2B8;
+  --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+  --zen-success: #22C55E;
+  --zen-warning: #F97316;
+  --zen-danger: #EF4444;
+  --zen-text-main: #111827;
+  --zen-text-sub: #4B5563;
+  --zen-text-placeholder: #9CA3AF;
+  --zen-bg-base: #F9FAFB;
+  --zen-bg-card: #FFFFFF;
+  --zen-border: #E5E7EB;
+  --zen-radius-base: 12px;
+  --zen-radius-card: 16px;
+  --zen-radius-btn: 8px;
+  --zen-radius-tag: 6px;
+  --zen-card-padding: 20px;
+}
+.dark {
+  --zen-text-main: #F9FAFB;
+  --zen-text-sub: #D1D5DB;
+  --zen-text-placeholder: #64748B;
+  --zen-bg-base: #0F172A;
+  --zen-bg-card: #1E293B;
+  --zen-border: #334155;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif;
+  background: var(--zen-bg-base);
+  color: var(--zen-text-main);
+  line-height: 1.5;
+  transition: background 0.35s, color 0.35s;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== 导航（与主页一致） ===== */
+.site-nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 999;
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  background: rgba(255,255,255,0.75);
+  border-bottom: 1px solid var(--zen-border);
+  transition: background 0.3s;
+}
+.dark .site-nav { background: rgba(15,23,42,0.75); }
+
+.nav-inner {
+  height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+
+.brand-logo {
+  display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; flex-shrink: 0;
+}
+.logo-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--zen-gradient);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 20px; font-weight: 700;
+}
+.logo-text-blue { color: var(--zen-primary); }
+.logo-text-teal { color: var(--zen-secondary); }
+.logo-ver { font-size: 11px; color: var(--zen-text-placeholder); font-weight: 400; margin-left: 2px; }
+
+.nav-links {
+  display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end;
+}
+.nav-links a, .nav-trigger {
+  padding: 8px 14px; border-radius: var(--zen-radius-btn);
+  font-size: 14px; font-weight: 500;
+  color: var(--zen-text-sub); cursor: pointer;
+  transition: color 0.2s, background 0.2s;
+  background: none; border: none; font-family: inherit;
+}
+.nav-links a:hover, .nav-trigger:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+.dark .nav-links a:hover, .dark .nav-trigger:hover { background: rgba(255,255,255,0.06); }
+.nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+
+.nav-group { position: relative; }
+.nav-trigger { display: inline-flex; align-items: center; gap: 4px; }
+.nav-trigger .arrow { font-size: 10px; transition: transform 0.2s; }
+.nav-group:hover .nav-trigger .arrow { transform: rotate(180deg); }
+
+.mega-menu {
+  position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(8px);
+  margin-top: 6px; min-width: 680px; max-width: 90vw; max-height: 70vh; overflow-y: auto;
+  background: rgba(249,250,251,0.97); backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--zen-border); border-radius: var(--zen-radius-card);
+  padding: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+  z-index: 200;
+}
+.dark .mega-menu { background: rgba(15,23,42,0.97); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.nav-group:hover .mega-menu {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+.mega-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.mega-cat {
+  grid-column: 1 / -1;
+  display: flex; align-items: center; gap: 8px;
+  padding: 4px 0; margin-top: 4px; border-bottom: 1px solid var(--zen-border);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+}
+.mega-cat:first-child { margin-top: 0; }
+.mega-item {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 6px 8px; border-radius: var(--zen-radius-tag);
+  transition: background 0.15s;
+}
+.mega-item:hover { background: rgba(0,102,255,0.06); }
+.mega-item .mi-icon { font-size: 16px; }
+.mega-item .mi-name { font-size: 12px; font-weight: 600; line-height: 1.2; color: var(--zen-text-main); }
+
+.hamburger, .theme-toggle, .lang-select {
+  all: unset;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 8px 12px; border-radius: var(--zen-radius-btn);
+  font-size: 14px; font-weight: 500;
+  color: var(--zen-text-sub); cursor: pointer;
+  transition: background 0.2s;
+}
+.hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+.dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+.lang-select { font-family: inherit; font-size: 13px; }
+.hamburger { display: none; }
+
+/* ===== 移动侧滑 ===== */
+.mobile-overlay {
+  position: fixed; inset: 0; z-index: 300;
+  background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+.mobile-overlay.open { opacity: 1; visibility: visible; }
+.mobile-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw;
+  background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border);
+  padding: 24px 20px; z-index: 310; overflow-y: auto;
+  transform: translateX(100%); transition: transform 0.3s;
+  backdrop-filter: blur(24px);
+}
+.dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+.mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+.mobile-drawer .close-btn {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: var(--zen-radius-btn);
+  border: 1px solid var(--zen-border);
+  background: transparent; color: var(--zen-text-sub); cursor: pointer;
+  font-size: 18px; margin-bottom: 20px; margin-left: auto;
+}
+.mobile-drawer .close-btn:hover { background: rgba(0,0,0,0.04); }
+.dark .mobile-drawer .close-btn:hover { background: rgba(255,255,255,0.06); }
+.mobile-drawer a {
+  display: block; padding: 12px 16px; border-radius: var(--zen-radius-btn);
+  font-size: 16px; font-weight: 500; color: var(--zen-text-sub);
+  transition: color 0.2s, background 0.2s;
+}
+.mobile-drawer a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+.dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+
+/* ===== 页面 Hero（与主页风格一致） ===== */
+.page-hero {
+  padding-top: 150px; padding-bottom: 40px;
+  text-align: center; position: relative; overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 30% 20%, rgba(0,102,255,.05) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 70% 70%, rgba(0,194,184,.04) 0%, transparent 50%);
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; font-weight: 600; color: var(--zen-text-placeholder);
+  letter-spacing: 2px; margin-bottom: 24px;
+}
+.tag-dot { width: 6px; height: 6px; background: var(--zen-primary); border-radius: 50%; }
+.page-hero h1 {
+  font-size: clamp(36px, 6vw, 56px); font-weight: 800;
+  letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px;
+}
+.hero-gradient-text {
+  background: var(--zen-gradient);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.hero-sub {
+  font-size: 17px; color: var(--zen-text-sub); line-height: 1.7;
+  max-width: 560px; margin: 0 auto 28px;
+}
+.hero-tags {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;
+}
+.tag {
+  padding: 6px 14px; border-radius: var(--zen-radius-tag);
+  font-size: 13px; background: rgba(0,102,255,0.08); color: var(--zen-primary);
+}
+.dark .tag { background: rgba(0,102,255,0.15); }
+
+/* ===== Tab 导航 ===== */
+.my-tabs { display:flex; gap:4px; max-width:1200px; margin:0 auto 24px; padding:0 24px; border-bottom:1px solid var(--zen-border); flex-wrap:wrap; }
+.my-tab { padding:12px 20px; border:none; background:none; color:var(--zen-text-sub); font-size:15px; font-weight:600; cursor:pointer; border-bottom:2px solid transparent; transition:color 0.2s,border-color 0.2s; }
+.my-tab.active { color:var(--zen-primary); border-bottom-color:var(--zen-primary); }
+.my-tab:hover:not(.active) { color:var(--zen-text-main); }
+
+.my-content { max-width:1200px; margin:0 auto; padding:0 24px 60px; }
+.my-panel { display:none; }
+.my-panel.active { display:block; animation:fadeIn 0.3s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* 分组按钮 */
+.my-group-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+.my-group-btn { padding:6px 16px; border-radius:20px; border:1px solid var(--zen-border); background:var(--zen-bg-card); color:var(--zen-text-sub); font-size:13px; cursor:pointer; transition:all 0.2s; }
+.my-group-btn.active { background:rgba(0,102,255,0.08); border-color:var(--zen-primary); color:var(--zen-primary); }
+
+/* 操作栏 */
+.my-actions { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px; }
+.my-action-btn { padding:8px 16px; border-radius:var(--zen-radius-btn); border:1px solid var(--zen-border); background:var(--zen-bg-card); color:var(--zen-text-main); font-size:13px; cursor:pointer; transition:background 0.2s,border-color 0.2s; }
+.my-action-btn.danger { border-color:rgba(239,68,68,0.3); color:var(--zen-danger); }
+.my-action-btn:hover { background:rgba(0,0,0,0.04); border-color:var(--zen-primary); }
+.dark .my-action-btn:hover { background:rgba(255,255,255,0.06); }
+
+/* 列表项 */
+.my-list { display:flex; flex-direction:column; gap:8px; }
+.my-item { display:flex; align-items:center; gap:14px; padding:14px 18px; border-radius:var(--zen-radius-card); background:var(--zen-bg-card); border:1px solid var(--zen-border); transition:transform 0.15s,border-color 0.15s; text-decoration:none; color:var(--zen-text-main); }
+.my-item:hover { transform:translateY(-2px); border-color:rgba(0,102,255,0.3); }
+.my-item .mi-icon { font-size:24px; flex-shrink:0; }
+.my-item .mi-info { flex:1; min-width:0; }
+.my-item .mi-name { font-size:14px; font-weight:600; color:var(--zen-text-main); }
+.my-item .mi-meta { font-size:12px; color:var(--zen-text-sub); margin-top:2px; }
+.my-item .mi-group-tag { font-size:11px; padding:2px 10px; border-radius:12px; background:rgba(0,194,184,0.1); color:var(--zen-secondary); white-space:nowrap; }
+.my-item .mi-actions { display:flex; gap:6px; flex-shrink:0; }
+.my-item .mi-btn { width:30px; height:30px; border-radius:var(--zen-radius-btn); border:1px solid var(--zen-border); background:var(--zen-bg-card); color:var(--zen-text-sub); font-size:13px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:color 0.15s,border-color 0.15s; }
+.my-item .mi-btn:hover { color:var(--zen-danger); border-color:var(--zen-danger); }
+
+.my-empty { text-align:center; padding:50px 24px; color:var(--zen-text-placeholder); font-size:15px; display:none; }
+
+/* 历史日期分组 */
+.my-date-group { margin-bottom:24px; }
+.my-date-label { font-size:12px; font-weight:700; color:var(--zen-text-sub); letter-spacing:0.05em; padding-bottom:8px; border-bottom:1px solid var(--zen-border); margin-bottom:12px; }
+
+/* 订阅分类卡片 */
+.my-subs-info { color:var(--zen-text-sub); font-size:14px; line-height:1.7; margin-bottom:20px; padding:16px 20px; background:var(--zen-bg-card); border-radius:var(--zen-radius-base); border:1px solid var(--zen-border); }
+.my-subs-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px; margin-bottom:30px; }
+.my-subs-card { position:relative; padding:20px; border-radius:var(--zen-radius-card); background:var(--zen-bg-card); border:1px solid var(--zen-border); text-align:center; cursor:pointer; transition:border-color 0.2s,background 0.2s; }
+.my-subs-card:hover { border-color:rgba(0,102,255,0.3); }
+.my-subs-card.subscribed { border-color:var(--zen-primary); background:rgba(0,102,255,0.04); }
+.my-subs-card .msc-icon { font-size:28px; margin-bottom:8px; }
+.my-subs-card .msc-name { font-size:14px; font-weight:600; color:var(--zen-text-main); }
+.my-subs-card .msc-count { font-size:12px; color:var(--zen-text-sub); margin-top:4px; }
+.my-subs-card .msc-check { position:absolute; top:8px; right:10px; font-size:16px; color:var(--zen-primary); font-weight:700; }
+
+.my-new-badge { display:inline-flex; padding:1px 8px; border-radius:10px; background:rgba(0,102,255,0.1); color:var(--zen-primary); font-size:10px; font-weight:700; margin-left:6px; }
+
+/* 热门排行 */
+.my-hot-tabs { display:flex; gap:8px; margin-bottom:20px; }
+.my-hot-tab { padding:8px 20px; border-radius:20px; border:1px solid var(--zen-border); background:none; color:var(--zen-text-sub); font-size:13px; cursor:pointer; transition:all 0.2s; }
+.my-hot-tab.active { background:var(--zen-primary); color:#fff; border-color:var(--zen-primary); font-weight:600; }
+.hot-rank { font-size:20px; font-weight:800; min-width:28px; text-align:center; flex-shrink:0; }
+.hot-rank.r1,.hot-rank.r2,.hot-rank.r3 { background:linear-gradient(135deg,#f59e0b,#fbbf24); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.hot-rank.r4to10 { color:var(--zen-text-placeholder); }
+
+/* 弹窗 */
+.my-modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:9999; }
+.my-modal { background:var(--zen-bg-card); border:1px solid var(--zen-border); border-radius:var(--zen-radius-card); padding:28px; max-width:400px; width:90%; }
+.my-modal h3 { margin:0 0 16px; color:var(--zen-text-main); font-size:18px; }
+.my-modal-list { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+.my-modal-item { padding:10px 16px; border-radius:var(--zen-radius-btn); border:1px solid var(--zen-border); background:var(--zen-bg-card); color:var(--zen-text-main); font-size:14px; cursor:pointer; text-align:left; }
+.my-modal-item:hover { border-color:var(--zen-primary); color:var(--zen-primary); }
+.my-modal-add { display:flex; gap:8px; margin-bottom:12px; }
+.my-modal-add input { flex:1; padding:8px 12px; border-radius:var(--zen-radius-btn); border:1px solid var(--zen-border); background:var(--zen-bg-card); color:var(--zen-text-main); font-size:14px; }
+.my-modal-add button { padding:8px 16px; border-radius:var(--zen-radius-btn); border:none; background:var(--zen-primary); color:#fff; font-size:13px; font-weight:600; cursor:pointer; }
+.my-modal-close { width:100%; padding:10px; border-radius:var(--zen-radius-btn); border:1px solid var(--zen-border); background:none; color:var(--zen-text-sub); font-size:14px; cursor:pointer; }
+
+/* ===== 页脚（与主页一致） ===== */
+footer {
+  border-top: 1px solid var(--zen-border);
+  padding: 36px 0; text-align: center;
+}
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.footer-logo {
+  font-size: 18px; font-weight: 700; margin-bottom: 12px;
+  background: var(--zen-gradient);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.footer-links {
+  display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+  margin-bottom: 14px; font-size: 13px;
+}
+.footer-links a { color: var(--zen-text-sub); transition: color 0.2s; }
+.footer-links a:hover { color: var(--zen-primary); }
+.footer-copy { font-size: 13px; color: var(--zen-text-placeholder); }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+  .nav-links .nav-group { display: none; }
+  .hamburger { display: inline-flex; }
+  .page-hero { padding-top: 120px; }
+  .page-hero h1 { font-size: clamp(30px, 7vw, 40px); }
+  .my-tabs { gap:4px; }
+  .my-tab { padding:10px 14px; font-size:13px; }
+  .my-subs-grid { grid-template-columns:repeat(3,1fr); }
+  .my-item .mi-group-tag { display:none; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .nav-inner { height: 60px; gap: 8px; }
+  .brand-logo { font-size: 18px; gap: 6px; }
+  .logo-icon { width: 30px; height: 30px; font-size: 16px; }
+  .logo-ver { font-size: 10px; }
+  .page-hero { padding-top: 100px; }
+  .page-hero h1 { font-size: clamp(24px, 7vw, 30px); }
+  .my-subs-grid { grid-template-columns:repeat(2,1fr); }
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "用户中心 - ZenTools",
+  "description": "管理你的工具收藏、使用历史、分类订阅和热门榜单",
+  "url": "https://zentools.xyz/my.html"
+}
+</script>
+<script src="assets/js/common-i18n.min.js"></script>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle:'用户中心 - ZenTools', metaDesc:'ZenTools 用户中心：管理你的工具收藏、使用历史、分类订阅和热门榜单。所有数据保存在浏览器本地，隐私安全。',
+    ogTitle:'用户中心 - ZenTools', ogDesc:'管理你的工具收藏、使用历史、分类订阅和热门榜单',
+    crumbCur:'用户中心', eyebrow:'个人工具管理', h1Grad:'我的工具箱',
+    h1Sub:'收藏 · 历史 · 订阅 · 热门', pageDesc:'管理你的工具收藏、使用历史、分类订阅和热门榜单。所有数据保存在浏览器本地，隐私安全。',
+    tag1:'本地存储', tag2:'隐私安全', tag3:'数据可导出',
+    tabFav:'⭐ 收藏', tabHistory:'📋 历史', tabSubs:'🔔 订阅', tabHot:'🔥 热门',
+    groupAll:'全部', addGroup:'+ 新分组', addGroupPlaceholder:'输入新分组名称',
+    exportData:'导出数据', importData:'导入数据', clearFavs:'清空收藏', clearHistory:'清空历史',
+    clearFavsConfirm:'确定要清空所有收藏吗？此操作不可撤销。', clearHistoryConfirm:'确定要清空所有使用历史吗？',
+    favEmpty:'还没有收藏任何工具，使用工具页面右上角的 ★ 按钮添加', historyEmpty:'还没有使用记录',
+    moveFavTo:'移入分组', removeFav:'取消收藏', cancel:'取消',
+    subsInfo:'关注你感兴趣的分类，新工具上线时会在首页提醒你',
+    newToolsTitle:'新上线工具提醒', newBadge:'NEW', noNewTools:'暂无新工具提醒',
+    hotEditor:'编辑推荐', hotPersonal:'我的排行', clicksUnit:'次使用', cntTools:'个工具',
+    today:'今天', yesterday:'昨天', noClicks:'还没有使用记录，使用工具后这里会显示你的个人排行',
+    importSuccess:'数据已导入', importFail:'导入失败，请检查文件格式',
+    navHome:'首页', navTools:'工具箱', navArticles:'教程中心', navGuides:'深度指南', navCompare:'工具对比', navProfessions:'职业工具', navMy:'用户中心', navAbout:'关于', navSection:'导航'
+  },
+  en: {
+    pageTitle:'My Space - ZenTools', metaDesc:'ZenTools My Space: manage your favorites, history, subscriptions and hot tools. All data stored locally in browser.',
+    ogTitle:'My Space - ZenTools', ogDesc:'Manage your favorites, history, subscriptions and hot tools',
+    crumbCur:'My Space', eyebrow:'Personal Tools', h1Grad:'My Toolbox',
+    h1Sub:'Favorites · History · Subscriptions · Popular', pageDesc:'Manage your favorites, history, subscriptions and hot tools. All data stored locally in your browser.',
+    tag1:'Local Storage', tag2:'Privacy Safe', tag3:'Exportable',
+    tabFav:'⭐ Favorites', tabHistory:'📋 History', tabSubs:'🔔 Subscribe', tabHot:'🔥 Popular',
+    groupAll:'All', addGroup:'+ New Group', addGroupPlaceholder:'Enter group name',
+    exportData:'Export', importData:'Import', clearFavs:'Clear All', clearHistory:'Clear History',
+    clearFavsConfirm:'Are you sure you want to clear all favorites? This cannot be undone.', clearHistoryConfirm:'Are you sure you want to clear all usage history?',
+    favEmpty:'No favorites yet. Use the ★ button on any tool page to add.', historyEmpty:'No usage history yet.',
+    moveFavTo:'Move to group', removeFav:'Remove', cancel:'Cancel',
+    subsInfo:'Follow categories you like. We will notify you when new tools are added.',
+    newToolsTitle:'New Tool Alerts', newBadge:'NEW', noNewTools:'No new tool alerts',
+    hotEditor:'Editor Picks', hotPersonal:'My Ranking', clicksUnit:'uses', cntTools:'tools',
+    today:'Today', yesterday:'Yesterday', noClicks:'No usage yet. Use tools to build your personal ranking.',
+    importSuccess:'Data imported', importFail:'Import failed. Please check file format.',
+    navHome:'Home', navTools:'Tools', navArticles:'Guides', navGuides:'Deep Guides', navCompare:'Compare', navProfessions:'By Profession', navMy:'My Space', navAbout:'About', navSection:'Nav'
+  },
+  ja: {
+    pageTitle:'マイスペース - ZenTools', metaDesc:'ZenTools マイスペース：お気に入り、履歴、フォロー、人気ツールを管理。データはブラウザにローカル保存。',
+    ogTitle:'マイスペース - ZenTools', ogDesc:'お気に入り、履歴、フォロー、人気ツールを管理',
+    crumbCur:'マイスペース', eyebrow:'パーソナルツール', h1Grad:'マイツールボックス',
+    h1Sub:'お気に入り · 履歴 · フォロー · 人気', pageDesc:'お気に入り、履歴、フォロー、人気ツールを管理。データはブラウザにローカル保存。',
+    tag1:'ローカル保存', tag2:'プライバシー安全', tag3:'エクスポート可',
+    tabFav:'⭐ お気に入り', tabHistory:'📋 履歴', tabSubs:'🔔 フォロー', tabHot:'🔥 人気',
+    groupAll:'すべて', addGroup:'+ 新しいグループ', addGroupPlaceholder:'グループ名を入力',
+    exportData:'エクスポート', importData:'インポート', clearFavs:'すべてクリア', clearHistory:'履歴クリア',
+    clearFavsConfirm:'すべてのお気に入りをクリアしますか？復元できません。', clearHistoryConfirm:'すべての使用履歴をクリアしますか？',
+    favEmpty:'お気に入りがありません。ツールページの★ボタンで追加してください。', historyEmpty:'使用履歴がありません。',
+    moveFavTo:'グループに移動', removeFav:'削除', cancel:'キャンセル',
+    subsInfo:'興味のあるカテゴリをフォローすると、新ツール追加時に通知します。',
+    newToolsTitle:'新ツール通知', newBadge:'NEW', noNewTools:'新ツール通知なし',
+    hotEditor:'編集者おすすめ', hotPersonal:'マイランキング', clicksUnit:'回使用', cntTools:'ツール',
+    today:'今日', yesterday:'昨日', noClicks:'使用履歴がありません。ツールを使うと個人ランキングが表示されます。',
+    importSuccess:'データをインポートしました', importFail:'インポート失敗。ファイル形式を確認してください。',
+    navHome:'ホーム', navTools:'ツール', navArticles:'ガイド', navGuides:'深層ガイド', navCompare:'比較', navProfessions:'職業別ツール', navMy:'マイスペース', navAbout:'概要', navSection:'メニュー'
+  },
+  vi: {
+    pageTitle:'Trang cá nhân - ZenTools', metaDesc:'ZenTools Trang cá nhân: quản lý yêu thích, lịch sử, theo dõi và công cụ phổ biến. Dữ liệu lưu local trên trình duyệt.',
+    ogTitle:'Trang cá nhân - ZenTools', ogDesc:'Quản lý yêu thích, lịch sử, theo dõi và công cụ phổ biến',
+    crumbCur:'Trang cá nhân', eyebrow:'Công cụ cá nhân', h1Grad:'Hộp công cụ của tôi',
+    h1Sub:'Yêu thích · Lịch sử · Theo dõi · Phổ biến', pageDesc:'Quản lý yêu thích, lịch sử, theo dõi và công cụ phổ biến. Dữ liệu lưu local trên trình duyệt.',
+    tag1:'Lưu Local', tag2:'Quyền riêng tư', tag3:'Xuất được',
+    tabFav:'⭐ Yêu thích', tabHistory:'📋 Lịch sử', tabSubs:'🔔 Theo dõi', tabHot:'🔥 Phổ biến',
+    groupAll:'Tất cả', addGroup:'+ Nhóm mới', addGroupPlaceholder:'Nhập tên nhóm',
+    exportData:'Xuất', importData:'Nhập', clearFavs:'Xoá tất cả', clearHistory:'Xoá lịch sử',
+    clearFavsConfirm:'Bạn có chắc muốn xoá tất cả yêu thích? Không thể hoàn tác.', clearHistoryConfirm:'Bạn có chắc muốn xoá tất cả lịch sử?',
+    favEmpty:'Chưa có yêu thích. Dùng nút ★ trên trang công cụ để thêm.', historyEmpty:'Chưa có lịch sử sử dụng.',
+    moveFavTo:'Chuyển vào nhóm', removeFav:'Xoá', cancel:'Huỷ',
+    subsInfo:'Theo dõi danh mục bạn thích. Chúng tôi sẽ nhắc khi có công cụ mới.',
+    newToolsTitle:'Nhắc công cụ mới', newBadge:'MỚI', noNewTools:'Không có nhắc công cụ mới',
+    hotEditor:'Đề xuất', hotPersonal:'Xếp hạng cá nhân', clicksUnit:'lần dùng', cntTools:'công cụ',
+    today:'Hôm nay', yesterday:'Hôm qua', noClicks:'Chưa có lịch sử. Dùng công cụ để xây dựng xếp hạng cá nhân.',
+    importSuccess:'Dữ liệu đã nhập', importFail:'Nhập thất bại. Kiểm tra định dạng tệp.',
+    navHome:'Trang chủ', navTools:'Công cụ', navArticles:'Hướng dẫn', navGuides:'Hướng dẫn chuyên sâu', navCompare:'So sánh', navProfessions:'Theo Nghề', navMy:'Trang cá nhân', navAbout:'Giới thiệu', navSection:'Menu'
+  }
+};
+</script>
+</head>
+<body>
+
+<div class="z-wrap">
+
+  <!-- ===== 导航（与主页一致） ===== -->
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navTools">工具箱</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" class="active" data-i18n="navMy">用户中心</a>
+        <a href="/about.html" data-i18n="navAbout">关于</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+        <select class="lang-select" id="langSelect">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== 移动侧滑 ===== -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose">✕</button>
+      <div id="mobileTools">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navTools">工具箱</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <a href="/about.html" data-i18n="navAbout">关于</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Hero ===== -->
+  <section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-tag"><span class="tag-dot"></span>My Space</div>
+      <h1><span class="hero-gradient-text" data-i18n="h1Grad">我的工具箱</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub">收藏 · 历史 · 订阅 · 热门</p>
+      <div class="hero-tags">
+        <span class="tag" data-i18n="tag1">本地存储</span>
+        <span class="tag" data-i18n="tag2">隐私安全</span>
+        <span class="tag" data-i18n="tag3">数据可导出</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="my-tabs">
+    <button class="my-tab active" data-tab="favorites" data-i18n="tabFav">⭐ 收藏</button>
+    <button class="my-tab" data-tab="history" data-i18n="tabHistory">📋 历史</button>
+    <button class="my-tab" data-tab="subscriptions" data-i18n="tabSubs">🔔 订阅</button>
+    <button class="my-tab" data-tab="hotlist" data-i18n="tabHot">🔥 热门</button>
+  </div>
+
+  <div class="my-content">
+    <!-- 收藏 Tab -->
+    <div class="my-panel active" id="panelFavorites">
+      <div class="my-group-bar" id="favGroupBar"></div>
+      <div class="my-actions">
+        <button class="my-action-btn" id="exportBtn" data-i18n="exportData">导出数据</button>
+        <button class="my-action-btn" id="importBtn" data-i18n="importData">导入数据</button>
+        <button class="my-action-btn danger" id="clearFavsBtn" data-i18n="clearFavs">清空收藏</button>
+      </div>
+      <div class="my-list" id="favList"></div>
+      <div class="my-empty" id="favEmpty" data-i18n="favEmpty">还没有收藏任何工具，使用工具页面右上角的 ★ 按钮添加</div>
+    </div>
+
+    <!-- 历史 Tab -->
+    <div class="my-panel" id="panelHistory">
+      <div class="my-actions">
+        <button class="my-action-btn danger" id="clearHistoryBtn" data-i18n="clearHistory">清空历史</button>
+      </div>
+      <div class="my-list" id="historyList"></div>
+      <div class="my-empty" id="historyEmpty" data-i18n="historyEmpty">还没有使用记录</div>
+    </div>
+
+    <!-- 订阅 Tab -->
+    <div class="my-panel" id="panelSubscriptions">
+      <div class="my-subs-info" data-i18n="subsInfo">关注你感兴趣的分类，新工具上线时会在首页提醒你</div>
+      <div class="my-subs-grid" id="subsGrid"></div>
+      <div id="newToolsSection" style="display:none;">
+        <h3 style="font-size:18px;margin:30px 0 16px;color:var(--zen-text-main);" data-i18n="newToolsTitle">新上线工具提醒</h3>
+        <div class="my-list" id="newToolsList"></div>
+      </div>
+    </div>
+
+    <!-- 热门 Tab -->
+    <div class="my-panel" id="panelHotlist">
+      <div class="my-hot-tabs">
+        <button class="my-hot-tab active" data-type="editor" data-i18n="hotEditor">编辑推荐</button>
+        <button class="my-hot-tab" data-type="personal" data-i18n="hotPersonal">我的排行</button>
+      </div>
+      <div class="my-list" id="hotList"></div>
+    </div>
+  </div>
+
+  <!-- ===== 页脚 ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links">
+        <a href="/">首页</a>
+        <a href="/tools.html">全部工具</a>
+        <a href="/guides/">深度指南</a>
+        <a href="/professions.html">职业工具</a>
+        <a href="/my.html">用户中心</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer>
+
+</div>
+
+<script src="assets/js/tool-ui.min.js"></script>
+<script src="assets/js/my.js"></script>
+<script>
+// 暗黑模式切换（与主页一致）
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') { document.documentElement.classList.add('dark'); }
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) {
+      overlay.classList.remove('open');
+      hamBtn.textContent = '☰';
+      document.body.style.overflow = '';
+    } else {
+      overlay.classList.add('open');
+      hamBtn.textContent = '✕';
+      document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', function() {
+    overlay.classList.remove('open');
+    hamBtn.textContent = '☰';
+    document.body.style.overflow = '';
+  });
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) {
+      overlay.classList.remove('open');
+      hamBtn.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) {
+      overlay.classList.remove('open');
+      hamBtn.textContent = '☰';
+      document.body.style.overflow = '';
+    }
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+</body>
+</html>

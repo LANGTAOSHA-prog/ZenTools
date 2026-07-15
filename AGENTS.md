@@ -24,6 +24,10 @@ python3 _add_tutorial.py --slug my-tutorial --category "PDF工具" \
 python3 _add_guide.py --slug my-review --type review \
   --title-zh "评测标题" --desc-zh "描述" --word-count 2500 --read-minutes 20
 
+# Batch-unify tool pages to current --zen-* design system
+# Run after _add_tool.py or any new tool HTML is created
+python3 _batch_unify_ui.py              # migrate all tool/category pages to current UI
+
 # Post-edit verification pipeline (run in this order after any data change)
 python3 _check_json.py                  # validate JSON integrity
 python3 _sync_tools_data_js.py          # JSON -> JS data sync
@@ -48,7 +52,7 @@ Every page `<head>` must follow this exact order:
 1. `anti-crash.min.js` (first, before anything else)
 2. Meta/SEO tags, canonical, manifest link
 3. `tool-ui.min.css`
-4. Tool-specific `<style>` block (use CSS variables only: `var(--cyan)`, `var(--purple)`, `var(--pink)`, `var(--border)`, `var(--text)`, `var(--muted)`, `var(--glass)`)
+4. Page-specific `<style>` block — MUST define `:root` and `.dark` CSS variables (see Design System below). All color/background/border references must use `var(--zen-*)` variables only.
 5. AdSense script (`ca-pub-1955887568822472`)
 6. FAQPage + WebApplication + (optional) HowTo schema JSON-LD
 7. Inline `window.ZT_PAGE` with zh/en/ja/vi keys
@@ -71,41 +75,130 @@ At end of `<body>`:
 | `data/` | `tools-data.json` (source of truth), `categories.json` |
 | `pdf_tools/` | Standalone Python PDF scripts (not part of web app) |
 
-## Tool page skeleton
+## Design System (CSS variables)
 
-Every tool HTML page must contain these structural elements in order:
+**Every page** must define these variables in an inline `<style>` block. The system supports light/dark mode via `.dark` class on `<html>`:
+
+```css
+:root {
+  --zen-primary: #0066FF;
+  --zen-secondary: #00C2B8;
+  --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+  --zen-success: #22C55E;
+  --zen-warning: #F97316;
+  --zen-danger: #EF4444;
+  --zen-text-main: #111827;
+  --zen-text-sub: #4B5563;
+  --zen-text-placeholder: #9CA3AF;
+  --zen-bg-base: #F9FAFB;
+  --zen-bg-card: #FFFFFF;
+  --zen-border: #E5E7EB;
+  --zen-radius-base: 12px;
+  --zen-radius-card: 16px;
+  --zen-radius-btn: 8px;
+  --zen-radius-tag: 6px;
+  --zen-card-padding: 20px;
+}
+.dark {
+  --zen-text-main: #F9FAFB;
+  --zen-text-sub: #D1D5DB;
+  --zen-text-placeholder: #64748B;
+  --zen-bg-base: #0F172A;
+  --zen-bg-card: #1E293B;
+  --zen-border: #334155;
+}
+```
+
+**Mapping from old variables** (deprecated `tool-ui.css` dark theme):
+| Old | New |
+|-----|-----|
+| `var(--cyan)` → | `var(--zen-primary)` |
+| `var(--purple)` → | `var(--zen-secondary)` |
+| `var(--pink)` → | `var(--zen-danger)` |
+| `var(--text)` → | `var(--zen-text-main)` |
+| `var(--muted)` → | `var(--zen-text-sub)` |
+| `var(--glass)` → | `var(--zen-bg-card)` |
+| `var(--border)` → | `var(--zen-border)` |
+| `var(--bg)` → | `var(--zen-bg-base)` |
+
+## Page skeleton (non-homepage)
+
+All secondary pages share the same structure as `index.html`:
+
 ```
 <body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="z-wrap">
-    <nav><div class="nav-inner">...</div></nav>
-    <div class="page-header reveal">
-      <div class="breadcrumb">...</div>
-      <h1 data-i18n="pageTitle">...</h1>
-      <p data-i18n="pageDesc">...</p>
+<div class="z-wrap">
+
+  <!-- Nav: fixed, backdrop-blur, .site-nav + .brand-logo + .logo-icon -->
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="/">首页</a> ...
+        <button class="theme-toggle" id="themeToggle">🌙</button>
+        <select class="lang-select" id="langSelect">...</select>
+        <button class="hamburger" id="hamburgerBtn">☰</button>
+      </div>
     </div>
-    <div class="tool-box reveal">...</div>         <!-- core tool UI -->
-    <div class="section">
-      <div class="section-head"><h2>...</h2></div>
-      <div class="info-grid">...</div>             <!-- usage instructions, 3-col cards -->
+  </nav>
+
+  <!-- Mobile drawer (overlay + slide-in) -->
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose">✕</button>
+      <a href="/">...</a> ...
     </div>
-    <footer>...</footer>
   </div>
+
+  <!-- Hero: gradient title, tag line, stats -->
+  <section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-tag"><span class="tag-dot"></span>SECTION LABEL</div>
+      <h1><span class="hero-gradient-text">标题</span></h1>
+      <p class="hero-sub">副标题</p>
+      <div class="hero-tags">...</div>
+    </div>
+  </section>
+
+  <!-- Content sections -->
+  <div class="section">...</div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links">...</div>
+      <p class="footer-copy">...</p>
+    </div>
+  </footer>
+
+</div>
 </body>
 ```
+
+### Required inline scripts (end of `<body>`)
+
+Every page must include these 3 code blocks:
+1. **Theme toggle** — reads/writes `localStorage('zentools_theme')`, toggles `.dark` class on `<html>`
+2. **Mobile drawer** — hamburger button → open overlay, click-outside/ESC/Escape → close
+3. **Service Worker** — register `/sw.js`
 
 ## Conventions
 
 - **No frameworks**: Pure vanilla JS. No React/Vue/jQuery.
 - **No build step**: All pages run directly in browser. `.min.js`/`.min.css` are the compressed versions (run `_minify_assets.py` after editing sources).
-- **CSS variables only**: Never hardcode color values. Use `var(--bg)`, `var(--text)`, `var(--muted)`, `var(--cyan)`, `var(--purple)`, `var(--pink)`, `var(--border)`, `var(--glass)`.
+- **CSS variables only**: Never hardcode color values. Use `var(--zen-primary)`, `var(--zen-secondary)`, `var(--zen-bg-base)`, `var(--zen-bg-card)`, `var(--zen-border)`, `var(--zen-text-main)`, `var(--zen-text-sub)`, `var(--zen-text-placeholder)`. Every page's `<style>` block must define the full `:root` and `.dark` block from the Design System section above.
 - **i18n every page**: Every page must define `window.ZT_PAGE` with zh/en/ja/vi keys. Text in HTML uses `data-i18n="key"` and `data-i18n-placeholder="key"`.
 - **Fallback text must match**: The HTML text content must match the zh value in `ZT_PAGE` for the same key.
 - **Dynamic content pages**: Pages that render content via JS (compare/, guides/, tutorials/) must listen to `zt-langchange` event to re-render when language switches.
 - **Schema.org required**: Each tool page needs `FAQPage` + `WebApplication` JSON-LD. Tutorial/guide pages use `Article` schema.
 - **AdSense**: Publisher ID is `ca-pub-1955887568822472`. Already wired into tool page template.
-- **Adding a tool**: Create HTML page + add entry to `data/tools-data.json`. Then run check → sync → sitemap → minify pipeline.
+- **Adding a tool**: Create HTML page + add entry to `data/tools-data.json`. Then run `_batch_unify_ui.py` to auto-apply the --zen-* design system (nav, hero, footer, theme toggle, mobile drawer). Finally run check → sync → sitemap → minify pipeline.
+- **`_batch_unify_ui.py`**: Bulk-migrates all tool pages and category indexes under `pdf/`, `image/`, `text/`, `dev/`, `audio/`, `video/`, `ai/`, `seo/`, `life/`, `finance/`, `qr/`, `json/`, `tools/` to the current design system. Safe to re-run — unchanged files are skipped. Must run after any `_add_tool.py` invocation to ensure new pages match the site-wide UI.
 - **`.atomcode/settings.json`**: Contains a Windows-path hook for JSON validation (`D:\\Users\\taojiang\\...`). This only works on the author's machine; ignore on Linux.
 
 ## Constraints from PROJECT_RULES.md

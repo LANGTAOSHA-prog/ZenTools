@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../assets/js/anti-crash.min.js" defer></script>
+</div>
+<script src="/assets/js/anti-crash.min.js" defer></script>
 <link rel="manifest" href="/manifest.json" />
   <title>AI邮件生成 - ZenTools</title>
 <meta name="description" content="免费在线 AI 邮件生成工具，快速生成商务邮件。，免费在线使用，本地处理保护隐私，无需上传服务器。">
@@ -16,25 +17,111 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="AI邮件助手 | ZenTools" />
 <meta name="twitter:description" content="Free online AI email assistant. Run locally in browser." />
-<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<link rel="stylesheet" href="/assets/css/tool-ui.min.css"/>
 <meta property="og:image" content="https://www.zentools.xyz/logo.png">
 <style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
 :root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#00e5ff;--pink:#f43f5e;--pink:#f43f5e}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
-a{color:var(--cyan);text-decoration:none}
-.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px}
-h1{margin-bottom:15px;font-size:34px}.desc{color:var(--muted);margin-bottom:25px}
+body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
+a{color:var(--zen-primary);text-decoration:none}
+.card{background:var(--card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}
+h1{margin-bottom:15px;font-size:34px}.desc{color:var(--zen-text-sub);margin-bottom:25px}
 .ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
 input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px}
 textarea{min-height:180px;resize:vertical}
-button{background:var(--cyan);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
-.copy-btn{background:var(--cyan)}.clear-btn{background:var(--pink)}
+button{background:var(--zen-primary);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
+.copy-btn{background:var(--zen-primary)}.clear-btn{background:var(--zen-danger)}
 .result{margin-top:22px;background:#0b1220;border:1px solid #334155;border-radius:16px;padding:18px;color:#cbd5e1;white-space:pre-line}
 .info{margin-top:35px}.info h2{margin-top:25px}.info p{color:#cbd5e1;white-space:pre-line}
 footer{margin-top:50px;text-align:center;color:#94a3b8}
 @media(max-width:768px){button,.lang-select{width:100%}h1{font-size:28px}}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
      crossorigin="anonymous"></script>
@@ -43,40 +130,60 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI邮件生成 - ZenTools","url":"https://zentools.xyz/ai/ai-email.html","description":"免费在线 AI 邮件生成工具，快速生成商务邮件。","applicationCategory":"UtilityApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
 </head>
 <body>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
 <div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <div class="logo-icon" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</div>
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
 
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="/">ZenTools<span>2.0</span></a>
-    <div class="nav-links">
-      <a href="/">首页</a>
-      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-      <a href="/tools.html">全部工具</a>
-      <select id="langSelect" class="lang-select">
-        <option value="zh">中文</option>
-        <option value="en">English</option>
-        <option value="ja">日本語</option>
-        <option value="vi">Tiếng Việt</option>
-      </select>
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
     </div>
   </div>
-</nav>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>AI工具</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/ai/">AI工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">AI邮件助手</span></div>
 
-<div class="page-header reveal">
-  <div class="breadcrumb">
-    <a href="/">首页</a>
-    <span class="breadcrumb-sep">/</span>
-    <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-    <span class="breadcrumb-sep">/</span>
-    <span class="cur" data-i18n="crumbCur">AI邮件助手</span>
-  </div>
-  <span class="page-eyebrow" data-i18n="eyebrow">AI工具</span>
-  <h1><span class="grad" data-i18n="h1Grad">AI邮件助手</span><br/><span data-i18n="h1Sub">根据目的快速生成邮件模板</span></h1>
-  <p data-i18n="pageDesc">根据目的快速生成邮件模板。</p>
-</div>
-
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">AI邮件助手</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">根据目的快速生成邮件模板</p>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">根据目的快速生成邮件模板。</p>
+    </div>
+  </section>
 <div class="tool-box reveal">
 <div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
 <div class="grid"><input id="to" data-i18n-placeholder="toPh"><input id="purpose" data-i18n-placeholder="purposePh"><textarea id="points" data-i18n-placeholder="pointsPh"></textarea><select id="tone"><option value="formal" data-i18n="formalTone">正式</option><option value="friendly" data-i18n="friendlyTone">亲切</option></select></div>
@@ -90,24 +197,24 @@ footer{margin-top:50px;text-align:center;color:#94a3b8}
 </div>
 </div>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">ZenTools</div>
-    <div class="footer-links">
-      <a href="/">首页</a>
-      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-      <a href="/privacy.html">隐私政策</a>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+        <a href="/">首页</a>
+        <a href="/ai/">AI工具</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
     </div>
-    <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p>
-  </div>
-</footer>
+  </footer>
 
 </div>
 
 <script>
 window.ZT_PAGE = {"zh":{"back":"← 返回首页","ad":"广告位（Google AdSense）","run":"开始生成","copy":"复制结果","clear":"清空","copied":"已复制","inputPlaceholder":"请输入内容...","outputPlaceholder":"结果会显示在这里...","guideTitle":"使用说明","privacyTitle":"隐私说明","privacyText":"本工具为浏览器本地处理，不会上传内容到服务器。","empty":"请输入内容","eyebrow":"AI工具","navAI工具Cat":"AI工具","crumbCur":"AI邮件助手","h1Grad":"AI邮件助手","h1Sub":"根据目的快速生成邮件模板","pageDesc":"根据目的快速生成邮件模板。","pageTitle":"AI邮件生成 - 免费在线工具 | ZenTools","guideText":"输入收件人、目的和要点，即可生成邮件草稿。","toPh":"收件人/称呼","purposePh":"邮件目的","pointsPh":"邮件要点","formalTone":"正式","friendlyTone":"亲切"},"en":{"back":"← Back to Home","ad":"Ad Space","run":"Generate","copy":"Copy Result","clear":"Clear","copied":"Copied","inputPlaceholder":"Enter content...","outputPlaceholder":"Result will appear here...","guideTitle":"How to Use","privacyTitle":"Privacy Notice","privacyText":"This tool runs locally in your browser and does not upload content to a server.","empty":"Please enter content","eyebrow":"AI TOOLS","navAI工具Cat":"AI TOOLS","crumbCur":"AI Email Assistant","h1Grad":"AI Email Assistant","h1Sub":"Generate email templates based on your purpose","pageDesc":"Generate email templates based on your purpose.","pageTitle":"AI Email Generator - Free Online Tool | ZenTools","guideText":"Enter recipient, purpose, and key points to generate an email draft.","toPh":"Recipient/name","purposePh":"Email purpose","pointsPh":"Key points","formalTone":"Formal","friendlyTone":"Friendly"},"ja":{"back":"← ホームに戻る","ad":"広告スペース","run":"生成開始","copy":"結果をコピー","clear":"クリア","copied":"コピーしました","inputPlaceholder":"内容を入力してください...","outputPlaceholder":"結果がここに表示されます...","guideTitle":"使い方","privacyTitle":"プライバシーについて","privacyText":"このツールはブラウザ内で処理され、内容はサーバーへ送信されません。","empty":"内容を入力してください","eyebrow":"AIツール","navAI工具Cat":"AIツール","crumbCur":"AIメールアシスタント","h1Grad":"AIメールアシスタント","h1Sub":"目的に応じたメール文を生成します","pageDesc":"目的に応じたメール文を生成します。","pageTitle":"AIメール生成 - Free Online Tool | ZenTools","guideText":"宛先、目的、要点を入力してメール文を生成します。","toPh":"宛先/敬称","purposePh":"メール目的","pointsPh":"要点","formalTone":"フォーマル","friendlyTone":"親しみやすい"},"vi":{"back":"← Quay lại trang chủ","ad":"Vị trí quảng cáo","run":"Tạo kết quả","copy":"Sao chép","clear":"Xóa","copied":"Đã sao chép","inputPlaceholder":"Nhập nội dung...","outputPlaceholder":"Kết quả sẽ hiển thị ở đây...","guideTitle":"Hướng dẫn","privacyTitle":"Quyền riêng tư","privacyText":"Công cụ xử lý trực tiếp trong trình duyệt và không tải nội dung lên máy chủ.","empty":"Vui lòng nhập nội dung","eyebrow":"CÔNG CỤ AI","navAI工具Cat":"CÔNG CỤ AI","crumbCur":"Trợ lý email AI","h1Grad":"Trợ lý email AI","h1Sub":"Tạo mẫu email theo mục đích","pageDesc":"Tạo mẫu email theo mục đích.","pageTitle":"AI tạo email - Free Online Tool | ZenTools","guideText":"Nhập người nhận, mục đích và ý chính để tạo email.","toPh":"Người nhận","purposePh":"Mục đích email","pointsPh":"Ý chính","formalTone":"Trang trọng","friendlyTone":"Thân thiện"}};
 </script>
-<script src="../assets/js/tool-ui.min.js"></script>
+<script src="/assets/js/tool-ui.min.js"></script>
 <script>
 window.currentLang = localStorage.getItem("zentools_lang") || "zh";
 function val(id){return (document.getElementById(id)?.value || '').trim();}
@@ -121,7 +228,7 @@ function runTool(){const d=window.ZT_PAGE[window.currentLang]||window.ZT_PAGE.zh
 <script>
 // Related tools — loaded from tools-data.json
 (function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'\' onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){};x.send();})();
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'\' onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){};x.send();})();
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
@@ -161,7 +268,7 @@ if ('serviceWorker' in navigator) {
     .tutorial-svg-head h3 {
       font-size: 18px;
       font-weight: 700;
-      color: var(--text);
+      color: var(--zen-text-main);
       margin: 0;
     }
     .tool-tutorial-svg svg text {
@@ -201,10 +308,58 @@ if ('serviceWorker' in navigator) {
           <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#8b4cff" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#8b4cff" stroke-width="2" stroke-linecap="round"/>
         </g>
         <!-- Labels -->
-        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
-        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
-        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
+        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--zen-text-main)" font-family="system-ui" font-weight="600">上传文件</text>
+        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--zen-text-main)" font-family="system-ui" font-weight="600">本地处理</text>
+        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--zen-text-main)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
 </body>
 </html>

@@ -1,8 +1,146 @@
 {
-  "version": "3.1.1",
-  "lastUpdated": "2026-07-14",
+  "version": "3.2.2",
+  "lastUpdated": "2026-07-15",
   "toolCount": 280,
   "changelog": [
+    {
+      "version": "3.2.2",
+      "date": "2026-07-15",
+      "zh": "Bug修复、开发合规检查、SEO长尾词增强",
+      "en": "Bug fixes, dev compliance audit, SEO long-tail keyword enhancement",
+      "ja": "バグ修正、開発コンプライアンス監査、SEOロングテールキーワード強化",
+      "vi": "Sửa lỗi, kiểm tra tuân thủ phát triển, tăng cường từ khóa SEO đuôi dài",
+      "items": {
+        "zh": [
+          "tool-ui.css 升级：定义 --zen-* 主变量 + 旧变量自动别名映射（--cyan→--zen-primary 等），未迁移的 403 个页面自动获得正确配色",
+          "全站 409 个页面补装 anti-crash.min.js 崩溃保护脚本（AGENTS.md §四 合规）",
+          "全站 437 处旧品牌名修复：ZenTools 2.0/3.0 → 3.2（含页面标题、导航 logo）",
+          "232 个工具页硬编码深色背景色替换为 CSS 变量（--zen-bg-base/--zen-text-main）",
+          "280 个工具关键词批量增强：按分类添加长尾词（在线免费、浏览器工具、无需下载等）",
+          "tool-ui.css 新增 .dark 模式全局适配，旧页面自动兼容暗色切换"
+        ],
+        "en": [
+          "tool-ui.css upgraded: --zen-* primary variables + auto legacy alias mapping, 403 un-migrated pages get correct colors automatically",
+          "409 pages patched with anti-crash.min.js (AGENTS.md compliance)",
+          "437 old brand references fixed: ZenTools 2.0/3.0 → 3.2 (titles, nav logos)",
+          "232 tool pages: hardcoded dark colors replaced with CSS variables",
+          "280 tool keywords enhanced: category-specific long-tail terms added (online free, browser tool, no download, etc.)",
+          "tool-ui.css .dark mode global support, legacy pages auto-compatible with theme switching"
+        ],
+        "ja": [
+          "tool-ui.css アップグレード：--zen-* 主変数 + 旧変数自動エイリアス、403の未移行ページが自動的に正しい配色に",
+          "409ページに anti-crash.min.js を追加（AGENTS.md 準拠）",
+          "437箇所の旧ブランド名を修正：ZenTools 2.0/3.0 → 3.2",
+          "232ツールページのハードコード暗色背景をCSS変数に置換",
+          "280ツールのキーワード強化：カテゴリ別ロングテール語を追加",
+          "tool-ui.css .dark モードグローバル対応、旧ページも自動テーマ切替可能に"
+        ],
+        "vi": [
+          "tool-ui.css nâng cấp: biến chính --zen-* + tự động ánh xạ biến cũ, 403 trang chưa di chuyển tự động có màu đúng",
+          "409 trang được vá anti-crash.min.js (tuân thủ AGENTS.md)",
+          "437 tham chiếu thương hiệu cũ được sửa: ZenTools 2.0/3.0 → 3.2",
+          "232 trang công cụ: màu tối cứng được thay bằng biến CSS",
+          "280 từ khóa công cụ được tăng cường: thêm từ đuôi dài theo danh mục",
+          "tool-ui.css hỗ trợ chế độ .dark toàn cục, trang cũ tự động tương thích"
+        ]
+      }
+    },
+    {
+      "version": "3.2.1",
+      "date": "2026-07-15",
+      "zh": "全站工具页面 UI 统一：342 个工具/分类页批量迁移至 --zen-* 设计系统",
+      "en": "Tool pages UI unification: batch-migrated 342 tool/category pages to --zen-* design system",
+      "ja": "ツールページUI統一：342のツール/カテゴリページを--zen-*デザインシステムに一括移行",
+      "vi": "Thống nhất UI trang công cụ: di chuyển hàng loạt 342 trang công cụ/danh mục sang hệ thống --zen-*",
+      "items": {
+        "zh": [
+          "342 个工具页面和分类索引页批量迁移至 --zen-* 浅色/暗黑双主题设计系统",
+          "全站统一导航：所有页面使用 .site-nav + .brand-logo + .logo-icon 结构（移除旧版 blob 背景 + 简易 nav）",
+          "全站统一 Hero 区域：工具页面标题、副标题、面包屑迁移至 .page-hero + .hero-gradient-text 布局",
+          "全站新增暗黑/浅色主题切换：所有工具页支持 🌙/☀️ 一键切换",
+          "全站新增移动端侧滑导航：所有工具页适配汉堡菜单 + 抽屉 + 遮罩层",
+          "CSS 变量全量替换：var(--cyan)→var(--zen-primary)、var(--glass)→var(--zen-bg-card) 等 9 组映射",
+          "新增 _batch_unify_ui.py 批处理脚本，支持未来新增工具页自动适配"
+        ],
+        "en": [
+          "342 tool pages and category indexes batch-migrated to --zen-* light/dark dual-theme design system",
+          "Site-wide unified nav: all pages use .site-nav + .brand-logo + .logo-icon (removed old blob backgrounds + simple nav)",
+          "Site-wide unified Hero: tool page titles, subtitles, breadcrumbs migrated to .page-hero + .hero-gradient-text layout",
+          "Site-wide theme toggle: all tool pages support 🌙/☀️ one-click switch",
+          "Site-wide mobile drawer: all tool pages with hamburger menu + drawer + overlay",
+          "Full CSS variable replacement: var(--cyan)→var(--zen-primary), var(--glass)→var(--zen-bg-card) across 9 mappings",
+          "New _batch_unify_ui.py script for automatic adaptation of future tool pages"
+        ],
+        "ja": [
+          "342のツールページとカテゴリインデックスを--zen-* ライト/ダークデュアルテーマデザインシステムに一括移行",
+          "サイト全体の統一ナビ：全ページで .site-nav + .brand-logo + .logo-icon を使用（古いblob背景+簡易navを削除）",
+          "サイト全体の統一Hero：ツールページのタイトル・サブタイトル・パンくずを .page-hero + .hero-gradient-text に移行",
+          "全ツールページで 🌙/☀️ テーマ切替が利用可能に",
+          "全ツールページでハンバーガーメニュー＋ドロワー＋オーバーレイに対応",
+          "CSS変数を完全置換：var(--cyan)→var(--zen-primary) など9組",
+          "将来のツールページ自動適応用 _batch_unify_ui.py スクリプトを追加"
+        ],
+        "vi": [
+          "342 trang công cụ và danh mục được di chuyển hàng loạt sang hệ thống --zen-* sáng/tối hai chủ đề",
+          "Điều hướng thống nhất toàn trang: tất cả trang dùng .site-nav + .brand-logo + .logo-icon (xóa nền blob + nav cũ)",
+          "Hero thống nhất: tiêu đề, phụ đề, breadcrumb trang công cụ chuyển sang .page-hero + .hero-gradient-text",
+          "Tất cả trang công cụ hỗ trợ chuyển đổi 🌙/☀️ một chạm",
+          "Tất cả trang công cụ có menu hamburger + ngăn kéo + lớp phủ",
+          "Thay thế toàn bộ biến CSS: var(--cyan)→var(--zen-primary) qua 9 ánh xạ",
+          "Thêm script _batch_unify_ui.py để tự động thích ứng trang công cụ mới"
+        ]
+      }
+    },
+    {
+      "version": "3.2.0",
+      "date": "2026-07-15",
+      "zh": "全站 UI 统一、新增用户中心与职业工具、3 篇深度指南",
+      "en": "Site-wide UI unification, new user center & profession tools, 3 deep guides",
+      "ja": "サイト全体UI統一、ユーザーセンター＆職業別ツール追加、深層ガイド3本",
+      "vi": "Thống nhất UI toàn trang, thêm trung tâm người dùng & công cụ theo nghề, 3 hướng dẫn chuyên sâu",
+      "items": {
+        "zh": [
+          "全站 UI 统一改造：职业工具、用户中心、深度指南、工具对比等页面导航、配色、Hero 区域与主页保持一致的 --zen-* 设计系统（浅色/暗黑双主题）",
+          "新增暗黑/浅色主题切换：全页面支持 🌙/☀️ 一键切换，偏好 localStorage 持久化",
+          "新增移动端侧滑导航：所有页面适配汉堡菜单 + 抽屉 + 遮罩层，支持 ESC 关闭",
+          "新增用户中心（my.html）：收藏管理（支持分组）、使用历史（日期分组）、分类订阅（新工具提醒）、热门榜单（编辑推荐 + 个人排行）",
+          "新增职业工具页面（professions.html）：按 8 大职业群（办公、创作、设计、营销、技术、教育、生活、媒体）分类 280+ 工具，零数据修改",
+          "新增 3 篇深度指南：自媒体素材处理完整教程、前端开发工具完整指南、隐私优先的 PDF 处理教程（均 2500+ 字、四语 i18n）",
+          "开发守则 AGENTS.md 升级：新增 Design System 章节，CSS 变量从旧主题迁移至 --zen-* 规范，更新页面骨架模板",
+          "导航 i18n 优化：中文「教程→深度指南」「关于我们→关于」，四语言导航标签与主页对齐"
+        ],
+        "en": [
+          "Site-wide UI unification: profession tools, user center, deep guides, compare pages now share the same --zen-* design system with light/dark dual themes",
+          "New dark/light theme toggle: all pages support 🌙/☀️ one-click switch with localStorage persistence",
+          "New mobile drawer navigation: hamburger menu + drawer + overlay on all pages, ESC to close",
+          "New user center (my.html): favorites with groups, usage history with date grouping, category subscriptions with new-tool alerts, hot rankings (editor picks + personal)",
+          "New profession tools page (professions.html): 280+ tools categorized into 8 profession groups, zero data modification",
+          "3 new deep guides: Social Media Content Processing, Frontend Dev Tools Guide, Privacy-First PDF Processing (all 2500+ words, 4-language i18n)",
+          "AGENTS.md upgraded: new Design System chapter, CSS variables migrated to --zen-* spec, updated page skeleton template",
+          "Navigation i18n: Chinese labels refined, 4-language nav labels aligned with homepage"
+        ],
+        "ja": [
+          "サイト全体UI統一：職業別ツール、ユーザーセンター、深層ガイド、ツール比較ページが同一の --zen-* デザインシステム（ライト/ダークデュアルテーマ）に対応",
+          "ダーク/ライトテーマ切替を追加：全ページで 🌙/☀️ ワンクリック切替、localStorage で設定保持",
+          "モバイルドロワーナビゲーション追加：全ページでハンバーガーメニュー＋ドロワー＋オーバーレイ、ESC で閉じる",
+          "ユーザーセンター（my.html）追加：お気に入り管理（グループ分け）、使用履歴（日付グループ）、カテゴリ購読（新ツール通知）、人気ランキング",
+          "職業別ツールページ（professions.html）追加：280+ツールを8職業群に分類、データ変更ゼロ",
+          "深層ガイド3本追加：ソーシャルメディアコンテンツ処理、フロントエンド開発ツールガイド、プライバシー優先PDF処理",
+          "AGENTS.md アップグレード：Design System 章を追加、CSS変数を --zen-* 仕様に移行、ページスケルトンテンプレートを更新",
+          "ナビゲーション i18n 最適化：中国語ラベルを洗練、4言語のナビラベルをホームページと統一"
+        ],
+        "vi": [
+          "Thống nhất UI toàn trang: công cụ theo nghề, trung tâm người dùng, hướng dẫn chuyên sâu, so sánh công cụ chia sẻ hệ thống --zen-* với hai chủ đề sáng/tối",
+          "Thêm nút chuyển chủ đề tối/sáng: tất cả trang hỗ trợ 🌙/☀️ một chạm, lưu qua localStorage",
+          "Thêm menu di động: nút hamburger + ngăn kéo + lớp phủ trên tất cả trang, ESC để đóng",
+          "Trung tâm người dùng (my.html): yêu thích theo nhóm, lịch sử theo ngày, đăng ký danh mục với cảnh báo, xếp hạng phổ biến",
+          "Trang công cụ theo nghề (professions.html): 280+ công cụ phân loại vào 8 nhóm nghề, không thay đổi dữ liệu",
+          "3 hướng dẫn chuyên sâu mới: Xử lý nội dung mạng xã hội, Hướng dẫn công cụ frontend, Xử lý PDF ưu tiên quyền riêng tư",
+          "AGENTS.md nâng cấp: thêm chương Design System, di chuyển biến CSS sang --zen-*, cập nhật mẫu khung trang",
+          "Tối ưu i18n điều hướng: nhãn tiếng Trung được tinh chỉnh, thống nhất với trang chủ"
+        ]
+      }
+    },
     {
       "version": "3.1.1",
       "date": "2026-07-14",
@@ -16,28 +154,32 @@
           "首页精简重构：聚焦核心工具入口，视觉与品牌守则 V1.0 对齐",
           "首页导航与 Hero 静态文案接入四语 i18n（data-i18n-page），修复切换语言时导航/Hero 不重新翻译",
           "首页搜索框 placeholder 与移动端抽屉导航标题接入四语 i18n，补全 §六 多语言合规",
-          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示"
+          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示",
+          "搜索/导航/Hero 手机端响应式适配：iOS 防缩放、下拉框内边距/字号收紧、提示 chips 紧凑排布"
         ],
         "en": [
           "New ZenTools Quick Chrome extension: one-click access to frequent tools, with context menu and popup panel",
           "Homepage streamlined: focused on core tool entry, aligned with Brand Guideline V1.0",
           "首页导航与 Hero 静态文案接入四语 i18n（data-i18n-page），修复切换语言时导航/Hero 不重新翻译",
           "首页搜索框 placeholder 与移动端抽屉导航标题接入四语 i18n，补全 §六 多语言合规",
-          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示"
+          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示",
+          "搜索/导航/Hero 手机端响应式适配：iOS 防缩放、下拉框内边距/字号收紧、提示 chips 紧凑排布"
         ],
         "ja": [
           "ZenTools Quick Chrome 拡張を新規追加：頻繁に使うツールをワンクリックで開き、右クリックメニューとポップアップに対応",
           "ホームページを簡素化：コアツールの入り口に集中、ブランドガイドライン V1.0 に準拠",
           "首页导航与 Hero 静态文案接入四语 i18n（data-i18n-page），修复切换语言时导航/Hero 不重新翻译",
           "首页搜索框 placeholder 与移动端抽屉导航标题接入四语 i18n，补全 §六 多语言合规",
-          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示"
+          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示",
+          "搜索/导航/Hero 手机端响应式适配：iOS 防缩放、下拉框内边距/字号收紧、提示 chips 紧凑排布"
         ],
         "vi": [
           "Tiện ích mở rộng Chrome ZenTools Quick mới: truy cập công cụ thường dùng bằng một cú nhấp, hỗ trợ menu ngữ cảnh và bảng popup",
           "Trang chủ được tinh gọn: tập trung vào lối vào công cụ cốt lõi, khớp với Brand Guideline V1.0",
           "首页导航与 Hero 静态文案接入四语 i18n（data-i18n-page），修复切换语言时导航/Hero 不重新翻译",
           "首页搜索框 placeholder 与移动端抽屉导航标题接入四语 i18n，补全 §六 多语言合规",
-          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示"
+          "搜索框升级为自然语言搜索引擎：支持用一句话描述需求（如“把 PDF 压缩到 1MB”），内置口语同义词词典与打分排序，并新增自然语言示例提示",
+          "搜索/导航/Hero 手机端响应式适配：iOS 防缩放、下拉框内边距/字号收紧、提示 chips 紧凑排布"
         ]
       }
     },

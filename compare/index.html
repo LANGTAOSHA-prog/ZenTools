@@ -1,393 +1,342 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title data-i18n="pageTitle">工具对比 - ZenTools 在线工具箱</title>
-  <meta name="description" content="ZenTools 工具横向对比：PDF压缩、图片处理、文本比较、AI写作等各类工具的功能、性能、使用场景全方面对比，帮你快速找到最合适的工具。" data-i18n-placeholder="metaDesc" />
-  <meta name="keywords" content="工具对比,在线工具对比,PDF对比,图片对比,文本对比,JSON对比,ZenTools" />
-  <link rel="canonical" href="https://zentools.xyz/compare/" />
-  <link rel="manifest" href="/manifest.json" />
-  <meta property="og:title" content="工具对比 - ZenTools 在线工具箱" data-i18n-placeholder="ogTitle" />
-  <meta property="og:description" content="横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。" data-i18n-placeholder="ogDesc" />
-  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
-  <meta property="og:url" content="https://zentools.xyz/compare/" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="zh_CN" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="工具对比 - ZenTools 在线工具箱" data-i18n-placeholder="twTitle" />
-  <meta name="twitter:description" content="横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。" data-i18n-placeholder="twDesc" />
-  <meta name="google-adsense-account" content="ca-pub-1955887568822472" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
-  <style>
-    .section-desc {
-      color: var(--muted); font-size: 16px; line-height: 1.7;
-      max-width: 720px; margin-bottom: 32px;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title data-i18n="pageTitle">工具对比 - ZenTools 在线工具箱</title>
+<meta name="description" content="ZenTools 工具横向对比：PDF压缩、图片处理、文本比较、AI写作等各类工具的功能、性能、使用场景全方面对比，帮你快速找到最合适的工具。" data-i18n-placeholder="metaDesc" />
+<meta name="keywords" content="工具对比,在线工具对比,PDF对比,图片对比,文本对比,JSON对比,ZenTools" />
+<link rel="canonical" href="https://zentools.xyz/compare/" />
+<link rel="manifest" href="/manifest.json" />
+<meta name="theme-color" content="#0066FF" />
+<meta property="og:title" content="工具对比 - ZenTools 在线工具箱" data-i18n-placeholder="ogTitle" />
+<meta property="og:description" content="横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。" data-i18n-placeholder="ogDesc" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/compare/" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="工具对比 - ZenTools 在线工具箱" data-i18n-placeholder="twTitle" />
+<meta name="twitter:description" content="横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。" data-i18n-placeholder="twDesc" />
+<meta name="google-adsense-account" content="ca-pub-1955887568822472" />
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
+<script src="../assets/js/anti-crash.min.js" defer></script>
+<style>
+:root {
+  --zen-primary: #0066FF;
+  --zen-secondary: #00C2B8;
+  --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+  --zen-success: #22C55E;
+  --zen-warning: #F97316;
+  --zen-danger: #EF4444;
+  --zen-text-main: #111827;
+  --zen-text-sub: #4B5563;
+  --zen-text-placeholder: #9CA3AF;
+  --zen-bg-base: #F9FAFB;
+  --zen-bg-card: #FFFFFF;
+  --zen-border: #E5E7EB;
+  --zen-radius-base: 12px;
+  --zen-radius-card: 16px;
+  --zen-radius-btn: 8px;
+  --zen-radius-tag: 6px;
+  --zen-card-padding: 20px;
+}
+.dark {
+  --zen-text-main: #F9FAFB;
+  --zen-text-sub: #D1D5DB;
+  --zen-text-placeholder: #64748B;
+  --zen-bg-base: #0F172A;
+  --zen-bg-card: #1E293B;
+  --zen-border: #334155;
+}
 
-    .recommend-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 14px;
-    }
-    .recommend-item {
-      display: block;
-      background: rgba(255,255,255,0.95);
-      border-radius: 13px;
-      padding: 18px 20px;
-      text-decoration: none;
-      color: #1e293b;
-      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-      border: 2px solid transparent;
-    }
-    .recommend-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 30px rgba(0,0,0,0.35);
-      border-color: var(--cyan);
-    }
-    .recommend-item .reco-title {
-      font-weight: 700; font-size: 0.95rem; display: block;
-    }
-    .recommend-item .reco-desc {
-      font-size: 0.8rem; color: #64748b; margin-top: 6px; line-height: 1.5;
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif;
+  background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5;
+  transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-    .article-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    .article-card {
-      background: var(--glass);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px 32px;
-      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      backdrop-filter: blur(8px);
-    }
-    .article-card:hover {
-      border-color: var(--border-h);
-      transform: translateY(-4px);
-      box-shadow: var(--glow-c);
-    }
-    .article-card .ac-cat {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--cyan);
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-    }
-    .article-card .ac-title {
-      font-size: 20px;
-      font-weight: 700;
-      line-height: 1.4;
-      color: var(--text);
-    }
-    .article-card .ac-meta {
-      font-size: 13px;
-      color: var(--muted);
-      display: flex;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-    .article-card .ac-summary {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.75;
-    }
-    .article-card .ac-tags {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .article-card .ac-tags span {
-      font-size: 11px;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(0,229,255,0.08);
-      border: 1px solid rgba(0,229,255,0.15);
-      color: var(--cyan);
-    }
-    .article-card .ac-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--purple);
-      margin-top: 4px;
-      transition: color 0.2s;
-    }
-    .article-card:hover .ac-cta { color: var(--cyan); }
+/* 导航 */
+.site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+.dark .site-nav { background: rgba(15,23,42,0.75); }
+.nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand-logo { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; flex-shrink: 0; }
+.logo-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--zen-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; font-weight: 700; }
+.logo-text-blue { color: var(--zen-primary); }
+.logo-text-teal { color: var(--zen-secondary); }
+.logo-ver { font-size: 11px; color: var(--zen-text-placeholder); font-weight: 400; margin-left: 2px; }
+.nav-links { display: flex; align-items: center; gap: 6px; flex: 1; justify-content: flex-end; }
+.nav-links a { padding: 8px 14px; border-radius: var(--zen-radius-btn); font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; background: none; border: none; font-family: inherit; }
+.nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+.dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+.nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+.hamburger, .theme-toggle, .lang-select { all: unset; display: inline-flex; align-items: center; justify-content: center; padding: 8px 12px; border-radius: var(--zen-radius-btn); font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: background 0.2s; }
+.hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+.dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+.lang-select { font-family: inherit; font-size: 13px; }
+.hamburger { display: none; }
 
-    .featured-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-    }
-    .feat-card {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 32px 28px;
-      border: 1px solid var(--border);
-      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-      text-decoration: none;
-      color: var(--text);
-      display: block;
-    }
-    .feat-card:hover {
-      transform: translateY(-6px);
-      border-color: var(--border-h);
-      box-shadow: var(--glow-c);
-    }
-    .feat-card .fc-icon {
-      font-size: 38px;
-      margin-bottom: 16px;
-      display: block;
-    }
-    .feat-card .fc-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: var(--text);
-    }
-    .feat-card .fc-desc {
-      font-size: 14px;
-      opacity: 0.65;
-      line-height: 1.7;
-      margin-bottom: 18px;
-    }
-    .feat-card .fc-tag {
-      display: inline-block;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 700;
-      background: rgba(0,229,255,0.1);
-      color: var(--cyan);
-    }
+/* 移动侧滑 */
+.mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+.mobile-overlay.open { opacity: 1; visibility: visible; }
+.mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+.dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+.mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+.mobile-drawer .close-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--zen-radius-btn); border: 1px solid var(--zen-border); background: transparent; color: var(--zen-text-sub); cursor: pointer; font-size: 18px; margin-bottom: 20px; margin-left: auto; }
+.mobile-drawer .close-btn:hover { background: rgba(0,0,0,0.04); }
+.dark .mobile-drawer .close-btn:hover { background: rgba(255,255,255,0.06); }
+.mobile-drawer a { display: block; padding: 12px 16px; border-radius: var(--zen-radius-btn); font-size: 16px; font-weight: 500; color: var(--zen-text-sub); transition: color 0.2s, background 0.2s; }
+.mobile-drawer a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+.dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
 
-    .breadcrumb-sep {
-      opacity: 0.35;
-      margin: 0 4px;
-    }
+/* Hero */
+.page-hero { padding-top: 150px; padding-bottom: 40px; text-align: center; position: relative; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 60% 50% at 30% 20%, rgba(0,102,255,.05) 0%, transparent 50%), radial-gradient(ellipse 50% 40% at 70% 70%, rgba(0,194,184,.04) 0%, transparent 50%); }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--zen-text-placeholder); letter-spacing: 2px; margin-bottom: 24px; }
+.tag-dot { width: 6px; height: 6px; background: var(--zen-primary); border-radius: 50%; }
+.page-hero h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 800; letter-spacing: -2px; line-height: 1.1; margin-bottom: 16px; }
+.hero-gradient-text { background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero-sub { font-size: 17px; color: var(--zen-text-sub); line-height: 1.7; max-width: 560px; margin: 0 auto 28px; }
 
-    @media (max-width: 768px) {
-      .featured-grid { grid-template-columns: 1fr; }
-      .recommend-grid { grid-template-columns: 1fr; }
-      .feat-card { padding: 24px 20px; }
-    }
-  </style>
-  <script src="../assets/js/common-i18n.min.js"></script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    "name": "工具对比 - ZenTools",
-    "description": "横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。",
-    "url": "https://zentools.xyz/compare/",
-    "mainEntity": {
-      "@type": "ItemList",
-      "numberOfItems": "5",
-      "itemListElement": []
-    }
+/* Section */
+.section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+.section-head { text-align: center; margin-bottom: 36px; }
+.section-eyebrow { font-size: 11px; font-weight: 700; color: var(--zen-text-placeholder); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; display: block; }
+.section-head h2 { font-size: 26px; font-weight: 700; }
+.section-desc { color: var(--zen-text-sub); font-size: 16px; line-height: 1.7; max-width: 720px; margin: 0 auto 32px; text-align: center; }
+
+/* 推荐资源 */
+.recommend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.recommend-item { display: block; background: var(--zen-bg-card); border-radius: 13px; padding: 18px 20px; text-decoration: none; color: var(--zen-text-main); transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; border: 1px solid var(--zen-border); }
+.recommend-item:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,102,255,0.08); border-color: rgba(0,102,255,0.3); }
+.recommend-item .reco-title { font-weight: 700; font-size: 0.95rem; display: block; }
+.recommend-item .reco-desc { font-size: 0.8rem; color: var(--zen-text-sub); margin-top: 6px; line-height: 1.5; }
+
+/* 对比文章卡片 */
+.article-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.article-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: var(--zen-radius-card); padding: 28px 32px; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s; text-decoration: none; color: var(--zen-text-main); display: flex; flex-direction: column; gap: 14px; }
+.article-card:hover { border-color: rgba(0,102,255,0.3); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,102,255,0.08); }
+.article-card .ac-cat { font-size: 11px; font-weight: 700; color: var(--zen-primary); letter-spacing: 0.5px; text-transform: uppercase; }
+.article-card .ac-title { font-size: 20px; font-weight: 700; line-height: 1.4; color: var(--zen-text-main); }
+.article-card .ac-meta { font-size: 13px; color: var(--zen-text-sub); display: flex; gap: 18px; flex-wrap: wrap; }
+.article-card .ac-summary { font-size: 14px; color: var(--zen-text-sub); line-height: 1.75; }
+.article-card .ac-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.article-card .ac-tags span { font-size: 11px; padding: 4px 10px; border-radius: 6px; background: rgba(0,102,255,0.08); border: 1px solid rgba(0,102,255,0.12); color: var(--zen-primary); }
+.article-card .ac-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: var(--zen-secondary); margin-top: 4px; transition: color 0.2s; }
+.article-card:hover .ac-cta { color: var(--zen-primary); }
+
+/* 功能工具卡片 */
+.featured-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.feat-card { background: var(--zen-bg-card); border-radius: var(--zen-radius-card); padding: 32px 28px; border: 1px solid var(--zen-border); transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; text-decoration: none; color: var(--zen-text-main); display: block; }
+.feat-card:hover { transform: translateY(-4px); border-color: rgba(0,102,255,0.3); box-shadow: 0 8px 30px rgba(0,102,255,0.08); }
+.feat-card .fc-icon { font-size: 38px; margin-bottom: 16px; display: block; }
+.feat-card .fc-title { font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--zen-text-main); }
+.feat-card .fc-desc { font-size: 14px; color: var(--zen-text-sub); line-height: 1.7; margin-bottom: 18px; }
+.feat-card .fc-tag { display: inline-block; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; background: rgba(0,102,255,0.08); color: var(--zen-primary); }
+
+/* 页脚 */
+footer { border-top: 1px solid var(--zen-border); padding: 36px 0; text-align: center; }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.footer-logo { font-size: 18px; font-weight: 700; margin-bottom: 12px; background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; }
+.footer-links a { color: var(--zen-text-sub); transition: color 0.2s; }
+.footer-links a:hover { color: var(--zen-primary); }
+.footer-copy { font-size: 13px; color: var(--zen-text-placeholder); }
+
+@media (max-width: 768px) {
+  .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+  .hamburger { display: inline-flex; }
+  .page-hero { padding-top: 120px; }
+  .page-hero h1 { font-size: clamp(30px, 7vw, 40px); }
+  .featured-grid { grid-template-columns: 1fr; }
+  .recommend-grid { grid-template-columns: 1fr; }
+  .feat-card { padding: 24px 20px; }
+}
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .nav-inner { height: 60px; gap: 8px; }
+  .brand-logo { font-size: 18px; gap: 6px; }
+  .logo-icon { width: 30px; height: 30px; font-size: 16px; }
+  .logo-ver { font-size: 10px; }
+  .page-hero { padding-top: 100px; }
+  .page-hero h1 { font-size: clamp(24px, 7vw, 30px); }
+  .section { padding: 28px 16px; }
+}
+</style>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "工具对比 - ZenTools",
+  "description": "横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。",
+  "url": "https://zentools.xyz/compare/",
+  "mainEntity": {
+    "@type": "ItemList",
+    "numberOfItems": "5",
+    "itemListElement": []
   }
-  </script>
-  <script>
-  window.ZT_PAGE = {
-    zh: {
-      pageTitle: '工具对比 - ZenTools 在线工具箱',
-      metaDesc: '横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。',
-      ogTitle: '工具对比 - ZenTools',
-      ogDesc: '横向对比各类在线工具的功能、性能、使用场景。',
-      twTitle: '工具对比 - ZenTools',
-      twDesc: '横向对比各类在线工具的功能、性能、使用场景。',
-      crumbCur: '工具对比',
-      eyebrow: '工具对比',
-      h1Grad: '工具对比',
-      h1Sub: '横向对比所有工具',
-      pageDesc: '对比 PDF 压缩、图片处理、文本比较等各类工具的详细参数与适用场景。差异一目了然，选择更轻松。',
-      recoEyebrow: '推荐资源',
-      recoTitle: '推荐资源',
-      recoDesc: '更多实用在线资源，提升工作效率',
-      reco1Title: '免费云环境资源大全',
-      reco1Desc: '30+ 免费云服务完整清单',
-      reco2Title: '免费 AI 模型 API 大全',
-      reco2Desc: 'Hugging Face、Gemini 等 30+ 免费 API',
-      reco3Title: 'ZenTools 图文使用教程',
-      reco3Desc: '从零掌握所有工具的使用方法',
-      reco4Title: '深度指南中心',
-      reco4Desc: '全方位实用教程合集',
-      reco5Title: '免费 AI 模型聚合平台',
-      reco5Desc: 'Mistral/Gemma/Phi-3 智能轮询',
-      toolsEyebrow: '功能工具',
-      toolsTitle: '功能对比工具',
-      toolsDesc: '直接对比两个文件或文本的差异',
-      reviewEyebrow: '深度评测',
-      reviewTitle: '对比评测文章',
-      reviewDesc: '深度横向对比不同工具和平台，帮你做出明智选择。',
-      articleCat: '工具对比',
-      articleMeta: '2026-07-06 · 8 分钟阅读',
-      articleCTAR: '阅读全文 →'
-    },
-    en: {
-      pageTitle: 'Tool Compare - ZenTools Online Toolbox',
-      metaDesc: 'Compare features, performance, and use cases of online tools side by side to find the best fit.',
-      ogTitle: 'Tool Compare - ZenTools',
-      ogDesc: 'Compare features, performance, and use cases side by side.',
-      twTitle: 'Tool Compare - ZenTools',
-      twDesc: 'Compare features, performance, and use cases side by side.',
-      crumbCur: 'Compare',
-      eyebrow: 'Compare',
-      h1Grad: 'Tool Compare',
-      h1Sub: 'Side-by-side comparison',
-      pageDesc: 'Compare PDF compression, image processing, text diff and more. Clear differences at a glance for better decisions.',
-      recoEyebrow: 'Resources',
-      recoTitle: 'Recommended Resources',
-      recoDesc: 'Discover more useful online resources to boost productivity',
-      reco1Title: 'Free Cloud Resources Guide',
-      reco1Desc: '30+ free cloud services complete list',
-      reco2Title: 'Free AI Model API List',
-      reco2Desc: 'Hugging Face, Gemini and 30+ free APIs',
-      reco3Title: 'ZenTools Visual Tutorial',
-      reco3Desc: 'Master all tools from scratch',
-      reco4Title: 'Deep Guides Center',
-      reco4Desc: 'Comprehensive practical tutorial collection',
-      reco5Title: 'Free AI Model Aggregator',
-      reco5Desc: 'Mistral/Gemma/Phi-3 smart failover',
-      toolsEyebrow: 'Tools',
-      toolsTitle: 'Comparison Tools',
-      toolsDesc: 'Directly compare differences between two files or texts',
-      reviewEyebrow: 'Reviews',
-      reviewTitle: 'Comparison Reviews',
-      reviewDesc: 'In-depth side-by-side comparisons of tools and platforms to help you make informed decisions.',
-      articleCat: 'Tool Comparison',
-      articleMeta: '2026-07-06 · 8 min read',
-      articleCTAR: 'Read full article →'
-    },
-    ja: {
-      pageTitle: 'ツール比較 - ZenTools オンラインツールボックス',
-      metaDesc: 'オンラインツールの機能、パフォーマンス、ユースケースを横断的に比較し、最適なツールを見つけます。',
-      ogTitle: 'ツール比較 - ZenTools',
-      ogDesc: 'オンラインツールの機能、パフォーマンス、ユースケースを横断的に比較。',
-      twTitle: 'ツール比較 - ZenTools',
-      twDesc: 'オンラインツールの機能、パフォーマンス、ユースケースを横断的に比較。',
-      crumbCur: 'ツール比較',
-      eyebrow: 'ツール比較',
-      h1Grad: 'ツール比較',
-      h1Sub: 'ツールを並べて比較',
-      pageDesc: 'PDF圧縮、画像処理、テキスト比較など、各種ツールのパラメータとユースケースを比較。違いを一目で把握し、最適な選択を。',
-      recoEyebrow: 'リソース',
-      recoTitle: 'おすすめリソース',
-      recoDesc: '便利なオンラインリソースで作業効率を向上',
-      reco1Title: '無料クラウド環境リソース大全',
-      reco1Desc: '30+ 無料クラウドサービス完全リスト',
-      reco2Title: '無料 AI モデル API 大全',
-      reco2Desc: 'Hugging Face、Gemini など 30+ 無料 API',
-      reco3Title: 'ZenTools ビジュアルチュートリアル',
-      reco3Desc: 'ゼロからすべてのツールをマスター',
-      reco4Title: '深層ガイドセンター',
-      reco4Desc: '包括的な実用チュートリアル集',
-      reco5Title: '無料 AI モデル集約プラットフォーム',
-      reco5Desc: 'Mistral/Gemma/Phi-3 スマートフェイルオーバー',
-      toolsEyebrow: 'ツール',
-      toolsTitle: '比較ツール',
-      toolsDesc: '2つのファイルやテキストの差分を直接比較',
-      reviewEyebrow: 'レビュー',
-      reviewTitle: '比較レビュー',
-      reviewDesc: 'ツールとプラットフォームを徹底的に横並びで比較し、賢い選択を支援します。',
-      articleCat: 'ツール比較',
-      articleMeta: '2026-07-06 · 8分',
-      articleCTAR: '全文を読む →'
-    },
-    vi: {
-      pageTitle: 'So sánh Công cụ - ZenTools Hộp Công cụ Trực tuyến',
-      metaDesc: 'So sánh tính năng, hiệu năng và trường hợp sử dụng của các công cụ trực tuyến để tìm ra lựa chọn tốt nhất.',
-      ogTitle: 'So sánh Công cụ - ZenTools',
-      ogDesc: 'So sánh tính năng, hiệu năng và trường hợp sử dụng của các công cụ trực tuyến.',
-      twTitle: 'So sánh Công cụ - ZenTools',
-      twDesc: 'So sánh tính năng, hiệu năng và trường hợp sử dụng của các công cụ trực tuyến.',
-      crumbCur: 'So sánh',
-      eyebrow: 'So sánh',
-      h1Grad: 'So sánh Công cụ',
-      h1Sub: 'So sánh trực tiếp',
-      pageDesc: 'So sánh nén PDF, xử lý ảnh, so sánh văn bản và nhiều hơn nữa. Khác biệt rõ ràng để lựa chọn tốt hơn.',
-      recoEyebrow: 'Tài nguyên',
-      recoTitle: 'Tài nguyên Đề xuất',
-      recoDesc: 'Khám phá thêm tài nguyên trực tuyến hữu ích',
-      reco1Title: 'Tài nguyên Đám mây Miễn phí',
-      reco1Desc: 'Danh sách 30+ dịch vụ đám mây miễn phí',
-      reco2Title: 'Danh sách API Mô hình AI Miễn phí',
-      reco2Desc: 'Hugging Face, Gemini và 30+ API miễn phí',
-      reco3Title: 'Hướng dẫn Trực quan ZenTools',
-      reco3Desc: 'Làm chủ tất cả công cụ từ đầu',
-      reco4Title: 'Trung tâm Hướng dẫn Chuyên sâu',
-      reco4Desc: 'Bộ sưu tập hướng dẫn thực tế toàn diện',
-      reco5Title: 'Nền tảng Tổng hợp Mô hình AI Miễn phí',
-      reco5Desc: 'Mistral/Gemma/Phi-3 chuyển mạch thông minh',
-      toolsEyebrow: 'Công cụ',
-      toolsTitle: 'Công cụ So sánh',
-      toolsDesc: 'So sánh trực tiếp sự khác biệt giữa hai tệp hoặc văn bản',
-      reviewEyebrow: 'Đánh giá',
-      reviewTitle: 'Bài Đánh giá So sánh',
-      reviewDesc: 'So sánh chi tiết các công cụ và nền tảng để giúp bạn đưa ra quyết định sáng suốt.',
-      articleCat: 'So sánh Công cụ',
-      articleMeta: '2026-07-06 · 8 phút đọc',
-      articleCTAR: 'Đọc bài viết đầy đủ →'
-    }
-  };
-  </script>
+}
+</script>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle: '工具对比 - ZenTools 在线工具箱',
+    metaDesc: '横向对比各类在线工具的功能、性能、使用场景，帮你快速找到最合适的工具。',
+    ogTitle: '工具对比 - ZenTools', ogDesc: '横向对比各类在线工具的功能、性能、使用场景。',
+    twTitle: '工具对比 - ZenTools', twDesc: '横向对比各类在线工具的功能、性能、使用场景。',
+    h1Grad: '工具对比', h1Sub: '横向对比所有工具',
+    pageDesc: '对比 PDF 压缩、图片处理、文本比较等各类工具的详细参数与适用场景。差异一目了然，选择更轻松。',
+    recoEyebrow: '推荐资源', recoTitle: '推荐资源',
+    recoDesc: '更多实用在线资源，提升工作效率',
+    reco1Title: '免费云环境资源大全', reco1Desc: '30+ 免费云服务完整清单',
+    reco2Title: '免费 AI 模型 API 大全', reco2Desc: 'Hugging Face、Gemini 等 30+ 免费 API',
+    reco3Title: 'ZenTools 图文使用教程', reco3Desc: '从零掌握所有工具的使用方法',
+    reco4Title: '深度指南中心', reco4Desc: '全方位实用教程合集',
+    reco5Title: '免费 AI 模型聚合平台', reco5Desc: 'Mistral/Gemma/Phi-3 智能轮询',
+    toolsEyebrow: '功能工具', toolsTitle: '功能对比工具',
+    toolsDesc: '直接对比两个文件或文本的差异',
+    reviewEyebrow: '深度评测', reviewTitle: '对比评测文章',
+    reviewDesc: '深度横向对比不同工具和平台，帮你做出明智选择。',
+    articleCTAR: '阅读全文 →',
+    navHome: '首页', navTools: '工具箱', navArticles: '教程中心',
+    navGuides: '深度指南', navCompare: '工具对比', navProfessions: '职业工具', navMy: '用户中心', navAbout: '关于', navSection: '导航',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved'
+  },
+  en: {
+    pageTitle: 'Tool Compare - ZenTools Online Toolbox',
+    metaDesc: 'Compare features, performance, and use cases of online tools side by side to find the best fit.',
+    ogTitle: 'Tool Compare - ZenTools', ogDesc: 'Compare features, performance, and use cases side by side.',
+    twTitle: 'Tool Compare - ZenTools', twDesc: 'Compare features, performance, and use cases side by side.',
+    h1Grad: 'Tool Compare', h1Sub: 'Side-by-side comparison',
+    pageDesc: 'Compare PDF compression, image processing, text diff and more. Clear differences at a glance for better decisions.',
+    recoEyebrow: 'Resources', recoTitle: 'Recommended Resources',
+    recoDesc: 'Discover more useful online resources to boost productivity',
+    reco1Title: 'Free Cloud Resources Guide', reco1Desc: '30+ free cloud services complete list',
+    reco2Title: 'Free AI Model API List', reco2Desc: 'Hugging Face, Gemini and 30+ free APIs',
+    reco3Title: 'ZenTools Visual Tutorial', reco3Desc: 'Master all tools from scratch',
+    reco4Title: 'Deep Guides Center', reco4Desc: 'Comprehensive practical tutorial collection',
+    reco5Title: 'Free AI Model Aggregator', reco5Desc: 'Mistral/Gemma/Phi-3 smart failover',
+    toolsEyebrow: 'Tools', toolsTitle: 'Comparison Tools',
+    toolsDesc: 'Directly compare differences between two files or texts',
+    reviewEyebrow: 'Reviews', reviewTitle: 'Comparison Reviews',
+    reviewDesc: 'In-depth side-by-side comparisons of tools and platforms to help you make informed decisions.',
+    articleCTAR: 'Read full article →',
+    navHome: 'Home', navTools: 'Tools', navArticles: 'Guides',
+    navGuides: 'Deep Guides', navCompare: 'Compare', navProfessions: 'By Profession', navMy: 'My Space', navAbout: 'About', navSection: 'Nav',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved'
+  },
+  ja: {
+    pageTitle: 'ツール比較 - ZenTools オンラインツールボックス',
+    metaDesc: 'オンラインツールの機能、パフォーマンス、ユースケースを横断的に比較し、最適なツールを見つけます。',
+    ogTitle: 'ツール比較 - ZenTools', ogDesc: 'オンラインツールの機能、パフォーマンス、ユースケースを横断的に比較。',
+    twTitle: 'ツール比較 - ZenTools', twDesc: 'オンラインツールの機能、パフォーマンス、ユースケースを横断的に比較。',
+    h1Grad: 'ツール比較', h1Sub: 'ツールを並べて比較',
+    pageDesc: 'PDF圧縮、画像処理、テキスト比較など、各種ツールのパラメータとユースケースを比較。違いを一目で把握し、最適な選択を。',
+    recoEyebrow: 'リソース', recoTitle: 'おすすめリソース',
+    recoDesc: '便利なオンラインリソースで作業効率を向上',
+    reco1Title: '無料クラウド環境リソース大全', reco1Desc: '30+ 無料クラウドサービス完全リスト',
+    reco2Title: '無料 AI モデル API 大全', reco2Desc: 'Hugging Face、Gemini など 30+ 無料 API',
+    reco3Title: 'ZenTools ビジュアルチュートリアル', reco3Desc: 'ゼロからすべてのツールをマスター',
+    reco4Title: '深層ガイドセンター', reco4Desc: '包括的な実用チュートリアル集',
+    reco5Title: '無料 AI モデル集約プラットフォーム', reco5Desc: 'Mistral/Gemma/Phi-3 スマートフェイルオーバー',
+    toolsEyebrow: 'ツール', toolsTitle: '比較ツール',
+    toolsDesc: '2つのファイルやテキストの差分を直接比較',
+    reviewEyebrow: 'レビュー', reviewTitle: '比較レビュー',
+    reviewDesc: 'ツールとプラットフォームを徹底的に横並びで比較し、賢い選択を支援します。',
+    articleCTAR: '全文を読む →',
+    navHome: 'ホーム', navTools: 'ツール', navArticles: 'ガイド',
+    navGuides: '深層ガイド', navCompare: 'ツール比較', navProfessions: '職業別ツール', navMy: 'マイスペース', navAbout: '概要', navSection: 'メニュー',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved'
+  },
+  vi: {
+    pageTitle: 'So sánh Công cụ - ZenTools Hộp Công cụ Trực tuyến',
+    metaDesc: 'So sánh tính năng, hiệu năng và trường hợp sử dụng của các công cụ trực tuyến để tìm ra lựa chọn tốt nhất.',
+    ogTitle: 'So sánh Công cụ - ZenTools', ogDesc: 'So sánh tính năng, hiệu năng và trường hợp sử dụng của các công cụ trực tuyến.',
+    twTitle: 'So sánh Công cụ - ZenTools', twDesc: 'So sánh tính năng, hiệu năng và trường hợp sử dụng của các công cụ trực tuyến.',
+    h1Grad: 'So sánh Công cụ', h1Sub: 'So sánh trực tiếp',
+    pageDesc: 'So sánh nén PDF, xử lý ảnh, so sánh văn bản và nhiều hơn nữa. Khác biệt rõ ràng để lựa chọn tốt hơn.',
+    recoEyebrow: 'Tài nguyên', recoTitle: 'Tài nguyên Đề xuất',
+    recoDesc: 'Khám phá thêm tài nguyên trực tuyến hữu ích',
+    reco1Title: 'Tài nguyên Đám mây Miễn phí', reco1Desc: 'Danh sách 30+ dịch vụ đám mây miễn phí',
+    reco2Title: 'Danh sách API Mô hình AI Miễn phí', reco2Desc: 'Hugging Face, Gemini và 30+ API miễn phí',
+    reco3Title: 'Hướng dẫn Trực quan ZenTools', reco3Desc: 'Làm chủ tất cả công cụ từ đầu',
+    reco4Title: 'Trung tâm Hướng dẫn Chuyên sâu', reco4Desc: 'Bộ sưu tập hướng dẫn thực tế toàn diện',
+    reco5Title: 'Nền tảng Tổng hợp Mô hình AI Miễn phí', reco5Desc: 'Mistral/Gemma/Phi-3 chuyển mạch thông minh',
+    toolsEyebrow: 'Công cụ', toolsTitle: 'Công cụ So sánh',
+    toolsDesc: 'So sánh trực tiếp sự khác biệt giữa hai tệp hoặc văn bản',
+    reviewEyebrow: 'Đánh giá', reviewTitle: 'Bài Đánh giá So sánh',
+    reviewDesc: 'So sánh chi tiết các công cụ và nền tảng để giúp bạn đưa ra quyết định sáng suốt.',
+    articleCTAR: 'Đọc bài viết đầy đủ →',
+    navHome: 'Trang chủ', navTools: 'Công cụ', navArticles: 'Hướng dẫn',
+    navGuides: 'Hướng dẫn chuyên sâu', navCompare: 'So sánh', navProfessions: 'Theo Nghề', navMy: 'Trang cá nhân', navAbout: 'Giới thiệu', navSection: 'Menu',
+    footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved'
+  }
+};
+</script>
 </head>
 <body>
 
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-
 <div class="z-wrap">
 
-  <!-- ===== 导航栏 ===== -->
-  <nav>
-    <div class="nav-inner">
-      <a class="logo" href="/">ZenTools<span>3.0</span></a>
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </div>
       <div class="nav-links">
         <a href="/" data-i18n="navHome">首页</a>
-        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tools.html" data-i18n="navTools">工具箱</a>
         <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
         <a href="/guides/" data-i18n="navGuides">深度指南</a>
         <a href="/compare/" class="active" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
         <a href="/about.html" data-i18n="navAbout">关于</a>
-        <select id="langSelect" class="lang-select">
+        <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+        <select class="lang-select" id="langSelect">
           <option value="zh">中文</option>
           <option value="en">English</option>
           <option value="ja">日本語</option>
           <option value="vi">Tiếng Việt</option>
         </select>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">☰</button>
       </div>
     </div>
   </nav>
 
-  <!-- ===== 页面头部 ===== -->
-  <div class="page-header reveal">
-    <div class="breadcrumb">
-      <a href="/" data-i18n="breadcrumbHome">首页</a>
-      <span class="breadcrumb-sep">/</span>
-      <span class="cur" data-i18n="crumbCur">工具对比</span>
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose">✕</button>
+      <div id="mobileTools">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navTools">工具箱</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <a href="/about.html" data-i18n="navAbout">关于</a>
+      </div>
     </div>
-    <span class="page-eyebrow" data-i18n="eyebrow">工具对比</span>
-    <h1><span class="grad" data-i18n="h1Grad">工具对比</span><br /><span data-i18n="h1Sub">横向对比所有工具</span></h1>
-    <p data-i18n="pageDesc">对比 PDF 压缩、图片处理、文本比较等各类工具的详细参数与适用场景。差异一目了然，选择更轻松。</p>
   </div>
 
-  <!-- ===== 推荐资源区 ===== -->
+  <section class="page-hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-tag"><span class="tag-dot"></span>Compare</div>
+      <h1><span class="hero-gradient-text" data-i18n="h1Grad">工具对比</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub">横向对比所有工具</p>
+    </div>
+  </section>
+
   <div class="section">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="section-eyebrow" data-i18n="recoEyebrow">推荐资源</span>
       <h2 data-i18n="recoTitle">推荐资源</h2>
     </div>
@@ -416,37 +365,35 @@
     </div>
   </div>
 
-  <!-- ===== 功能对比工具区 ===== -->
   <div class="section">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="section-eyebrow" data-i18n="toolsEyebrow">功能工具</span>
       <h2 data-i18n="toolsTitle">功能对比工具</h2>
     </div>
     <p class="section-desc" data-i18n="toolsDesc">直接对比两个文件或文本的差异</p>
-    <div class="featured-grid reveal-stagger" id="featuredGrid"></div>
+    <div class="featured-grid" id="featuredGrid"></div>
   </div>
 
-  <!-- ===== 对比评测文章区 ===== -->
   <div class="section">
-    <div class="section-head reveal">
+    <div class="section-head">
       <span class="section-eyebrow" data-i18n="reviewEyebrow">深度评测</span>
       <h2 data-i18n="reviewTitle">对比评测文章</h2>
     </div>
     <p class="section-desc" data-i18n="reviewDesc">深度横向对比不同工具和平台，帮你做出明智选择。</p>
-    <div class="article-grid reveal-stagger" id="articleGrid"></div>
+    <div class="article-grid" id="articleGrid"></div>
   </div>
 
-  <!-- ===== 页脚 ===== -->
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">ZenTools</div>
       <div class="footer-links">
         <a href="/">首页</a>
         <a href="/compare/">工具对比</a>
+        <a href="/professions.html">职业工具</a>
+        <a href="/my.html">用户中心</a>
         <a href="/privacy.html">隐私政策</a>
-        <a href="/terms.html">使用条款</a>
       </div>
-      <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+      <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
     </div>
   </footer>
 
@@ -458,110 +405,51 @@
   'use strict';
 
   var compareTools = [
-    {
-      slug: 'image-compare',
-      icon: '🖼️',
+    { slug: 'image-compare', icon: '🖼️',
       zh: { title: '图片对比', desc: '并排对比两张图片差异，支持滑动、叠加、差异高亮三种模式，适合设计稿对比、前后效果对比。', tag: '图片工具' },
-      en: { title: 'Image Compare', desc: 'Compare two images side by side with slider, overlay, and difference highlight modes. Perfect for design comparison.', tag: 'Image' },
+      en: { title: 'Image Compare', desc: 'Compare two images side by side with slider, overlay, and difference highlight modes.', tag: 'Image' },
       ja: { title: '画像比較', desc: '2枚の画像の違いを並べて比較。スライダー、オーバーレイ、差分ハイライトの3モード対応。', tag: '画像' },
-      vi: { title: 'So sánh Ảnh', desc: 'So sánh hai ảnh cạnh nhau với chế độ thanh trượt, phủ và tô sáng khác biệt. Lý tưởng cho so sánh thiết kế.', tag: 'Ảnh' },
-      url: '../image/image-compare.html'
-    },
-    {
-      slug: 'pdf-diff',
-      icon: '📄',
+      vi: { title: 'So sánh Ảnh', desc: 'So sánh hai ảnh cạnh nhau với chế độ thanh trượt, phủ và tô sáng khác biệt.', tag: 'Ảnh' },
+      url: '../image/image-compare.html' },
+    { slug: 'pdf-diff', icon: '📄',
       zh: { title: 'PDF 对比', desc: '对比两个 PDF 文档的文本差异，高亮显示增删改内容。适用于合同审阅、文稿校对、版本管理。', tag: 'PDF工具' },
-      en: { title: 'PDF Diff', desc: 'Compare text differences between two PDFs with highlighted additions and deletions. Great for contract review.', tag: 'PDF' },
-      ja: { title: 'PDF 比較', desc: '2つのPDF文書のテキスト差分を比較し、追加・削除・変更をハイライト表示。契約書レビューに最適。', tag: 'PDF' },
-      vi: { title: 'So sánh PDF', desc: 'So sánh khác biệt văn bản giữa hai tệp PDF với tô sáng thêm/xóa. Lý tưởng cho xem xét hợp đồng.', tag: 'PDF' },
-      url: '../pdf/pdf-diff.html'
-    },
-    {
-      slug: 'text-diff',
-      icon: '📝',
+      en: { title: 'PDF Diff', desc: 'Compare text differences between two PDFs with highlighted additions and deletions.', tag: 'PDF' },
+      ja: { title: 'PDF 比較', desc: '2つのPDF文書のテキスト差分を比較し、追加・削除・変更をハイライト表示。', tag: 'PDF' },
+      vi: { title: 'So sánh PDF', desc: 'So sánh khác biệt văn bản giữa hai tệp PDF với tô sáng thêm/xóa.', tag: 'PDF' },
+      url: '../pdf/pdf-diff.html' },
+    { slug: 'text-diff', icon: '📝',
       zh: { title: '文本对比', desc: '逐行对比两段文本的差异，支持行内差异高亮。适用于代码对比、文稿校对、版本差异分析。', tag: '文本工具' },
-      en: { title: 'Text Diff', desc: 'Compare two texts line by line with inline difference highlighting. Great for code review and version analysis.', tag: 'Text' },
+      en: { title: 'Text Diff', desc: 'Compare two texts line by line with inline difference highlighting.', tag: 'Text' },
       ja: { title: 'テキスト比較', desc: '2つのテキストを行単位で比較し、行内の差分をハイライト表示。コードレビューや版管理に。', tag: 'テキスト' },
-      vi: { title: 'So sánh Văn bản', desc: 'So sánh hai văn bản từng dòng với tô sáng khác biệt nội dòng. Lý tưởng cho xem xét mã.', tag: 'Văn bản' },
-      url: '../text/textdiff.html'
-    },
-    {
-      slug: 'json-diff',
-      icon: '📊',
+      vi: { title: 'So sánh Văn bản', desc: 'So sánh hai văn bản từng dòng với tô sáng khác biệt nội dòng.', tag: 'Văn bản' },
+      url: '../text/textdiff.html' },
+    { slug: 'json-diff', icon: '📊',
       zh: { title: 'JSON 对比', desc: '结构化对比两个 JSON 数据，清晰展示新增、删除、修改的键值对。适合 API 响应对比、配置变更追踪。', tag: '开发工具' },
       en: { title: 'JSON Diff', desc: 'Structurally compare two JSON objects, clearly showing added, removed, and modified key-value pairs.', tag: 'Dev' },
-      ja: { title: 'JSON 比較', desc: '2つのJSONデータを構造的に比較し、追加・削除・変更されたキーと値を明確に表示。APIレスポンスの比較に。', tag: '開発' },
+      ja: { title: 'JSON 比較', desc: '2つのJSONデータを構造的に比較し、追加・削除・変更されたキーと値を明確に表示。', tag: '開発' },
       vi: { title: 'So sánh JSON', desc: 'So sánh cấu trúc hai đối tượng JSON, hiển thị rõ ràng các cặp khóa-giá trị được thêm, xóa, sửa đổi.', tag: 'Dev' },
-      url: '../dev/diff.html'
-    },
-    {
-      slug: 'image-adjust',
-      icon: '🎨',
+      url: '../dev/diff.html' },
+    { slug: 'image-adjust', icon: '🎨',
       zh: { title: '亮度对比度调整', desc: '实时调整图片的亮度、对比度、饱和度、色温等参数。支持预览对比，所见即所得。', tag: '图片工具' },
       en: { title: 'Brightness/Contrast', desc: 'Adjust brightness, contrast, saturation, and color temperature in real-time with preview comparison.', tag: 'Image' },
       ja: { title: '明るさ・コントラスト調整', desc: '明るさ、コントラスト、彩度、色温度をリアルタイムで調整。プレビュー比較対応。', tag: '画像' },
       vi: { title: 'Điều chỉnh Độ sáng/Tương phản', desc: 'Điều chỉnh độ sáng, tương phản, bão hòa và nhiệt độ màu theo thời gian thực với xem trước.', tag: 'Ảnh' },
-      url: '../image/adjust.html'
-    }
+      url: '../image/adjust.html' }
   ];
 
   var reviewArticles = [
-    {
-      slug: 'cursor-vs-windsurf',
-      zh: {
-        title: 'Cursor vs Windsurf 全面对比：哪款 AI 编程工具更适合你',
-        summary: '从功能、定价、AI 能力、性能和隐私五个维度深度对比 Cursor 与 Windsurf，帮你选出最合适的 AI 编程助手。',
-        tags: ['AI', '编程', '对比'],
-        meta: '2026-07-06 · 8 分钟阅读'
-      },
-      en: {
-        title: 'Cursor vs Windsurf: Which AI Coding Tool Wins',
-        summary: 'A deep, side-by-side comparison of Cursor and Windsurf across features, pricing, AI power, performance and privacy.',
-        tags: ['AI', 'Coding', 'Compare'],
-        meta: '2026-07-06 · 8 min read'
-      },
-      ja: {
-        title: 'Cursor vs Windsurf 徹底比較：どちらの AI コーディングツールがおすすめ',
-        summary: '機能・料金・AI能力・パフォーマンス・プライバシーの5軸で Cursor と Windsurf を徹底比較。',
-        tags: ['AI', 'コーディング', '比較'],
-        meta: '2026-07-06 · 8分'
-      },
-      vi: {
-        title: 'Cursor vs Windsurf: Công cụ AI lập trình nào tốt hơn',
-        summary: 'So sánh sâu Cursor và Windsurf về tính năng, giá, sức mạnh AI, hiệu năng và quyền riêng tư.',
-        tags: ['AI', 'Lập trình', 'So sánh'],
-        meta: '2026-07-06 · 8 phút đọc'
-      },
-      url: '../tutorials/cursor-vs-windsurf.html'
-    },
-    {
-      slug: 'dify-vs-n8n',
-      zh: {
-        title: 'Dify vs n8n 全面对比：AI 应用平台还是通用自动化，你的团队该选哪个',
-        summary: '从定位、AI 能力、集成生态、RAG 管道、工作流设计和企业适配六大维度深度对比，帮你在 AI 应用开发与流程自动化之间做决策。',
-        tags: ['AI', '自动化', '对比'],
-        meta: '2026-07-07 · 10 分钟阅读'
-      },
-      en: {
-        title: 'Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose',
-        summary: 'A deep comparison across positioning, AI capabilities, integration ecosystem, RAG pipeline, workflow design and enterprise readiness.',
-        tags: ['AI', 'Automation', 'Compare'],
-        meta: '2026-07-07 · 10 min read'
-      },
-      ja: {
-        title: 'Dify vs n8n 徹底比較：AIアプリ開発か汎用自動化か、あなたのチームに最適なのは',
-        summary: '位置付け・AI機能・統合エコシステム・RAGパイプライン・ワークフロー設計・企業適合性の6軸で徹底比較。',
-        tags: ['AI', '自動化', '比較'],
-        meta: '2026-07-07 · 10分'
-      },
-      vi: {
-        title: 'Dify vs n8n: Nền tảng ứng dụng AI hay tự động hóa tổng hợp — đội ngũ bạn nên chọn gì',
-        summary: 'So sánh sâu sáu khía cạnh: định vị, khả năng AI, hệ sinh thái tích hợp, pipeline RAG, thiết kế workflow và sẵn sàng doanh nghiệp.',
-        tags: ['AI', 'Tự động hóa', 'So sánh'],
-        meta: '2026-07-07 · 10 phút đọc'
-      },
-      url: '../tutorials/dify-vs-n8n.html'
-    }
+    { slug: 'cursor-vs-windsurf',
+      zh: { title: 'Cursor vs Windsurf 全面对比：哪款 AI 编程工具更适合你', summary: '从功能、定价、AI 能力、性能和隐私五个维度深度对比 Cursor 与 Windsurf，帮你选出最合适的 AI 编程助手。', tags: ['AI', '编程', '对比'] },
+      en: { title: 'Cursor vs Windsurf: Which AI Coding Tool Wins', summary: 'A deep, side-by-side comparison of Cursor and Windsurf across features, pricing, AI power, performance and privacy.', tags: ['AI', 'Coding', 'Compare'] },
+      ja: { title: 'Cursor vs Windsurf 徹底比較：どちらの AI コーディングツールがおすすめ', summary: '機能・料金・AI能力・パフォーマンス・プライバシーの5軸で Cursor と Windsurf を徹底比較。', tags: ['AI', 'コーディング', '比較'] },
+      vi: { title: 'Cursor vs Windsurf: Công cụ AI lập trình nào tốt hơn', summary: 'So sánh sâu Cursor và Windsurf về tính năng, giá, sức mạnh AI, hiệu năng và quyền riêng tư.', tags: ['AI', 'Lập trình', 'So sánh'] },
+      url: '../tutorials/cursor-vs-windsurf.html' },
+    { slug: 'dify-vs-n8n',
+      zh: { title: 'Dify vs n8n 全面对比：AI 应用平台还是通用自动化，你的团队该选哪个', summary: '从定位、AI 能力、集成生态、RAG 管道、工作流设计和企业适配六大维度深度对比。', tags: ['AI', '自动化', '对比'] },
+      en: { title: 'Dify vs n8n: AI App Platform or General Automation', summary: 'A deep comparison across positioning, AI capabilities, integration ecosystem, RAG pipeline and workflow design.', tags: ['AI', 'Automation', 'Compare'] },
+      ja: { title: 'Dify vs n8n 徹底比較：AIアプリ開発か汎用自動化か', summary: '位置付け・AI機能・統合エコシステム・RAGパイプライン・ワークフロー設計の6軸で徹底比較。', tags: ['AI', '自動化', '比較'] },
+      vi: { title: 'Dify vs n8n: Nền tảng ứng dụng AI hay tự động hóa tổng hợp', summary: 'So sánh sâu sáu khía cạnh: định vị, khả năng AI, hệ sinh thái tích hợp, pipeline RAG, workflow.', tags: ['AI', 'Tự động hóa', 'So sánh'] },
+      url: '../tutorials/dify-vs-n8n.html' }
   ];
 
   function renderFeatured(lang) {
@@ -587,14 +475,12 @@
     reviewArticles.forEach(function(a) {
       var d = a[lang] || a.zh;
       html += '<a href="' + a.url + '" class="article-card">';
-      html += '<span class="ac-cat" data-i18n="articleCat">工具对比</span>';
+      html += '<span class="ac-cat">' + ((window.ZT_PAGE[lang] || window.ZT_PAGE.zh).navCompare || 'Compare') + '</span>';
       html += '<span class="ac-title">' + d.title + '</span>';
-      html += '<span class="ac-meta">' + d.meta + '</span>';
+      html += '<span class="ac-meta">' + (lang === 'zh' ? '2026-07 · 8 分钟阅读' : lang === 'en' ? '2026-07 · 8 min read' : lang === 'ja' ? '2026-07 · 8分' : '2026-07 · 8 phút đọc') + '</span>';
       html += '<span class="ac-summary">' + d.summary + '</span>';
       html += '<span class="ac-tags">';
-      d.tags.forEach(function(tag) {
-        html += '<span>' + tag + '</span>';
-      });
+      d.tags.forEach(function(tag) { html += '<span>' + tag + '</span>'; });
       html += '</span>';
       html += '<span class="ac-cta">' + ((window.ZT_PAGE[lang] || window.ZT_PAGE.zh).articleCTAR || '阅读全文 →') + '</span>';
       html += '</a>';
@@ -602,39 +488,53 @@
     grid.innerHTML = html;
   }
 
-  function updateMetaTags(lang) {
-    var data = window.ZT_PAGE[lang] || window.ZT_PAGE.zh;
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
-      var key = el.getAttribute('data-i18n-placeholder');
-      if (data[key]) {
-        if (el.tagName === 'META') {
-          if (el.name === 'description') el.content = data[key];
-          else if (el.getAttribute('property') && el.getAttribute('property').indexOf('title') !== -1) el.content = data[key];
-          else if (el.getAttribute('property')) el.content = data[key];
-          else if (el.name === 'twitter:title') el.content = data[key];
-          else if (el.name === 'twitter:description') el.content = data[key];
-        }
-      }
-    });
-  }
-
-  function onLangChange(lang) {
-    renderFeatured(lang);
-    renderArticles(lang);
-    updateMetaTags(lang);
-  }
-
+  function onLangChange(lang) { renderFeatured(lang); renderArticles(lang); }
   var initialLang = localStorage.getItem('zentools_lang') || 'zh';
-  renderFeatured(initialLang);
-  renderArticles(initialLang);
-
-  window.addEventListener('zt-langchange', function(e) {
-    onLangChange(e.detail.lang);
-  });
+  renderFeatured(initialLang); renderArticles(initialLang);
+  window.addEventListener('zt-langchange', function(e) { onLangChange(e.detail.lang); });
 })();
 </script>
 
 <script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') { document.documentElement.classList.add('dark'); }
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('/sw.js').catch(function() {});
