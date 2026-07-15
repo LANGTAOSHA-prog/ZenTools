@@ -28,6 +28,10 @@ python3 _add_guide.py --slug my-review --type review \
 # Run after _add_tool.py or any new tool HTML is created
 python3 _batch_unify_ui.py              # migrate all tool/category pages to current UI
 
+# Batch-unify tutorial pages to current --zen-* design system
+# Run after _add_tutorial.py or any new tutorial HTML is created
+python3 _batch_unify_tutorials.py       # migrate all tutorials/ pages to current UI
+
 # Post-edit verification pipeline (run in this order after any data change)
 python3 _check_json.py                  # validate JSON integrity
 python3 _sync_tools_data_js.py          # JSON -> JS data sync
