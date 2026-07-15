@@ -484,6 +484,43 @@
     .mini-card .mc-name { font-size: 14px; font-weight: 600; color: var(--zen-text-main); line-height: 1.3; }
     .mini-card .mc-desc { font-size: 12px; color: var(--zen-text-sub); line-height: 1.6; flex: 1; }
 
+    /* ===== 统一工具标签 ===== */
+    .zt-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+    .zt-tag {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 10.5px; line-height: 1; font-weight: 600;
+      padding: 3px 7px; border-radius: 999px;
+      border: 1px solid var(--zen-border); color: var(--zen-text-sub);
+      background: var(--zen-bg-card);
+    }
+    .zt-tag.zt-local  { color: #1f9d57; border-color: rgba(31,157,87,.35); background: rgba(31,157,87,.08); }
+    .zt-tag.zt-free   { color: #2a7de1; border-color: rgba(42,125,225,.35); background: rgba(42,125,225,.08); }
+    .zt-tag.zt-multi  { color: #8b4cff; border-color: rgba(139,76,255,.35); background: rgba(139,76,255,.08); }
+    .zt-tag.zt-export { color: #0ea5a5; border-color: rgba(14,165,165,.35); background: rgba(14,165,165,.08); }
+    .zt-tag.zt-batch  { color: #e8860c; border-color: rgba(232,134,12,.35); background: rgba(232,134,12,.08); }
+    .dark .zt-tag.zt-local  { color: #4ade80; }
+    .dark .zt-tag.zt-free   { color: #6aa9ff; }
+    .dark .zt-tag.zt-multi  { color: #b78bff; }
+    .dark .zt-tag.zt-export { color: #34d9d9; }
+    .dark .zt-tag.zt-batch  { color: #ffb454; }
+
+    /* ===== 场景快捷入口 ===== */
+    .scenario-quick { max-width: 1200px; margin: 0 auto; padding: 8px 24px 0; }
+    .sq-head { display: flex; align-items: center; gap: 8px; margin: 28px 0 14px; }
+    .sq-eyebrow { font-size: 18px; }
+    .sq-head h2 { font-size: 19px; margin: 0; font-weight: 700; color: var(--zen-text-main); }
+    .sq-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .sq-card {
+      display: flex; flex-direction: column; gap: 4px; padding: 16px 18px;
+      border-radius: 14px; border: 1px solid var(--zen-border);
+      background: var(--zen-bg-card); text-decoration: none;
+      transition: transform 0.18s, border-color 0.18s, box-shadow 0.18s;
+    }
+    .sq-card:hover { transform: translateY(-3px); border-color: rgba(0,229,255,.45); box-shadow: 0 8px 28px rgba(0,0,0,.12); }
+    .sq-card .sq-ico { font-size: 22px; }
+    .sq-card .sq-name { font-size: 14px; font-weight: 700; color: var(--zen-text-main); }
+    .sq-card .sq-sub { font-size: 11.5px; color: var(--zen-text-sub); }
+
     /* ===== 收藏 & 热门 ===== */
     .fav-section { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
     .fav-grid { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -635,6 +672,7 @@
           <a href="/tutorials/" data-i18n-page="navArticles">教程中心</a>
           <a href="/guides/" data-i18n-page="navGuides">深度指南</a>
           <a href="/compare/" data-i18n-page="navCompare">工具对比</a>
+          <a href="/faq.html" data-i18n-page="navFaq">常见问题</a>
           <a href="/about.html" data-i18n-page="navAbout">关于</a>
           <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
           <select class="lang-select" id="langSelect">
@@ -658,6 +696,7 @@
           <a href="/tutorials/" data-i18n-page="navArticles">教程中心</a>
           <a href="/guides/" data-i18n-page="navGuides">深度指南</a>
           <a href="/compare/" data-i18n-page="navCompare">工具对比</a>
+          <a href="/faq.html" data-i18n-page="navFaq">常见问题</a>
           <a href="/about.html" data-i18n-page="navAbout">关于</a>
         </div>
       </div>
@@ -701,6 +740,32 @@
 
     <!-- ===== 工具分类 ===== -->
     <div id="tools">
+      <!-- 场景快捷入口 -->
+      <div class="scenario-quick reveal">
+        <div class="sq-head"><span class="sq-eyebrow">⚡</span><h2 data-i18n-page="scenarioTitle">按场景快速找工具</h2></div>
+        <div class="sq-grid">
+          <a class="sq-card" href="/tools.html?scenario=media">
+            <span class="sq-ico">🎬</span>
+            <span class="sq-name" data-i18n-page="scMedia">自媒体素材</span>
+            <span class="sq-sub" data-i18n-page="scMediaSub">封面 · 配图 · 剪辑 · 去背景</span>
+          </a>
+          <a class="sq-card" href="/tools.html?scenario=resume">
+            <span class="sq-ico">📄</span>
+            <span class="sq-name" data-i18n-page="scResume">简历 PDF</span>
+            <span class="sq-sub" data-i18n-page="scResumeSub">合并 · 压缩 · 转 Word</span>
+          </a>
+          <a class="sq-card" href="/tools.html?scenario=frontend">
+            <span class="sq-ico">💻</span>
+            <span class="sq-name" data-i18n-page="scFrontend">前端开发工具</span>
+            <span class="sq-sub" data-i18n-page="scFrontendSub">JSON · 格式化 · 编码</span>
+          </a>
+          <a class="sq-card" href="/tools.html?scenario=thesis">
+            <span class="sq-ico">🎓</span>
+            <span class="sq-name" data-i18n-page="scThesis">学生论文格式处理</span>
+            <span class="sq-sub" data-i18n-page="scThesisSub">页码 · 页眉 · 排版</span>
+          </a>
+        </div>
+      </div>
       <div id="toolsContainer"></div>
     </div>
 
@@ -713,6 +778,7 @@
           <a href="/pdf/">PDF工具</a>
           <a href="/tools/">全部工具</a>
           <a href="/changelog.html">更新日志</a>
+          <a href="/faq.html" data-i18n-page="navFaq">常见问题</a>
           <a href="/privacy.html">隐私政策</a>
         </div>
         <p class="footer-copy">© 2026 ZenTools · <a href="https://zentools.xyz">https://zentools.xyz</a> · All rights reserved</p>
@@ -760,7 +826,13 @@
         favTitle: '⭐ 收藏的工具', recentTitle: '最近使用', hotTitle: '热门工具',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
         searchPlaceholder: '用一句话描述需求，例如：把 PDF 压缩到 1MB…',
-        searchHints: ['把 PDF 压缩到 1MB', '给图片去掉背景', '把两张照片拼成一张', '提取视频里的声音', '写一段产品营销文案']
+        searchHints: ['把 PDF 压缩到 1MB', '给图片去掉背景', '把两张照片拼成一张', '提取视频里的声音', '写一段产品营销文案'],
+        navFaq: '常见问题',
+        scenarioTitle: '按场景快速找工具',
+        scMedia: '自媒体素材', scMediaSub: '封面 · 配图 · 剪辑 · 去背景',
+        scResume: '简历 PDF', scResumeSub: '合并 · 压缩 · 转 Word',
+        scFrontend: '前端开发工具', scFrontendSub: 'JSON · 格式化 · 编码',
+        scThesis: '学生论文格式处理', scThesisSub: '页码 · 页眉 · 排版'
       },
       en: {
         pageTitle: 'ZenTools - Professional Online Tools',
@@ -775,7 +847,13 @@
         favTitle: '⭐ Favorites', recentTitle: 'Recently Used', hotTitle: 'Popular',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
         searchPlaceholder: 'Describe what you need, e.g. Compress a PDF to 1MB…',
-        searchHints: ['Compress a PDF to 1MB', 'Remove background from an image', 'Extract audio from a video', 'Write a product marketing copy', 'Convert PDF to Word']
+        searchHints: ['Compress a PDF to 1MB', 'Remove background from an image', 'Extract audio from a video', 'Write a product marketing copy', 'Convert PDF to Word'],
+        navFaq: 'FAQ',
+        scenarioTitle: 'Find tools by scenario',
+        scMedia: 'Creator Kit', scMediaSub: 'Cover · Art · Edit · BG remove',
+        scResume: 'Resume PDF', scResumeSub: 'Merge · Compress · to Word',
+        scFrontend: 'Frontend Dev', scFrontendSub: 'JSON · Format · Encode',
+        scThesis: 'Thesis Format', scThesisSub: 'Page · Header · Layout'
       },
       ja: {
         pageTitle: 'ZenTools - プロフェッショナルオンラインツール',
@@ -790,7 +868,13 @@
         favTitle: '⭐ お気に入り', recentTitle: '最近使用', hotTitle: '人気',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
         searchPlaceholder: 'やりたいことを言葉で、例：PDFを1MBに圧縮…',
-        searchHints: ['PDFを1MBに圧縮', '画像の背景を消す', '動画から音声を抽出', '商品の宣伝文を書く', 'PDFをWordに変換']
+        searchHints: ['PDFを1MBに圧縮', '画像の背景を消す', '動画から音声を抽出', '商品の宣伝文を書く', 'PDFをWordに変換'],
+        navFaq: 'よくある質問',
+        scenarioTitle: 'シーン別にツールを見つける',
+        scMedia: 'メディア素材', scMediaSub: '表紙 · 挿絵 · 編集 · 背景除去',
+        scResume: '履歴書PDF', scResumeSub: '結合 · 圧縮 · Word変換',
+        scFrontend: 'フロント開発', scFrontendSub: 'JSON · 整形 · 符号',
+        scThesis: '論文フォーマット', scThesisSub: 'ページ · ヘッダ · レイアウト'
       },
       vi: {
         pageTitle: 'ZenTools - Nền tảng công cụ trực tuyến',
@@ -805,11 +889,18 @@
         favTitle: '⭐ Yêu thích', recentTitle: 'Đã dùng gần đây', hotTitle: 'Phổ biến',
         footerCopy: '© 2026 ZenTools · https://zentools.xyz · All rights reserved',
         searchPlaceholder: 'Mô tả nhu cầu, vd: Nén PDF xuống 1MB…',
-        searchHints: ['Nén PDF xuống 1MB', 'Xoá nền ảnh', 'Tách tiếng từ video', 'Viết bài quảng cáo sản phẩm', 'Chuyển PDF sang Word']
+        searchHints: ['Nén PDF xuống 1MB', 'Xoá nền ảnh', 'Tách tiếng từ video', 'Viết bài quảng cáo sản phẩm', 'Chuyển PDF sang Word'],
+        navFaq: 'FAQ',
+        scenarioTitle: 'Tìm công cụ theo tình huống',
+        scMedia: 'Nguyên liệu Media', scMediaSub: 'Bìa · Ảnh · Dựng · Xoá nền',
+        scResume: 'CV PDF', scResumeSub: 'Gộp · Nén · sang Word',
+        scFrontend: 'Dev Frontend', scFrontendSub: 'JSON · Format · Encode',
+        scThesis: 'Định dạng luận văn', scThesisSub: 'Số trang · Đầu trang · Bố cục'
       }
     };
   </script>
   <script src="assets/js/common-i18n.min.js"></script>
+  <script src="assets/js/zt-tags.js"></script>
   <script src="assets/js/tool-ui.min.js"></script>
 
   <script>
@@ -969,6 +1060,7 @@
                   <div class="mc-icon">${t.icon || '🔧'}</div>
                   <div class="mc-name">${tName(t, lang)}</div>
                   <div class="mc-desc">${tDesc(t, lang)}</div>
+                  ${window.ZT ? ZT.tagHtml(t, lang) : ''}
                 </a>
               `).join('')}
             </div>

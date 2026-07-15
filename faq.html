@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<script src="assets/js/anti-crash.min.js"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title data-i18n-page="pageTitle">常见问题 - ZenTools</title>
+<meta name="description" content="ZenTools 常见问题：PDF 报错处理、图片格式选择、浏览器兼容等实用排查指南。" />
+<meta property="og:title" content="常见问题 - ZenTools" />
+<meta property="og:description" content="PDF 报错、图片格式、浏览器兼容等常见问题排查。" />
+<link rel="canonical" href="https://zentools.xyz/faq.html" />
+<link rel="stylesheet" href="assets/css/tool-ui.min.css" />
+<style>
+  .faq-hero { max-width: 900px; margin: 36px auto 8px; padding: 0 20px; text-align: center; }
+  .faq-hero h1 { font-size: 34px; font-weight: 800; margin: 0 0 12px; color: var(--text); }
+  .faq-hero p { color: var(--muted); font-size: 15px; max-width: 640px; margin: 0 auto; line-height: 1.7; }
+  .faq-body { max-width: 900px; margin: 0 auto; padding: 18px 20px 64px; }
+  .faq-sec { margin-top: 30px; }
+  .faq-sec h2 { font-size: 21px; font-weight: 700; color: var(--text); margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+  .faq-sec h2 .sec-ico { font-size: 23px; }
+  .faq-item { border: 1px solid var(--border); border-radius: 14px; margin-bottom: 10px; background: rgba(255,255,255,0.02); overflow: hidden; transition: border-color 0.2s; }
+  .faq-item[open] { border-color: rgba(0,229,255,0.4); }
+  .faq-item summary { list-style: none; cursor: pointer; padding: 16px 18px; font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 10px; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary .q-ico { font-size: 18px; }
+  .faq-item summary .caret { margin-left: auto; transition: transform 0.2s; color: var(--muted); font-size: 13px; }
+  .faq-item[open] summary .caret { transform: rotate(180deg); }
+  .faq-a { padding: 0 18px 18px 46px; color: var(--muted); font-size: 14px; line-height: 1.85; }
+  .faq-a b { color: var(--text); font-weight: 700; }
+  .faq-a code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; color: var(--cyan); }
+  @media (max-width: 600px) {
+    .faq-hero h1 { font-size: 26px; }
+    .faq-sec h2 { font-size: 18px; }
+    .faq-a { padding-left: 18px; }
+  }
+</style>
+<script>
+  window.ZT_PAGE = {
+    zh: {
+      pageTitle: '常见问题 - ZenTools',
+      h1: '常见问题',
+      sub: 'PDF 报错、图片格式、浏览器兼容……这里整理了最常见的问题与排查办法。',
+      secPdf: '常见 PDF 报错',
+      secImg: '图片格式问题',
+      secBrowser: '浏览器兼容问题',
+      navHome: '首页', navAll: '全部工具', navFaq: '常见问题', navAbout: '关于', navPrivacy: '隐私政策', navChangelog: '更新日志'
+    },
+    en: {
+      pageTitle: 'FAQ - ZenTools',
+      h1: 'FAQ',
+      sub: 'PDF errors, image formats, browser compatibility — common issues and how to fix them.',
+      secPdf: 'Common PDF Errors',
+      secImg: 'Image Format Issues',
+      secBrowser: 'Browser Compatibility',
+      navHome: 'Home', navAll: 'All Tools', navFaq: 'FAQ', navAbout: 'About', navPrivacy: 'Privacy', navChangelog: 'Changelog'
+    },
+    ja: {
+      pageTitle: 'よくある質問 - ZenTools',
+      h1: 'よくある質問',
+      sub: 'PDF エラー、画像フォーマット、ブラウザ互換性などの一般的な問題と対処法。',
+      secPdf: 'よくある PDF エラー',
+      secImg: '画像フォーマットの問題',
+      secBrowser: 'ブラウザ互換性',
+      navHome: 'ホーム', navAll: '全ツール', navFaq: 'よくある質問', navAbout: '概要', navPrivacy: 'プライバシー', navChangelog: '更新履歴'
+    },
+    vi: {
+      pageTitle: 'FAQ - ZenTools',
+      h1: 'Câu hỏi thường gặp',
+      sub: 'Lỗi PDF, định dạng ảnh, tương thích trình duyệt — các vấn đề phổ biến và cách khắc phục.',
+      secPdf: 'Lỗi PDF thường gặp',
+      secImg: 'Vấn đề định dạng ảnh',
+      secBrowser: 'Tương thích trình duyệt',
+      navHome: 'Trang chủ', navAll: 'Tất cả công cụ', navFaq: 'FAQ', navAbout: 'Giới thiệu', navPrivacy: 'Quyền riêng tư', navChangelog: 'Nhật ký'
+    }
+  };
+</script>
+</head>
+<body>
+<div class="z-wrap">
+
+  <!-- ===== 导航 ===== -->
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n-page="navHome">首页</a>
+        <a href="/tools.html" data-i18n-page="navAll">全部工具</a>
+        <a href="/faq.html" data-i18n-page="navFaq" style="color:var(--cyan)">常见问题</a>
+        <a href="/about.html" data-i18n-page="navAbout">关于</a>
+        <select class="lang-select" id="langSelect">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <div class="faq-hero">
+    <h1 data-i18n-page="h1">常见问题</h1>
+    <p data-i18n-page="sub">PDF 报错、图片格式、浏览器兼容……这里整理了最常见的问题与排查办法。</p>
+  </div>
+
+  <!-- ===== 内容 ===== -->
+  <div class="faq-body">
+
+    <!-- 一、PDF 报错 -->
+    <section class="faq-sec">
+      <h2><span class="sec-ico">📄</span><span data-i18n-page="secPdf">常见 PDF 报错</span></h2>
+
+      <details class="faq-item" open>
+        <summary><span class="q-ico">❓</span>PDF 文件打不开 / 提示“文件已损坏或格式错误”？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          多为下载不完整或扩展名错误：<br>
+          ① 重新下载，确认文件完整；<br>
+          ② 检查扩展名是否为 <code>.pdf</code>（有时会变成 <code>.pdf.pdf</code> 重复）；<br>
+          ③ 用 <b>PDF 修复 / 重组</b> 类工具尝试恢复；<br>
+          ④ 确认对方发送的是真正的 PDF，而非把图片直接改了后缀。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>PDF 打开后文字是乱码 / 方块？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          通常是字体未嵌入或被替换：<br>
+          ① 让发送方用“打印到 PDF”重新生成，并勾选“<b>嵌入所有字体</b>”；<br>
+          ② 本机安装缺失字体（如宋体 / 思源）；<br>
+          ③ 若是图片型 PDF，用 <b>OCR 文字识别</b> 工具转成可选中文字。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>PDF 提示“已加密，无法编辑 / 打印 / 复制”？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          该文件设有权限密码或打开密码：<br>
+          ① 若你知道密码，用 <b>PDF 去密码</b> 工具移除限制（需先输入原密码）；<br>
+          ② 仅忘记打开密码且文件敏感，请联系作者获取；<br>
+          ③ 切勿使用来路不明的破解工具，有泄露风险。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>PDF 太大，无法作为邮件附件 / 超过上传限制？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          ① 用 <b>PDF 压缩</b> 把图片型 PDF 压到可接受体积；<br>
+          ② 用 <b>PDF 拆分</b> 按章节拆成多个小文件分别发送；<br>
+          ③ 若含高清图片，先压缩图片再合并。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>合并多个 PDF 后顺序错乱 / 页面丢失？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          ① 在 <b>PDF 合并</b> 工具里手动拖拽调整页面顺序再合并；<br>
+          ② 确认源文件没有损坏页；<br>
+          ③ 合并后预览检查页码连续性，缺失页用 <b>PDF 提取页面</b> 补回。
+        </div>
+      </details>
+    </section>
+
+    <!-- 二、图片格式 -->
+    <section class="faq-sec">
+      <h2><span class="sec-ico">🖼️</span><span data-i18n-page="secImg">图片格式问题</span></h2>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>PNG 和 JPG 该选哪个？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          <b>JPG</b> 适合照片类（有损压缩、体积小）；<b>PNG</b> 适合图标 / 线条图 / 需要透明背景（无损、支持透明）。<br>
+          截图发群聊选 PNG 更清晰；相册照片选 JPG 更省空间。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>透明背景导出后变黑 / 变白？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          透明通道在 JPG 中不被支持，导出为 JPG 时会用白（或黑）填充透明区。<br>
+          需要保留透明请用 <b>PNG / WebP / GIF</b>；用 <b>图片去背景</b> 工具时务必选择输出 PNG。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>上传图片提示“格式不支持 / 无法预览”？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          ① 旧系统常不支持 <code>WebP / HEIC / AVIF</code>，先转成通用 <code>JPG / PNG</code>；<br>
+          ② 确认文件没损坏、扩展名与真实格式一致；<br>
+          ③ 用 <b>图片格式转换</b> 工具统一成目标平台要求的格式。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>图片体积太大 / 太模糊？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          太大 → 用 <b>图片压缩</b> 减小体积（适度，过度会糊）；<br>
+          太模糊 → 普通放大会更糊，需用 <b>AI 图片放大 / 超分辨率</b> 类工具做智能增强，而非简单拉伸。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>GIF 不动 / 体积过大？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          ① 确认用支持动图的方式打开（部分预览只显示首帧）；<br>
+          ② 体积大 → 减少帧数、缩小尺寸，用 <b>GIF 压缩</b> 或转成 <b>MP4 视频</b> 更省空间。
+        </div>
+      </details>
+    </section>
+
+    <!-- 三、浏览器兼容 -->
+    <section class="faq-sec">
+      <h2><span class="sec-ico">🌐</span><span data-i18n-page="secBrowser">浏览器兼容问题</span></h2>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>工具在 Safari / 旧版浏览器打不开或报错？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          本站工具基于现代 JavaScript（ES2020+）与浏览器本地 API，建议使用 <b>Chrome / Edge / Firefox</b> 的新版本。<br>
+          旧版 Safari 或 IE 可能不支持部分特性，请升级浏览器。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>点“选择文件 / 拖拽”没反应？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          ① 确认浏览器未禁用 JavaScript；<br>
+          ② 部分功能需在 <code>HTTPS</code> 或 <code>localhost</code> 下运行，用 <code>file://</code> 直接打开个别页面可能受限；<br>
+          ③ 尝试刷新或换用 Chrome / Edge。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>处理大文件时卡顿 / 标签页崩溃？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          浏览器有内存上限：<br>
+          ① 大文件分批处理，勿一次拖入几十个；<br>
+          ② 处理前关闭其他占用内存的标签页；<br>
+          ③ 优先使用标注“<b>本地处理</b>”的工具，数据不离开设备也更省网络。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>手机上布局错乱 / 按钮点不到？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          ① 本站为响应式设计，建议用手机版 Chrome / Safari 并横屏或放大查看；<br>
+          ② 清理浏览器缓存后重试；<br>
+          ③ 可“添加到主屏幕”以 PWA 方式获得更接近原生的体验。
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary><span class="q-ico">❓</span>收藏 / 最近使用记录丢了？<span class="caret">▼</span></summary>
+        <div class="faq-a">
+          这些记录仅保存在<b>当前浏览器的本地存储</b>（localStorage），更换浏览器、清理缓存或无痕模式都会使其消失。<br>
+          重要工具建议手动加入书签。
+        </div>
+      </details>
+    </section>
+
+  </div>
+
+  <!-- ===== 页脚 ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">ZenTools</div>
+      <div class="footer-links">
+        <a href="/" data-i18n-page="navHome">首页</a>
+        <a href="/tools.html" data-i18n-page="navAll">全部工具</a>
+        <a href="/faq.html" data-i18n-page="navFaq">常见问题</a>
+        <a href="/about.html" data-i18n-page="navAbout">关于</a>
+        <a href="/privacy.html" data-i18n-page="navPrivacy">隐私政策</a>
+        <a href="/changelog.html" data-i18n-page="navChangelog">更新日志</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/js/common-i18n.min.js"></script>
+<script>
+  (function () {
+    var sel = document.getElementById('langSelect');
+    if (sel) {
+      var saved = localStorage.getItem('zentools_lang') || 'zh';
+      sel.value = saved;
+      sel.addEventListener('change', function () {
+        if (window.applyLanguage) window.applyLanguage(this.value);
+        localStorage.setItem('zentools_lang', this.value);
+      });
+    }
+  })();
+</script>
+<script src="assets/js/tool-ui.min.js"></script>
+</body>
+</html>

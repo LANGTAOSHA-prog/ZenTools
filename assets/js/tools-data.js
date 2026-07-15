@@ -41,7 +41,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -86,7 +90,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -103,7 +111,7 @@ const toolsData = [
     "description__vi": "Kết hợp ảnh thành tệp PDF",
     "icon": "🖼️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "图片转pdf 图片合并pdf",
     "ai": {
       "free": true,
@@ -131,7 +139,13 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF",
+        "PNG",
+        "JPG"
+      ]
     }
   },
   {
@@ -148,7 +162,7 @@ const toolsData = [
     "description__vi": "Chuyển trang PDF thành ảnh",
     "icon": "📸",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "pdf转图片 pdf导出图片",
     "ai": {
       "free": true,
@@ -176,7 +190,13 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF",
+        "PNG",
+        "JPG"
+      ]
     }
   },
   {
@@ -193,7 +213,7 @@ const toolsData = [
     "description__vi": "Nén kích thước tệp PDF",
     "icon": "🗜️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "pdf压缩 减小pdf体积",
     "ai": {
       "free": true,
@@ -221,7 +241,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -266,7 +290,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -311,7 +339,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "Word"
+      ]
     }
   },
   {
@@ -356,7 +389,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "Word"
+      ]
     }
   },
   {
@@ -401,7 +439,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "Excel"
+      ]
     }
   },
   {
@@ -446,7 +489,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "Excel"
+      ]
     }
   },
   {
@@ -491,7 +539,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "PPT"
+      ]
     }
   },
   {
@@ -536,7 +589,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "PPT"
+      ]
     }
   },
   {
@@ -581,7 +639,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -626,7 +688,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -671,7 +737,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -716,7 +786,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -761,7 +835,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -806,7 +884,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -851,7 +933,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -896,7 +982,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -941,7 +1031,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -986,7 +1080,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1031,7 +1129,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "TXT"
+      ]
     }
   },
   {
@@ -1076,7 +1179,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "TXT"
+      ]
     }
   },
   {
@@ -1121,7 +1229,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "HTML"
+      ]
     }
   },
   {
@@ -1166,7 +1279,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "Markdown"
+      ]
     }
   },
   {
@@ -1211,7 +1329,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "Markdown"
+      ]
     }
   },
   {
@@ -1256,7 +1379,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "CSV"
+      ]
     }
   },
   {
@@ -1301,7 +1429,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1346,7 +1478,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1391,7 +1527,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1408,7 +1548,7 @@ const toolsData = [
     "description__vi": "Làm phẳng PDF bằng cách hợp nhất các lớp và chú thích.",
     "icon": "📋",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf扁平化 pdf合并图层 pdf注释合并",
     "ai": {
       "free": true,
@@ -1436,7 +1576,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1453,7 +1597,7 @@ const toolsData = [
     "description__vi": "Chỉnh sửa văn bản và nội dung PDF trực tiếp trên trình duyệt.",
     "icon": "✏️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf编辑 pdf修改 pdf添加文字 pdf绘图",
     "ai": {
       "free": true,
@@ -1481,7 +1625,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1498,7 +1646,7 @@ const toolsData = [
     "description__vi": "Sửa chữa file PDF bị hỏng và khôi phục nội dung.",
     "icon": "🔧",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf修复 pdf损坏 pdf恢复 pdf修复工具",
     "ai": {
       "free": true,
@@ -1526,7 +1674,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1543,7 +1695,7 @@ const toolsData = [
     "description__vi": "Xóa số trang trong PDF, hỗ trợ tùy chỉnh vùng.",
     "icon": "🔢",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf页码删除 pdf去除页码 pdf页码",
     "ai": {
       "free": true,
@@ -1571,7 +1723,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1588,7 +1744,7 @@ const toolsData = [
     "description__vi": "So sánh 2 file PDF và làm nổi bật sự khác biệt.",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf对比 pdf比较 pdf差异 pdf对比工具",
     "ai": {
       "free": true,
@@ -1616,7 +1772,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1633,7 +1793,7 @@ const toolsData = [
     "description__vi": "Thêm highlight, gạch dưới, gạch chéo, ghi chú và vẽ tay vào PDF.",
     "icon": "📝",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf注释 pdf标注 pdf高亮 pdf批注 pdf注释工具",
     "ai": {
       "free": true,
@@ -1661,7 +1821,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1678,7 +1842,7 @@ const toolsData = [
     "description__vi": "Chuyển PDF màu sang đen trắng, giảm kích thước file để in.",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf黑白化 pdf转黑白 pdf灰度 pdf黑白转换",
     "ai": {
       "free": true,
@@ -1706,7 +1870,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1723,7 +1891,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi tài liệu PDF sang định dạng HTML có thể chỉnh sửa.",
     "icon": "🌐",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf转html pdf转网页 pdf转 html 格式",
     "ai": {
       "free": true,
@@ -1751,7 +1919,12 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF",
+        "HTML"
+      ]
     }
   },
   {
@@ -1768,7 +1941,7 @@ const toolsData = [
     "description__vi": "Xem, thêm, chỉnh sửa và xóa đánh dấu PDF để tạo cấu trúc điều hướng.",
     "icon": "🔖",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf书签 pdf目录 pdf导航 pdf书签编辑 pdf目录编辑",
     "ai": {
       "free": true,
@@ -1796,7 +1969,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1813,7 +1990,7 @@ const toolsData = [
     "description__vi": "Thay đổi kích thước trang PDF.",
     "icon": "📐",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf调整大小 pdf页面尺寸 pdf缩放",
     "ai": {
       "free": true,
@@ -1841,7 +2018,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1858,7 +2039,7 @@ const toolsData = [
     "description__vi": "Xóa bảo vệ mật khẩu khỏi tệp PDF.",
     "icon": "🔓",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf解锁 pdf解密 pdf密码移除",
     "ai": {
       "free": true,
@@ -1886,7 +2067,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1903,7 +2088,7 @@ const toolsData = [
     "description__vi": "Thêm bảo vệ mật khẩu cho tệp PDF.",
     "icon": "🔒",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf加密 pdf保护 pdf密码",
     "ai": {
       "free": true,
@@ -1931,7 +2116,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1948,7 +2137,7 @@ const toolsData = [
     "description__vi": "Cắt lề trang PDF.",
     "icon": "✂️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf裁剪 pdf边距 pdf裁切",
     "ai": {
       "free": true,
@@ -1976,7 +2165,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -1993,7 +2186,7 @@ const toolsData = [
     "description__vi": "Sắp xếp, xoay và xóa trang PDF.",
     "icon": "🔀",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf整理 pdf排序 pdf页面管理",
     "ai": {
       "free": true,
@@ -2021,7 +2214,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -2038,7 +2235,7 @@ const toolsData = [
     "description__vi": "Trích xuất tất cả ảnh từ tệp PDF.",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "pdf提取图片 pdf图片提取 pdf转图片",
     "ai": {
       "free": true,
@@ -2066,7 +2263,11 @@ const toolsData = [
       "limits": "单个PDF最大100MB，超多页文档建议分批处理",
       "limits__en": "Max 100MB per PDF, very large documents should be split",
       "limits__ja": "1ファイル最大100MB、非常に大きな文書は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 100MB mỗi PDF, tài liệu rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "PDF"
+      ]
     }
   },
   {
@@ -2111,7 +2312,13 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "PNG",
+        "JPG",
+        "WebP"
+      ]
     }
   },
   {
@@ -2156,7 +2363,14 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "PNG",
+        "JPG",
+        "GIF",
+        "SVG"
+      ]
     }
   },
   {
@@ -2201,7 +2415,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2246,7 +2464,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2291,7 +2513,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2336,7 +2562,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "HTML"
+      ]
     }
   },
   {
@@ -2381,7 +2611,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2398,7 +2632,7 @@ const toolsData = [
     "description__vi": "Nén hàng loạt, giảm 70% dung lượng, chất lượng gần như giữ nguyên, hỗ trợ tải ZIP",
     "icon": "📦",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "图片压缩 批量压缩 在线压缩图片 压缩图片 图片瘦身",
     "ai": {
       "free": true,
@@ -2426,7 +2660,13 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "PNG",
+        "JPG",
+        "WebP"
+      ]
     }
   },
   {
@@ -2443,7 +2683,7 @@ const toolsData = [
     "description__vi": "6 màu gradient + bo góc + nhúng Logo, tạm biệt mã QR đen trắng nhàm chán",
     "icon": "🎨",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "二维码生成 二维码制作 在线二维码 带logo二维码 彩色二维码",
     "ai": {
       "free": true,
@@ -2471,7 +2711,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2488,7 +2732,7 @@ const toolsData = [
     "description__vi": "Tạo ảnh nghệ thuật AI chất lượng cao từ mô tả văn bản",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "midjourney ai绘图 图片生成 ai艺术",
     "ai": {
       "free": true,
@@ -2516,7 +2760,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2533,7 +2781,7 @@ const toolsData = [
     "description__vi": "Công cụ thiết kế AI cho poster, trình bày, mạng xã hội",
     "icon": "🖌️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "canva 设计 海报 ai设计 平面设计",
     "ai": {
       "free": true,
@@ -2561,7 +2809,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2578,7 +2830,7 @@ const toolsData = [
     "description__vi": "Công cụ thiết kế UI và tạo mẫu nhanh với AI",
     "icon": "🖥️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "figma ui设计 原型设计 界面设计 ai设计",
     "ai": {
       "free": true,
@@ -2606,7 +2858,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2623,7 +2879,7 @@ const toolsData = [
     "description__vi": "Nền tảng tạo ảnh sáng tạo AI với nhiều phong cách",
     "icon": "✨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "leonardo ai绘图 图像生成 ai艺术",
     "ai": {
       "free": true,
@@ -2651,7 +2907,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2668,7 +2928,7 @@ const toolsData = [
     "description__vi": "Chỉnh sửa ảnh AI: xóa nền, thay nền, tăng cường",
     "icon": "📸",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "clipdrop 图片编辑 去背景 ai编辑",
     "ai": {
       "free": true,
@@ -2696,7 +2956,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2713,7 +2977,7 @@ const toolsData = [
     "description__vi": "Công cụ ảnh sản phẩm AI: xóa nền, thêm bối cảnh",
     "icon": "🛍️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "photoroom 商品图 产品摄影 去背景 电商设计",
     "ai": {
       "free": true,
@@ -2741,7 +3005,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2758,7 +3026,7 @@ const toolsData = [
     "description__vi": "Thiết kế trình bày AI với tự động bố cục và làm đẹp",
     "icon": "📊",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "beautiful.ai 演示文稿 ppt设计 ai幻灯片",
     "ai": {
       "free": true,
@@ -2786,7 +3054,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "PPT"
+      ]
     }
   },
   {
@@ -2803,7 +3075,7 @@ const toolsData = [
     "description__vi": "Công cụ thiết kế tài liệu, trình bày và web với AI",
     "icon": "📝",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "gamma ai 演示设计 ppt ai文档 网页设计",
     "ai": {
       "free": true,
@@ -2831,7 +3103,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "PPT"
+      ]
     }
   },
   {
@@ -2848,7 +3124,7 @@ const toolsData = [
     "description__vi": "Công cụ xây dựng website AI - tạo trang đẹp từ văn bản",
     "icon": "🌐",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "framer 网页设计 ai建站 网站生成",
     "ai": {
       "free": true,
@@ -2876,7 +3152,11 @@ const toolsData = [
       "limits": "单文件最大50MB，支持常见设计格式",
       "limits__en": "Max 50MB per file, supports common design formats",
       "limits__ja": "1ファイル最大50MB、一般的なデザイン形式対応",
-      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến"
+      "limits__vi": "Tối đa 50MB mỗi tệp, hỗ trợ định dạng thiết kế phổ biến",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2893,7 +3173,7 @@ const toolsData = [
     "description__vi": "Chuyển giọng nói thành văn bản thời gian thực, hỗ trợ đa ngôn ngữ.",
     "icon": "🎙️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "语音转文字 语音识别 听写",
     "ai": {
       "free": true,
@@ -2921,7 +3201,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -2938,7 +3222,7 @@ const toolsData = [
     "description__vi": "Ghi âm trực tiếp trong trình duyệt, hỗ trợ tạm dừng và tải xuống.",
     "icon": "⏺️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "在线录音 麦克风录音 音频录制",
     "ai": {
       "free": true,
@@ -2966,7 +3250,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "MP3"
+      ]
     }
   },
   {
@@ -2983,7 +3271,7 @@ const toolsData = [
     "description__vi": "Cắt đoạn âm thanh với cài đặt phạm vi chính xác.",
     "icon": "✂️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "音频裁剪 音频截取 音频剪切",
     "ai": {
       "free": true,
@@ -3011,7 +3299,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3028,7 +3320,7 @@ const toolsData = [
     "description__vi": "Ghép nhiều tệp âm thanh, hỗ trợ kéo thả sắp xếp.",
     "icon": "🔗",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "音频合并 音频拼接 合并音频",
     "ai": {
       "free": true,
@@ -3056,7 +3348,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3073,7 +3369,7 @@ const toolsData = [
     "description__vi": "Trích xuất âm thanh từ tệp video.",
     "icon": "🎬",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "视频转音频 视频提取音频 提取音频",
     "ai": {
       "free": true,
@@ -3101,7 +3397,12 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "MP3",
+        "WAV"
+      ]
     }
   },
   {
@@ -3118,7 +3419,7 @@ const toolsData = [
     "description__vi": "Thay đổi tốc độ phát âm thanh, hỗ trợ 0.25x-3.0x.",
     "icon": "⏩",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "音频变速 音频加速 音频减速",
     "ai": {
       "free": true,
@@ -3146,7 +3447,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3163,7 +3468,7 @@ const toolsData = [
     "description__vi": "Đảo ngược âm thanh để phát ngược.",
     "icon": "↩️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "音频反转 音频倒放 声音反转",
     "ai": {
       "free": true,
@@ -3191,7 +3496,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3208,7 +3517,7 @@ const toolsData = [
     "description__vi": "Tăng hoặc giảm âm lượng, lên đến 300%.",
     "icon": "🔊",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "音量调节 音量增大 音量减小 音频增益",
     "ai": {
       "free": true,
@@ -3236,7 +3545,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3253,7 +3566,7 @@ const toolsData = [
     "description__vi": "Thêm hiệu ứng lên/xuống tiếng cho âm thanh.",
     "icon": "📉",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "音频淡入淡出 音频渐变 音频特效",
     "ai": {
       "free": true,
@@ -3281,7 +3594,11 @@ const toolsData = [
       "limits": "单个音频最大100MB，超长音频建议分段",
       "limits__en": "Max 100MB per file, very long audio (1hr+) should be split",
       "limits__ja": "1ファイル最大100MB、長時間音声（1時間以上）は分割推奨",
-      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn"
+      "limits__vi": "Tối đa 100MB mỗi tệp, âm thanh rất dài (1 tiếng+) nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3326,7 +3643,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3371,7 +3692,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3416,7 +3741,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3461,7 +3790,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3506,7 +3839,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3523,7 +3860,7 @@ const toolsData = [
     "description__vi": "Sắp xếp dòng A-Z, Z-A hoặc ngẫu nhiên",
     "icon": "🔀",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "文本排序 行排序 排序工具",
     "ai": {
       "free": true,
@@ -3551,7 +3888,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3568,7 +3909,7 @@ const toolsData = [
     "description__vi": "Tìm và thay thế văn bản",
     "icon": "🔍",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "查找替换 文本替换 替换工具",
     "ai": {
       "free": true,
@@ -3596,7 +3937,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3613,7 +3958,7 @@ const toolsData = [
     "description__vi": "Đảo ngược chuỗi văn bản hoặc thứ tự dòng",
     "icon": "↩️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "文本反转 文字反转 反转工具",
     "ai": {
       "free": true,
@@ -3641,7 +3986,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3658,7 +4007,7 @@ const toolsData = [
     "description__vi": "Mã hóa hoặc giải mã URL",
     "icon": "🔗",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "url编码 url解码 urlencode urldecode",
     "ai": {
       "free": true,
@@ -3686,7 +4035,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3703,7 +4056,7 @@ const toolsData = [
     "description__vi": "So sánh hai văn bản và làm nổi bật khác biệt",
     "icon": "📋",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "文本对比 文本比较 diff 差异对比",
     "ai": {
       "free": true,
@@ -3731,7 +4084,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3776,7 +4133,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -3821,7 +4182,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "GIF"
+      ]
     }
   },
   {
@@ -3866,7 +4231,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "MP3"
+      ]
     }
   },
   {
@@ -3911,7 +4280,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": true,
+      "export": [
+        "JSON"
+      ]
     }
   },
   {
@@ -3956,7 +4329,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "JSON"
+      ]
     }
   },
   {
@@ -4001,7 +4378,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "JSON"
+      ]
     }
   },
   {
@@ -4046,7 +4427,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4091,7 +4476,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4136,7 +4525,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4181,7 +4574,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4226,7 +4623,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4243,7 +4644,7 @@ const toolsData = [
     "description__vi": "Tạo giá trị hash MD5, SHA1, SHA256",
     "icon": "🔐",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "hash md5 sha1 sha256 哈希生成",
     "ai": {
       "free": true,
@@ -4271,7 +4672,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4288,7 +4693,7 @@ const toolsData = [
     "description__vi": "Kiểm tra biểu thức chính quy với đánh dấu thời gian thực",
     "icon": "🔬",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "正则表达式 正则测试 regex tester",
     "ai": {
       "free": true,
@@ -4316,7 +4721,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4361,7 +4770,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4406,7 +4817,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4451,7 +4866,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4496,7 +4915,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4541,7 +4964,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4586,7 +5011,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4603,7 +5030,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi nhanh giữa Nhân dân tệ và Yên Nhật.",
     "icon": "💱",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "中日汇率 人民币日元 cny jpy",
     "ai": {
       "free": true,
@@ -4631,7 +5058,11 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4648,7 +5079,7 @@ const toolsData = [
     "description__vi": "Tính khoản trả hàng tháng và tổng lãi cho khoản vay.",
     "icon": "🏦",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "贷款计算 房贷计算 等额本息 等额本金",
     "ai": {
       "free": true,
@@ -4676,7 +5107,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4693,7 +5126,7 @@ const toolsData = [
     "description__vi": "Tính lãi đơn và lãi kép cho tiền gửi.",
     "icon": "💰",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "存款利息 利息计算 单利 复利",
     "ai": {
       "free": true,
@@ -4721,7 +5154,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4738,7 +5173,7 @@ const toolsData = [
     "description__vi": "Tính phí giao dịch cổ phiếu A bao gồm thuế tem, hoa hồng và phí chuyển.",
     "icon": "📈",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "股票手续费 印花税 佣金 过户费",
     "ai": {
       "free": true,
@@ -4766,7 +5201,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4783,7 +5220,7 @@ const toolsData = [
     "description__vi": "Tính lợi nhuận đầu tư lãi kép, hỗ trợ đầu tư định kỳ.",
     "icon": "📈",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "理财计算器 复利计算 投资计算 定投计算 收益计算",
     "ai": {
       "free": true,
@@ -4811,7 +5248,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4828,7 +5267,7 @@ const toolsData = [
     "description__vi": "Tính tác động của lạm phát lên sức mua theo thời gian.",
     "icon": "📉",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "通货膨胀 通胀计算 购买力计算 货币贬值 cpi计算",
     "ai": {
       "free": true,
@@ -4856,7 +5295,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4873,7 +5314,7 @@ const toolsData = [
     "description__vi": "So sánh lãi suất thanh toán tối thiểu và trả góp thẻ tín dụng.",
     "icon": "💳",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "信用卡还款 分期计算 最低还款 利息计算 信用卡利息",
     "ai": {
       "free": true,
@@ -4901,7 +5342,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -4918,7 +5361,7 @@ const toolsData = [
     "description__vi": "Tính VAT, chuyển đổi giữa giá có thuế và chưa thuế.",
     "icon": "🧾",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "增值税计算器 vat计算 税费计算 含税价 不含税价",
     "ai": {
       "free": true,
@@ -4946,7 +5389,11 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -4963,7 +5410,7 @@ const toolsData = [
     "description__vi": "Ước tính số tiền tiết kiệm hưu trí và đóng góp hàng tháng.",
     "icon": "🏖️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "退休金计算 养老计算 退休规划 储蓄计划 养老金估算",
     "ai": {
       "free": true,
@@ -4991,7 +5438,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5008,7 +5457,7 @@ const toolsData = [
     "description__vi": "Chuyển số tiền sang dạng chữ hoa tiếng Trung.",
     "icon": "🔤",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "金额大写 大写转换 财务",
     "ai": {
       "free": true,
@@ -5036,7 +5485,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5053,7 +5506,7 @@ const toolsData = [
     "description__vi": "Ước tính lương tháng, thu nhập năm và lương nhận tay tại Nhật.",
     "icon": "💰",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日本工资 工资计算 日本年薪",
     "ai": {
       "free": true,
@@ -5081,7 +5534,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5098,7 +5553,7 @@ const toolsData = [
     "description__vi": "Ước tính tiền tăng ca thường, đêm và ngày nghỉ tại Nhật.",
     "icon": "⏰",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日本加班费 残業代 加班计算",
     "ai": {
       "free": true,
@@ -5126,7 +5581,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5143,7 +5600,7 @@ const toolsData = [
     "description__vi": "Ước tính thuế thu nhập và thuế cư trú tại Nhật.",
     "icon": "🧾",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日本税金 所得税 住民税",
     "ai": {
       "free": true,
@@ -5171,7 +5628,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5188,7 +5647,7 @@ const toolsData = [
     "description__vi": "Ước tính khoản đóng nenkin tại Nhật.",
     "icon": "🏦",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日本年金 厚生年金 年金计算",
     "ai": {
       "free": true,
@@ -5216,7 +5675,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5233,7 +5694,7 @@ const toolsData = [
     "description__vi": "Ước tính tiền điện hàng tháng tại Nhật.",
     "icon": "💡",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日本电费 電気代 电费计算",
     "ai": {
       "free": true,
@@ -5261,7 +5722,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5278,7 +5741,7 @@ const toolsData = [
     "description__vi": "Ước tính trả góp hàng tháng và tổng lãi vay mua nhà tại Nhật.",
     "icon": "🏠",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日本房贷 住宅贷款 房贷计算",
     "ai": {
       "free": true,
@@ -5306,7 +5769,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5323,7 +5788,7 @@ const toolsData = [
     "description__vi": "Tính số ngày lưu trú và ngày còn lại tại Nhật.",
     "icon": "🛂",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日本签证 签证天数 停留天数",
     "ai": {
       "free": true,
@@ -5351,7 +5816,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5368,7 +5835,7 @@ const toolsData = [
     "description__vi": "Công cụ chọn ngẫu nhiên.",
     "icon": "🎰",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "抽奖 随机选择 抽签",
     "ai": {
       "free": true,
@@ -5396,7 +5863,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5413,7 +5884,7 @@ const toolsData = [
     "description__vi": "Tạo gradient CSS.",
     "icon": "🌈",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "渐变色 渐变 颜色 gradient",
     "ai": {
       "free": true,
@@ -5441,7 +5912,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5458,7 +5933,7 @@ const toolsData = [
     "description__vi": "Kiểm tra độ mạnh mật khẩu.",
     "icon": "🔒",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "密码强度 密码检测 密码安全",
     "ai": {
       "free": true,
@@ -5486,7 +5961,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5503,7 +5980,7 @@ const toolsData = [
     "description__vi": "Tính số ngày giữa các ngày hoặc cộng ngày.",
     "icon": "📅",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日期计算 天数计算 日期差",
     "ai": {
       "free": true,
@@ -5531,7 +6008,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5548,7 +6027,7 @@ const toolsData = [
     "description__vi": "Tính chính xác tuổi theo năm, tháng, ngày.",
     "icon": "🎂",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "年龄计算 岁数计算 生日计算",
     "ai": {
       "free": true,
@@ -5576,7 +6055,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5593,7 +6074,7 @@ const toolsData = [
     "description__vi": "Đồng hồ bấm giờ trực tuyến.",
     "icon": "⏱️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "计时器 秒表 在线计时",
     "ai": {
       "free": true,
@@ -5621,7 +6102,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5638,7 +6121,7 @@ const toolsData = [
     "description__vi": "Đếm ngược đến ngày mục tiêu.",
     "icon": "⏱️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "倒计时 倒计时器 计时 倒数日",
     "ai": {
       "free": true,
@@ -5666,7 +6149,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5683,7 +6168,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 代码解释工具，帮助理解代码结构。",
     "icon": "💻",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai代码解释 代码分析",
     "ai": {
       "free": true,
@@ -5711,7 +6196,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5728,7 +6215,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 邮件生成工具，快速生成商务邮件。",
     "icon": "📧",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai邮件 邮件生成",
     "ai": {
       "free": true,
@@ -5756,7 +6243,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5773,7 +6264,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 面试问答工具，生成常见面试问题和回答。",
     "icon": "🎯",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai面试 面试问答",
     "ai": {
       "free": true,
@@ -5801,7 +6292,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5818,7 +6313,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 日语作文辅助工具，生成日语作文结构。",
     "icon": "📝",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai日语 日语作文",
     "ai": {
       "free": true,
@@ -5846,7 +6341,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5863,7 +6362,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 润色工具，优化文本表达。",
     "icon": "✨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai润色 文本优化",
     "ai": {
       "free": true,
@@ -5891,7 +6390,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -5908,7 +6409,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 简历生成工具，快速生成简历结构。",
     "icon": "📄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai简历 简历生成",
     "ai": {
       "free": true,
@@ -5936,7 +6437,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5953,7 +6458,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 文章摘要工具，提取长文本重点。",
     "icon": "📋",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai摘要 文章摘要",
     "ai": {
       "free": true,
@@ -5981,7 +6486,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -5998,7 +6507,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 标题生成工具，根据关键词生成多个标题。",
     "icon": "🏷️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai标题 标题生成",
     "ai": {
       "free": true,
@@ -6026,7 +6535,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6043,7 +6556,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 翻译辅助工具，生成多语言翻译参考。",
     "icon": "🌐",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai翻译 翻译工具",
     "ai": {
       "free": true,
@@ -6071,7 +6584,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -6088,7 +6603,7 @@ const toolsData = [
     "description__vi": "免费在线 AI 写作辅助工具，根据主题生成文章大纲和正文草稿。",
     "icon": "✍️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai写作 写作辅助",
     "ai": {
       "free": true,
@@ -6116,7 +6631,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -6133,7 +6650,7 @@ const toolsData = [
     "description__vi": "免费在线拼图工具，支持横向拼接、纵向拼接、网格拼图，多语言支持，无需上传服务器。",
     "icon": "🧩",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片拼图 拼图工具 拼接图片",
     "ai": {
       "free": true,
@@ -6161,7 +6678,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6178,7 +6699,7 @@ const toolsData = [
     "description__vi": "ZenTools 免费在线颜色取色器，支持 HEX、RGB 颜色代码复制。",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "颜色取色 取色器 color picker",
     "ai": {
       "free": true,
@@ -6206,7 +6727,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6223,7 +6748,7 @@ const toolsData = [
     "description__vi": "ZenTools 免费在线图片转 PDF 工具。",
     "icon": "📄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片转pdf 图片合成pdf",
     "ai": {
       "free": true,
@@ -6251,7 +6776,13 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "PDF",
+        "PNG",
+        "JPG"
+      ]
     }
   },
   {
@@ -6268,7 +6799,7 @@ const toolsData = [
     "description__vi": "免费在线视频提取封面工具，从视频中截取图片。",
     "icon": "🎬",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "视频封面 提取封面 视频缩略图",
     "ai": {
       "free": true,
@@ -6296,7 +6827,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6313,7 +6848,7 @@ const toolsData = [
     "description__vi": "ZenTools 免费在线二维码生成器，支持输入文本、网址并生成可下载二维码。",
     "icon": "📱",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "二维码生成 qr码 二维码",
     "ai": {
       "free": true,
@@ -6341,7 +6876,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6358,7 +6897,7 @@ const toolsData = [
     "description__vi": "ZenTools 免费在线短链接生成器。",
     "icon": "🔗",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "短链接 短网址 短链接生成",
     "ai": {
       "free": true,
@@ -6386,7 +6925,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6403,7 +6946,7 @@ const toolsData = [
     "description__vi": "Nén hoặc làm đẹp mã CSS.",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "css压缩 css美化 css格式化 css在线",
     "ai": {
       "free": true,
@@ -6431,7 +6974,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6448,7 +6995,7 @@ const toolsData = [
     "description__vi": "Định dạng câu truy vấn SQL.",
     "icon": "🗃️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "sql格式化 sql美化 sql在线 数据库",
     "ai": {
       "free": true,
@@ -6476,7 +7023,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6493,7 +7044,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi giữa HEX, RGB, HSL.",
     "icon": "🌈",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "颜色转换 hex转rgb 颜色代码 颜色工具",
     "ai": {
       "free": true,
@@ -6521,7 +7072,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6538,7 +7093,7 @@ const toolsData = [
     "description__vi": "Xem trước Markdown trực tiếp.",
     "icon": "📝",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "markdown预览 markdown编辑器 md预览",
     "ai": {
       "free": true,
@@ -6566,7 +7121,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "Markdown"
+      ]
     }
   },
   {
@@ -6583,7 +7142,7 @@ const toolsData = [
     "description__vi": "Mã hóa/giải mã thực thể HTML.",
     "icon": "🔤",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "html实体 html编码 html解码 html转义",
     "ai": {
       "free": true,
@@ -6611,7 +7170,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "HTML"
+      ]
     }
   },
   {
@@ -6628,7 +7191,7 @@ const toolsData = [
     "description__vi": "Nén hoặc làm đẹp mã JavaScript.",
     "icon": "📦",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "js压缩 js美化 js格式化 javascript",
     "ai": {
       "free": true,
@@ -6656,7 +7219,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6673,7 +7240,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi giữa nhị phân, bát phân, thập phân, thập lục phân.",
     "icon": "🔢",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "进制转换 二进制 八进制 十进制 十六进制",
     "ai": {
       "free": true,
@@ -6701,7 +7268,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6718,7 +7289,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi giữa timestamp Unix và ngày giờ.",
     "icon": "⏰",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "时间戳转换 unix时间戳 日期转换",
     "ai": {
       "free": true,
@@ -6746,7 +7317,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6763,7 +7338,7 @@ const toolsData = [
     "description__vi": "TikTok Downloader - Download TikTok Videos Without Watermark",
     "icon": "📲",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "tiktok下载 tiktok视频",
     "ai": {
       "free": true,
@@ -6791,7 +7366,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6808,7 +7387,7 @@ const toolsData = [
     "description__vi": "Áp dụng các bộ lọc như grayscale, sepia, invert, blur cho ảnh.",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片滤镜 滤镜效果 图片特效",
     "ai": {
       "free": true,
@@ -6836,7 +7415,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6853,7 +7436,7 @@ const toolsData = [
     "description__vi": "Xoay ảnh ở mọi góc độ, lật ngang hoặc dọc.",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片旋转 图片翻转 旋转图片",
     "ai": {
       "free": true,
@@ -6881,7 +7464,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6898,7 +7485,7 @@ const toolsData = [
     "description__vi": "Điều chỉnh độ sáng, tương phản và bão hòa của ảnh.",
     "icon": "☀️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "亮度调整 对比度 饱和度 图片调整",
     "ai": {
       "free": true,
@@ -6926,7 +7513,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6943,7 +7534,7 @@ const toolsData = [
     "description__vi": "Vẽ đường thẳng, mũi tên và chú thích văn bản trên ảnh.",
     "icon": "✏️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片涂鸦 图片标注 图片编辑",
     "ai": {
       "free": true,
@@ -6971,7 +7562,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -6988,7 +7583,7 @@ const toolsData = [
     "description__vi": "Chia ảnh thành lưới, phù hợp cho đăng mạng xã hội.",
     "icon": "🔲",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "九宫格切图 图片分割 切图工具",
     "ai": {
       "free": true,
@@ -7016,7 +7611,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7033,7 +7632,7 @@ const toolsData = [
     "description__vi": "Xóa nền ảnh bằng một cú nhấp chuột, làm trong suốt",
     "icon": "🎯",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片去背景 背景去除 抠图 去除背景",
     "ai": {
       "free": true,
@@ -7061,7 +7660,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7078,7 +7681,7 @@ const toolsData = [
     "description__vi": "Làm sắc nét ảnh mờ, tăng cường chi tiết",
     "icon": "✨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片锐化 锐化图片 清晰化 图片增强",
     "ai": {
       "free": true,
@@ -7106,7 +7709,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7123,7 +7730,7 @@ const toolsData = [
     "description__vi": "Thêm hiệu ứng bo tròn góc cho ảnh",
     "icon": "🟣",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片圆角 圆角裁剪 圆角图片 圆角工具",
     "ai": {
       "free": true,
@@ -7151,7 +7758,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7168,7 +7779,7 @@ const toolsData = [
     "description__vi": "Thêm hiệu ứng mờ pixel cho ảnh",
     "icon": "🧊",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片马赛克 马赛克 图片模糊 马赛克工具",
     "ai": {
       "free": true,
@@ -7196,7 +7807,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7213,7 +7828,7 @@ const toolsData = [
     "description__vi": "Kiểm tra tối ưu SEO tiêu đề và mô tả trang web.",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "seo标题 标题检查 标题优化 搜索结果预览",
     "ai": {
       "free": true,
@@ -7241,7 +7856,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7258,7 +7875,7 @@ const toolsData = [
     "description__vi": "Phân tích tần suất và mật độ từ khóa trong văn bản.",
     "icon": "📊",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "关键词密度 关键词分析 seo内容优化",
     "ai": {
       "free": true,
@@ -7286,7 +7903,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7303,7 +7922,7 @@ const toolsData = [
     "description__vi": "Tạo file robots.txt để kiểm soát truy cập của robot tìm kiếm.",
     "icon": "🤖",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "robots.txt 爬虫控制 seo配置",
     "ai": {
       "free": true,
@@ -7331,7 +7950,11 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": [
+        "TXT"
+      ]
     }
   },
   {
@@ -7348,7 +7971,7 @@ const toolsData = [
     "description__vi": "Tạo nhanh mã HTML thẻ Meta SEO.",
     "icon": "🏷️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "meta标签 meta生成器 seo标签 网页描述 seo优化",
     "ai": {
       "free": true,
@@ -7376,7 +7999,11 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7393,7 +8020,7 @@ const toolsData = [
     "description__vi": "Xem trước trang của bạn hiển thị trong kết quả tìm kiếm Google.",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "serp预览 搜索结果预览 标题预览 seo预览 google搜索",
     "ai": {
       "free": true,
@@ -7421,7 +8048,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7438,7 +8067,7 @@ const toolsData = [
     "description__vi": "Trích xuất cấu trúc tiêu đề H1-H6 từ HTML.",
     "icon": "📑",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "h标题提取 标题结构分析 html标题 h1提取 seo结构",
     "ai": {
       "free": true,
@@ -7466,7 +8095,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7483,7 +8114,7 @@ const toolsData = [
     "description__vi": "Trích xuất từ khóa tần suất cao và phân tích mật độ từ văn bản.",
     "icon": "🔑",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "关键词提取 关键词分析 词频统计 seo关键词 关键词密度",
     "ai": {
       "free": true,
@@ -7511,7 +8142,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7528,7 +8161,7 @@ const toolsData = [
     "description__vi": "Kiểm tra thuộc tính alt của ảnh trong HTML, phát hiện thiếu alt.",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "alt文本 图片alt 图片优化 seo检查 alt属性",
     "ai": {
       "free": true,
@@ -7556,7 +8189,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7573,7 +8208,7 @@ const toolsData = [
     "description__vi": "Phân tích cấu trúc trang HTML, kiểm tra yếu tố SEO.",
     "icon": "📋",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "页面结构分析 html分析 seo检查 网站结构 seo诊断",
     "ai": {
       "free": true,
@@ -7601,7 +8236,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7618,7 +8255,7 @@ const toolsData = [
     "description__vi": "Phân tích khả năng đọc văn bản, đánh giá độ dài câu và cấu trúc.",
     "icon": "📖",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "可读性分析 文本分析 内容优化 seo内容 阅读难度",
     "ai": {
       "free": true,
@@ -7646,7 +8283,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -7663,7 +8302,7 @@ const toolsData = [
     "description__vi": "Cắt video bằng cách đặt thời gian bắt đầu và kết thúc.",
     "icon": "✂️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "视频裁剪 视频剪切 视频截取",
     "ai": {
       "free": true,
@@ -7691,7 +8330,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7708,7 +8351,7 @@ const toolsData = [
     "description__vi": "Ghép nhiều video thành một tệp.",
     "icon": "🔗",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "视频合并 视频拼接 合并视频",
     "ai": {
       "free": true,
@@ -7736,7 +8379,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7753,7 +8400,7 @@ const toolsData = [
     "description__vi": "Thay đổi tốc độ phát video, 0.25x đến 4x.",
     "icon": "⏩",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "视频变速 视频加速 视频减速",
     "ai": {
       "free": true,
@@ -7781,7 +8428,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7798,7 +8449,7 @@ const toolsData = [
     "description__vi": "Xoay video 90°, 180° hoặc 270°.",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "视频旋转 旋转视频 视频方向",
     "ai": {
       "free": true,
@@ -7826,7 +8477,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7843,7 +8498,7 @@ const toolsData = [
     "description__vi": "Chụp khung hình từ video tại thời điểm chỉ định.",
     "icon": "📸",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "视频截图 视频抓图 视频帧",
     "ai": {
       "free": true,
@@ -7871,7 +8526,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7888,7 +8547,7 @@ const toolsData = [
     "description__vi": "Phát ngược video.",
     "icon": "↩️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "视频倒放 视频反向 倒放视频",
     "ai": {
       "free": true,
@@ -7916,7 +8575,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -7933,7 +8596,7 @@ const toolsData = [
     "description__vi": "Chuyển video MP4 thành GIF động.",
     "icon": "🎬",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "mp4转gif 视频转gif mp4 gif",
     "ai": {
       "free": true,
@@ -7961,7 +8624,12 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "GIF",
+        "MP4"
+      ]
     }
   },
   {
@@ -7978,7 +8646,7 @@ const toolsData = [
     "description__vi": "Chuyển video WEBM thành GIF động.",
     "icon": "🎬",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "webm转gif webm gif 视频转换",
     "ai": {
       "free": true,
@@ -8006,7 +8674,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "GIF"
+      ]
     }
   },
   {
@@ -8023,7 +8695,7 @@ const toolsData = [
     "description__vi": "Chuyển ảnh động APNG thành GIF.",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "apng转gif apng gif 动图转换",
     "ai": {
       "free": true,
@@ -8051,7 +8723,12 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "PNG",
+        "GIF"
+      ]
     }
   },
   {
@@ -8068,7 +8745,7 @@ const toolsData = [
     "description__vi": "Chuyển GIF thành video MP4.",
     "icon": "🎥",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "gif转mp4 gif mp4 gif转视频",
     "ai": {
       "free": true,
@@ -8096,7 +8773,12 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "GIF",
+        "MP4"
+      ]
     }
   },
   {
@@ -8113,7 +8795,7 @@ const toolsData = [
     "description__vi": "Chuyển GIF thành ảnh động APNG.",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "gif转apng gif apng 动图转换",
     "ai": {
       "free": true,
@@ -8141,7 +8823,12 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "PNG",
+        "GIF"
+      ]
     }
   },
   {
@@ -8158,7 +8845,7 @@ const toolsData = [
     "description__vi": "Kết hợp nhiều ảnh thành GIF động.",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片转gif 图片合成gif 动图制作",
     "ai": {
       "free": true,
@@ -8186,7 +8873,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": true,
+      "export": [
+        "GIF"
+      ]
     }
   },
   {
@@ -8203,7 +8894,7 @@ const toolsData = [
     "description__vi": "Chuyển video MOV thành GIF động.",
     "icon": "🎬",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "mov转gif mov gif 视频转换 quicktime",
     "ai": {
       "free": true,
@@ -8231,7 +8922,12 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "GIF",
+        "MOV"
+      ]
     }
   },
   {
@@ -8248,7 +8944,7 @@ const toolsData = [
     "description__vi": "Chuyển video AVI thành GIF động.",
     "icon": "🎬",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "avi转gif avi gif 视频转换",
     "ai": {
       "free": true,
@@ -8276,7 +8972,11 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "GIF"
+      ]
     }
   },
   {
@@ -8321,7 +9021,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -8338,7 +9040,7 @@ const toolsData = [
     "description__vi": "Tạo kế hoạch học tập cá nhân hóa.",
     "icon": "📚",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai学习计划 学习规划 学习路线",
     "ai": {
       "free": true,
@@ -8366,7 +9068,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8383,7 +9089,7 @@ const toolsData = [
     "description__vi": "Tự động tạo chú thích và tài liệu code.",
     "icon": "💻",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai代码注释 代码文档 代码说明",
     "ai": {
       "free": true,
@@ -8411,7 +9117,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8428,7 +9138,7 @@ const toolsData = [
     "description__vi": "Tạo thơ hiện đại, thơ cổ điển.",
     "icon": "📜",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai诗歌 诗生成 现代诗 藏头诗",
     "ai": {
       "free": true,
@@ -8456,7 +9166,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8473,7 +9187,7 @@ const toolsData = [
     "description__vi": "Tạo truyện ngắn, ngụ ngôn.",
     "icon": "📖",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai故事 故事创作 微小说",
     "ai": {
       "free": true,
@@ -8501,7 +9215,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8518,7 +9236,7 @@ const toolsData = [
     "description__vi": "Tạo mô tả sản phẩm thương mại điện tử.",
     "icon": "🏷️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai产品描述 电商文案 商品描述",
     "ai": {
       "free": true,
@@ -8546,7 +9264,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8563,7 +9285,7 @@ const toolsData = [
     "description__vi": "Tạo dàn ý bài viết SEO.",
     "icon": "📈",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai文章 seo文章 博客写作 内容营销",
     "ai": {
       "free": true,
@@ -8591,7 +9313,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8608,7 +9334,7 @@ const toolsData = [
     "description__vi": "Tạo bài đăng mạng xã hội.",
     "icon": "📱",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai社交媒体 小红书文案 社交文案",
     "ai": {
       "free": true,
@@ -8636,7 +9362,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8653,7 +9383,7 @@ const toolsData = [
     "description__vi": "Tạo nội dung tiếp thị, quảng cáo.",
     "icon": "📢",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai文案 营销文案 广告语 产品描述",
     "ai": {
       "free": true,
@@ -8681,7 +9411,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8698,7 +9432,7 @@ const toolsData = [
     "description__vi": "Tạo prompt AI chất lượng cao.",
     "icon": "💬",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai提示词 prompt ai指令 chatgpt提示词",
     "ai": {
       "free": true,
@@ -8726,7 +9460,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8743,7 +9481,7 @@ const toolsData = [
     "description__vi": "So sánh hai ảnh bằng thanh trượt, hiệu ứng trước/sau",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片对比 图片比较 前后对比 图片diff before after",
     "ai": {
       "free": true,
@@ -8771,7 +9509,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8788,7 +9530,7 @@ const toolsData = [
     "description__vi": "Thêm viền màu tùy chỉnh cho ảnh",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片加边框 图片边框 照片边框 边框工具",
     "ai": {
       "free": true,
@@ -8816,7 +9558,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8833,7 +9579,7 @@ const toolsData = [
     "description__vi": "Thêm bóng đổ cho ảnh, điều chỉnh độ mờ, khoảng cách và màu",
     "icon": "🌓",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片阴影 投影效果 图片投影 阴影工具 drop shadow",
     "ai": {
       "free": true,
@@ -8861,7 +9607,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8878,7 +9628,7 @@ const toolsData = [
     "description__vi": "Tinh chỉnh màu sắc, độ bão hòa, độ sáng và nhiệt độ màu",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片调色 色相调整 饱和度 明度 色温 hsla调整",
     "ai": {
       "free": true,
@@ -8906,7 +9656,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8923,7 +9677,7 @@ const toolsData = [
     "description__vi": "Chuyển ảnh thành hiệu ứng phác thảo bút chì",
     "icon": "✏️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片素描 素描效果 图片变素描 铅笔素描 照片变素描",
     "ai": {
       "free": true,
@@ -8951,7 +9705,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -8968,7 +9726,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi hàng loạt ảnh sang JPG, PNG, WebP, BMP, GIF",
     "icon": "🔄",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "批量改后缀 图片批量转换 批量改格式 图片格式批量转换 后缀名修改",
     "ai": {
       "free": true,
@@ -8996,7 +9754,13 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "PNG",
+        "JPG",
+        "WebP"
+      ]
     }
   },
   {
@@ -9013,7 +9777,7 @@ const toolsData = [
     "description__vi": "Nhập từ khóa gốc để tạo từ khóa đuôi dài liên quan với số lượng tìm kiếm và điểm khó khăn.",
     "icon": "🔍",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "关键词研究 关键词工具 长尾词 SEO关键词",
     "ai": {
       "free": true,
@@ -9041,7 +9805,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -9058,7 +9824,7 @@ const toolsData = [
     "description__vi": "Nhập tên miền để kiểm tra số lượng backlink, tên miền giới thiệu và phân bố văn bản neo.",
     "icon": "🔗",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "反向链接 外链检查 backlink SEO外链",
     "ai": {
       "free": true,
@@ -9086,7 +9852,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -9103,7 +9871,7 @@ const toolsData = [
     "description__vi": "Dán văn bản để kiểm tra xem nó có khớp với nội dung trực tuyến và phát hiện tỷ lệ đạo văn.",
     "icon": "📝",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "抄袭检测 查重 重复内容检测 文本对比",
     "ai": {
       "free": true,
@@ -9131,7 +9899,11 @@ const toolsData = [
       "limits": "单次输入最大10万字，超长文本建议分段",
       "limits__en": "Max 100K chars per input, very long texts should be segmented",
       "limits__ja": "1回最大10万字、非常に長いテキストは分割推奨",
-      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn"
+      "limits__vi": "Tối đa 100K ký tự mỗi lần nhập, văn bản rất dài nên chia đoạn",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -9148,7 +9920,7 @@ const toolsData = [
     "description__vi": "Nhập danh sách URL trang web để tạo tệp XML Sitemap tuân thủ tiêu chuẩn.",
     "icon": "🗺️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "sitemap XML Sitemap 站点地图 SEO sitemap生成",
     "ai": {
       "free": true,
@@ -9176,7 +9948,11 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": [
+        "XML"
+      ]
     }
   },
   {
@@ -9193,7 +9969,7 @@ const toolsData = [
     "description__vi": "Tải lên ảnh để tự động nhận dạng và trích xuất nội dung văn bản.",
     "icon": "👁️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "OCR 图片文字识别 文字提取 图片转文字",
     "ai": {
       "free": true,
@@ -9221,7 +9997,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -9238,7 +10018,7 @@ const toolsData = [
     "description__vi": "Tính phần trăm, tỷ lệ tăng/giảm, giảm giá và các bài toán phần trăm phổ biến.",
     "icon": "🧮",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "百分比计算 折扣计算 增减比例 百分数",
     "ai": {
       "free": true,
@@ -9266,7 +10046,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -9283,7 +10065,7 @@ const toolsData = [
     "description__vi": "Nhập tên miền để kiểm tra ngày đăng ký và tuổi tên miền để đánh giá độ tin cậy.",
     "icon": "📅",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "域名年龄 domain age 域名查询 SEO工具",
     "ai": {
       "free": true,
@@ -9311,7 +10093,9 @@ const toolsData = [
       "limits": "单次分析最多100个URL，实时数据依赖网络",
       "limits__en": "Max 100 URLs per analysis, live data depends on network",
       "limits__ja": "1回最大100URL、リアルタイムデータはネットワークに依存",
-      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng"
+      "limits__vi": "Tối đa 100 URL mỗi lần phân tích, dữ liệu thời gian thực phụ thuộc mạng",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -9328,7 +10112,7 @@ const toolsData = [
     "description__vi": "Tra cứu vị trí địa lý, nhà cung cấp và thông tin DNS cho IP của bạn hoặc IP được chỉ định.",
     "icon": "🌐",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "IP查询 IP地址 地理位置 IP定位 网络工具",
     "ai": {
       "free": true,
@@ -9356,7 +10140,11 @@ const toolsData = [
       "limits": "单次输入最大1MB，超大文件建议分段",
       "limits__en": "Max 1MB per input, very large files should be split",
       "limits__ja": "1回最大1MB、非常に大きなファイルは分割推奨",
-      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ"
+      "limits__vi": "Tối đa 1MB mỗi lần nhập, tệp rất lớn nên chia nhỏ",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -9373,7 +10161,7 @@ const toolsData = [
     "description__vi": "Xóa watermark khỏi ảnh thông minh",
     "icon": "🧹",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片去水印 去除水印 watermark去除 去水印工具",
     "ai": {
       "free": true,
@@ -9401,7 +10189,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -9418,7 +10210,7 @@ const toolsData = [
     "description__vi": "Chuyển JPG, WebP, BMP sang PNG hỗ trợ nền trong",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片转png jpg转png 转png格式",
     "ai": {
       "free": true,
@@ -9446,7 +10238,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "PNG",
+        "JPG"
+      ]
     }
   },
   {
@@ -9463,7 +10260,7 @@ const toolsData = [
     "description__vi": "Chuyển PNG, WebP, BMP sang JPG, giảm dung lượng",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片转jpg png转jpg 转jpg格式",
     "ai": {
       "free": true,
@@ -9491,7 +10288,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "PNG",
+        "JPG"
+      ]
     }
   },
   {
@@ -9508,7 +10310,7 @@ const toolsData = [
     "description__vi": "Chuyển PNG sang JPG hàng loạt",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "png转jpg png批量转jpg",
     "ai": {
       "free": true,
@@ -9536,7 +10338,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "PNG",
+        "JPG"
+      ]
     }
   },
   {
@@ -9553,7 +10360,7 @@ const toolsData = [
     "description__vi": "Chuyển JPG sang PNG",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "jpg转png jpg转png格式",
     "ai": {
       "free": true,
@@ -9581,7 +10388,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "PNG",
+        "JPG"
+      ]
     }
   },
   {
@@ -9598,7 +10410,7 @@ const toolsData = [
     "description__vi": "Chuyển WebP sang JPG",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "webp转jpg webp转jpg格式",
     "ai": {
       "free": true,
@@ -9626,7 +10438,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "JPG",
+        "WebP"
+      ]
     }
   },
   {
@@ -9643,7 +10460,7 @@ const toolsData = [
     "description__vi": "Chuyển JPG sang WebP",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "jpg转webp jpg转webp格式",
     "ai": {
       "free": true,
@@ -9671,7 +10488,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "JPG",
+        "WebP"
+      ]
     }
   },
   {
@@ -9688,7 +10510,7 @@ const toolsData = [
     "description__vi": "Chuyển SVG sang PNG",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "svg转png svg转png格式",
     "ai": {
       "free": true,
@@ -9716,7 +10538,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "PNG",
+        "SVG"
+      ]
     }
   },
   {
@@ -9733,7 +10560,7 @@ const toolsData = [
     "description__vi": "Chuyển PNG sang SVG",
     "icon": "🔄",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "png转svg png转svg格式",
     "ai": {
       "free": true,
@@ -9761,7 +10588,12 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "PNG",
+        "SVG"
+      ]
     }
   },
   {
@@ -9778,7 +10610,7 @@ const toolsData = [
     "description__vi": "Chuyển ảnh sang định dạng ICO",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ico生成 生成ico 图标格式 ico转换器",
     "ai": {
       "free": true,
@@ -9806,7 +10638,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "ICO"
+      ]
     }
   },
   {
@@ -9823,7 +10659,7 @@ const toolsData = [
     "description__vi": "Chuyển ảnh JPG, PNG sang ICO",
     "icon": "🖼️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片转ico 转ico 图片转图标",
     "ai": {
       "free": true,
@@ -9851,7 +10687,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "ICO"
+      ]
     }
   },
   {
@@ -9868,7 +10708,7 @@ const toolsData = [
     "description__vi": "Giải mã Base64 thành ảnh và tải về",
     "icon": "🔢",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "base64转图片 base64解码 base64还原图片",
     "ai": {
       "free": true,
@@ -9896,7 +10736,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -9913,7 +10757,7 @@ const toolsData = [
     "description__vi": "Ghép nhiều ảnh thành GIF, điều chỉnh tốc độ khung hình",
     "icon": "🎞️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "gif制作 gif制作工具 合成gif 动图制作",
     "ai": {
       "free": true,
@@ -9941,7 +10785,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "GIF"
+      ]
     }
   },
   {
@@ -9958,7 +10806,7 @@ const toolsData = [
     "description__vi": "Nén GIF, giảm màu hoặc tốc độ khung hình",
     "icon": "🗜️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "gif压缩 压缩gif gif体积减小",
     "ai": {
       "free": true,
@@ -9986,7 +10834,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "GIF"
+      ]
     }
   },
   {
@@ -10003,7 +10855,7 @@ const toolsData = [
     "description__vi": "Cắt vùng GIF, giữ phần mong muốn",
     "icon": "✂️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "gif裁剪 裁剪gif gif切图",
     "ai": {
       "free": true,
@@ -10031,7 +10883,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "GIF"
+      ]
     }
   },
   {
@@ -10048,7 +10904,7 @@ const toolsData = [
     "description__vi": "Chuyển GIF sang MP4, giảm dung lượng",
     "icon": "🎥",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "gif转视频 gif转mp4 gif转视频格式",
     "ai": {
       "free": true,
@@ -10076,7 +10932,12 @@ const toolsData = [
       "limits": "单个视频最大500MB，处理时间取决于文件大小",
       "limits__en": "Max 500MB per video, processing time depends on file size",
       "limits__ja": "1ファイル最大500MB、処理時間はファイルサイズに依存",
-      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước"
+      "limits__vi": "Tối đa 500MB mỗi video, thời gian xử lý phụ thuộc kích thước",
+      "batch": false,
+      "export": [
+        "GIF",
+        "MP4"
+      ]
     }
   },
   {
@@ -10093,7 +10954,7 @@ const toolsData = [
     "description__vi": "Chuyển ảnh màu sang đen trắng",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片黑白 黑白转换 灰度转换 转黑白",
     "ai": {
       "free": true,
@@ -10121,7 +10982,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10138,7 +11003,7 @@ const toolsData = [
     "description__vi": "Làm mờ ảnh: Gaussian, radial, motion blur",
     "icon": "🌫️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片模糊 模糊效果 高斯模糊 图片虚化",
     "ai": {
       "free": true,
@@ -10166,7 +11031,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10183,7 +11052,7 @@ const toolsData = [
     "description__vi": "Cắt ảnh AI, tự động nhận diện chủ thể",
     "icon": "✨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai抠图 智能抠图 抠图工具 自动抠图",
     "ai": {
       "free": true,
@@ -10211,7 +11080,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10228,7 +11101,7 @@ const toolsData = [
     "description__vi": "Phóng to ảnh, hỗ trợ phóng to không mất dữ liệu",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片放大 放大图片 图片放大工具 无损放大",
     "ai": {
       "free": true,
@@ -10256,7 +11129,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10273,7 +11150,7 @@ const toolsData = [
     "description__vi": "AI siêu phân giải 4x, tăng chi tiết",
     "icon": "🚀",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "ai超分辨率 超分辨率 图片放大 ai放大 图片高清化",
     "ai": {
       "free": true,
@@ -10301,7 +11178,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10318,7 +11199,7 @@ const toolsData = [
     "description__vi": "Xem EXIF: máy ảnh, ngày giờ, GPS",
     "icon": "ℹ️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "exif查看 exif信息 图片信息 查看exif",
     "ai": {
       "free": true,
@@ -10346,7 +11227,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10363,7 +11248,7 @@ const toolsData = [
     "description__vi": "Xóa EXIF, bảo vệ quyền riêng tư",
     "icon": "🧹",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "exif删除 清除exif exif去除 删除图片信息",
     "ai": {
       "free": true,
@@ -10391,7 +11276,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10408,7 +11297,7 @@ const toolsData = [
     "description__vi": "Phát hiện định dạng thực của ảnh",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片格式检测 检测图片格式 图片类型识别",
     "ai": {
       "free": true,
@@ -10436,7 +11325,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10453,7 +11346,7 @@ const toolsData = [
     "description__vi": "Chuyển ảnh sang ASCII art",
     "icon": "🎨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片转ascii ascii艺术 图片转字符画 ascii画",
     "ai": {
       "free": true,
@@ -10481,7 +11374,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10498,7 +11395,7 @@ const toolsData = [
     "description__vi": "Chuyển ảnh sang pixel art",
     "icon": "👾",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片转像素画 像素画 像素化 转像素风格",
     "ai": {
       "free": true,
@@ -10526,7 +11423,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10543,7 +11444,7 @@ const toolsData = [
     "description__vi": "Thêm chữ vào ảnh, chỉnh font, màu, kích thước, vị trí",
     "icon": "📝",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片加文字 图片文字 添加文字 图片标注文字",
     "ai": {
       "free": true,
@@ -10571,7 +11472,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10588,7 +11493,7 @@ const toolsData = [
     "description__vi": "Phát hiện ảnh trùng lặp hàng loạt",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片查重 图片重复检测 找重复图片 图片去重",
     "ai": {
       "free": true,
@@ -10616,7 +11521,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10633,7 +11542,7 @@ const toolsData = [
     "description__vi": "Đọc QR/barcode từ ảnh",
     "icon": "📱",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "图片二维码识别 二维码识别 扫码 图片识别二维码",
     "ai": {
       "free": true,
@@ -10661,7 +11570,11 @@ const toolsData = [
       "limits": "单张图片最大100MB，支持批量最多20张",
       "limits__en": "Max 100MB per image, batch up to 20 images",
       "limits__ja": "1枚最大100MB、一括最大20枚",
-      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh"
+      "limits__vi": "Tối đa 100MB mỗi ảnh, hàng loạt tối đa 20 ảnh",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10678,7 +11591,7 @@ const toolsData = [
     "description__vi": "Công cụ nhận dạng OCR miễn phí. Trích xuất văn bản từ ảnh. Xử lý cục bộ, không cần API.",
     "icon": "👁️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "OCR 文字识别 图片转文字 在线OCR 免费OCR 图片识别文字 文字提取 本地OCR Tesseract 图片转文本 扫描文字提取 OCR工具 免费文字识别",
     "ai": {
       "free": true,
@@ -10706,7 +11619,11 @@ const toolsData = [
       "limits": "单张图片最大20MB，支持JPG/PNG/BMP/WebP格式",
       "limits__en": "Max 20MB per image, supports JPG/PNG/BMP/WebP",
       "limits__ja": "1枚最大20MB、JPG/PNG/BMP/WebP対応",
-      "limits__vi": "Tối đa 20MB mỗi ảnh, hỗ trợ JPG/PNG/BMP/WebP"
+      "limits__vi": "Tối đa 20MB mỗi ảnh, hỗ trợ JPG/PNG/BMP/WebP",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10723,7 +11640,7 @@ const toolsData = [
     "description__vi": "Trò chuyện với AI, hỗ trợ hỏi đáp đa lượt, tra cứu kiến thức",
     "icon": "💬",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "AI聊天 智能对话 AI问答 聊天机器人",
     "ai": {
       "free": true,
@@ -10751,7 +11668,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -10768,7 +11687,7 @@ const toolsData = [
     "description__vi": "AI viết lại văn bản: đồng nghĩa, mở rộng, rút gọn, đổi phong cách",
     "icon": "🔄",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "AI改写 文本改写 同义改写 文章改写",
     "ai": {
       "free": true,
@@ -10796,7 +11715,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -10813,7 +11734,7 @@ const toolsData = [
     "description__vi": "AI tóm tắt văn bản dài thành tóm tắt ngắn gọn",
     "icon": "📝",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "AI总结 文本总结 文章摘要 内容提炼",
     "ai": {
       "free": true,
@@ -10841,7 +11762,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10858,7 +11783,7 @@ const toolsData = [
     "description__vi": "AI tạo code từ yêu cầu, hỗ trợ nhiều ngôn ngữ",
     "icon": "💻",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "AI代码生成 代码生成 AI编程 自动生成代码",
     "ai": {
       "free": true,
@@ -10886,7 +11811,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10903,7 +11832,7 @@ const toolsData = [
     "description__vi": "AI phân tích lỗi code và cung cấp giải pháp sửa",
     "icon": "🔧",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI代码修复 代码调试 bug修复 代码纠错",
     "ai": {
       "free": true,
@@ -10931,7 +11860,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -10948,7 +11879,7 @@ const toolsData = [
     "description__vi": "AI tạo regex từ mô tả, có giải thích và kiểm tra",
     "icon": "🔍",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI正则生成 正则表达式 正则生成 正则工具",
     "ai": {
       "free": true,
@@ -10976,7 +11907,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -10993,7 +11928,7 @@ const toolsData = [
     "description__vi": "AI tạo quảng cáo chuyển đổi cao, đa nền tảng",
     "icon": "📢",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI广告文案 广告文案 广告生成 营销文案",
     "ai": {
       "free": true,
@@ -11021,7 +11956,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11038,7 +11977,7 @@ const toolsData = [
     "description__vi": "AI trích xuất từ khóa và thẻ từ văn bản, SEO",
     "icon": "🏷️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI关键词提取 关键词提取 标签提取 SEO关键词",
     "ai": {
       "free": true,
@@ -11066,7 +12005,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -11083,7 +12024,7 @@ const toolsData = [
     "description__vi": "AI tạo sơ đồ tư duy từ chủ đề, xuất nhiều định dạng",
     "icon": "🧠",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI思维导图 思维导图 脑图 思维导图生成",
     "ai": {
       "free": true,
@@ -11111,7 +12052,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11128,7 +12073,7 @@ const toolsData = [
     "description__vi": "AI hỏi đáp với cơ sở kiến thức và miền mở",
     "icon": "❓",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "AI问答 智能问答 问答助手 AI助手",
     "ai": {
       "free": true,
@@ -11156,7 +12101,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -11173,7 +12120,7 @@ const toolsData = [
     "description__vi": "AI hỗ trợ viết luận văn: đề tài, dàn ý, tổng quan",
     "icon": "📚",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI论文助手 论文写作 论文辅助 学术写作",
     "ai": {
       "free": true,
@@ -11201,7 +12148,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -11218,7 +12167,7 @@ const toolsData = [
     "description__vi": "AI tạo script video, diễn thuyết, livestream",
     "icon": "🎬",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI脚本生成 脚本生成 视频脚本 演讲脚本",
     "ai": {
       "free": true,
@@ -11246,7 +12195,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11263,7 +12216,7 @@ const toolsData = [
     "description__vi": "AI hỗ trợ sáng tác tiểu thuyết: cốt truyện, nhân vật",
     "icon": "📖",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI小说生成 小说生成 小说创作 故事创作",
     "ai": {
       "free": true,
@@ -11291,7 +12244,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11308,7 +12265,7 @@ const toolsData = [
     "description__vi": "AI tạo ảnh chất lượng cao từ văn bản, nhiều phong cách",
     "icon": "🎨",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "AI图片生成 图片生成 AI绘画 文生图",
     "ai": {
       "free": true,
@@ -11336,7 +12293,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11353,7 +12314,7 @@ const toolsData = [
     "description__vi": "AI tạo và tối ưu prompt ảnh để cải thiện AI art",
     "icon": "✨",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI图片提示词 提示词生成 prompt生成 AI绘画提示词",
     "ai": {
       "free": true,
@@ -11381,7 +12342,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11398,7 +12363,7 @@ const toolsData = [
     "description__vi": "AI tạo script video ngắn: phân cảnh, thoại, gợi ý quay",
     "icon": "🎥",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI视频脚本 视频脚本 短视频脚本 脚本生成",
     "ai": {
       "free": true,
@@ -11426,7 +12391,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11443,7 +12412,7 @@ const toolsData = [
     "description__vi": "AI tóm tắt ghi âm họp thành biên bản và việc cần làm",
     "icon": "📋",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI会议纪要 会议纪要 会议记录 会议摘要",
     "ai": {
       "free": true,
@@ -11471,7 +12440,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11488,7 +12461,7 @@ const toolsData = [
     "description__vi": "AI OCR nhận diện văn bản chính xác, đa ngôn ngữ, bảng, công thức",
     "icon": "👁️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "AI OCR 文字识别 OCR识别 图片转文字",
     "ai": {
       "free": true,
@@ -11516,7 +12489,11 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11533,7 +12510,7 @@ const toolsData = [
     "description__vi": "AI cơ sở kiến thức Q&A, tải tài liệu và nhận câu trả lời",
     "icon": "🗂️",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "AI知识库 知识库 文档问答 智能知识库",
     "ai": {
       "free": true,
@@ -11561,7 +12538,9 @@ const toolsData = [
       "limits": "单次生成最大5000字，部分功能需要联网",
       "limits__en": "Max 5000 chars per generation, some features require internet",
       "limits__ja": "1回最大5000文字、一部機能はインターネット接続が必要",
-      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet"
+      "limits__vi": "Tối đa 5000 ký tự mỗi lần tạo, một số chức năng cần internet",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -11578,7 +12557,7 @@ const toolsData = [
     "description__vi": "Trình tạo mã vạch trực tuyến hỗ trợ EAN-13, UPC-A, Code128, Code39 và ITF-14.",
     "icon": "📊",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "条形码 条码生成 barcode ean13 code128",
     "ai": {
       "free": true,
@@ -11606,7 +12585,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11623,7 +12606,7 @@ const toolsData = [
     "description__vi": "Đồng hồ bấm giờ trực tuyến với chức năng bắt đầu, tạm dừng, tính vòng và đặt lại.",
     "icon": "⏱️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "秒表 计时器 计次 秒表在线 stopwatch",
     "ai": {
       "free": true,
@@ -11651,7 +12634,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -11668,7 +12653,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi đơn vị độ dài: m, cm, mm, km, inch, ft, yd, mile.",
     "icon": "📏",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "长度转换 长度单位 米换算 厘米换算 英寸换算",
     "ai": {
       "free": true,
@@ -11696,7 +12681,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11713,7 +12702,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi đơn vị diện tích: mét vuông, km², ha, mẫu, feet vuông, mẫu Anh.",
     "icon": "🔲",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "面积转换 面积单位 平方米 公顷 亩 平方英尺",
     "ai": {
       "free": true,
@@ -11741,7 +12730,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11758,7 +12751,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi đơn vị thể tích: lít, ml, m³, gallon, pint, quart.",
     "icon": "🧊",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "体积转换 容量转换 升换算 毫升 加仑",
     "ai": {
       "free": true,
@@ -11786,7 +12779,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11803,7 +12800,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi đơn vị trọng lượng: kg, g, mg, lb, oz, tấn, cân.",
     "icon": "⚖️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "重量转换 重量单位 千克 克 磅 盎司 斤",
     "ai": {
       "free": true,
@@ -11831,7 +12828,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11848,7 +12849,7 @@ const toolsData = [
     "description__vi": "Chuyển đổi nhiệt độ giữa độ C, độ F và Kelvin.",
     "icon": "🌡️",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "温度转换 摄氏度 华氏度 开尔文 温度换算",
     "ai": {
       "free": true,
@@ -11876,7 +12877,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": true,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -11893,7 +12898,7 @@ const toolsData = [
     "description__vi": "Tính lãi đơn và lãi kép, hỗ trợ lãi suất năm, tháng, ngày.",
     "icon": "💰",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "利率计算 利息计算 单利 复利 年利率",
     "ai": {
       "free": true,
@@ -11921,7 +12926,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -11938,7 +12945,7 @@ const toolsData = [
     "description__vi": "Tính thuế thu nhập và VAT, chuyển đổi giữa giá có thuế và chưa thuế.",
     "icon": "🧾",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "税率计算 税费计算 个税 增值税 含税价",
     "ai": {
       "free": true,
@@ -11966,7 +12973,9 @@ const toolsData = [
       "limits": "计算结果仅供参考，不构成投资建议",
       "limits__en": "Results for reference only, not investment advice",
       "limits__ja": "結果は参考値です。投資助言ではありません",
-      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư"
+      "limits__vi": "Kết quả chỉ để tham khảo, không phải lời khuyên đầu tư",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -11983,7 +12992,7 @@ const toolsData = [
     "description__vi": "Máy tính khoa học trực tuyến với sin, cos, log, căn bậc hai, lũy thừa.",
     "icon": "🔢",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "科学计算器 三角函数 对数 指数 数学计算",
     "ai": {
       "free": true,
@@ -12011,7 +13020,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -12028,7 +13039,7 @@ const toolsData = [
     "description__vi": "Tạo tên ngẫu nhiên tiếng Trung hoặc tiếng Anh cho thử nghiệm và sáng tạo.",
     "icon": "📝",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "随机姓名 名字生成 中文姓名 英文姓名",
     "ai": {
       "free": true,
@@ -12056,7 +13067,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -12073,7 +13088,7 @@ const toolsData = [
     "description__vi": "Tạo chuỗi ngẫu nhiên với độ dài và loại ký tự tùy chỉnh.",
     "icon": "🔤",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "随机字符串 随机字符 字符串生成 随机ID",
     "ai": {
       "free": true,
@@ -12101,7 +13116,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -12118,7 +13137,7 @@ const toolsData = [
     "description__vi": "Công cụ xúc xắc trực tuyến, lắc xúc xắc 6 mặt ngẫu nhiên, có lịch sử.",
     "icon": "🎲",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "骰子 掷骰子 随机骰子 dice",
     "ai": {
       "free": true,
@@ -12146,7 +13165,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -12163,7 +13184,7 @@ const toolsData = [
     "description__vi": "Tung đồng xu trực tuyến với thống kê mặt ngửa/mặt sấp.",
     "icon": "🪙",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "抛硬币 硬币 正面反面 随机决策 coin toss",
     "ai": {
       "free": true,
@@ -12191,7 +13212,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -12208,7 +13233,7 @@ const toolsData = [
     "description__vi": "Vòng quay quyết định trực tuyến, nhập lựa chọn và quay ngẫu nhiên.",
     "icon": "🎡",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "决策转盘 随机选择 转盘 决策工具",
     "ai": {
       "free": true,
@@ -12236,7 +13261,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -12253,7 +13282,7 @@ const toolsData = [
     "description__vi": "Đồng hồ Pomodoro: 25 phút tập trung, 5 phút nghỉ.",
     "icon": "🍅",
     "featured": true,
-    "new": true,
+    "new": false,
     "keywords": "番茄钟 番茄工作法 pomodoro 专注计时",
     "ai": {
       "free": true,
@@ -12281,7 +13310,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -12298,7 +13329,7 @@ const toolsData = [
     "description__vi": "Xem lịch tháng với ngày lễ, hỗ trợ điều hướng ngày.",
     "icon": "📅",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "日历 日历工具 在线日历 月份查看",
     "ai": {
       "free": true,
@@ -12326,7 +13357,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -12343,7 +13376,7 @@ const toolsData = [
     "description__vi": "Tra cứu cung hoàng đạo theo ngày sinh với tính cách.",
     "icon": "♈",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "星座查询 星座 十二星座 星座性格",
     "ai": {
       "free": true,
@@ -12371,7 +13404,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -12388,7 +13423,7 @@ const toolsData = [
     "description__vi": "Xem ngày lễ chính thức và ngày kỷ niệm quan trọng của Trung Quốc.",
     "icon": "🎉",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "节假日查询 法定节假日 春节 国庆 中秋",
     "ai": {
       "free": true,
@@ -12416,7 +13451,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -12433,7 +13470,7 @@ const toolsData = [
     "description__vi": "Công cụ ghi chú trực tuyến với thêm, hoàn thành, xóa, dữ liệu lưu local.",
     "icon": "📋",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "备忘录 待办事项 todo 记事本",
     "ai": {
       "free": true,
@@ -12461,7 +13498,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -12478,7 +13519,7 @@ const toolsData = [
     "description__vi": "Tạo ghi chú dán nhiều màu sắc, hỗ trợ tùy chỉnh màu, lưu local.",
     "icon": "📑",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "便签 在线便签 便签工具 sticky notes",
     "ai": {
       "free": true,
@@ -12506,7 +13547,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   },
   {
@@ -12523,7 +13566,7 @@ const toolsData = [
     "description__vi": "Tạo thông tin chia sẻ tệp với mã giải nén để chia sẻ nhanh.",
     "icon": "🔗",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "文件共享 文件分享 分享链接 文件传输",
     "ai": {
       "free": true,
@@ -12551,7 +13594,11 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": [
+        "多种格式"
+      ]
     }
   },
   {
@@ -12568,7 +13615,7 @@ const toolsData = [
     "description__vi": "Tải lên tệp để tính hash MD5, SHA1, SHA256 xác minh tính toàn vẹn.",
     "icon": "🔐",
     "featured": false,
-    "new": true,
+    "new": false,
     "keywords": "文件校验 md5 sha1 sha256 哈希校验",
     "ai": {
       "free": true,
@@ -12596,7 +13643,9 @@ const toolsData = [
       "limits": "无严格限制，计算精度支持小数点后6位",
       "limits__en": "No strict limits, precision up to 6 decimal places",
       "limits__ja": "厳格な制限なし、小数点以下6桁まで対応",
-      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân"
+      "limits__vi": "Không có giới hạn nghiêm ngặt, độ chính xác đến 6 chữ số thập phân",
+      "batch": false,
+      "export": []
     }
   }
 ];

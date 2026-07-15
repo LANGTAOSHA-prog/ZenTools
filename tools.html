@@ -117,6 +117,48 @@
   .sc-grid { grid-template-columns: 1fr; }
   .tool-grid-re { grid-template-columns: 1fr; }
   .search-hero input { font-size: 14px; padding: 14px 48px 14px 16px; }
+
+  /* ===== 统一工具标签 ===== */
+  .zt-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .zt-tag {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 11px; line-height: 1; font-weight: 600;
+    padding: 3px 8px; border-radius: 999px;
+    border: 1px solid var(--border); color: var(--muted); background: rgba(255,255,255,0.03);
+  }
+  .zt-tag.zt-local  { color: #1f9d57; border-color: rgba(31,157,87,.35); background: rgba(31,157,87,.10); }
+  .zt-tag.zt-free   { color: #2a7de1; border-color: rgba(42,125,225,.35); background: rgba(42,125,225,.10); }
+  .zt-tag.zt-multi  { color: #8b4cff; border-color: rgba(139,76,255,.35); background: rgba(139,76,255,.10); }
+  .zt-tag.zt-export { color: #0ea5a5; border-color: rgba(14,165,165,.35); background: rgba(14,165,165,.10); }
+  .zt-tag.zt-batch  { color: #e8860c; border-color: rgba(232,134,12,.35); background: rgba(232,134,12,.10); }
+  .tc-export { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* ===== 多维度筛选栏 ===== */
+  .zt-filterbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    margin: 18px 0 6px; padding: 14px 16px;
+    border: 1px solid var(--border); border-radius: 14px;
+    background: rgba(255,255,255,0.02);
+  }
+  .zf-label { font-size: 13px; font-weight: 700; color: var(--text); }
+  .zf-sel {
+    padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); font-size: 13px; outline: none; cursor: pointer;
+  }
+  .zf-sel:focus { border-color: var(--cyan); }
+  .zf-clear {
+    padding: 8px 14px; border-radius: 10px; border: 1px solid var(--border);
+    background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  }
+  .zf-clear:hover { border-color: var(--cyan); color: var(--cyan); }
+  .zf-count { margin-left: auto; font-size: 13px; color: var(--muted); }
+  .zf-count b { color: var(--cyan); }
+  @media (max-width: 600px) {
+    .zt-filterbar { gap: 8px; padding: 12px; }
+    .zf-sel { flex: 1 1 calc(50% - 4px); }
+    .zf-label { width: 100%; }
+    .zf-count { width: 100%; margin-left: 0; text-align: right; }
+  }
 }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
@@ -204,6 +246,8 @@ window.ZT_PAGE = {
     faq2A: '不会上传。ZenTools的核心理念是"数据不出设备"，所有处理都在你的浏览器中本地完成。',
     faq3Q: '可以在手机上使用吗？',
     faq3A: '所有工具支持移动端浏览器，作为PWA可添加到桌面像原生App一样使用。',
+    navFaq: '常见问题',
+    fLabel: '筛选', fAll: '全部', fClear: '清除筛选',
   },
   en: {
     pageTitle: 'All Tools - Free Online Tools | ZenTools',
@@ -225,6 +269,8 @@ window.ZT_PAGE = {
     faq2A: 'Files are never uploaded. ZenTools core principle is "data stays on your device" - all processing happens locally in your browser.',
     faq3Q: 'Can I use it on mobile?',
     faq3A: 'All tools support mobile browsers. As a PWA, they can be added to your home screen and used like native apps.',
+    navFaq: 'FAQ',
+    fLabel: 'Filter', fAll: 'All', fClear: 'Clear',
   },
   ja: {
     pageTitle: '全ツール - 無料オンラインツール | ZenTools',
@@ -246,6 +292,8 @@ window.ZT_PAGE = {
     faq2A: 'アップロードされません。ZenToolsの核心理念は「データは端末から出ない」ことで、すべての処理はブラウザ上でローカルに完了します。',
     faq3Q: 'スマートフォンでも使えますか？',
     faq3A: 'すべてのツールはモバイルブラウザに対応しており、PWAとしてホーム画面に追加してネイティブアプリのように使用できます。',
+    navFaq: 'よくある質問',
+    fLabel: 'フィルタ', fAll: 'すべて', fClear: 'クリア',
   },
   vi: {
     pageTitle: 'Tất cả công cụ - Công cụ trực tuyến miễn phí | ZenTools',
@@ -267,6 +315,8 @@ window.ZT_PAGE = {
     faq2A: 'Không tải lên. Nguyên tắc cốt lõi của ZenTools là "dữ liệu không ra khỏi thiết bị", mọi xử lý đều hoàn thành cục bộ trong trình duyệt của bạn.',
     faq3Q: 'Có thể sử dụng trên điện thoại di động không?',
     faq3A: 'Tất cả công cụ hỗ trợ trình duyệt di động. Với PWA, có thể thêm vào màn hình chính và sử dụng như ứng dụng native.',
+    navFaq: 'FAQ',
+    fLabel: 'Lọc', fAll: 'Tất cả', fClear: 'Xóa lọc',
   }
 };
 </script>
@@ -282,6 +332,7 @@ window.ZT_PAGE = {
       <div class="nav-links">
         <a href="/" data-i18n="navHome">首页</a>
         <a href="/tools.html" data-i18n="navAll" style="color:var(--cyan)">全部工具</a>
+        <a href="/faq.html" data-i18n="navFaq">常见问题</a>
         <select class="lang-select" id="langSelect">
           <option value="zh">中文</option>
           <option value="en">English</option>
@@ -352,6 +403,29 @@ window.ZT_PAGE = {
   <!-- All Tools -->
   <div class="reveal">
     <div class="sec-head"><h2 data-i18n="hAll">全部工具</h2><span class="badge" id="toolCountBadge">279</span></div>
+    <div class="zt-filterbar" id="ztFilterBar">
+      <span class="zf-label" data-i18n="fLabel">筛选</span>
+      <select id="fPrice" class="zf-sel">
+        <option value="all" data-i18n="fAll">全部价格</option>
+        <option value="free">免费</option>
+        <option value="paid">付费</option>
+      </select>
+      <select id="fLocal" class="zf-sel">
+        <option value="all" data-i18n="fAll">全部处理</option>
+        <option value="local">本地处理</option>
+        <option value="cloud">云端处理</option>
+      </select>
+      <select id="fType" class="zf-sel">
+        <option value="all" data-i18n="fAll">全部类型</option>
+      </select>
+      <select id="fBatch" class="zf-sel">
+        <option value="all" data-i18n="fAll">是否批量</option>
+        <option value="yes">支持批量</option>
+        <option value="no">不支持</option>
+      </select>
+      <button id="fClear" class="zf-clear" data-i18n="fClear">清除筛选</button>
+      <span class="zf-count" id="fCount"></span>
+    </div>
     <div class="tool-grid-re" id="toolGrid"></div>
   </div>
 
@@ -377,6 +451,7 @@ window.ZT_PAGE = {
       <div class="footer-logo">ZenTools</div>
       <div class="footer-links">
         <a href="/about.html" data-i18n="navAbout">关于</a>
+        <a href="/faq.html" data-i18n="navFaq">常见问题</a>
         <a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a>
         <a href="/changelog.html" data-i18n="navChangelog">更新日志</a>
       </div>
@@ -387,6 +462,7 @@ window.ZT_PAGE = {
 
 <script src="assets/js/tools-data.js"></script>
 <script src="assets/js/common-i18n.min.js"></script>
+<script src="assets/js/zt-tags.js"></script>
 <script src="assets/js/tool-ui.min.js"></script>
 <script>
 (function() {
@@ -395,6 +471,9 @@ window.ZT_PAGE = {
   var currentLang = 'zh';
   var currentCategory = 'all';
   var currentScenario = 'all';
+  var currentFilters = { price: 'all', local: 'all', type: 'all', batch: 'all' };
+  var currentSearch = '';
+  var currentScenarioSlugs = null;
 
   function tName(t, l) { return t['name__' + l] || t['name__en'] || t.name; }
   function tDesc(t, l) { return t['description__' + l] || t['description__en'] || t.description || ''; }
@@ -475,7 +554,11 @@ window.ZT_PAGE = {
     });
     document.getElementById('statsBar').innerHTML = html;
     window.__filterCat = function(cat) {
+      currentScenarioSlugs = null;
       currentCategory = cat;
+      var fType = document.getElementById('fType');
+      if (fType) fType.value = cat;
+      currentFilters.type = cat;
       renderToolGrid(currentLang);
       var allChips = document.querySelectorAll('.stat-filter');
       allChips.forEach(function(chip) {
@@ -485,25 +568,42 @@ window.ZT_PAGE = {
   }
 
   function getFilteredTools() {
-    if (currentCategory === 'all') return toolsData;
-    return toolsData.filter(function(t) { return t.category === currentCategory; });
+    var base;
+    if (currentScenarioSlugs) {
+      base = toolsData.filter(function (t) { return currentScenarioSlugs.indexOf(t.slug) >= 0; });
+    } else if (currentCategory !== 'all') {
+      base = toolsData.filter(function (t) { return t.category === currentCategory; });
+    } else {
+      base = toolsData;
+    }
+    return base.filter(function (t) {
+      if (currentSearch && !window.ZT.kwHit(t, currentSearch, currentLang)) return false;
+      if (!window.ZT.matchFilters(t, currentFilters)) return false;
+      return true;
+    });
   }
 
   function renderToolGrid(lang) {
     var tools = getFilteredTools();
     var container = document.getElementById('toolGrid');
     var badge = document.getElementById('toolCountBadge');
+    var cnt = document.getElementById('fCount');
     if (tools.length === 0) {
       container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:15px" data-i18n="noResult">没有找到匹配的工具</div>';
       badge.textContent = '0';
+      if (cnt) cnt.innerHTML = '';
       return;
     }
     badge.textContent = tools.length;
+    if (cnt) cnt.innerHTML = '共 <b>' + tools.length + '</b> 个工具';
     container.innerHTML = tools.map(function(t) {
+      var exp = (t.ai && t.ai.export && t.ai.export.length) ? '<span class="tc-export">导出：' + t.ai.export.join(' · ') + '</span>' : '';
       return '<a class="tool-card-re" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
         '<span class="tc-icon">' + t.icon + '</span>' +
         '<span class="tc-name">' + tName(t, lang) + '</span>' +
         '<span class="tc-desc">' + tDesc(t, lang) + '</span>' +
+        (window.ZT ? ZT.tagHtml(t, lang) : '') +
+        exp +
         '<span class="tc-cat">' + catLocal(t.category, lang) + '</span></a>';
     }).join('');
     window.__recordRecent = recordRecent;
@@ -570,8 +670,9 @@ window.ZT_PAGE = {
   // Search
   function doSearch(query, lang) {
     var dd = document.getElementById('searchDropdown');
-    if (!query || !query.trim()) { dd.classList.remove('open'); return; }
-    var q = query.toLowerCase().trim();
+    currentSearch = (query || '').trim();
+    if (!currentSearch) { dd.classList.remove('open'); renderToolGrid(lang); return; }
+    var q = currentSearch.toLowerCase();
     var results = toolsData.filter(function(t) {
       return (tName(t, lang) || '').toLowerCase().indexOf(q) >= 0 ||
              (tDesc(t, lang) || '').toLowerCase().indexOf(q) >= 0 ||
@@ -587,6 +688,7 @@ window.ZT_PAGE = {
       }).join('');
     }
     dd.classList.add('open');
+    renderToolGrid(lang);
   }
 
   function applyLang(lang) {
@@ -642,6 +744,75 @@ window.ZT_PAGE = {
       currentScenario = e.target.getAttribute('data-scenario');
       renderScenario(currentScenario, currentLang);
     });
+
+    // ===== 多维度筛选栏 =====
+    var fPrice = document.getElementById('fPrice');
+    var fLocal = document.getElementById('fLocal');
+    var fType = document.getElementById('fType');
+    var fBatch = document.getElementById('fBatch');
+    var fClear = document.getElementById('fClear');
+
+    (function populateType() {
+      var counts = getCatCounts();
+      Object.keys(counts).forEach(function (c) {
+        var o = document.createElement('option');
+        o.value = c; o.textContent = catLocal(c, currentLang) + ' (' + counts[c] + ')';
+        fType.appendChild(o);
+      });
+    })();
+
+    function applyFilters() {
+      currentScenarioSlugs = null;
+      currentFilters = { price: fPrice.value, local: fLocal.value, type: fType.value, batch: fBatch.value };
+      currentCategory = (fType.value === 'all') ? 'all' : fType.value;
+      var allChips = document.querySelectorAll('.stat-filter');
+      allChips.forEach(function (chip) {
+        chip.classList.toggle('active', chip.getAttribute('data-cat') === currentCategory);
+      });
+      renderToolGrid(currentLang);
+    }
+    fPrice.addEventListener('change', applyFilters);
+    fLocal.addEventListener('change', applyFilters);
+    fType.addEventListener('change', applyFilters);
+    fBatch.addEventListener('change', applyFilters);
+    fClear.addEventListener('click', function () {
+      fPrice.value = 'all'; fLocal.value = 'all'; fType.value = 'all'; fBatch.value = 'all';
+      applyFilters();
+    });
+
+    // ===== URL 参数预筛：?scenario= ?q= ?type= =====
+    try {
+      var up = new URLSearchParams(location.search);
+      var sc = up.get('scenario');
+      if (sc && window.ZT.getScenario) {
+        var slugs = window.ZT.scenarioSlugs(sc);
+        if (slugs) {
+          currentScenarioSlugs = slugs;
+        } else {
+          var sdef = window.ZT.getScenario(sc);
+          if (sdef) {
+            if (sdef.type && sdef.type !== 'all') fType.value = sdef.type;
+            if (sdef.kw) currentSearch = sdef.kw;
+          }
+        }
+      }
+      var tp = up.get('type');
+      if (tp) { fType.value = tp; currentFilters.type = tp; currentCategory = tp; }
+      var qp = up.get('q');
+      if (qp) {
+        var siq = document.getElementById('toolSearch');
+        if (siq) siq.value = qp;
+        currentSearch = qp;
+      }
+      if (sc || tp || qp) {
+        renderToolGrid(currentLang);
+        if (qp) doSearch(qp, currentLang);
+        setTimeout(function () {
+          var g = document.getElementById('toolGrid');
+          if (g) g.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 250);
+      }
+    } catch (e) {}
 
     document.getElementById('recentClear').addEventListener('click', function() {
       localStorage.removeItem('zentools_recent');
