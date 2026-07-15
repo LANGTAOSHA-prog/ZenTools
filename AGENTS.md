@@ -79,6 +79,8 @@ At end of `<body>`:
 
 **Every page** must define these variables in an inline `<style>` block. The system supports light/dark mode via `.dark` class on `<html>`:
 
+> 💡 Single source of truth: brand color **values** & palette are authoritative in `ZenTools_ZT-DCA_开发守则_v1.0.txt` § 十三「品牌开发守则 V1.0」. This section is the CSS-variable implementation set. When changing primary/radius, **sync both files** to avoid drift.
+
 ```css
 :root {
   --zen-primary: #0066FF;
