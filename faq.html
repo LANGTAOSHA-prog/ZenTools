@@ -2,32 +2,58 @@
 <html lang="zh-CN">
 <head>
 <script src="assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title data-i18n-page="pageTitle">常见问题 - ZenTools</title>
 <meta name="description" content="ZenTools 常见问题：PDF 报错处理、图片格式选择、浏览器兼容等实用排查指南。" />
 <meta property="og:title" content="常见问题 - ZenTools" />
 <meta property="og:description" content="PDF 报错、图片格式、浏览器兼容等常见问题排查。" />
+<link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://zentools.xyz/faq.html" />
 <link rel="stylesheet" href="assets/css/tool-ui.min.css" />
 <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
   .faq-hero { max-width: 900px; margin: 36px auto 8px; padding: 0 20px; text-align: center; }
-  .faq-hero h1 { font-size: 34px; font-weight: 800; margin: 0 0 12px; color: var(--text); }
-  .faq-hero p { color: var(--muted); font-size: 15px; max-width: 640px; margin: 0 auto; line-height: 1.7; }
+  .faq-hero h1 { font-size: 34px; font-weight: 800; margin: 0 0 12px; color: var(--zen-text-main); }
+  .faq-hero p { color: var(--zen-text-sub); font-size: 15px; max-width: 640px; margin: 0 auto; line-height: 1.7; }
   .faq-body { max-width: 900px; margin: 0 auto; padding: 18px 20px 64px; }
   .faq-sec { margin-top: 30px; }
-  .faq-sec h2 { font-size: 21px; font-weight: 700; color: var(--text); margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
+  .faq-sec h2 { font-size: 21px; font-weight: 700; color: var(--zen-text-main); margin: 0 0 14px; display: flex; align-items: center; gap: 10px; }
   .faq-sec h2 .sec-ico { font-size: 23px; }
-  .faq-item { border: 1px solid var(--border); border-radius: 14px; margin-bottom: 10px; background: rgba(255,255,255,0.02); overflow: hidden; transition: border-color 0.2s; }
+  .faq-item { border: 1px solid var(--zen-border); border-radius: 14px; margin-bottom: 10px; background: rgba(255,255,255,0.02); overflow: hidden; transition: border-color 0.2s; }
   .faq-item[open] { border-color: rgba(0,229,255,0.4); }
-  .faq-item summary { list-style: none; cursor: pointer; padding: 16px 18px; font-size: 15px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 10px; }
+  .faq-item summary { list-style: none; cursor: pointer; padding: 16px 18px; font-size: 15px; font-weight: 600; color: var(--zen-text-main); display: flex; align-items: center; gap: 10px; }
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary .q-ico { font-size: 18px; }
-  .faq-item summary .caret { margin-left: auto; transition: transform 0.2s; color: var(--muted); font-size: 13px; }
+  .faq-item summary .caret { margin-left: auto; transition: transform 0.2s; color: var(--zen-text-sub); font-size: 13px; }
   .faq-item[open] summary .caret { transform: rotate(180deg); }
-  .faq-a { padding: 0 18px 18px 46px; color: var(--muted); font-size: 14px; line-height: 1.85; }
-  .faq-a b { color: var(--text); font-weight: 700; }
-  .faq-a code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; color: var(--cyan); }
+  .faq-a { padding: 0 18px 18px 46px; color: var(--zen-text-sub); font-size: 14px; line-height: 1.85; }
+  .faq-a b { color: var(--zen-text-main); font-weight: 700; }
+  .faq-a code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; color: var(--zen-primary); }
   @media (max-width: 600px) {
     .faq-hero h1 { font-size: 26px; }
     .faq-sec h2 { font-size: 18px; }
@@ -88,7 +114,7 @@
       <div class="nav-links">
         <a href="/" data-i18n-page="navHome">首页</a>
         <a href="/tools.html" data-i18n-page="navAll">全部工具</a>
-        <a href="/faq.html" data-i18n-page="navFaq" style="color:var(--cyan)">常见问题</a>
+        <a href="/faq.html" data-i18n-page="navFaq" style="color:var(--zen-primary)">常见问题</a>
         <a href="/about.html" data-i18n-page="navAbout">关于</a>
         <select class="lang-select" id="langSelect">
           <option value="zh">中文</option>

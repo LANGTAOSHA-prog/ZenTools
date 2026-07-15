@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <script src="../assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>免费云环境资源大全 - 2026 年开发者必备免费云服务清单 | 云创</title>
@@ -11,6 +12,7 @@
 <meta name="keywords" content="免费云服务器，免费云主机，AWS 免费层，Oracle Cloud Always Free, Google Cloud 免费，Azure 试用，免费数据库，Supabase 免费，MongoDB Atlas 免费，Cloudflare Workers, Serverless 免费，开源替代方案，初创公司云资源，开发者工具">
 <meta name="author" content="云创 - 免费云情报站">
 <meta name="robots" content="index, follow">
+<link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://zentools.xyz/yunchuang/cloud-resources.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zentools.xyz/yunchuang/cloud-resources.html">
@@ -23,9 +25,63 @@
 <meta property="twitter:description" content="30+ 个免费云服务资源！Oracle Cloud、AWS、Google Cloud、Azure、阿里云、腾讯云等主流平台免费层完整清单。">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"免费云服务的"免费"真的可靠吗？","acceptedAnswer":{"@type":"Answer","text":"大多数主流云厂商提供可靠的免费层，政策公开透明。Oracle Cloud Always Free 资源永久免费且不会自动转为付费。AWS Free Tier 提供 12 个月试用加一部分永久免费产品。关键是合理规划使用量，设置账单预警。"}},{"@type":"Question","name":"如何避免免费云服务产生意外账单？","acceptedAnswer":{"@type":"Answer","text":"三条黄金规则：(1) 每次创建资源前算清额度，(2) 所有厂商统一开启账单告警，(3) 不使用付费功能时关闭实例或降级配置。对于 AWS，建议使用 Budgets 设置零费用预警。"}},{"@type":"Question","name":"国内开发者用哪家云比较划算？","acceptedAnswer":{"@type":"Answer","text":"阿里云和腾讯云提供面向中国开发者的免费试用 (1-6 个月)，且国内网络延迟极低。如果是面向海外的项目，Oracle Cloud 的永久免费 ARM 实例性价比最高。Cloudflare Workers 在全球都有极低延迟。"}}]}</script>
 <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
 *{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;background:#f6f8fa;color:#24292f;padding:2rem 1.5rem;line-height:1.6}.container{max-width:1400px;margin:0 auto}.header{margin-bottom:2.5rem;border-bottom:1px solid #d0d7de;padding-bottom:1.5rem}.header h1{font-size:2.2rem;font-weight:600;background:linear-gradient(145deg,#1f2937,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-0.02em}.header p{color:#57606a;font-size:1.1rem;margin-top:.25rem}.header .badge{display:inline-block;background:#ddf4ff;color:#0550ae;font-size:.8rem;font-weight:500;padding:.2rem .8rem;border-radius:20px;margin-top:.5rem;border:1px solid #b6e3ff}.stats-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;background:white;padding:.75rem 1.5rem;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:2.2rem;border:1px solid #eaeef2}.stats-bar .count{font-weight:500;color:#1f2937}.stats-bar .count span{background:#eef2f6;padding:.15rem .7rem;border-radius:30px;font-size:.9rem;margin-left:.4rem}.filter-tabs{display:flex;flex-wrap:wrap;gap:.4rem .8rem}.filter-tabs a{color:#57606a;text-decoration:none;font-size:.9rem;padding:.25rem .1rem;border-bottom:2px solid transparent;transition:.2s}.filter-tabs a:hover,.filter-tabs a.active{color:#1f2937;border-bottom-color:#3b82f6}.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem}.card{background:white;border-radius:16px;padding:1.5rem 1.5rem 1.8rem;box-shadow:0 1px 3px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03);border:1px solid #eaeef2;transition:transform .15s ease,box-shadow .2s ease;display:flex;flex-direction:column}.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px -8px rgba(0,0,0,.08);border-color:#d0d7de}.card .tag{display:inline-block;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;background:#eef2f6;color:#4b5563;padding:.2rem .7rem;border-radius:30px;margin-bottom:.9rem;align-self:flex-start}.card .tag.cloud{background:#dbeafe;color:#1e40af}.card .tag.db{background:#d1fae5;color:#065f46}.card .tag.auth{background:#fce7f3;color:#9d174d}.card .tag.storage{background:#fef3c7;color:#92400e}.card .tag.email{background:#e0f2fe;color:#0369a1}.card .tag.monitor{background:#e0e7ff;color:#3730a3}.card .tag.ci{background:#f3e8ff;color:#6b21a8}.card .tag.cdn{background:#fce4ec;color:#9a3412}.card h3{font-size:1.2rem;font-weight:600;margin-bottom:.25rem}.card h3 a{color:#1f2937;text-decoration:none;transition:color .1s}.card h3 a:hover{color:#3b82f6;text-decoration:underline}.card .sub{font-size:.85rem;color:#57606a;margin-bottom:.8rem;border-bottom:1px dashed #e5eaef;padding-bottom:.7rem}.card .desc{font-size:.95rem;color:#2d3748;flex:1;margin-bottom:1rem}.card .limit{background:#f9fafb;border-radius:8px;padding:.6rem .9rem;font-size:.85rem;border-left:3px solid #d0d7de;margin-bottom:1rem}.card .limit strong{font-weight:600;color:#1f2937}.card .meta{display:flex;justify-content:space-between;align-items:center;font-size:.8rem;color:#6b7280;border-top:1px solid #f0f3f6;padding-top:.9rem;margin-top:auto}.card .meta .duration{background:#e8ecf0;padding:.15rem .7rem;border-radius:30px}.card .meta .duration.forever{background:#dcfce7;color:#166534}.card .meta .cc{display:flex;align-items:center;gap:.3rem}.card .meta .cc .no{color:#16a34a;font-weight:500}.card .meta .cc .yes{color:#dc2626;font-weight:500}.footer{margin-top:3.5rem;text-align:center;color:#6b7280;font-size:.9rem;border-top:1px solid #d0d7de;padding-top:2rem}.footer a{color:#3b82f6;text-decoration:none}@media(max-width:640px){body{padding:1.2rem}.header h1{font-size:1.8rem}.stats-bar{flex-direction:column;align-items:stretch;gap:.7rem}.filter-tabs{justify-content:center}}</style>
 </head>
 <body>
+  <nav class="site-nav">
+    <div class="container nav-inner" style="height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px">
+      <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-size:22px;font-weight:700">
+        <span style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</span>
+        <span><span style="color:var(--zen-primary)">Zen</span><span style="color:var(--zen-secondary)">Tools</span><span style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></span>
+      </a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+        <a href="/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+        <a href="/tools.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+        <a href="/tutorials/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+        <button id="themeToggle" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" style="background:transparent;border:1px solid var(--zen-border);border-radius:8px;padding:6px 10px;color:var(--zen-text-sub);font-size:13px;cursor:pointer">
+          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay" style="position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s">
+    <div class="mobile-drawer" id="mobileDrawer" style="position:fixed;top:0;right:0;bottom:0;width:300px;max-width:85vw;background:rgba(249,250,251,0.97);border-left:1px solid var(--zen-border);padding:24px 20px;z-index:310;overflow-y:auto;transform:translateX(100%);transition:transform .3s;backdrop-filter:blur(24px)">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+    </div>
+  </div>
+
+
 <div class="container">
 
 <!-- Top bar with back-to-home + lang selector -->
@@ -141,5 +197,18 @@ if (sel) {
 }
 </script>
 
+<script>
+(function(){var t=localStorage.getItem('zentools_theme');if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');this.textContent=d?'☀️':'🌙';
+localStorage.setItem('zentools_theme',d?'dark':'light');});}})();
+(function(){var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});})();
+</script>
 </body>
 </html>

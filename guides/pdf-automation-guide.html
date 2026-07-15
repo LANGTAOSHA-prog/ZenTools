@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
 <script src="../assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title data-i18n-page="pageTitle">PDF 自动化工作流指南 - ZenTools</title>
@@ -12,6 +13,30 @@
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
      crossorigin="anonymous"></script>
 <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
 .guide-topbar { display: flex; align-items: center; justify-content: flex-end; padding: 12px 24px; gap: 12px; }
 .guide-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px 20px; text-align: center; color: #fff; margin-bottom: 40px; }
 .guide-hero-title,.guide-hero h1 { font-size: 42px; margin-bottom: 16px; font-weight: 700; text-shadow: 0 2px 8px rgba(0,0,0,0.25); }
@@ -58,6 +83,44 @@
 <script src="../assets/js/tool-ui.min.js"></script>
 </head>
 <body>
+  <nav class="site-nav">
+    <div class="container nav-inner" style="height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px">
+      <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-size:22px;font-weight:700">
+        <span style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;flex-shrink:0">Z</span>
+        <span><span style="color:var(--zen-primary)">Zen</span><span style="color:var(--zen-secondary)">Tools</span><span style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></span>
+      </a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+        <a href="/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+        <a href="/tools.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+        <a href="/tutorials/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+        <a href="/guides/" class="active" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:var(--zen-primary);text-decoration:none">深度指南</a>
+        <a href="/compare/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+        <a href="/professions.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+        <a href="/my.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+        <button id="themeToggle" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" style="background:transparent;border:1px solid var(--zen-border);border-radius:8px;padding:6px 10px;color:var(--zen-text-sub);font-size:13px;cursor:pointer">
+          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay" style="position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s">
+    <div class="mobile-drawer" id="mobileDrawer" style="position:fixed;top:0;right:0;bottom:0;width:300px;max-width:85vw;background:rgba(249,250,251,0.97);border-left:1px solid var(--zen-border);padding:24px 20px;z-index:310;overflow-y:auto;transform:translateX(100%);transition:transform .3s;backdrop-filter:blur(24px)">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+
+
 <div class="guide-topbar">
   <select id="langSelect" class="lang-select">
     <option value="zh">中文</option>
@@ -1233,6 +1296,20 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   });
 }
+</script>
+<script>
+(function(){var t=localStorage.getItem('zentools_theme');if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');this.textContent=d?'☀️':'🌙';
+localStorage.setItem('zentools_theme',d?'dark':'light');});}})();
+(function(){var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});})();
+if('serviceWorker'in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
 </body>
 </html>
