@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<script src="../assets/js/anti-crash.min.js" defer></script>
+</div>
+<script src="/assets/js/anti-crash.min.js" defer></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-i18n="pageTitle">AI SEO 文章生成 - AI工具 | ZenTools</title>
 <link rel="canonical" href="https://zentools.xyz/ai/ai-seo-article.html" />
@@ -16,19 +17,105 @@
   <meta name="twitter:description" content="Generate SEO-optimized blog outlines and titles." />
 <meta name="description" content="生成 SEO 优化的博客文章大纲和标题，提升搜索引擎排名。">
 <meta name="keywords" content="ai文章,seo文章,博客写作,内容营销,文章大纲">
-<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
+<link rel="stylesheet" href="/assets/css/tool-ui.min.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
      crossorigin="anonymous"></script>
 <style>
-.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
-label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--muted); }
-textarea, input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg); color:var(--text); font-size:14px; font-family:inherit; box-sizing:border-box; }
-textarea:focus, input:focus { outline:none; border-color:var(--cyan); }
-.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--zen-border); }
+label { display:block; margin:12px 0 4px; font-size:13px; font-weight:600; color:var(--zen-text-sub); }
+textarea, input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--zen-border); background:var(--zen-bg-base); color:var(--zen-text-main); font-size:14px; font-family:inherit; box-sizing:border-box; }
+textarea:focus, input:focus { outline:none; border-color:var(--zen-primary); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--zen-primary),var(--zen-secondary)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
 .btn:hover { opacity:.85; }
-.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--glass); border:1px solid var(--border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
+.result { margin-top:16px; padding:16px; border-radius:8px; background:var(--zen-bg-card); border:1px solid var(--zen-border); white-space:pre-wrap; font-size:13px; line-height:1.7; }
 .row { display:flex; gap:12px; flex-wrap:wrap; }
 .row > * { flex:1; min-width:140px; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
@@ -70,35 +157,60 @@ window.ZT_PAGE = {
 </script>
 </head>
 <body>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
 <div class="z-wrap">
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="/">ZenTools<span>2.0</span></a>
-    <div class="nav-links">
-      <a href="/">首页</a>
-      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-      <a href="/tools.html">全部工具</a>
-      <select id="langSelect" class="lang-select">
-        <option value="zh">中文</option>
-        <option value="en">English</option>
-        <option value="ja">日本語</option>
-        <option value="vi">Tiếng Việt</option>
-      </select>
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <div class="logo-icon" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</div>
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
     </div>
   </div>
-</nav>
-<div class="page-header reveal">
-  <div class="breadcrumb">
-    <a href="/">首页</a><span class="breadcrumb-sep">/</span>
-    <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span>
-    <span class="cur" data-i18n="crumbCur">AI SEO文章</span>
-  </div>
-  <span class="page-eyebrow" data-i18n="eyebrow">AI工具</span>
-  <h1><span class="grad" data-i18n="h1Grad">AI SEO文章</span><br/><span data-i18n="h1Sub">SEO优化文章大纲</span></h1>
-  <p data-i18n="pageDesc">生成 SEO 优化的博客文章大纲和标题，提升搜索引擎排名。</p>
-</div>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>AI工具</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/ai/">AI工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">AI SEO文章</span></div>
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">AI SEO文章</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">SEO优化文章大纲</p>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">生成 SEO 优化的博客文章大纲和标题，提升搜索引擎排名。</p>
+    </div>
+  </section>
 <div class="tool-box reveal">
   <div class="row">
     <div><label data-i18n="labelKeyword">核心关键词</label><input type="text" id="saKeyword" data-i18n-placeholder="placeholderKeyword" /></div>
@@ -111,17 +223,17 @@ window.ZT_PAGE = {
   <button class="btn" onclick="genSA()" style="margin-top:12px;" data-i18n="btnGen">生成文章大纲</button>
   <div class="result" id="saResult" style="display:none;"></div>
 </div>
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">ZenTools</div>
-    <div class="footer-links">
-      <a href="/">首页</a>
-      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-      <a href="/privacy.html">隐私政策</a>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+        <a href="/">首页</a>
+        <a href="/ai/">AI工具</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
     </div>
-    <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p>
-  </div>
-</footer>
+  </footer>
 </div>
 <!-- Related tools script -->
 <script>
@@ -136,8 +248,8 @@ if ('serviceWorker' in navigator) {
   });
 }
 </script>
-<script src="../assets/js/common-i18n.min.js"></script>
-<script src="../assets/js/tool-ui.min.js"></script>
+<script src="/assets/js/common-i18n.min.js"></script>
+<script src="/assets/js/tool-ui.min.js"></script>
 <script>
 function genSA(){
   var kw=document.getElementById('saKeyword').value.trim(),rd=document.getElementById('saReader').value.trim(),ex=document.getElementById('saExtra').value.trim();
@@ -173,7 +285,7 @@ function genSA(){
     .tutorial-svg-head h3 {
       font-size: 18px;
       font-weight: 700;
-      color: var(--text);
+      color: var(--zen-text-main);
       margin: 0;
     }
     .tool-tutorial-svg svg text {
@@ -213,10 +325,58 @@ function genSA(){
           <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#8b4cff" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#8b4cff" stroke-width="2" stroke-linecap="round"/>
         </g>
         <!-- Labels -->
-        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
-        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
-        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
+        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--zen-text-main)" font-family="system-ui" font-weight="600">上传文件</text>
+        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--zen-text-main)" font-family="system-ui" font-weight="600">本地处理</text>
+        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--zen-text-main)" font-family="system-ui" font-weight="600">下载结果</text>
       </svg>
     </div>
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
 </body>
 </html>
