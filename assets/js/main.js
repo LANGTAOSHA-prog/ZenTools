@@ -120,6 +120,10 @@ function applyLanguage(lang) {
   document.documentElement.lang = lang === "zh" ? "zh-CN" : lang;
   document.documentElement.dataset.lang = lang;
 
+  if (window.gtag) {
+    gtag('event', 'language_switch', { new_language: lang });
+  }
+
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.dataset.i18n;
     if (dict[key]) el.textContent = dict[key];

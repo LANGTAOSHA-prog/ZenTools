@@ -10,24 +10,42 @@
 
 ### 2. 更新网站代码
 
-在 `index.html` 中找到以下代码并替换：
+> **已接入说明**：站点已通过 `assets/js/tool-ui.min.js` 动态注入 GA4，当前生效的 Measurement ID 为 **`G-V3MP20S9Z3`**。无需在 `index.html` 手动粘贴 gtag 片段。
 
-```html
-<!-- Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YOUR_MEASUREMENT_ID"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-YOUR_MEASUREMENT_ID', {
-    page_path: window.location.pathname,
-    page_title: document.title,
-    send_page_view: true
-  });
-</script>
+如需更换 ID，编辑 `assets/js/tool-ui.js` 顶部的常量即可（构建后会同步到 `tool-ui.min.js`）：
+
+```js
+var GA_ID = 'G-V3MP20S9Z3';  // ← 替换为你的真实 Measurement ID
 ```
 
-将 `G-YOUR_MEASUREMENT_ID` 替换为你的真实 ID。
+注入逻辑（自动执行，无需手动调用）：
+
+```javascript
+if (GA_ID && !window.gtag) {
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https:' + '/www.googletagmanager.com/gtag/js?id=' + GA_ID;
+  document.head.appendChild(s);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function(){ dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', GA_ID);
+}
+```
+
+GA4 默认已自动采集 `page_location` 与 `page_title`，无需额外配置。
+
+### 2.1 多语言切换事件
+
+当用户通过同页 JS 切换语言（zh / en / ja / vi）时，`assets/js/main.js` 的 `applyLanguage()` 会发送自定义事件，便于在 GA4 中分析各语种参与度：
+
+```javascript
+if (window.gtag) {
+  gtag('event', 'language_switch', { new_language: lang });
+}
+```
+
+在 GA4 中查看路径：报告 → 参与度 → 事件 → 筛选 `language_switch`，或创建「新语言」维度下钻。
 
 ### 3. 验证安装
 
