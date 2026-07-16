@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPT 生成器 - 免费在线工具 | ZenTools</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+  <meta property="og:title" content="PPT 生成器 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="在线生成 PowerPoint (PPTX) 文件，浏览器本地处理，无需上传服务器，输入内容一键生成演示文稿。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/tools/ppt-generator.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PPT 生成器 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Generate PowerPoint presentations online, locally in your browser, no upload required." />
+  <meta name="description" content="在线 PPT 生成工具，浏览器本地生成 PowerPoint 演示文稿。输入标题添加内容，支持多种配色主题，一键下载 PPTX 文件，无需安装软件，保护你的隐私。" />
+  <meta name="keywords" content="PPT生成器,在线PPT,生成PPT,PPT工具,免费PPT,ZenTools" />
+  <link rel="canonical" href="https://zentools.xyz/tools/ppt-generator.html" />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
+  <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+    }
+    .brand-gradient { background: var(--zen-gradient); }
+    .brand-text { background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .brand-logo { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--zen-gradient); object-fit: contain; padding: 6px; box-sizing: border-box; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .logo-ver { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+    .footer-logo { font-size: 18px; font-weight: 700; margin-bottom: 12px; background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--zen-primary); }
+    .gen-btn, .action-btn.primary, .merge-btn, .download-btn {
+      background: var(--zen-gradient) !important;
+      box-shadow: 0 4px 16px rgba(0,102,255,0.2);
+    }
+    .gen-btn:hover, .action-btn.primary:hover, .merge-btn:hover, .download-btn:hover {
+      box-shadow: 0 6px 24px rgba(0,102,255,0.3) !important;
+    }
+    .ppt-form { display: flex; flex-direction: column; gap: 20px; }
+    .form-row { display: flex; gap: 16px; flex-wrap: wrap; }
+    .form-group { flex: 1; min-width: 200px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 10px 14px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--zen-bg-card, rgba(255,255,255,0.03));
+      color: var(--text); font-size: 14px; outline: none; transition: border-color 0.2s;
+      font-family: inherit;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: var(--zen-primary);
+    }
+    .form-group textarea { min-height: 60px; resize: vertical; }
+    .theme-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .theme-opt { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s; }
+    .theme-opt.active { border-color: var(--text); }
+    .slide-list { display: flex; flex-direction: column; gap: 10px; }
+    .slide-card { display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px; border: 1px solid var(--border); transition: border-color 0.2s; background: var(--zen-bg-card, transparent); }
+    .slide-card:hover { border-color: rgba(0,102,255,.2); }
+    .slide-card .s-num { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: rgba(0,102,255,.1); color: var(--zen-primary); }
+    .slide-card .s-body { flex: 1; min-width: 0; }
+    .slide-card .s-body input { width: 100%; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--zen-bg-card, rgba(255,255,255,0.03)); color: var(--text); font-size: 13px; outline: none; margin-bottom: 6px; }
+    .slide-card .s-body textarea { width: 100%; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--zen-bg-card, rgba(255,255,255,0.03)); color: var(--text); font-size: 12px; outline: none; min-height: 40px; resize: vertical; font-family: inherit; }
+    .slide-card .s-del { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; background: rgba(239,68,68,.1); color: #ef4444; font-size: 14px; transition: background 0.2s; }
+    .slide-card .s-del:hover { background: rgba(239,68,68,.2); }
+    .theme-label { font-size: 12px; color: var(--muted); margin-top: 4px; display: block; }
+    .gen-btn { padding: 14px 32px; border-radius: 12px; border: none; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; text-align: center; }
+    .gen-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    .gen-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+    .info-grid-ppt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .info-card { padding: 20px; border-radius: 14px; border: 1px solid var(--border); background: var(--zen-bg-card, transparent); }
+    .info-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+    .info-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    @media (max-width: 640px) { .info-grid-ppt { grid-template-columns: 1fr; } }
+    .empty-slides { text-align: center; padding: 24px; color: var(--muted); font-size: 14px; }
+    .add-slide-btn { padding: 10px 20px; border-radius: 10px; border: 1px dashed var(--border); background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: border-color 0.2s, color 0.2s; width: 100%; }
+    .add-slide-btn:hover { border-color: var(--zen-primary); color: var(--zen-primary); }
+    .progress-bar { display: none; height: 4px; border-radius: 2px; background: var(--zen-gradient); animation: progressSlide 1.5s ease-in-out infinite; }
+    @keyframes progressSlide { 0% { width: 0; } 50% { width: 60%; } 100% { width: 100%; } }
+  </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"生成的PPT文件在哪里处理？","acceptedAnswer":{"@type":"Answer","text":"所有处理在您的浏览器本地完成，使用 PptxGenJS 库直接生成 PPTX 文件，文件不上传服务器。"}},{"@type":"Question","name":"可以生成多少页幻灯片？","acceptedAnswer":{"@type":"Answer","text":"幻灯片页数没有严格限制，取决于您的浏览器性能。"}},{"@type":"Question","name":"支持哪些配色主题？","acceptedAnswer":{"@type":"Answer","text":"提供 6 种配色主题：沉稳蓝、珊瑚红、翡翠绿、创意紫、日落橙、石墨灰，每种主题包含专业的配色方案。"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"PPT 生成器 - ZenTools","url":"https://zentools.xyz/tools/ppt-generator.html","description":"在线生成 PowerPoint (PPTX) 文件，浏览器本地处理，无需上传服务器","applicationCategory":"PresentationApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"如何在线生成PPT文件","description":"使用 ZenTools 免费在线生成 PowerPoint 演示文稿","step":[{"@type":"HowToStep","position":1,"name":"输入演示文稿标题","text":"填写 PPT 标题、副标题和作者信息"},{"@type":"HowToStep","position":2,"name":"添加幻灯片内容","text":"为每页幻灯片设置标题和正文内容，点击"添加幻灯片"增加新页面"},{"@type":"HowToStep","position":3,"name":"选择配色主题","text":"从 6 种配色方案中选择您喜欢的主题"},{"@type":"HowToStep","position":4,"name":"生成并下载","text":"点击"生成 PPT"按钮，浏览器自动生成 PPTX 文件并开始下载"}]}</script>
+</head>
+<body>
+  <script>
+    window.ZT_PAGE = {
+      "zh": {
+            "crumbCur": "PPT 生成器",
+            "eyebrow": "PPT 工具",
+            "pageTitle": "PPT 生成器",
+            "pageDesc": "在线生成 PowerPoint 演示文稿，浏览器本地处理，输入内容一键生成 PPTX 文件。",
+            "lblTitle": "演示文稿标题",
+            "lblSub": "副标题",
+            "lblAuthor": "作者",
+            "lblTheme": "配色主题",
+            "addSlide": "+ 添加幻灯片",
+            "genBtn": "⚙ 生成 PPT",
+            "howTitle": "使用说明",
+            "info1T": "1. 输入内容",
+            "info1D": "填写标题、副标题和每页幻灯片的标题与正文内容，支持多行文本。",
+            "info2T": "2. 选择主题",
+            "info2D": "从 6 种配色主题中选择喜欢的风格，主题色会应用到所有幻灯片。",
+            "info3T": "3. 一键生成",
+            "info3D": "点击生成按钮，浏览器本地生成 PPTX 文件并自动下载，不上传服务器。",
+            "navHome": "首页",
+            "navAll": "全部工具",
+            "crumbHome": "首页",
+            "crumbAll": "全部工具",
+            "footerHome": "首页",
+            "footerAll": "全部工具",
+            "footerLog": "更新日志",
+            "footerPrivacy": "隐私政策"
+      },
+      "en": {
+            "crumbCur": "PPT Generator",
+            "eyebrow": "PPT TOOL",
+            "pageTitle": "PPT Generator",
+            "pageDesc": "Generate PowerPoint presentations online, processed locally in your browser. One-click PPTX download.",
+            "lblTitle": "Presentation Title",
+            "lblSub": "Subtitle",
+            "lblAuthor": "Author",
+            "lblTheme": "Color Theme",
+            "addSlide": "+ Add Slide",
+            "genBtn": "⚙ Generate PPT",
+            "howTitle": "How to Use",
+            "info1T": "1. Enter Content",
+            "info1D": "Fill in the title, subtitle, and each slide’s heading and body text. Multi-line supported.",
+            "info2T": "2. Choose Theme",
+            "info2D": "Pick from 6 color themes; the theme applies to all slides.",
+            "info3T": "3. One-Click Generate",
+            "info3D": "Click generate; the PPTX is built locally and downloaded automatically, no upload.",
+            "navHome": "Home",
+            "navAll": "All Tools",
+            "crumbHome": "Home",
+            "crumbAll": "All Tools",
+            "footerHome": "Home",
+            "footerAll": "All Tools",
+            "footerLog": "Changelog",
+            "footerPrivacy": "Privacy"
+      },
+      "ja": {
+            "crumbCur": "PPT 生成",
+            "eyebrow": "PPTツール",
+            "pageTitle": "PPT 生成",
+            "pageDesc": "ブラウザでPowerPointをローカル生成、ワンクリックでPPTXを出力。サーバーにアップロードされません。",
+            "lblTitle": "プレゼンタイトル",
+            "lblSub": "サブタイトル",
+            "lblAuthor": "著者",
+            "lblTheme": "カラーテーマ",
+            "addSlide": "+ スライド追加",
+            "genBtn": "⚙ PPT生成",
+            "howTitle": "使い方",
+            "info1T": "1. 内容を入力",
+            "info1D": "タイトル・サブタイトル・各スライドの見出しと本文を入力。複数行対応。",
+            "info2T": "2. テーマ選択",
+            "info2D": "6種のカラーテーマから選択、全スライドに適用されます。",
+            "info3T": "3. ワンクリック生成",
+            "info3D": "生成ボタンでPPTXをローカル作成・自動ダウンロード、アップロードなし。",
+            "navHome": "ホーム",
+            "navAll": "すべてのツール",
+            "crumbHome": "ホーム",
+            "crumbAll": "すべてのツール",
+            "footerHome": "ホーム",
+            "footerAll": "すべてのツール",
+            "footerLog": "更新履歴",
+            "footerPrivacy": "プライバシー"
+      },
+      "vi": {
+            "crumbCur": "Tạo PPT",
+            "eyebrow": "CÔNG CỤ PPT",
+            "pageTitle": "Tạo PPT",
+            "pageDesc": "Tạo bài thuyết trình PowerPoint trực tuyến, xử lý local trong trình duyệt, tải PPTX một cú nhấp.",
+            "lblTitle": "Tiêu đề bài",
+            "lblSub": "Phụ đề",
+            "lblAuthor": "Tác giả",
+            "lblTheme": "Chủ đề màu",
+            "addSlide": "+ Thêm slide",
+            "genBtn": "⚙ Tạo PPT",
+            "howTitle": "Cách sử dụng",
+            "info1T": "1. Nhập nội dung",
+            "info1D": "Nhập tiêu đề, phụ đề và tiêu đề/nội dung từng slide, hỗ trợ nhiều dòng.",
+            "info2T": "2. Chọn chủ đề",
+            "info2D": "Chọn 1 trong 6 chủ đề màu, áp dụng cho mọi slide.",
+            "info3T": "3. Tạo một cú nhấp",
+            "info3D": "Nhấn tạo, PPTX được tạo local và tải tự động, không tải lên server.",
+            "navHome": "Trang chủ",
+            "navAll": "Tất cả công cụ",
+            "crumbHome": "Trang chủ",
+            "crumbAll": "Tất cả công cụ",
+            "footerHome": "Trang chủ",
+            "footerAll": "Tất cả công cụ",
+            "footerLog": "Nhật ký",
+            "footerPrivacy": "Riêng tư"
+      }
+};
+
+  </script>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="z-wrap">
+    <nav><div class="nav-inner">
+      <a class="brand-logo" href="/" style="text-decoration:none;">
+        <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="/" style="color:var(--zen-text-sub,var(--text));" data-i18n-page="navHome">首页</a>
+        <a href="/tools/" style="color:var(--zen-text-main,var(--text));font-weight:600;" data-i18n-page="navAll">全部工具</a>
+        <select id="langSelect" class="lang-select">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+      </div>
+    </div></nav>
+
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="/" data-i18n-page="crumbHome">首页</a><span> / </span><a href="/tools/" data-i18n-page="crumbAll">全部工具</a><span> / </span><span data-i18n-page="crumbCur">PPT 生成器</span>
+      </div>
+      <span class="page-eyebrow" data-i18n-page="eyebrow">Presentation</span>
+      <h1><span class="grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;" data-i18n-page="pageTitle">PPT 生成器</span></h1>
+      <p data-i18n-page="pageDesc">在线生成 PowerPoint 演示文稿，浏览器本地处理，输入内容一键生成 PPTX 文件。</p>
+    </div>
+
+    <div class="tool-box reveal">
+      <div class="ppt-form" id="pptForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label data-i18n-page="lblTitle">演示文稿标题</label>
+            <input type="text" id="pptTitle" value="我的演示文稿" placeholder="输入标题" />
+          </div>
+          <div class="form-group">
+            <label data-i18n-page="lblSub">副标题</label>
+            <input type="text" id="pptSubtitle" value="ZenTools 在线生成" placeholder="输入副标题" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="flex:0 0 auto;min-width:120px;">
+            <label data-i18n-page="lblAuthor">作者</label>
+            <input type="text" id="pptAuthor" value="ZenTools" />
+          </div>
+          <div class="form-group">
+            <label data-i18n-page="lblTheme">配色主题</label>
+            <div class="theme-grid" id="themeGrid">
+              <div class="theme-opt active" data-theme="blue" style="background:linear-gradient(135deg,#2563eb,#60a5fa)" title="沉稳蓝"></div>
+              <div class="theme-opt" data-theme="coral" style="background:linear-gradient(135deg,#e11d48,#fb7185)" title="珊瑚红"></div>
+              <div class="theme-opt" data-theme="green" style="background:linear-gradient(135deg,#059669,#34d399)" title="翡翠绿"></div>
+              <div class="theme-opt" data-theme="purple" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)" title="创意紫"></div>
+              <div class="theme-opt" data-theme="orange" style="background:linear-gradient(135deg,#ea580c,#fb923c)" title="日落橙"></div>
+              <div class="theme-opt" data-theme="gray" style="background:linear-gradient(135deg,#475569,#94a3b8)" title="石墨灰"></div>
+            </div>
+            <span class="theme-label" id="themeLabel">沉稳蓝</span>
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size:13px;font-weight:600;margin-bottom:8px;display:block;">幻灯片</label>
+          <div class="slide-list" id="slideList"></div>
+          <button class="add-slide-btn" id="addSlideBtn" data-i18n-page="addSlide">+ 添加幻灯片</button>
+        </div>
+
+        <div class="progress-bar" id="progressBar"></div>
+
+        <button class="gen-btn" id="genBtn" data-i18n-page="genBtn">&#x2B;&#x55; 生成 PPT</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-head"><h2 data-i18n-page="howTitle">使用说明</h2></div>
+      <div class="info-grid-ppt">
+        <div class="info-card"><h3 data-i18n-page="info1T">1. 输入内容</h3><p data-i18n-page="info1D">填写标题、副标题和每页幻灯片的标题与正文内容，支持多行文本。</p></div>
+        <div class="info-card"><h3 data-i18n-page="info2T">2. 选择主题</h3><p data-i18n-page="info2D">从 6 种配色主题中选择喜欢的风格，主题色会应用到所有幻灯片。</p></div>
+        <div class="info-card"><h3 data-i18n-page="info3T">3. 一键生成</h3><p data-i18n-page="info3D">点击生成按钮，浏览器本地生成 PPTX 文件并自动下载，不上传服务器。</p></div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/" data-i18n-page="footerHome">首页</a>
+          <a href="/tools/" data-i18n-page="footerAll">全部工具</a>
+          <a href="/changelog.html" data-i18n-page="footerLog">更新日志</a>
+          <a href="/privacy.html" data-i18n-page="footerPrivacy">隐私政策</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 ZenTools &middot; <a href="https://zentools.xyz">https://zentools.xyz</a> &middot; All rights reserved</p>
+        <p class="footer-copy" style="margin-top:6px;">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">鲁ICP备2026030242号-1</a>
+          <span style="color:var(--zen-text-placeholder,var(--muted));"> | </span>
+          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank" rel="noopener noreferrer">鲁公网安备37098302001324号</a>
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.min.js"></script>
+  <script>
+    const THEMES = {
+      blue:    { c1:'#1e3a5f', c2:'#2563eb', c3:'#60a5fa', c4:'#f0f4ff', name:'\u6c89\u7a33\u84dd' },
+      coral:   { c1:'#4c0519', c2:'#e11d48', c3:'#fb7185', c4:'#fff0f3', name:'\u73ca\u7469\u7ea2' },
+      green:   { c1:'#064e3b', c2:'#059669', c3:'#34d399', c4:'#ecfdf5', name:'\u7fe1\u7fe0\u7eff' },
+      purple:  { c1:'#2e1065', c2:'#7c3aed', c3:'#a78bfa', c4:'#f5f3ff', name:'\u521b\u610f\u7d2b' },
+      orange:  { c1:'#431407', c2:'#ea580c', c3:'#fb923c', c4:'#fff7ed', name:'\u65e5\u843d\u6a59' },
+      gray:    { c1:'#1e293b', c2:'#475569', c3:'#94a3b8', c4:'#f8fafc', name:'\u77f3\u58a8\u7070' },
+    };
+    let currentTheme = 'blue';
+    let slides = [
+      { title: 'PPT 生成', content: 'ZenTools 免费在线 PPT 生成工具' },
+      { title: '功能介绍', content: '浏览器本地处理\n不上传服务器\n6 种配色主题\n一键下载 PPTX' },
+    ];
+
+    const themeGrid = document.getElementById('themeGrid');
+    const themeLabel = document.getElementById('themeLabel');
+    const slideList = document.getElementById('slideList');
+    const addBtn = document.getElementById('addSlideBtn');
+    const genBtn = document.getElementById('genBtn');
+    const progressBar = document.getElementById('progressBar');
+
+    themeGrid.addEventListener('click', function(e) {
+      const opt = e.target.closest('.theme-opt');
+      if (!opt) return;
+      themeGrid.querySelectorAll('.theme-opt').forEach(el => el.classList.remove('active'));
+      opt.classList.add('active');
+      currentTheme = opt.dataset.theme;
+      themeLabel.textContent = THEMES[currentTheme].name;
+    });
+
+    function renderSlides() {
+      if (!slides.length) {
+        slideList.innerHTML = '<div class="empty-slides">暂无幻灯片，点击下方添加</div>';
+        return;
+      }
+      slideList.innerHTML = slides.map(function(s, i) {
+        return '<div class="slide-card">' +
+          '<div class="s-num">' + (i + 1) + '</div>' +
+          '<div class="s-body">' +
+          '<input type="text" class="s-title" value="' + s.title.replace(/"/g, '&quot;') + '" placeholder="幻灯片标题" data-idx="' + i + '" />' +
+          '<textarea class="s-content" placeholder="正文内容（每行一个要点）" data-idx="' + i + '">' + s.content + '</textarea>' +
+          '</div>' +
+          '<button class="s-del" data-idx="' + i + '">&#x2715;</button>' +
+          '</div>';
+      }).join('');
+    }
+
+    slideList.addEventListener('input', function(e) {
+      const el = e.target.closest('.s-title') || e.target.closest('.s-content');
+      if (!el) return;
+      const idx = parseInt(el.dataset.idx);
+      if (isNaN(idx) || !slides[idx]) return;
+      if (el.classList.contains('s-title')) slides[idx].title = el.value;
+      else slides[idx].content = el.value;
+    });
+
+    slideList.addEventListener('click', function(e) {
+      const del = e.target.closest('.s-del');
+      if (!del) return;
+      const idx = parseInt(del.dataset.idx);
+      if (isNaN(idx)) return;
+      slides.splice(idx, 1);
+      renderSlides();
+    });
+
+    addBtn.addEventListener('click', function() {
+      slides.push({ title: '新幻灯片', content: '输入内容...' });
+      renderSlides();
+    });
+
+    genBtn.addEventListener('click', async function() {
+      const title = document.getElementById('pptTitle').value.trim() || 'Presentation';
+      const subtitle = document.getElementById('pptSubtitle').value.trim() || '';
+      const author = document.getElementById('pptAuthor').value.trim() || 'ZenTools';
+      const theme = THEMES[currentTheme];
+
+      genBtn.disabled = true;
+      genBtn.textContent = '&#x1F4E5; 正在生成...';
+      progressBar.style.display = 'block';
+
+      try {
+        const ppt = new PptxGenJS();
+        ppt.defineLayout({ name: 'WIDE', width: 13.33, height: 7.5 });
+        ppt.layout = 'WIDE';
+        ppt.author = author;
+        ppt.title = title;
+        ppt.subject = subtitle;
+
+        // Title slide
+        const ts = ppt.addSlide();
+        ts.background = { color: theme.c1 };
+        ts.addText(title, { x: 1, y: 1.5, w: 11.33, h: 2, fontSize: 44, color: 'FFFFFF', fontFace: 'Arial', bold: true, align: 'center', valign: 'middle' });
+        if (subtitle) {
+          ts.addText(subtitle, { x: 1, y: 3.8, w: 11.33, h: 1, fontSize: 20, color: theme.c3, fontFace: 'Arial', align: 'center' });
+        }
+
+        // Content slides
+        slides.forEach(function(s) {
+          if (!s.title && !s.content) return;
+          const slide = ppt.addSlide();
+          slide.background = { color: 'FFFFFF' };
+
+          // Title bar
+          slide.addShape(ppt.ShapeType.rect, { x: 0, y: 0, w: 13.33, h: 1.8, fill: { color: theme.c1 } });
+          slide.addText(s.title || 'Untitled', { x: 0.8, y: 0.3, w: 11.73, h: 1.2, fontSize: 28, color: 'FFFFFF', fontFace: 'Arial', bold: true, valign: 'middle' });
+
+          // Accent line
+          slide.addShape(ppt.ShapeType.rect, { x: 0, y: 1.8, w: 13.33, h: 0.08, fill: { color: theme.c2 } });
+
+          // Content
+          const lines = (s.content || '').split('\n').filter(function(l) { return l.trim(); });
+          if (lines.length) {
+            var contentText = lines.map(function(l) { return '\u2022  ' + l.trim(); }).join('\n');
+            slide.addText(contentText, {
+              x: 0.8, y: 2.3, w: 11.73, h: 4.5,
+              fontSize: 18, color: theme.c2, fontFace: 'Arial',
+              valign: 'top', paraSpaceAfter: 8, lineSpacing: 28
+            });
+          }
+
+          // Footer
+          slide.addShape(ppt.ShapeType.rect, { x: 0, y: 7.0, w: 13.33, h: 0.5, fill: { color: theme.c4 } });
+          slide.addText('ZenTools \u00B7 ' + title, { x: 0.5, y: 7.0, w: 12.33, h: 0.5, fontSize: 10, color: theme.c3, fontFace: 'Arial', align: 'right', valign: 'middle' });
+        });
+
+        await ppt.writeFile({ fileName: title + '.pptx' });
+      } catch (err) {
+        console.error(err);
+        alert('\u751f\u6210\u5931\u8d25\uff1a' + err.message);
+      }
+
+      genBtn.disabled = false;
+      genBtn.innerHTML = '&#x2B;&#x55; 生成 PPT';
+      progressBar.style.display = 'none';
+    });
+
+    renderSlides();
+  </script>
+  <script src="../assets/js/common-i18n.min.js"></script>
+  <script src="../assets/js/tool-ui.min.js"></script>
+</body>
+</html>
