@@ -12615,5 +12615,39 @@ const toolsData = [
     "featured": true,
     "new": true,
     "keywords": "ppt生成器,在线ppt,生成ppt,ppt工具,免费ppt,演示文稿,office"
+  },
+  {
+    "name": "PPT 转文字",
+    "name__en": "PPT to Text",
+    "name__ja": "PPT テキスト抽出",
+    "name__vi": "PPT sang Văn bản",
+    "slug": "ppt-to-text",
+    "category": "办公工具",
+    "url": "/tools/ppt-to-text.html",
+    "description": "从 PowerPoint PPTX 文件中提取文字内容，浏览器本地处理，支持下载为 TXT 文件。",
+    "description__en": "Extract text from PowerPoint PPTX files locally in your browser, export as TXT.",
+    "description__ja": "PowerPoint ファイルからテキストを抽出、ブラウザでローカル処理、TXT 出力対応。",
+    "description__vi": "Trích xuất văn bản từ file PowerPoint PPTX, xử lý local trong trình duyệt.",
+    "icon": "📝",
+    "featured": true,
+    "new": true,
+    "keywords": "ppt转文字,ppt文字提取,pptx转txt,pdf文字提取,在线文字提取,office"
+  },
+  {
+    "name": "PPT 合并",
+    "name__en": "PPT Merge",
+    "name__ja": "PPT 結合",
+    "name__vi": "Ghép PPT",
+    "slug": "ppt-merge",
+    "category": "办公工具",
+    "url": "/tools/ppt-merge.html",
+    "description": "在线合并多个 PowerPoint PPTX 文件为一个演示文稿，浏览器本地处理。",
+    "description__en": "Merge multiple PowerPoint PPTX files into one presentation locally in your browser.",
+    "description__ja": "複数のPowerPointファイルを1つに結合、ブラウザでローカル処理。",
+    "description__vi": "Ghép nhiều file PowerPoint PPTX thành một bài thuyết trình, xử lý local.",
+    "icon": "📑",
+    "featured": true,
+    "new": true,
+    "keywords": "ppt合并,合并ppt,pptx合并,ppt文件合并,在线ppt合并,office"
   }
 ];
