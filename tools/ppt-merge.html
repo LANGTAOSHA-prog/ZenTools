@@ -20,22 +20,38 @@
   <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
   <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+    }
+    .brand-gradient { background: var(--zen-gradient); }
+    .brand-logo { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--zen-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; font-weight: 700; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .logo-ver { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+    .footer-logo { font-size: 18px; font-weight: 700; margin-bottom: 12px; background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--zen-primary); }
     .merge-area {
       border: 2px dashed var(--border); border-radius: 16px;
       padding: 40px 24px; text-align: center; cursor: pointer;
       transition: border-color 0.2s, background 0.2s;
     }
-    .merge-area:hover { border-color: var(--purple); background: rgba(168,85,247,.04); }
+    .merge-area:hover { border-color: var(--zen-primary); background: rgba(0,102,255,.04); }
     .merge-area .ma-icon { font-size: 44px; margin-bottom: 10px; }
     .merge-area .ma-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
     .merge-area .ma-desc { font-size: 13px; color: var(--muted); }
-    .merge-area.dragover { border-color: var(--purple); background: rgba(168,85,247,.08); }
+    .merge-area.dragover { border-color: var(--zen-primary); background: rgba(0,102,255,.08); }
 
     .file-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
     .file-item {
       display: flex; align-items: center; gap: 10px;
       padding: 10px 14px; border-radius: 10px;
       border: 1px solid var(--border); font-size: 14px;
+      background: var(--zen-bg-card, transparent);
     }
     .file-item .fi-icon { font-size: 20px; }
     .file-item .fi-name { flex: 1; color: var(--text); font-weight: 500; }
@@ -51,15 +67,16 @@
     .merge-btn {
       display: none; width: 100%; margin-top: 16px;
       padding: 14px 32px; border-radius: 12px; border: none;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
+      background: var(--zen-gradient);
       color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
       transition: opacity 0.2s, transform 0.2s; text-align: center;
+      box-shadow: 0 4px 16px rgba(0,102,255,0.2);
     }
-    .merge-btn:hover { opacity: 0.9; transform: translateY(-2px); }
-    .merge-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+    .merge-btn:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,102,255,0.3); }
+    .merge-btn:disabled { opacity: 0.4; cursor: default; transform: none; box-shadow: none; }
 
     .loading { display: none; align-items: center; gap: 10px; padding: 16px; color: var(--muted); font-size: 14px; }
-    .loading .spinner { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); border-top-color: var(--purple); animation: spin 0.8s linear infinite; }
+    .loading .spinner { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); border-top-color: var(--zen-primary); animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
@@ -72,10 +89,13 @@
   <div class="blob blob-2"></div>
   <div class="z-wrap">
     <nav><div class="nav-inner">
-      <a class="logo" href="/">ZenTools<span>3.1</span></a>
+      <a class="brand-logo" href="/" style="text-decoration:none;">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </a>
       <div class="nav-links">
-        <a href="/">首页</a>
-        <a href="/tools/" style="color:var(--text);">全部工具</a>
+        <a href="/" style="color:var(--zen-text-sub,var(--text));">首页</a>
+        <a href="/tools/" style="color:var(--zen-text-main,var(--text));font-weight:600;">全部工具</a>
         <select id="langSelect" class="lang-select">
           <option value="zh">中文</option>
           <option value="en">English</option>
@@ -90,7 +110,7 @@
         <a href="/">首页</a><span> / </span><a href="/tools/">全部工具</a><span> / </span>PPT 合并
       </div>
       <span class="page-eyebrow">Merge</span>
-      <h1><span class="grad">PPT 合并</span></h1>
+      <h1><span class="grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;">PPT 合并</span></h1>
       <p>将多个 PowerPoint 文件合并为一个演示文稿，浏览器本地处理，保护隐私。</p>
     </div>
 
@@ -123,7 +143,19 @@
 
     <footer>
       <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/tools/">全部工具</a>
+          <a href="/changelog.html">更新日志</a>
+          <a href="/privacy.html">隐私政策</a>
+        </div>
         <p class="footer-copy">&copy; 2026 ZenTools &middot; <a href="https://zentools.xyz">https://zentools.xyz</a> &middot; All rights reserved</p>
+        <p class="footer-copy" style="margin-top:6px;">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">鲁ICP备2026030242号-1</a>
+          <span style="color:var(--zen-text-placeholder,var(--muted));"> | </span>
+          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank" rel="noopener noreferrer">鲁公网安备37098302001324号</a>
+        </p>
       </div>
     </footer>
   </div>
@@ -141,18 +173,8 @@
     mergeArea.addEventListener('click', function() { fileInput.click(); });
     mergeArea.addEventListener('dragover', function(e) { e.preventDefault(); mergeArea.classList.add('dragover'); });
     mergeArea.addEventListener('dragleave', function() { mergeArea.classList.remove('dragover'); });
-    mergeArea.addEventListener('drop', function(e) {
-      e.preventDefault(); mergeArea.classList.remove('dragover');
-      const dropped = Array.from(e.dataTransfer.files).filter(function(f) { return f.name.toLowerCase().endsWith('.pptx'); });
-      if (dropped.length) { files = files.concat(dropped); renderFiles(); }
-    });
-
-    fileInput.addEventListener('change', function() {
-      if (this.files.length) {
-        files = files.concat(Array.from(this.files));
-        renderFiles();
-      }
-    });
+    mergeArea.addEventListener('drop', function(e) { e.preventDefault(); mergeArea.classList.remove('dragover'); const dropped = Array.from(e.dataTransfer.files).filter(function(f) { return f.name.toLowerCase().endsWith('.pptx'); }); if (dropped.length) { files = files.concat(dropped); renderFiles(); } });
+    fileInput.addEventListener('change', function() { if (this.files.length) { files = files.concat(Array.from(this.files)); renderFiles(); } });
 
     function renderFiles() {
       if (!files.length) { fileList.innerHTML = ''; mergeBtn.style.display = 'none'; return; }
@@ -160,76 +182,46 @@
         const size = f.size > 1024 * 1024 ? (f.size / 1024 / 1024).toFixed(1) + ' MB' : (f.size / 1024).toFixed(0) + ' KB';
         return '<div class="file-item"><span class="fi-icon">&#x1F4C4;</span><span class="fi-name">' + f.name + '</span><span class="fi-size">' + size + '</span><button class="fi-del" data-idx="' + i + '">&#x2715;</button></div>';
       }).join('');
-      mergeBtn.style.display = 'block';
-      mergeBtn.disabled = false;
+      mergeBtn.style.display = 'block'; mergeBtn.disabled = false;
       mergeBtn.innerHTML = '\u{1F500} \u5408\u5E76 ' + files.length + ' \u4E2A PPT';
     }
 
-    fileList.addEventListener('click', function(e) {
-      const del = e.target.closest('.fi-del');
-      if (!del) return;
-      const idx = parseInt(del.dataset.idx);
-      if (!isNaN(idx)) { files.splice(idx, 1); renderFiles(); }
-    });
+    fileList.addEventListener('click', function(e) { const del = e.target.closest('.fi-del'); if (!del) return; const idx = parseInt(del.dataset.idx); if (!isNaN(idx)) { files.splice(idx, 1); renderFiles(); } });
 
     mergeBtn.addEventListener('click', async function() {
       if (files.length < 2) { alert('请至少上传 2 个 PPTX 文件'); return; }
-      mergeBtn.disabled = true;
-      mergeBtn.textContent = '\u23F3 \u6B63\u5728\u5408\u5E76...';
-      loading.style.display = 'flex';
-
+      mergeBtn.disabled = true; mergeBtn.textContent = '\u23F3 \u6B63\u5728\u5408\u5E76...'; loading.style.display = 'flex';
       try {
         const ppt = new PptxGenJS();
-        ppt.defineLayout({ name: 'WIDE', width: 13.33, height: 7.5 });
-        ppt.layout = 'WIDE';
-        ppt.author = 'ZenTools';
-        ppt.title = 'Merged Presentation';
-
+        ppt.defineLayout({ name: 'WIDE', width: 13.33, height: 7.5 }); ppt.layout = 'WIDE'; ppt.author = 'ZenTools'; ppt.title = 'Merged Presentation';
         for (let fi = 0; fi < files.length; fi++) {
           const file = files[fi];
           const arrayBuffer = await file.arrayBuffer();
           const zip = await JSZip.loadAsync(arrayBuffer);
           const slideEntries = [];
-          zip.forEach(function(path, entry) {
-            if (path.match(/^ppt\/slides\/slide\d+\.xml$/)) {
-              slideEntries.push({ path: path, num: parseInt(path.match(/\d+/)[0]) });
-            }
-          });
+          zip.forEach(function(path, entry) { if (path.match(/^ppt\/slides\/slide\d+\.xml$/)) slideEntries.push({ path: path, num: parseInt(path.match(/\d+/)[0]) }); });
           slideEntries.sort(function(a, b) { return a.num - b.num; });
-
           for (const se of slideEntries) {
             const content = await zip.file(se.path).async('string');
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(content, 'text/xml');
             const tElements = xmlDoc.getElementsByTagNameNS('http://schemas.openxmlformats.org/drawingml/2006/main', 't');
             const texts = [];
-            for (let i = 0; i < tElements.length; i++) {
-              const t = tElements[i].textContent;
-              if (t && t.trim()) texts.push(t.trim());
-            }
-
+            for (let i = 0; i < tElements.length; i++) { const t = tElements[i].textContent; if (t && t.trim()) texts.push(t.trim()); }
             const slide = ppt.addSlide();
             slide.background = { color: 'FFFFFF' };
             slide.addShape(ppt.ShapeType.rect, { x: 0, y: 0, w: 13.33, h: 1.5, fill: { color: '#1e3a5f' } });
             slide.addText(texts[0] || ('Slide ' + (se.num)), { x: 0.8, y: 0.2, w: 11.73, h: 1.0, fontSize: 26, color: 'FFFFFF', fontFace: 'Arial', bold: true, valign: 'middle' });
             slide.addShape(ppt.ShapeType.rect, { x: 0, y: 1.5, w: 13.33, h: 0.06, fill: { color: '#2563eb' } });
-
             if (texts.length > 1) {
               const bodyText = texts.slice(1).map(function(l) { return '\u2022  ' + l; }).join('\n');
               slide.addText(bodyText, { x: 0.8, y: 2.0, w: 11.73, h: 4.5, fontSize: 16, color: '#333333', fontFace: 'Arial', valign: 'top', paraSpaceAfter: 6, lineSpacing: 24 });
             }
           }
         }
-
         await ppt.writeFile({ fileName: 'merged-presentation.pptx' });
-      } catch (err) {
-        console.error(err);
-        alert('\u5408\u5E76\u5931\u8D25\uFF1A' + err.message);
-      }
-
-      mergeBtn.disabled = false;
-      mergeBtn.innerHTML = '\u{1F500} \u5408\u5E76 PPT';
-      loading.style.display = 'none';
+      } catch (err) { console.error(err); alert('\u5408\u5E76\u5931\u8D25\uFF1A' + err.message); }
+      mergeBtn.disabled = false; mergeBtn.innerHTML = '\u{1F500} \u5408\u5E76 PPT'; loading.style.display = 'none';
     });
   </script>
   <script src="../assets/js/common-i18n.min.js"></script>

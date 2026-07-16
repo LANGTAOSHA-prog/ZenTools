@@ -20,16 +20,31 @@
   <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
   <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+    }
+    .brand-gradient { background: var(--zen-gradient); }
+    .brand-logo { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--zen-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; font-weight: 700; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .logo-ver { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+    .footer-logo { font-size: 18px; font-weight: 700; margin-bottom: 12px; background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--zen-primary); }
     .upload-area {
       border: 2px dashed var(--border); border-radius: 16px;
       padding: 48px 24px; text-align: center; cursor: pointer;
       transition: border-color 0.2s, background 0.2s;
     }
-    .upload-area:hover { border-color: var(--purple); background: rgba(168,85,247,.04); }
+    .upload-area:hover { border-color: var(--zen-primary); background: rgba(0,102,255,.04); }
     .upload-area .ua-icon { font-size: 48px; margin-bottom: 12px; }
     .upload-area .ua-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
     .upload-area .ua-desc { font-size: 13px; color: var(--muted); }
-    .upload-area.dragover { border-color: var(--purple); background: rgba(168,85,247,.08); }
+    .upload-area.dragover { border-color: var(--zen-primary); background: rgba(0,102,255,.08); }
 
     .result-area { display: none; margin-top: 20px; }
     .result-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
@@ -40,7 +55,7 @@
       width: 100%; min-height: 300px; max-height: 500px;
       padding: 16px; border-radius: 12px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.02);
+      background: var(--zen-bg-card, rgba(255,255,255,0.02));
       color: var(--text); font-size: 14px; line-height: 1.7;
       font-family: inherit; resize: vertical;
       white-space: pre-wrap; overflow-y: auto;
@@ -52,12 +67,12 @@
       font-size: 14px; font-weight: 600; cursor: pointer;
       transition: opacity 0.2s, transform 0.2s;
     }
-    .action-btn.primary { background: linear-gradient(135deg, var(--purple), var(--pink)); color: #fff; }
+    .action-btn.primary { background: var(--zen-gradient); color: #fff; }
     .action-btn.secondary { background: rgba(255,255,255,0.04); border: 1px solid var(--border); color: var(--text); }
     .action-btn:hover { opacity: 0.9; transform: translateY(-2px); }
 
     .loading { display: none; align-items: center; gap: 10px; padding: 16px; color: var(--muted); font-size: 14px; }
-    .loading .spinner { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); border-top-color: var(--purple); animation: spin 0.8s linear infinite; }
+    .loading .spinner { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border); border-top-color: var(--zen-primary); animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
@@ -70,10 +85,13 @@
   <div class="blob blob-2"></div>
   <div class="z-wrap">
     <nav><div class="nav-inner">
-      <a class="logo" href="/">ZenTools<span>3.1</span></a>
+      <a class="brand-logo" href="/" style="text-decoration:none;">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </a>
       <div class="nav-links">
-        <a href="/">首页</a>
-        <a href="/tools/" style="color:var(--text);">全部工具</a>
+        <a href="/" style="color:var(--zen-text-sub,var(--text));">首页</a>
+        <a href="/tools/" style="color:var(--zen-text-main,var(--text));font-weight:600;">全部工具</a>
         <select id="langSelect" class="lang-select">
           <option value="zh">中文</option>
           <option value="en">English</option>
@@ -88,7 +106,7 @@
         <a href="/">首页</a><span> / </span><a href="/tools/">全部工具</a><span> / </span>PPT 转文字
       </div>
       <span class="page-eyebrow">Extract Text</span>
-      <h1><span class="grad">PPT 转文字</span></h1>
+      <h1><span class="grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;">PPT 转文字</span></h1>
       <p>从 PowerPoint 文件中提取所有文字内容，浏览器本地处理，保护隐私。</p>
     </div>
 
@@ -130,7 +148,19 @@
 
     <footer>
       <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/tools/">全部工具</a>
+          <a href="/changelog.html">更新日志</a>
+          <a href="/privacy.html">隐私政策</a>
+        </div>
         <p class="footer-copy">&copy; 2026 ZenTools &middot; <a href="https://zentools.xyz">https://zentools.xyz</a> &middot; All rights reserved</p>
+        <p class="footer-copy" style="margin-top:6px;">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">鲁ICP备2026030242号-1</a>
+          <span style="color:var(--zen-text-placeholder,var(--muted));"> | </span>
+          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank" rel="noopener noreferrer">鲁公网安备37098302001324号</a>
+        </p>
       </div>
     </footer>
   </div>
@@ -149,107 +179,51 @@
     let extractedText = '';
 
     uploadArea.addEventListener('click', function() { fileInput.click(); });
-
-    uploadArea.addEventListener('dragover', function(e) {
-      e.preventDefault();
-      uploadArea.classList.add('dragover');
-    });
-    uploadArea.addEventListener('dragleave', function() {
-      uploadArea.classList.remove('dragover');
-    });
-    uploadArea.addEventListener('drop', function(e) {
-      e.preventDefault();
-      uploadArea.classList.remove('dragover');
-      const files = e.dataTransfer.files;
-      if (files.length) processFile(files[0]);
-    });
-
-    fileInput.addEventListener('change', function() {
-      if (this.files.length) processFile(this.files[0]);
-    });
+    uploadArea.addEventListener('dragover', function(e) { e.preventDefault(); uploadArea.classList.add('dragover'); });
+    uploadArea.addEventListener('dragleave', function() { uploadArea.classList.remove('dragover'); });
+    uploadArea.addEventListener('drop', function(e) { e.preventDefault(); uploadArea.classList.remove('dragover'); if (e.dataTransfer.files.length) processFile(e.dataTransfer.files[0]); });
+    fileInput.addEventListener('change', function() { if (this.files.length) processFile(this.files[0]); });
 
     async function processFile(file) {
-      if (!file.name.toLowerCase().endsWith('.pptx')) {
-        alert('请上传 .pptx 格式的文件');
-        return;
-      }
-
-      uploadArea.style.display = 'none';
-      loading.style.display = 'flex';
-
+      if (!file.name.toLowerCase().endsWith('.pptx')) { alert('请上传 .pptx 格式的文件'); return; }
+      uploadArea.style.display = 'none'; loading.style.display = 'flex';
       try {
         const arrayBuffer = await file.arrayBuffer();
         const zip = await JSZip.loadAsync(arrayBuffer);
         const slideFiles = [];
-        zip.forEach(function(path, entry) {
-          if (path.match(/^ppt\/slides\/slide\d+\.xml$/)) {
-            slideFiles.push({ path: path, num: parseInt(path.match(/\d+/)[0]) });
-          }
-        });
+        zip.forEach(function(path, entry) { if (path.match(/^ppt\/slides\/slide\d+\.xml$/)) slideFiles.push({ path: path, num: parseInt(path.match(/\d+/)[0]) }); });
         slideFiles.sort(function(a, b) { return a.num - b.num; });
-
         const slideTexts = [];
         for (const sf of slideFiles) {
           const content = await zip.file(sf.path).async('string');
           const texts = [];
           const parser = new DOMParser();
           const xmlDoc = parser.parseFromString(content, 'text/xml');
-          const nsResolver = function(prefix) {
-            const ns = {
-              a: 'http://schemas.openxmlformats.org/drawingml/2006/main',
-              p: 'http://schemas.openxmlformats.org/presentationml/2006/main',
-              r: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'
-            };
-            return ns[prefix] || null;
-          };
           const tElements = xmlDoc.getElementsByTagNameNS('http://schemas.openxmlformats.org/drawingml/2006/main', 't');
-          for (let i = 0; i < tElements.length; i++) {
-            const t = tElements[i].textContent;
-            if (t && t.trim()) texts.push(t.trim());
-          }
-          if (texts.length) slideTexts.push('=== 第 ' + slideTexts.length + 1 + ' 页 ===\n' + texts.join('\n'));
+          for (let i = 0; i < tElements.length; i++) { const t = tElements[i].textContent; if (t && t.trim()) texts.push(t.trim()); }
+          if (texts.length) slideTexts.push('=== 第 ' + (slideTexts.length + 1) + ' 页 ===\n' + texts.join('\n'));
         }
-
         extractedText = slideTexts.join('\n\n');
         textOutput.textContent = extractedText || '未找到文字内容';
         slideCount.textContent = '共 ' + slideTexts.length + ' 页幻灯片';
         resultArea.style.display = 'block';
-      } catch (err) {
-        console.error(err);
-        alert('解析失败：' + err.message);
-        resetView();
-      }
-
+      } catch (err) { console.error(err); alert('解析失败：' + err.message); resetView(); }
       loading.style.display = 'none';
     }
 
-    function resetView() {
-      uploadArea.style.display = 'block';
-      resultArea.style.display = 'none';
-      loading.style.display = 'none';
-      extractedText = '';
-      fileInput.value = '';
-    }
+    function resetView() { uploadArea.style.display = 'block'; resultArea.style.display = 'none'; loading.style.display = 'none'; extractedText = ''; fileInput.value = ''; }
 
     copyBtn.addEventListener('click', function() {
       if (!extractedText) return;
-      navigator.clipboard.writeText(extractedText).then(function() {
-        copyBtn.textContent = '\u2705 \u5df2\u590d\u5236';
-        setTimeout(function() { copyBtn.innerHTML = '&#x1F4CB; \u590d\u5236\u6587\u5b57'; }, 2000);
-      });
+      navigator.clipboard.writeText(extractedText).then(function() { copyBtn.textContent = '\u2705 \u5df2\u590d\u5236'; setTimeout(function() { copyBtn.innerHTML = '&#x1F4CB; \u590d\u5236\u6587\u5b57'; }, 2000); });
     });
-
     downloadBtn.addEventListener('click', function() {
       if (!extractedText) return;
       const blob = new Blob([extractedText], { type: 'text/plain;charset=utf-8' });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'ppt-extracted-text.txt';
-      a.click();
+      const a = document.createElement('a'); a.href = url; a.download = 'ppt-extracted-text.txt'; a.click();
       URL.revokeObjectURL(url);
     });
-
     resetBtn.addEventListener('click', resetView);
   </script>
   <script src="../assets/js/common-i18n.min.js"></script>

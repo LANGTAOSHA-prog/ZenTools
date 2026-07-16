@@ -20,83 +20,68 @@
   <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
   <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+    }
+    .brand-gradient { background: var(--zen-gradient); }
+    .brand-text { background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .brand-logo { display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; flex-shrink: 0; }
+    .logo-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--zen-gradient); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; font-weight: 700; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .logo-ver { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+    .footer-logo { font-size: 18px; font-weight: 700; margin-bottom: 12px; background: var(--zen-gradient); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 14px; font-size: 13px; }
+    .footer-links a { color: var(--muted); transition: color 0.2s; }
+    .footer-links a:hover { color: var(--zen-primary); }
+    .gen-btn, .action-btn.primary, .merge-btn, .download-btn {
+      background: var(--zen-gradient) !important;
+      box-shadow: 0 4px 16px rgba(0,102,255,0.2);
+    }
+    .gen-btn:hover, .action-btn.primary:hover, .merge-btn:hover, .download-btn:hover {
+      box-shadow: 0 6px 24px rgba(0,102,255,0.3) !important;
+    }
     .ppt-form { display: flex; flex-direction: column; gap: 20px; }
     .form-row { display: flex; gap: 16px; flex-wrap: wrap; }
     .form-group { flex: 1; min-width: 200px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
     .form-group input, .form-group textarea, .form-group select {
       width: 100%; padding: 10px 14px; border-radius: 10px;
-      border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border); background: var(--zen-bg-card, rgba(255,255,255,0.03));
       color: var(--text); font-size: 14px; outline: none; transition: border-color 0.2s;
       font-family: inherit;
     }
     .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: var(--purple);
+      border-color: var(--zen-primary);
     }
     .form-group textarea { min-height: 60px; resize: vertical; }
-
     .theme-grid { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
-    .theme-opt {
-      width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
-      border: 3px solid transparent; transition: border-color 0.2s;
-    }
+    .theme-opt { width: 36px; height: 36px; border-radius: 50%; cursor: pointer; border: 3px solid transparent; transition: border-color 0.2s; }
     .theme-opt.active { border-color: var(--text); }
-
     .slide-list { display: flex; flex-direction: column; gap: 10px; }
-    .slide-card {
-      display: flex; align-items: flex-start; gap: 12px;
-      padding: 14px; border-radius: 12px;
-      border: 1px solid var(--border); transition: border-color 0.2s;
-    }
-    .slide-card:hover { border-color: rgba(168,85,247,.2); }
-    .slide-card .s-num {
-      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 700; background: rgba(168,85,247,.12); color: var(--purple);
-    }
+    .slide-card { display: flex; align-items: flex-start; gap: 12px; padding: 14px; border-radius: 12px; border: 1px solid var(--border); transition: border-color 0.2s; background: var(--zen-bg-card, transparent); }
+    .slide-card:hover { border-color: rgba(0,102,255,.2); }
+    .slide-card .s-num { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; background: rgba(0,102,255,.1); color: var(--zen-primary); }
     .slide-card .s-body { flex: 1; min-width: 0; }
-    .slide-card .s-body input { width: 100%; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: var(--text); font-size: 13px; outline: none; margin-bottom: 6px; }
-    .slide-card .s-body textarea { width: 100%; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: rgba(255,255,255,0.03); color: var(--text); font-size: 12px; outline: none; min-height: 40px; resize: vertical; font-family: inherit; }
-    .slide-card .s-del {
-      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; border: none; background: rgba(239,68,68,.1); color: #ef4444; font-size: 14px;
-      transition: background 0.2s;
-    }
+    .slide-card .s-body input { width: 100%; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--zen-bg-card, rgba(255,255,255,0.03)); color: var(--text); font-size: 13px; outline: none; margin-bottom: 6px; }
+    .slide-card .s-body textarea { width: 100%; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--zen-bg-card, rgba(255,255,255,0.03)); color: var(--text); font-size: 12px; outline: none; min-height: 40px; resize: vertical; font-family: inherit; }
+    .slide-card .s-del { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; border: none; background: rgba(239,68,68,.1); color: #ef4444; font-size: 14px; transition: background 0.2s; }
     .slide-card .s-del:hover { background: rgba(239,68,68,.2); }
-
     .theme-label { font-size: 12px; color: var(--muted); margin-top: 4px; display: block; }
-
-    .gen-btn {
-      padding: 14px 32px; border-radius: 12px; border: none;
-      background: linear-gradient(135deg, var(--purple), var(--pink));
-      color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s; text-align: center;
-    }
+    .gen-btn { padding: 14px 32px; border-radius: 12px; border: none; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; text-align: center; }
     .gen-btn:hover { opacity: 0.9; transform: translateY(-2px); }
     .gen-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
-
     .info-grid-ppt { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-    .info-card { padding: 20px; border-radius: 14px; border: 1px solid var(--border); }
+    .info-card { padding: 20px; border-radius: 14px; border: 1px solid var(--border); background: var(--zen-bg-card, transparent); }
     .info-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
     .info-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
     @media (max-width: 640px) { .info-grid-ppt { grid-template-columns: 1fr; } }
-
     .empty-slides { text-align: center; padding: 24px; color: var(--muted); font-size: 14px; }
-
-    .add-slide-btn {
-      padding: 10px 20px; border-radius: 10px; border: 1px dashed var(--border);
-      background: transparent; color: var(--muted); font-size: 13px; cursor: pointer;
-      transition: border-color 0.2s, color 0.2s; width: 100%;
-    }
-    .add-slide-btn:hover { border-color: var(--purple); color: var(--purple); }
-
-    .progress-bar {
-      display: none; height: 4px; border-radius: 2px;
-      background: linear-gradient(90deg, var(--purple), var(--pink));
-      animation: progressSlide 1.5s ease-in-out infinite;
-    }
+    .add-slide-btn { padding: 10px 20px; border-radius: 10px; border: 1px dashed var(--border); background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: border-color 0.2s, color 0.2s; width: 100%; }
+    .add-slide-btn:hover { border-color: var(--zen-primary); color: var(--zen-primary); }
+    .progress-bar { display: none; height: 4px; border-radius: 2px; background: var(--zen-gradient); animation: progressSlide 1.5s ease-in-out infinite; }
     @keyframes progressSlide { 0% { width: 0; } 50% { width: 60%; } 100% { width: 100%; } }
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
@@ -111,10 +96,13 @@
 
   <div class="z-wrap">
     <nav><div class="nav-inner">
-      <a class="logo" href="/">ZenTools<span>3.1</span></a>
+      <a class="brand-logo" href="/" style="text-decoration:none;">
+        <div class="logo-icon">Z</div>
+        <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver">3.1</span></div>
+      </a>
       <div class="nav-links">
-        <a href="/">首页</a>
-        <a href="/tools/" style="color:var(--text);">全部工具</a>
+        <a href="/" style="color:var(--zen-text-sub,var(--text));">首页</a>
+        <a href="/tools/" style="color:var(--zen-text-main,var(--text));font-weight:600;">全部工具</a>
         <select id="langSelect" class="lang-select">
           <option value="zh">中文</option>
           <option value="en">English</option>
@@ -129,7 +117,7 @@
         <a href="/">首页</a><span> / </span><a href="/tools/">全部工具</a><span> / </span>PPT 生成器
       </div>
       <span class="page-eyebrow" data-i18n="eyebrow">Presentation</span>
-      <h1><span class="grad" data-i18n="pageTitle">PPT 生成器</span></h1>
+      <h1><span class="grad" style="background:var(--zen-gradient,linear-gradient(135deg,var(--purple),var(--pink)));-webkit-background-clip:text;background-clip:text;" data-i18n="pageTitle">PPT 生成器</span></h1>
       <p data-i18n="pageDesc">在线生成 PowerPoint 演示文稿，浏览器本地处理，输入内容一键生成 PPTX 文件。</p>
     </div>
 
@@ -187,7 +175,19 @@
 
     <footer>
       <div class="footer-inner">
+        <div class="footer-logo">ZenTools</div>
+        <div class="footer-links">
+          <a href="/">首页</a>
+          <a href="/tools/">全部工具</a>
+          <a href="/changelog.html">更新日志</a>
+          <a href="/privacy.html">隐私政策</a>
+        </div>
         <p class="footer-copy">&copy; 2026 ZenTools &middot; <a href="https://zentools.xyz">https://zentools.xyz</a> &middot; All rights reserved</p>
+        <p class="footer-copy" style="margin-top:6px;">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">鲁ICP备2026030242号-1</a>
+          <span style="color:var(--zen-text-placeholder,var(--muted));"> | </span>
+          <a href="https://beian.mps.gov.cn/#/query/webSearch?code=37098302001324" target="_blank" rel="noopener noreferrer">鲁公网安备37098302001324号</a>
+        </p>
       </div>
     </footer>
   </div>
