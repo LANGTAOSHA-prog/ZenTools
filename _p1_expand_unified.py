@@ -379,7 +379,7 @@ def gen_faq(tool, lang):
     # 兜底：由 description 驱动，天然差异化
     scene = desc or f"{name} 把繁琐操作变成浏览器里的一步工具"
     q1 = f"{name}主要能做什么？"
-    a1 = f"{name}{scene}。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"
+    a1 = f"{name}：{scene}。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"
     q2 = f"第一次使用{name}要注意什么？"
     a2 = "打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。"
     q3 = f"{name}处理我的文件安全吗？"
@@ -419,7 +419,8 @@ def gen_body(tool, lang, faq_pairs):
     cat = tool.get("category", "")
     mod = (CAT_MODULE_EN if lang == "en" else CAT_MODULE_ZH).get(cat) or {
         "audiences": ("普通用户与各类职场人群。" if lang == "zh" else "General users and professionals."),
-        "tips": ["按需使用，结果以实际为准" if lang == "zh" else "Use as needed; verify results"] * 2,
+        "tips": ["按需使用，结果以实际为准" if lang == "zh" else "Use as needed; verify results",
+                 "关键内容建议人工核对" if lang == "zh" else "Proofread key content"],
     }
     if lang == "en":
         scene = f"{name} {desc} It turns a tedious task into a one-step browser tool—no install, no sign-up, everything runs locally."
@@ -429,7 +430,7 @@ def gen_body(tool, lang, faq_pairs):
                     f'<h2>Who it is for</h2>{CRLF}  <p>{htmlmod.escape(who)}</p>',
                     f'<h2>Tips</h2>{CRLF}  {tips_ul}']
     else:
-        scene = f"{name}{desc}它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。"
+        scene = f"{name}：{desc}它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。"
         who = mod["audiences"]
         tips_ul = "<ul>" + CRLF + CRLF.join(f"<li>{htmlmod.escape(t)}</li>" for t in mod["tips"][:4]) + CRLF + "</ul>"
         sections = [f'<h2>适用场景</h2>{CRLF}  <p>{htmlmod.escape(scene)}</p>',
@@ -490,6 +491,32 @@ def remove_visible_faq(doc):
     return re.sub(r'<div class="faq">.*?</div>', '', doc, flags=re.S)
 
 
+def remove_inline_generic_faq(doc):
+    """删除工具页正文里硬编码的通用 FAQ 块（两种形态：<div class="box"> 与 <div class="seo-card">）。"""
+    pat = re.compile(
+        r'<h2[^>]*>.*?常见问题.*?</h2>\s*<div class="box">.*?这个工具免费吗.*?</div>\s*'
+        r'|<div class="seo-card">.*?这个工具免费吗.*?</div>\s*',
+        re.S)
+    return pat.sub('', doc)
+
+
+def extract_orphan_meta(path, d):
+    name = os.path.splitext(os.path.basename(path))[0]
+    desc = ""
+    mt = re.search(r"<title[^>]*>(.*?)</title>", d, re.S)
+    if mt:
+        name = re.sub(r"\s*[-|]\s*.*$", "", mt.group(1)).strip() or name
+    md = re.search(r'<meta name="description" content="([^"]*)"', d)
+    if md:
+        desc = md.group(1)
+    # 去掉站点级样板句，避免孤儿页互相重复
+    BOILER = "免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。"
+    desc = desc.replace(BOILER, "").strip("。").strip()
+    slug = os.path.splitext(os.path.basename(path))[0]
+    return {"url": "/" + path, "name": name, "description": desc,
+            "category": "工具", "slug": slug}
+
+
 def strip_p1(doc):
     """移除已注入的 P1-EXPAND 整段（repair 用）。"""
     idx = doc.find(INSERT_MARK)
@@ -535,8 +562,9 @@ def expand_page(path, tool, repair=False):
         faq_pairs = None
         add_jsonld = False
     else:
-        # REPLACE：先删旧可见 FAQ（含通用可见 FAQ），再注入专属 FAQ，杜绝重复
+        # REPLACE：先删旧可见 FAQ（含通用可见 FAQ 与目录页内联通用块），再注入专属 FAQ，杜绝重复
         doc = remove_visible_faq(doc)
+        doc = remove_inline_generic_faq(doc)
         faq_pairs = gen_faq(tool, lang)
         add_jsonld = True
 
@@ -567,22 +595,27 @@ def main():
 
     targets = []
     if orphans:
-        for url in ORPHAN_PAGES:
-            path = url.lstrip("/")
-            # 从页内抽 title/desc 作兜底 metadata
-            full = os.path.join(BASE, path)
-            meta = {"url": url, "name": os.path.splitext(os.path.basename(path))[0],
-                    "description": "", "category": "工具", "slug": os.path.splitext(os.path.basename(path))[0]}
-            if os.path.exists(full):
+        # 自动发现所有「不在 tools-data.json + 含通用 FAQ」的孤儿页（tools/*.html 等目录页）
+        data_tool_urls = {t.get("url", "").lstrip("/") for t in load_tools().get("tools", [])}
+        BLOCK_DIRS = {"articles", "tutorials", "guides", "compare", "professions",
+                      "docs", "assets", "data", ".git", "node_modules",
+                      "coverage_analysis", "_site", "templates"}
+        for root, dirs, files in os.walk(BASE):
+            dirs[:] = [d for d in dirs if d not in BLOCK_DIRS]
+            for fn in files:
+                if not fn.endswith(".html"):
+                    continue
+                full = os.path.join(root, fn)
+                rel = os.path.relpath(full, BASE).replace(os.sep, "/")
+                if "/" not in rel:
+                    continue
+                if rel in data_tool_urls:
+                    continue
                 with open(full, encoding="utf-8", newline="") as f:
                     d = f.read()
-                mt = re.search(r"<title[^>]*>(.*?)</title>", d, re.S)
-                if mt:
-                    meta["name"] = re.sub(r"\s*[-|]\s*.*$", "", mt.group(1)).strip() or meta["name"]
-                md = re.search(r'<meta name="description" content="([^"]*)"', d)
-                if md:
-                    meta["description"] = md.group(1)
-            targets.append((path, meta))
+                if not ("这个工具免费吗" in d or "Are my files" in d or "Is this tool free" in d):
+                    continue
+                targets.append((rel, extract_orphan_meta(rel, d)))
     else:
         data = load_tools()
         for t in data.get("tools", []):
