@@ -108,7 +108,7 @@
     }
 </style>
 </div>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这个工具免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "是的，完全免费。所有工具在浏览器本地运行，无需注册，无需安装。"}}, {"@type": "Question", "name": "我的文件会上传到服务器吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。所有工具在您的浏览器本地运行，文件不会上传到任何服务器，保护您的隐私安全。"}}, {"@type": "Question", "name": "支持哪些浏览器？", "acceptedAnswer": {"@type": "Answer", "text": "推荐使用最新版 Chrome、Edge、Firefox 或 Safari。部分工具需要浏览器支持相关 Web API。"}}, {"@type": "Question", "name": "如何使用这个工具？", "acceptedAnswer": {"@type": "Answer", "text": "打开页面后，按照界面提示输入内容或上传文件，即可获得处理结果。操作简单，即开即用。"}}]}</script>
+<!-- P1: replaced generic FAQ JSON-LD -->
 <link rel="canonical" href="https://zentools.xyz/finance/stock.html"/>
 </head><body>
 <div class="z-wrap">
@@ -156,7 +156,28 @@
   </div>
 <div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">股票手续费计算器</h1><p class="desc" data-i18n="pageDesc">计算 A 股买卖交易产生的印花税、佣金等费用。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="stockPrice" placeholder="股票价格（元/股）" value="10"><input type="number" id="stockShares" placeholder="股票数量（股）" value="1000"><div class="radios" style="display:flex;gap:15px;flex-wrap:wrap;margin:10px 0"><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="buy" checked style="width:auto;margin:0"> <span data-i18n="buy">买入</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="sell" style="width:auto;margin:0"> <span data-i18n="sell">卖出</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="both" style="width:auto;margin:0"> <span data-i18n="both">买卖双向</span></label></div><button onclick="calcStock()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="totalFee">0</div><div class="lbl" data-i18n="totalFee">总手续费（元）</div></div><div class="result-item"><div class="val" id="actualCost">0</div><div class="lbl" data-i18n="actualCost">实际成本（元）</div></div><div class="result-item"><div class="val" id="costPerShare">0</div><div class="lbl" data-i18n="costPerShare">每股成本</div></div></div><table class="fee-table" id="feeDetail"></table></div></div>
     
-    <footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>股票手续费计算器计算股票交易手续费、印花税和过户费，辅助投资成本核算。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>个人理财、房贷车贷规划、投资和记账的用户，以及需要快速估算的人。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>利率/汇率会变动，结果以当下为准</li>
+<li>长期规划用复利视角看</li>
+<li>贷款类结果仅作参考，以机构为准</li>
+<li>重要决策前多换几个参数对比</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>用股票手续费计算器时，计算准确吗？</summary><p>按页面公式精确计算，输入正确则结果可靠。</p></details>
+<details open><summary>用股票手续费计算器时，支持哪些计算？</summary><p>取决于具体工具，如汇率、贷款、BMI 等。</p></details>
+<details open><summary>用股票手续费计算器时，结果能导出吗？</summary><p>可复制或截图保存，部分支持导出。</p></details>
+<details open><summary>用股票手续费计算器时，参数能改吗？</summary><p>能。随时调整输入，结果实时更新。</p></details>
+  </div>
+</section>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
     <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
       <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
@@ -321,4 +342,5 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用股票手续费计算器时，计算准确吗？","acceptedAnswer": {"@type": "Answer","text": "按页面公式精确计算，输入正确则结果可靠。"}},{"@type": "Question","name": "用股票手续费计算器时，支持哪些计算？","acceptedAnswer": {"@type": "Answer","text": "取决于具体工具，如汇率、贷款、BMI 等。"}},{"@type": "Question","name": "用股票手续费计算器时，结果能导出吗？","acceptedAnswer": {"@type": "Answer","text": "可复制或截图保存，部分支持导出。"}},{"@type": "Question","name": "用股票手续费计算器时，参数能改吗？","acceptedAnswer": {"@type": "Answer","text": "能。随时调整输入，结果实时更新。"}}]}</script>
 </body></html>
