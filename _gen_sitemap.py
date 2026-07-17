@@ -13,6 +13,13 @@ EXCLUDE_DIRS = {
     'json', 'pdf', 'design'
 }
 
+# 非内容/内部页：验证文件、测试页、统计/恢复控制台、示例草稿 —— 不进 sitemap，避免稀释抓取预算
+EXCLUDE_FILES = {
+    'examples.html', 'notes.html', 'recovery-console.html', 'stats.html',
+    'test-ui.html', 'test-auto-changelog.html',
+    'googlec2f7e3dbccb44280.html',   # Google Search Console 站点验证文件
+}
+
 # 优先级规则：根目录 > 分类页 > 工具页 > 教程/指南
 PRIORITY_RULES = {
     '/index.html':            ('daily',  '1.0'),
@@ -58,7 +65,9 @@ def main():
         for fn in filenames:
             if fn.endswith('.html'):
                 abs_path = os.path.join(dirpath, fn)
-                rel = os.path.relpath(abs_path, SCRIPT_DIR)
+                rel = os.path.relpath(abs_path, SCRIPT_DIR).replace('\\', '/')
+                if rel in EXCLUDE_FILES or fn in EXCLUDE_FILES:
+                    continue
                 mtime = os.path.getmtime(abs_path)
                 lastmod = time.strftime('%Y-%m-%d', time.gmtime(mtime))
                 changefreq, priority = _priority('/' + rel)
