@@ -1,0 +1,10 @@
+[Unit]
+Description=ZenTools site sync from GitHub (GCP overseas node)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/sync-site.sh
+# 同步失败不应判定为单元失败导致 timer 停止
+SuccessExitStatus=0
