@@ -53,29 +53,6 @@
         --zen-border: #334155;
       }
     }
-
-    :root {
-      --zen-primary: #0066FF;
-      --zen-secondary: #00C2B8;
-      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
-      --zen-text-main: #111827;
-      --zen-text-sub: #4B5563;
-      --zen-text-placeholder: #9CA3AF;
-      --zen-bg-base: #F9FAFB;
-      --zen-bg-card: #FFFFFF;
-      --zen-border: #E5E7EB;
-      --zen-radius-base: 12px;
-      --zen-radius-card: 16px;
-      --zen-radius-btn: 8px;
-    }
-    .dark {
-      --zen-text-main: #F9FAFB;
-      --zen-text-sub: #D1D5DB;
-      --zen-text-placeholder: #64748B;
-      --zen-bg-base: #0F172A;
-      --zen-bg-card: #1E293B;
-      --zen-border: #334155;
-    }
     body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
 
 /* ===== Category Navigation Hero ===== */
@@ -264,11 +241,6 @@
     .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
     .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
     .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
-    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
-    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
-    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
     .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
     @media (max-width: 768px) {
       .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
@@ -281,6 +253,18 @@
       .nav-inner { height: 60px; gap: 8px; }
       .page-hero { padding-top: 100px !important; }
     }
+/* ===== 工具区宽度对齐（默认 1200px，与 hero 一致） ===== */
+.search-hero { max-width: 1200px; margin: 28px auto 20px; padding: 0 24px; }
+.stats-bar { max-width: 1200px; margin: 12px auto 24px; padding: 0 24px; }
+.scenario-wrap { max-width: 1200px; margin: 0 auto 28px; padding: 0 24px; }
+.recent-wrap { max-width: 1200px; margin: 0 auto 28px; padding: 0 24px; }
+.tool-section { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+/* ===== 紧凑分类标签（替代 SEO 区大卡片，避免与顶部 cat-hero 重复） ===== */
+.cat-tags { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 0; }
+.cat-tag { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 999px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); color: var(--zen-text-sub); text-decoration: none; font-size: 13px; font-weight: 600; transition: border-color .2s, color .2s, transform .2s; }
+.cat-tag:hover { border-color: var(--zen-primary); color: var(--zen-primary); transform: translateY(-2px); }
+
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
 
@@ -468,7 +452,6 @@ window.ZT_PAGE = {
       </div>
     </div>
   </nav>
-  </nav>
 
   <div class="mobile-overlay" id="mobileOverlay">
     <div class="mobile-drawer" id="mobileDrawer">
@@ -487,7 +470,7 @@ window.ZT_PAGE = {
     <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
     <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
       <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>Tool</div>
-      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a></div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a><span style="color:var(--zen-text-placeholder)"> › </span><span>全部工具</span></div>
 
       <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">工具</span></h1>
       <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">279 款免费在线工具，涵盖 PDF、图片、AI、音视频、文本、开发、生活、金融等 13 个分类。</p>
@@ -501,7 +484,6 @@ window.ZT_PAGE = {
 
   <!-- Search -->
   <div class="search-hero reveal">
-    <div class="sec-head"><h2 data-i18n="hSearch">搜索工具</h2></div>
     <input type="text" id="toolSearch" data-i18n-placeholder="searchPlaceholder" placeholder="搜索 279 款工具..." autocomplete="off" />
     <span class="s-icon">🔍</span>
     <div id="searchDropdown" class="search-drop"></div>
@@ -511,7 +493,7 @@ window.ZT_PAGE = {
   <div class="stats-bar" id="statsBar"></div>
 
   <!-- Hot Tools -->
-  <div class="reveal">
+  <div class="reveal tool-section">
     <div class="sec-head"><h2 data-i18n="hHot">热门工具</h2><span class="badge">Top 8</span></div>
     <div class="hot-grid" id="hotGrid"></div>
   </div>
@@ -540,7 +522,7 @@ window.ZT_PAGE = {
   </div>
 
   <!-- All Tools -->
-  <div class="reveal">
+  <div class="reveal tool-section">
     <div class="sec-head"><h2 data-i18n="hAll">全部工具</h2><span class="badge" id="toolCountBadge">279</span></div>
     <div class="zt-filterbar" id="ztFilterBar">
       <span class="zf-label" data-i18n="fLabel">筛选</span>
@@ -581,23 +563,23 @@ window.ZT_PAGE = {
     </p>
 
     <h3 style="font-size:19px;margin:32px 0 16px;color:var(--zen-text-main);font-weight:700">按分类浏览</h3>
-    <div class="cat-grid">
-      <a class="cat-card" href="/ai/"><div class="name">🤖 AI 工具</div><div class="desc">AI 写作、绘图、对话与提示词</div></a>
-      <a class="cat-card" href="/image/"><div class="name">🖼️ 图片工具</div><div class="desc">压缩、裁剪、去背景、格式转换</div></a>
-      <a class="cat-card" href="/pdf/"><div class="name">📄 PDF 工具</div><div class="desc">合并、拆分、压缩、旋转</div></a>
-      <a class="cat-card" href="/text/"><div class="name">📝 文本工具</div><div class="desc">字数统计、大小写、繁简转换</div></a>
-      <a class="cat-card" href="/video/"><div class="name">🎬 视频工具</div><div class="desc">剪辑、转 gif、提取音频</div></a>
-      <a class="cat-card" href="/audio/"><div class="name">🎵 音频工具</div><div class="desc">格式转换、剪辑、提取</div></a>
-      <a class="cat-card" href="/dev/"><div class="name">💻 开发工具</div><div class="desc">JSON/SQL 格式化、编解码</div></a>
-      <a class="cat-card" href="/seo/"><div class="name">🔍 SEO 工具</div><div class="desc">关键词、元标签、抓取分析</div></a>
-      <a class="cat-card" href="/life/"><div class="name">🌍 生活助手</div><div class="desc">汇率、时区、单位换算</div></a>
-      <a class="cat-card" href="/finance/"><div class="name">💰 金融工具</div><div class="desc">记账、利率、预算规划</div></a>
-      <a class="cat-card" href="/education/"><div class="name">📚 教育工具</div><div class="desc">公式、背诵、作业辅助</div></a>
-      <a class="cat-card" href="/design/"><div class="name">🎨 设计工具</div><div class="desc">配色、字体、原型生成</div></a>
-      <a class="cat-card" href="/office/"><div class="name">📎 办公工具</div><div class="desc">文档、表格、演示辅助</div></a>
-      <a class="cat-card" href="/qr/qr-generator.html"><div class="name">📱 二维码工具</div><div class="desc">生成、解析、美化</div></a>
-      <a class="cat-card" href="/json/json-formatter.html"><div class="name">{} JSON 工具</div><div class="desc">校验、转换、对比</div></a>
-      <a class="cat-card" href="/tools/"><div class="name">🔧 综合工具</div><div class="desc">更多实用小工具合集</div></a>
+    <div class="cat-tags">
+      <a class="cat-tag" href="/ai/">🤖 AI 工具</a>
+      <a class="cat-tag" href="/image/">🖼️ 图片工具</a>
+      <a class="cat-tag" href="/pdf/">📄 PDF 工具</a>
+      <a class="cat-tag" href="/text/">📝 文本工具</a>
+      <a class="cat-tag" href="/video/">🎬 视频工具</a>
+      <a class="cat-tag" href="/audio/">🎵 音频工具</a>
+      <a class="cat-tag" href="/dev/">💻 开发工具</a>
+      <a class="cat-tag" href="/seo/">🔍 SEO 工具</a>
+      <a class="cat-tag" href="/life/">🌍 生活助手</a>
+      <a class="cat-tag" href="/finance/">💰 金融工具</a>
+      <a class="cat-tag" href="/education/">📚 教育工具</a>
+      <a class="cat-tag" href="/design/">🎨 设计工具</a>
+      <a class="cat-tag" href="/office/">📎 办公工具</a>
+      <a class="cat-tag" href="/qr/qr-generator.html">📱 二维码工具</a>
+      <a class="cat-tag" href="/json/json-formatter.html">{} JSON 工具</a>
+      <a class="cat-tag" href="/tools/">🔧 综合工具</a>
     </div>
 
     <h3 style="font-size:19px;margin:32px 0 16px;color:var(--zen-text-main);font-weight:700">三步找到并上手任意工具</h3>
@@ -722,14 +704,14 @@ window.ZT_PAGE = {
     var cats = Object.keys(catMeta).filter(function(c) { return counts[c]; });
     var html = cats.map(function(c) {
       var m = catMeta[c];
-      var chref = m.link || ('/' + m.slug + '/');
+      var chref = m.link || ('/' + m.slug + '/');
       return '<a href="' + chref + '" class="cat-hero-card" style="--cat-clr:' + m.clr + '">' +
         '<span class="cat-hero-icon">' + m.icon + '</span>' +
         '<span class="cat-hero-name">' + catLocal(c, lang) + '</span>' +
         '<span class="cat-hero-count">' + counts[c] + '</span></a>';
     }).join('');
     document.getElementById('catNav').innerHTML = html;
-    document.getElementById('totalCount').textContent = toolsData.length;
+    var _tc = document.getElementById('totalCount'); if (_tc) _tc.textContent = toolsData.length;
   }
 
   function renderStatsBar(lang) {
@@ -894,7 +876,7 @@ window.ZT_PAGE = {
       var k = el.getAttribute('data-i18n-placeholder');
       if (d[k]) el.placeholder = d[k];
     });
-    document.getElementById('totalCount').textContent = toolsData.length;
+    var _tc = document.getElementById('totalCount'); if (_tc) _tc.textContent = toolsData.length;
     renderCatNav(lang);
     renderStatsBar(lang);
     renderHot(lang);
