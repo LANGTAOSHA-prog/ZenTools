@@ -595,8 +595,8 @@ window.ZT_PAGE = {
       <a class="cat-card" href="/education/"><div class="name">📚 教育工具</div><div class="desc">公式、背诵、作业辅助</div></a>
       <a class="cat-card" href="/design/"><div class="name">🎨 设计工具</div><div class="desc">配色、字体、原型生成</div></a>
       <a class="cat-card" href="/office/"><div class="name">📎 办公工具</div><div class="desc">文档、表格、演示辅助</div></a>
-      <a class="cat-card" href="/qr/"><div class="name">📱 二维码工具</div><div class="desc">生成、解析、美化</div></a>
-      <a class="cat-card" href="/json/"><div class="name">{} JSON 工具</div><div class="desc">校验、转换、对比</div></a>
+      <a class="cat-card" href="/qr/qr-generator.html"><div class="name">📱 二维码工具</div><div class="desc">生成、解析、美化</div></a>
+      <a class="cat-card" href="/json/json-formatter.html"><div class="name">{} JSON 工具</div><div class="desc">校验、转换、对比</div></a>
       <a class="cat-card" href="/tools/"><div class="name">🔧 综合工具</div><div class="desc">更多实用小工具合集</div></a>
     </div>
 
@@ -705,8 +705,8 @@ window.ZT_PAGE = {
     '教育工具':   { slug: 'education', icon: '📚', clr: '#6366f1' },
     '设计工具':   { slug: 'design', icon: '🎨', clr: '#ec4899' },
     '办公工具':   { slug: 'office', icon: '📎', clr: '#14b8a6' },
-    '二维码工具': { slug: 'qr', icon: '📱', clr: '#f97316' },
-    'JSON工具':   { slug: 'json', icon: '{}', clr: '#eab308' },
+    '二维码工具': { slug: 'qr', icon: '📱', clr: '#f97316', link: '/qr/qr-generator.html' },
+    'JSON工具':   { slug: 'json', icon: '{}', clr: '#eab308', link: '/json/json-formatter.html' },
     '综合工具':   { slug: 'tools', icon: '🔧', clr: '#6b7280' }};
 
   function getCatCounts() {
@@ -722,7 +722,8 @@ window.ZT_PAGE = {
     var cats = Object.keys(catMeta).filter(function(c) { return counts[c]; });
     var html = cats.map(function(c) {
       var m = catMeta[c];
-      return '<a href="/' + m.slug + '/" class="cat-hero-card" style="--cat-clr:' + m.clr + '">' +
+      var chref = m.link || ('/' + m.slug + '/');
+      return '<a href="' + chref + '" class="cat-hero-card" style="--cat-clr:' + m.clr + '">' +
         '<span class="cat-hero-icon">' + m.icon + '</span>' +
         '<span class="cat-hero-name">' + catLocal(c, lang) + '</span>' +
         '<span class="cat-hero-count">' + counts[c] + '</span></a>';
