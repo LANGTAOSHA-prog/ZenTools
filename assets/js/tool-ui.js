@@ -52,7 +52,16 @@
     if (dict.pageTitle) document.title = dict.pageTitle;
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       var key = el.getAttribute('data-i18n');
-      if (dict[key] != null) el.innerHTML = dict[key];
+      if (dict[key] != null) {
+        var val = String(dict[key]);
+        // 仅当翻译值确实包含 HTML（如链接）时才用 innerHTML 渲染，
+        // 其余一律 textContent，避免把翻译值当 HTML 注入造成 XSS 风险
+        if (/<[a-z][\s\S]*>/i.test(val)) {
+          el.innerHTML = val;
+        } else {
+          el.textContent = val;
+        }
+      }
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
       var key = el.getAttribute('data-i18n-placeholder');
