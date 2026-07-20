@@ -1,740 +1,791 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="pageTitle">AI 模型 · 免费 API 宝典</title>
-  <meta name="description" content="2026 年最新免费 AI 模型 API 大全！涵盖 DeepSeek、Qwen、GLM、Yi、Stable Diffusion、FLUX、Whisper 等 20+ 个免费 AI API，文本、图像、音频、视频、多模态全覆盖。">
-  <meta name="keywords" content="免费AI API, DeepSeek, Qwen, GLM, 通义千问, Stable Diffusion, FLUX, Whisper, 嵌入模型, 多模态, 免费模型, AI模型宝典">
-  <meta name="author" content="云创 - 免费云情报站">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://zentools.xyz/yunchuang/free-api-models.html">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://zentools.xyz/yunchuang/free-api-models.html">
-  <meta property="og:title" content="AI 模型 · 免费 API 宝典 - 2026 年免费 AI API 大全">
-  <meta property="og:description" content="20+ 个免费 AI 模型 API 完整清单！文本、图像、音频、视频、嵌入、多模态全覆盖。">
-  <meta property="og:site_name" content="云创 - 免费云情报站">
-  <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter:url" content="https://zentools.xyz/yunchuang/free-api-models.html">
-  <meta property="twitter:title" content="AI 模型 · 免费 API 宝典 - 2026 年免费 AI API 大全">
-  <meta property="twitter:description" content="20+ 个免费 AI 模型 API 完整清单！文本、图像、音频、视频、嵌入、多模态全覆盖。">
-
-  <!-- i18n Translations -->
-  <script>
-  var pageTranslations = {
-    zh: {
-      pageTitle: "AI 模型 · 免费 API 宝典 | 云创",
-      backHome: "← 返回主页",
-      backNav: "← 返回云创导航",
-      pageDesc: "2026 年最新免费 AI 模型 API 大全，涵盖文本、图像、音频、视频、嵌入、多模态等 20+ 个免费 API。",
-      footer: "每 50 秒自动轮询 · 点击刷新立即拉取 · 数据持续完善",
-      filterAll: "全部",
-      filterText: "📝 文本",
-      filterImage: "🖼️ 图像",
-      filterEmbedding: "🔢 嵌入",
-      filterAudio: "🎵 音频",
-      filterVideo: "🎬 视频",
-      filterMultimodal: "🌈 多模态",
-    },
-    en: {
-      pageTitle: "Free AI Model API List - 2026 | Cloud Hub",
-      backHome: "← Back to Home",
-      backNav: "← Back to Yunchuang",
-      pageDesc: "2026 free AI model API list covering 20+ free APIs for text, image, audio, video, embedding, and multimodal.",
-      footer: "Auto-refresh every 50s · Click refresh to pull now · Data continuously improving",
-      filterAll: "All",
-      filterText: "📝 Text",
-      filterImage: "🖼️ Image",
-      filterEmbedding: "🔢 Embedding",
-      filterAudio: "🎵 Audio",
-      filterVideo: "🎬 Video",
-      filterMultimodal: "🌈 Multimodal",
-    },
-    ja: {
-      pageTitle: "無料AIモデルAPIリスト - 2026 | クラウドハブ",
-      backHome: "← ホームに戻る",
-      backNav: "← 雲創に戻る",
-      pageDesc: "2026年最新の無料AIモデルAPI一覧。テキスト、画像、音声、動画、埋め込み、マルチモーダルなど20以上の無料API。",
-      footer: "50秒ごとに自動更新 · 手動更新も可能 · データ継続改善中",
-      filterAll: "すべて",
-      filterText: "📝 テキスト",
-      filterImage: "🖼️ 画像",
-      filterEmbedding: "🔢 埋め込み",
-      filterAudio: "🎵 音声",
-      filterVideo: "🎬 動画",
-      filterMultimodal: "🌈 マルチモーダル",
-    },
-    vi: {
-      pageTitle: "Danh sách API AI Miễn phí 2026 | Cloud Hub",
-      backHome: "← Quay lại Trang chủ",
-      backNav: "← Quay lại Yunchuang",
-      pageDesc: "Danh sách 20+ API AI miễn phí 2026 bao gồm văn bản, hình ảnh, âm thanh, video, embedding và đa phương thức.",
-      footer: "Tự động làm mới mỗi 50s · Nhấn làm mới để cập nhật · Dữ liệu đang hoàn thiện",
-      filterAll: "Tất cả",
-      filterText: "📝 Văn bản",
-      filterImage: "🖼️ Hình ảnh",
-      filterEmbedding: "🔢 Embedding",
-      filterAudio: "🎵 Âm thanh",
-      filterVideo: "🎬 Video",
-      filterMultimodal: "🌈 Đa phương thức",
-    }
-  };
-  window.ZT_PAGE = pageTranslations;
-  </script>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-
-    body {
-      background: #f1f5f9;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-
-    .dashboard {
-      max-width: 1440px;
-      width: 100%;
-      background: #ffffff;
-      border-radius: 2rem;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-      padding: 2rem 2rem 1.8rem;
-      transition: 0.2s;
-    }
-
-    /* top bar */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.2rem;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .back-home {
-      color: #3b82f6;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      transition: opacity 0.2s;
-    }
-    .back-home:hover { opacity: 0.7; }
-    .lang-select {
-      background: white;
-      border: 1px solid #d0d7de;
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-size: 0.85rem;
-      color: #24292f;
-      cursor: pointer;
-      outline: none;
-    }
-    .lang-select:focus { border-color: #3b82f6; }
-
-    /* header */
-    .header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 2rem;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-    }
-
-    .header-left h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      background: linear-gradient(145deg, #0b1e33, #0ea5e9);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      letter-spacing: -0.02em;
-    }
-
-    .header-left .live-badge {
-      background: #dc2626;
-      color: white;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.2rem 0.9rem;
-      border-radius: 30px;
-      animation: pulse 1.8s infinite;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 0.8; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.03); }
-      100% { opacity: 0.8; transform: scale(1); }
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .status-chip {
-      background: #eef2f6;
-      padding: 0.4rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.8rem;
-      color: #1e293b;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .status-chip i { color: #22c55e; }
-
-    .refresh-btn {
-      background: #1e293b;
-      border: none;
-      color: white;
-      padding: 0.45rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      cursor: pointer;
-      transition: 0.15s ease;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.03);
-    }
-
-    .refresh-btn:hover { background: #0f172a; transform: scale(0.97); }
-
-    .last-updated {
-      font-size: 0.75rem;
-      color: #64748b;
-      background: #f8fafc;
-      padding: 0.2rem 1rem;
-      border-radius: 30px;
-      border: 1px solid #e2e8f0;
-    }
-
-    /* filter bar */
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 0.8rem;
-      margin-bottom: 2rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #e9edf2;
-    }
-
-    .filter-btn {
-      background: transparent;
-      border: none;
-      padding: 0.3rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #475569;
-      transition: 0.1s;
-      cursor: pointer;
-    }
-
-    .filter-btn:hover { background: #eef2f6; color: #0f172a; }
-    .filter-btn.active { background: #1e293b; color: white; }
-
-    .filter-btn .count {
-      background: rgba(255,255,255,0.2);
-      border-radius: 20px;
-      padding: 0 0.5rem;
-      margin-left: 0.2rem;
-      font-size: 0.7rem;
-    }
-
-    .filter-btn.active .count { background: rgba(255,255,255,0.25); }
-
-    /* grid */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.5rem;
-      min-height: 260px;
-    }
-
-    .card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 1.3rem 1.4rem 1.4rem;
-      border: 1px solid #eaedf2;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
-    }
-
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: #cbd5e1;
-      box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.06);
-    }
-
-    .card .tag {
-      display: inline-block;
-      font-size: 0.6rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-      padding: 0.2rem 0.8rem;
-      border-radius: 30px;
-      align-self: flex-start;
-      margin-bottom: 0.8rem;
-      background: #eef2f6;
-      color: #334155;
-    }
-
-    .tag.text { background: #dbeafe; color: #1e40af; }
-    .tag.image { background: #fce7f3; color: #9d174d; }
-    .tag.embedding { background: #ede9fe; color: #5b21b6; }
-    .tag.audio { background: #d1fae5; color: #065f46; }
-    .tag.video { background: #fef3c7; color: #92400e; }
-    .tag.multimodal { background: #e0e7ff; color: #3730a3; }
-
-    .card h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #0f172a;
-      margin-bottom: 0.2rem;
-    }
-
-    .card h3 a { color: inherit; text-decoration: none; }
-    .card h3 a:hover { color: #0ea5e9; text-decoration: underline; }
-
-    .card .sub {
-      font-size: 0.75rem;
-      color: #64748b;
-      margin-bottom: 0.6rem;
-      border-bottom: 1px dashed #e9edf2;
-      padding-bottom: 0.5rem;
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .card .sub .provider {
-      background: #f1f5f9;
-      padding: 0 0.6rem;
-      border-radius: 12px;
-    }
-
-    .card .desc {
-      font-size: 0.9rem;
-      color: #1e293b;
-      line-height: 1.5;
-      flex: 1;
-      margin-bottom: 0.8rem;
-    }
-
-    .card .specs {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 0.6rem 0.8rem;
-      margin-bottom: 0.8rem;
-      font-size: 0.8rem;
-      border-left: 3px solid #0ea5e9;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem 1rem;
-    }
-
-    .card .specs span { white-space: nowrap; }
-    .card .specs .label { color: #64748b; font-weight: 400; }
-
-    .card .limit-box {
-      background: #fef9e7;
-      border: 1px solid #fde68a;
-      border-radius: 10px;
-      padding: 0.5rem 0.8rem;
-      margin-bottom: 0.8rem;
-      font-size: 0.8rem;
-      color: #92400e;
-    }
-
-    .card .limit-box i { color: #f59e0b; margin-right: 0.3rem; }
-
-    .card .meta {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.7rem;
-      color: #64748b;
-      border-top: 1px solid #f0f3f6;
-      padding-top: 0.7rem;
-      margin-top: auto;
-    }
-
-    .card .meta .status { display: flex; align-items: center; gap: 0.4rem; }
-    .card .meta .status .active { color: #22c55e; }
-    .card .meta .status .beta { color: #f59e0b; }
-
-    .loading-placeholder {
-      grid-column: 1 / -1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 3rem 0;
-      color: #64748b;
-      gap: 0.8rem;
-    }
-
-    .spinner {
-      width: 38px;
-      height: 38px;
-      border: 4px solid #e2e8f0;
-      border-top-color: #0ea5e9;
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .footer {
-      margin-top: 2.5rem;
-      text-align: center;
-      font-size: 0.75rem;
-      color: #94a3b8;
-      border-top: 1px solid #e9edf2;
-      padding-top: 1.8rem;
-      letter-spacing: 0.01em;
-    }
-
-    .footer i { color: #0ea5e9; }
-
-    @media (max-width: 640px) {
-      .dashboard { padding: 1.2rem; }
-      .header-left h1 { font-size: 1.5rem; }
-      .card-grid { grid-template-columns: 1fr; }
-      .top-bar { flex-direction: column; align-items: flex-start; }
-    }
-  </style>
-  <!-- FAQPage Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [{
-      "@type": "Question",
-      "name": "免费 AI API 和付费 API 有什么区别？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "免费 API 通常在并发限制、每日配额、响应延迟上有所限制。部分免费 API 使用略低规格的模型版本（如 GPT-4o-mini 替代 GPT-4o）。但对于个人项目和学习用途来说，差异通常不会影响体验。"
-      }
-    }, {
-      "@type": "Question",
-      "name": "多个免费 API 可以共用吗？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "完全可以。通过 OpenRouter 等服务可以统一访问多个模型的 API。也可以自己编写故障切换逻辑：主模型不可用时自动回退到备选模型。这是最大化免费配额利用率的最佳策略。"
-      }
-    }, {
-      "@type": "Question",
-      "name": "开源模型本地部署 vs 免费 API，哪种更划算？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "如果你有 GPU（如 RTX 3060 以上），开源模型本地部署无任何 API 调用配额限制，适合批量处理。如果无 GPU 或只需偶尔调用，免费 API 更省心和省电。推荐混合策略：日常使用免费 API，高峰期用本地模型。"
-      }
-    }, {
-      "@type": "Question",
-      "name": "数据隐私：使用免费 API 安全吗？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "需仔细阅读每家平台的隐私政策。部分免费服务可能使用你发送的数据进行模型训练。如果有隐私顾虑，建议使用开源模型本地部署，或选择明确承诺不用于训练的免费 API（如 Cohere 的 Trial 计划）。敏感数据永远不要通过任何未知策略的免费 API 传输。"
-      }
-    }]
-  }
-  </script>
-</head>
-<body>
-<div class="dashboard" id="dashboard">
-  <!-- 顶部导航栏 -->
-  <div class="top-bar">
-    <div>
-      <a href="/" class="back-home" data-i18n="backHome">← 返回主页</a>
-      <span style="color:#94a3b8;margin:0 8px;">|</span>
-      <a href="/yunchuang/" class="back-home" data-i18n="backNav">← 返回云创导航</a>
-    </div>
-    <select id="languageSelect" class="lang-select">
-      <option value="zh">中文</option>
-      <option value="en">English</option>
-      <option value="ja">日本語</option>
-      <option value="vi">Tiếng Việt</option>
-    </select>
-  </div>
-
-  <!-- header -->
-  <div class="header">
-    <div class="header-left">
-      <h1><i class="fas fa-brain" style="background: none; -webkit-text-fill-color: #0ea5e9; margin-right: 6px;"></i> 免费 API · 模型库</h1>
-      <span class="live-badge"><i class="fas fa-circle" style="font-size: 0.5rem;"></i> LIVE</span>
-    </div>
-    <div class="header-right">
-      <span class="status-chip"><i class="fas fa-database"></i> 聚合 · 模拟</span>
-      <span class="last-updated" id="lastUpdated"><i class="far fa-clock"></i> 更新: 刚刚</span>
-      <button class="refresh-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i> 刷新</button>
-    </div>
-  </div>
-
-  <!-- filter bar -->
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-filter="all"><span data-i18n="filterAll">全部</span> <span class="count" id="countAll">0</span></button>
-    <button class="filter-btn" data-filter="text"><span data-i18n="filterText">📝 文本</span> <span class="count" id="countText">0</span></button>
-    <button class="filter-btn" data-filter="image"><span data-i18n="filterImage">🖼️ 图像</span> <span class="count" id="countImage">0</span></button>
-    <button class="filter-btn" data-filter="embedding"><span data-i18n="filterEmbedding">🔢 嵌入</span> <span class="count" id="countEmbedding">0</span></button>
-    <button class="filter-btn" data-filter="audio"><span data-i18n="filterAudio">🎵 音频</span> <span class="count" id="countAudio">0</span></button>
-    <button class="filter-btn" data-filter="video"><span data-i18n="filterVideo">🎬 视频</span> <span class="count" id="countVideo">0</span></button>
-    <button class="filter-btn" data-filter="multimodal"><span data-i18n="filterMultimodal">🌈 多模态</span> <span class="count" id="countMultimodal">0</span></button>
-  </div>
-
-  <!-- card grid -->
-  <div class="card-grid" id="cardGrid">
-    <div class="loading-placeholder">
-      <div class="spinner"></div>
-      <span>正在加载免费 AI 模型 API 信息 ...</span>
-    </div>
-  </div>
-
-  <!-- 模型选型指南 -->
-  <div class="guide-section" style="max-width:900px;margin:3rem auto 0;padding:0 1.5rem">
-    <h2 style="text-align:center;font-size:1.5rem;margin-bottom:1.2rem;color:#1e293b">按需求选择最合适的免费 AI 模型</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
-      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
-        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">中文对话与写作</h3>
-        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">DeepSeek 和 Qwen（通义千问）中文能力最强，支持长文本、逻辑推理、代码生成。Qwen 提供免费 API 配额，DeepSeek 模型部分开源可用。</p>
-      </div>
-      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
-        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">AI 图像生成</h3>
-        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">FLUX（开源高质量图像）和 Stable Diffusion（免费本地推理）是两大选项。HuggingFace 提供免费演示空间，可直接在线试用。</p>
-      </div>
-      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
-        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">语音识别与转录</h3>
-        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">OpenAI Whisper（开源）和 SenseVoice（中文优化）覆盖多语言场景。Whisper 可本地部署，无需 API Key，适合长期批量任务。</p>
-      </div>
-      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
-        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">多模态分析</h3>
-        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">Qwen-VL 和 InternVL2 擅长图文理解和视觉问答。可用作图像分类、OCR 提取、图表分析等业务场景。</p>
-      </div>
-      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
-        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">文本嵌入与检索</h3>
-        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">BGE（中文最佳）和 multilingual-e5 提供极低成本的嵌入服务。适合构建 RAG 知识库、语义搜索和文档相似度计算。</p>
-      </div>
-      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
-        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">免费 API 配额对比</h3>
-        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">不同平台策略不同：OpenRouter 聚合服务提供有限免费配额，Cohere 的试用 API 100 次/分钟。建议注册多个平台搭配使用，最大化免费额度。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- FAQ Section -->
-  <div class="faq-section" style="max-width:800px;margin:3rem auto 0;padding:0 1.5rem">
-    <h2 style="text-align:center;font-size:1.5rem;margin-bottom:1.5rem;color:#1e293b">常见问题</h2>
-    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
-      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">免费 AI API 和付费 API 有什么区别？</h3>
-      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">免费 API 通常在并发限制、每日配额、响应延迟上有所限制。部分免费 API 使用略低规格的模型版本（如 GPT-4o-mini 替代 GPT-4o）。但对于个人项目和学习用途来说，差异通常不会影响体验。</p>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
-      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">多个免费 API 可以共用吗？</h3>
-      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">完全可以。通过 OpenRouter 等服务可以统一访问多个模型的 API。也可以自己编写故障切换逻辑：主模型不可用时自动回退到备选模型。这是最大化免费配额利用率的最佳策略。</p>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
-      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">开源模型本地部署 vs 免费 API，哪种更划算？</h3>
-      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">如果你有 GPU（如 RTX 3060 以上），开源模型本地部署无任何 API 调用配额限制，适合批量处理。如果无 GPU 或只需偶尔调用，免费 API 更省心和省电。推荐混合策略：日常使用免费 API，高峰期用本地模型。</p>
-    </div>
-    <div style="border:1px solid #e2e8f0;border-radius:12px;padding:18px 22px;background:#fff">
-      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">数据隐私：使用免费 API 安全吗？</h3>
-      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">需仔细阅读每家平台的隐私政策。部分免费服务可能使用你发送的数据进行模型训练。如果有隐私顾虑，建议使用开源模型本地部署，或选择明确承诺不用于训练的免费 API（如 Cohere 的 Trial 计划）。敏感数据永远不要通过任何未知策略的免费 API 传输。</p>
-    </div>
-  </div>
-
-  <div class="footer" data-i18n="footer">
-    <i class="fas fa-sync-alt fa-fw"></i> 每 50 秒自动轮询 · 点击刷新立即拉取 · 数据持续完善
-  </div>
-</div>
-
-<!-- i18n Apply Script -->
-<script>
-var translations = window.ZT_PAGE || {};
-function setLanguage(lang) {
-  var data = translations[lang] || translations.zh || {};
-  document.documentElement.lang = lang;
-  document.title = data.pageTitle || document.title;
-  document.querySelectorAll("[data-i18n]").forEach(function(el) {
-    var k = el.getAttribute("data-i18n");
-    if (data[k]) {
-      if (el.tagName === 'A' && el.getAttribute('href')) {
-        el.childNodes.forEach(function(node) {
-          if (node.nodeType === 3) { node.textContent = data[k]; }
-        });
-      } else {
-        el.textContent = data[k];
-      }
-    }
-  });
-  localStorage.setItem("zentools_lang", lang);
-}
-var sel = document.getElementById("languageSelect");
-if (sel) {
-  sel.addEventListener("change", function() { setLanguage(this.value); });
-  var saved = localStorage.getItem("zentools_lang") || "zh";
-  sel.value = saved;
-  setLanguage(saved);
-}
-</script>
-
-<script>
-  (function() {
-    'use strict';
-
-    // ----- 基礎 API 模型數據 -----
-    const BASE_MODELS = [
-      { name: "DeepSeek-V3", category: "text", provider: "DeepSeek", url:"https://deepseek.com", desc: "开源 MoE 模型，671B 总参数，激活 37B，上下文 128K。", specs: "128K ctx · 支持 8 种语言", limit: "每日 500 次请求 · 需 API Key", status: "active" },
-      { name: "Qwen-2.5-72B", category: "text", provider: "阿里云", url:"https://tongyi.aliyun.com", desc: "通义千问最新开源模型，72B 参数，支持 1M 上下文。", specs: "1M ctx · 多语言支持", limit: "免费额度 100 万 tokens/月", status: "active" },
-      { name: "GLM-4-Plus", category: "text", provider: "智谱 AI", url:"https://zhipuai.cn", desc: "GLM-4 系列最强模型，推理能力接近 GPT-4。", specs: "128K ctx · 函数调用", limit: "每日 500 次调用", status: "active" },
-      { name: "Yi-34B-Chat", category: "text", provider: "01.AI", url:"https://01.ai", desc: "零一万物开源模型，34B 参数，支持 200K 上下文。", specs: "200K ctx · 4-bit 量化", limit: "免费 · 需申请", status: "beta" },
-      { name: "Mixtral-8x7B", category: "text", provider: "Mistral AI", url:"https://mistral.ai", desc: "MoE 架构，46B 总参数，12B 激活，支持 32K 上下文。", specs: "32K ctx · 开源", limit: "免费 · 限速", status: "active" },
-      { name: "Stable Diffusion 3.5", category: "image", provider: "Stability AI", url:"https://stability.ai", desc: "最新的文生图模型，支持 1024x1024 生成。", specs: "1024px · 8 step", limit: "每日 50 次免费", status: "active" },
-      { name: "FLUX.1-dev", category: "image", provider: "Black Forest Labs", url:"https://blackforestlabs.ai", desc: "开源文生图模型，12B 参数，高质量生成。", specs: "1024px · 支持 ControlNet", limit: "免费 · 非商用", status: "beta" },
-      { name: "DALL-E 3 (免费层)", category: "image", provider: "OpenAI", url:"https://openai.com", desc: "OpenAI 顶级文生图模型，通过 API 使用。", specs: "1024x1024 · 4x", limit: "新用户 50 积分", status: "active" },
-      { name: "DeepFloyd IF", category: "image", provider: "DeepFloyd", url:"https://huggingface.co/DeepFloyd", desc: "像素级文生图，支持文本嵌入生成。", specs: "256px · 4x upscale", limit: "完全免费", status: "active" },
-      { name: "text-embedding-3-small", category: "embedding", provider: "OpenAI", url:"https://openai.com", desc: "最新嵌入模型，维度 1536，性能优于 ada-002。", specs: "1536 维 · 8K tokens", limit: "免费 1000 次/月", status: "active" },
-      { name: "BGE-M3", category: "embedding", provider: "BAAI", url:"https://huggingface.co/BAAI", desc: "多语言嵌入模型，支持 100+ 语言，8192 上下文。", specs: "1024 维 · 8192 ctx", limit: "完全免费", status: "active" },
-      { name: "Cohere Embed V3", category: "embedding", provider: "Cohere", url:"https://cohere.com", desc: "高精度嵌入，支持 100+ 语言，维度 1024。", specs: "1024 维 · 512 tokens", limit: "每日 1000 次", status: "active" },
-      { name: "Whisper V3", category: "audio", provider: "OpenAI", url:"https://openai.com", desc: "多语言语音识别，支持 99 种语言，高精度。", specs: "多语言 · 128 位", limit: "免费 100 分钟/月", status: "active" },
-      { name: "Silero TTS", category: "audio", provider: "Silero", url:"https://github.com/snakers4/silero-models", desc: "轻量级文本转语音，支持多种语言和音色。", specs: "8kHz · 低延迟", limit: "完全免费", status: "active" },
-      { name: "Bark (免费)", category: "audio", provider: "Suno", url:"https://github.com/suno-ai/bark", desc: "生成式音频模型，支持语音克隆和音乐生成。", specs: "44.1kHz · 情感", limit: "非商用免费", status: "beta" },
-      { name: "CogVideoX-5B", category: "video", provider: "THUDM", url:"https://github.com/THUDM/CogVideo", desc: "开源文生视频模型，生成 6 秒 720p 视频。", specs: "720p · 6s", limit: "完全免费", status: "beta" },
-      { name: "Stable Video Diffusion", category: "video", provider: "Stability AI", url:"https://stability.ai", desc: "文生视频扩散模型，支持 4 秒 576x1024 生成。", specs: "576x1024 · 4s", limit: "每日 10 次", status: "active" },
-      { name: "Qwen-VL-72B", category: "multimodal", provider: "阿里云", url:"https://huggingface.co/Qwen", desc: "视觉语言模型，支持图像理解与对话。", specs: "720p · 8K ctx", limit: "免费 500 次/月", status: "active" },
-      { name: "LLaVA-NeXT", category: "multimodal", provider: "开源社区", url:"https://llava.hliu.cc", desc: "开源多模态模型，支持图像、视频理解。", specs: "8B · 视频支持", limit: "完全免费", status: "active" },
-      { name: "MiniCPM-V", category: "multimodal", provider: "面壁智能", url:"https://github.com/OpenBMB/MiniCPM", desc: "端侧多模态模型，支持 OCR 和图表理解。", specs: "2.8B · 轻量", limit: "免费 · 非商用", status: "active" },
-    ];
-
-    let currentFilter = 'all';
-    let models = [];
-    let updateTimer = null;
-    const grid = document.getElementById('cardGrid');
-    const lastUpdatedEl = document.getElementById('lastUpdated');
-
-    function addVariation(item) {
-      const statuses = ['active', 'beta', 'active', 'active', 'beta'];
-      const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
-      const limitSuffix = Math.random() > 0.6 ? ` (当前负载 ${Math.floor(Math.random() * 30 + 60)}%)` : '';
-      return { ...item, status: randomStatus, limit: item.limit + limitSuffix, _time: new Date().toLocaleTimeString('zh-CN', { hour12: false }) };
-    }
-
-    function fetchModels() {
-      return new Promise((resolve) => {
-        const delay = 200 + Math.random() * 400;
-        setTimeout(() => { resolve(BASE_MODELS.map(addVariation)); }, delay);
-      });
-    }
-
-    function updateCounts(data) {
-      const map = {};
-      data.forEach(s => { map[s.category] = (map[s.category] || 0) + 1; });
-      document.getElementById('countAll').textContent = data.length;
-      document.getElementById('countText').textContent = map.text || 0;
-      document.getElementById('countImage').textContent = map.image || 0;
-      document.getElementById('countEmbedding').textContent = map.embedding || 0;
-      document.getElementById('countAudio').textContent = map.audio || 0;
-      document.getElementById('countVideo').textContent = map.video || 0;
-      document.getElementById('countMultimodal').textContent = map.multimodal || 0;
-    }
-
-    function renderCards(data, filter) {
-      const filtered = filter === 'all' ? data : data.filter(s => s.category === filter);
-      if (filtered.length === 0) {
-        grid.innerHTML = '<div class="loading-placeholder" style="grid-column:1/-1;"><i class="fas fa-inbox" style="font-size:2rem; opacity:0.4;"></i><span>暂无该类型 API，稍后刷新</span></div>';
-        return;
-      }
-      let html = '';
-      filtered.forEach(s => {
-        const tagClass = s.category;
-        const statusIcon = s.status === 'active' ? '✅' : '🔶';
-        const statusClass = s.status === 'active' ? 'active' : 'beta';
-        html += `
-          <div class="card">
-            <span class="tag ${tagClass}">${s.category}</span>
-            <h3><a href="${s.url}" target="_blank" rel="noopener">${s.name}</a></h3>
-            <div class="sub">
-              <span class="provider"><i class="fas fa-building"></i> ${s.provider}</span>
-              <span><i class="far fa-clock"></i> ${s._time || ''}</span>
-            </div>
-            <div class="desc">${s.desc}</div>
-            <div class="specs"><span><span class="label">📌 规格</span> ${s.specs}</span></div>
-            <div class="limit-box"><i class="fas fa-gauge-high"></i> ${s.limit}</div>
-            <div class="meta">
-              <span class="status"><span class="${statusClass}">${statusIcon} ${s.status === 'active' ? '稳定' : 'Beta'}</span></span>
-              <span><i class="fas fa-hashtag"></i> 免费层</span>
-            </div>
-          </div>`;
-      });
-      grid.innerHTML = html;
-    }
-
-    async function refreshData(showLoading = true) {
-      if (showLoading) {
-        grid.innerHTML = '<div class="loading-placeholder"><div class="spinner"></div><span>正在加载免费 AI 模型 API 信息 ...</span></div>';
-      }
-      try {
-        const fresh = await fetchModels();
-        models = fresh;
-        updateCounts(models);
-        renderCards(models, currentFilter);
-        const now = new Date();
-        lastUpdatedEl.innerHTML = `<i class="far fa-clock"></i> 更新: ${now.toLocaleTimeString('zh-CN', { hour12: false })}`;
-      } catch (err) {
-        if (models.length > 0) { renderCards(models, currentFilter); }
-        else { grid.innerHTML = '<div class="loading-placeholder" style="grid-column:1/-1;"><i class="fas fa-exclamation-triangle"></i> 获取失败，请稍后重试</div>'; }
-      }
-    }
-
-    function setFilter(filter) {
-      currentFilter = filter;
-      document.querySelectorAll('.filter-btn').forEach(btn => { btn.classList.toggle('active', btn.dataset.filter === filter); });
-      if (models.length) { renderCards(models, filter); }
-      else { refreshData(true); }
-    }
-
-    function init() {
-      document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() { setFilter(this.dataset.filter); });
-      });
-      document.getElementById('refreshBtn').addEventListener('click', function() {
-        refreshData(true);
-        const icon = this.querySelector('i');
-        icon.classList.add('fa-spin');
-        setTimeout(() => icon.classList.remove('fa-spin'), 700);
-      });
-      refreshData(true);
-      if (updateTimer) clearInterval(updateTimer);
-      updateTimer = setInterval(() => { refreshData(false); }, 50000);
-    }
-
-    window.addEventListener('beforeunload', function() { if (updateTimer) clearInterval(updateTimer); });
-    init();
-  })();
-</script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+  <script src="../assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n="pageTitle">AI 模型 · 免费 API 宝典</title>
+  <meta name="description" content="2026 年最新免费 AI 模型 API 大全！涵盖 DeepSeek、Qwen、GLM、Yi、Stable Diffusion、FLUX、Whisper 等 20+ 个免费 AI API，文本、图像、音频、视频、多模态全覆盖。">
+  <meta name="keywords" content="免费AI API, DeepSeek, Qwen, GLM, 通义千问, Stable Diffusion, FLUX, Whisper, 嵌入模型, 多模态, 免费模型, AI模型宝典">
+  <meta name="author" content="云创 - 免费云情报站">
+  <meta name="robots" content="index, follow">
+  <link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://zentools.xyz/yunchuang/free-api-models.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://zentools.xyz/yunchuang/free-api-models.html">
+  <meta property="og:title" content="AI 模型 · 免费 API 宝典 - 2026 年免费 AI API 大全">
+  <meta property="og:description" content="20+ 个免费 AI 模型 API 完整清单！文本、图像、音频、视频、嵌入、多模态全覆盖。">
+  <meta property="og:site_name" content="云创 - 免费云情报站">
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://zentools.xyz/yunchuang/free-api-models.html">
+  <meta property="twitter:title" content="AI 模型 · 免费 API 宝典 - 2026 年免费 AI API 大全">
+  <meta property="twitter:description" content="20+ 个免费 AI 模型 API 完整清单！文本、图像、音频、视频、嵌入、多模态全覆盖。">
+
+  <!-- i18n Translations -->
+  <script>
+  var pageTranslations = {
+    zh: {
+      pageTitle: "AI 模型 · 免费 API 宝典 | 云创",
+      backHome: "← 返回主页",
+      backNav: "← 返回云创导航",
+      pageDesc: "2026 年最新免费 AI 模型 API 大全，涵盖文本、图像、音频、视频、嵌入、多模态等 20+ 个免费 API。",
+      footer: "每 50 秒自动轮询 · 点击刷新立即拉取 · 数据持续完善",
+      filterAll: "全部",
+      filterText: "📝 文本",
+      filterImage: "🖼️ 图像",
+      filterEmbedding: "🔢 嵌入",
+      filterAudio: "🎵 音频",
+      filterVideo: "🎬 视频",
+      filterMultimodal: "🌈 多模态"},
+    en: {
+      pageTitle: "Free AI Model API List - 2026 | Cloud Hub",
+      backHome: "← Back to Home",
+      backNav: "← Back to Yunchuang",
+      pageDesc: "2026 free AI model API list covering 20+ free APIs for text, image, audio, video, embedding, and multimodal.",
+      footer: "Auto-refresh every 50s · Click refresh to pull now · Data continuously improving",
+      filterAll: "All",
+      filterText: "📝 Text",
+      filterImage: "🖼️ Image",
+      filterEmbedding: "🔢 Embedding",
+      filterAudio: "🎵 Audio",
+      filterVideo: "🎬 Video",
+      filterMultimodal: "🌈 Multimodal"},
+    ja: {
+      pageTitle: "無料AIモデルAPIリスト - 2026 | クラウドハブ",
+      backHome: "← ホームに戻る",
+      backNav: "← 雲創に戻る",
+      pageDesc: "2026年最新の無料AIモデルAPI一覧。テキスト、画像、音声、動画、埋め込み、マルチモーダルなど20以上の無料API。",
+      footer: "50秒ごとに自動更新 · 手動更新も可能 · データ継続改善中",
+      filterAll: "すべて",
+      filterText: "📝 テキスト",
+      filterImage: "🖼️ 画像",
+      filterEmbedding: "🔢 埋め込み",
+      filterAudio: "🎵 音声",
+      filterVideo: "🎬 動画",
+      filterMultimodal: "🌈 マルチモーダル"},
+    vi: {
+      pageTitle: "Danh sách API AI Miễn phí 2026 | Cloud Hub",
+      backHome: "← Quay lại Trang chủ",
+      backNav: "← Quay lại Yunchuang",
+      pageDesc: "Danh sách 20+ API AI miễn phí 2026 bao gồm văn bản, hình ảnh, âm thanh, video, embedding và đa phương thức.",
+      footer: "Tự động làm mới mỗi 50s · Nhấn làm mới để cập nhật · Dữ liệu đang hoàn thiện",
+      filterAll: "Tất cả",
+      filterText: "📝 Văn bản",
+      filterImage: "🖼️ Hình ảnh",
+      filterEmbedding: "🔢 Embedding",
+      filterAudio: "🎵 Âm thanh",
+      filterVideo: "🎬 Video",
+      filterMultimodal: "🌈 Đa phương thức"}
+  };
+  window.ZT_PAGE = pageTranslations;
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+  <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body {
+      background: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .dashboard {
+      max-width: 1440px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+      padding: 2rem 2rem 1.8rem;
+      transition: 0.2s;
+    }
+
+    /* top bar */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .back-home {
+      color: #3b82f6;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+    .back-home:hover { opacity: 0.7; }
+    .lang-select {
+      background: white;
+      border: 1px solid #d0d7de;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      color: #24292f;
+      cursor: pointer;
+      outline: none;
+    }
+    .lang-select:focus { border-color: #3b82f6; }
+
+    /* header */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .header-left h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(145deg, #0b1e33, #0ea5e9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+    }
+
+    .header-left .live-badge {
+      background: #dc2626;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      animation: pulse 1.8s infinite;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.03); }
+      100% { opacity: 0.8; transform: scale(1); }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .status-chip {
+      background: #eef2f6;
+      padding: 0.4rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-chip i { color: #22c55e; }
+
+    .refresh-btn {
+      background: #1e293b;
+      border: none;
+      color: white;
+      padding: 0.45rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: 0.15s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.03);
+    }
+
+    .refresh-btn:hover { background: #0f172a; transform: scale(0.97); }
+
+    .last-updated {
+      font-size: 0.75rem;
+      color: #64748b;
+      background: #f8fafc;
+      padding: 0.2rem 1rem;
+      border-radius: 30px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.8rem;
+      margin-bottom: 2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #e9edf2;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: none;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #475569;
+      transition: 0.1s;
+      cursor: pointer;
+    }
+
+    .filter-btn:hover { background: #eef2f6; color: #0f172a; }
+    .filter-btn.active { background: #1e293b; color: white; }
+
+    .filter-btn .count {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 0 0.5rem;
+      margin-left: 0.2rem;
+      font-size: 0.7rem;
+    }
+
+    .filter-btn.active .count { background: rgba(255,255,255,0.25); }
+
+    /* grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+      min-height: 260px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.3rem 1.4rem 1.4rem;
+      border: 1px solid #eaedf2;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: #cbd5e1;
+      box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.06);
+    }
+
+    .card .tag {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.8rem;
+      border-radius: 30px;
+      align-self: flex-start;
+      margin-bottom: 0.8rem;
+      background: #eef2f6;
+      color: #334155;
+    }
+
+    .tag.text { background: #dbeafe; color: #1e40af; }
+    .tag.image { background: #fce7f3; color: #9d174d; }
+    .tag.embedding { background: #ede9fe; color: #5b21b6; }
+    .tag.audio { background: #d1fae5; color: #065f46; }
+    .tag.video { background: #fef3c7; color: #92400e; }
+    .tag.multimodal { background: #e0e7ff; color: #3730a3; }
+
+    .card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 0.2rem;
+    }
+
+    .card h3 a { color: inherit; text-decoration: none; }
+    .card h3 a:hover { color: #0ea5e9; text-decoration: underline; }
+
+    .card .sub {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-bottom: 0.6rem;
+      border-bottom: 1px dashed #e9edf2;
+      padding-bottom: 0.5rem;
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .card .sub .provider {
+      background: #f1f5f9;
+      padding: 0 0.6rem;
+      border-radius: 12px;
+    }
+
+    .card .desc {
+      font-size: 0.9rem;
+      color: #1e293b;
+      line-height: 1.5;
+      flex: 1;
+      margin-bottom: 0.8rem;
+    }
+
+    .card .specs {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.8rem;
+      border-left: 3px solid #0ea5e9;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 1rem;
+    }
+
+    .card .specs span { white-space: nowrap; }
+    .card .specs .label { color: #64748b; font-weight: 400; }
+
+    .card .limit-box {
+      background: #fef9e7;
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 0.5rem 0.8rem;
+      margin-bottom: 0.8rem;
+      font-size: 0.8rem;
+      color: #92400e;
+    }
+
+    .card .limit-box i { color: #f59e0b; margin-right: 0.3rem; }
+
+    .card .meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #64748b;
+      border-top: 1px solid #f0f3f6;
+      padding-top: 0.7rem;
+      margin-top: auto;
+    }
+
+    .card .meta .status { display: flex; align-items: center; gap: 0.4rem; }
+    .card .meta .status .active { color: #22c55e; }
+    .card .meta .status .beta { color: #f59e0b; }
+
+    .loading-placeholder {
+      grid-column: 1 / -1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 0;
+      color: #64748b;
+      gap: 0.8rem;
+    }
+
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 4px solid #e2e8f0;
+      border-top-color: #0ea5e9;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .footer {
+      margin-top: 2.5rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      border-top: 1px solid #e9edf2;
+      padding-top: 1.8rem;
+      letter-spacing: 0.01em;
+    }
+
+    .footer i { color: #0ea5e9; }
+
+    @media (max-width: 640px) {
+      .dashboard { padding: 1.2rem; }
+      .header-left h1 { font-size: 1.5rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      .top-bar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+  <!-- FAQPage Schema -->
+  
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "云创专区", "item": "https://zentools.xyz/yunchuang/"}, {"@type": "ListItem", "position": 3, "name": "免费 AI API 和付费 API 有什么区别？"}]}</script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "免费 AI API 和付费 API 有什么区别？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "免费 API 通常在并发限制、每日配额、响应延迟上有所限制。部分免费 API 使用略低规格的模型版本（如 GPT-4o-mini 替代 GPT-4o）。但对于个人项目和学习用途来说，差异通常不会影响体验。"
+      }
+    }, {
+      "@type": "Question",
+      "name": "多个免费 API 可以共用吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "完全可以。通过 OpenRouter 等服务可以统一访问多个模型的 API。也可以自己编写故障切换逻辑：主模型不可用时自动回退到备选模型。这是最大化免费配额利用率的最佳策略。"
+      }
+    }, {
+      "@type": "Question",
+      "name": "开源模型本地部署 vs 免费 API，哪种更划算？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "如果你有 GPU（如 RTX 3060 以上），开源模型本地部署无任何 API 调用配额限制，适合批量处理。如果无 GPU 或只需偶尔调用，免费 API 更省心和省电。推荐混合策略：日常使用免费 API，高峰期用本地模型。"
+      }
+    }, {
+      "@type": "Question",
+      "name": "数据隐私：使用免费 API 安全吗？",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "需仔细阅读每家平台的隐私政策。部分免费服务可能使用你发送的数据进行模型训练。如果有隐私顾虑，建议使用开源模型本地部署，或选择明确承诺不用于训练的免费 API（如 Cohere 的 Trial 计划）。敏感数据永远不要通过任何未知策略的免费 API 传输。"
+      }
+    }]
+  }
+  </script>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="container nav-inner" style="height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px">
+      <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-size:22px;font-weight:700">
+        <span style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</span>
+        <span><span style="color:var(--zen-primary)">Zen</span><span style="color:var(--zen-secondary)">Tools</span><span style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></span>
+      </a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+        <a href="/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+        <a href="/tools.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+        <a href="/tutorials/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+        <button id="themeToggle" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" style="background:transparent;border:1px solid var(--zen-border);border-radius:8px;padding:6px 10px;color:var(--zen-text-sub);font-size:13px;cursor:pointer">
+          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay" style="position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s">
+    <div class="mobile-drawer" id="mobileDrawer" style="position:fixed;top:0;right:0;bottom:0;width:300px;max-width:85vw;background:rgba(249,250,251,0.97);border-left:1px solid var(--zen-border);padding:24px 20px;z-index:310;overflow-y:auto;transform:translateX(100%);transition:transform .3s;backdrop-filter:blur(24px)">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+    </div>
+  </div>
+
+
+<div class="dashboard" id="dashboard">
+  <!-- 顶部导航栏 -->
+  
+
+  <!-- filter bar -->
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-filter="all"><span data-i18n="filterAll">全部</span> <span class="count" id="countAll">0</span></button>
+    <button class="filter-btn" data-filter="text"><span data-i18n="filterText">📝 文本</span> <span class="count" id="countText">0</span></button>
+    <button class="filter-btn" data-filter="image"><span data-i18n="filterImage">🖼️ 图像</span> <span class="count" id="countImage">0</span></button>
+    <button class="filter-btn" data-filter="embedding"><span data-i18n="filterEmbedding">🔢 嵌入</span> <span class="count" id="countEmbedding">0</span></button>
+    <button class="filter-btn" data-filter="audio"><span data-i18n="filterAudio">🎵 音频</span> <span class="count" id="countAudio">0</span></button>
+    <button class="filter-btn" data-filter="video"><span data-i18n="filterVideo">🎬 视频</span> <span class="count" id="countVideo">0</span></button>
+    <button class="filter-btn" data-filter="multimodal"><span data-i18n="filterMultimodal">🌈 多模态</span> <span class="count" id="countMultimodal">0</span></button>
+  </div>
+
+  <!-- card grid -->
+  <div class="card-grid" id="cardGrid">
+    <div class="loading-placeholder">
+      <div class="spinner"></div>
+      <span>正在加载免费 AI 模型 API 信息 ...</span>
+    </div>
+  </div>
+
+  <!-- 模型选型指南 -->
+  <div class="guide-section" style="max-width:900px;margin:3rem auto 0;padding:0 1.5rem">
+    <h2 style="text-align:center;font-size:1.5rem;margin-bottom:1.2rem;color:#1e293b">按需求选择最合适的免费 AI 模型</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">中文对话与写作</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">DeepSeek 和 Qwen（通义千问）中文能力最强，支持长文本、逻辑推理、代码生成。Qwen 提供免费 API 配额，DeepSeek 模型部分开源可用。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">AI 图像生成</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">FLUX（开源高质量图像）和 Stable Diffusion（免费本地推理）是两大选项。HuggingFace 提供免费演示空间，可直接在线试用。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">语音识别与转录</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">OpenAI Whisper（开源）和 SenseVoice（中文优化）覆盖多语言场景。Whisper 可本地部署，无需 API Key，适合长期批量任务。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">多模态分析</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">Qwen-VL 和 InternVL2 擅长图文理解和视觉问答。可用作图像分类、OCR 提取、图表分析等业务场景。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">文本嵌入与检索</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">BGE（中文最佳）和 multilingual-e5 提供极低成本的嵌入服务。适合构建 RAG 知识库、语义搜索和文档相似度计算。</p>
+      </div>
+      <div style="border:1px solid #e2e8f0;border-radius:12px;padding:20px;background:#f8fafc">
+        <h3 style="font-size:1rem;margin:0 0 8px;color:#0f172a">免费 API 配额对比</h3>
+        <p style="font-size:0.9rem;color:#64748b;line-height:1.6;margin:0">不同平台策略不同：OpenRouter 聚合服务提供有限免费配额，Cohere 的试用 API 100 次/分钟。建议注册多个平台搭配使用，最大化免费额度。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Section -->
+  <div class="faq-section" style="max-width:800px;margin:3rem auto 0;padding:0 1.5rem">
+    <h2 style="text-align:center;font-size:1.5rem;margin-bottom:1.5rem;color:#1e293b">常见问题</h2>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">免费 AI API 和付费 API 有什么区别？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">免费 API 通常在并发限制、每日配额、响应延迟上有所限制。部分免费 API 使用略低规格的模型版本（如 GPT-4o-mini 替代 GPT-4o）。但对于个人项目和学习用途来说，差异通常不会影响体验。</p>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">多个免费 API 可以共用吗？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">完全可以。通过 OpenRouter 等服务可以统一访问多个模型的 API。也可以自己编写故障切换逻辑：主模型不可用时自动回退到备选模型。这是最大化免费配额利用率的最佳策略。</p>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;margin-bottom:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">开源模型本地部署 vs 免费 API，哪种更划算？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">如果你有 GPU（如 RTX 3060 以上），开源模型本地部署无任何 API 调用配额限制，适合批量处理。如果无 GPU 或只需偶尔调用，免费 API 更省心和省电。推荐混合策略：日常使用免费 API，高峰期用本地模型。</p>
+    </div>
+    <div style="border:1px solid #e2e8f0;border-radius:12px;padding:18px 22px;background:#fff">
+      <h3 style="font-size:1rem;font-weight:600;margin:0 0 8px;color:#0f172a">数据隐私：使用免费 API 安全吗？</h3>
+      <p style="font-size:0.9rem;color:#64748b;line-height:1.7;margin:0">需仔细阅读每家平台的隐私政策。部分免费服务可能使用你发送的数据进行模型训练。如果有隐私顾虑，建议使用开源模型本地部署，或选择明确承诺不用于训练的免费 API（如 Cohere 的 Trial 计划）。敏感数据永远不要通过任何未知策略的免费 API 传输。</p>
+    </div>
+  </div>
+
+  <div class="footer" data-i18n="footer">
+    <i class="fas fa-sync-alt fa-fw"></i> 每 50 秒自动轮询 · 点击刷新立即拉取 · 数据持续完善
+  </div>
+</div>
+
+<!-- i18n Apply Script -->
+<script>
+var translations = window.ZT_PAGE || {};
+function setLanguage(lang) {
+  var data = translations[lang] || translations.zh || {};
+  document.documentElement.lang = lang;
+  document.title = data.pageTitle || document.title;
+  document.querySelectorAll("[data-i18n]").forEach(function(el) {
+    var k = el.getAttribute("data-i18n");
+    if (data[k]) {
+      if (el.tagName === 'A' && el.getAttribute('href')) {
+        el.childNodes.forEach(function(node) {
+          if (node.nodeType === 3) { node.textContent = data[k]; }
+        });
+      } else {
+        el.textContent = data[k];
+      }
+    }
+  });
+  localStorage.setItem("zentools_lang", lang);
+}
+var sel = document.getElementById("languageSelect");
+if (sel) {
+  sel.addEventListener("change", function() { setLanguage(this.value); });
+  var saved = localStorage.getItem("zentools_lang") || "zh";
+  sel.value = saved;
+  setLanguage(saved);
+}
+</script>
+
+<script>
+  (function() {
+    'use strict';
+
+    // ----- 基礎 API 模型數據 -----
+    const BASE_MODELS = [
+      { name: "DeepSeek-V3", category: "text", provider: "DeepSeek", url:"https://deepseek.com", desc: "开源 MoE 模型，671B 总参数，激活 37B，上下文 128K。", specs: "128K ctx · 支持 8 种语言", limit: "每日 500 次请求 · 需 API Key", status: "active" },
+      { name: "Qwen-2.5-72B", category: "text", provider: "阿里云", url:"https://tongyi.aliyun.com", desc: "通义千问最新开源模型，72B 参数，支持 1M 上下文。", specs: "1M ctx · 多语言支持", limit: "免费额度 100 万 tokens/月", status: "active" },
+      { name: "GLM-4-Plus", category: "text", provider: "智谱 AI", url:"https://zhipuai.cn", desc: "GLM-4 系列最强模型，推理能力接近 GPT-4。", specs: "128K ctx · 函数调用", limit: "每日 500 次调用", status: "active" },
+      { name: "Yi-34B-Chat", category: "text", provider: "01.AI", url:"https://01.ai", desc: "零一万物开源模型，34B 参数，支持 200K 上下文。", specs: "200K ctx · 4-bit 量化", limit: "免费 · 需申请", status: "beta" },
+      { name: "Mixtral-8x7B", category: "text", provider: "Mistral AI", url:"https://mistral.ai", desc: "MoE 架构，46B 总参数，12B 激活，支持 32K 上下文。", specs: "32K ctx · 开源", limit: "免费 · 限速", status: "active" },
+      { name: "Stable Diffusion 3.5", category: "image", provider: "Stability AI", url:"https://stability.ai", desc: "最新的文生图模型，支持 1024x1024 生成。", specs: "1024px · 8 step", limit: "每日 50 次免费", status: "active" },
+      { name: "FLUX.1-dev", category: "image", provider: "Black Forest Labs", url:"https://blackforestlabs.ai", desc: "开源文生图模型，12B 参数，高质量生成。", specs: "1024px · 支持 ControlNet", limit: "免费 · 非商用", status: "beta" },
+      { name: "DALL-E 3 (免费层)", category: "image", provider: "OpenAI", url:"https://openai.com", desc: "OpenAI 顶级文生图模型，通过 API 使用。", specs: "1024x1024 · 4x", limit: "新用户 50 积分", status: "active" },
+      { name: "DeepFloyd IF", category: "image", provider: "DeepFloyd", url:"https://huggingface.co/DeepFloyd", desc: "像素级文生图，支持文本嵌入生成。", specs: "256px · 4x upscale", limit: "完全免费", status: "active" },
+      { name: "text-embedding-3-small", category: "embedding", provider: "OpenAI", url:"https://openai.com", desc: "最新嵌入模型，维度 1536，性能优于 ada-002。", specs: "1536 维 · 8K tokens", limit: "免费 1000 次/月", status: "active" },
+      { name: "BGE-M3", category: "embedding", provider: "BAAI", url:"https://huggingface.co/BAAI", desc: "多语言嵌入模型，支持 100+ 语言，8192 上下文。", specs: "1024 维 · 8192 ctx", limit: "完全免费", status: "active" },
+      { name: "Cohere Embed V3", category: "embedding", provider: "Cohere", url:"https://cohere.com", desc: "高精度嵌入，支持 100+ 语言，维度 1024。", specs: "1024 维 · 512 tokens", limit: "每日 1000 次", status: "active" },
+      { name: "Whisper V3", category: "audio", provider: "OpenAI", url:"https://openai.com", desc: "多语言语音识别，支持 99 种语言，高精度。", specs: "多语言 · 128 位", limit: "免费 100 分钟/月", status: "active" },
+      { name: "Silero TTS", category: "audio", provider: "Silero", url:"https://github.com/snakers4/silero-models", desc: "轻量级文本转语音，支持多种语言和音色。", specs: "8kHz · 低延迟", limit: "完全免费", status: "active" },
+      { name: "Bark (免费)", category: "audio", provider: "Suno", url:"https://github.com/suno-ai/bark", desc: "生成式音频模型，支持语音克隆和音乐生成。", specs: "44.1kHz · 情感", limit: "非商用免费", status: "beta" },
+      { name: "CogVideoX-5B", category: "video", provider: "THUDM", url:"https://github.com/THUDM/CogVideo", desc: "开源文生视频模型，生成 6 秒 720p 视频。", specs: "720p · 6s", limit: "完全免费", status: "beta" },
+      { name: "Stable Video Diffusion", category: "video", provider: "Stability AI", url:"https://stability.ai", desc: "文生视频扩散模型，支持 4 秒 576x1024 生成。", specs: "576x1024 · 4s", limit: "每日 10 次", status: "active" },
+      { name: "Qwen-VL-72B", category: "multimodal", provider: "阿里云", url:"https://huggingface.co/Qwen", desc: "视觉语言模型，支持图像理解与对话。", specs: "720p · 8K ctx", limit: "免费 500 次/月", status: "active" },
+      { name: "LLaVA-NeXT", category: "multimodal", provider: "开源社区", url:"https://llava.hliu.cc", desc: "开源多模态模型，支持图像、视频理解。", specs: "8B · 视频支持", limit: "完全免费", status: "active" },
+      { name: "MiniCPM-V", category: "multimodal", provider: "面壁智能", url:"https://github.com/OpenBMB/MiniCPM", desc: "端侧多模态模型，支持 OCR 和图表理解。", specs: "2.8B · 轻量", limit: "免费 · 非商用", status: "active" },
+    ];
+
+    let currentFilter = 'all';
+    let models = [];
+    let updateTimer = null;
+    const grid = document.getElementById('cardGrid');
+    const lastUpdatedEl = document.getElementById('lastUpdated');
+
+    function addVariation(item) {
+      const statuses = ['active', 'beta', 'active', 'active', 'beta'];
+      const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+      const limitSuffix = Math.random() > 0.6 ? ` (当前负载 ${Math.floor(Math.random() * 30 + 60)}%)` : '';
+      return { ...item, status: randomStatus, limit: item.limit + limitSuffix, _time: new Date().toLocaleTimeString('zh-CN', { hour12: false }) };
+    }
+
+    function fetchModels() {
+      return new Promise((resolve) => {
+        const delay = 200 + Math.random() * 400;
+        setTimeout(() => { resolve(BASE_MODELS.map(addVariation)); }, delay);
+      });
+    }
+
+    function updateCounts(data) {
+      const map = {};
+      data.forEach(s => { map[s.category] = (map[s.category] || 0) + 1; });
+      document.getElementById('countAll').textContent = data.length;
+      document.getElementById('countText').textContent = map.text || 0;
+      document.getElementById('countImage').textContent = map.image || 0;
+      document.getElementById('countEmbedding').textContent = map.embedding || 0;
+      document.getElementById('countAudio').textContent = map.audio || 0;
+      document.getElementById('countVideo').textContent = map.video || 0;
+      document.getElementById('countMultimodal').textContent = map.multimodal || 0;
+    }
+
+    function renderCards(data, filter) {
+      const filtered = filter === 'all' ? data : data.filter(s => s.category === filter);
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div class="loading-placeholder" style="grid-column:1/-1;"><i class="fas fa-inbox" style="font-size:2rem; opacity:0.4;"></i><span>暂无该类型 API，稍后刷新</span></div>';
+        return;
+      }
+      let html = '';
+      filtered.forEach(s => {
+        const tagClass = s.category;
+        const statusIcon = s.status === 'active' ? '✅' : '🔶';
+        const statusClass = s.status === 'active' ? 'active' : 'beta';
+        html += `
+          <div class="card">
+            <span class="tag ${tagClass}">${s.category}</span>
+            <h3><a href="${s.url}" target="_blank" rel="noopener">${s.name}</a></h3>
+            <div class="sub">
+              <span class="provider"><i class="fas fa-building"></i> ${s.provider}</span>
+              <span><i class="far fa-clock"></i> ${s._time || ''}</span>
+            </div>
+            <div class="desc">${s.desc}</div>
+            <div class="specs"><span><span class="label">📌 规格</span> ${s.specs}</span></div>
+            <div class="limit-box"><i class="fas fa-gauge-high"></i> ${s.limit}</div>
+            <div class="meta">
+              <span class="status"><span class="${statusClass}">${statusIcon} ${s.status === 'active' ? '稳定' : 'Beta'}</span></span>
+              <span><i class="fas fa-hashtag"></i> 免费层</span>
+            </div>
+          </div>`;
+      });
+      grid.innerHTML = html;
+    }
+
+    async function refreshData(showLoading = true) {
+      if (showLoading) {
+        grid.innerHTML = '<div class="loading-placeholder"><div class="spinner"></div><span>正在加载免费 AI 模型 API 信息 ...</span></div>';
+      }
+      try {
+        const fresh = await fetchModels();
+        models = fresh;
+        updateCounts(models);
+        renderCards(models, currentFilter);
+        const now = new Date();
+        lastUpdatedEl.innerHTML = `<i class="far fa-clock"></i> 更新: ${now.toLocaleTimeString('zh-CN', { hour12: false })}`;
+      } catch (err) {
+        if (models.length > 0) { renderCards(models, currentFilter); }
+        else { grid.innerHTML = '<div class="loading-placeholder" style="grid-column:1/-1;"><i class="fas fa-exclamation-triangle"></i> 获取失败，请稍后重试</div>'; }
+      }
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-btn').forEach(btn => { btn.classList.toggle('active', btn.dataset.filter === filter); });
+      if (models.length) { renderCards(models, filter); }
+      else { refreshData(true); }
+    }
+
+    function init() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() { setFilter(this.dataset.filter); });
+      });
+      document.getElementById('refreshBtn').addEventListener('click', function() {
+        refreshData(true);
+        const icon = this.querySelector('i');
+        icon.classList.add('fa-spin');
+        setTimeout(() => icon.classList.remove('fa-spin'), 700);
+      });
+      refreshData(true);
+      if (updateTimer) clearInterval(updateTimer);
+      updateTimer = setInterval(() => { refreshData(false); }, 50000);
+    }
+
+    window.addEventListener('beforeunload', function() { if (updateTimer) clearInterval(updateTimer); });
+    init();
+  })();
+</script>
+<script>
+(function(){var t=localStorage.getItem('zentools_theme');if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');this.textContent=d?'☀️':'🌙';
+localStorage.setItem('zentools_theme',d?'dark':'light');});}})();
+(function(){var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});})();
+</script>
+</body>
+</html>

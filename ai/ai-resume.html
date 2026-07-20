@@ -1,143 +1,334 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="../assets/js/anti-crash.min.js" defer></script>
-<link rel="manifest" href="/manifest.json" />
-  <title>AI简历生成 - ZenTools</title>
-<meta name="description" content="免费在线 AI 简历生成工具，快速生成简历结构。，免费在线使用，本地处理保护隐私，无需上传服务器。">
-<meta name="keywords" content="AI简历生成,在线简历,简历模板,ZenTools,AI工具,在线工具,免费工具">
-<link rel="canonical" href="https://zentools.xyz/ai/ai-resume.html">
-<meta property="og:title" content="AI简历生成 - ZenTools">
-<meta property="og:description" content="免费在线 AI 简历生成工具，快速生成简历结构。">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://zentools.xyz/ai/ai-resume.html">
-<meta property="og:locale" content="zh_CN" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="AI简历生成 | ZenTools" />
-<meta name="twitter:description" content="Free online AI resume builder. Run locally in browser." />
-<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
-<meta property="og:image" content="https://www.zentools.xyz/logo.png">
-<style>
-:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#00e5ff;--pink:#f43f5e;--pink:#f43f5e}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
-a{color:var(--cyan);text-decoration:none}
-.card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px}
-h1{margin-bottom:15px;font-size:34px}.desc{color:var(--muted);margin-bottom:25px}
-.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px}
-textarea{min-height:180px;resize:vertical}
-button{background:var(--cyan);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
-.copy-btn{background:var(--cyan)}.clear-btn{background:var(--pink)}
-.result{margin-top:22px;background:#0b1220;border:1px solid #334155;border-radius:16px;padding:18px;color:#cbd5e1;white-space:pre-line}
-.info{margin-top:35px}.info h2{margin-top:25px}.info p{color:#cbd5e1;white-space:pre-line}
-footer{margin-top:50px;text-align:center;color:#94a3b8}
-@media(max-width:768px){button,.lang-select{width:100%}h1{font-size:28px}}
-</style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"这个工具免费吗？","acceptedAnswer":{"@type":"Answer","text":"是的，完全免费。所有工具在浏览器本地运行，无需注册。"}},{"@type":"Question","name":"我的文件会上传到服务器吗？","acceptedAnswer":{"@type":"Answer","text":"不会。所有处理在您的浏览器本地完成，文件不会上传到服务器。"}},{"@type":"Question","name":"需要安装软件吗？","acceptedAnswer":{"@type":"Answer","text":"不需要。直接在浏览器中打开即可使用，无需安装任何软件。"}},{"@type":"Question","name":"支持哪些浏览器？","acceptedAnswer":{"@type":"Answer","text":"推荐使用最新版 Chrome、Edge、Firefox 或 Safari。"}}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI简历生成 - ZenTools","url":"https://zentools.xyz/ai/ai-resume.html","description":"免费在线 AI 简历生成工具，快速生成简历结构。","applicationCategory":"UtilityApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
-</head>
-<body>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-<div class="z-wrap">
-
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="/">ZenTools<span>2.0</span></a>
-    <div class="nav-links">
-      <a href="/">首页</a>
-      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-      <a href="/tools.html">全部工具</a>
-      <select id="langSelect" class="lang-select">
-        <option value="zh">中文</option>
-        <option value="en">English</option>
-        <option value="ja">日本語</option>
-        <option value="vi">Tiếng Việt</option>
-      </select>
-    </div>
-  </div>
-</nav>
-
-<div class="page-header reveal">
-  <div class="breadcrumb">
-    <a href="/">首页</a>
-    <span class="breadcrumb-sep">/</span>
-    <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-    <span class="breadcrumb-sep">/</span>
-    <span class="cur" data-i18n="crumbCur">AI简历生成</span>
-  </div>
-  <span class="page-eyebrow" data-i18n="eyebrow">AI工具</span>
-  <h1><span class="grad" data-i18n="h1Grad">AI简历生成</span><br/><span data-i18n="h1Sub">根据个人信息快速生成简历结构</span></h1>
-  <p data-i18n="pageDesc">根据个人信息快速生成简历结构。</p>
-</div>
-
-<div class="tool-box reveal">
-<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
-<div class="grid"><input id="name" data-i18n-placeholder="namePh"><input id="role" data-i18n-placeholder="rolePh"><textarea id="skills" data-i18n-placeholder="skillsPh"></textarea><textarea id="exp" data-i18n-placeholder="expPh"></textarea></div>
-<button onclick="runTool()" data-i18n="run">开始生成</button>
-<button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
-<button onclick="clearTool()" class="clear-btn" data-i18n="clear">清空</button>
-<textarea id="outputText" readonly data-i18n-placeholder="outputPlaceholder"></textarea>
-<div class="info">
-<h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">填写姓名、岗位、技能和经历，即可生成简历草稿。</p>
-<h2 data-i18n="privacyTitle">隐私说明</h2><p data-i18n="privacyText">本工具为浏览器本地处理，不会上传内容到服务器。</p>
-</div>
-</div>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">ZenTools</div>
-    <div class="footer-links">
-      <a href="/">首页</a>
-      <a href="/ai/" data-i18n="navAI工具Cat">AI工具</a>
-      <a href="/privacy.html">隐私政策</a>
-    </div>
-    <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p>
-  </div>
-</footer>
-
-</div>
-
-<script>
-window.ZT_PAGE = {"zh":{"back":"← 返回首页","ad":"广告位（Google AdSense）","run":"开始生成","copy":"复制结果","clear":"清空","copied":"已复制","inputPlaceholder":"请输入内容...","outputPlaceholder":"结果会显示在这里...","guideTitle":"使用说明","privacyTitle":"隐私说明","privacyText":"本工具为浏览器本地处理，不会上传内容到服务器。","empty":"请输入内容","eyebrow":"AI工具","navAI工具Cat":"AI工具","crumbCur":"AI简历生成","h1Grad":"AI简历生成","h1Sub":"根据个人信息快速生成简历结构","pageDesc":"根据个人信息快速生成简历结构。","pageTitle":"AI简历生成 - 免费在线工具 | ZenTools","guideText":"填写姓名、岗位、技能和经历，即可生成简历草稿。","namePh":"姓名","rolePh":"目标岗位","skillsPh":"技能，例如：HTML, CSS, 日语","expPh":"工作经历"},"en":{"back":"← Back to Home","ad":"Ad Space","run":"Generate","copy":"Copy Result","clear":"Clear","copied":"Copied","inputPlaceholder":"Enter content...","outputPlaceholder":"Result will appear here...","guideTitle":"How to Use","privacyTitle":"Privacy Notice","privacyText":"This tool runs locally in your browser and does not upload content to a server.","empty":"Please enter content","eyebrow":"AI TOOLS","navAI工具Cat":"AI TOOLS","crumbCur":"AI Resume Builder","h1Grad":"AI Resume Builder","h1Sub":"Generate a resume structure from personal information","pageDesc":"Generate a resume structure from personal information.","pageTitle":"AI Resume Generator - Free Online Tool | ZenTools","guideText":"Enter name, role, skills, and experience to generate a resume draft.","namePh":"Name","rolePh":"Target role","skillsPh":"Skills","expPh":"Experience"},"ja":{"back":"← ホームに戻る","ad":"広告スペース","run":"生成開始","copy":"結果をコピー","clear":"クリア","copied":"コピーしました","inputPlaceholder":"内容を入力してください...","outputPlaceholder":"結果がここに表示されます...","guideTitle":"使い方","privacyTitle":"プライバシーについて","privacyText":"このツールはブラウザ内で処理され、内容はサーバーへ送信されません。","empty":"内容を入力してください","eyebrow":"AIツール","navAI工具Cat":"AIツール","crumbCur":"AI履歴書作成","h1Grad":"AI履歴書作成","h1Sub":"個人情報から履歴書の構成を生成します","pageDesc":"個人情報から履歴書の構成を生成します。","pageTitle":"AI履歴書生成 - Free Online Tool | ZenTools","guideText":"氏名、希望職種、スキル、経験を入力します。","namePh":"氏名","rolePh":"希望職種","skillsPh":"スキル","expPh":"職務経験"},"vi":{"back":"← Quay lại trang chủ","ad":"Vị trí quảng cáo","run":"Tạo kết quả","copy":"Sao chép","clear":"Xóa","copied":"Đã sao chép","inputPlaceholder":"Nhập nội dung...","outputPlaceholder":"Kết quả sẽ hiển thị ở đây...","guideTitle":"Hướng dẫn","privacyTitle":"Quyền riêng tư","privacyText":"Công cụ xử lý trực tiếp trong trình duyệt và không tải nội dung lên máy chủ.","empty":"Vui lòng nhập nội dung","eyebrow":"CÔNG CỤ AI","navAI工具Cat":"CÔNG CỤ AI","crumbCur":"Tạo CV AI","h1Grad":"Tạo CV AI","h1Sub":"Tạo cấu trúc CV từ thông tin cá nhân","pageDesc":"Tạo cấu trúc CV từ thông tin cá nhân.","pageTitle":"AI tạo CV - Free Online Tool | ZenTools","guideText":"Nhập tên, vị trí, kỹ năng và kinh nghiệm để tạo CV.","namePh":"Tên","rolePh":"Vị trí mong muốn","skillsPh":"Kỹ năng","expPh":"Kinh nghiệm"}};
-</script>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-window.currentLang = localStorage.getItem("zentools_lang") || "zh";
-function val(id){return (document.getElementById(id)?.value || '').trim();}
-window.setOut = function(t){document.getElementById('outputText').value=t;};
-function copyResult(){const el=document.getElementById('outputText');el.select();document.execCommand('copy');alert((window.ZT_PAGE[window.currentLang]||window.ZT_PAGE.zh).copied);}
-function clearTool(){document.querySelectorAll('input,textarea').forEach(el=>{if(el.id!=='outputText')el.value='';});document.getElementById('outputText').value='';}
-window.sentences = function(text){return text.replace(/\n+/g,' ').split(/(?<=[。！？.!?])\s*/).map(s=>s.trim()).filter(Boolean);}
-function runTool(){const d=window.ZT_PAGE[window.currentLang]||window.ZT_PAGE.zh;const name=val('name'),role=val('role'),skills=val('skills'),exp=val('exp');if(!name&&!role&&!skills){alert(d.empty);return;}window.setOut(`Resume\n\nName: ${name}\nTarget Role: ${role}\n\nProfile:\nA motivated candidate with practical skills and experience related to ${role}.\n\nSkills:\n${skills}\n\nExperience:\n${exp}\n\nStrengths:\n- Fast learner\n- Responsible attitude\n- Good communication\n- Practical problem-solving ability`);};
-</script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'\' onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-
-    
-    
-    
-
-    
-</body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+</div>
+<script src="/assets/js/anti-crash.min.js" defer></script>
+<link rel="manifest" href="/manifest.json" />
+  <title>AI简历生成 - ZenTools</title>
+<meta name="description" content="免费在线 AI 简历生成工具，快速生成简历结构。，免费在线使用，本地处理保护隐私，无需上传服务器。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。">
+<meta name="keywords" content="AI简历生成,在线简历,简历模板,ZenTools,AI工具,在线工具,免费工具,AI简历生成在线使用,AI简历生成怎么用">
+<link rel="canonical" href="https://zentools.xyz/ai/ai-resume.html">
+<meta property="og:title" content="AI简历生成 - ZenTools">
+<meta property="og:description" content="免费在线 AI 简历生成工具，快速生成简历结构。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zentools.xyz/ai/ai-resume.html">
+<meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI简历生成 | ZenTools" />
+<meta name="twitter:description" content="Free online AI resume builder. Run locally in browser." />
+<link rel="stylesheet" href="/assets/css/tool-ui.min.css"/>
+<meta property="og:image" content="https://www.zentools.xyz/logo.png">
+<style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#00e5ff;--pink:#f43f5e;--pink:#f43f5e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
+a{color:var(--zen-primary);text-decoration:none}
+.card{background:var(--card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}
+h1{margin-bottom:15px;font-size:34px}.desc{color:var(--zen-text-sub);margin-bottom:25px}
+.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px}
+textarea{min-height:180px;resize:vertical}
+button{background:var(--zen-primary);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
+.copy-btn{background:var(--zen-primary)}.clear-btn{background:var(--zen-danger)}
+.result{margin-top:22px;background:#0b1220;border:1px solid #334155;border-radius:16px;padding:18px;color:#cbd5e1;white-space:pre-line}
+.info{margin-top:35px}.info h2{margin-top:25px}.info p{color:#cbd5e1;white-space:pre-line}
+footer{margin-top:50px;text-align:center;color:#94a3b8}
+@media(max-width:768px){button,.lang-select{width:100%}h1{font-size:28px}}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "AI 工具", "item": "https://zentools.xyz/ai/"}, {"@type": "ListItem", "position": 4, "name": "AI简历生成"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI简历生成 - ZenTools","url":"https://zentools.xyz/ai/ai-resume.html","description":"免费在线 AI 简历生成工具，快速生成简历结构。","applicationCategory":"UtilityApplication","operatingSystem":"All","browserRequirements":"Requires JavaScript","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>AI工具</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/ai/">AI工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">AI简历生成</span></div>
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">AI简历生成</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">根据个人信息快速生成简历结构</p>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">根据个人信息快速生成简历结构。</p>
+    </div>
+  </section>
+<div class="tool-box reveal">
+<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+<div class="grid"><input id="name" data-i18n-placeholder="namePh"><input id="role" data-i18n-placeholder="rolePh"><textarea id="skills" data-i18n-placeholder="skillsPh"></textarea><textarea id="exp" data-i18n-placeholder="expPh"></textarea></div>
+<button onclick="runTool()" data-i18n="run">开始生成</button>
+<button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
+<button onclick="clearTool()" class="clear-btn" data-i18n="clear">清空</button>
+<textarea id="outputText" readonly data-i18n-placeholder="outputPlaceholder"></textarea>
+<div class="info">
+<h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">填写姓名、岗位、技能和经历，即可生成简历草稿。</p>
+<h2 data-i18n="privacyTitle">隐私说明</h2><p data-i18n="privacyText">本工具为浏览器本地处理，不会上传内容到服务器。</p>
+</div>
+</div>
+
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>AI简历生成AI 根据个人信息和经历自动生成结构清晰的简历，提供多种模板风格。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>内容创作者、学生、程序员、运营和职场人士，想把重复脑力活交给 AI 提效的人。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>把需求说清楚、给足上下文，生成质量更高</li>
+<li>长任务拆成几步，逐步迭代比一次成型更稳</li>
+<li>关键内容务必人工核对，AI 结果仅供参考</li>
+<li>把常用提示词存成模板，复用更省时</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>AI简历生成主要能做什么？</summary><p>AI简历生成AI 根据个人信息和经历自动生成结构清晰的简历，提供多种模板风格。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。</p></details>
+<details open><summary>第一次使用AI简历生成要注意什么？</summary><p>打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。</p></details>
+<details open><summary>AI简历生成处理我的文件安全吗？</summary><p>安全。AI简历生成所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。</p></details>
+<details open><summary>用AI简历生成生成的内容可以直接用吗？</summary><p>可以。生成结果会直接显示在页面，你可复制、续写或导出；建议对关键内容做人工核对，确保符合你的场景。</p></details>
+  </div>
+</section>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+        <a href="/">首页</a>
+        <a href="/ai/">AI工具</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+window.ZT_PAGE = {"zh":{"back":"← 返回首页","ad":"广告位（Google AdSense）","run":"开始生成","copy":"复制结果","clear":"清空","copied":"已复制","inputPlaceholder":"请输入内容...","outputPlaceholder":"结果会显示在这里...","guideTitle":"使用说明","privacyTitle":"隐私说明","privacyText":"本工具为浏览器本地处理，不会上传内容到服务器。","empty":"请输入内容","eyebrow":"AI工具","navAI工具Cat":"AI工具","crumbCur":"AI简历生成","h1Grad":"AI简历生成","h1Sub":"根据个人信息快速生成简历结构","pageDesc":"根据个人信息快速生成简历结构。","pageTitle":"AI简历生成 - 免费在线工具 | ZenTools","guideText":"填写姓名、岗位、技能和经历，即可生成简历草稿。","namePh":"姓名","rolePh":"目标岗位","skillsPh":"技能，例如：HTML, CSS, 日语","expPh":"工作经历"},"en":{"back":"← Back to Home","ad":"Ad Space","run":"Generate","copy":"Copy Result","clear":"Clear","copied":"Copied","inputPlaceholder":"Enter content...","outputPlaceholder":"Result will appear here...","guideTitle":"How to Use","privacyTitle":"Privacy Notice","privacyText":"This tool runs locally in your browser and does not upload content to a server.","empty":"Please enter content","eyebrow":"AI TOOLS","navAI工具Cat":"AI TOOLS","crumbCur":"AI Resume Builder","h1Grad":"AI Resume Builder","h1Sub":"Generate a resume structure from personal information","pageDesc":"Generate a resume structure from personal information.","pageTitle":"AI Resume Generator - Free Online Tool | ZenTools","guideText":"Enter name, role, skills, and experience to generate a resume draft.","namePh":"Name","rolePh":"Target role","skillsPh":"Skills","expPh":"Experience"},"ja":{"back":"← ホームに戻る","ad":"広告スペース","run":"生成開始","copy":"結果をコピー","clear":"クリア","copied":"コピーしました","inputPlaceholder":"内容を入力してください...","outputPlaceholder":"結果がここに表示されます...","guideTitle":"使い方","privacyTitle":"プライバシーについて","privacyText":"このツールはブラウザ内で処理され、内容はサーバーへ送信されません。","empty":"内容を入力してください","eyebrow":"AIツール","navAI工具Cat":"AIツール","crumbCur":"AI履歴書作成","h1Grad":"AI履歴書作成","h1Sub":"個人情報から履歴書の構成を生成します","pageDesc":"個人情報から履歴書の構成を生成します。","pageTitle":"AI履歴書生成 - Free Online Tool | ZenTools","guideText":"氏名、希望職種、スキル、経験を入力します。","namePh":"氏名","rolePh":"希望職種","skillsPh":"スキル","expPh":"職務経験"},"vi":{"back":"← Quay lại trang chủ","ad":"Vị trí quảng cáo","run":"Tạo kết quả","copy":"Sao chép","clear":"Xóa","copied":"Đã sao chép","inputPlaceholder":"Nhập nội dung...","outputPlaceholder":"Kết quả sẽ hiển thị ở đây...","guideTitle":"Hướng dẫn","privacyTitle":"Quyền riêng tư","privacyText":"Công cụ xử lý trực tiếp trong trình duyệt và không tải nội dung lên máy chủ.","empty":"Vui lòng nhập nội dung","eyebrow":"CÔNG CỤ AI","navAI工具Cat":"CÔNG CỤ AI","crumbCur":"Tạo CV AI","h1Grad":"Tạo CV AI","h1Sub":"Tạo cấu trúc CV từ thông tin cá nhân","pageDesc":"Tạo cấu trúc CV từ thông tin cá nhân.","pageTitle":"AI tạo CV - Free Online Tool | ZenTools","guideText":"Nhập tên, vị trí, kỹ năng và kinh nghiệm để tạo CV.","namePh":"Tên","rolePh":"Vị trí mong muốn","skillsPh":"Kỹ năng","expPh":"Kinh nghiệm"}};
+</script>
+<script src="/assets/js/tool-ui.min.js"></script>
+<script>
+window.currentLang = localStorage.getItem("zentools_lang") || "zh";
+function val(id){return (document.getElementById(id)?.value || '').trim();}
+window.setOut = function(t){document.getElementById('outputText').value=t;};
+function copyResult(){const el=document.getElementById('outputText');el.select();document.execCommand('copy');alert((window.ZT_PAGE[window.currentLang]||window.ZT_PAGE.zh).copied);}
+function clearTool(){document.querySelectorAll('input,textarea').forEach(el=>{if(el.id!=='outputText')el.value='';});document.getElementById('outputText').value='';}
+window.sentences = function(text){return text.replace(/\n+/g,' ').split(/(?<=[。！？.!?])\s*/).map(s=>s.trim()).filter(Boolean);}
+function runTool(){const d=window.ZT_PAGE[window.currentLang]||window.ZT_PAGE.zh;const name=val('name'),role=val('role'),skills=val('skills'),exp=val('exp');if(!name&&!role&&!skills){alert(d.empty);return;}window.setOut(`Resume\n\nName: ${name}\nTarget Role: ${role}\n\nProfile:\nA motivated candidate with practical skills and experience related to ${role}.\n\nSkills:\n${skills}\n\nExperience:\n${exp}\n\nStrengths:\n- Fast learner\n- Responsible attitude\n- Good communication\n- Practical problem-solving ability`);};
+</script>
+
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'\' onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+    
+    
+    
+
+
+    
+    
+    
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "AI简历生成主要能做什么？","acceptedAnswer": {"@type": "Answer","text": "AI简历生成AI 根据个人信息和经历自动生成结构清晰的简历，提供多种模板风格。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"}},{"@type": "Question","name": "第一次使用AI简历生成要注意什么？","acceptedAnswer": {"@type": "Answer","text": "打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。"}},{"@type": "Question","name": "AI简历生成处理我的文件安全吗？","acceptedAnswer": {"@type": "Answer","text": "安全。AI简历生成所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。"}},{"@type": "Question","name": "用AI简历生成生成的内容可以直接用吗？","acceptedAnswer": {"@type": "Answer","text": "可以。生成结果会直接显示在页面，你可复制、续写或导出；建议对关键内容做人工核对，确保符合你的场景。"}}]}</script>
+</body>
 </html>

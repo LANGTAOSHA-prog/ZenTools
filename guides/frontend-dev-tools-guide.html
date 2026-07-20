@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<script src="../assets/js/anti-crash.min.js"></script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">前端开发工具完整指南：JSON、正则、编码、调试一站搞定 - ZenTools</title>
+<meta name="description" content="前端开发者必备在线工具指南，涵盖 JSON 格式化校验、正则表达式测试、Base64 编码解码、颜色格式转换、CSS/JS 压缩、HTTP 状态码查询等核心开发工具，提升编码效率。"/>
+<link rel="canonical" href="https://zentools.xyz/guides/frontend-dev-tools-guide.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta name="theme-color" content="#00e5ff"/>
+<meta property="og:title" content="前端开发工具完整指南：JSON、正则、编码、调试一站搞定 - ZenTools"/>
+<meta property="og:description" content="前端开发者必备在线工具指南，涵盖 JSON 格式化校验、正则表达式测试、Base64 编码解码、颜色格式转换、CSS/JS 压缩、HTTP 状态码查询等核心开发工具，提升编码效率。"/>
+<meta property="og:url" content="https://zentools.xyz/guides/frontend-dev-tools-guide.html"/>
+<meta property="og:type" content="article"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="前端开发工具完整指南：JSON、正则、编码、调试一站搞定 - ZenTools"/>
+<meta name="twitter:description" content="前端开发者必备在线工具指南，涵盖 JSON 格式化校验、正则表达式测试、Base64 编码解码、颜色格式转换、CSS/JS 压缩、HTTP 状态码查询等核心开发工具，提升编码效率。"/>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472"/>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
+.guide-hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 60px 20px; text-align: center; color: #fff; margin-bottom: 40px; }
+.guide-hero-title { font-size: 42px; margin-bottom: 16px; font-weight: 700; }
+.guide-hero p { font-size: 18px; opacity: 0.9; max-width: 800px; margin: 0 auto; line-height: 1.6; }
+.guide-meta { display: flex; gap: 24px; justify-content: center; margin-top: 20px; font-size: 14px; opacity: 0.85; }
+.guide-type { background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
+.guide-back { max-width: 1200px; margin: 0 auto 30px; padding: 0 20px; }
+.back-link { display: inline-flex; align-items: center; gap: 8px; color: #667eea; text-decoration: none; font-weight: 600; padding: 10px 0; }
+.back-link:hover { color: #764ba2; }
+.guide-container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+.guide-body { background: #fff; border-radius: 20px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); color: #333; }
+.guide-body h2 { font-size: 28px; margin: 40px 0 20px; color: #333; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+.guide-body h3 { font-size: 22px; margin: 30px 0 15px; color: #444; }
+.guide-body p { line-height: 1.8; color: #555; margin-bottom: 16px; }
+.guide-body ul, .guide-body ol { margin: 16px 0; padding-left: 24px; color: #555; }
+.guide-body li { margin-bottom: 8px; line-height: 1.6; }
+.guide-body a { color: #667eea; text-decoration: none; }
+.guide-body a:hover { text-decoration: underline; }
+.tip-box { background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%); border-left: 4px solid #667eea; padding: 20px 24px; border-radius: 8px; margin: 24px 0; }
+.tip-box strong { color: #667eea; font-weight: 700; }
+.related-section { background: #f8f9fa; border-radius: 12px; padding: 24px; margin-top: 40px; }
+.related-section h3 { margin-top: 0; color: #333; }
+.related-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.related-links a { color: #667eea; text-decoration: none; padding: 8px 16px; background: #fff; border-radius: 6px; border: 1px solid #e0e0e0; transition: all 0.2s; }
+.related-links a:hover { background: #667eea; color: #fff; border-color: #667eea; }
+@media(max-width: 768px) {
+  .guide-hero { padding: 40px 20px; }
+  .guide-hero-title { font-size: 28px; }
+  .guide-body { padding: 24px; }
+  .guide-meta { flex-direction: column; gap: 8px; }
+}
+</style>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "使用指南", "item": "https://zentools.xyz/guides/"}, {"@type": "ListItem", "position": 3, "name": "前端开发工具完整指南：JSON、正则、编码、调试一站搞定"}]}</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "前端开发工具完整指南：JSON、正则、编码、调试一站搞定",
+  "description": "前端开发者必备在线工具指南，涵盖 JSON 格式化校验、正则表达式测试、Base64 编码解码、颜色格式转换、CSS/JS 压缩、HTTP 状态码查询等核心开发工具，提升编码效率。",
+  "datePublished": "2026-07-15",
+  "dateModified": "2026-07-15",
+  "author": { "@type": "Organization", "name": "ZenTools" },
+  "publisher": { "@type": "Organization", "name": "ZenTools" },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://zentools.xyz/guides/frontend-dev-tools-guide.html" }
+}
+</script>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="container nav-inner" style="height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px">
+      <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-size:22px;font-weight:700">
+        <span style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700;flex-shrink:0">Z</span>
+        <span><span style="color:var(--zen-primary)">Zen</span><span style="color:var(--zen-secondary)">Tools</span><span style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></span>
+      </a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+        <a href="/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+        <a href="/tools.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+        <a href="/tutorials/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+        <a href="/guides/" class="active" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:600;color:var(--zen-primary);text-decoration:none">深度指南</a>
+        <a href="/compare/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+        <a href="/professions.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+        <a href="/my.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+        <button id="themeToggle" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" style="background:transparent;border:1px solid var(--zen-border);border-radius:8px;padding:6px 10px;color:var(--zen-text-sub);font-size:13px;cursor:pointer">
+          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay" style="position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s">
+    <div class="mobile-drawer" id="mobileDrawer" style="position:fixed;top:0;right:0;bottom:0;width:300px;max-width:85vw;background:rgba(249,250,251,0.97);border-left:1px solid var(--zen-border);padding:24px 20px;z-index:310;overflow-y:auto;transform:translateX(100%);transition:transform .3s;backdrop-filter:blur(24px)">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+
+
+
+<div class="guide-hero">
+<span class="guide-type" data-i18n="typeLabel">📘 核心指南</span>
+<div class="guide-hero-title" data-i18n="pageHeader">前端开发工具完整指南：JSON、正则、编码、调试一站搞定</div>
+<p data-i18n="pageDesc">前端开发者必备在线工具指南，涵盖 JSON 格式化校验、正则表达式测试、Base64 编码解码、颜色格式转换、CSS/JS 压缩、HTTP 状态码查询等核心开发工具，提升编码效率。</p>
+<div class="guide-meta">
+<span data-i18n="wordCount">2600+ 字</span>
+<span data-i18n="readTime">18 分钟阅读</span>
+<span data-i18n="today">📅 2026-07-15</span>
+</div>
+</div>
+
+<div class="guide-back">
+<a href="/guides/" class="back-link" data-i18n="guideBack">← 返回深度指南</a>
+</div>
+
+<div class="guide-container">
+<div class="guide-body">
+<div id="toc">
+<p data-i18n="tocTitle">目录</p>
+<ol>
+<p>目录</p>
+<ol>
+<li><a href="#section-1" data-i18n="sec1Title">前端开发中的常见痛点</a></li>
+<li><a href="#section-2" data-i18n="sec2Title">JSON 处理工具</a></li>
+<li><a href="#section-3" data-i18n="sec3Title">正则表达式与编码工具</a></li>
+<li><a href="#section-4" data-i18n="sec4Title">CSS/JS 与颜色工具</a></li>
+<li><a href="#section-5" data-i18n="sec5Title">实战案例：调试一个复杂的 API 集成</a></li>
+<li><a href="#section-6" data-i18n="sec6Title">常见问题 FAQ</a></li>
+<li><a href="#section-7" data-i18n="sec7Title">总结与下一步</a></li>
+</ol>
+
+</ol>
+</div>
+<h2 id="section-1" data-i18n="sec1Title">前端开发中的常见痛点</h2>
+<p data-i18n="sec1p1">前端开发者在日常工作中需要处理大量格式转换、数据校验和调试任务。JSON 数据需要格式化和校验、正则表达式需要反复测试、颜色值需要在 RGB/HEX/HSL 之间转换、Base64 编码解码更是家常便饭。这些任务虽然简单，但频繁切换工具严重影响开发效率。</p>
+<p data-i18n="sec1p2">传统方案是安装各种 IDE 插件或使用分散的在线工具网站。但 IDE 插件依赖特定编辑器，在线工具网站又往往充斥广告、加载缓慢。ZenTools 的开发工具集提供了一套纯净、快速、无广告的开发者工具集，所有操作在浏览器本地完成。</p>
+<p data-i18n="sec1p3">本指南将系统介绍前端开发中最常用的 10 类工具，帮助你构建高效的开发工作流。</p>
+<h2 id="section-2" data-i18n="sec2Title">JSON 处理工具</h2>
+<p data-i18n="sec2p1">JSON 是前端开发中最常用的数据格式。无论是 API 响应、配置文件还是状态管理，JSON 无处不在。ZenTools 提供了完整的 JSON 工具集：</p>
+<ul>
+<li data-i18n="sec2li1">JSON 格式化：将压缩的单行 JSON 展开为带缩进的多行格式，支持 2/4 空格和 Tab 缩进。一键美化 API 返回的压缩 JSON。</li>
+<li data-i18n="sec2li2">JSON 压缩：移除所有空白字符，将多行 JSON 压缩为单行，适合减小传输体积。通常可减少 30-50% 的字符数。</li>
+<li data-i18n="sec2li3">JSON 校验：检查 JSON 语法错误，定位错误位置和类型（缺少逗号、引号不匹配、尾随逗号等）。比浏览器控制台更详细的错误提示。</li>
+<li data-i18n="sec2li4">JSON 对比：并排对比两段 JSON，高亮差异部分。适合对比 API 响应变化和配置文件修改。</li>
+<li data-i18n="sec2li5">JSON 转 CSV：将 JSON 数组转为 CSV 表格格式，方便导入 Excel 分析。</li>
+<li data-i18n="sec2li6">JSON 转 XML：在 JSON 和 XML 格式之间互转，适合与遗留系统对接。</li>
+</ul>
+<div class="tip-box"><strong>提示：</strong><span data-i18n="sec2Tip">开发中遇到 API 返回的压缩 JSON 时，先用 JSON 格式化工具展开，快速定位数据结构。建议配合浏览器的「复制为 JSON」功能使用，效率更高。</span></div>
+<h2 id="section-3" data-i18n="sec3Title">正则表达式与编码工具</h2>
+<p data-i18n="sec3p1">正则表达式是前端开发中的利器，但编写和调试往往需要反复尝试。Base64 编码解码更是日常刚需——图片内联、数据传输、认证令牌都离不开它。</p>
+<ul>
+<li data-i18n="sec3li1">正则测试器：实时高亮匹配结果，支持全局/忽略大小写/多行模式。内置常用正则速查表（邮箱、URL、手机号、IP 地址等）。</li>
+<li data-i18n="sec3li2">Base64 编码/解码：支持文本和文件。图片转 Base64 可用于 CSS 内联，减少 HTTP 请求。注意 Base64 编码后体积增加约 33%。</li>
+<li data-i18n="sec3li3">URL 编码/解码：对 URL 参数中的特殊字符进行百分号编码，处理中文参数、& = 等保留字符。</li>
+<li data-i18n="sec3li4">HTML 实体编码：将 < > & " 转为 HTML 实体，防止 XSS 攻击和页面解析错误。</li>
+<li data-i18n="sec3li5">Hash 计算：支持 MD5、SHA-1、SHA-256、SHA-512。用于数据完整性校验和文件指纹生成。</li>
+<li data-i18n="sec3li6">UUID 生成器：批量生成 UUID v4，适合生成唯一标识符。支持带横线和不带横线两种格式。</li>
+</ul>
+<h2 id="section-4" data-i18n="sec4Title">CSS/JS 与颜色工具</h2>
+<p data-i18n="sec4p1">前端开发离不开样式压缩和颜色调整。ZenTools 提供了一系列实用工具来提升这些日常操作的效率：</p>
+<ul>
+<li data-i18n="sec4li1">CSS 压缩：移除注释、空白、多余分号，合并相同规则。生产环境 CSS 通常可减小 40-60%。</li>
+<li data-i18n="sec4li2">JS 压缩：移除注释和空白，缩短变量名（高级模式）。配合 Gzip 使用效果更佳。</li>
+<li data-i18n="sec4li3">CSS/JS 格式化：将压缩的代码展开为可读格式，方便调试和修改。</li>
+<li data-i18n="sec4li4">颜色格式转换：在 HEX、RGB、HSL、HSV 之间互转。支持透明度通道（RGBA/HSLA）。</li>
+<li data-i18n="sec4li5">颜色选择器：可视化选取颜色，获取对应的各种格式值。支持从屏幕取色。</li>
+<li data-i18n="sec4li6">渐变色生成器：可视化创建 CSS 线性和径向渐变，一键生成代码。</li>
+<li data-i18n="sec4li7">CSS 阴影生成器：可视化调整 box-shadow 参数，实时预览效果，生成 CSS 代码。</li>
+</ul>
+<div class="tip-box"><strong>提示：</strong><span data-i18n="sec4Tip">开发阶段保持 CSS/JS 为格式化状态，上线前再用压缩工具一键压缩。建议将压缩步骤集成到 CI/CD 流水线中，避免手动操作遗漏。</span></div>
+<h2 id="section-5" data-i18n="sec5Title">实战案例：调试一个复杂的 API 集成</h2>
+<p data-i18n="sec5p1">某前端开发者需要对接一个第三方支付 API，接口返回的 JSON 数据嵌套了 5 层，且部分字段是 Base64 编码的。同时需要用正则验证用户输入的银行卡号格式。以下是使用 ZenTools 的调试流程：</p>
+<ul>
+<li data-i18n="sec5li1">第一步：将 API 返回的压缩 JSON 粘贴到 JSON 格式化工具，展开后发现嵌套结构为 data.payment.cardInfo.encodedToken，快速定位到目标字段。</li>
+<li data-i18n="sec5li2">第二步：将 encodedToken 的值复制到 Base64 解码工具，解码后得到 JSON 字符串，再次格式化后获取到卡号末四位和过期时间。</li>
+<li data-i18n="sec5li3">第三步：在正则测试器中编写银行卡号验证正则 ^4[0-9]{12}(?:[0-9]{3})?$（Visa 卡格式），用测试数据验证匹配结果。</li>
+<li data-i18n="sec5li4">第四步：使用颜色工具确认支付按钮的颜色值（品牌色 #0066FF），转成 RGB 格式用于 CSS rgba() 函数设置半透明效果。</li>
+<li data-i18n="sec5li5">整个调试过程仅用了 10 分钟，全程在浏览器中完成，无需安装任何开发工具。</li>
+</ul>
+<h2 id="section-6" data-i18n="sec6Title">常见问题 FAQ</h2>
+<p data-i18n="sec6p1">Q1: 这些工具会保存我的数据吗？</p>
+<p data-i18n="sec6p2">A1: 不会。所有工具在浏览器本地运行，数据不发送到任何服务器。关闭页面后数据自动清除，完全安全。</p>
+<p data-i18n="sec6p3">Q2: 支持离线使用吗？</p>
+<p data-i18n="sec6p4">A2: 支持。ZenTools 是 PWA 应用，首次访问后可以安装到桌面，之后支持离线使用。开发者工具部分完全离线可用。</p>
+<p data-i18n="sec6p5">Q3: 大文件处理会卡顿吗？</p>
+<p data-i18n="sec6p6">A3: 一般开发数据（JSON、代码片段）体积较小，处理即时。如果是超大 JSON 文件（10MB+），建议使用 Chrome 浏览器，内存管理更优。</p>
+<p data-i18n="sec6p7">Q4: 可以集成到自己的项目中吗？</p>
+<p data-i18n="sec6p8">A4: ZenTools 是开源项目，可以参考其实现方式。但建议直接收藏使用，持续更新维护中。</p>
+<h2 id="section-7" data-i18n="sec7Title">总结与下一步</h2>
+<p data-i18n="sec7p1">前端开发工具不需要复杂的环境配置。ZenTools 提供了 JSON 处理、正则测试、编码转换、CSS/JS 压缩、颜色工具等全套开发者工具，全部在浏览器中运行，零安装、零隐私顾虑。</p>
+<p data-i18n="sec7p2">建议将 ZenTools 开发工具页面加入浏览器书签栏，在开发过程中随时调用。相比搜索各种在线工具或切换 IDE 插件，一个统一的工具集能显著提升开发效率。</p>
+<p data-i18n="sec7p3">下一步行动：1) 收藏 ZenTools 开发工具页面；2) 尝试用 JSON 格式化工具处理一段 API 响应；3) 用正则测试器编写一个邮箱验证规则；4) 探索更多工具，构建你的专属开发工具箱。</p>
+
+<div class="related-section">
+<h3 data-i18n="relatedTitle">相关推荐</h3>
+<div class="related-links">
+<a href="/guides/" data-i18n="backToGuides">返回深度指南</a>
+<a href="/tools.html" data-i18n="viewAllTools">查看全部工具</a>
+</div>
+</div>
+</div>
+</div>
+
+<footer style="max-width:1200px;margin:0 auto;padding:40px 20px;text-align:center;border-top:1px solid #e0e0e0;">
+<div style="font-size:14px;color:#666;" data-i18n="footerCopy">&copy; 2026 ZenTools. 免费在线工具箱。</div>
+</footer>
+
+<script>
+window.ZT_PAGE = {
+  zh: {"guideBack": "← 返回深度指南", "relatedTitle": "相关推荐", "backToGuides": "返回深度指南", "viewAllTools": "查看全部工具", "footerCopy": "© 2026 ZenTools. 免费在线工具箱。", "navHome": "首页", "navAll": "全部工具", "navPrivacy": "隐私政策", "breadcrumbGuides": "深度指南", "pageTitle": "前端开发工具完整指南：JSON、正则、编码、调试一站搞定 - ZenTools", "pageHeader": "前端开发工具完整指南：JSON、正则、编码、调试一站搞定", "pageDesc": "前端开发者必备在线工具指南，涵盖 JSON 格式化校验、正则表达式测试、Base64 编码解码、颜色格式转换、CSS/JS 压缩、HTTP 状态码查询等核心开发工具，提升编码效率。", "wordCount": "2600+ 字", "readTime": "18 分钟阅读", "typeLabel": "📘 核心指南", "today": "📅 2026-07-15", "tocTitle": "目录", "sec1Title": "前端开发中的常见痛点", "sec1p1": "前端开发者在日常工作中需要处理大量格式转换、数据校验和调试任务。JSON 数据需要格式化和校验、正则表达式需要反复测试、颜色值需要在 RGB/HEX/HSL 之间转换、Base64 编码解码更是家常便饭。这些任务虽然简单，但频繁切换工具严重影响开发效率。", "sec1p2": "传统方案是安装各种 IDE 插件或使用分散的在线工具网站。但 IDE 插件依赖特定编辑器，在线工具网站又往往充斥广告、加载缓慢。ZenTools 的开发工具集提供了一套纯净、快速、无广告的开发者工具集，所有操作在浏览器本地完成。", "sec1p3": "本指南将系统介绍前端开发中最常用的 10 类工具，帮助你构建高效的开发工作流。", "sec2Title": "JSON 处理工具", "sec2p1": "JSON 是前端开发中最常用的数据格式。无论是 API 响应、配置文件还是状态管理，JSON 无处不在。ZenTools 提供了完整的 JSON 工具集：", "sec2li1": "JSON 格式化：将压缩的单行 JSON 展开为带缩进的多行格式，支持 2/4 空格和 Tab 缩进。一键美化 API 返回的压缩 JSON。", "sec2li2": "JSON 压缩：移除所有空白字符，将多行 JSON 压缩为单行，适合减小传输体积。通常可减少 30-50% 的字符数。", "sec2li3": "JSON 校验：检查 JSON 语法错误，定位错误位置和类型（缺少逗号、引号不匹配、尾随逗号等）。比浏览器控制台更详细的错误提示。", "sec2li4": "JSON 对比：并排对比两段 JSON，高亮差异部分。适合对比 API 响应变化和配置文件修改。", "sec2li5": "JSON 转 CSV：将 JSON 数组转为 CSV 表格格式，方便导入 Excel 分析。", "sec2li6": "JSON 转 XML：在 JSON 和 XML 格式之间互转，适合与遗留系统对接。", "sec2Tip": "开发中遇到 API 返回的压缩 JSON 时，先用 JSON 格式化工具展开，快速定位数据结构。建议配合浏览器的「复制为 JSON」功能使用，效率更高。", "sec3Title": "正则表达式与编码工具", "sec3p1": "正则表达式是前端开发中的利器，但编写和调试往往需要反复尝试。Base64 编码解码更是日常刚需——图片内联、数据传输、认证令牌都离不开它。", "sec3li1": "正则测试器：实时高亮匹配结果，支持全局/忽略大小写/多行模式。内置常用正则速查表（邮箱、URL、手机号、IP 地址等）。", "sec3li2": "Base64 编码/解码：支持文本和文件。图片转 Base64 可用于 CSS 内联，减少 HTTP 请求。注意 Base64 编码后体积增加约 33%。", "sec3li3": "URL 编码/解码：对 URL 参数中的特殊字符进行百分号编码，处理中文参数、& = 等保留字符。", "sec3li4": "HTML 实体编码：将 < > & \" 转为 HTML 实体，防止 XSS 攻击和页面解析错误。", "sec3li5": "Hash 计算：支持 MD5、SHA-1、SHA-256、SHA-512。用于数据完整性校验和文件指纹生成。", "sec3li6": "UUID 生成器：批量生成 UUID v4，适合生成唯一标识符。支持带横线和不带横线两种格式。", "sec4Title": "CSS/JS 与颜色工具", "sec4p1": "前端开发离不开样式压缩和颜色调整。ZenTools 提供了一系列实用工具来提升这些日常操作的效率：", "sec4li1": "CSS 压缩：移除注释、空白、多余分号，合并相同规则。生产环境 CSS 通常可减小 40-60%。", "sec4li2": "JS 压缩：移除注释和空白，缩短变量名（高级模式）。配合 Gzip 使用效果更佳。", "sec4li3": "CSS/JS 格式化：将压缩的代码展开为可读格式，方便调试和修改。", "sec4li4": "颜色格式转换：在 HEX、RGB、HSL、HSV 之间互转。支持透明度通道（RGBA/HSLA）。", "sec4li5": "颜色选择器：可视化选取颜色，获取对应的各种格式值。支持从屏幕取色。", "sec4li6": "渐变色生成器：可视化创建 CSS 线性和径向渐变，一键生成代码。", "sec4li7": "CSS 阴影生成器：可视化调整 box-shadow 参数，实时预览效果，生成 CSS 代码。", "sec4Tip": "开发阶段保持 CSS/JS 为格式化状态，上线前再用压缩工具一键压缩。建议将压缩步骤集成到 CI/CD 流水线中，避免手动操作遗漏。", "sec5Title": "实战案例：调试一个复杂的 API 集成", "sec5p1": "某前端开发者需要对接一个第三方支付 API，接口返回的 JSON 数据嵌套了 5 层，且部分字段是 Base64 编码的。同时需要用正则验证用户输入的银行卡号格式。以下是使用 ZenTools 的调试流程：", "sec5li1": "第一步：将 API 返回的压缩 JSON 粘贴到 JSON 格式化工具，展开后发现嵌套结构为 data.payment.cardInfo.encodedToken，快速定位到目标字段。", "sec5li2": "第二步：将 encodedToken 的值复制到 Base64 解码工具，解码后得到 JSON 字符串，再次格式化后获取到卡号末四位和过期时间。", "sec5li3": "第三步：在正则测试器中编写银行卡号验证正则 ^4[0-9]{12}(?:[0-9]{3})?$（Visa 卡格式），用测试数据验证匹配结果。", "sec5li4": "第四步：使用颜色工具确认支付按钮的颜色值（品牌色 #0066FF），转成 RGB 格式用于 CSS rgba() 函数设置半透明效果。", "sec5li5": "整个调试过程仅用了 10 分钟，全程在浏览器中完成，无需安装任何开发工具。", "sec6Title": "常见问题 FAQ", "sec6p1": "Q1: 这些工具会保存我的数据吗？", "sec6p2": "A1: 不会。所有工具在浏览器本地运行，数据不发送到任何服务器。关闭页面后数据自动清除，完全安全。", "sec6p3": "Q2: 支持离线使用吗？", "sec6p4": "A2: 支持。ZenTools 是 PWA 应用，首次访问后可以安装到桌面，之后支持离线使用。开发者工具部分完全离线可用。", "sec6p5": "Q3: 大文件处理会卡顿吗？", "sec6p6": "A3: 一般开发数据（JSON、代码片段）体积较小，处理即时。如果是超大 JSON 文件（10MB+），建议使用 Chrome 浏览器，内存管理更优。", "sec6p7": "Q4: 可以集成到自己的项目中吗？", "sec6p8": "A4: ZenTools 是开源项目，可以参考其实现方式。但建议直接收藏使用，持续更新维护中。", "sec7Title": "总结与下一步", "sec7p1": "前端开发工具不需要复杂的环境配置。ZenTools 提供了 JSON 处理、正则测试、编码转换、CSS/JS 压缩、颜色工具等全套开发者工具，全部在浏览器中运行，零安装、零隐私顾虑。", "sec7p2": "建议将 ZenTools 开发工具页面加入浏览器书签栏，在开发过程中随时调用。相比搜索各种在线工具或切换 IDE 插件，一个统一的工具集能显著提升开发效率。", "sec7p3": "下一步行动：1) 收藏 ZenTools 开发工具页面；2) 尝试用 JSON 格式化工具处理一段 API 响应；3) 用正则测试器编写一个邮箱验证规则；4) 探索更多工具，构建你的专属开发工具箱。"},
+  en: {"guideBack": "← Back to Guides", "relatedTitle": "Related", "backToGuides": "Back to Guides", "viewAllTools": "View All Tools", "footerCopy": "© 2026 ZenTools. Free Online Toolbox.", "navHome": "Home", "navAll": "All Tools", "navPrivacy": "Privacy", "breadcrumbGuides": "Guides", "pageTitle": "Frontend Development Tools Guide: JSON, Regex, Encoding & Debugging - ZenTools", "pageHeader": "Frontend Development Tools Guide: JSON, Regex, Encoding & Debugging", "pageDesc": "Essential online tools guide for frontend developers, covering JSON formatting, regex testing, Base64 encoding, color conversion, CSS/JS minification, HTTP status codes.", "wordCount": "2600+ words", "readTime": "18 min read", "typeLabel": "📘 Core Guide", "today": "📅 2026-07-15", "tocTitle": "Table of Contents", "sec1Title": "Common Pain Points in Frontend Development", "sec1p1": "Frontend developers handle many format conversions, data validations, and debugging tasks daily. JSON needs formatting, regex needs testing, colors need converting between RGB/HEX/HSL, Base64 encoding is routine.", "sec1p2": "Traditional solutions involve IDE plugins or scattered online tools. But IDE plugins depend on specific editors, and online tools are often ad-heavy and slow.", "sec1p3": "This guide systematically introduces the 10 most commonly used tool categories for frontend developers.", "sec2Title": "JSON Processing Tools", "sec2p1": "JSON is the most common data format in frontend development. ZenTools provides a complete JSON toolkit:", "sec2li1": "JSON Formatter: Expand single-line JSON to multi-line with indentation. Supports 2/4 spaces and Tab.", "sec2li2": "JSON Minifier: Remove all whitespace, compress to single line. Typically 30-50% smaller.", "sec2li3": "JSON Validator: Check syntax errors, locate error position and type. More detailed than browser console.", "sec2li4": "JSON Diff: Side-by-side comparison with diff highlighting. For comparing API response changes.", "sec2li5": "JSON to CSV: Convert JSON array to CSV format for Excel analysis.", "sec2li6": "JSON to XML: Convert between JSON and XML formats for legacy system integration.", "sec2Tip": "When API returns compressed JSON, use the formatter to expand it first for quick structure identification. Works great with browser \"Copy as JSON\" feature.", "sec3Title": "Regex and Encoding Tools", "sec3p1": "Regex is a powerful tool in frontend development, but writing and debugging requires iteration. Base64 encoding is a daily necessity — image inlining, data transfer, auth tokens.", "sec3li1": "Regex Tester: Real-time match highlighting, supports global/case-insensitive/multiline. Built-in common regex cheat sheet.", "sec3li2": "Base64 Encode/Decode: Supports text and files. Image to Base64 for CSS inlining. Note: Base64 increases size ~33%.", "sec3li3": "URL Encode/Decode: Percent-encoding for special URL characters, Chinese parameters, reserved characters.", "sec3li4": "HTML Entity Encoding: Convert < > & \" to HTML entities, preventing XSS and parsing errors.", "sec3li5": "Hash Calculator: MD5, SHA-1, SHA-256, SHA-512. For data integrity and file fingerprints.", "sec3li6": "UUID Generator: Batch generate UUID v4. With and without hyphens.", "sec4Title": "CSS/JS and Color Tools", "sec4p1": "Frontend development relies on style compression and color adjustment. ZenTools provides practical tools for these daily operations:", "sec4li1": "CSS Minifier: Remove comments, whitespace, redundant semicolons. Production CSS typically 40-60% smaller.", "sec4li2": "JS Minifier: Remove comments and whitespace, shorten variable names. Works best with Gzip.", "sec4li3": "CSS/JS Formatter: Expand minified code to readable format for debugging.", "sec4li4": "Color Format Converter: Convert between HEX, RGB, HSL, HSV. Supports alpha channel.", "sec4li5": "Color Picker: Visual color selection with multiple format values. Screen picker supported.", "sec4li6": "Gradient Generator: Visual CSS linear and radial gradient creation with one-click code generation.", "sec4li7": "CSS Shadow Generator: Visual box-shadow parameter adjustment with live preview.", "sec4Tip": "Keep CSS/JS formatted during development, minify before deployment. Integrate minification into CI/CD pipeline to avoid manual errors.", "sec5Title": "Case Study: Debugging a Complex API Integration", "sec5p1": "A frontend developer needs to integrate a third-party payment API. The JSON response is nested 5 levels deep with some Base64-encoded fields. Regex is needed to validate bank card numbers. Here is the debugging workflow:", "sec5li1": "Step 1: Paste compressed JSON into formatter, discover nested structure data.payment.cardInfo.encodedToken.", "sec5li2": "Step 2: Copy encodedToken to Base64 decoder, get JSON string, format again to get card last 4 digits and expiry.", "sec5li3": "Step 3: Write regex ^4[0-9]{12}(?:[0-9]{3})?$ in regex tester to validate Visa card numbers.", "sec5li4": "Step 4: Use color tool to confirm brand color #0066FF, convert to RGB for CSS rgba() function.", "sec5li5": "Entire debugging took 10 minutes, all in browser, no dev tools installed.", "sec6Title": "FAQ", "sec6p1": "Q1: Do these tools save my data?", "sec6p2": "A1: No. All tools run locally in browser. Data is cleared on page close. Completely safe.", "sec6p3": "Q2: Can I use them offline?", "sec6p4": "A2: Yes. ZenTools is a PWA. After first visit, install to desktop for offline use. Dev tools work fully offline.", "sec6p5": "Q3: Will large files lag?", "sec6p6": "A3: General dev data (JSON, code) is small and instant. For very large JSON (10MB+), Chrome is recommended.", "sec6p7": "Q4: Can I integrate into my own project?", "sec6p8": "A4: ZenTools is open source. But recommend bookmarking for direct use, continuously updated.", "sec7Title": "Summary & Next Steps", "sec7p1": "Frontend dev tools do not need complex setup. ZenTools provides a complete developer toolkit running in browser with zero installation and zero privacy concerns.", "sec7p2": "Bookmark ZenTools dev tools page for instant access during development. A unified toolkit significantly improves efficiency.", "sec7p3": "Next steps: 1) Bookmark the page; 2) Try JSON formatter on an API response; 3) Write an email regex; 4) Explore more tools."},
+  ja: {"guideBack": "← ガイドに戻る", "relatedTitle": "関連", "backToGuides": "ガイドに戻る", "viewAllTools": "すべてのツール", "footerCopy": "© 2026 ZenTools. 無料オンラインツールボックス。", "navHome": "ホーム", "navAll": "すべてのツール", "navPrivacy": "プライバシー", "breadcrumbGuides": "ガイド", "pageTitle": "フロントエンド開発ツール完全ガイド：JSON、正規表現、エンコード、デバッグ - ZenTools", "pageHeader": "フロントエンド開発ツール完全ガイド：JSON、正規表現、エンコード、デバッグ", "pageDesc": "フロントエンド開発者必須のオンラインツールガイド。JSON フォーマット、正規表現テスト、Base64 エンコード、カラー変換、CSS/JS 圧縮をカバー。", "wordCount": "2600+ 語", "readTime": "18分で読める", "typeLabel": "📘 核心指南", "today": "📅 2026-07-15", "tocTitle": "目次", "sec1Title": "フロントエンド開発の一般的な課題", "sec1p1": "フロントエンド開発者は日常的に多くのフォーマット変換、データ検証、デバッグタスクを処理します。JSON のフォーマット、正規表現のテスト、カラー値の RGB/HEX/HSL 変換、Base64 エンコードなど。", "sec1p2": "従来のソリューションは IDE プラグインや分散したオンラインツールに依存していました。しかし IDE プラグインは特定エディタに依存し、オンラインツールは広告が多く遅いです。", "sec1p3": "このガイドでは、フロントエンド開発者が最もよく使用する10種類のツールを体系的に紹介します。", "sec2Title": "JSON 処理ツール", "sec2p1": "JSON はフロントエンド開発で最も一般的なデータフォーマットです。ZenTools は完全な JSON ツールキットを提供します：", "sec2li1": "JSON フォーマッター：圧縮された1行 JSON をインデント付きの複数行に展開。2/4スペースと Tab をサポート。", "sec2li2": "JSON 圧縮：すべての空白を削除し1行に圧縮。通常30-50%の文字数削減。", "sec2li3": "JSON バリデーター：構文エラーをチェック、エラー位置と種類を特定。ブラウザコンソールより詳細。", "sec2li4": "JSON 比較：2つの JSON を並べて比較、差分をハイライト。API レスポンス変化の比較に。", "sec2li5": "JSON から CSV：JSON 配列を CSV 形式に変換。Excel 分析に便利。", "sec2li6": "JSON から XML：JSON と XML 形式を相互変換。レガシーシステムとの統合に。", "sec2Tip": "API が圧縮 JSON を返した場合、まずフォーマッターで展開してデータ構造を素早く把握。ブラウザの「JSON としてコピー」機能と組み合わせて効率アップ。", "sec3Title": "正規表現とエンコードツール", "sec3p1": "正規表現はフロントエンド開発の強力なツールですが、作成とデバッグには反復が必要です。Base64 エンコードは日常必須 — 画像インライン、データ転送、認証トークンに不可欠です。", "sec3li1": "正規表現テスター：リアルタイムマッチハイライト、グローバル/大文字小文字無視/複数行モードをサポート。よくある正規表現チートシート内蔵。", "sec3li2": "Base64 エンコード/デコード：テキストとファイルをサポート。画像を Base64 にして CSS インライン化。注意：サイズ約33%増加。", "sec3li3": "URL エンコード/デコード：URL パラメータの特殊文字をパーセントエンコード。中国語パラメータ、予約文字を処理。", "sec3li4": "HTML エンティティエンコード：< > & \" を HTML エンティティに変換、XSS 攻撃と解析エラーを防止。", "sec3li5": "Hash 計算：MD5、SHA-1、SHA-256、SHA-512。データ整合性チェックとファイル指紋生成に。", "sec3li6": "UUID 生成器：UUID v4 をバッチ生成。ハイフンあり/なし両方をサポート。", "sec4Title": "CSS/JS とカラーツール", "sec4p1": "フロントエンド開発にはスタイル圧縮とカラー調整が欠かせません。ZenTools はこれらの日常操作を効率化するツールを提供します：", "sec4li1": "CSS 圧縮：コメント、空白、余分なセミコロンを削除。本番環境の CSS は通常40-60%縮小。", "sec4li2": "JS 圧縮：コメントと空白を削除、変数名を短縮。Gzip と組み合わせて効果的。", "sec4li3": "CSS/JS フォーマッター：圧縮コードを読みやすい形式に展開。デバッグに便利。", "sec4li4": "カラーフォーマット変換：HEX、RGB、HSL、HSV 間で相互変換。透明度チャネルをサポート。", "sec4li5": "カラーピッカー：視覚的にカラーを選択、各種フォーマット値を取得。画面からカラー取得をサポート。", "sec4li6": "グラデーション生成器：CSS リニアとラジアルグラデーションを視覚的に作成、ワンクリックでコード生成。", "sec4li7": "CSS シャドウ生成器：box-shadow パラメータを視覚的に調整、リアルタイムプレビュー。", "sec4Tip": "開発段階では CSS/JS をフォーマット済みの状態に保ち、デプロイ前に圧縮。圧縮ステップを CI/CD パイプラインに統合することを推奨。", "sec5Title": "実践事例：複雑な API 統合のデバッグ", "sec5p1": "あるフロントエンド開発者がサードパーティ決済 API を統合する必要があります。JSON レスポンスは5階層でネストされ、一部フィールドは Base64 エンコードされています。正規表現で銀行カード番号を検証する必要もあります。デバッグワークフローは以下の通りです：", "sec5li1": "ステップ1：API の圧縮 JSON をフォーマッターに貼り付け、ネスト構造 data.payment.cardInfo.encodedToken を発見。", "sec5li2": "ステップ2：encodedToken の値を Base64 デコーダーにコピー、JSON 文字列を取得、再度フォーマットしてカード末尾4桁と有効期限を取得。", "sec5li3": "ステップ3：正規表現テスターで銀行カード番号検証 ^4[0-9]{12}(?:[0-9]{3})?$（Visa カード形式）を作成、テストデータで検証。", "sec5li4": "ステップ4：カラーツールでブランドカラー #0066FF を確認、RGB 形式に変換して CSS rgba() 関数で半透明効果を設定。", "sec5li5": "デバッグ全体でわずか10分、すべてブラウザで完結、開発ツールのインストール不要。", "sec6Title": "よくある質問", "sec6p1": "Q1: これらのツールはデータを保存しますか？", "sec6p2": "A1: いいえ。すべてのツールはブラウザローカルで実行。データはサーバーに送信されません。ページを閉じると自動的にクリア。", "sec6p3": "Q2: オフラインで使えますか？", "sec6p4": "A2: はい。ZenTools は PWA アプリ。初回アクセス後デスクトップにインストール可能、その後オフライン使用可。開発ツールは完全オフライン対応。", "sec6p5": "Q3: 大きなファイルでラグはありますか？", "sec6p6": "A3: 一般的な開発データ（JSON、コード）は小さく即時処理。超大きな JSON（10MB+）は Chrome を推奨。", "sec6p7": "Q4: 自分のプロジェクトに統合できますか？", "sec6p8": "A4: ZenTools はオープンソース。ただし直接ブックマークしての使用を推奨。継続的に更新中。", "sec7Title": "まとめと次のステップ", "sec7p1": "フロントエンド開発ツールに複雑な環境設定は不要です。ZenTools は JSON 処理、正規表現テスト、エンコード変換、CSS/JS 圧縮、カラーツールなど完全な開発者ツールを提供します。", "sec7p2": "ZenTools 開発ツールページをブラウザのブックマークバーに追加することを推奨。統一されたツールキットで開発効率が大幅に向上。", "sec7p3": "次のステップ：1）ZenTools 開発ツールをブックマーク；2）JSON フォーマッターで API レスポンスを処理；3）正規表現テスターでメール検証ルールを作成；4）さらなるツールを探索。"},
+  vi: {"guideBack": "← Quay lại Guides", "relatedTitle": "Liên quan", "backToGuides": "Quay lại Guides", "viewAllTools": "Xem tất cả công cụ", "footerCopy": "© 2026 ZenTools. Hộp công cụ miễn phí.", "navHome": "Trang chủ", "navAll": "Tất cả", "navPrivacy": "Quyền riêng tư", "breadcrumbGuides": "Guides", "pageTitle": "Hướng dẫn Công cụ Phát triển Frontend: JSON, Regex, Mã hóa & Gỡ lỗi - ZenTools", "pageHeader": "Hướng dẫn Công cụ Phát triển Frontend: JSON, Regex, Mã hóa & Gỡ lỗi", "pageDesc": "Hướng dẫn công cụ trực tuyến thiết yếu cho nhà phát triển frontend, bao gồm định dạng JSON, kiểm tra regex, mã hóa Base64, chuyển đổi màu.", "wordCount": "2600+ từ", "readTime": "18 phút đọc", "typeLabel": "📘 核心指南", "today": "📅 2026-07-15", "tocTitle": "Mục lục", "sec1Title": "Điểm đau phổ biến trong Phát triển Frontend", "sec1p1": "Nhà phát triển frontend xử lý nhiều tác vụ chuyển đổi định dạng, xác thực dữ liệu và gỡ lỗi hàng ngày. JSON cần định dạng, regex cần kiểm tra, màu sắc cần chuyển đổi RGB/HEX/HSL, Base64 là việc thường xuyên.", "sec1p2": "Giải pháp truyền thống là cài đặt plugin IDE hoặc dùng các công cụ trực tuyến phân tán. Nhưng plugin IDE phụ thuộc trình soạn thảo, công cụ trực tuyến thường nhiều quảng cáo và chậm.", "sec1p3": "Hướng dẫn này giới thiệu hệ thống 10 loại công cụ phổ biến nhất cho nhà phát triển frontend.", "sec2Title": "Công cụ Xử lý JSON", "sec2p1": "JSON là định dạng dữ liệu phổ biến nhất trong phát triển frontend. ZenTools cung cấp bộ công cụ JSON hoàn chỉnh:", "sec2li1": "Định dạng JSON: Mở rộng JSON 1 dòng thành nhiều dòng có thụt lề. Hỗ trợ 2/4 khoảng trắng và Tab.", "sec2li2": "Nén JSON: Xóa tất cả khoảng trắng, nén thành 1 dòng. Thường giảm 30-50% ký tự.", "sec2li3": "Xác thực JSON: Kiểm tra lỗi cú pháp, định vị vị trí và loại lỗi. Chi tiết hơn console trình duyệt.", "sec2li4": "So sánh JSON: So sánh song song, tô sáng khác biệt. Để so sánh thay đổi API.", "sec2li5": "JSON sang CSV: Chuyển mảng JSON sang CSV để phân tích Excel.", "sec2li6": "JSON sang XML: Chuyển đổi giữa JSON và XML để tích hợp hệ thống cũ.", "sec2Tip": "Khi API trả về JSON nén, hãy dùng công cụ định dạng để mở rộng trước, xác định cấu trúc nhanh. Nên dùng với tính năng \"Copy as JSON\" của trình duyệt.", "sec3Title": "Công cụ Regex và Mã hóa", "sec3p1": "Regex là công cụ mạnh trong phát triển frontend, nhưng viết và gỡ lỗi cần lặp lại. Mã hóa Base64 là nhu cầu hàng ngày — ảnh inline, truyền dữ liệu, token xác thực.", "sec3li1": "Trình kiểm tra Regex: Tô sáng kết quả real-time, hỗ trợ global/không phân biệt hoa thường/đa dòng. Bảng tra regex phổ biến tích hợp sẵn.", "sec3li2": "Base64 mã hóa/giải mã: Hỗ trợ văn bản và tệp. Ảnh sang Base64 cho CSS inline. Lưu ý: tăng ~33% kích thước.", "sec3li3": "URL mã hóa/giải mã: Mã hóa phần trăm cho ký tự đặc biệt, tham số tiếng Trung, ký tự reserve.", "sec3li4": "Mã hóa HTML Entity: Chuyển < > & \" thành entity, chống XSS và lỗi phân tích.", "sec3li5": "Tính Hash: MD5, SHA-1, SHA-256, SHA-512. Để kiểm tra tính toàn vẹn và dấu vân tay tệp.", "sec3li6": "Tạo UUID: Tạo hàng loạt UUID v4. Có và không có dấu gạch ngang.", "sec4Title": "Công cụ CSS/JS và Màu sắc", "sec4p1": "Phát triển frontend không thể thiếu nén style và điều chỉnh màu. ZenTools cung cấp các công cụ thực tế cho các thao tác hàng ngày:", "sec4li1": "Nén CSS: Xóa comment, khoảng trắng, dấu chấm phẩy thừa. CSS production thường giảm 40-60%.", "sec4li2": "Nén JS: Xóa comment và khoảng trắng, rút gọn tên biến. Hiệu quả hơn với Gzip.", "sec4li3": "Định dạng CSS/JS: Mở rộng code nén thành định dạng dễ đọc để gỡ lỗi.", "sec4li4": "Chuyển đổi màu: Giữa HEX, RGB, HSL, HSV. Hỗ trợ alpha channel.", "sec4li5": "Color Picker: Chọn màu trực quan, lấy giá trị nhiều định dạng. Hỗ trợ lấy màu từ màn hình.", "sec4li6": "Tạo gradient: Tạo gradient CSS tuyến tính và radial trực quan, sinh code 1 click.", "sec4li7": "Tạo CSS Shadow: Điều chỉnh box-shadow trực quan, preview real-time.", "sec4Tip": "Giữ CSS/JS ở dạng định dạng khi phát triển, nén trước khi deploy. Nên tích hợp nén vào CI/CD pipeline để tránh quét thủ công.", "sec5Title": "Thực tế: Gỡ lỗi Tích hợp API phức tạp", "sec5p1": "Một nhà phát triển frontend cần tích hợp API thanh toán bên thứ ba. JSON response lồng 5 cấp, một số trường được mã hóa Base64. Cần regex để xác thực số thẻ ngân hàng. Quy trình gỡ lỗi:", "sec5li1": "Bước 1: Dán JSON nén vào công cụ định dạng, phát hiện cấu trúc lồng data.payment.cardInfo.encodedToken.", "sec5li2": "Bước 2: Copy encodedToken vào Base64 decoder, lấy JSON string, định dạng lại để lấy 4 số cuối và hạn thẻ.", "sec5li3": "Bước 3: Viết regex ^4[0-9]{12}(?:[0-9]{3})?$ trong trình kiểm tra regex để xác thực số thẻ Visa.", "sec5li4": "Bước 4: Dùng công cụ màu xác nhận màu thương hiệu #0066FF, chuyển sang RGB cho hàm CSS rgba().", "sec5li5": "Toàn bộ gỡ lỗi chỉ 10 phút, tất cả trên trình duyệt, không cần cài đặt.", "sec6Title": "Câu hỏi Thường gặp", "sec6p1": "Q1: Các công cụ này có lưu dữ liệu không?", "sec6p2": "A1: Không. Tất cả chạy local trên trình duyệt. Dữ liệu bị xóa khi đóng trang. Hoàn toàn an toàn.", "sec6p3": "Q2: Dùng offline được không?", "sec6p4": "A2: Có. ZenTools là PWA. Sau khi truy cập lần đầu, cài đặt ra desktop để dùng offline. Công cụ dev hỗ trợ hoàn toàn offline.", "sec6p5": "Q3: File lớn có lag không?", "sec6p6": "A3: Dữ liệu dev chung (JSON, code) nhỏ, xử lý tức thì. JSON rất lớn (10MB+) nên dùng Chrome.", "sec6p7": "Q4: Tích hợp vào project riêng được không?", "sec6p8": "A4: ZenTools là mã nguồn mở. Nhưng nên bookmark để dùng trực tiếp, cập nhật liên tục.", "sec7Title": "Tóm tắt & Bước tiếp theo", "sec7p1": "Công cụ phát triển frontend không cần cấu hình phức tạp. ZenTools cung cấp bộ công cụ hoàn chỉnh chạy trên trình duyệt, không cài đặt, không lo quyền riêng tư.", "sec7p2": "Nên thêm trang công cụ ZenTools vào thanh bookmark. Bộ công cụ thống nhất giúp tăng hiệu suất đáng kể.", "sec7p3": "Bước tiếp: 1) Bookmark trang công cụ; 2) Thử định dạng JSON cho API response; 3) Viết regex email; 4) Khám phá thêm công cụ."}
+};
+</script>
+<script src="../assets/js/common-i18n.min.js"></script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<script>
+(function(){var t=localStorage.getItem('zentools_theme');if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');this.textContent=d?'☀️':'🌙';
+localStorage.setItem('zentools_theme',d?'dark':'light');});}})();
+(function(){var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});})();
+if('serviceWorker'in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+</script>
+</body>
+</html>

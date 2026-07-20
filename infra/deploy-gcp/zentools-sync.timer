@@ -1,0 +1,13 @@
+[Unit]
+Description=ZenTools site sync timer (every 10 minutes)
+
+[Timer]
+# 开机 1 分钟后首次执行
+OnBootSec=60
+# 之后每 10 分钟执行一次
+OnUnitActiveSec=600
+# 若期间机器关机错过，开机后补跑
+Persistent=true
+
+[Install]
+WantedBy=timers.target

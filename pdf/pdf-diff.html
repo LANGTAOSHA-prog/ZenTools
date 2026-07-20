@@ -1,423 +1,619 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF 对比 - ZenTools 免费在线工具箱</title>
-  <meta name="description" content="对比两个 PDF 版本的差异，高亮显示新增、删除和改动内容，适合版本审核。" />
-    <link rel="stylesheet" href="../assets/css/style.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../assets/css/tool-ui.css">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://zentools.xyz/pdf/pdf-diff.html"/>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "PDF 对比如何使用？",
-      "acceptedAnswer": {"@type": "Answer", "text": "上传 PDF 文件，根据工具功能进行设置，点击开始处理即可完成操作。"}
-    },
-    {
-      "@type": "Question",
-      "name": "PDF 对比会上传文件到服务器吗？",
-      "acceptedAnswer": {"@type": "Answer", "text": "不会。所有处理在您的浏览器本地完成，文件不会离开您的设备。"}
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "PDF 对比 - ZenTools",
-  "url": "https://zentools.xyz/pdf/pdf-diff.html",
-  "description": "对比两个 PDF 文件的差异",
-  "applicationCategory": "UtilityApplication",
-  "operatingSystem": "All",
-  "browserRequirements": "Requires JavaScript",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
-}
-</script>
-</head>
-<body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-    <header class="site-header">
-        <div class="container">
-            <a href="../index.html" class="logo">
-                <span class="logo-icon">⚡</span>
-                <span class="logo-text">ZenTools</span>
-            </a>
-            <nav class="nav-menu">
-                <a href="../index.html" data-i18n="nav_home">首页</a>
-                <a href="../categories.html" data-i18n="nav_categories">分类</a>
-                <a href="../about.html" data-i18n="nav_about">关于</a>
-            </nav>
-            <div class="lang-selector">
-                <select id="langSelect">
-                    <option value="zh">中文</option>
-                    <option value="en">English</option>
-                    <option value="ja">日本語</option>
-                    <option value="vi">Tiếng Việt</option>
-                </select>
-            </div>
-        </div>
-    </header>
-
-    <main class="tool-page">
-        <div class="container">
-            <div class="tool-header">
-                <h1 data-i18n="title">PDF 对比</h1>
-                <p data-i18n="subtitle">对比两个 PDF 文件的差异，高亮显示不同之处</p>
-            </div>
-
-            <div class="tool-ui">
-                <div class="two-upload">
-                    <div class="upload-zone" id="uploadZone1">
-                        <input type="file" id="fileInput1" accept=".pdf" hidden>
-                        <div class="upload-icon">📄</div>
-                        <p data-i18n="drop_hint_1">上传第一个 PDF（原文件）</p>
-                        <p class="upload-note" id="fileName1"></p>
-                    </div>
-
-                    <div class="upload-zone" id="uploadZone2">
-                        <input type="file" id="fileInput2" accept=".pdf" hidden>
-                        <div class="upload-icon">📄</div>
-                        <p data-i18n="drop_hint_2">上传第二个 PDF（新文件）</p>
-                        <p class="upload-note" id="fileName2"></p>
-                    </div>
-                </div>
-
-                <div class="compare-settings" id="compareSettings" style="display: none;">
-                    <div class="form-group">
-                        <label data-i18n="label_compare_mode">对比模式</label>
-                        <select id="compareMode">
-                            <option value="text" data-i18n="opt_text">文本对比</option>
-                            <option value="visual" data-i18n="opt_visual">视觉对比</option>
-                            <option value="both" data-i18n="opt_both">两者都对比</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="label_page">对比页面</label>
-                        <select id="pageSelect">
-                            <option value="all" data-i18n="opt_all">所有页面</option>
-                        </select>
-                    </div>
-                    <button class="tool-btn btn-primary" id="compareBtn" data-i18n="btn_compare">开始对比</button>
-                </div>
-
-                <div class="result-area" id="resultArea" style="display: none;">
-                    <div class="result-status" id="resultStatus"></div>
-                    <div class="diff-output" id="diffOutput"></div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    
-    
-    <footer class="site-footer">
-        <div class="container">
-            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff/5.2.0/diff.min.js"></script>
-    <script src="../assets/js/common-i18n.min.js"></script>
-    <script>
-      window.ZT_PAGE = {
-        zh: {
-          nav_home:'首页', nav_categories:'分类', nav_about:'关于',
-          title:'PDF 对比', subtitle:'比较两个 PDF 文件的内容差异',
-          drop_hint_1:'拖拽第一个 PDF 文件到此处',
-          drop_hint_2:'拖拽第二个 PDF 文件到此处',
-          label_compare_mode:'对比模式', opt_text:'文本对比', opt_visual:'视觉对比', opt_both:'两者都有',
-          label_page:'指定页面', opt_all:'全部页面',
-          btn_compare:'开始对比', text_diff:'文本差异', visual_diff:'视觉差异',
-          footer_text:'© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理'},
-        en: {
-          nav_home:'Home', nav_categories:'Categories', nav_about:'About',
-          title:'PDF Compare', subtitle:'Compare content differences between two PDF files',
-          drop_hint_1:'Drop first PDF file here',
-          drop_hint_2:'Drop second PDF file here',
-          label_compare_mode:'Compare Mode', opt_text:'Text diff', opt_visual:'Visual diff', opt_both:'Both',
-          label_page:'Page', opt_all:'All pages',
-          btn_compare:'Compare', text_diff:'Text Diff', visual_diff:'Visual Diff',
-          footer_text:'© 2026 ZenTools - Free Online Tools · All files processed locally'},
-        ja: {
-          nav_home:'ホーム', nav_categories:'カテゴリー', nav_about:'概要',
-          title:'PDF 比較', subtitle:'2 つの PDF ファイルの内容の違いを比較',
-          drop_hint_1:'最初の PDF ファイルをここにドロップ',
-          drop_hint_2:'2 つ目の PDF ファイルをここにドロップ',
-          label_compare_mode:'比較モード', opt_text:'テキスト比較', opt_visual:'ビジュアル比較', opt_both:'両方',
-          label_page:'ページ', opt_all:'すべてのページ',
-          btn_compare:'比較開始', text_diff:'テキストの違い', visual_diff:'ビジュアルの違い',
-          footer_text:'© 2026 ZenTools - 無料オンラインツール · すべてのファイルはローカル処理'},
-        vi: {
-          nav_home:'Trang chủ', nav_categories:'Danh mục', nav_about:'Giới thiệu',
-          title:'So sánh PDF', subtitle:'So sánh sự khác biệt nội dung giữa hai file PDF',
-          drop_hint_1:'Kéo file PDF thứ nhất vào đây',
-          drop_hint_2:'Kéo file PDF thứ hai vào đây',
-          label_compare_mode:'Chế độ', opt_text:'So sánh văn bản', opt_visual:'So sánh trực quan', opt_both:'Cả hai',
-          label_page:'Trang', opt_all:'Tất cả',
-          btn_compare:'So sánh', text_diff:'Khác biệt văn bản', visual_diff:'Khác biệt trực quan',
-          footer_text:'© 2026 ZenTools - Công cụ miễn phí · Tất cả file xử lý cục bộ'}
-      };
-    </script>
-    <script src="../assets/js/tool-ui.min.js"></script>
-    <script src="../assets/js/anti-crash.min.js"></script>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-        const uploadZone1 = document.getElementById('uploadZone1');
-        const uploadZone2 = document.getElementById('uploadZone2');
-        const fileInput1 = document.getElementById('fileInput1');
-        const fileInput2 = document.getElementById('fileInput2');
-        const fileName1 = document.getElementById('fileName1');
-        const fileName2 = document.getElementById('fileName2');
-        const compareSettings = document.getElementById('compareSettings');
-        const pageSelect = document.getElementById('pageSelect');
-        const resultArea = document.getElementById('resultArea');
-        const resultStatus = document.getElementById('resultStatus');
-        const diffOutput = document.getElementById('diffOutput');
-
-        let pdf1 = null;
-        let pdf2 = null;
-        let arrayBuffer1 = null;
-        let arrayBuffer2 = null;
-
-        function setupUpload(zone, fileInput, fileNameDisplay, fileNum) {
-            zone.addEventListener('click', () => fileInput.click());
-            zone.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                zone.classList.add('drag-over');
-            });
-            zone.addEventListener('dragleave', () => {
-                zone.classList.remove('drag-over');
-            });
-            zone.addEventListener('drop', (e) => {
-                e.preventDefault();
-                zone.classList.remove('drag-over');
-                const file = e.dataTransfer.files[0];
-                if (file && file.type === 'application/pdf') {
-                    loadPdf(file, fileNum);
-                }
-            });
-            fileInput.addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) loadPdf(file, fileNum);
-            });
-        }
-
-        setupUpload(uploadZone1, fileInput1, fileName1, 1);
-        setupUpload(uploadZone2, fileInput2, fileName2, 2);
-
-        async function loadPdf(file, num) {
-            const arrayBuffer = await file.arrayBuffer();
-            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-            
-            if (num === 1) {
-                pdf1 = pdf;
-                arrayBuffer1 = arrayBuffer;
-                fileName1.textContent = `${file.name} (${pdf.numPages} 页)`;
-            } else {
-                pdf2 = pdf;
-                arrayBuffer2 = arrayBuffer;
-                fileName2.textContent = `${file.name} (${pdf.numPages} 页)`;
-            }
-
-            if (pdf1 && pdf2) {
-                compareSettings.style.display = 'block';
-                const minPages = Math.min(pdf1.numPages, pdf2.numPages);
-                pageSelect.innerHTML = '<option value="all" data-i18n="opt_all">所有页面</option>';
-                for (let i = 1; i <= minPages; i++) {
-                    const option = document.createElement('option');
-                    option.value = i;
-                    option.textContent = `第 ${i} 页`;
-                    pageSelect.appendChild(option);
-                }
-            }
-        }
-
-        document.getElementById('compareBtn').addEventListener('click', async () => {
-            resultArea.style.display = 'block';
-            resultStatus.className = 'result-status loading';
-            resultStatus.textContent = '正在对比...';
-            diffOutput.innerHTML = '';
-
-            const mode = document.getElementById('compareMode').value;
-            const pageNum = document.getElementById('pageSelect').value;
-
-            try {
-                if (mode === 'text' || mode === 'both') {
-                    const textDiff = await compareText(pageNum);
-                    if (textDiff) {
-                        const section = document.createElement('div');
-                        section.className = 'diff-section';
-                        section.innerHTML = `<h3 data-i18n="text_diff">文本差异</h3>`;
-                        section.appendChild(textDiff);
-                        diffOutput.appendChild(section);
-                    }
-                }
-
-                if (mode === 'visual' || mode === 'both') {
-                    const visualDiff = await compareVisual(pageNum);
-                    if (visualDiff) {
-                        const section = document.createElement('div');
-                        section.className = 'diff-section';
-                        section.innerHTML = `<h3 data-i18n="visual_diff">视觉差异</h3>`;
-                        section.appendChild(visualDiff);
-                        diffOutput.appendChild(section);
-                    }
-                }
-
-                resultStatus.className = 'result-status success';
-                resultStatus.textContent = '✅ 对比完成';
-            } catch (error) {
-                resultStatus.className = 'result-status error';
-                resultStatus.textContent = `❌ 对比失败: ${error.message}`;
-            }
-        });
-
-        async function compareText(pageNum) {
-            const pages = pageNum === 'all' 
-                ? Array.from({ length: Math.min(pdf1.numPages, pdf2.numPages) }, (_, i) => i + 1)
-                : [parseInt(pageNum)];
-
-            const container = document.createElement('div');
-            container.className = 'text-diff-container';
-
-            for (const page of pages) {
-                const [text1, text2] = await Promise.all([
-                    getPageText(pdf1, page),
-                    getPageText(pdf2, page)
-                ]);
-
-                const diff = Diff.diffLines(text1, text2);
-                const diffElement = document.createElement('div');
-                diffElement.className = 'diff-content';
-                
-                if (pageNum !== 'all') {
-                    diffElement.innerHTML = `<h4>第 ${page} 页</h4>`;
-                }
-
-                diff.forEach(part => {
-                    const span = document.createElement('span');
-                    span.className = part.added ? 'diff-added' : part.removed ? 'diff-removed' : '';
-                    span.textContent = part.value;
-                    diffElement.appendChild(span);
-                });
-
-                container.appendChild(diffElement);
-            }
-
-            return container;
-        }
-
-        async function getPageText(pdf, pageNum) {
-            const page = await pdf.getPage(pageNum);
-            const textContent = await page.getTextContent();
-            return textContent.items.map(item => item.str).join(' ');
-        }
-
-        async function compareVisual(pageNum) {
-            const pages = pageNum === 'all' 
-                ? Array.from({ length: Math.min(pdf1.numPages, pdf2.numPages) }, (_, i) => i + 1)
-                : [parseInt(pageNum)];
-
-            const container = document.createElement('div');
-            container.className = 'visual-diff-container';
-
-            for (const page of pages) {
-                const [canvas1, canvas2] = await Promise.all([
-                    renderPageToCanvas(pdf1, page),
-                    renderPageToCanvas(pdf2, page)
-                ]);
-
-                const pageContainer = document.createElement('div');
-                pageContainer.className = 'visual-diff-page';
-                
-                if (pageNum !== 'all') {
-                    pageContainer.innerHTML = `<h4>第 ${page} 页</h4>`;
-                }
-
-                const sideBySide = document.createElement('div');
-                sideBySide.className = 'side-by-side';
-                sideBySide.appendChild(canvas1);
-                sideBySide.appendChild(canvas2);
-                pageContainer.appendChild(sideBySide);
-
-                container.appendChild(pageContainer);
-            }
-
-            return container;
-        }
-
-        async function renderPageToCanvas(pdf, pageNum) {
-            const page = await pdf.getPage(pageNum);
-            const viewport = page.getViewport({ scale: 0.5 });
-            const canvas = document.createElement('canvas');
-            canvas.width = viewport.width;
-            canvas.height = viewport.height;
-            await page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
-            return canvas;
-        }
-
-        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
-    </script>
-    <style>
-        .two-upload {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        .compare-settings {
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-        .diff-section {
-            margin-bottom: 30px;
-        }
-        .diff-section h3 {
-            margin-bottom: 15px;
-            color: var(--text-primary);
-        }
-        .diff-added {
-            background: #d4edda;
-            color: #155724;
-        }
-        .diff-removed {
-            background: #f8d7da;
-            color: #721c24;
-            text-decoration: line-through;
-        }
-        .side-by-side {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .side-by-side canvas {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            max-width: 100%;
-        }
-    
-.info-detail { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); }
-.info-detail h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--cyan); }
-.info-detail ol, .info-detail ul { padding-left: 20px; }
-.info-detail li { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 4px; }
-.info-detail p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-</style>
-
-    
-</body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+    <meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 对比 - ZenTools 免费在线工具箱</title>
+  <meta name="description" content="对比两个 PDF 版本的差异，高亮显示新增、删除和改动内容，适合版本审核。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。" />
+  <meta name="keywords" content="PDF对比,PDF 对比工具,pdf对比,pdf比较,pdf差异,PDF工具,PDF对比在线使用,PDF对比怎么用" />
+    <link rel="stylesheet" href="/assets/css/style.css">
+</div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/assets/css/tool-ui.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://zentools.xyz/pdf/pdf-diff.html"/>
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "PDF 工具", "item": "https://zentools.xyz/pdf/"}, {"@type": "ListItem", "position": 4, "name": "PDF 对比"}]}</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PDF 对比 - ZenTools",
+  "url": "https://zentools.xyz/pdf/pdf-diff.html",
+  "description": "对比两个 PDF 文件的差异",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<header class="site-header">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ZenTools</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="../index.html" data-i18n="nav_home">首页</a>
+                <a href="../categories.html" data-i18n="nav_categories">分类</a>
+                <a href="../about.html" data-i18n="nav_about">关于</a>
+            </nav>
+            <div class="lang-selector">
+                <select id="oldLangSelect">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <h1 data-i18n="title">PDF 对比</h1>
+                <p data-i18n="subtitle">对比两个 PDF 文件的差异，高亮显示不同之处</p>
+            </div>
+
+            <div class="tool-ui">
+                <div class="two-upload">
+                    <div class="upload-zone" id="uploadZone1">
+                        <input type="file" id="fileInput1" accept=".pdf" hidden>
+                        <div class="upload-icon">📄</div>
+                        <p data-i18n="drop_hint_1">上传第一个 PDF（原文件）</p>
+                        <p class="upload-note" id="fileName1"></p>
+                    </div>
+
+                    <div class="upload-zone" id="uploadZone2">
+                        <input type="file" id="fileInput2" accept=".pdf" hidden>
+                        <div class="upload-icon">📄</div>
+                        <p data-i18n="drop_hint_2">上传第二个 PDF（新文件）</p>
+                        <p class="upload-note" id="fileName2"></p>
+                    </div>
+                </div>
+
+                <div class="compare-settings" id="compareSettings" style="display: none;">
+                    <div class="form-group">
+                        <label data-i18n="label_compare_mode">对比模式</label>
+                        <select id="compareMode">
+                            <option value="text" data-i18n="opt_text">文本对比</option>
+                            <option value="visual" data-i18n="opt_visual">视觉对比</option>
+                            <option value="both" data-i18n="opt_both">两者都对比</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="label_page">对比页面</label>
+                        <select id="pageSelect">
+                            <option value="all" data-i18n="opt_all">所有页面</option>
+                        </select>
+                    </div>
+                    <button class="tool-btn btn-primary" id="compareBtn" data-i18n="btn_compare">开始对比</button>
+                </div>
+
+                <div class="result-area" id="resultArea" style="display: none;">
+                    <div class="result-status" id="resultStatus"></div>
+                    <div class="diff-output" id="diffOutput"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+    
+    <!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>PDF 对比对比两个 PDF 版本的差异，高亮显示新增、删除和改动内容，适合版本审核。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>办公行政、法务财务、师生，以及经常处理合同、论文与扫描件的人。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>批量前规范命名，结果易区分</li>
+<li>大文件分批处理避免卡顿</li>
+<li>导出后核对页码与书签</li>
+<li>多步任务可串接使用（先压再合）</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>PDF 对比主要能做什么？</summary><p>PDF 对比对比两个 PDF 版本的差异，高亮显示新增、删除和改动内容，适合版本审核。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。</p></details>
+<details open><summary>第一次使用PDF 对比要注意什么？</summary><p>打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。</p></details>
+<details open><summary>PDF 对比处理我的文件安全吗？</summary><p>安全。PDF 对比所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。</p></details>
+<details open><summary>PDF 对比的结果怎么保存？</summary><p>处理完成后页面会提供下载或复制按钮，结果保存在你自己的设备，随时可用。</p></details>
+  </div>
+</section>
+<footer class="site-footer">
+        <div class="container">
+            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff/5.2.0/diff.min.js"></script>
+    <script src="/assets/js/common-i18n.min.js"></script>
+    <script>
+      window.ZT_PAGE = {
+        zh: {
+          nav_home:'首页', nav_categories:'分类', nav_about:'关于',
+          title:'PDF 对比', subtitle:'比较两个 PDF 文件的内容差异',
+          drop_hint_1:'拖拽第一个 PDF 文件到此处',
+          drop_hint_2:'拖拽第二个 PDF 文件到此处',
+          label_compare_mode:'对比模式', opt_text:'文本对比', opt_visual:'视觉对比', opt_both:'两者都有',
+          label_page:'指定页面', opt_all:'全部页面',
+          btn_compare:'开始对比', text_diff:'文本差异', visual_diff:'视觉差异',
+          footer_text:'© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理'},
+        en: {
+          nav_home:'Home', nav_categories:'Categories', nav_about:'About',
+          title:'PDF Compare', subtitle:'Compare content differences between two PDF files',
+          drop_hint_1:'Drop first PDF file here',
+          drop_hint_2:'Drop second PDF file here',
+          label_compare_mode:'Compare Mode', opt_text:'Text diff', opt_visual:'Visual diff', opt_both:'Both',
+          label_page:'Page', opt_all:'All pages',
+          btn_compare:'Compare', text_diff:'Text Diff', visual_diff:'Visual Diff',
+          footer_text:'© 2026 ZenTools - Free Online Tools · All files processed locally'},
+        ja: {
+          nav_home:'ホーム', nav_categories:'カテゴリー', nav_about:'概要',
+          title:'PDF 比較', subtitle:'2 つの PDF ファイルの内容の違いを比較',
+          drop_hint_1:'最初の PDF ファイルをここにドロップ',
+          drop_hint_2:'2 つ目の PDF ファイルをここにドロップ',
+          label_compare_mode:'比較モード', opt_text:'テキスト比較', opt_visual:'ビジュアル比較', opt_both:'両方',
+          label_page:'ページ', opt_all:'すべてのページ',
+          btn_compare:'比較開始', text_diff:'テキストの違い', visual_diff:'ビジュアルの違い',
+          footer_text:'© 2026 ZenTools - 無料オンラインツール · すべてのファイルはローカル処理'},
+        vi: {
+          nav_home:'Trang chủ', nav_categories:'Danh mục', nav_about:'Giới thiệu',
+          title:'So sánh PDF', subtitle:'So sánh sự khác biệt nội dung giữa hai file PDF',
+          drop_hint_1:'Kéo file PDF thứ nhất vào đây',
+          drop_hint_2:'Kéo file PDF thứ hai vào đây',
+          label_compare_mode:'Chế độ', opt_text:'So sánh văn bản', opt_visual:'So sánh trực quan', opt_both:'Cả hai',
+          label_page:'Trang', opt_all:'Tất cả',
+          btn_compare:'So sánh', text_diff:'Khác biệt văn bản', visual_diff:'Khác biệt trực quan',
+          footer_text:'© 2026 ZenTools - Công cụ miễn phí · Tất cả file xử lý cục bộ'}
+      };
+    </script>
+    <script src="/assets/js/tool-ui.min.js"></script>
+    <script src="/assets/js/anti-crash.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const uploadZone1 = document.getElementById('uploadZone1');
+        const uploadZone2 = document.getElementById('uploadZone2');
+        const fileInput1 = document.getElementById('fileInput1');
+        const fileInput2 = document.getElementById('fileInput2');
+        const fileName1 = document.getElementById('fileName1');
+        const fileName2 = document.getElementById('fileName2');
+        const compareSettings = document.getElementById('compareSettings');
+        const pageSelect = document.getElementById('pageSelect');
+        const resultArea = document.getElementById('resultArea');
+        const resultStatus = document.getElementById('resultStatus');
+        const diffOutput = document.getElementById('diffOutput');
+
+        let pdf1 = null;
+        let pdf2 = null;
+        let arrayBuffer1 = null;
+        let arrayBuffer2 = null;
+
+        function setupUpload(zone, fileInput, fileNameDisplay, fileNum) {
+            zone.addEventListener('click', () => fileInput.click());
+            zone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                zone.classList.add('drag-over');
+            });
+            zone.addEventListener('dragleave', () => {
+                zone.classList.remove('drag-over');
+            });
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                zone.classList.remove('drag-over');
+                const file = e.dataTransfer.files[0];
+                if (file && file.type === 'application/pdf') {
+                    loadPdf(file, fileNum);
+                }
+            });
+            fileInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) loadPdf(file, fileNum);
+            });
+        }
+
+        setupUpload(uploadZone1, fileInput1, fileName1, 1);
+        setupUpload(uploadZone2, fileInput2, fileName2, 2);
+
+        async function loadPdf(file, num) {
+            const arrayBuffer = await file.arrayBuffer();
+            const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+            
+            if (num === 1) {
+                pdf1 = pdf;
+                arrayBuffer1 = arrayBuffer;
+                fileName1.textContent = `${file.name} (${pdf.numPages} 页)`;
+            } else {
+                pdf2 = pdf;
+                arrayBuffer2 = arrayBuffer;
+                fileName2.textContent = `${file.name} (${pdf.numPages} 页)`;
+            }
+
+            if (pdf1 && pdf2) {
+                compareSettings.style.display = 'block';
+                const minPages = Math.min(pdf1.numPages, pdf2.numPages);
+                pageSelect.innerHTML = '<option value="all" data-i18n="opt_all">所有页面</option>';
+                for (let i = 1; i <= minPages; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = `第 ${i} 页`;
+                    pageSelect.appendChild(option);
+                }
+            }
+        }
+
+        document.getElementById('compareBtn').addEventListener('click', async () => {
+            resultArea.style.display = 'block';
+            resultStatus.className = 'result-status loading';
+            resultStatus.textContent = '正在对比...';
+            diffOutput.innerHTML = '';
+
+            const mode = document.getElementById('compareMode').value;
+            const pageNum = document.getElementById('pageSelect').value;
+
+            try {
+                if (mode === 'text' || mode === 'both') {
+                    const textDiff = await compareText(pageNum);
+                    if (textDiff) {
+                        const section = document.createElement('div');
+                        section.className = 'diff-section';
+                        section.innerHTML = `<h3 data-i18n="text_diff">文本差异</h3>`;
+                        section.appendChild(textDiff);
+                        diffOutput.appendChild(section);
+                    }
+                }
+
+                if (mode === 'visual' || mode === 'both') {
+                    const visualDiff = await compareVisual(pageNum);
+                    if (visualDiff) {
+                        const section = document.createElement('div');
+                        section.className = 'diff-section';
+                        section.innerHTML = `<h3 data-i18n="visual_diff">视觉差异</h3>`;
+                        section.appendChild(visualDiff);
+                        diffOutput.appendChild(section);
+                    }
+                }
+
+                resultStatus.className = 'result-status success';
+                resultStatus.textContent = '✅ 对比完成';
+            } catch (error) {
+                resultStatus.className = 'result-status error';
+                resultStatus.textContent = `❌ 对比失败: ${error.message}`;
+            }
+        });
+
+        async function compareText(pageNum) {
+            const pages = pageNum === 'all' 
+                ? Array.from({ length: Math.min(pdf1.numPages, pdf2.numPages) }, (_, i) => i + 1)
+                : [parseInt(pageNum)];
+
+            const container = document.createElement('div');
+            container.className = 'text-diff-container';
+
+            for (const page of pages) {
+                const [text1, text2] = await Promise.all([
+                    getPageText(pdf1, page),
+                    getPageText(pdf2, page)
+                ]);
+
+                const diff = Diff.diffLines(text1, text2);
+                const diffElement = document.createElement('div');
+                diffElement.className = 'diff-content';
+                
+                if (pageNum !== 'all') {
+                    diffElement.innerHTML = `<h4>第 ${page} 页</h4>`;
+                }
+
+                diff.forEach(part => {
+                    const span = document.createElement('span');
+                    span.className = part.added ? 'diff-added' : part.removed ? 'diff-removed' : '';
+                    span.textContent = part.value;
+                    diffElement.appendChild(span);
+                });
+
+                container.appendChild(diffElement);
+            }
+
+            return container;
+        }
+
+        async function getPageText(pdf, pageNum) {
+            const page = await pdf.getPage(pageNum);
+            const textContent = await page.getTextContent();
+            return textContent.items.map(item => item.str).join(' ');
+        }
+
+        async function compareVisual(pageNum) {
+            const pages = pageNum === 'all' 
+                ? Array.from({ length: Math.min(pdf1.numPages, pdf2.numPages) }, (_, i) => i + 1)
+                : [parseInt(pageNum)];
+
+            const container = document.createElement('div');
+            container.className = 'visual-diff-container';
+
+            for (const page of pages) {
+                const [canvas1, canvas2] = await Promise.all([
+                    renderPageToCanvas(pdf1, page),
+                    renderPageToCanvas(pdf2, page)
+                ]);
+
+                const pageContainer = document.createElement('div');
+                pageContainer.className = 'visual-diff-page';
+                
+                if (pageNum !== 'all') {
+                    pageContainer.innerHTML = `<h4>第 ${page} 页</h4>`;
+                }
+
+                const sideBySide = document.createElement('div');
+                sideBySide.className = 'side-by-side';
+                sideBySide.appendChild(canvas1);
+                sideBySide.appendChild(canvas2);
+                pageContainer.appendChild(sideBySide);
+
+                container.appendChild(pageContainer);
+            }
+
+            return container;
+        }
+
+        async function renderPageToCanvas(pdf, pageNum) {
+            const page = await pdf.getPage(pageNum);
+            const viewport = page.getViewport({ scale: 0.5 });
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            await page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
+            return canvas;
+        }
+
+        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
+    </script>
+    <style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+        .two-upload {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .compare-settings {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        .diff-section {
+            margin-bottom: 30px;
+        }
+        .diff-section h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        .diff-added {
+            background: #d4edda;
+            color: #155724;
+        }
+        .diff-removed {
+            background: #f8d7da;
+            color: #721c24;
+            text-decoration: line-through;
+        }
+        .side-by-side {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .side-by-side canvas {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            max-width: 100%;
+        }
+    
+.info-detail { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--zen-border); }
+.info-detail h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--zen-primary); }
+.info-detail ol, .info-detail ul { padding-left: 20px; }
+.info-detail li { font-size: 14px; color: var(--zen-text-sub); line-height: 1.8; margin-bottom: 4px; }
+.info-detail p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.7; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+
+
+    
+    
+    
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "PDF 对比主要能做什么？","acceptedAnswer": {"@type": "Answer","text": "PDF 对比对比两个 PDF 版本的差异，高亮显示新增、删除和改动内容，适合版本审核。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"}},{"@type": "Question","name": "第一次使用PDF 对比要注意什么？","acceptedAnswer": {"@type": "Answer","text": "打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。"}},{"@type": "Question","name": "PDF 对比处理我的文件安全吗？","acceptedAnswer": {"@type": "Answer","text": "安全。PDF 对比所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。"}},{"@type": "Question","name": "PDF 对比的结果怎么保存？","acceptedAnswer": {"@type": "Answer","text": "处理完成后页面会提供下载或复制按钮，结果保存在你自己的设备，随时可用。"}}]}</script>
+</body>
 </html>

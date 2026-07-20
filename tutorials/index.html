@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<script src="../assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title data-i18n="pageTitle">在线工具教程 - ZenTools</title>
@@ -9,59 +20,163 @@
 <link rel="manifest" href="/manifest.json"/>
 <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
 <style>
-.article-card{display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color 0.25s,transform 0.25s;position:relative;}
-.article-card:hover{border-color:var(--border-h);transform:translateY(-3px);}
-.article-card .cat{font-size:11px;font-weight:700;color:var(--cyan);letter-spacing:0.5px;}
-.article-card h3{font-size:17px;font-weight:700;color:var(--text);margin:0;line-height:1.4;}
-.article-card h3 a{color:var(--text);text-decoration:none;}
-.article-card h3 a:hover{color:var(--cyan);}
-.article-card .meta{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;}
-.article-card .summary{font-size:13px;color:var(--muted);line-height:1.7;}
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Inter,"Source Han Sans SC",PingFang SC,Microsoft YaHei,system-ui,sans-serif; background:var(--zen-bg-base); color:var(--zen-text-main); line-height:1.5; transition:background .35s,color .35s; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    .site-nav { position:fixed; top:0; left:0; width:100%; z-index:999; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(255,255,255,0.75); border-bottom:1px solid var(--zen-border); transition:background .3s; }
+    .dark .site-nav { background:rgba(15,23,42,0.75); }
+    .nav-inner { height:70px; display:flex; align-items:center; justify-content:space-between; gap:16px; max-width:1200px; margin:0 auto; padding:0 24px; }
+    .logo-text-blue { color:var(--zen-primary); }
+    .logo-text-teal { color:var(--zen-secondary); }
+    .nav-links a { padding:8px 14px; border-radius:8px; font-size:14px; font-weight:500; color:var(--zen-text-sub); transition:color .2s,background .2s; text-decoration:none; }
+    .nav-links a:hover { color:var(--zen-text-main); background:rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background:rgba(255,255,255,0.06); }
+    .nav-links a.active { color:var(--zen-primary); font-weight:600; }
+    .mobile-overlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); opacity:0; visibility:hidden; transition:opacity .3s,visibility .3s; }
+    .mobile-overlay.open { opacity:1; visibility:visible; }
+    .mobile-drawer { position:fixed; top:0; right:0; bottom:0; width:300px; max-width:85vw; background:rgba(249,250,251,0.97); border-left:1px solid var(--zen-border); padding:24px 20px; z-index:310; overflow-y:auto; transform:translateX(100%); transition:transform .3s; backdrop-filter:blur(24px); }
+    .dark .mobile-drawer { background:rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform:translateX(0); }
+    .mobile-drawer a { display:block; padding:12px 16px; border-radius:8px; font-size:16px; font-weight:500; color:var(--zen-text-sub); transition:color .2s,background .2s; }
+    .mobile-drawer a:hover { background:rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background:rgba(255,255,255,0.06); }
+    .page-tutorial { max-width:900px; margin:120px auto 40px; padding:0 24px; }
+    .page-tutorial .meta { color:var(--zen-text-sub); font-size:14px; margin-bottom:24px; }
+    .page-tutorial .meta h1 { font-size:clamp(28px,4vw,40px); font-weight:800; letter-spacing:-1px; line-height:1.2; margin-bottom:12px; background:var(--zen-gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .article-body { color:var(--zen-text-main); font-size:16px; line-height:1.85; }
+    .article-body h2 { font-size:24px; font-weight:700; margin:36px 0 16px; color:var(--zen-text-main); }
+    .article-body h3 { font-size:20px; font-weight:600; margin:28px 0 12px; }
+    .article-body p { margin-bottom:16px; }
+    .article-body ul,.article-body ol { margin:12px 0 20px 24px; }
+    .article-body li { margin-bottom:8px; }
+    .tip { background:var(--zen-bg-card); border:1px solid var(--zen-border); border-radius:var(--zen-radius-base); padding:16px 20px; margin:20px 0; }
+    .tip::before { content:attr(data-label); display:block; font-size:12px; font-weight:700; color:var(--zen-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; }
+    .screenshot-wrap { margin:24px 0; text-align:center; }
+    .screenshot-wrap img { max-width:100%; border-radius:var(--zen-radius-base); border:1px solid var(--zen-border); }
+    .rel-tools { max-width:900px; margin:40px auto; padding:0 24px; }
+    .rel-tools h3 { font-size:16px; font-weight:700; color:var(--zen-text-sub); margin-bottom:16px; }
+    .back-link { text-align:center; margin:20px 0 40px; }
+    .back-link a { display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border-radius:8px; border:1px solid var(--zen-border); color:var(--zen-text-sub); font-size:14px; transition:color .2s,border-color .2s; }
+    .back-link a:hover { color:var(--zen-primary); border-color:var(--zen-primary); }
+    footer { border-top:1px solid var(--zen-border); padding:36px 0; text-align:center; }
+    .footer-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+    .footer-logo { font-size:18px; font-weight:700; margin-bottom:12px; background:var(--zen-gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .footer-links { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:14px; font-size:13px; }
+    .footer-links a { color:var(--zen-text-sub); transition:color .2s; }
+    .footer-links a:hover { color:var(--zen-primary); }
+    .footer-copy { font-size:13px; color:var(--zen-text-placeholder); }
+    
+    @media(max-width:768px) {
+      .nav-links a:not(#hamburgerBtn):not(#themeToggle):not(#langSelect) { display:none; }
+      #hamburgerBtn { display:inline-flex !important; }
+      .page-tutorial { margin-top:100px; }
+      .nav-inner { height:60px; gap:8px; }
+    }
+.article-card{display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,0.03);border:1px solid var(--zen-border);border-radius:16px;padding:24px;transition:border-color 0.25s,transform 0.25s;position:relative;}
+.article-card:hover{border-color:var(--zen-border);transform:translateY(-3px);}
+.article-card .cat{font-size:11px;font-weight:700;color:var(--zen-primary);letter-spacing:0.5px;}
+.article-card h3{font-size:17px;font-weight:700;color:var(--zen-text-main);margin:0;line-height:1.4;}
+.article-card h3 a{color:var(--zen-text-main);text-decoration:none;}
+.article-card h3 a:hover{color:var(--zen-primary);}
+.article-card .meta{font-size:12px;color:var(--zen-text-sub);display:flex;gap:16px;flex-wrap:wrap;}
+.article-card .summary{font-size:13px;color:var(--zen-text-sub);line-height:1.7;}
 .article-card .tags{display:flex;gap:6px;flex-wrap:wrap;}
-.article-card .tags span{font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--border);color:var(--muted);}
-.article-card .tool-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--purple);text-decoration:none;margin-top:4px;font-weight:600;transition:color 0.2s;}
-.article-card .tool-link:hover{color:var(--cyan);}
+.article-card .tags span{font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,0.04);border:1px solid var(--zen-border);color:var(--zen-text-sub);}
+.article-card .tool-link{display:inline-flex;align-items:center;gap:4px;font-size:12px;color:var(--zen-secondary);text-decoration:none;margin-top:4px;font-weight:600;transition:color 0.2s;}
+.article-card .tool-link:hover{color:var(--zen-primary);}
 .article-card .tool-link .arrow{transition:transform 0.2s;}
 .article-card .tool-link:hover .arrow{transform:translateX(3px);}
-.cat-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;padding:4px 0;position:sticky;top:0;z-index:50;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--border);}
-.cat-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:600;color:var(--muted);text-decoration:none;border:1px solid var(--border);background:rgba(255,255,255,0.02);transition:all 0.2s;white-space:nowrap;}
-.cat-nav a:hover,.cat-nav a.active{color:var(--cyan);border-color:var(--cyan);background:rgba(0,229,255,0.08);}
+.cat-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;padding:4px 0;position:sticky;top:0;z-index:50;background:var(--zen-bg-base);padding:12px 0;border-bottom:1px solid var(--zen-border);}
+.cat-nav a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:600;color:var(--zen-text-sub);text-decoration:none;border:1px solid var(--zen-border);background:rgba(255,255,255,0.02);transition:all 0.2s;white-space:nowrap;}
+.cat-nav a:hover,.cat-nav a.active{color:var(--zen-primary);border-color:var(--zen-primary);background:rgba(0,229,255,0.08);}
 .cat-nav .cat-icon{font-size:16px;}
 .cat-section{margin-bottom:48px;scroll-margin-top:100px;}
-.cat-section h2{font-size:20px;font-weight:700;color:var(--text);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+.cat-section h2{font-size:20px;font-weight:700;color:var(--zen-text-main);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
 .cat-section h2 .icon{font-size:24px;}
-.cat-section .cat-count{font-size:13px;color:var(--muted);margin-left:6px;font-weight:400;}
-.cat-section .cat-desc{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.cat-section .cat-count{font-size:13px;color:var(--zen-text-sub);margin-left:6px;font-weight:400;}
+.cat-section .cat-desc{font-size:13px;color:var(--zen-text-sub);margin-bottom:18px;}
 .article-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;}
-.faq-list{margin-top:40px;padding-top:30px;border-top:1px solid var(--border);}
+.faq-list{margin-top:40px;padding-top:30px;border-top:1px solid var(--zen-border);}
 .faq-list h2{font-size:18px;font-weight:700;margin-bottom:16px;}
-.faq-item{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
-.faq-item h3{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;}
-.faq-item p{font-size:14px;color:var(--muted);}
+.faq-item{background:rgba(255,255,255,0.03);border:1px solid var(--zen-border);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+.faq-item h3{font-size:14px;font-weight:700;color:var(--zen-text-main);margin-bottom:6px;}
+.faq-item p{font-size:14px;color:var(--zen-text-sub);}
 .hero-stats{display:flex;gap:24px;flex-wrap:wrap;margin-top:16px;}
-.hero-stats .hs-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);}
-.hero-stats .hs-num{font-size:22px;font-weight:800;color:var(--cyan);}
+.hero-stats .hs-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--zen-text-sub);}
+.hero-stats .hs-num{font-size:22px;font-weight:800;color:var(--zen-primary);}
 @media(max-width:640px){.article-grid{grid-template-columns:1fr;}}
 </style>
 <meta name="google-adsense-account" content="ca-pub-1955887568822472">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部教程", "item": "https://zentools.xyz/tutorials/"}, {"@type": "ListItem", "position": 3, "name": "教程中心"}]}</script>
 </head>
 <body>
-<div class="blob blob-1"></div><div class="blob blob-2"></div>
-<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <div class="logo-icon" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</div>
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/tools.html">全部工具</a>
+        <a href="/tutorials/" class="active">教程中心</a>
+        <a href="/guides/">深度指南</a>
+        <a href="/compare/">工具对比</a>
+        <a href="/professions.html">职业工具</a>
+        <a href="/my.html">用户中心</a>
+        <a href="/about.html">关于</a>
+        <button id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" class="lang-select">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
 
-<nav><div class="nav-inner">
-<a class="logo" href="/">ZenTools<span>2.0</span></a>
-<div class="nav-links">
-<a href="/" data-i18n="navHome">首页</a>
-<a href="/tutorials/" data-i18n="navArticles">教程中心</a>
-<a href="/knowledge/" data-i18n="navKB">知识库</a>
-<a href="/tools.html" data-i18n="navAll">全部工具</a>
-<select id="langSelect" class="lang-select">
-<option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
-</select>
-</div>
-</div></nav>
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/">首页</a>
+      <a href="/tools.html">全部工具</a>
+      <a href="/tutorials/">教程中心</a>
+      <a href="/guides/">深度指南</a>
+      <a href="/compare/">工具对比</a>
+      <a href="/professions.html">职业工具</a>
+      <a href="/my.html">用户中心</a>
+      <a href="/about.html">关于</a>
+    </div>
+  </div>
 
 <div class="page-header reveal">
 <div class="breadcrumb"><a href="/" data-i18n="breadcrumbHome">首页</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">教程中心</span></div>
@@ -82,6 +197,157 @@
 <div class="faq-item"><h3 data-i18n="faq3Q">我的操作记录或文件会被保存吗？</h3><p data-i18n="faq3A">不会。所有工具在完成操作后不会保存你的任何文件或数据，关闭页面即自动清除。</p></div>
 </div>
 
+
+<section class="all-pages-hub" style="max-width:1200px;margin:40px auto;padding:0 24px">
+  <h2 style="font-size:20px;font-weight:700;margin:0 0 16px;color:var(--zen-text-main,#e8eaed)">相关教程</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <a href="/tutorials/add-text-to-image.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片添加文字教程：在图片上添加水印或标注</a>
+      <a href="/tutorials/ai-super-resolution.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">AI 超分辨率教程：用 AI 提升图片清晰度</a>
+      <a href="/tutorials/ai-tools-directory.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">AI 工具目录教程：查找和推荐 AI 工具</a>
+      <a href="/tutorials/base64-to-image.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Base64 转图片教程：将 Base64 编码还原为图片</a>
+      <a href="/tutorials/batch-rename.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">批量重命名教程：一键批量重命名图片文件</a>
+      <a href="/tutorials/camera-test.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">摄像头测试教程：在线开发工具</a>
+      <a href="/tutorials/clipdrop.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Clipdrop 教程：AI 图像编辑和移除工具</a>
+      <a href="/tutorials/color-tune.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片调色教程：调整照片的亮度、对比度和饱和度</a>
+      <a href="/tutorials/copy-ai.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Copy.ai 教程：营销文案和内容创作</a>
+      <a href="/tutorials/cursor-vs-windsurf.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Cursor vs Windsurf: Which AI Code Editor Should You Use in 2026?</a>
+      <a href="/tutorials/deepl.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">DeepL 教程：高质量多语言翻译</a>
+      <a href="/tutorials/deposit-interest.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">存款利息计算器教程：在线金融计算</a>
+      <a href="/tutorials/descript.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Descript 教程：AI 音频和视频编辑</a>
+      <a href="/tutorials/dify-vs-n8n.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Dify vs n8n: AI App Platform or General Automation — Which One Should Your Team Choose in 2026?</a>
+      <a href="/tutorials/drop-shadow.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片投影教程：为图片添加阴影效果</a>
+      <a href="/tutorials/exif-stripper.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">EXIF 清除教程：移除照片中的隐私元数据</a>
+      <a href="/tutorials/exif-viewer.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">EXIF 查看教程：读取照片的元数据信息</a>
+      <a href="/tutorials/free-llm-api-guide.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">免费 LLM API 接入指南134 个免费 API 配置完全教程</a>
+      <a href="/tutorials/grid-split.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">九宫格切图教程：在线图片处理</a>
+      <a href="/tutorials/heygen.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">HeyGen 教程：AI 视频配音和数字人</a>
+      <a href="/tutorials/ico-generator.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">ICO 图标生成教程：将图片转为 Windows 图标</a>
+      <a href="/tutorials/image-adjust.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片调整教程：调节亮度、对比度和饱和度</a>
+      <a href="/tutorials/image-annotate.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片涂鸦标注教程：在线图片处理</a>
+      <a href="/tutorials/image-border.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片边框教程：为图片添加边框装饰</a>
+      <a href="/tutorials/image-compare.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片对比教程：对比两张图片的差异</a>
+      <a href="/tutorials/image-compress-guide.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片压缩图文教程：无损压缩 JPG/PNG/WebP 图片</a>
+      <a href="/tutorials/image-crop.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片裁剪教程：自由裁切图片尺寸</a>
+      <a href="/tutorials/image-dedup.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片去重教程：查找并清理重复图片</a>
+      <a href="/tutorials/image-filters.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片滤镜教程：在线图片处理</a>
+      <a href="/tutorials/image-format-detector.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片格式检测教程：识别图片的真实格式</a>
+      <a href="/tutorials/image-mosaic.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片马赛克教程：在线图片处理</a>
+      <a href="/tutorials/image-organize.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片整理教程：按日期和尺寸整理图片</a>
+      <a href="/tutorials/image-rotate.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片旋转与翻转教程：在线图片处理</a>
+      <a href="/tutorials/image-sharpen.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片锐化教程：在线图片处理</a>
+      <a href="/tutorials/image-to-ascii.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片转 ASCII 教程：将图片转换为字符画</a>
+      <a href="/tutorials/image-to-base64.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片转 Base64教程：在线图片处理</a>
+      <a href="/tutorials/image-to-ico.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片转 ICO 教程：创建 Windows 图标文件</a>
+      <a href="/tutorials/image-to-pdf.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片转 PDF 教程：将多张图片合成为 PDF 文件</a>
+      <a href="/tutorials/image-to-pixel-art.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片转像素画教程：将图片转为 8-bit 像素风格</a>
+      <a href="/tutorials/image-watermark.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">图片加水印教程：在线图片处理</a>
+      <a href="/tutorials/json-viewer.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">JSON树形视图教程：在线开发工具</a>
+      <a href="/tutorials/keyboard-test.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">键盘测试教程：在线开发工具</a>
+      <a href="/tutorials/link-extract.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">链接提取教程：在线文本处理</a>
+      <a href="/tutorials/mic-test.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">麦克风测试教程：在线开发工具</a>
+      <a href="/tutorials/midjourney.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Midjourney 教程：AI 艺术图像生成</a>
+      <a href="/tutorials/money-uppercase.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">金额大写转换教程：在线生活计算</a>
+      <a href="/tutorials/mouse-test.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">鼠标测试教程：在线开发工具</a>
+      <a href="/tutorials/otter-ai.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Otter AI 教程：语音转文字会议记录</a>
+      <a href="/tutorials/pdf-converter.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">PDF 转换器教程：PDF 与其他格式互转</a>
+      <a href="/tutorials/pdf-tools.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">PDF 工具教程：在线PDF处理</a>
+      <a href="/tutorials/phind-ai.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">Phind AI 教程：AI 编程助手和代码解答</a>
+      <a href="/tutorials/qr-reader.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">二维码识别教程：从图片中读取二维码内容</a>
+      <a href="/tutorials/reverse-text.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">文本反转教程：在线文本处理</a>
+      <a href="/tutorials/screen-test.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">屏幕检测教程：在线开发工具</a>
+      <a href="/tutorials/seo-title-checker.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">SEO标题检查器教程：在线SEO分析</a>
+      <a href="/tutorials/sort-lines.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">文本排序教程：在线文本处理</a>
+      <a href="/tutorials/stock-fee.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">股票手续费计算器教程：在线金融计算</a>
+      <a href="/tutorials/url-encode.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">URL编码解码教程：在线文本处理</a>
+      <a href="/tutorials/video-thumbnail.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:20px;font-size:13px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none">视频缩略图教程：从视频中提取封面图</a>
+  
+    <a href="/tutorials/ai-ocr.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">ai-ocr</a>
+
+    <a href="/tutorials/annotate.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">annotate</a>
+
+    <a href="/tutorials/audio-fade.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">audio-fade</a>
+
+    <a href="/tutorials/audio-reverse.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">audio-reverse</a>
+
+    <a href="/tutorials/audio-speed.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">audio-speed</a>
+
+    <a href="/tutorials/bmi.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">bmi</a>
+
+    <a href="/tutorials/convert-to-jpg.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">convert-to-jpg</a>
+
+    <a href="/tutorials/convert-to-png.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">convert-to-png</a>
+
+    <a href="/tutorials/credit-card-calculator.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">credit-card-calculator</a>
+
+    <a href="/tutorials/currency-converter.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">currency-converter</a>
+
+    <a href="/tutorials/diff.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">diff</a>
+
+    <a href="/tutorials/gradient-generator.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">gradient-generator</a>
+
+    <a href="/tutorials/horoscope.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">horoscope</a>
+
+    <a href="/tutorials/image-compressor.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">image-compressor</a>
+
+    <a href="/tutorials/image-to-gif.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">image-to-gif</a>
+
+    <a href="/tutorials/imagebase64.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">imagebase64</a>
+
+    <a href="/tutorials/imgtopdf.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">imgtopdf</a>
+
+    <a href="/tutorials/japan-electricity.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">japan-electricity</a>
+
+    <a href="/tutorials/moneyuppercase.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">moneyuppercase</a>
+
+    <a href="/tutorials/mosaic.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">mosaic</a>
+
+    <a href="/tutorials/mov-to-gif.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">mov-to-gif</a>
+
+    <a href="/tutorials/pdf-add-pages.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">pdf-add-pages</a>
+
+    <a href="/tutorials/pdf-batch.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">pdf-batch</a>
+
+    <a href="/tutorials/pdf-bookmarks.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">pdf-bookmarks</a>
+
+    <a href="/tutorials/pdf-diff.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">pdf-diff</a>
+
+    <a href="/tutorials/pdf-extract-images.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">pdf-extract-images</a>
+
+    <a href="/tutorials/pdf-metadata.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">pdf-metadata</a>
+
+    <a href="/tutorials/pdf-repair.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">pdf-repair</a>
+
+    <a href="/tutorials/rotate.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">rotate</a>
+
+    <a href="/tutorials/sketch.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">sketch</a>
+
+    <a href="/tutorials/speech-to-text.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">speech-to-text</a>
+
+    <a href="/tutorials/svg-to-png.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">svg-to-png</a>
+
+    <a href="/tutorials/temperature-converter.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">temperature-converter</a>
+
+    <a href="/tutorials/tiktok-downloader.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">tiktok-downloader</a>
+
+    <a href="/tutorials/tome-ai.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">tome-ai</a>
+
+    <a href="/tutorials/udio-ai.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">udio-ai</a>
+
+    <a href="/tutorials/video-screenshot.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">video-screenshot</a>
+
+    <a href="/tutorials/video-to-audio.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">video-to-audio</a>
+
+    <a href="/tutorials/visa-days.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">visa-days</a>
+
+    <a href="/tutorials/voice-recorder.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">voice-recorder</a>
+
+    <a href="/tutorials/volume-booster.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">volume-booster</a>
+
+    <a href="/tutorials/worldtime.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">worldtime</a>
+
+    <a href="/tutorials/zapier-ai.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">zapier-ai</a>
+</div>
+</section>
 <footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/tutorials/" data-i18n="navArticles">教程中心</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
 </div>
 
@@ -420,11 +686,15 @@ var toolUrlMap = {
   'pdf-watermark':'/pdf/pdf-watermark.html',
   'ppt-to-pdf':'/pdf/ppt-to-pdf.html',
   'txt-to-pdf':'/pdf/txt-to-pdf.html',
-  'word-to-pdf':'/pdf/word-to-pdf.html'
+  'word-to-pdf':'/pdf/word-to-pdf.html',
+  'ppt-generator':'/tools/ppt-generator.html',
+  'ppt-merge':'/tools/ppt-merge.html',
+  'ppt-to-text':'/tools/ppt-to-text.html'
 };
 
 var categories = [
   { id:'pdf', icon:'📄', zh:'PDF 工具', en:'PDF Tools', ja:'PDF ツール', vi:'Công cụ PDF' },
+  { id:'office', icon:'📊', zh:'办公工具', en:'Office Tools', ja:'オフィスツール', vi:'Công cụ văn phòng' },
   { id:'image', icon:'🖼️', zh:'图片工具', en:'Image Tools', ja:'画像ツール', vi:'Công cụ ảnh' },
   { id:'video', icon:'🎬', zh:'视频工具', en:'Video Tools', ja:'動画ツール', vi:'Công cụ video' },
   { id:'ai', icon:'🤖', zh:'AI 工具', en:'AI Tools', ja:'AI ツール', vi:'Công cụ AI' },
@@ -440,6 +710,10 @@ var categories = [
 ];
 
 var tutorials = [
+  { slug:'ppt-generator', cat:'office', titleZh:'PPT 生成器使用教程：在线一键生成 PPTX', titleEn:'PPT Generator Tutorial: Create PPTX Online', titleJa:'PPT ジェネレーター使い方：オンラインで PPTX 生成', titleVi:'Hướng dẫn PPT Generator: Tạo PPTX trực tuyến', date:'2026-07-16', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'输入标题与内容，选择配色主题，浏览器本地一键生成 PowerPoint 演示文稿并下载。', sumEn:'Enter title and content, pick a theme, generate PowerPoint locally and download.', sumJa:'タイトルと内容を入力、テーマ選択でブラウザ生成・ダウンロード。', sumVi:'Nhập tiêu đề nội dung, chọn chủ đề, tạo PowerPoint và tải xuống ngay trong trình duyệt.', tagsZh:['PPT','生成'],tagsEn:['PPT','Generate'],tagsJa:['PPT','生成'],tagsVi:['PPT','Tạo'] },
+  { slug:'ppt-merge', cat:'office', titleZh:'PPT 合并使用教程：在线合并多个 PPTX 文件', titleEn:'PPT Merge Tutorial: Combine Multiple PPTX Online', titleJa:'PPT マージ使い方：複数 PPTX を統合', titleVi:'Hướng dẫn PPT Merge: Gộp nhiều PPTX trực tuyến', date:'2026-07-16', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'上传多个 PowerPoint 文件，浏览器本地合并为一个演示文稿，保护隐私。', sumEn:'Upload multiple PowerPoint files and merge them locally into one presentation.', sumJa:'複数の PowerPoint をブラウザで 1 つに統合。', sumVi:'Tải nhiều PowerPoint và gộp cục bộ thành một bản trình bày.', tagsZh:['PPT','合并'],tagsEn:['PPT','Merge'],tagsJa:['PPT','統合'],tagsVi:['PPT','Gộp'] },
+  { slug:'ppt-to-text', cat:'office', titleZh:'PPT 转文字使用教程：提取 PPTX 中的文字', titleEn:'PPT to Text Tutorial: Extract Text from PPTX', titleJa:'PPT 文字抽出使い方：PPTX からテキスト抽出', titleVi:'Hướng dẫn PPT sang văn bản: Trích xuất text từ PPTX', date:'2026-07-16', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'上传 PPTX 文件，自动提取所有幻灯片文字内容，导出为 TXT 文本文件。', sumEn:'Upload a PPTX, auto-extract all slide text, export as a TXT file.', sumJa:'PPTX をアップロードし全スライド文字を抽出、TXT 出力。', sumVi:'Tải PPTX, tự động trích xuất text mọi slide, xuất file TXT.', tagsZh:['PPT','转文字'],tagsEn:['PPT','To Text'],tagsJa:['PPT','文字抽出'],tagsVi:['PPT','Sang văn bản'] },
+
 
   { slug:'pdf-merge', cat:'pdf', titleZh:'PDF 合并工具使用教程：三步合并多个 PDF 文件', titleEn:'Merge PDFs in 3 Simple Steps', titleJa:'PDF 結合チュートリアル：3ステップでPDFを結合', titleVi:'Hướng dẫn gộp PDF: 3 bước gộp nhiều file PDF', date:'2026-06-18', read:'3 分钟阅读', readEn:'3 min', readJa:'3分', readVi:'3 phút', sumZh:'无需安装软件，直接在浏览器中完成多个PDF文件的合并，保护文件隐私。', sumEn:'Combine multiple PDFs directly in your browser. No software, no uploads, privacy protected.', sumJa:'ソフト不要。ブラウザで直接PDFを結合。プライバシー保護。', sumVi:'Gộp nhiều file PDF trực tiếp trong trình duyệt, bảo vệ quyền riêng tư.', tagsZh:['PDF','合并'],tagsEn:['PDF','Merge'],tagsJa:['PDF','結合'],tagsVi:['PDF','Gộp'] },
   
@@ -1143,6 +1417,28 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js').catch(function(){});
   });
 }
+</script>
+<script>
+(function(){
+var t=localStorage.getItem('zentools_theme');
+if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');
+if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');
+this.textContent=d?'☀️':'🌙';localStorage.setItem('zentools_theme',d?'dark':'light');});}
+})();
+(function(){
+var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;
+h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);
+o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});
+})();
+if('serviceWorker'in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
 </body>
 </html>

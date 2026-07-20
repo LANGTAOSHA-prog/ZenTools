@@ -1,15 +1,53 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+  <meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/manifest.json" />
-  <title data-i18n="pageTitle">HeyGen数字人 - AI工具教程 | AIHubTools 智汇工具</title>
+  <title data-i18n="pageTitle">HeyGen数字人 - AI工具教程 | ZenTools</title>
   <script src="/assets/js/anti-crash.min.js"></script>
-  <meta name="description" content="AI数字人口播视频生成工具。">
-  <meta name="keywords" content="Avatar Video|AI Video,AI工具,AIHubTools,智汇工具">
-  <link rel="canonical" href="https://langtaosha-prog.github.io/AIHubTools/tools/heygen.html">
+  <meta name="description" content="AI数字人口播视频生成工具。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。">
+  <meta name="keywords" content="Avatar Video|AI Video,AI工具,ZenTools">
+  <link rel="canonical" href="https://zentools.xyz/tools/heygen.html">
   <style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
     body {
       margin: 0;
       font-family: Arial, "Microsoft YaHei", sans-serif;
@@ -85,25 +123,124 @@
       margin-top: 28px;
     }
   .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
 </style>
+</div>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
      crossorigin="anonymous"></script>
 
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这个工具免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "是的，完全免费。所有工具在浏览器本地运行，无需注册，无需安装。"}}, {"@type": "Question", "name": "我的文件会上传到服务器吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。所有工具在您的浏览器本地运行，文件不会上传到任何服务器，保护您的隐私安全。"}}, {"@type": "Question", "name": "支持哪些浏览器？", "acceptedAnswer": {"@type": "Answer", "text": "推荐使用最新版 Chrome、Edge、Firefox 或 Safari。部分工具需要浏览器支持相关 Web API。"}}, {"@type": "Question", "name": "如何使用这个工具？", "acceptedAnswer": {"@type": "Answer", "text": "打开页面后，按照界面提示输入内容或上传文件，即可获得处理结果。操作简单，即开即用。"}}]}</script>
+<!-- P1: replaced generic FAQ JSON-LD -->
 <script>window.pageTranslations=window.ZT_PAGE=
 // Compatibility: map pageTranslations keys
-(function(){var pt=window.pageTranslations=window.ZT_PAGE;})(){"zh":{pageTitle: 'HeyGen数字人 - AI工具教程 | AIHubTools 智汇工具', metaDesc: 'AI数字人口播视频生成工具。', h_heygen数字人: 'HeyGen数字人', h_工具介绍: '工具介绍', h_主要功能: '主要功能', h_适合谁使用: '适合谁使用', h_使用方法: '使用方法', h_多语言简介: '多语言简介', h_相关标签: '相关标签', h_常见问题: '常见问题'+(catName||\'\')+\'工具', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步'}},"en":{pageTitle: 'HeyGen数字人 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', h_heygen数字人: 'HeyGen数字人', h_工具介绍: 'Tool Introduction', h_主要功能: 'Key Features', h_适合谁使用: 'Who Is This For?', h_使用方法: 'How to Use', h_多语言简介: 'Language Support', h_相关标签: 'Related Tags', h_常见问题: 'FAQ'+(catName||'')+' Tools', btn_收藏本站_下: '⭐ Bookmark ZenTools for quick access'},"ja":{pageTitle: 'HeyGen数字人 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', h_heygen数字人: 'HeyGen数字人', h_工具介绍: 'ツール紹介', h_主要功能: '主な機能', h_适合谁使用: 'こんな方におすすめ', h_使用方法: '使い方', h_多语言简介: '多言語対応', h_相关标签: '関連タグ', h_常见问题: 'よくある質問'+(catName||'')+'ツール', btn_收藏本站_下: '⭐ ブックマークしてすぐアクセス'},"vi":{pageTitle: 'HeyGen数字人 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', h_heygen数字人: 'HeyGen数字人', h_工具介绍: 'Giới thiệu', h_主要功能: 'Tính năng chính', h_适合谁使用: 'Phù hợp với ai', h_使用方法: 'Cách sử dụng', h_多语言简介: 'Hỗ trợ ngôn ngữ', h_相关标签: 'Thẻ liên quan', h_常见问题: 'Câu hỏi thường gặp'+(catName||'')+' Công cụ', btn_收藏本站_下: '⭐ Đánh dấu ZenTools để truy cập nhanh'}};</script>
+(function(){var pt=window.pageTranslations=window.ZT_PAGE;})(){"zh":{pageTitle: 'HeyGen数字人 - AI工具教程 | ZenTools', metaDesc: 'AI数字人口播视频生成工具。', h_heygen数字人: 'HeyGen数字人', h_工具介绍: '工具介绍', h_主要功能: '主要功能', h_适合谁使用: '适合谁使用', h_使用方法: '使用方法', h_多语言简介: '多语言简介', h_相关标签: '相关标签', h_常见问题: '常见问题'+(catName||\'\')+\'工具', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步'}},"en":{pageTitle: 'HeyGen数字人 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', h_heygen数字人: 'HeyGen数字人', h_工具介绍: 'Tool Introduction', h_主要功能: 'Key Features', h_适合谁使用: 'Who Is This For?', h_使用方法: 'How to Use', h_多语言简介: 'Language Support', h_相关标签: 'Related Tags', h_常见问题: 'FAQ'+(catName||'')+' Tools', btn_收藏本站_下: '⭐ Bookmark ZenTools for quick access'},"ja":{pageTitle: 'HeyGen数字人 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', h_heygen数字人: 'HeyGen数字人', h_工具介绍: 'ツール紹介', h_主要功能: '主な機能', h_适合谁使用: 'こんな方におすすめ', h_使用方法: '使い方', h_多语言简介: '多言語対応', h_相关标签: '関連タグ', h_常见问题: 'よくある質問'+(catName||'')+'ツール', btn_收藏本站_下: '⭐ ブックマークしてすぐアクセス'},"vi":{pageTitle: 'HeyGen数字人 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', h_heygen数字人: 'HeyGen数字人', h_工具介绍: 'Giới thiệu', h_主要功能: 'Tính năng chính', h_适合谁使用: 'Phù hợp với ai', h_使用方法: 'Cách sử dụng', h_多语言简介: 'Hỗ trợ ngôn ngữ', h_相关标签: 'Thẻ liên quan', h_常见问题: 'Câu hỏi thường gặp'+(catName||'')+' Công cụ', btn_收藏本站_下: '⭐ Đánh dấu ZenTools để truy cập nhanh'}};</script>
 </head>
 <body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
 
-  <main class="wrap">
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<main class="wrap">
     <section class="card">
       <div class="top">
         <img class='logo' src='https://www.heygen.com/' alt='HeyGen数字人 logo' onerror="this.style.display='none'">
         <div>
-          <div class="top-bar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px"><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select></div>
+          <div class="top-bar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px"><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select></div>
 <h1 data-i18n="h_heygen数字人">HeyGen数字人</h1>
           <div class="meta">
             <span>ID 74</span>
@@ -117,58 +254,17 @@
 
       <a class="btn" href="https://www.heygen.com/" target="_blank" rel="noopener">访问官方网站</a>
 
-      <h2 data-i18n="h_工具介绍">工具介绍</h2>
-      <div class="box">
-        <p>HeyGen数字人 是一个实用的 AI 工具，适合用于内容创作、效率提升、学习辅助或日常工作处理。本站整理该工具的基本信息，方便用户快速了解和访问。</p>
-      </div>
-
-      <h2 data-i18n="h_主要功能">主要功能</h2>
-      <div class="box">
-        <p>AI数字人口播视频生成工具。</p>
-      </div>
-
-      <h2 data-i18n="h_适合谁使用">适合谁使用</h2>
-      <div class="box">
-        <p>适合学生、内容创作者、办公用户、开发者、自媒体运营者，以及希望提高工作效率的普通用户。</p>
-      </div>
-
-      <h2 data-i18n="h_使用方法">使用方法</h2>
-      <div class="box">
-        <p>第一步：点击上方“访问官方网站”。</p>
-        <p>第二步：根据网站提示注册或登录账号。</p>
-        <p>第三步：选择需要的功能，输入文字、文件或相关内容。</p>
-        <p>第四步：检查生成结果，并根据自己的需求修改和保存。</p>
-      </div>
-
-      <h2 data-i18n="h_多语言简介">多语言简介</h2>
-      <div class="box">
-        <p><strong>English:</strong> AI avatar video generation platform.</p>
-        <p><strong>日本語:</strong> 数字人|AI视频|配音</p>
-      </div>
-
-      <h2 data-i18n="h_相关标签">相关标签</h2>
-      <div class="box">
-        <p>Avatar Video|AI Video</p>
-      </div>
-
-      <h2 data-i18n="h_常见问题">常见问题</h2>
-      <div class="box">
-        <p><strong>这个工具免费吗？</strong></p>
-        <p>具体价格以官方网站为准，部分工具可能提供免费额度或付费套餐。</p>
-        <p><strong>打不开怎么办？</strong></p>
-        <p>可以检查网络环境，或稍后再次访问官方网站。</p>
-      </div>
-    </section>
+      </section>
 
     <div class="footer">
-      © AIHubTools 智汇工具
+      © ZenTools
     </div>
   </main>
 
 <script>
 // Related tools — loaded from tools-data.json
 (function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px" >📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px" >📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
 </script>
 
 <button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站_下">⭐ 收藏本站，下次办公快人一步</button>
@@ -181,5 +277,74 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 <script>(function(){var t=window.pageTranslations||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>HeyGen数字人：AI数字人口播视频生成工具。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>普通用户与各类职场人群。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>按需使用，结果以实际为准</li>
+<li>关键内容建议人工核对</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>HeyGen数字人主要能做什么？</summary><p>HeyGen数字人：AI数字人口播视频生成工具。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。</p></details>
+<details open><summary>第一次使用HeyGen数字人要注意什么？</summary><p>打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。</p></details>
+<details open><summary>HeyGen数字人处理我的文件安全吗？</summary><p>安全。HeyGen数字人所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。</p></details>
+<details open><summary>用HeyGen数字人生成的内容可以直接用吗？</summary><p>可以。生成结果会直接显示在页面，你可复制、续写或导出；建议对关键内容做人工核对，确保符合你的场景。</p></details>
+  </div>
+</section>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "HeyGen数字人", "applicationCategory": "BusinessApplication", "operatingSystem": "All", "description": "AI数字人口播视频生成工具。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。", "url": "https://zentools.xyz/tools/heygen.html"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "HeyGen数字人 - AI工具教程"}]}</script><script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "HeyGen数字人主要能做什么？","acceptedAnswer": {"@type": "Answer","text": "HeyGen数字人：AI数字人口播视频生成工具。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"}},{"@type": "Question","name": "第一次使用HeyGen数字人要注意什么？","acceptedAnswer": {"@type": "Answer","text": "打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。"}},{"@type": "Question","name": "HeyGen数字人处理我的文件安全吗？","acceptedAnswer": {"@type": "Answer","text": "安全。HeyGen数字人所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。"}},{"@type": "Question","name": "用HeyGen数字人生成的内容可以直接用吗？","acceptedAnswer": {"@type": "Answer","text": "可以。生成结果会直接显示在页面，你可复制、续写或导出；建议对关键内容做人工核对，确保符合你的场景。"}}]}</script>
 </body>
 </html>

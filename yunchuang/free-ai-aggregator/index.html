@@ -1,348 +1,434 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n-page="pageTitle">免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key | 免费云情报站</title>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<meta name="description" content="2026 年最全免费 AI 模型聚合平台！自动轮询多个免费 API 源，智能故障切换，无需注册即可使用 Mistral、Gemma 等主流大模型。">
-<meta name="keywords" content="免费 AI 模型，AI API 聚合，免费大模型，Mistral 7B,Gemma,AI 测试平台，无 API Key">
-<meta name="author" content="云创 - 免费云情报站">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://zentools.xyz/free-ai-aggregator/">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://zentools.xyz/free-ai-aggregator/">
-<meta property="og:title" content="免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key">
-<meta property="og:description" content="2026 年最全免费 AI 模型聚合平台！自动轮询多个免费 API 源。">
-<meta property="og:site_name" content="云创 - 免费云情报站">
-<meta property="article:published_time" content="2026-06-30">
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://zentools.xyz/free-ai-aggregator/">
-<meta property="twitter:title" content="免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key">
-<meta property="twitter:description" content="2026 年最全免费 AI 模型聚合平台！自动轮询多个免费 API 源。">
-  <!-- ===== 防崩与 i18n ===== -->
-  <script src="i18n.min.js" defer></script>
-  <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #f5f7fb; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 20px; }
-.card { background: white; max-width: 720px; width: 100%; padding: 28px 24px 32px; border-radius: 32px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); transition: 0.2s; }
-h1 { font-size: 24px; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #1e293b; margin-bottom: 6px; }
-.sub { color: #64748b; font-size: 14px; margin-bottom: 20px; border-left: 3px solid #818cf8; padding-left: 12px; background: #f8fafc; border-radius: 0 8px 8px 0; line-height: 1.5; }
-.model-badge { display: flex; flex-wrap: wrap; gap: 8px 12px; background: #f1f5f9; padding: 12px 16px; border-radius: 18px; margin-bottom: 22px; font-size: 13px; color: #334155; }
-.model-badge span { background: white; padding: 2px 14px; border-radius: 30px; box-shadow: 0 1px 4px rgba(0,0,0,0.02); font-weight: 500; color: #0f172a; }
-.input-area { display: flex; gap: 10px; margin-bottom: 16px; }
-.input-area input { flex: 1; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 60px; font-size: 15px; outline: none; transition: 0.2s; background: #fafcff; }
-.input-area input:focus { border-color: #818cf8; box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2); background: white; }
-.input-area button { background: #1e293b; color: white; border: none; padding: 0 28px; border-radius: 60px; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.15s; white-space: nowrap; letter-spacing: 0.3px; display: flex; align-items: center; gap: 6px; }
-.input-area button:hover { background: #0f172a; transform: scale(0.97); }
-.input-area button:disabled { opacity: 0.5; pointer-events: none; }
-.status { font-size: 13px; color: #475569; min-height: 22px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-.status .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; }
-.status .dot.loading { background: #f59e0b; animation: pulse 1.2s infinite; }
-.status .dot.success { background: #22c55e; }
-.status .dot.error { background: #ef4444; }
-@keyframes pulse { 0% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.4; transform: scale(0.9); } }
-.response-box { background: #f8fafc; border-radius: 20px; padding: 20px 22px; min-height: 110px; border: 1px solid #eef2f6; white-space: pre-wrap; word-break: break-word; line-height: 1.6; color: #0f172a; font-size: 15px; transition: 0.2s; margin-top: 4px; }
-.response-box .placeholder { color: #94a3b8; font-style: italic; user-select: none; }
-.footer-actions { display: flex; justify-content: flex-end; margin-top: 14px; gap: 12px; }
-.footer-actions button { background: transparent; border: 1px solid #e2e8f0; padding: 6px 16px; border-radius: 40px; font-size: 13px; color: #475569; cursor: pointer; transition: 0.1s; }
-.footer-actions button:hover { background: #f1f5f9; border-color: #cbd5e1; }
-.small-note { margin-top: 18px; font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #f0f2f5; padding-top: 16px; }
-.back-link { display: inline-block; margin-bottom: 20px; padding: 8px 16px; background: #f1f5f9; border-radius: 8px; color: #475569; text-decoration: none; font-weight: 500; }
-.back-link:hover { background: #e2e8f0; }
-@media(max-width: 768px) { .card { padding: 20px 16px; } h1 { font-size: 20px; } .input-area button { padding: 0 18px; } }
-</style>
-  <script src="../../assets/js/common-i18n.min.js"></script>
-</head>
-<body>
-<a href="../index.html" class="back-link">← 返回首页</a>
-
-<div class="card">
-    <h1 data-i18n-page="pageHeader">🧠 免费 AI 模型聚合平台</h1>
-    <div class="sub" data-i18n-page="pageDesc">自动轮询 · 智能故障切换 · 无需 API Key · 完全免费</div>
-
-    <!-- 显示当前可用模型列表 -->
-    <div class="model-badge" id="modelBadge">
-        <span>⚡ 加载中...</span>
-    </div>
-
-    <div class="input-area">
-        <input type="text" id="userInput" placeholder="输入你的问题..." value="用一句话解释什么是大语言模型">
-        <button id="sendBtn">➤ 发送</button>
-    </div>
-
-    <div class="status" id="statusBar">
-        <span class="dot" id="statusDot"></span>
-        <span id="statusText">就绪</span>
-    </div>
-
-    <div class="response-box" id="responseBox">
-        <span class="placeholder">👋 点击发送，将自动尝试多个免费模型</span>
-    </div>
-
-    <div class="footer-actions">
-        <button id="clearBtn">清空</button>
-        <button id="retryBtn">🔄 重试</button>
-    </div>
-    
-    <div class="small-note">
-        ⚡ 内置 OpenRouter 免费模型 & Gemini 社区代理 · 自动故障切换 · 支持 Mistral 7B、Gemma 2 9B 等主流模型
-    </div>
-</div>
-
-<script>
-    (function() {
-        "use strict";
-
-        // ---------- 配置免费 API 源 (可自由增删) ----------
-        const SOURCES = [
-            {
-                name: 'Mistral 7B (Free)',
-                url: 'https://openrouter.ai/api/v1/chat/completions',
-                model: 'mistralai/mistral-7b-instruct:free',
-                headers: { 'Content-Type': 'application/json' }
-            },
-            {
-                name: 'Gemma 2 9B (Free)',
-                url: 'https://openrouter.ai/api/v1/chat/completions',
-                model: 'google/gemma-2-9b-it:free',
-                headers: { 'Content-Type': 'application/json' }
-            },
-            {
-                name: 'Phi-3 Mini (Free)',
-                url: 'https://openrouter.ai/api/v1/chat/completions',
-                model: 'microsoft/phi-3-mini-4k-instruct:free',
-                headers: { 'Content-Type': 'application/json' }
-            }
-        ];
-
-        // DOM 元素
-        const userInput = document.getElementById('userInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const statusText = document.getElementById('statusText');
-        const statusDot = document.getElementById('statusDot');
-        const responseBox = document.getElementById('responseBox');
-        const modelBadge = document.getElementById('modelBadge');
-        const clearBtn = document.getElementById('clearBtn');
-        const retryBtn = document.getElementById('retryBtn');
-
-        // 状态
-        let isProcessing = false;
-        let lastQuery = '';
-
-        // ----- 辅助：更新状态显示 -----
-        function setStatus(text, type = 'idle') {
-            statusText.textContent = text;
-            statusDot.className = 'dot';
-            if (type === 'loading') statusDot.classList.add('loading');
-            else if (type === 'success') statusDot.classList.add('success');
-            else if (type === 'error') statusDot.classList.add('error');
-        }
-
-        // 显示模型列表
-        function renderBadge() {
-            const names = SOURCES.map(s => s.name);
-            modelBadge.innerHTML = names.map(n => `<span>${n}</span>`).join(' ');
-        }
-        renderBadge();
-
-        // ----- 核心请求函数 (轮询 + 故障切换) -----
-        async function fetchWithFallback(prompt) {
-            if (!prompt || prompt.trim() === '') {
-                setStatus('请输入问题', 'error');
-                return null;
-            }
-
-            if (isProcessing) return null;
-            isProcessing = true;
-            sendBtn.disabled = true;
-            setStatus('正在尝试多个免费源...', 'loading');
-            responseBox.innerHTML = '⏳ 请求中...';
-
-            // 打乱顺序以均衡负载 (可选)
-            const sources = [...SOURCES];
-            // 为了更稳定，把 OpenRouter 放在前面 (因为成功率较高)
-            sources.sort((a, b) => {
-                if (a.url.includes('openrouter')) return -1;
-                if (b.url.includes('openrouter')) return 1;
-                return 0;
-            });
-
-            let lastError = null;
-            for (let i = 0; i < sources.length; i++) {
-                const src = sources[i];
-                try {
-                    setStatus(`尝试 ${src.name} ...`, 'loading');
-
-                    // 构建请求体 (兼容 OpenAI 格式)
-                    const payload = {
-                        model: src.model,
-                        messages: [{ role: 'user', content: prompt }],
-                        max_tokens: 500,
-                        temperature: 0.7,
-                    };
-
-                    // 有些代理可能需要额外 header，可扩展
-                    const headers = { ...src.headers };
-                    // 如果 URL 是 openrouter，可以添加 referer (可选)
-                    if (src.url.includes('openrouter')) {
-                        headers['HTTP-Referer'] = window.location.origin;
-                        headers['X-Title'] = 'Free AI Aggregator';
-                    }
-
-                    const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s 超时
-
-                    const resp = await fetch(src.url, {
-                        method: 'POST',
-                        headers: headers,
-                        body: JSON.stringify(payload),
-                        signal: controller.signal,
-                    });
-
-                    clearTimeout(timeoutId);
-
-                    if (!resp.ok) {
-                        const errText = await resp.text().catch(() => '');
-                        throw new Error(`HTTP ${resp.status} ${errText.slice(0, 80)}`);
-                    }
-
-                    const data = await resp.json();
-                    // 兼容不同返回结构
-                    let content = null;
-                    if (data && data.choices && data.choices.length > 0) {
-                        content = data.choices[0].message?.content || data.choices[0].text || null;
-                    } else if (data && data.content) {
-                        content = data.content;
-                    } else if (data && data.response) {
-                        content = data.response;
-                    }
-
-                    if (content) {
-                        // 成功！
-                        setStatus(`✅ 成功 (${src.name})`, 'success');
-                        responseBox.innerHTML = content;
-                        lastQuery = prompt;
-                        return content;
-                    } else {
-                        throw new Error('响应内容为空');
-                    }
-
-                } catch (err) {
-                    lastError = err;
-                    console.warn(`源 ${src.name} 失败:`, err.message);
-                    // 继续尝试下一个
-                    setStatus(`⚠️ ${src.name} 不可用，切换中...`, 'error');
-                    // 延迟一点点避免请求过快
-                    await new Promise(r => setTimeout(r, 300));
-                }
-            }
-
-            // 所有源都失败
-            setStatus('❌ 所有免费源暂时不可用，请稍后重试', 'error');
-            responseBox.innerHTML = `😵 所有 API 源均请求失败。\n最后错误：${lastError?.message || '未知'}\n\n提示：可能是网络/跨域限制，或免费额度已用完。`;
-            return null;
-        }
-
-        // ----- 发送逻辑 -----
-        async function handleSend() {
-            const prompt = userInput.value.trim();
-            if (!prompt) {
-                setStatus('请输入问题', 'error');
-                responseBox.innerHTML = '✏️ 请在上面输入问题';
-                return;
-            }
-            await fetchWithFallback(prompt);
-            isProcessing = false;
-            sendBtn.disabled = false;
-        }
-
-        // ----- 重试 (用上次的问题) -----
-        async function handleRetry() {
-            if (lastQuery) {
-                userInput.value = lastQuery;
-                await handleSend();
-            } else {
-                const current = userInput.value.trim();
-                if (current) {
-                    await handleSend();
-                } else {
-                    setStatus('没有可重试的问题', 'error');
-                    responseBox.innerHTML = '📝 输入问题后重试';
-                }
-            }
-        }
-
-        // ----- 事件绑定 -----
-        sendBtn.addEventListener('click', handleSend);
-        retryBtn.addEventListener('click', handleRetry);
-        clearBtn.addEventListener('click', function() {
-            userInput.value = '';
-            responseBox.innerHTML = '<span class="placeholder">🧹 已清空，输入新问题吧</span>';
-            setStatus('已清空', 'idle');
-            lastQuery = '';
-        });
-
-        // 回车发送
-        userInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                handleSend();
-            }
-        });
-
-        // 初始状态
-        setStatus('就绪，输入问题发送', 'idle');
-        
-        // 语言切换功能
-        function switchLanguage(lang) {
-            localStorage.setItem('zt_lang', lang);
-            location.reload();
-        }
-        
-        // 默认自动发送一次示例问题 (可选)
-        window.addEventListener('load', function() {
-            // 延迟一下让页面完全渲染
-            setTimeout(() => {
-                handleSend();
-            }, 400);
-        });
-    })();
-</script>
-
-<!-- 语言切换器 -->
-<div style="text-align: center; margin-top: 20px;">
-    <button onclick="switchLanguage('zh')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">中文</button>
-    <button onclick="switchLanguage('en')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">English</button>
-    <button onclick="switchLanguage('ja')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">日本語</button>
-    <button onclick="switchLanguage('vi')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">Tiếng Việt</button>
-</div>
-
-
-<script>
-window.ZT_PAGE = {
-  "zh": {
-    "pageTitle": "免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key | 免费云情报站",
-    "pageHeader": "🧠 免费 AI 模型聚合平台",
-    "pageDesc": "自动轮询 · 智能故障切换 · 无需 API Key · 完全免费"
-  },
-  "en": {
-    "pageTitle": "Free AI Model Aggregation Platform - Auto Failover · No API Key Needed | Free Cloud Intelligence",
-    "pageHeader": "🧠 Free AI Model Aggregation Platform",
-    "pageDesc": "Auto polling · Smart failover · No API key · Completely free"
-  },
-  "ja": {
-    "pageTitle": "無料AIモデル集約プラットフォーム - 自動フェイルオーバー · APIキー不要 | 無料クラウド情報局",
-    "pageHeader": "🧠 無料AIモデル集約プラットフォーム",
-    "pageDesc": "自動ポーリング · スマートフェイルオーバー · APIキー不要 · 完全無料"
-  },
-  "vi": {
-    "pageTitle": "Nền tảng Tổng hợp Mô hình AI Miễn phí - Tự động Chuyển đổi · Không cần API Key | Trạm Tình báo Đám mây Miễn phí",
-    "pageHeader": "🧠 Nền tảng Tổng hợp Mô hình AI Miễn phí",
-    "pageDesc": "Tự động thăm dò · Chuyển đổi thông minh · Không cần API key · Hoàn toàn miễn phí"
-  }
-};
-</script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<script src="../../assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n-page="pageTitle">免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key | 免费云情报站</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+<meta name="description" content="2026 年最全免费 AI 模型聚合平台！自动轮询多个免费 API 源，智能故障切换，无需注册即可使用 Mistral、Gemma 等主流大模型。">
+<meta name="keywords" content="免费 AI 模型，AI API 聚合，免费大模型，Mistral 7B,Gemma,AI 测试平台，无 API Key">
+<meta name="author" content="云创 - 免费云情报站">
+<meta name="robots" content="index, follow">
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://zentools.xyz/free-ai-aggregator/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zentools.xyz/free-ai-aggregator/">
+<meta property="og:title" content="免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key">
+<meta property="og:description" content="2026 年最全免费 AI 模型聚合平台！自动轮询多个免费 API 源。">
+<meta property="og:site_name" content="云创 - 免费云情报站">
+<meta property="article:published_time" content="2026-06-30">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://zentools.xyz/free-ai-aggregator/">
+<meta property="twitter:title" content="免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key">
+<meta property="twitter:description" content="2026 年最全免费 AI 模型聚合平台！自动轮询多个免费 API 源。">
+  <!-- ===== 防崩与 i18n ===== -->
+  <script src="i18n.min.js" defer></script>
+  <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #f5f7fb; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 20px; }
+.card { background: white; max-width: 720px; width: 100%; padding: 28px 24px 32px; border-radius: 32px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08); transition: 0.2s; }
+h1 { font-size: 24px; font-weight: 600; display: flex; align-items: center; gap: 8px; color: #1e293b; margin-bottom: 6px; }
+.sub { color: #64748b; font-size: 14px; margin-bottom: 20px; border-left: 3px solid #818cf8; padding-left: 12px; background: #f8fafc; border-radius: 0 8px 8px 0; line-height: 1.5; }
+.model-badge { display: flex; flex-wrap: wrap; gap: 8px 12px; background: #f1f5f9; padding: 12px 16px; border-radius: 18px; margin-bottom: 22px; font-size: 13px; color: #334155; }
+.model-badge span { background: white; padding: 2px 14px; border-radius: 30px; box-shadow: 0 1px 4px rgba(0,0,0,0.02); font-weight: 500; color: #0f172a; }
+.input-area { display: flex; gap: 10px; margin-bottom: 16px; }
+.input-area input { flex: 1; padding: 14px 18px; border: 1px solid #e2e8f0; border-radius: 60px; font-size: 15px; outline: none; transition: 0.2s; background: #fafcff; }
+.input-area input:focus { border-color: #818cf8; box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2); background: white; }
+.input-area button { background: #1e293b; color: white; border: none; padding: 0 28px; border-radius: 60px; font-weight: 600; font-size: 15px; cursor: pointer; transition: 0.15s; white-space: nowrap; letter-spacing: 0.3px; display: flex; align-items: center; gap: 6px; }
+.input-area button:hover { background: #0f172a; transform: scale(0.97); }
+.input-area button:disabled { opacity: 0.5; pointer-events: none; }
+.status { font-size: 13px; color: #475569; min-height: 22px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.status .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; }
+.status .dot.loading { background: #f59e0b; animation: pulse 1.2s infinite; }
+.status .dot.success { background: #22c55e; }
+.status .dot.error { background: #ef4444; }
+@keyframes pulse { 0% { opacity: 0.4; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.4; transform: scale(0.9); } }
+.response-box { background: #f8fafc; border-radius: 20px; padding: 20px 22px; min-height: 110px; border: 1px solid #eef2f6; white-space: pre-wrap; word-break: break-word; line-height: 1.6; color: #0f172a; font-size: 15px; transition: 0.2s; margin-top: 4px; }
+.response-box .placeholder { color: #94a3b8; font-style: italic; user-select: none; }
+.footer-actions { display: flex; justify-content: flex-end; margin-top: 14px; gap: 12px; }
+.footer-actions button { background: transparent; border: 1px solid #e2e8f0; padding: 6px 16px; border-radius: 40px; font-size: 13px; color: #475569; cursor: pointer; transition: 0.1s; }
+.footer-actions button:hover { background: #f1f5f9; border-color: #cbd5e1; }
+.small-note { margin-top: 18px; font-size: 12px; color: #94a3b8; text-align: center; border-top: 1px solid #f0f2f5; padding-top: 16px; }
+.back-link { display: inline-block; margin-bottom: 20px; padding: 8px 16px; background: #f1f5f9; border-radius: 8px; color: #475569; text-decoration: none; font-weight: 500; }
+.back-link:hover { background: #e2e8f0; }
+@media(max-width: 768px) { .card { padding: 20px 16px; } h1 { font-size: 20px; } .input-area button { padding: 0 18px; } }
+</style>
+  <script src="../../assets/js/common-i18n.min.js"></script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "云创专区", "item": "https://zentools.xyz/yunchuang/"}, {"@type": "ListItem", "position": 3, "name": "免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key | 免费云情报站"}]}</script>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="container nav-inner" style="height:70px;display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1200px;margin:0 auto;padding:0 24px">
+      <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit;font-size:22px;font-weight:700">
+        <span style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</span>
+        <span><span style="color:var(--zen-primary)">Zen</span><span style="color:var(--zen-secondary)">Tools</span><span style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></span>
+      </a>
+      <div class="nav-links" style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+        <a href="/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+        <a href="/tools.html" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+        <a href="/tutorials/" style="padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+        <button id="themeToggle" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" style="background:transparent;border:1px solid var(--zen-border);border-radius:8px;padding:6px 10px;color:var(--zen-text-sub);font-size:13px;cursor:pointer">
+          <option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay" style="position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s">
+    <div class="mobile-drawer" id="mobileDrawer" style="position:fixed;top:0;right:0;bottom:0;width:300px;max-width:85vw;background:rgba(249,250,251,0.97);border-left:1px solid var(--zen-border);padding:24px 20px;z-index:310;overflow-y:auto;transform:translateX(100%);transition:transform .3s;backdrop-filter:blur(24px)">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+    </div>
+  </div>
+
+
+<a href="../index.html" class="back-link">← 返回首页</a>
+
+<div class="card">
+    <h1 data-i18n-page="pageHeader">🧠 免费 AI 模型聚合平台</h1>
+    <div class="sub" data-i18n-page="pageDesc">自动轮询 · 智能故障切换 · 无需 API Key · 完全免费</div>
+
+    <!-- 显示当前可用模型列表 -->
+    <div class="model-badge" id="modelBadge">
+        <span>⚡ 加载中...</span>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="userInput" placeholder="输入你的问题..." value="用一句话解释什么是大语言模型">
+        <button id="sendBtn">➤ 发送</button>
+    </div>
+
+    <div class="status" id="statusBar">
+        <span class="dot" id="statusDot"></span>
+        <span id="statusText">就绪</span>
+    </div>
+
+    <div class="response-box" id="responseBox">
+        <span class="placeholder">👋 点击发送，将自动尝试多个免费模型</span>
+    </div>
+
+    <div class="footer-actions">
+        <button id="clearBtn">清空</button>
+        <button id="retryBtn">🔄 重试</button>
+    </div>
+    
+    <div class="small-note">
+        ⚡ 内置 OpenRouter 免费模型 & Gemini 社区代理 · 自动故障切换 · 支持 Mistral 7B、Gemma 2 9B 等主流模型
+    </div>
+</div>
+
+<script>
+    (function() {
+        "use strict";
+
+        // ---------- 配置免费 API 源 (可自由增删) ----------
+        const SOURCES = [
+            {
+                name: 'Mistral 7B (Free)',
+                url: 'https://openrouter.ai/api/v1/chat/completions',
+                model: 'mistralai/mistral-7b-instruct:free',
+                headers: { 'Content-Type': 'application/json' }
+            },
+            {
+                name: 'Gemma 2 9B (Free)',
+                url: 'https://openrouter.ai/api/v1/chat/completions',
+                model: 'google/gemma-2-9b-it:free',
+                headers: { 'Content-Type': 'application/json' }
+            },
+            {
+                name: 'Phi-3 Mini (Free)',
+                url: 'https://openrouter.ai/api/v1/chat/completions',
+                model: 'microsoft/phi-3-mini-4k-instruct:free',
+                headers: { 'Content-Type': 'application/json' }
+            }
+        ];
+
+        // DOM 元素
+        const userInput = document.getElementById('userInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusText = document.getElementById('statusText');
+        const statusDot = document.getElementById('statusDot');
+        const responseBox = document.getElementById('responseBox');
+        const modelBadge = document.getElementById('modelBadge');
+        const clearBtn = document.getElementById('clearBtn');
+        const retryBtn = document.getElementById('retryBtn');
+
+        // 状态
+        let isProcessing = false;
+        let lastQuery = '';
+
+        // ----- 辅助：更新状态显示 -----
+        function setStatus(text, type = 'idle') {
+            statusText.textContent = text;
+            statusDot.className = 'dot';
+            if (type === 'loading') statusDot.classList.add('loading');
+            else if (type === 'success') statusDot.classList.add('success');
+            else if (type === 'error') statusDot.classList.add('error');
+        }
+
+        // 显示模型列表
+        function renderBadge() {
+            const names = SOURCES.map(s => s.name);
+            modelBadge.innerHTML = names.map(n => `<span>${n}</span>`).join(' ');
+        }
+        renderBadge();
+
+        // ----- 核心请求函数 (轮询 + 故障切换) -----
+        async function fetchWithFallback(prompt) {
+            if (!prompt || prompt.trim() === '') {
+                setStatus('请输入问题', 'error');
+                return null;
+            }
+
+            if (isProcessing) return null;
+            isProcessing = true;
+            sendBtn.disabled = true;
+            setStatus('正在尝试多个免费源...', 'loading');
+            responseBox.innerHTML = '⏳ 请求中...';
+
+            // 打乱顺序以均衡负载 (可选)
+            const sources = [...SOURCES];
+            // 为了更稳定，把 OpenRouter 放在前面 (因为成功率较高)
+            sources.sort((a, b) => {
+                if (a.url.includes('openrouter')) return -1;
+                if (b.url.includes('openrouter')) return 1;
+                return 0;
+            });
+
+            let lastError = null;
+            for (let i = 0; i < sources.length; i++) {
+                const src = sources[i];
+                try {
+                    setStatus(`尝试 ${src.name} ...`, 'loading');
+
+                    // 构建请求体 (兼容 OpenAI 格式)
+                    const payload = {
+                        model: src.model,
+                        messages: [{ role: 'user', content: prompt }],
+                        max_tokens: 500,
+                        temperature: 0.7};
+
+                    // 有些代理可能需要额外 header，可扩展
+                    const headers = { ...src.headers };
+                    // 如果 URL 是 openrouter，可以添加 referer (可选)
+                    if (src.url.includes('openrouter')) {
+                        headers['HTTP-Referer'] = window.location.origin;
+                        headers['X-Title'] = 'Free AI Aggregator';
+                    }
+
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 15000); // 15s 超时
+
+                    const resp = await fetch(src.url, {
+                        method: 'POST',
+                        headers: headers,
+                        body: JSON.stringify(payload),
+                        signal: controller.signal});
+
+                    clearTimeout(timeoutId);
+
+                    if (!resp.ok) {
+                        const errText = await resp.text().catch(() => '');
+                        throw new Error(`HTTP ${resp.status} ${errText.slice(0, 80)}`);
+                    }
+
+                    const data = await resp.json();
+                    // 兼容不同返回结构
+                    let content = null;
+                    if (data && data.choices && data.choices.length > 0) {
+                        content = data.choices[0].message?.content || data.choices[0].text || null;
+                    } else if (data && data.content) {
+                        content = data.content;
+                    } else if (data && data.response) {
+                        content = data.response;
+                    }
+
+                    if (content) {
+                        // 成功！
+                        setStatus(`✅ 成功 (${src.name})`, 'success');
+                        responseBox.innerHTML = content;
+                        lastQuery = prompt;
+                        return content;
+                    } else {
+                        throw new Error('响应内容为空');
+                    }
+
+                } catch (err) {
+                    lastError = err;
+                    console.warn(`源 ${src.name} 失败:`, err.message);
+                    // 继续尝试下一个
+                    setStatus(`⚠️ ${src.name} 不可用，切换中...`, 'error');
+                    // 延迟一点点避免请求过快
+                    await new Promise(r => setTimeout(r, 300));
+                }
+            }
+
+            // 所有源都失败
+            setStatus('❌ 所有免费源暂时不可用，请稍后重试', 'error');
+            responseBox.innerHTML = `😵 所有 API 源均请求失败。\n最后错误：${lastError?.message || '未知'}\n\n提示：可能是网络/跨域限制，或免费额度已用完。`;
+            return null;
+        }
+
+        // ----- 发送逻辑 -----
+        async function handleSend() {
+            const prompt = userInput.value.trim();
+            if (!prompt) {
+                setStatus('请输入问题', 'error');
+                responseBox.innerHTML = '✏️ 请在上面输入问题';
+                return;
+            }
+            await fetchWithFallback(prompt);
+            isProcessing = false;
+            sendBtn.disabled = false;
+        }
+
+        // ----- 重试 (用上次的问题) -----
+        async function handleRetry() {
+            if (lastQuery) {
+                userInput.value = lastQuery;
+                await handleSend();
+            } else {
+                const current = userInput.value.trim();
+                if (current) {
+                    await handleSend();
+                } else {
+                    setStatus('没有可重试的问题', 'error');
+                    responseBox.innerHTML = '📝 输入问题后重试';
+                }
+            }
+        }
+
+        // ----- 事件绑定 -----
+        sendBtn.addEventListener('click', handleSend);
+        retryBtn.addEventListener('click', handleRetry);
+        clearBtn.addEventListener('click', function() {
+            userInput.value = '';
+            responseBox.innerHTML = '<span class="placeholder">🧹 已清空，输入新问题吧</span>';
+            setStatus('已清空', 'idle');
+            lastQuery = '';
+        });
+
+        // 回车发送
+        userInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSend();
+            }
+        });
+
+        // 初始状态
+        setStatus('就绪，输入问题发送', 'idle');
+        
+        // 语言切换功能
+        function switchLanguage(lang) {
+            localStorage.setItem('zt_lang', lang);
+            location.reload();
+        }
+        
+        // 默认自动发送一次示例问题 (可选)
+        window.addEventListener('load', function() {
+            // 延迟一下让页面完全渲染
+            setTimeout(() => {
+                handleSend();
+            }, 400);
+        });
+    })();
+</script>
+
+<!-- 语言切换器 -->
+<div style="text-align: center; margin-top: 20px;">
+    <button onclick="switchLanguage('zh')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">中文</button>
+    <button onclick="switchLanguage('en')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">English</button>
+    <button onclick="switchLanguage('ja')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">日本語</button>
+    <button onclick="switchLanguage('vi')" style="padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white; cursor: pointer; font-size: 13px;">Tiếng Việt</button>
+</div>
+
+
+<script>
+window.ZT_PAGE = {
+  "zh": {
+    "pageTitle": "免费 AI 模型聚合平台 - 自动故障切换 · 无需 API Key | 免费云情报站",
+    "pageHeader": "🧠 免费 AI 模型聚合平台",
+    "pageDesc": "自动轮询 · 智能故障切换 · 无需 API Key · 完全免费"
+  },
+  "en": {
+    "pageTitle": "Free AI Model Aggregation Platform - Auto Failover · No API Key Needed | Free Cloud Intelligence",
+    "pageHeader": "🧠 Free AI Model Aggregation Platform",
+    "pageDesc": "Auto polling · Smart failover · No API key · Completely free"
+  },
+  "ja": {
+    "pageTitle": "無料AIモデル集約プラットフォーム - 自動フェイルオーバー · APIキー不要 | 無料クラウド情報局",
+    "pageHeader": "🧠 無料AIモデル集約プラットフォーム",
+    "pageDesc": "自動ポーリング · スマートフェイルオーバー · APIキー不要 · 完全無料"
+  },
+  "vi": {
+    "pageTitle": "Nền tảng Tổng hợp Mô hình AI Miễn phí - Tự động Chuyển đổi · Không cần API Key | Trạm Tình báo Đám mây Miễn phí",
+    "pageHeader": "🧠 Nền tảng Tổng hợp Mô hình AI Miễn phí",
+    "pageDesc": "Tự động thăm dò · Chuyển đổi thông minh · Không cần API key · Hoàn toàn miễn phí"
+  }
+};
+</script>
+<script>
+(function(){var t=localStorage.getItem('zentools_theme');if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');this.textContent=d?'☀️':'🌙';
+localStorage.setItem('zentools_theme',d?'dark':'light');});}})();
+(function(){var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});})();
+</script>
+
+<section class="all-pages-hub" style="max-width:1200px;margin:40px auto;padding:0 24px">
+  <h2 style="font-size:20px;font-weight:700;margin:0 0 16px;color:var(--zen-text-main,#e8eaed)">全部页面</h2>
+  <div style="display:flex;flex-wrap:wrap;gap:8px">
+    <a href="/yunchuang/free-ai-aggregator/start.html" style="display:inline-block;padding:6px 12px;border:1px solid var(--zen-border,#2a2f3a);border-radius:999px;color:var(--zen-text-sub,#9aa3b2);text-decoration:none;font-size:14px">start</a>
+  </div>
+</section>
+</body>
+</html>

@@ -1,453 +1,647 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>语音转文字 - 免费在线工具 | ZenTools</title>
-  <script src="/assets/js/anti-crash.min.js"></script>
-  <meta property="og:title" content="语音转文字 - 免费在线工具 | ZenTools" />
-  <meta property="og:description" content="实时将语音转换为文字，支持多语种识别。" />
-  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
-  <meta property="og:url" content="https://zentools.xyz/audio/speech-to-text.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="zh_CN" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="语音转文字 - Free Online Tool | ZenTools" />
-  <meta name="twitter:description" content="Convert speech to text in real-time with multi-language support." />
-  <meta name="description" content="使用麦克风实时将语音转换为文字，支持多语种识别，免费在线使用，浏览器本地处理保护隐私。" />
-  <meta name="keywords" content="语音转文字,语音识别,听写,语音输入,在线语音转文字,ZenTools" />
-  <link rel="canonical" href="https://zentools.xyz/audio/speech-to-text.html" />
-
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
-  <style>
-    .stt-controls {
-      display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; align-items: center;
-    }
-    .stt-controls select {
-      background: rgba(255,255,255,0.04); border: 1px solid var(--border);
-      border-radius: 10px; padding: 10px 14px; color: var(--text);
-      font-size: 14px; outline: none; min-width: 200px; cursor: pointer;
-    }
-    .stt-controls select:focus { border-color: var(--border-h); }
-    .stt-controls label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
-
-    .btn-group {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
-    }
-    .btn-stt {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 14px 28px; border-radius: 12px; border: none;
-      font-size: 15px; font-weight: 700; cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-    }
-    .btn-stt:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-stt:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-    .btn-record { background: linear-gradient(135deg, var(--pink), #f97316); color: #fff; }
-    .btn-record.recording { animation: pulse 1.2s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(244,63,94,0.4)} 50%{box-shadow:0 0 0 12px rgba(244,63,94,0)} }
-    .btn-stop-rec { background: rgba(255,255,255,0.08); color: var(--text); border: 1px solid var(--border); }
-    .btn-copy { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
-    .btn-clear { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
-
-    .stt-result {
-      width: 100%; min-height: 200px; margin-top: 20px;
-      padding: 18px; border: 1px solid var(--border);
-      border-radius: 14px; background: rgba(255,255,255,0.03);
-      color: var(--text); font-size: 15px; line-height: 1.7;
-      resize: vertical; outline: none; font-family: inherit;
-    }
-    .stt-result:focus { border-color: var(--border-h); }
-
-    .status-stt {
-      margin-top: 16px; font-size: 14px; color: var(--muted); min-height: 22px;
-    }
-    .status-stt.listening { color: var(--pink); font-weight: 600; }
-
-    .interim-text {
-      margin-top: 10px; font-size: 14px; color: var(--muted);
-      min-height: 22px; font-style: italic; opacity: 0.7;
-    }
-
-    @media (max-width: 640px) {
-      .stt-controls { flex-direction: column; align-items: stretch; }
-      .stt-controls select { width: 100%; }
-      .btn-group { flex-direction: column; }
-      .btn-stt { justify-content: center; }
-    }
-  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}</style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "支持哪些语言？", "acceptedAnswer": {"@type": "Answer", "text": "支持中文、英文、日文等多种语言。"}}, {"@type": "Question", "name": "识别准确率如何？", "acceptedAnswer": {"@type": "Answer", "text": "安静环境下准确率高，嘈杂环境可能受影响。"}}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "语音转文字 - ZenTools", "url": "https://zentools.xyz/audio/speech-to-text.html", "description": "实时将语音转换为文字，支持多语种识别。", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-</head>
-<body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-  <div class="z-wrap">
-    <nav>
-      <div class="nav-inner">
-        <a class="logo" href="/">ZenTools<span>2.0</span></a>
-        <div class="nav-links">
-          <a href="/" data-i18n="navHome">首页</a>
-          <a href="/audio/" data-i18n="navAudio">音频工具</a>
-          <a href="/tools.html" data-i18n="navAll">全部工具</a>
-          <select id="langSelect" class="lang-select">
-            <option value="zh">中文</option>
-            <option value="en">English</option>
-            <option value="ja">日本語</option>
-            <option value="vi">Tiếng Việt</option>
-          </select>
-        </div>
-      </div>
-    </nav>
-    <div class="page-header reveal">
-      <div class="breadcrumb">
-        <a href="/" data-i18n="crumbHome">首页</a>
-        <span class="breadcrumb-sep">/</span>
-        <a href="/audio/" data-i18n="crumbAudio">音频工具</a>
-        <span class="breadcrumb-sep">/</span>
-        <span class="cur" data-i18n="crumbCur">语音转文字</span>
-      </div>
-      <span class="page-eyebrow" data-i18n="eyebrow">音频工具</span>
-      <h1><span class="grad" data-i18n="h1Grad">语音转文字</span><br /><span data-i18n="h1Sub">实时语音识别</span></h1>
-      <p data-i18n="pageDesc">使用麦克风实时将语音转换为文字，支持多语种识别，会议记录、采访整理、学习笔记的好帮手。</p>
-    </div>
-    <div class="tool-box reveal">
-      <h2 data-i18n="toolTitle">语音识别</h2>
-      <p class="note" data-i18n="toolNote">选择识别语言，点击「开始录音」按钮，对着麦克风说话，识别的文字将实时显示在下方。</p>
-      <div class="stt-controls">
-        <label>
-          <span data-i18n="langLabel">识别语言：</span>
-          <select id="langSelectStt">
-            <option value="zh-CN" data-i18n="langZh">中文（普通话）</option>
-            <option value="en-US" data-i18n="langEn">English (US)</option>
-            <option value="ja-JP" data-i18n="langJa">日本語</option>
-            <option value="yue-Hant-HK" data-i18n="langYue">粵語（香港）</option>
-            <option value="vi-VN" data-i18n="langVi">Tiếng Việt</option>
-            <option value="ko-KR" data-i18n="langKo">한국어</option>
-            <option value="fr-FR" data-i18n="langFr">Français</option>
-            <option value="de-DE" data-i18n="langDe">Deutsch</option>
-          </select>
-        </label>
-      </div>
-      <div class="btn-group">
-        <button class="btn-stt btn-record" id="startBtn" onclick="startRecognition()" data-i18n="startBtn">🎤 开始录音</button>
-        <button class="btn-stt btn-stop-rec" id="stopBtn" onclick="stopRecognition()" disabled data-i18n="stopBtn">⏹ 停止录音</button>
-        <button class="btn-stt btn-copy" id="copyBtn" onclick="copyResult()" data-i18n="copyBtn">📋 复制</button>
-        <button class="btn-stt btn-clear" id="clearBtn" onclick="clearResult()" data-i18n="clearBtn">🗑 清空</button>
-      </div>
-      <div class="status-stt" id="status"></div>
-      <div class="interim-text" id="interim"></div>
-      <textarea class="stt-result" id="result" placeholder="识别的文字将显示在这里..." data-i18n-placeholder="resultPlaceholder" readonly></textarea>
-    </div>
-    <div class="section">
-      <div class="section-head reveal">
-        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
-        <h2 data-i18n="sectionTitle">了解语音转文字工具</h2>
-      </div>
-      <div class="
-    
-    info-grid reveal-stagger">
-        <div class="info-card">
-          <h4 data-i18n="info1T">实时识别</h4>
-          <p data-i18n="info1D">边说边转，实时显示识别结果。支持长段连续语音识别，适合会议记录、采访整理等场景。</p>
-        </div>
-        <div class="info-card">
-          <h4 data-i18n="info2T">多语种支持</h4>
-          <p data-i18n="info2D">支持中文、英语、日语、粤语、韩语、法语、德语等多种语言，满足国际化需求。</p>
-        </div>
-        <div class="info-card">
-          <h4 data-i18n="info3T">隐私安全</h4>
-          <p data-i18n="info3D">语音识别在浏览器本地完成，录音数据不会上传到任何服务器，完全保护你的隐私。</p>
-        </div>
-      </div>
-    </div>
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-logo">ZenTools</div>
-        <div class="footer-links">
-          <a href="/" data-i18n="footerHome">首页</a>
-          <a href="/audio/" data-i18n="footerAudio">音频工具</a>
-          <a href="/privacy.html" data-i18n="footerPrivacy">隐私政策</a>
-        </div>
-        <p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
-      </div>
-    </footer>
-  </div>
-
-  <script>
-    window.ZT_PAGE = {
-      zh: {
-        pageTitle: '语音转文字 - 免费在线工具 | ZenTools',
-        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
-        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '语音转文字',
-        eyebrow: '音频工具',
-        h1Grad: '语音转文字', h1Sub: '实时语音识别',
-        pageDesc: '使用麦克风实时将语音转换为文字，支持多语种识别，会议记录、采访整理、学习笔记的好帮手。',
-        toolTitle: '语音识别',
-        toolNote: '选择识别语言，点击「开始录音」按钮，对着麦克风说话，识别的文字将实时显示在下方。',
-        langLabel: '识别语言：',
-        langZh: '中文（普通话）', langEn: 'English (US)', langJa: '日本語',
-        langYue: '粵語（香港）', langVi: 'Tiếng Việt', langKo: '한국어',
-        langFr: 'Français', langDe: 'Deutsch',
-        startBtn: '🎤 开始录音',
-        stopBtn: '⏹ 停止录音',
-        copyBtn: '📋 复制',
-        clearBtn: '🗑 清空',
-        resultPlaceholder: '识别的文字将显示在这里...',
-        sectionEyebrow: '工具说明',
-        sectionTitle: '了解语音转文字工具',
-        info1T: '实时识别', info1D: '边说边转，实时显示识别结果。支持长段连续语音识别，适合会议记录、采访整理等场景。',
-        info2T: '多语种支持', info2D: '支持中文、英语、日语、粤语、韩语、法语、德语等多种语言，满足国际化需求。',
-        info3T: '隐私安全', info3D: '语音识别在浏览器本地完成，录音数据不会上传到任何服务器，完全保护你的隐私。',
-        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
-        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
-        statusReady: '点击「开始录音」按钮，允许麦克风权限后即可开始语音识别',
-        statusListening: '🔴 正在录音...',
-        statusStopped: '⏹ 录音已停止',
-        statusNoSupport: '⚠️ 您的浏览器暂不支持语音识别功能，请使用 Chrome 或 Edge 浏览器。',
-        statusNoMic: '⚠️ 未检测到麦克风或麦克风权限被拒绝',
-        statusCopied: '✅ 已复制到剪贴板',
-        statusCleared: '已清空'},
-      en: {
-        pageTitle: 'Speech to Text - Free Online Tool | ZenTools',
-        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
-        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Speech to Text',
-        eyebrow: 'AUDIO TOOLS',
-        h1Grad: 'Speech to Text', h1Sub: 'Real-time Recognition',
-        pageDesc: 'Convert speech to text in real-time using your microphone. Supports multiple languages.',
-        toolTitle: 'Speech Recognition',
-        toolNote: 'Select recognition language, click "Start Recording", speak into your microphone.',
-        langLabel: 'Language:',
-        langZh: 'Chinese (Mandarin)', langEn: 'English (US)', langJa: 'Japanese',
-        langYue: 'Cantonese (HK)', langVi: 'Vietnamese', langKo: 'Korean',
-        langFr: 'French', langDe: 'German',
-        startBtn: '🎤 Start Recording',
-        stopBtn: '⏹ Stop Recording',
-        copyBtn: '📋 Copy',
-        clearBtn: '🗑 Clear',
-        resultPlaceholder: 'Recognized text will appear here...',
-        sectionEyebrow: 'ABOUT',
-        sectionTitle: 'About Speech to Text',
-        info1T: 'Real-time', info1D: 'Speech is converted to text in real-time as you speak. Perfect for meetings and interviews.',
-        info2T: 'Multi-language', info2D: 'Supports Chinese, English, Japanese, Cantonese, Korean, French, German and more.',
-        info3T: 'Privacy Safe', info3D: 'Speech recognition is done locally in your browser. No audio data is uploaded to servers.',
-        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
-        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
-        statusReady: 'Click "Start Recording" and allow microphone access to begin',
-        statusListening: '🔴 Listening...',
-        statusStopped: '⏹ Recording stopped',
-        statusNoSupport: '⚠️ Your browser does not support speech recognition. Please use Chrome or Edge.',
-        statusNoMic: '⚠️ No microphone detected or permission denied',
-        statusCopied: '✅ Copied to clipboard',
-        statusCleared: 'Cleared'},
-      ja: {
-        pageTitle: '音声認識 - 無料オンラインツール | ZenTools',
-        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
-        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: '音声認識',
-        eyebrow: '音声ツール',
-        h1Grad: '音声認識', h1Sub: 'リアルタイム文字起こし',
-        pageDesc: 'マイクを使って音声をリアルタイムでテキストに変換。多言語対応。',
-        toolTitle: '音声認識',
-        toolNote: '認識言語を選び、「録音開始」をクリックしてマイクに向かって話しかけてください。',
-        langLabel: '認識言語：',
-        langZh: '中国語（普通話）', langEn: 'English (US)', langJa: '日本語',
-        langYue: '広東語（香港）', langVi: 'Tiếng Việt', langKo: '韓国語',
-        langFr: 'フランス語', langDe: 'ドイツ語',
-        startBtn: '🎤 録音開始',
-        stopBtn: '⏹ 録音停止',
-        copyBtn: '📋 コピー',
-        clearBtn: '🗑 クリア',
-        resultPlaceholder: '認識されたテキストがここに表示されます...',
-        sectionEyebrow: 'ツール説明',
-        sectionTitle: '音声認識ツールについて',
-        info1T: 'リアルタイム認識', info1D: '話すと同時にテキストに変換。会議やインタビューに最適。',
-        info2T: '多言語対応', info2D: '日本語、中国語、英語、広東語、韓国語など多言語に対応。',
-        info3T: 'プライバシー保護', info3D: '音声認識はブラウザ内で処理。音声データはサーバーに送信されません。',
-        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
-        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
-        statusReady: '「録音開始」をクリックし、マイクを許可してください',
-        statusListening: '🔴 録音中...',
-        statusStopped: '⏹ 録音停止',
-        statusNoSupport: '⚠️ お使いのブラウザは音声認識に対応していません。ChromeまたはEdgeをご利用ください。',
-        statusNoMic: '⚠️ マイクが見つからないか、権限が拒否されました',
-        statusCopied: '✅ クリップボードにコピーしました',
-        statusCleared: 'クリアしました'},
-      vi: {
-        pageTitle: 'Nhận dạng giọng nói - Công cụ trực tuyến miễn phí | ZenTools',
-        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
-        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Nhận dạng giọng nói',
-        eyebrow: 'CÔNG CỤ ÂM THANH',
-        h1Grad: 'Giọng nói thành văn bản', h1Sub: 'Nhận dạng thời gian thực',
-        pageDesc: 'Chuyển giọng nói thành văn bản theo thời gian thực. Hỗ trợ nhiều ngôn ngữ.',
-        toolTitle: 'Nhận dạng giọng nói',
-        toolNote: 'Chọn ngôn ngữ, nhấn "Bắt đầu ghi âm" và nói vào micrô của bạn.',
-        langLabel: 'Ngôn ngữ:',
-        langZh: 'Tiếng Trung (Phổ thông)', langEn: 'English (US)', langJa: 'Tiếng Nhật',
-        langYue: 'Tiếng Quảng Đông (HK)', langVi: 'Tiếng Việt', langKo: 'Tiếng Hàn',
-        langFr: 'Tiếng Pháp', langDe: 'Tiếng Đức',
-        startBtn: '🎤 Bắt đầu ghi âm',
-        stopBtn: '⏹ Dừng ghi âm',
-        copyBtn: '📋 Sao chép',
-        clearBtn: '🗑 Xóa',
-        resultPlaceholder: 'Văn bản nhận dạng sẽ hiển thị ở đây...',
-        sectionEyebrow: 'GIỚI THIỆU',
-        sectionTitle: 'Về công cụ nhận dạng giọng nói',
-        info1T: 'Thời gian thực', info1D: 'Chuyển giọng nói thành văn bản ngay khi bạn nói. Phù hợp cho họp và phỏng vấn.',
-        info2T: 'Đa ngôn ngữ', info2D: 'Hỗ trợ tiếng Trung, tiếng Anh, tiếng Nhật, tiếng Quảng Đông, tiếng Hàn và nhiều hơn nữa.',
-        info3T: 'Bảo mật', info3D: 'Nhận dạng giọng nói được xử lý trong trình duyệt. Dữ liệu không được tải lên máy chủ.',
-        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
-        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
-        statusReady: 'Nhấn "Bắt đầu ghi âm" và cho phép truy cập micrô',
-        statusListening: '🔴 Đang nghe...',
-        statusStopped: '⏹ Đã dừng ghi âm',
-        statusNoSupport: '⚠️ Trình duyệt không hỗ trợ nhận dạng giọng nói. Vui lòng dùng Chrome hoặc Edge.',
-        statusNoMic: '⚠️ Không tìm thấy micrô hoặc quyền bị từ chối',
-        statusCopied: '✅ Đã sao chép vào clipboard',
-        statusCleared: 'Đã xóa'}
-    };
-  </script>
-  <script src="../assets/js/tool-ui.min.js"></script>
-  <script>
-    (function() {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const startBtn = document.getElementById('startBtn');
-      const stopBtn = document.getElementById('stopBtn');
-      const status = document.getElementById('status');
-      const interim = document.getElementById('interim');
-      const result = document.getElementById('result');
-      const langSelect = document.getElementById('langSelectStt');
-
-      let recognition = null;
-      let isRecording = false;
-
-      function getDict() {
-        const lang = localStorage.getItem('zentools_lang') || 'zh';
-        return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
-      }
-
-      if (!SpeechRecognition) {
-        status.textContent = getDict().statusNoSupport;
-        startBtn.disabled = true;
-      }
-
-      window.startRecognition = function() {
-        if (!SpeechRecognition) {
-          status.textContent = getDict().statusNoSupport;
-          return;
-        }
-        if (isRecording) return;
-
-        recognition = new SpeechRecognition();
-        recognition.lang = langSelect.value;
-        recognition.continuous = true;
-        recognition.interimResults = true;
-
-        recognition.onstart = function() {
-          isRecording = true;
-          startBtn.disabled = true;
-          stopBtn.disabled = false;
-          startBtn.classList.add('recording');
-          status.textContent = getDict().statusListening;
-          status.classList.add('listening');
-        };
-
-        recognition.onresult = function(e) {
-          let finalText = '';
-          let interimText = '';
-          for (let i = e.resultIndex; i < e.results.length; i++) {
-            if (e.results[i].isFinal) {
-              finalText += e.results[i][0].transcript;
-            } else {
-              interimText += e.results[i][0].transcript;
-            }
-          }
-          if (finalText) {
-            result.value += finalText;
-            result.scrollTop = result.scrollHeight;
-          }
-          interim.textContent = interimText;
-        };
-
-        recognition.onerror = function(e) {
-          if (e.error === 'not-allowed') {
-            status.textContent = getDict().statusNoMic;
-          } else if (e.error === 'no-speech') {
-            // 静默忽略无语音错误
-          } else {
-            status.textContent = '❌ ' + (getDict()['error_' + e.error] || e.error);
-          }
-          stopRecognition();
-        };
-
-        recognition.onend = function() {
-          // 自动重启（除非手动停止）
-          if (isRecording) {
-            try { recognition.start(); } catch(e) {}
-          }
-        };
-
-        try {
-          recognition.start();
-        } catch(e) {
-          status.textContent = '❌ ' + e.message;
-        }
-      };
-
-      window.stopRecognition = function() {
-        isRecording = false;
-        if (recognition) {
-          recognition.onend = null;
-          try { recognition.stop(); } catch(e) {}
-          recognition = null;
-        }
-        startBtn.disabled = false;
-        stopBtn.disabled = true;
-        startBtn.classList.remove('recording');
-        status.textContent = getDict().statusStopped;
-        status.classList.remove('listening');
-        interim.textContent = '';
-      };
-
-      window.copyResult = function() {
-        if (!result.value) return;
-        navigator.clipboard.writeText(result.value).then(() => {
-          const orig = status.textContent;
-          status.textContent = getDict().statusCopied;
-          setTimeout(() => { status.textContent = orig; }, 2000);
-        });
-      };
-
-      window.clearResult = function() {
-        result.value = '';
-        interim.textContent = '';
-        status.textContent = getDict().statusCleared;
-      };
-
-      // 初始状态
-      status.textContent = getDict().statusReady;
-    })();
-  </script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background='rgba(255,255,255,0.08)'" onmouseout="this.style.background='rgba(255,255,255,0.03)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-
-    
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+  <meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>语音转文字 - 免费在线工具 | ZenTools</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+  <meta property="og:title" content="语音转文字 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="实时将语音转换为文字，支持多语种识别。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/audio/speech-to-text.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="语音转文字 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Convert speech to text in real-time with multi-language support." />
+  <meta name="description" content="使用麦克风实时将语音转换为文字，支持多语种识别，免费在线使用，浏览器本地处理保护隐私。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。" />
+  <meta name="keywords" content="语音转文字,语音识别,听写,语音输入,在线语音转文字,ZenTools,语音转文字在线使用,语音转文字怎么用" />
+  <link rel="canonical" href="https://zentools.xyz/audio/speech-to-text.html" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/assets/css/tool-ui.min.css" />
+  <style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+    .stt-controls {
+      display: flex; flex-wrap: wrap; gap: 14px; margin-top: 20px; align-items: center;
+    }
+    .stt-controls select {
+      background: rgba(255,255,255,0.04); border: 1px solid var(--zen-border);
+      border-radius: 10px; padding: 10px 14px; color: var(--zen-text-main);
+      font-size: 14px; outline: none; min-width: 200px; cursor: pointer;
+    }
+    .stt-controls select:focus { border-color: var(--zen-border); }
+    .stt-controls label { font-size: 13px; color: var(--zen-text-sub); display: flex; align-items: center; gap: 8px; }
+
+    .btn-group {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px;
+    }
+    .btn-stt {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px; border-radius: 12px; border: none;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-stt:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-stt:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    .btn-record { background: linear-gradient(135deg, var(--zen-danger), #f97316); color: #fff; }
+    .btn-record.recording { animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(244,63,94,0.4)} 50%{box-shadow:0 0 0 12px rgba(244,63,94,0)} }
+    .btn-stop-rec { background: rgba(255,255,255,0.08); color: var(--zen-text-main); border: 1px solid var(--zen-border); }
+    .btn-copy { background: rgba(255,255,255,0.05); color: var(--zen-text-sub); border: 1px solid var(--zen-border); }
+    .btn-clear { background: rgba(255,255,255,0.05); color: var(--zen-text-sub); border: 1px solid var(--zen-border); }
+
+    .stt-result {
+      width: 100%; min-height: 200px; margin-top: 20px;
+      padding: 18px; border: 1px solid var(--zen-border);
+      border-radius: 14px; background: rgba(255,255,255,0.03);
+      color: var(--zen-text-main); font-size: 15px; line-height: 1.7;
+      resize: vertical; outline: none; font-family: inherit;
+    }
+    .stt-result:focus { border-color: var(--zen-border); }
+
+    .status-stt {
+      margin-top: 16px; font-size: 14px; color: var(--zen-text-sub); min-height: 22px;
+    }
+    .status-stt.listening { color: var(--zen-danger); font-weight: 600; }
+
+    .interim-text {
+      margin-top: 10px; font-size: 14px; color: var(--zen-text-sub);
+      min-height: 22px; font-style: italic; opacity: 0.7;
+    }
+
+    @media (max-width: 640px) {
+      .stt-controls { flex-direction: column; align-items: stretch; }
+      .stt-controls select { width: 100%; }
+      .btn-group { flex-direction: column; }
+      .btn-stt { justify-content: center; }
+    }
+  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+</div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "音频工具", "item": "https://zentools.xyz/audio/"}, {"@type": "ListItem", "position": 4, "name": "语音转文字"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "语音转文字 - ZenTools", "url": "https://zentools.xyz/audio/speech-to-text.html", "description": "实时将语音转换为文字，支持多语种识别。", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>音频工具</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/audio/">音频工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">语音转文字</span></div>
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">语音转文字</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">实时语音识别</p>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">使用麦克风实时将语音转换为文字，支持多语种识别，会议记录、采访整理、学习笔记的好帮手。</p>
+    </div>
+  </section>
+<div class="tool-box reveal">
+      <h2 data-i18n="toolTitle">语音识别</h2>
+      <p class="note" data-i18n="toolNote">选择识别语言，点击「开始录音」按钮，对着麦克风说话，识别的文字将实时显示在下方。</p>
+      <div class="stt-controls">
+        <label>
+          <span data-i18n="langLabel">识别语言：</span>
+          <select id="langSelectStt">
+            <option value="zh-CN" data-i18n="langZh">中文（普通话）</option>
+            <option value="en-US" data-i18n="langEn">English (US)</option>
+            <option value="ja-JP" data-i18n="langJa">日本語</option>
+            <option value="yue-Hant-HK" data-i18n="langYue">粵語（香港）</option>
+            <option value="vi-VN" data-i18n="langVi">Tiếng Việt</option>
+            <option value="ko-KR" data-i18n="langKo">한국어</option>
+            <option value="fr-FR" data-i18n="langFr">Français</option>
+            <option value="de-DE" data-i18n="langDe">Deutsch</option>
+          </select>
+        </label>
+      </div>
+      <div class="btn-group">
+        <button class="btn-stt btn-record" id="startBtn" onclick="startRecognition()" data-i18n="startBtn">🎤 开始录音</button>
+        <button class="btn-stt btn-stop-rec" id="stopBtn" onclick="stopRecognition()" disabled data-i18n="stopBtn">⏹ 停止录音</button>
+        <button class="btn-stt btn-copy" id="copyBtn" onclick="copyResult()" data-i18n="copyBtn">📋 复制</button>
+        <button class="btn-stt btn-clear" id="clearBtn" onclick="clearResult()" data-i18n="clearBtn">🗑 清空</button>
+      </div>
+      <div class="status-stt" id="status"></div>
+      <div class="interim-text" id="interim"></div>
+      <textarea class="stt-result" id="result" placeholder="识别的文字将显示在这里..." data-i18n-placeholder="resultPlaceholder" readonly></textarea>
+    </div>
+    <div class="section">
+      <div class="section-head reveal">
+        <span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span>
+        <h2 data-i18n="sectionTitle">了解语音转文字工具</h2>
+      </div>
+      <div class="
+    
+    info-grid reveal-stagger">
+        <div class="info-card">
+          <h4 data-i18n="info1T">实时识别</h4>
+          <p data-i18n="info1D">边说边转，实时显示识别结果。支持长段连续语音识别，适合会议记录、采访整理等场景。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info2T">多语种支持</h4>
+          <p data-i18n="info2D">支持中文、英语、日语、粤语、韩语、法语、德语等多种语言，满足国际化需求。</p>
+        </div>
+        <div class="info-card">
+          <h4 data-i18n="info3T">隐私安全</h4>
+          <p data-i18n="info3D">语音识别在浏览器本地完成，录音数据不会上传到任何服务器，完全保护你的隐私。</p>
+        </div>
+      </div>
+    </div>
+    <!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>语音转文字将录音中的语音转换为文字，支持多语种，适合会议记录和访谈整理。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>播客主、视频配音、音乐爱好者和需要剪辑或转换语音的用户。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>降噪强度适中，避免过度损伤原音</li>
+<li>剪辑前标记好入出点</li>
+<li>导出格式选播放器兼容的</li>
+<li>语音转文字后务必校对专有名词</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>用语音转文字时，转换后排版会乱吗？</summary><p>工具尽量保留原始排版、字体与图片，极少数复杂版式建议导出后核对一遍。</p></details>
+<details open><summary>用语音转文字时，转换需要联网吗？</summary><p>不需要。转换在浏览器本地完成，文件不上传。</p></details>
+<details open><summary>用语音转文字时，能转成哪些格式？</summary><p>常见格式互转均支持，具体以页面可选目标格式为准。</p></details>
+<details open><summary>用语音转文字时，转换对大小有限制吗？</summary><p>无固定限制，但文件越大越久，超大文件建议先拆分。</p></details>
+  </div>
+</section>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+        <a href="/">首页</a>
+        <a href="/audio/">音频工具</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+    </div>
+  </footer>
+  </div>
+
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '语音转文字 - 免费在线工具 | ZenTools',
+        navHome: '首页', navAudio: '音频工具', navAll: '全部工具',
+        crumbHome: '首页', crumbAudio: '音频工具', crumbCur: '语音转文字',
+        eyebrow: '音频工具',
+        h1Grad: '语音转文字', h1Sub: '实时语音识别',
+        pageDesc: '使用麦克风实时将语音转换为文字，支持多语种识别，会议记录、采访整理、学习笔记的好帮手。',
+        toolTitle: '语音识别',
+        toolNote: '选择识别语言，点击「开始录音」按钮，对着麦克风说话，识别的文字将实时显示在下方。',
+        langLabel: '识别语言：',
+        langZh: '中文（普通话）', langEn: 'English (US)', langJa: '日本語',
+        langYue: '粵語（香港）', langVi: 'Tiếng Việt', langKo: '한국어',
+        langFr: 'Français', langDe: 'Deutsch',
+        startBtn: '🎤 开始录音',
+        stopBtn: '⏹ 停止录音',
+        copyBtn: '📋 复制',
+        clearBtn: '🗑 清空',
+        resultPlaceholder: '识别的文字将显示在这里...',
+        sectionEyebrow: '工具说明',
+        sectionTitle: '了解语音转文字工具',
+        info1T: '实时识别', info1D: '边说边转，实时显示识别结果。支持长段连续语音识别，适合会议记录、采访整理等场景。',
+        info2T: '多语种支持', info2D: '支持中文、英语、日语、粤语、韩语、法语、德语等多种语言，满足国际化需求。',
+        info3T: '隐私安全', info3D: '语音识别在浏览器本地完成，录音数据不会上传到任何服务器，完全保护你的隐私。',
+        footerHome: '首页', footerAudio: '音频工具', footerPrivacy: '隐私政策',
+        footerCopy: '© 2026 ZenTools. 免费在线工具箱，持续更新中。',
+        statusReady: '点击「开始录音」按钮，允许麦克风权限后即可开始语音识别',
+        statusListening: '🔴 正在录音...',
+        statusStopped: '⏹ 录音已停止',
+        statusNoSupport: '⚠️ 您的浏览器暂不支持语音识别功能，请使用 Chrome 或 Edge 浏览器。',
+        statusNoMic: '⚠️ 未检测到麦克风或麦克风权限被拒绝',
+        statusCopied: '✅ 已复制到剪贴板',
+        statusCleared: '已清空'},
+      en: {
+        pageTitle: 'Speech to Text - Free Online Tool | ZenTools',
+        navHome: 'Home', navAudio: 'Audio Tools', navAll: 'All Tools',
+        crumbHome: 'Home', crumbAudio: 'Audio Tools', crumbCur: 'Speech to Text',
+        eyebrow: 'AUDIO TOOLS',
+        h1Grad: 'Speech to Text', h1Sub: 'Real-time Recognition',
+        pageDesc: 'Convert speech to text in real-time using your microphone. Supports multiple languages.',
+        toolTitle: 'Speech Recognition',
+        toolNote: 'Select recognition language, click "Start Recording", speak into your microphone.',
+        langLabel: 'Language:',
+        langZh: 'Chinese (Mandarin)', langEn: 'English (US)', langJa: 'Japanese',
+        langYue: 'Cantonese (HK)', langVi: 'Vietnamese', langKo: 'Korean',
+        langFr: 'French', langDe: 'German',
+        startBtn: '🎤 Start Recording',
+        stopBtn: '⏹ Stop Recording',
+        copyBtn: '📋 Copy',
+        clearBtn: '🗑 Clear',
+        resultPlaceholder: 'Recognized text will appear here...',
+        sectionEyebrow: 'ABOUT',
+        sectionTitle: 'About Speech to Text',
+        info1T: 'Real-time', info1D: 'Speech is converted to text in real-time as you speak. Perfect for meetings and interviews.',
+        info2T: 'Multi-language', info2D: 'Supports Chinese, English, Japanese, Cantonese, Korean, French, German and more.',
+        info3T: 'Privacy Safe', info3D: 'Speech recognition is done locally in your browser. No audio data is uploaded to servers.',
+        footerHome: 'Home', footerAudio: 'Audio Tools', footerPrivacy: 'Privacy',
+        footerCopy: '© 2026 ZenTools. Free online toolbox, constantly updating.',
+        statusReady: 'Click "Start Recording" and allow microphone access to begin',
+        statusListening: '🔴 Listening...',
+        statusStopped: '⏹ Recording stopped',
+        statusNoSupport: '⚠️ Your browser does not support speech recognition. Please use Chrome or Edge.',
+        statusNoMic: '⚠️ No microphone detected or permission denied',
+        statusCopied: '✅ Copied to clipboard',
+        statusCleared: 'Cleared'},
+      ja: {
+        pageTitle: '音声認識 - 無料オンラインツール | ZenTools',
+        navHome: 'ホーム', navAudio: '音声ツール', navAll: 'すべてのツール',
+        crumbHome: 'ホーム', crumbAudio: '音声ツール', crumbCur: '音声認識',
+        eyebrow: '音声ツール',
+        h1Grad: '音声認識', h1Sub: 'リアルタイム文字起こし',
+        pageDesc: 'マイクを使って音声をリアルタイムでテキストに変換。多言語対応。',
+        toolTitle: '音声認識',
+        toolNote: '認識言語を選び、「録音開始」をクリックしてマイクに向かって話しかけてください。',
+        langLabel: '認識言語：',
+        langZh: '中国語（普通話）', langEn: 'English (US)', langJa: '日本語',
+        langYue: '広東語（香港）', langVi: 'Tiếng Việt', langKo: '韓国語',
+        langFr: 'フランス語', langDe: 'ドイツ語',
+        startBtn: '🎤 録音開始',
+        stopBtn: '⏹ 録音停止',
+        copyBtn: '📋 コピー',
+        clearBtn: '🗑 クリア',
+        resultPlaceholder: '認識されたテキストがここに表示されます...',
+        sectionEyebrow: 'ツール説明',
+        sectionTitle: '音声認識ツールについて',
+        info1T: 'リアルタイム認識', info1D: '話すと同時にテキストに変換。会議やインタビューに最適。',
+        info2T: '多言語対応', info2D: '日本語、中国語、英語、広東語、韓国語など多言語に対応。',
+        info3T: 'プライバシー保護', info3D: '音声認識はブラウザ内で処理。音声データはサーバーに送信されません。',
+        footerHome: 'ホーム', footerAudio: '音声ツール', footerPrivacy: 'プライバシー',
+        footerCopy: '© 2026 ZenTools. 無料オンラインツールボックス。',
+        statusReady: '「録音開始」をクリックし、マイクを許可してください',
+        statusListening: '🔴 録音中...',
+        statusStopped: '⏹ 録音停止',
+        statusNoSupport: '⚠️ お使いのブラウザは音声認識に対応していません。ChromeまたはEdgeをご利用ください。',
+        statusNoMic: '⚠️ マイクが見つからないか、権限が拒否されました',
+        statusCopied: '✅ クリップボードにコピーしました',
+        statusCleared: 'クリアしました'},
+      vi: {
+        pageTitle: 'Nhận dạng giọng nói - Công cụ trực tuyến miễn phí | ZenTools',
+        navHome: 'Trang chủ', navAudio: 'Công cụ âm thanh', navAll: 'Tất cả công cụ',
+        crumbHome: 'Trang chủ', crumbAudio: 'Công cụ âm thanh', crumbCur: 'Nhận dạng giọng nói',
+        eyebrow: 'CÔNG CỤ ÂM THANH',
+        h1Grad: 'Giọng nói thành văn bản', h1Sub: 'Nhận dạng thời gian thực',
+        pageDesc: 'Chuyển giọng nói thành văn bản theo thời gian thực. Hỗ trợ nhiều ngôn ngữ.',
+        toolTitle: 'Nhận dạng giọng nói',
+        toolNote: 'Chọn ngôn ngữ, nhấn "Bắt đầu ghi âm" và nói vào micrô của bạn.',
+        langLabel: 'Ngôn ngữ:',
+        langZh: 'Tiếng Trung (Phổ thông)', langEn: 'English (US)', langJa: 'Tiếng Nhật',
+        langYue: 'Tiếng Quảng Đông (HK)', langVi: 'Tiếng Việt', langKo: 'Tiếng Hàn',
+        langFr: 'Tiếng Pháp', langDe: 'Tiếng Đức',
+        startBtn: '🎤 Bắt đầu ghi âm',
+        stopBtn: '⏹ Dừng ghi âm',
+        copyBtn: '📋 Sao chép',
+        clearBtn: '🗑 Xóa',
+        resultPlaceholder: 'Văn bản nhận dạng sẽ hiển thị ở đây...',
+        sectionEyebrow: 'GIỚI THIỆU',
+        sectionTitle: 'Về công cụ nhận dạng giọng nói',
+        info1T: 'Thời gian thực', info1D: 'Chuyển giọng nói thành văn bản ngay khi bạn nói. Phù hợp cho họp và phỏng vấn.',
+        info2T: 'Đa ngôn ngữ', info2D: 'Hỗ trợ tiếng Trung, tiếng Anh, tiếng Nhật, tiếng Quảng Đông, tiếng Hàn và nhiều hơn nữa.',
+        info3T: 'Bảo mật', info3D: 'Nhận dạng giọng nói được xử lý trong trình duyệt. Dữ liệu không được tải lên máy chủ.',
+        footerHome: 'Trang chủ', footerAudio: 'Công cụ âm thanh', footerPrivacy: 'Riêng tư',
+        footerCopy: '© 2026 ZenTools. Hộp công cụ trực tuyến miễn phí.',
+        statusReady: 'Nhấn "Bắt đầu ghi âm" và cho phép truy cập micrô',
+        statusListening: '🔴 Đang nghe...',
+        statusStopped: '⏹ Đã dừng ghi âm',
+        statusNoSupport: '⚠️ Trình duyệt không hỗ trợ nhận dạng giọng nói. Vui lòng dùng Chrome hoặc Edge.',
+        statusNoMic: '⚠️ Không tìm thấy micrô hoặc quyền bị từ chối',
+        statusCopied: '✅ Đã sao chép vào clipboard',
+        statusCleared: 'Đã xóa'}
+    };
+  </script>
+  <script src="/assets/js/tool-ui.min.js"></script>
+  <script>
+    (function() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const startBtn = document.getElementById('startBtn');
+      const stopBtn = document.getElementById('stopBtn');
+      const status = document.getElementById('status');
+      const interim = document.getElementById('interim');
+      const result = document.getElementById('result');
+      const langSelect = document.getElementById('langSelectStt');
+
+      let recognition = null;
+      let isRecording = false;
+
+      function getDict() {
+        const lang = localStorage.getItem('zentools_lang') || 'zh';
+        return (window.ZT_PAGE && window.ZT_PAGE[lang]) || window.ZT_PAGE.zh;
+      }
+
+      if (!SpeechRecognition) {
+        status.textContent = getDict().statusNoSupport;
+        startBtn.disabled = true;
+      }
+
+      window.startRecognition = function() {
+        if (!SpeechRecognition) {
+          status.textContent = getDict().statusNoSupport;
+          return;
+        }
+        if (isRecording) return;
+
+        recognition = new SpeechRecognition();
+        recognition.lang = langSelect.value;
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function() {
+          isRecording = true;
+          startBtn.disabled = true;
+          stopBtn.disabled = false;
+          startBtn.classList.add('recording');
+          status.textContent = getDict().statusListening;
+          status.classList.add('listening');
+        };
+
+        recognition.onresult = function(e) {
+          let finalText = '';
+          let interimText = '';
+          for (let i = e.resultIndex; i < e.results.length; i++) {
+            if (e.results[i].isFinal) {
+              finalText += e.results[i][0].transcript;
+            } else {
+              interimText += e.results[i][0].transcript;
+            }
+          }
+          if (finalText) {
+            result.value += finalText;
+            result.scrollTop = result.scrollHeight;
+          }
+          interim.textContent = interimText;
+        };
+
+        recognition.onerror = function(e) {
+          if (e.error === 'not-allowed') {
+            status.textContent = getDict().statusNoMic;
+          } else if (e.error === 'no-speech') {
+            // 静默忽略无语音错误
+          } else {
+            status.textContent = '❌ ' + (getDict()['error_' + e.error] || e.error);
+          }
+          stopRecognition();
+        };
+
+        recognition.onend = function() {
+          // 自动重启（除非手动停止）
+          if (isRecording) {
+            try { recognition.start(); } catch(e) {}
+          }
+        };
+
+        try {
+          recognition.start();
+        } catch(e) {
+          status.textContent = '❌ ' + e.message;
+        }
+      };
+
+      window.stopRecognition = function() {
+        isRecording = false;
+        if (recognition) {
+          recognition.onend = null;
+          try { recognition.stop(); } catch(e) {}
+          recognition = null;
+        }
+        startBtn.disabled = false;
+        stopBtn.disabled = true;
+        startBtn.classList.remove('recording');
+        status.textContent = getDict().statusStopped;
+        status.classList.remove('listening');
+        interim.textContent = '';
+      };
+
+      window.copyResult = function() {
+        if (!result.value) return;
+        navigator.clipboard.writeText(result.value).then(() => {
+          const orig = status.textContent;
+          status.textContent = getDict().statusCopied;
+          setTimeout(() => { status.textContent = orig; }, 2000);
+        });
+      };
+
+      window.clearResult = function() {
+        result.value = '';
+        interim.textContent = '';
+        status.textContent = getDict().statusCleared;
+      };
+
+      // 初始状态
+      status.textContent = getDict().statusReady;
+    })();
+  </script>
+
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+
+    
+    
+    
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用语音转文字时，转换后排版会乱吗？","acceptedAnswer": {"@type": "Answer","text": "工具尽量保留原始排版、字体与图片，极少数复杂版式建议导出后核对一遍。"}},{"@type": "Question","name": "用语音转文字时，转换需要联网吗？","acceptedAnswer": {"@type": "Answer","text": "不需要。转换在浏览器本地完成，文件不上传。"}},{"@type": "Question","name": "用语音转文字时，能转成哪些格式？","acceptedAnswer": {"@type": "Answer","text": "常见格式互转均支持，具体以页面可选目标格式为准。"}},{"@type": "Question","name": "用语音转文字时，转换对大小有限制吗？","acceptedAnswer": {"@type": "Answer","text": "无固定限制，但文件越大越久，超大文件建议先拆分。"}}]}</script>
+</body>
+</html>

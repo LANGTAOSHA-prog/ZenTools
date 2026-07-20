@@ -1,28 +1,39 @@
 # =============================================
-# ZenTools 自动部署 — GitHub Actions → 阿里云 ECS
+# ZenTools 自动部署 — GitHub Actions → 阿里云 ECS + 谷歌云 GCP
 # =============================================
-# 架构：push 到 main → GitHub 海外 runner 检出代码 → rsync 推送到 ECS
+# 架构：push 到 main → GitHub 海外 runner 检出代码 → 同时 rsync 到 ECS(国内) 与 GCP(海外)
 # 说明：
-#   - 服务器在中国大陆，主动拉取 GitHub 极不稳定，故采用「runner 推送」模式
-#   - runner 访问 GitHub 稳定；服务器只需开放 22 端口接收（SSH 稳定）
+#   - 服务器均位于 GitHub 难以主动访问的环境，故统一采用「runner 推送」模式（rsync over SSH）
+#   - runner 有稳定外网出口；两台服务器只需开放 22 端口接收
 #   - 纯静态站，rsync 完成即实时生效，Nginx 无需 reload
+#   - GCP 同步取代原先「VM 内每 10 分钟 git reset --hard」的轮询方式（后者曾因 VM git 拉取失败而滞后）
 # ---------------------------------------------
 # 需要在仓库 Settings → Secrets and variables → Actions 配置：
 #   ECS_HOST     阿里云 ECS 公网 IP（如 39.96.10.135）
 #   ECS_USER     SSH 用户名（如 root）
 #   ECS_PORT     SSH 端口（如 22）
 #   ECS_SSH_KEY  专用部署私钥（无口令，含首尾 BEGIN/END 行的完整内容）
+#   GCP_HOST     谷歌云 GCP 外部 IP（34.143.64.123）
+#   GCP_USER     GCP VM 的 SSH 用户名
+#   GCP_SSH_KEY  GCP 专用部署私钥（公钥需预先写入 GCP VM 的 ~/.ssh/authorized_keys）
+#   注：GCP 步骤用 `if: secrets.GCP_SSH_KEY != ''` 守卫，未配置前自动跳过，不影响 ECS 部署
 # ---------------------------------------------
-# 前置：ECS 安全组需放行 22 端口入站（GitHub runner IP 动态，需允许 0.0.0.0/0，
-#       或参考 https://api.github.com/meta 的 actions 段配置）
+# 更新日志自动同步：
+#   - 每次 push 自动扫描 tools-data.json 的新工具（四语）写入 site-info.json
+#   - 自动提取 commit 消息中以 `cl:` 开头的行作为更新条目
+#   - 有变更则用 [skip ci] 自动提交回 main，避免触发死循环
+#   - 随后 rsync 会把这个最新 site-info.json 一起部署到 ECS 与 GCP
 # =============================================
 
-name: 部署到阿里云 ECS
+name: 部署到阿里云 ECS 与谷歌云 GCP
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 concurrency:
   group: deploy-${{ github.ref }}
@@ -32,12 +43,36 @@ jobs:
   deploy:
     name: rsync 同步到 ECS
     runs-on: ubuntu-latest
+    # 把 GCP 密钥映射到 job 级 env，供后续 step 的 if 条件判断
+    # （GitHub Actions 的 if: 不允许直接引用 secrets 上下文，只能引用 env）
+    env:
+      GCP_SSH_KEY: ${{ secrets.GCP_SSH_KEY }}
+      GCP_HOST: ${{ secrets.GCP_HOST }}
+      GCP_USER: ${{ secrets.GCP_USER }}
 
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
 
-      - name: rsync 推送到服务器
+      - name: 自动更新更新日志（扫描新工具 + 提取 cl 标记）
+        run: |
+          python3 _sync_changelog.py --scan
+          python3 _extract_cl.py
+          python3 _sync_changelog.py --from-commits /tmp/cl_lines.txt
+
+      - name: 提交更新日志（如有变更）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/site-info.json
+          if git diff --cached --quiet; then
+            echo "无 changelog 变更，跳过提交"
+          else
+            git commit -m "chore: 自动更新更新日志 [skip ci]"
+            git push
+          fi
+
+      - name: rsync 推送到阿里云 ECS（国内节点）
         uses: easingthemes/ssh-deploy@v5.1.0
         with:
           SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_KEY }}
@@ -48,10 +83,43 @@ jobs:
           # -rlptgoDz: 递归/软链/权限/时间/属主属组/设备/压缩；--delete 保持严格镜像
           ARGS: "-rlptgoDz --delete"
           # 保护服务器上不该被删/覆盖的文件与目录
-          EXCLUDE: "/.git/, /.github/, webhook.py, *.bak"
+          EXCLUDE: "/.git/, /.github/, .monkeycode/, webhook.py, *.bak"
           # 同步后在服务器执行的校验
           SCRIPT_AFTER: |
             cd /var/www/html
             echo "==> 部署版本校验"
-            test -f index.html && echo "✅ index.html OK" || (echo "❌ index.html 缺失" && exit 1)
+            test -f index.html && echo "OK index.html" || (echo "MISSING index.html" && exit 1)
             echo "==> 部署完成: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+
+      - name: "[调试] GCP 连通性诊断（ssh，不回显私钥）"
+        if: ${{ env.GCP_SSH_KEY != '' }}
+        run: |
+          set +e
+          printf '%s\n' "$GCP_SSH_KEY" > /tmp/gcp_key
+          chmod 600 /tmp/gcp_key
+          echo "==> 尝试 SSH 到 ${GCP_USER}@${GCP_HOST}（超时15s，不打印私钥）"
+          ssh -o StrictHostKeyChecking=no -o ConnectTimeout=15 -i /tmp/gcp_key \
+            "${GCP_USER}@${GCP_HOST}" \
+            "echo SSH_OK; echo USER=\$(id -un); ls -ld /var/www/zentools; echo PUBKEY_COUNT=\$(grep -c zentools_gcp ~/.ssh/authorized_keys 2>/dev/null || echo 0)" \
+            && echo "==> 诊断: SSH 成功" || echo "==> 诊断: SSH 失败(见上方具体错误)"
+          rm -f /tmp/gcp_key
+
+      - name: rsync 推送到谷歌云 GCP（海外节点，push 即实时同步）
+        if: ${{ env.GCP_SSH_KEY != '' }}
+        uses: easingthemes/ssh-deploy@v5.1.0
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.GCP_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.GCP_HOST }}
+          REMOTE_USER: ${{ secrets.GCP_USER }}
+          REMOTE_PORT: "22"
+          TARGET: /var/www/zentools
+          ARGS: "-rlptgoDz --delete"
+          # 不碰 GCP webroot 现有的 .git 仓库；不删除 .github/.monkeycode
+          EXCLUDE: "/.git/, /.github/, .monkeycode/, *.bak"
+          SCRIPT_AFTER: |
+            cd /var/www/zentools
+            echo "==> GCP 部署版本校验: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+            test -f index.html && echo "OK index.html" || (echo "MISSING index.html" && exit 1)
+            test -f guides/geo-generative-engine-optimization.html && echo "OK GEO 指南页" || echo "WARN GEO 指南页缺失"
+            # 关闭原先「VM 内每 10 分钟 git reset」的轮询定时器，避免它把 rsync 的新文件 revert 回旧提交
+            systemctl disable --now zentools-sync.timer 2>/dev/null || true

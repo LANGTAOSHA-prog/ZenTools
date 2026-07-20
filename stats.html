@@ -1,44 +1,82 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+  <script src="/assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n-page="pageTitle">使用统计 - ZenTools</title>
-  <meta name="description" content="ZenTools 使用统计面板，查看各工具的使用情况与访问数据。" />
+  <meta name="description" content="ZenTools 使用统计面板，查看各工具的使用情况与访问数据。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。" />
   <link rel="stylesheet" href="assets/css/tool-ui.min.css" />
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
      crossorigin="anonymous"></script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
     .stats-container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
     .stats-header { text-align: center; margin-bottom: 40px; }
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 32px; }
-    .stat-card { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
-    .stat-number { font-size: 32px; font-weight: 800; color: var(--cyan); margin-bottom: 6px; }
-    .stat-label { font-size: 13px; color: var(--muted); }
-    .section-title { font-size: 18px; font-weight: 700; margin: 24px 0 16px; color: var(--text); }
-    .tools-list { background: var(--glass); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .stat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 14px; padding: 20px; text-align: center; }
+    .stat-number { font-size: 32px; font-weight: 800; color: var(--zen-primary); margin-bottom: 6px; }
+    .stat-label { font-size: 13px; color: var(--zen-text-sub); }
+    .section-title { font-size: 18px; font-weight: 700; margin: 24px 0 16px; color: var(--zen-text-main); }
+    .tools-list { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 14px; padding: 20px; }
     .tool-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
     .tool-item:last-child { border-bottom: none; }
     .tool-info { flex: 1; }
-    .tool-name { font-size: 14px; font-weight: 600; color: var(--text); }
-    .tool-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
-    .tool-count { font-size: 13px; color: var(--cyan); background: rgba(0,229,255,0.1); padding: 4px 12px; border-radius: 20px; }
-    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
+    .tool-name { font-size: 14px; font-weight: 600; color: var(--zen-text-main); }
+    .tool-meta { font-size: 12px; color: var(--zen-text-sub); margin-top: 4px; }
+    .tool-count { font-size: 13px; color: var(--zen-primary); background: rgba(0,229,255,0.1); padding: 4px 12px; border-radius: 20px; }
+    .empty-state { text-align: center; padding: 40px; color: var(--zen-text-sub); }
     .analytics-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
-    .analytics-table th, .analytics-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--border); }
-    .analytics-table th { font-size: 13px; color: var(--muted); font-weight: 600; }
+    .analytics-table th, .analytics-table td { padding: 12px; text-align: left; border-bottom: 1px solid var(--zen-border); }
+    .analytics-table th { font-size: 13px; color: var(--zen-text-sub); font-weight: 600; }
     .analytics-table td { font-size: 13px; }
     .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; margin-right: 4px; }
-    .badge-cyan { background: rgba(0,229,255,0.15); color: var(--cyan); }
+    .badge-cyan { background: rgba(0,229,255,0.15); color: var(--zen-primary); }
     .badge-purple { background: rgba(139,76,255,0.15); color: #8b4cff; }
     .badge-green { background: rgba(16,185,129,0.15); color: #10b981; }
-    .back-link { display: inline-block; margin-bottom: 24px; color: var(--cyan); text-decoration: none; font-size: 14px; }
+    .back-link { display: inline-block; margin-bottom: 24px; color: var(--zen-primary); text-decoration: none; font-size: 14px; }
     .back-link:hover { text-decoration: underline; }
-    .export-btn { background: var(--cyan); color: #000; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+    .export-btn { background: var(--zen-primary); color: #000; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
     .export-btn:hover { opacity: 0.9; }
   </style>
+<link rel="manifest" href="/manifest.json">
 <link rel="canonical" href="https://zentools.xyz/stats.html"/>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "使用统计"}]}</script>
 </head>
 <body>
   <div class="z-wrap">
@@ -47,7 +85,7 @@
       
       <div class="stats-header">
         <h1 data-i18n-page="pageHeader">📊 使用统计</h1>
-        <p style="color: var(--muted); margin-top: 8px;">本地工具使用数据分析</p>
+        <p style="color: var(--zen-text-sub); margin-top: 8px;">本地工具使用数据分析</p>
       </div>
 
       <button class="export-btn" onclick="exportData()">📥 导出数据</button>
@@ -76,13 +114,13 @@
 
       <h2 class="section-title" data-i18n-page="sec2">📈 分析维度</h2>
       
-      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--text);">来源分布</h3>
+      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--zen-text-main);">来源分布</h3>
       <div class="tools-list" id="sourcesList"></div>
 
-      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--text);">设备类型</h3>
+      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--zen-text-main);">设备类型</h3>
       <div class="tools-list" id="devicesList"></div>
 
-      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--text);">时间段分布 (小时)</h3>
+      <h3 style="font-size: 15px; margin: 16px 0 12px; color: var(--zen-text-main);">时间段分布 (小时)</h3>
       <div class="tools-list" id="hourlyDist"></div>
     </div>
   </div>

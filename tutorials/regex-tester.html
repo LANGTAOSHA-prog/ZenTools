@@ -1,100 +1,248 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title data-i18n="pageTitle">正则表达式测试教程：实时匹配和验证 - ZenTools</title>
-<meta name="description" content="学会使用 ZenTools 在线正则表达式测试工具，实时高亮匹配结果，支持多种正则引擎和常用模式模板。"/>
-<link rel="canonical" href="https://zentools.xyz/tutorials/regex-tester.html"/>
-<link rel="manifest" href="/manifest.json" />
-<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
-<style>
-.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
-.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
-.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
-.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
-.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
-.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
-.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
-.article-body .rel-tools a:hover { text-decoration:underline; }
-.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
-.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
-.page-tutorial .back-link:hover { color:var(--cyan); }
-.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
-.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
-.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
-.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
-.code-block { background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#94a3b8; margin:12px 0; overflow-x:auto; }
-</style>
-<meta name="google-adsense-account" content="ca-pub-1955887568822472">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"正则表达式测试教程：实时匹配和验证","description":"学会使用 ZenTools 在线正则表达式测试工具，实时高亮匹配结果，支持多种正则引擎和常用模式模板。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/regex-tester.html"}}</script>
-</head>
-<body>
-<div class="blob blob-1"></div><div class="blob blob-2"></div>
-<div class="z-wrap">
-<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
-
-<div class="page-tutorial">
-<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
-<span class="page-eyebrow" data-i18n="catDev">💻 开发工具</span>
-<h1 data-i18n="rtTitle">正则表达式测试教程：实时匹配和验证</h1>
-<div class="meta"><span data-i18n="rtDate">📅 2026-06-23</span><span data-i18n="rtRead">⏱ 3 分钟阅读</span></div>
-
-<div class="article-body">
-<h2 data-i18n="introTitle">功能介绍</h2>
-<p data-i18n="rtIntro">正则表达式测试器是开发者日常工作中不可或缺的工具之一。它可以让你在浏览器中实时编写正则表达式、输入测试文本，并即时查看匹配结果。工具支持全局匹配、忽略大小写等多种标志位，高亮显示所有匹配项的位置，并展示每个匹配的捕获分组详情。内置常用正则模板（邮箱验证、手机号验证、URL 提取等），让你无需从零开始编写。无论是学习正则表达式的新手，还是需要快速调试正则的老手，这个工具都能大幅提升你的工作效率。</p>
-
-<h2 data-i18n="openTitle">打开工具</h2>
-<p data-i18n="rtOpenBody">访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，测试文本不会上传到服务器。</p>
-
-<h2 data-i18n="stepTitle">操作步骤</h2>
-<h3 data-i18n="rtStep1T">1. 打开工具</h3>
-<p data-i18n="rtStep1B">访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中打开。所有处理均在浏览器本地完成，你的测试文本不会离开你的设备。</p>
-<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
-
-<h3 data-i18n="rtStep2T">2. 输入正则表达式</h3>
-<p data-i18n="rtStep2B">在正则表达式输入框中输入你的模式，如匹配邮箱的 [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}。工具支持常用的正则语法：字符类、量词、锚点、分组和反向引用。你可以从内置模板中选择常用模式，也可以自由编写自定义表达式。</p>
-<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 输入正则表达式" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
-
-<h3 data-i18n="rtStep3T">3. 粘贴测试文本</h3>
-<p data-i18n="rtStep3B">在测试文本区域粘贴或输入你要匹配的内容。可以是单行文本，也可以是多行文本。工具会实时高亮显示所有匹配的位置，并在下方面板中列出每个匹配的详细信息，包括匹配的起始位置、结束位置以及每个捕获分组的内容。</p>
-<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 粘贴测试文本" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
-
-<h3 data-i18n="rtStep4T">4. 查看匹配结果</h3>
-<p data-i18n="rtStep4B">工具会实时显示所有匹配结果。点击某个匹配项可以查看详情，包括捕获分组的内容。如果正则表达式有语法错误，工具会用红色标出并给出错误提示。你可以调整正则表达式和测试文本，直到得到预期的匹配结果。</p>
-<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 查看匹配结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
-
-<h2 data-i18n="tipTitle">实用技巧</h2>
-<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="rtTip1">使用内置的正则模板可以快速开始测试。点击「模板」按钮，选择邮箱验证、URL 提取、手机号验证等常用模式。</span></div>
-<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="rtTip2">注意区分贪婪匹配和非贪婪匹配。在量词后加 ? 可以启用非贪婪模式，避免匹配过多内容。</span></div>
-<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="rtTip3">测试复杂正则时，先用小段文本验证基本逻辑，再逐步扩展到完整的测试数据，这样可以更快定位问题。</span></div>
-
-<h2 data-i18n="faqTitle">常见问题</h2>
-<p><strong data-i18n="rtFaq1Q">支持哪些正则语法？</strong><br/><span data-i18n="rtFaq1A">支持标准的 ECMAScript 正则语法，包括字符类、量词、锚点、分组、反向引用和标志位。</span></p>
-<p><strong data-i18n="rtFaq2Q">可以同时匹配多个正则吗？</strong><br/><span data-i18n="rtFaq2A">当前版本支持一次输入一个正则表达式进行匹配。多模式匹配可以多次测试。</span></p>
-<p><strong data-i18n="rtFaq3Q">测试文本会上传吗？</strong><br/><span data-i18n="rtFaq3A">不会。所有匹配计算都在浏览器本地完成，测试文本不会上传到任何服务器。</span></p>
-
-<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
-<a href="/tutorials/hash-generator.html">哈希生成器教程</a> · <a href="/tutorials/formatter.html">代码格式化教程</a> · <a href="/tutorials/ip-lookup.html">IP 地址查询教程</a>
-</div>
-</div>
-</div>
-
-<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
-</div>
-
-<script>
-window.ZT_PAGE={zh:{rtIntro:'正则表达式测试器是开发者日常工作中不可或缺的工具之一。它可以让你在浏览器中实时编写正则表达式、输入测试文本，并即时查看匹配结果。工具支持全局匹配、忽略大小写等多种标志位，高亮显示所有匹配项的位置，并展示每个匹配的捕获分组详情。内置常用正则模板（邮箱验证、手机号验证、URL 提取等），让你无需从零开始编写。无论是学习正则表达式的新手，还是需要快速调试正则的老手，这个工具都能大幅提升你的工作效率。',rtOpenBody:'访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，测试文本不会上传到服务器。',rtStep1T:'打开工具',rtStep1B:'访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中打开。所有处理均在浏览器本地完成，你的测试文本不会离开你的设备。',rtStep2T:'输入正则表达式',rtStep2B:'在正则表达式输入框中输入你的模式，如匹配邮箱的 [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}。工具支持常用的正则语法：字符类、量词、锚点、分组和反向引用。你可以从内置模板中选择常用模式，也可以自由编写自定义表达式。',rtStep3T:'粘贴测试文本',rtStep3B:'在测试文本区域粘贴或输入你要匹配的内容。可以是单行文本，也可以是多行文本。工具会实时高亮显示所有匹配的位置，并在下方面板中列出每个匹配的详细信息，包括匹配的起始位置、结束位置以及每个捕获分组的内容。',rtStep4T:'查看匹配结果',rtStep4B:'工具会实时显示所有匹配结果。点击某个匹配项可以查看详情，包括捕获分组的内容。如果正则表达式有语法错误，工具会用红色标出并给出错误提示。你可以调整正则表达式和测试文本，直到得到预期的匹配结果。',rtTip1:'使用内置的正则模板可以快速开始测试。点击「模板」按钮，选择邮箱验证、URL 提取、手机号验证等常用模式。',rtTip2:'注意区分贪婪匹配和非贪婪匹配。在量词后加 ? 可以启用非贪婪模式，避免匹配过多内容。',rtTip3:'测试复杂正则时，先用小段文本验证基本逻辑，再逐步扩展到完整的测试数据，这样可以更快定位问题。',rtFaq1Q:'支持哪些正则语法？',rtFaq1A:'支持标准的 ECMAScript 正则语法，包括字符类、量词、锚点、分组、反向引用和标志位。',rtFaq2Q:'可以同时匹配多个正则吗？',rtFaq2A:'当前版本支持一次输入一个正则表达式进行匹配。多模式匹配可以多次测试。',rtFaq3Q:'测试文本会上传吗？',rtFaq3A:'不会。所有匹配计算都在浏览器本地完成，测试文本不会上传到任何服务器。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'正则表达式测试教程：实时匹配和验证 - ZenTools',catDev:'💻 开发工具',rtTitle:'正则表达式测试教程：实时匹配和验证',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 分钟阅读'},en:{rtIntro:'The Regular Expression Tester is an indispensable tool for developers. It lets you write regex patterns, input test text, and instantly view match results in your browser. The tool supports various flags like global match and case-insensitive, highlights all match positions, and displays capture group details for each match. Built-in common regex templates (email validation, phone number validation, URL extraction) mean you don\'t need to write from scratch. Whether you\'re learning regex or debugging complex patterns, this tool significantly boosts your productivity.',rtOpenBody:'Visit <a href="/dev/regex-tester.html" target="_blank">Regex Tester</a> and use it directly in your browser. All processing happens locally — no installation needed, test text never leaves your device.',rtStep1T:'Open the Tool',rtStep1B:'Visit <a href="/dev/regex-tester.html" target="_blank">Regex Tester</a> in your browser. All processing happens locally, your test text never leaves your device.',rtStep2T:'Enter Regex Pattern',rtStep2B:'Enter your pattern in the regex input box, such as [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,} for email matching. The tool supports common regex syntax: character classes, quantifiers, anchors, groups, and backreferences. Choose from built-in templates or write custom expressions freely.',rtStep3T:'Paste Test Text',rtStep3B:'Paste or type the text you want to match into the test area. It can be single-line or multi-line. The tool highlights all match positions in real time and lists detailed info for each match below, including start/end positions and capture group contents.',rtStep4T:'View Match Results',rtStep4B:'The tool displays all match results in real time. Click any match item to see details including capture groups. If the regex has syntax errors, they\'re highlighted in red with explanations. Adjust your regex and test text until you get the expected results.',rtTip1:'Use built-in regex templates to start testing quickly. Click "Templates" and choose from email validation, URL extraction, phone number validation and more.',rtTip2:'Distinguish between greedy and non-greedy matching. Add ? after a quantifier to enable non-greedy mode and avoid over-matching.',rtTip3:'When testing complex regex, validate basic logic with small text snippets first, then gradually expand to full test data for faster issue localization.',rtFaq1Q:'What regex syntax is supported?',rtFaq1A:'Standard ECMAScript regex syntax including character classes, quantifiers, anchors, groups, backreferences, and flags.',rtFaq2Q:'Can I match multiple regex patterns at once?',rtFaq2A:'Current version supports one regex pattern at a time. For multi-pattern matching, run multiple tests.',rtFaq3Q:'Is test text uploaded to a server?',rtFaq3A:'No. All matching calculations happen locally in your browser. Test text never leaves your device.',introTitle:'Introduction',openTitle:'Open the Tool',stepTitle:'How to Use',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools: ',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'Regex Tester Tutorial: Real-time Matching and Validation - ZenTools',catDev:'💻 Dev Tools',rtTitle:'Regex Tester Tutorial: Real-time Matching and Validation',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 min read'},ja:{rtIntro:'正規表現テスターは開発者の日常的な仕事に欠かせないツールの一つです。ブラウザで正規表現パターンを記述し、テストテキストを入力し、即座にマッチ結果を確認できます。グローバルマッチ、大文字小文字を区別しないなどのフラグをサポートし、すべてのマッチ位置をハイライト表示し、各マッチのキャプチャグループの詳細を表示します。メール検証、電話番号検証、URL 抽出などの組み込みテンプレートにより、ゼロから書き始める必要がありません。',rtOpenBody:'<a href="/dev/regex-tester.html" target="_blank">正規表現テスター</a> をブラウザで開いて直接使用してください。すべての処理はローカルで実行され、テストテキストがサーバーにアップロードされることはありません。',rtStep1T:'ツールを開く',rtStep1B:'ブラウザで <a href="/dev/regex-tester.html" target="_blank">正規表現テスター</a> を開きます。すべての処理はブラウザ内でローカルに実行され、テストテキストはデバイスから送信されません。',rtStep2T:'正規表現を入力',rtStep2B:'正規表現入力ボックスにパターンを入力します。メールマッチングの場合は [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,} など。文字クラス、量詞、アンカー、グループ、後方参照などの一般的な正規表現構文をサポートしています。組み込みテンプレートから選択するか、カスタム式を自由に作成できます。',rtStep3T:'テストテキストを貼り付け',rtStep3B:'マッチしたいテキストをテストエリアに貼り付けるか入力します。一行テキストでも複数行テキストでも大丈夫です。ツールはリアルタイムですべてのマッチ位置をハイライト表示し、下部パネルに各マッチの詳細情報（開始位置、終了位置、キャプチャグループの内容）を表示します。',rtStep4T:'マッチ結果を確認',rtStep4B:'ツールはリアルタイムですべてのマッチ結果を表示します。マッチ項目をクリックすると、キャプチャグループの内容を含む詳細を確認できます。正規表現に構文エラーがある場合は赤色で表示され、エラー説明も示されます。期待する結果が得られるまで正規表現とテストテキストを調整してください。',rtTip1:'組み込み正規表現テンプレートを使用してテストをすばやく開始できます。「テンプレート」ボタンをクリックして、メール検証、URL 抽出、電話番号検証などの一般的なパターンを選択します。',rtTip2:'貪欲マッチと非貪欲マッチを区別してください。量詞の後に ? を追加すると非貪欲モードが有効になり、過剰マッチを防げます。',rtTip3:'複雑な正規表現をテストする際は、まず小さなテキストスニペットで基本ロジックを検証し、その後段階的に完全なテストデータに拡張すると、問題をより迅速に特定できます。',rtFaq1Q:'どのような正規表現構文をサポートしていますか？',rtFaq1A:'文字クラス、量詞、アンカー、グループ、後方参照、フラグを含む標準的な ECMAScript 正規表現構文をサポートしています。',rtFaq2Q:'複数の正規表現パターンを同時にマッチできますか？',rtFaq2A:'現在のバージョンでは一度に一つの正規表現パターンしかサポートしていません。複数パターンマッチングは複数回テストしてください。',rtFaq3Q:'テストテキストはサーバーにアップロードされますか？',rtFaq3A:'いいえ。すべてのマッチ計算はブラウザ内でローカルに実行され、テストテキストはサーバーにアップロードされません。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'ヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアルに戻る',tipLabel:'ヒント',pageTitle:'正規表現テストチュートリアル：リアルタイムマッチと検証 - ZenTools',catDev:'💻 開発ツール',rtTitle:'正規表現テストチュートリアル：リアルタイムマッチと検証',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 分で読める'},vi:{rtIntro:'Trình kiểm tra biểu thức chính quy là một trong những công cụ không thể thiếu trong công việc hàng ngày của nhà phát triển. Nó cho phép bạn viết mẫu regex, nhập văn bản thử nghiệm và xem ngay lập tức kết quả khớp trong trình duyệt. Công cụ hỗ trợ nhiều cờ như khớp toàn cục, bỏ qua chữ hoa thường, làm nổi bật tất cả vị trí khớp và hiển thị chi tiết nhóm bắt giữ cho mỗi kết quả. Mẫu regex phổ biến tích hợp sẵn (xác thực email, xác thực số điện thoại, trích xuất URL) giúp bạn không cần viết từ đầu.',rtOpenBody:'Truy cập <a href="/dev/regex-tester.html" target="_blank">Trình kiểm tra Regex</a> và sử dụng trực tiếp trong trình duyệt. Mọi xử lý đều diễn ra cục bộ — không cần cài đặt, văn bản thử nghiệm không bao giờ rời khỏi thiết bị của bạn.',rtStep1T:'Mở công cụ',rtStep1B:'Mở <a href="/dev/regex-tester.html" target="_blank">Trình kiểm tra Regex</a> trong trình duyệt. Mọi xử lý đều diễn ra cục bộ trong trình duyệt, văn bản thử nghiệm không bao giờ rời khỏi thiết bị của bạn.',rtStep2T:'Nhập mẫu Regex',rtStep2B:'Nhập mẫu của bạn vào ô nhập regex, chẳng hạn như [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,} để khớp email. Công cụ hỗ trợ cú pháp regex phổ biến: lớp ký tự, lượng từ, neo, nhóm và tham chiếu ngược. Chọn từ mẫu tích hợp hoặc tự do viết biểu thức tùy chỉnh.',rtStep3T:'Dán văn bản thử nghiệm',rtStep3B:'Dán hoặc nhập văn bản bạn muốn khớp vào khu vực thử nghiệm. Có thể là văn bản một dòng hoặc nhiều dòng. Công cụ làm nổi bật tất cả vị trí khớp theo thời gian thực và liệt kê thông tin chi tiết cho mỗi khớp bên dưới, bao gồm vị trí bắt đầu/kết thúc và nội dung nhóm bắt giữ.',rtStep4T:'Xem kết quả khớp',rtStep4B:'Công cụ hiển thị tất cả kết quả khớp theo thời gian thực. Nhấp vào mục khớp để xem chi tiết bao gồm nội dung nhóm bắt giữ. Nếu regex có lỗi cú pháp, chúng được đánh dấu đỏ kèm giải thích. Điều chỉnh regex và văn bản thử nghiệm cho đến khi có kết quả mong muốn.',rtTip1:'Sử dụng mẫu regex tích hợp để bắt đầu kiểm tra nhanh. Nhấp nút "Mẫu" và chọn từ xác thực email, trích xuất URL, xác thực số điện thoại và nhiều mẫu phổ biến khác.',rtTip2:'Phân biệt giữa khớp tham lam và không tham lam. Thêm ? sau lượng từ để kích hoạt chế độ không tham lam, tránh khớp quá nhiều nội dung.',rtTip3:'Khi kiểm tra regex phức tạp, hãy xác minh logic cơ bản với đoạn văn bản nhỏ trước, sau đó mở rộng dần sang dữ liệu thử nghiệm đầy đủ để định vị vấn đề nhanh hơn.',rtFaq1Q:'Hỗ trợ cú pháp regex nào?',rtFaq1A:'Hỗ trợ cú pháp regex ECMAScript tiêu chuẩn bao gồm lớp ký tự, lượng từ, neo, nhóm, tham chiếu ngược và cờ.',rtFaq2Q:'Có thể khớp nhiều mẫu regex cùng lúc không?',rtFaq2A:'Phiên bản hiện tại chỉ hỗ trợ một mẫu regex mỗi lần. Đối với khớp đa mẫu, hãy chạy nhiều lần kiểm tra.',rtFaq3Q:'Văn bản thử nghiệm có được tải lên máy chủ không?',rtFaq3A:'Không. Tất cả tính toán khớp đều diễn ra cục bộ trong trình duyệt của bạn. Văn bản thử nghiệm không bao giờ rời khỏi thiết bị của bạn.',introTitle:'Giới thiệu',openTitle:'Mở công cụ',stepTitle:'Hướng dẫn sử dụng',tipTitle:'Mẹo',faqTitle:'Câu hỏi thường gặp',relTitle:'Công cụ liên quan:',backToIndex:'Quay lại Hướng dẫn',tipLabel:'Mẹo',pageTitle:'Hướng dẫn Kiểm tra Regex: Khớp và Xác thực Theo thời gian Thực - ZenTools',catDev:'💻 Công cụ Dev',rtTitle:'Hướng dẫn Kiểm tra Regex: Khớp và Xác thực Theo thời gian Thực',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 phút đọc'},navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'}
-</script>
-<script src="../assets/js/tool-ui.min.js"></script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次开发快人一步</button>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<script src="../assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title data-i18n="pageTitle">正则表达式测试教程：实时匹配和验证 - ZenTools</title>
+<meta name="description" content="学会使用 ZenTools 在线正则表达式测试工具，实时高亮匹配结果，支持多种正则引擎和常用模式模板。"/>
+<link rel="canonical" href="https://zentools.xyz/tutorials/regex-tester.html"/>
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
+<style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Inter,"Source Han Sans SC",PingFang SC,Microsoft YaHei,system-ui,sans-serif; background:var(--zen-bg-base); color:var(--zen-text-main); line-height:1.5; transition:background .35s,color .35s; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    .site-nav { position:fixed; top:0; left:0; width:100%; z-index:999; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(255,255,255,0.75); border-bottom:1px solid var(--zen-border); transition:background .3s; }
+    .dark .site-nav { background:rgba(15,23,42,0.75); }
+    .nav-inner { height:70px; display:flex; align-items:center; justify-content:space-between; gap:16px; max-width:1200px; margin:0 auto; padding:0 24px; }
+    .logo-text-blue { color:var(--zen-primary); }
+    .logo-text-teal { color:var(--zen-secondary); }
+    .nav-links a { padding:8px 14px; border-radius:8px; font-size:14px; font-weight:500; color:var(--zen-text-sub); transition:color .2s,background .2s; text-decoration:none; }
+    .nav-links a:hover { color:var(--zen-text-main); background:rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background:rgba(255,255,255,0.06); }
+    .nav-links a.active { color:var(--zen-primary); font-weight:600; }
+    .mobile-overlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); opacity:0; visibility:hidden; transition:opacity .3s,visibility .3s; }
+    .mobile-overlay.open { opacity:1; visibility:visible; }
+    .mobile-drawer { position:fixed; top:0; right:0; bottom:0; width:300px; max-width:85vw; background:rgba(249,250,251,0.97); border-left:1px solid var(--zen-border); padding:24px 20px; z-index:310; overflow-y:auto; transform:translateX(100%); transition:transform .3s; backdrop-filter:blur(24px); }
+    .dark .mobile-drawer { background:rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform:translateX(0); }
+    .mobile-drawer a { display:block; padding:12px 16px; border-radius:8px; font-size:16px; font-weight:500; color:var(--zen-text-sub); transition:color .2s,background .2s; }
+    .mobile-drawer a:hover { background:rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background:rgba(255,255,255,0.06); }
+    .page-tutorial { max-width:900px; margin:120px auto 40px; padding:0 24px; }
+    .page-tutorial .meta { color:var(--zen-text-sub); font-size:14px; margin-bottom:24px; }
+    .page-tutorial .meta h1 { font-size:clamp(28px,4vw,40px); font-weight:800; letter-spacing:-1px; line-height:1.2; margin-bottom:12px; background:var(--zen-gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .article-body { color:var(--zen-text-main); font-size:16px; line-height:1.85; }
+    .article-body h2 { font-size:24px; font-weight:700; margin:36px 0 16px; color:var(--zen-text-main); }
+    .article-body h3 { font-size:20px; font-weight:600; margin:28px 0 12px; }
+    .article-body p { margin-bottom:16px; }
+    .article-body ul,.article-body ol { margin:12px 0 20px 24px; }
+    .article-body li { margin-bottom:8px; }
+    .tip { background:var(--zen-bg-card); border:1px solid var(--zen-border); border-radius:var(--zen-radius-base); padding:16px 20px; margin:20px 0; }
+    .tip::before { content:attr(data-label); display:block; font-size:12px; font-weight:700; color:var(--zen-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; }
+    .screenshot-wrap { margin:24px 0; text-align:center; }
+    .screenshot-wrap img { max-width:100%; border-radius:var(--zen-radius-base); border:1px solid var(--zen-border); }
+    .rel-tools { max-width:900px; margin:40px auto; padding:0 24px; }
+    .rel-tools h3 { font-size:16px; font-weight:700; color:var(--zen-text-sub); margin-bottom:16px; }
+    .back-link { text-align:center; margin:20px 0 40px; }
+    .back-link a { display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border-radius:8px; border:1px solid var(--zen-border); color:var(--zen-text-sub); font-size:14px; transition:color .2s,border-color .2s; }
+    .back-link a:hover { color:var(--zen-primary); border-color:var(--zen-primary); }
+    footer { border-top:1px solid var(--zen-border); padding:36px 0; text-align:center; }
+    .footer-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+    .footer-logo { font-size:18px; font-weight:700; margin-bottom:12px; background:var(--zen-gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .footer-links { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:14px; font-size:13px; }
+    .footer-links a { color:var(--zen-text-sub); transition:color .2s; }
+    .footer-links a:hover { color:var(--zen-primary); }
+    .footer-copy { font-size:13px; color:var(--zen-text-placeholder); }
+    
+    @media(max-width:768px) {
+      .nav-links a:not(#hamburgerBtn):not(#themeToggle):not(#langSelect) { display:none; }
+      #hamburgerBtn { display:inline-flex !important; }
+      .page-tutorial { margin-top:100px; }
+      .nav-inner { height:60px; gap:8px; }
+    }
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--zen-border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--zen-text-main); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--zen-primary); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--zen-text-sub); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--zen-primary); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--zen-text-main); }
+.article-body .rel-tools { font-size:13px; color:var(--zen-text-sub); margin-top:12px; }
+.article-body .rel-tools a { color:var(--zen-primary); text-decoration:none; }
+.article-body .rel-tools a:hover { text-decoration:underline; }
+.page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--zen-text-sub); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--zen-primary); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--zen-primary); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
+.page-tutorial .meta { font-size:13px; color:var(--zen-text-sub); display:flex; gap:16px; margin-bottom:24px; }
+.screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
+.code-block { background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:12px 16px; font-family:'JetBrains Mono',monospace; font-size:12px; color:#94a3b8; margin:12px 0; overflow-x:auto; }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部教程", "item": "https://zentools.xyz/tutorials/"}, {"@type": "ListItem", "position": 3, "name": "正则表达式测试教程：实时匹配和验证"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"正则表达式测试教程：实时匹配和验证","description":"学会使用 ZenTools 在线正则表达式测试工具，实时高亮匹配结果，支持多种正则引擎和常用模式模板。","datePublished":"2026-06-23","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/regex-tester.html"}}</script>
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <div class="logo-icon" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</div>
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/tools.html">全部工具</a>
+        <a href="/tutorials/" class="active">教程中心</a>
+        <a href="/guides/">深度指南</a>
+        <a href="/compare/">工具对比</a>
+        <a href="/professions.html">职业工具</a>
+        <a href="/my.html">用户中心</a>
+        <a href="/about.html">关于</a>
+        <button id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" class="lang-select">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/">首页</a>
+      <a href="/tools.html">全部工具</a>
+      <a href="/tutorials/">教程中心</a>
+      <a href="/guides/">深度指南</a>
+      <a href="/compare/">工具对比</a>
+      <a href="/professions.html">职业工具</a>
+      <a href="/my.html">用户中心</a>
+      <a href="/about.html">关于</a>
+    </div>
+  </div>
+
+<div class="page-tutorial">
+<a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
+<span class="page-eyebrow" data-i18n="catDev">💻 开发工具</span>
+<h1 data-i18n="rtTitle">正则表达式测试教程：实时匹配和验证</h1>
+<div class="meta"><span data-i18n="rtDate">📅 2026-06-23</span><span data-i18n="rtRead">⏱ 3 分钟阅读</span></div>
+
+<div class="article-body">
+<h2 data-i18n="introTitle">功能介绍</h2>
+<p data-i18n="rtIntro">正则表达式测试器是开发者日常工作中不可或缺的工具之一。它可以让你在浏览器中实时编写正则表达式、输入测试文本，并即时查看匹配结果。工具支持全局匹配、忽略大小写等多种标志位，高亮显示所有匹配项的位置，并展示每个匹配的捕获分组详情。内置常用正则模板（邮箱验证、手机号验证、URL 提取等），让你无需从零开始编写。无论是学习正则表达式的新手，还是需要快速调试正则的老手，这个工具都能大幅提升你的工作效率。</p>
+
+<h2 data-i18n="openTitle">打开工具</h2>
+<p data-i18n="rtOpenBody">访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，测试文本不会上传到服务器。</p>
+
+<h2 data-i18n="stepTitle">操作步骤</h2>
+<h3 data-i18n="rtStep1T">1. 打开工具</h3>
+<p data-i18n="rtStep1B">访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中打开。所有处理均在浏览器本地完成，你的测试文本不会离开你的设备。</p>
+<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 打开工具" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="rtStep2T">2. 输入正则表达式</h3>
+<p data-i18n="rtStep2B">在正则表达式输入框中输入你的模式，如匹配邮箱的 [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}。工具支持常用的正则语法：字符类、量词、锚点、分组和反向引用。你可以从内置模板中选择常用模式，也可以自由编写自定义表达式。</p>
+<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 输入正则表达式" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="rtStep3T">3. 粘贴测试文本</h3>
+<p data-i18n="rtStep3B">在测试文本区域粘贴或输入你要匹配的内容。可以是单行文本，也可以是多行文本。工具会实时高亮显示所有匹配的位置，并在下方面板中列出每个匹配的详细信息，包括匹配的起始位置、结束位置以及每个捕获分组的内容。</p>
+<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 粘贴测试文本" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h3 data-i18n="rtStep4T">4. 查看匹配结果</h3>
+<p data-i18n="rtStep4B">工具会实时显示所有匹配结果。点击某个匹配项可以查看详情，包括捕获分组的内容。如果正则表达式有语法错误，工具会用红色标出并给出错误提示。你可以调整正则表达式和测试文本，直到得到预期的匹配结果。</p>
+<div class="screenshot-wrap"><img src="/guides/img/regex-tester-step1.svg" alt="正则表达式测试教程：实时匹配和验证 - 查看匹配结果" style="max-width:100%;border-radius:12px;border:1px solid rgba(255,255,255,0.08);margin:12px 0;box-shadow:0 8px 24px rgba(0,0,0,0.3);"></div>
+
+<h2 data-i18n="tipTitle">实用技巧</h2>
+<div class="tip"><strong data-i18n="tipLabel">提示 1：</strong><span data-i18n="rtTip1">使用内置的正则模板可以快速开始测试。点击「模板」按钮，选择邮箱验证、URL 提取、手机号验证等常用模式。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 2：</strong><span data-i18n="rtTip2">注意区分贪婪匹配和非贪婪匹配。在量词后加 ? 可以启用非贪婪模式，避免匹配过多内容。</span></div>
+<div class="tip"><strong data-i18n="tipLabel">提示 3：</strong><span data-i18n="rtTip3">测试复杂正则时，先用小段文本验证基本逻辑，再逐步扩展到完整的测试数据，这样可以更快定位问题。</span></div>
+
+<h2 data-i18n="faqTitle">常见问题</h2>
+<p><strong data-i18n="rtFaq1Q">支持哪些正则语法？</strong><br/><span data-i18n="rtFaq1A">支持标准的 ECMAScript 正则语法，包括字符类、量词、锚点、分组、反向引用和标志位。</span></p>
+<p><strong data-i18n="rtFaq2Q">可以同时匹配多个正则吗？</strong><br/><span data-i18n="rtFaq2A">当前版本支持一次输入一个正则表达式进行匹配。多模式匹配可以多次测试。</span></p>
+<p><strong data-i18n="rtFaq3Q">测试文本会上传吗？</strong><br/><span data-i18n="rtFaq3A">不会。所有匹配计算都在浏览器本地完成，测试文本不会上传到任何服务器。</span></p>
+
+<div class="rel-tools"><strong data-i18n="relTitle">相关工具：</strong>
+<a href="/tutorials/hash-generator.html">哈希生成器教程</a> · <a href="/tutorials/formatter.html">代码格式化教程</a> · <a href="/tutorials/ip-lookup.html">IP 地址查询教程</a>
+</div>
+</div>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a></div><p class="footer-copy" data-i18n="footerCopy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
+</div>
+
+<script>
+window.ZT_PAGE={zh:{rtIntro:'正则表达式测试器是开发者日常工作中不可或缺的工具之一。它可以让你在浏览器中实时编写正则表达式、输入测试文本，并即时查看匹配结果。工具支持全局匹配、忽略大小写等多种标志位，高亮显示所有匹配项的位置，并展示每个匹配的捕获分组详情。内置常用正则模板（邮箱验证、手机号验证、URL 提取等），让你无需从零开始编写。无论是学习正则表达式的新手，还是需要快速调试正则的老手，这个工具都能大幅提升你的工作效率。',rtOpenBody:'访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中直接使用。所有操作在浏览器本地完成，无需安装任何软件，测试文本不会上传到服务器。',rtStep1T:'打开工具',rtStep1B:'访问 <a href="/dev/regex-tester.html" target="_blank">正则表达式测试器</a>，在浏览器中打开。所有处理均在浏览器本地完成，你的测试文本不会离开你的设备。',rtStep2T:'输入正则表达式',rtStep2B:'在正则表达式输入框中输入你的模式，如匹配邮箱的 [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2}。工具支持常用的正则语法：字符类、量词、锚点、分组和反向引用。你可以从内置模板中选择常用模式，也可以自由编写自定义表达式。',rtStep3T:'粘贴测试文本',rtStep3B:'在测试文本区域粘贴或输入你要匹配的内容。可以是单行文本，也可以是多行文本。工具会实时高亮显示所有匹配的位置，并在下方面板中列出每个匹配的详细信息，包括匹配的起始位置、结束位置以及每个捕获分组的内容。',rtStep4T:'查看匹配结果',rtStep4B:'工具会实时显示所有匹配结果。点击某个匹配项可以查看详情，包括捕获分组的内容。如果正则表达式有语法错误，工具会用红色标出并给出错误提示。你可以调整正则表达式和测试文本，直到得到预期的匹配结果。',rtTip1:'使用内置的正则模板可以快速开始测试。点击「模板」按钮，选择邮箱验证、URL 提取、手机号验证等常用模式。',rtTip2:'注意区分贪婪匹配和非贪婪匹配。在量词后加 ? 可以启用非贪婪模式，避免匹配过多内容。',rtTip3:'测试复杂正则时，先用小段文本验证基本逻辑，再逐步扩展到完整的测试数据，这样可以更快定位问题。',rtFaq1Q:'支持哪些正则语法？',rtFaq1A:'支持标准的 ECMAScript 正则语法，包括字符类、量词、锚点、分组、反向引用和标志位。',rtFaq2Q:'可以同时匹配多个正则吗？',rtFaq2A:'当前版本支持一次输入一个正则表达式进行匹配。多模式匹配可以多次测试。',rtFaq3Q:'测试文本会上传吗？',rtFaq3A:'不会。所有匹配计算都在浏览器本地完成，测试文本不会上传到任何服务器。',introTitle:'功能介绍',openTitle:'打开工具',stepTitle:'操作步骤',tipTitle:'实用技巧',faqTitle:'常见问题',relTitle:'相关工具：',backToIndex:'返回教程中心',tipLabel:'提示',pageTitle:'正则表达式测试教程：实时匹配和验证 - ZenTools',catDev:'💻 开发工具',rtTitle:'正则表达式测试教程：实时匹配和验证',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 分钟阅读'},en:{rtIntro:'The Regular Expression Tester is an indispensable tool for developers. It lets you write regex patterns, input test text, and instantly view match results in your browser. The tool supports various flags like global match and case-insensitive, highlights all match positions, and displays capture group details for each match. Built-in common regex templates (email validation, phone number validation, URL extraction) mean you don\'t need to write from scratch. Whether you\'re learning regex or debugging complex patterns, this tool significantly boosts your productivity.',rtOpenBody:'Visit <a href="/dev/regex-tester.html" target="_blank">Regex Tester</a> and use it directly in your browser. All processing happens locally — no installation needed, test text never leaves your device.',rtStep1T:'Open the Tool',rtStep1B:'Visit <a href="/dev/regex-tester.html" target="_blank">Regex Tester</a> in your browser. All processing happens locally, your test text never leaves your device.',rtStep2T:'Enter Regex Pattern',rtStep2B:'Enter your pattern in the regex input box, such as [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2} for email matching. The tool supports common regex syntax: character classes, quantifiers, anchors, groups, and backreferences. Choose from built-in templates or write custom expressions freely.',rtStep3T:'Paste Test Text',rtStep3B:'Paste or type the text you want to match into the test area. It can be single-line or multi-line. The tool highlights all match positions in real time and lists detailed info for each match below, including start/end positions and capture group contents.',rtStep4T:'View Match Results',rtStep4B:'The tool displays all match results in real time. Click any match item to see details including capture groups. If the regex has syntax errors, they\'re highlighted in red with explanations. Adjust your regex and test text until you get the expected results.',rtTip1:'Use built-in regex templates to start testing quickly. Click "Templates" and choose from email validation, URL extraction, phone number validation and more.',rtTip2:'Distinguish between greedy and non-greedy matching. Add ? after a quantifier to enable non-greedy mode and avoid over-matching.',rtTip3:'When testing complex regex, validate basic logic with small text snippets first, then gradually expand to full test data for faster issue localization.',rtFaq1Q:'What regex syntax is supported?',rtFaq1A:'Standard ECMAScript regex syntax including character classes, quantifiers, anchors, groups, backreferences, and flags.',rtFaq2Q:'Can I match multiple regex patterns at once?',rtFaq2A:'Current version supports one regex pattern at a time. For multi-pattern matching, run multiple tests.',rtFaq3Q:'Is test text uploaded to a server?',rtFaq3A:'No. All matching calculations happen locally in your browser. Test text never leaves your device.',introTitle:'Introduction',openTitle:'Open the Tool',stepTitle:'How to Use',tipTitle:'Tips',faqTitle:'FAQ',relTitle:'Related Tools: ',backToIndex:'Back to Tutorials',tipLabel:'Tip',pageTitle:'Regex Tester Tutorial: Real-time Matching and Validation - ZenTools',catDev:'💻 Dev Tools',rtTitle:'Regex Tester Tutorial: Real-time Matching and Validation',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 min read'},ja:{rtIntro:'正規表現テスターは開発者の日常的な仕事に欠かせないツールの一つです。ブラウザで正規表現パターンを記述し、テストテキストを入力し、即座にマッチ結果を確認できます。グローバルマッチ、大文字小文字を区別しないなどのフラグをサポートし、すべてのマッチ位置をハイライト表示し、各マッチのキャプチャグループの詳細を表示します。メール検証、電話番号検証、URL 抽出などの組み込みテンプレートにより、ゼロから書き始める必要がありません。',rtOpenBody:'<a href="/dev/regex-tester.html" target="_blank">正規表現テスター</a> をブラウザで開いて直接使用してください。すべての処理はローカルで実行され、テストテキストがサーバーにアップロードされることはありません。',rtStep1T:'ツールを開く',rtStep1B:'ブラウザで <a href="/dev/regex-tester.html" target="_blank">正規表現テスター</a> を開きます。すべての処理はブラウザ内でローカルに実行され、テストテキストはデバイスから送信されません。',rtStep2T:'正規表現を入力',rtStep2B:'正規表現入力ボックスにパターンを入力します。メールマッチングの場合は [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2} など。文字クラス、量詞、アンカー、グループ、後方参照などの一般的な正規表現構文をサポートしています。組み込みテンプレートから選択するか、カスタム式を自由に作成できます。',rtStep3T:'テストテキストを貼り付け',rtStep3B:'マッチしたいテキストをテストエリアに貼り付けるか入力します。一行テキストでも複数行テキストでも大丈夫です。ツールはリアルタイムですべてのマッチ位置をハイライト表示し、下部パネルに各マッチの詳細情報（開始位置、終了位置、キャプチャグループの内容）を表示します。',rtStep4T:'マッチ結果を確認',rtStep4B:'ツールはリアルタイムですべてのマッチ結果を表示します。マッチ項目をクリックすると、キャプチャグループの内容を含む詳細を確認できます。正規表現に構文エラーがある場合は赤色で表示され、エラー説明も示されます。期待する結果が得られるまで正規表現とテストテキストを調整してください。',rtTip1:'組み込み正規表現テンプレートを使用してテストをすばやく開始できます。「テンプレート」ボタンをクリックして、メール検証、URL 抽出、電話番号検証などの一般的なパターンを選択します。',rtTip2:'貪欲マッチと非貪欲マッチを区別してください。量詞の後に ? を追加すると非貪欲モードが有効になり、過剰マッチを防げます。',rtTip3:'複雑な正規表現をテストする際は、まず小さなテキストスニペットで基本ロジックを検証し、その後段階的に完全なテストデータに拡張すると、問題をより迅速に特定できます。',rtFaq1Q:'どのような正規表現構文をサポートしていますか？',rtFaq1A:'文字クラス、量詞、アンカー、グループ、後方参照、フラグを含む標準的な ECMAScript 正規表現構文をサポートしています。',rtFaq2Q:'複数の正規表現パターンを同時にマッチできますか？',rtFaq2A:'現在のバージョンでは一度に一つの正規表現パターンしかサポートしていません。複数パターンマッチングは複数回テストしてください。',rtFaq3Q:'テストテキストはサーバーにアップロードされますか？',rtFaq3A:'いいえ。すべてのマッチ計算はブラウザ内でローカルに実行され、テストテキストはサーバーにアップロードされません。',introTitle:'機能紹介',openTitle:'ツールを開く',stepTitle:'操作手順',tipTitle:'ヒント',faqTitle:'よくある質問',relTitle:'関連ツール：',backToIndex:'チュートリアルに戻る',tipLabel:'ヒント',pageTitle:'正規表現テストチュートリアル：リアルタイムマッチと検証 - ZenTools',catDev:'💻 開発ツール',rtTitle:'正規表現テストチュートリアル：リアルタイムマッチと検証',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 分で読める'},vi:{rtIntro:'Trình kiểm tra biểu thức chính quy là một trong những công cụ không thể thiếu trong công việc hàng ngày của nhà phát triển. Nó cho phép bạn viết mẫu regex, nhập văn bản thử nghiệm và xem ngay lập tức kết quả khớp trong trình duyệt. Công cụ hỗ trợ nhiều cờ như khớp toàn cục, bỏ qua chữ hoa thường, làm nổi bật tất cả vị trí khớp và hiển thị chi tiết nhóm bắt giữ cho mỗi kết quả. Mẫu regex phổ biến tích hợp sẵn (xác thực email, xác thực số điện thoại, trích xuất URL) giúp bạn không cần viết từ đầu.',rtOpenBody:'Truy cập <a href="/dev/regex-tester.html" target="_blank">Trình kiểm tra Regex</a> và sử dụng trực tiếp trong trình duyệt. Mọi xử lý đều diễn ra cục bộ — không cần cài đặt, văn bản thử nghiệm không bao giờ rời khỏi thiết bị của bạn.',rtStep1T:'Mở công cụ',rtStep1B:'Mở <a href="/dev/regex-tester.html" target="_blank">Trình kiểm tra Regex</a> trong trình duyệt. Mọi xử lý đều diễn ra cục bộ trong trình duyệt, văn bản thử nghiệm không bao giờ rời khỏi thiết bị của bạn.',rtStep2T:'Nhập mẫu Regex',rtStep2B:'Nhập mẫu của bạn vào ô nhập regex, chẳng hạn như [a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2} để khớp email. Công cụ hỗ trợ cú pháp regex phổ biến: lớp ký tự, lượng từ, neo, nhóm và tham chiếu ngược. Chọn từ mẫu tích hợp hoặc tự do viết biểu thức tùy chỉnh.',rtStep3T:'Dán văn bản thử nghiệm',rtStep3B:'Dán hoặc nhập văn bản bạn muốn khớp vào khu vực thử nghiệm. Có thể là văn bản một dòng hoặc nhiều dòng. Công cụ làm nổi bật tất cả vị trí khớp theo thời gian thực và liệt kê thông tin chi tiết cho mỗi khớp bên dưới, bao gồm vị trí bắt đầu/kết thúc và nội dung nhóm bắt giữ.',rtStep4T:'Xem kết quả khớp',rtStep4B:'Công cụ hiển thị tất cả kết quả khớp theo thời gian thực. Nhấp vào mục khớp để xem chi tiết bao gồm nội dung nhóm bắt giữ. Nếu regex có lỗi cú pháp, chúng được đánh dấu đỏ kèm giải thích. Điều chỉnh regex và văn bản thử nghiệm cho đến khi có kết quả mong muốn.',rtTip1:'Sử dụng mẫu regex tích hợp để bắt đầu kiểm tra nhanh. Nhấp nút "Mẫu" và chọn từ xác thực email, trích xuất URL, xác thực số điện thoại và nhiều mẫu phổ biến khác.',rtTip2:'Phân biệt giữa khớp tham lam và không tham lam. Thêm ? sau lượng từ để kích hoạt chế độ không tham lam, tránh khớp quá nhiều nội dung.',rtTip3:'Khi kiểm tra regex phức tạp, hãy xác minh logic cơ bản với đoạn văn bản nhỏ trước, sau đó mở rộng dần sang dữ liệu thử nghiệm đầy đủ để định vị vấn đề nhanh hơn.',rtFaq1Q:'Hỗ trợ cú pháp regex nào?',rtFaq1A:'Hỗ trợ cú pháp regex ECMAScript tiêu chuẩn bao gồm lớp ký tự, lượng từ, neo, nhóm, tham chiếu ngược và cờ.',rtFaq2Q:'Có thể khớp nhiều mẫu regex cùng lúc không?',rtFaq2A:'Phiên bản hiện tại chỉ hỗ trợ một mẫu regex mỗi lần. Đối với khớp đa mẫu, hãy chạy nhiều lần kiểm tra.',rtFaq3Q:'Văn bản thử nghiệm có được tải lên máy chủ không?',rtFaq3A:'Không. Tất cả tính toán khớp đều diễn ra cục bộ trong trình duyệt của bạn. Văn bản thử nghiệm không bao giờ rời khỏi thiết bị của bạn.',introTitle:'Giới thiệu',openTitle:'Mở công cụ',stepTitle:'Hướng dẫn sử dụng',tipTitle:'Mẹo',faqTitle:'Câu hỏi thường gặp',relTitle:'Công cụ liên quan:',backToIndex:'Quay lại Hướng dẫn',tipLabel:'Mẹo',pageTitle:'Hướng dẫn Kiểm tra Regex: Khớp và Xác thực Theo thời gian Thực - ZenTools',catDev:'💻 Công cụ Dev',rtTitle:'Hướng dẫn Kiểm tra Regex: Khớp và Xác thực Theo thời gian Thực',rtDate:'📅 2026-06-23',rtRead:'⏱ 3 phút đọc'},navHome:'首页',navDev:'开发工具',navAll:'全部工具',navPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱。'}
+</script>
+<script src="../assets/js/tool-ui.min.js"></script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次开发快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>
+(function(){
+var t=localStorage.getItem('zentools_theme');
+if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');
+if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');
+this.textContent=d?'☀️':'🌙';localStorage.setItem('zentools_theme',d?'dark':'light');});}
+})();
+(function(){
+var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;
+h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);
+o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});
+})();
+if('serviceWorker'in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
+</script>
+</body>
+</html>

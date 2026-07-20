@@ -1,656 +1,1011 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<script src="assets/js/anti-crash.min.js"></script>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title data-i18n="pageTitle">工具大全 - 免费在线工具 | ZenTools</title>
-<meta name="description" content="浏览 ZenTools 免费在线工具大全，包括 PDF、图片、AI、文字、办公和生活等 279 款工具。" id="metaDesc" />
-<meta property="og:title" content="工具大全 - 免费在线工具 | ZenTools" />
-<meta property="og:description" content="279 款免费在线工具，包括 PDF、图片、AI、文字、办公、生活等分类。" />
-<meta property="og:url" content="https://zentools.xyz/tools.html" />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="canonical" href="https://zentools.xyz/tools.html" />
-<link rel="manifest" href="/manifest.json" />
-<link rel="stylesheet" href="assets/css/tool-ui.min.css" />
-<style>
-/* ===== Category Navigation Hero ===== */
-.cat-hero { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin: 20px 0; }
-.cat-hero-card { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 22px 10px 18px; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); text-decoration: none; transition: transform 0.2s, border-color 0.2s, background 0.2s; }
-.cat-hero-card:hover { transform: translateY(-4px); border-color: var(--cat-clr); background: rgba(255,255,255,0.07); }
-.cat-hero-icon { font-size: 30px; line-height: 1; }
-.cat-hero-name { font-size: 13px; font-weight: 600; color: var(--text); text-align: center; }
-.cat-hero-count { font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 12px; color: var(--cat-clr); background: color-mix(in srgb, var(--cat-clr) 12%, transparent); }
-
-/* ===== Search Bar ===== */
-.search-hero { position: relative; margin: 28px 0 20px; }
-.search-hero input { width: 100%; padding: 16px 56px 16px 24px; border-radius: 16px; border: 2px solid var(--border); background: rgba(255,255,255,0.03); color: var(--text); font-size: 16px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-.search-hero input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(0,229,255,0.08); }
-.search-hero .s-icon { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; color: var(--muted); pointer-events: none; }
-.search-drop { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--bg); border: 1px solid var(--border); border-radius: 0 0 14px 14px; max-height: 280px; overflow-y: auto; z-index: 100; display: none; box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
-.search-drop.open { display: block; }
-.search-drop a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; text-decoration: none; color: var(--text); font-size: 14px; transition: background 0.12s; }
-.search-drop a:hover { background: rgba(255,255,255,0.05); }
-.search-drop a .sd-cat { font-size: 11px; color: var(--muted); margin-left: auto; }
-
-/* ===== Quick Stats Bar ===== */
-.stats-bar { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 24px; }
-.stat-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 24px; border: 1px solid var(--border); font-size: 13px; color: var(--text); background: rgba(255,255,255,0.02); }
-.stat-chip .sc { color: var(--cyan); font-weight: 700; }
-.stat-filter { cursor: pointer; transition: border-color 0.15s, background 0.15s; }
-.stat-filter:hover { border-color: var(--cyan); }
-.stat-filter.active { background: rgba(0,229,255,0.1); border-color: var(--cyan); color: var(--cyan); font-weight: 600; }
-.stat-filter .chip-x { margin-left: 2px; font-size: 14px; }
-
-/* ===== Section Title ===== */
-.sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
-.sec-head h2 { font-size: 19px; margin: 0; color: var(--text); font-weight: 700; }
-.sec-head .badge { font-size: 12px; color: var(--cyan); font-weight: 600; }
-
-/* ===== Hot Tools ===== */
-.hot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-bottom: 28px; }
-.hot-item { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 14px; background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border: 1px solid var(--border); text-decoration: none; transition: transform 0.15s, border-color 0.15s; }
-.hot-item:hover { transform: translateY(-2px); border-color: var(--purple); }
-.hot-rank { font-size: 20px; font-weight: 800; min-width: 26px; text-align: center; }
-.hot-rank.r1,.hot-rank.r2,.hot-rank.r3 { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.hot-rank.r4,.hot-rank.r5,.hot-rank.r6 { color: var(--muted); }
-.hot-rank.r7,.hot-rank.r8 { color: var(--muted); }
-.hot-info { flex: 1; min-width: 0; }
-.hot-name { font-size: 14px; font-weight: 600; color: var(--text); }
-.hot-desc { font-size: 11px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hot-icon { font-size: 24px; flex-shrink: 0; }
-
-/* ===== Scenario Tabs ===== */
-.scenario-wrap { margin-bottom: 28px; }
-.sc-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-.sc-tab { padding: 8px 20px; border-radius: 20px; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.2s; }
-.sc-tab.active { background: var(--cyan); color: var(--bg); border-color: var(--cyan); font-weight: 600; }
-.sc-tab:hover:not(.active) { border-color: var(--cyan); color: var(--cyan); }
-.sc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
-.sc-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); text-decoration: none; transition: border-color 0.15s; }
-.sc-item:hover { border-color: var(--cyan); }
-.sc-item .si-icon { font-size: 20px; }
-.sc-item .si-name { font-size: 13px; font-weight: 600; color: var(--text); }
-
-/* ===== Recently Used ===== */
-.recent-wrap { margin-bottom: 28px; display: none; }
-.recent-wrap.visible { display: block; }
-.recent-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.rc-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 20px; border: 1px solid var(--border); background: rgba(255,255,255,0.02); text-decoration: none; font-size: 13px; color: var(--text); transition: border-color 0.15s; }
-.rc-chip:hover { border-color: var(--pink); }
-.rc-clr { font-size: 11px; color: var(--muted); cursor: pointer; text-decoration: underline; margin-left: 8px; background: none; border: none; }
-
-/* ===== Tool Grid ===== */
-.tool-grid-re { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 32px; }
-.tool-card-re { display: flex; flex-direction: column; gap: 8px; padding: 20px; border-radius: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); text-decoration: none; transition: transform 0.15s, border-color 0.15s, background 0.15s; }
-.tool-card-re:hover { transform: translateY(-3px); border-color: var(--purple); background: rgba(255,255,255,0.06); }
-.tool-card-re .tc-icon { font-size: 28px; line-height: 1; }
-.tool-card-re .tc-name { font-size: 14px; font-weight: 600; color: var(--text); }
-.tool-card-re .tc-desc { font-size: 12px; color: var(--muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.tool-card-re .tc-cat { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 8px; background: rgba(168,85,247,0.1); color: var(--purple); font-weight: 600; align-self: flex-start; }
-
-/* ===== FAQ & Guides ===== */
-.info-footer { max-width: 900px; margin: 40px auto 0; padding: 0 8px; }
-.info-footer h2 { font-size: 20px; text-align: center; margin-bottom: 20px; }
-.faq-list { display: flex; flex-direction: column; gap: 12px; }
-.faq-card { padding: 20px 24px; border: 1px solid var(--border); border-radius: 14px; background: rgba(255,255,255,0.02); }
-.faq-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin: 0 0 8px 0; }
-.faq-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin: 0; }
-
-.guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 40px; }
-.guide-card-re { display: block; padding: 16px 20px; border: 1px solid var(--border); border-radius: 14px; text-decoration: none; background: rgba(255,255,255,0.02); transition: border-color 0.15s; }
-.guide-card-re:hover { border-color: var(--cyan); }
-.guide-card-re strong { display: block; font-size: 14px; color: var(--text); margin-bottom: 4px; }
-.guide-card-re span { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-/* ===== Count Badge ===== */
-.count-wrap { display: inline-flex; align-items: baseline; gap: 4px; margin-top: 4px; }
-.count-num { font-size: 48px; font-weight: 800; color: var(--cyan); line-height: 1; }
-
-@media (max-width: 640px) {
-  .cat-hero { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .cat-hero-card { padding: 16px 6px 14px; }
-  .cat-hero-icon { font-size: 24px; }
-  .cat-hero-name { font-size: 11px; }
-  .hot-grid { grid-template-columns: 1fr; }
-  .sc-grid { grid-template-columns: 1fr; }
-  .tool-grid-re { grid-template-columns: 1fr; }
-  .search-hero input { font-size: 14px; padding: 14px 48px 14px 16px; }
-}
-</style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebApplication",
-      "name": "ZenTools - 免费在线工具大全",
-      "description": "279款免费在线工具，涵盖PDF、图片、AI、音视频、文本、开发、生活、金融等13个分类",
-      "url": "https://zentools.xyz/tools.html",
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.5",
-        "reviewCount": "1000"
-      }
-    },
-    {
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "ZenTools的工具真的完全免费吗？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "是的，所有工具完全免费，无需注册和登录。文件处理在浏览器本地完成，不上传服务器。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "文件上传到服务器了吗？隐私安全吗？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "不会上传。ZenTools的核心理念是数据不出设备，所有处理都在你的浏览器中本地完成。"
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "可以在手机上使用吗？",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "所有工具支持移动端浏览器，作为PWA可添加到桌面像原生App一样使用。"
-          }
-        }
-      ]
-    }
-  ]
-}
-</script>
-<script>
-window.ZT_PAGE = {
-  zh: {
-    pageTitle: '工具大全 - 免费在线工具 | ZenTools',
-    metaDesc: '浏览 ZenTools 免费在线工具大全，包括 PDF、图片、AI、文字、办公和生活等 279 款工具。',
-    h1Grad: '工具大全',
-    pageDesc: '279 款免费在线工具，涵盖 PDF、图片、AI、音视频、文本、开发、生活、金融等 13 个分类。',
-    crumbHome: '首页', crumbCur: '工具大全',
-    hCat: '按分类浏览',
-    hHot: '热门工具',
-    hScenario: '按场景选工具',
-    hRecent: '最近使用',
-    recentClear: '清空',
-    recentEmpty: '点击工具后自动出现在这里',
-    hAll: '全部工具',
-    hSearch: '搜索工具',
-    searchPlaceholder: '搜索 279 款工具，例如：PDF合并、图片压缩、AI写作...',
-    filterAll: '全部',
-    noResult: '没有找到匹配的工具，试试其他关键词',
-    scenario_all: '全部场景', scenario_office: '办公效率', scenario_content: '内容创作',
-    scenario_dev: '开发调试', scenario_study: '学习教育', scenario_design: '设计美化',
-    hFaq: '常见问题', hGuides: '推荐教程',
-    cntTools: ' 款工具',
-    bookmark: '收藏本站，下次办公快人一步',
-    faq1Q: 'ZenTools的工具真的完全免费吗？',
-    faq1A: '是的，所有工具完全免费，无需注册和登录。文件处理在浏览器本地完成，不上传服务器。',
-    faq2Q: '文件上传到服务器了吗？隐私安全吗？',
-    faq2A: '不会上传。ZenTools的核心理念是"数据不出设备"，所有处理都在你的浏览器中本地完成。',
-    faq3Q: '可以在手机上使用吗？',
-    faq3A: '所有工具支持移动端浏览器，作为PWA可添加到桌面像原生App一样使用。',
-  },
-  en: {
-    pageTitle: 'All Tools - Free Online Tools | ZenTools',
-    metaDesc: 'Browse all 279 ZenTools free online tools, including PDF, image, AI, text, office and life tools.',
-    h1Grad: 'All Tools', pageDesc: '279 free online tools across 13 categories — PDF, image, AI, audio/video, text, dev, life, finance.',
-    crumbHome: 'Home', crumbCur: 'All Tools',
-    hCat: 'Browse by Category', hHot: 'Popular Tools', hScenario: 'Find by Scenario',
-    hRecent: 'Recently Used', recentClear: 'Clear', recentEmpty: 'Recently used tools appear here',
-    hAll: 'All Tools', hSearch: 'Search Tools',
-    searchPlaceholder: 'Search 279 tools, e.g. PDF merge, image compress, AI writing...',
-    filterAll: 'All', noResult: 'No matching tools found. Try another keyword.',
-    scenario_all: 'All', scenario_office: 'Office', scenario_content: 'Content Creation',
-    scenario_dev: 'Dev', scenario_study: 'Study', scenario_design: 'Design',
-    hFaq: 'FAQ', hGuides: 'Recommended Guides',
-    cntTools: ' tools', bookmark: 'Bookmark us for quick access',
-    faq1Q: 'Are ZenTools tools completely free?',
-    faq1A: 'Yes, all tools are completely free with no registration or login required. File processing is done locally in your browser, not uploaded to any server.',
-    faq2Q: 'Are my files uploaded to a server? Is it private and secure?',
-    faq2A: 'Files are never uploaded. ZenTools core principle is "data stays on your device" - all processing happens locally in your browser.',
-    faq3Q: 'Can I use it on mobile?',
-    faq3A: 'All tools support mobile browsers. As a PWA, they can be added to your home screen and used like native apps.',
-  },
-  ja: {
-    pageTitle: '全ツール - 無料オンラインツール | ZenTools',
-    metaDesc: 'ZenTools の 279 種類の無料オンラインツール一覧。PDF、画像、AI、テキスト、オフィス、生活ツール。',
-    h1Grad: '全ツール', pageDesc: '13 カテゴリ、279 種類の無料オンラインツール。',
-    crumbHome: 'ホーム', crumbCur: '全ツール',
-    hCat: 'カテゴリで探す', hHot: '人気ツール', hScenario: 'シーン別検索',
-    hRecent: '最近の使用', recentClear: 'クリア', recentEmpty: '使用したツールが表示されます',
-    hAll: '全ツール', hSearch: 'ツール検索',
-    searchPlaceholder: '検索 (例：PDF結合、画像圧縮、AI文章作成...)',
-    filterAll: 'すべて', noResult: '一致するツールが見つかりません',
-    scenario_all: 'すべて', scenario_office: 'オフィス', scenario_content: 'コンテンツ作成',
-    scenario_dev: '開発', scenario_study: '学習', scenario_design: 'デザイン',
-    hFaq: 'よくある質問', hGuides: 'おすすめガイド',
-    cntTools: ' ツール', bookmark: 'ブックマーク',
-    faq1Q: 'ZenToolsのツールは本当に無料ですか？',
-    faq1A: 'はい、すべてのツールは完全に無料です。登録やログインは不要です。ファイル処理はブラウザ上でローカルに実行され、サーバーにはアップロードされません。',
-    faq2Q: 'ファイルはサーバーにアップロードされますか？プライバシーは安全ですか？',
-    faq2A: 'アップロードされません。ZenToolsの核心理念は「データは端末から出ない」ことで、すべての処理はブラウザ上でローカルに完了します。',
-    faq3Q: 'スマートフォンでも使えますか？',
-    faq3A: 'すべてのツールはモバイルブラウザに対応しており、PWAとしてホーム画面に追加してネイティブアプリのように使用できます。',
-  },
-  vi: {
-    pageTitle: 'Tất cả công cụ - Công cụ trực tuyến miễn phí | ZenTools',
-    metaDesc: 'Duyệt 279 công cụ trực tuyến miễn phí của ZenTools.',
-    h1Grad: 'Tất cả công cụ', pageDesc: '279 công cụ miễn phí trên 13 danh mục.',
-    crumbHome: 'Trang chủ', crumbCur: 'Tất cả công cụ',
-    hCat: 'Duyệt theo Danh mục', hHot: 'Công cụ Phổ biến', hScenario: 'Tìm theo Tình huống',
-    hRecent: 'Đã dùng gần đây', recentClear: 'Xóa', recentEmpty: 'Công cụ đã dùng hiện ở đây',
-    hAll: 'Tất cả công cụ', hSearch: 'Tìm công cụ',
-    searchPlaceholder: 'Tìm 279 công cụ, vd: gộp PDF, nén ảnh, viết AI...',
-    filterAll: 'Tất cả', noResult: 'Không tìm thấy công cụ phù hợp',
-    scenario_all: 'Tất cả', scenario_office: 'Văn phòng', scenario_content: 'Sáng tạo',
-    scenario_dev: 'Phát triển', scenario_study: 'Học tập', scenario_design: 'Thiết kế',
-    hFaq: 'Câu hỏi thường gặp', hGuides: 'Hướng dẫn gợi ý',
-    cntTools: ' công cụ', bookmark: 'Đánh dấu để truy cập nhanh',
-    faq1Q: 'Công cụ của ZenTools có hoàn toàn miễn phí không?',
-    faq1A: 'Có, tất cả công cụ hoàn toàn miễn phí, không cần đăng ký hay đăng nhập. Xử lý tệp được thực hiện cục bộ trong trình duyệt, không tải lên máy chủ.',
-    faq2Q: 'Tệp có được tải lên máy chủ không? Quyền riêng tư có an toàn không?',
-    faq2A: 'Không tải lên. Nguyên tắc cốt lõi của ZenTools là "dữ liệu không ra khỏi thiết bị", mọi xử lý đều hoàn thành cục bộ trong trình duyệt của bạn.',
-    faq3Q: 'Có thể sử dụng trên điện thoại di động không?',
-    faq3A: 'Tất cả công cụ hỗ trợ trình duyệt di động. Với PWA, có thể thêm vào màn hình chính và sử dụng như ứng dụng native.',
-  }
-};
-</script>
-</head>
-<body>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-
-<div class="z-wrap">
-  <nav>
-    <div class="nav-inner">
-      <a class="logo" href="/">ZenTools<span>2.0</span></a>
-      <div class="nav-links">
-        <a href="/" data-i18n="navHome">首页</a>
-        <a href="/tools.html" data-i18n="navAll" style="color:var(--cyan)">全部工具</a>
-        <select class="lang-select" id="langSelect">
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-          <option value="ja">日本語</option>
-          <option value="vi">Tiếng Việt</option>
-        </select>
-      </div>
-    </div>
-  </nav>
-
-  <div class="page-header reveal">
-    <div class="breadcrumb">
-      <a href="/" data-i18n="crumbHome">首页</a>
-      <span>/</span>
-      <span data-i18n="crumbCur">工具大全</span>
-    </div>
-    <h1 data-i18n="h1Grad">工具大全</h1>
-    <p data-i18n="pageDesc">279 款免费在线工具，涵盖 PDF、图片、AI、音视频、文本、开发、生活、金融等 13 个分类。</p>
-    <div class="count-wrap"><span class="count-num" id="totalCount">279</span><span style="font-size:16px;color:var(--muted)" data-i18n="cntTools"> 款工具</span></div>
-  </div>
-
-  <div class="tool-box reveal">
-    <!-- Category Navigation -->
-    <div class="sec-head"><h2 data-i18n="hCat">按分类浏览</h2></div>
-    <div class="cat-hero" id="catNav"></div>
-  </div>
-
-  <!-- Search -->
-  <div class="search-hero reveal">
-    <div class="sec-head"><h2 data-i18n="hSearch">搜索工具</h2></div>
-    <input type="text" id="toolSearch" data-i18n-placeholder="searchPlaceholder" placeholder="搜索 279 款工具..." autocomplete="off" />
-    <span class="s-icon">🔍</span>
-    <div id="searchDropdown" class="search-drop"></div>
-  </div>
-
-  <!-- Stats / Filter Bar -->
-  <div class="stats-bar" id="statsBar"></div>
-
-  <!-- Hot Tools -->
-  <div class="reveal">
-    <div class="sec-head"><h2 data-i18n="hHot">热门工具</h2><span class="badge">Top 8</span></div>
-    <div class="hot-grid" id="hotGrid"></div>
-  </div>
-
-  <!-- Scenario Tabs -->
-  <div class="scenario-wrap reveal">
-    <div class="sec-head"><h2 data-i18n="hScenario">按场景选工具</h2></div>
-    <div class="sc-tabs" id="scenarioTabs">
-      <button class="sc-tab active" data-scenario="all" data-i18n="scenario_all">全部场景</button>
-      <button class="sc-tab" data-scenario="office" data-i18n="scenario_office">办公效率</button>
-      <button class="sc-tab" data-scenario="content" data-i18n="scenario_content">内容创作</button>
-      <button class="sc-tab" data-scenario="dev" data-i18n="scenario_dev">开发调试</button>
-      <button class="sc-tab" data-scenario="study" data-i18n="scenario_study">学习教育</button>
-      <button class="sc-tab" data-scenario="design" data-i18n="scenario_design">设计美化</button>
-    </div>
-    <div class="sc-grid" id="scenarioGrid"></div>
-  </div>
-
-  <!-- Recently Used -->
-  <div class="recent-wrap reveal" id="recentWrap">
-    <div class="sec-head">
-      <h2 data-i18n="hRecent">最近使用</h2>
-      <button class="rc-clr" id="recentClear" data-i18n="recentClear">清除</button>
-    </div>
-    <div class="recent-chips" id="recentChips"></div>
-  </div>
-
-  <!-- All Tools -->
-  <div class="reveal">
-    <div class="sec-head"><h2 data-i18n="hAll">全部工具</h2><span class="badge" id="toolCountBadge">279</span></div>
-    <div class="tool-grid-re" id="toolGrid"></div>
-  </div>
-
-  <!-- FAQ & Guides -->
-  <div class="info-footer reveal">
-    <h2 data-i18n="hFaq">常见问题</h2>
-    <div class="faq-list">
-      <div class="faq-card"><h3 data-i18n="faq1Q">ZenTools 的工具真的完全免费吗？</h3><p data-i18n="faq1A">是的，所有工具完全免费，无需注册和登录。文件处理在浏览器本地完成，不上传服务器。</p></div>
-      <div class="faq-card"><h3 data-i18n="faq2Q">文件上传到服务器了吗？隐私安全吗？</h3><p data-i18n="faq2A">不会上传。ZenTools 的核心理念是"数据不出设备"，所有处理都在你的浏览器中本地完成。</p></div>
-      <div class="faq-card"><h3 data-i18n="faq3Q">可以在手机上使用吗？</h3><p data-i18n="faq3A">所有工具支持移动端浏览器，作为 PWA 可添加到桌面像原生 App 一样使用。</p></div>
-    </div>
-    <h2 data-i18n="hGuides" style="margin-top:36px">推荐教程</h2>
-    <div class="guide-grid">
-      <a href="/guides/pdf-automation-guide.html" class="guide-card-re"><strong>PDF自动化工作流指南</strong><span>用Python和开源工具构建PDF自动处理流水线</span></a>
-      <a href="/guides/ai-writing-workflow.html" class="guide-card-re"><strong>AI写作完整工作流</strong><span>从选题到发布，一站式AI辅助内容生产</span></a>
-      <a href="/guides/seo-optimization-checklist.html" class="guide-card-re"><strong>SEO优化完整清单</strong><span>从关键词研究到技术SEO的完整优化步骤</span></a>
-      <a href="/guides/free-api-models-guide.html" class="guide-card-re"><strong>免费AI模型API大全</strong><span>DeepSeek、Qwen等主流免费模型对比与接入指南</span></a>
-    </div>
-  </div>
-
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo">ZenTools</div>
-      <div class="footer-links">
-        <a href="/about.html" data-i18n="navAbout">关于</a>
-        <a href="/privacy.html" data-i18n="navPrivacy">隐私政策</a>
-        <a href="/changelog.html" data-i18n="navChangelog">更新日志</a>
-      </div>
-      <p class="footer-copy" data-i18n="footCopy">&copy; 2026 ZenTools. 免费在线工具箱。</p>
-    </div>
-  </footer>
-</div>
-
-<script src="assets/js/tools-data.js"></script>
-<script src="assets/js/common-i18n.min.js"></script>
-<script src="assets/js/tool-ui.min.js"></script>
-<script>
-(function() {
-  'use strict';
-
-  var currentLang = 'zh';
-  var currentCategory = 'all';
-  var currentScenario = 'all';
-
-  function tName(t, l) { return t['name__' + l] || t['name__en'] || t.name; }
-  function tDesc(t, l) { return t['description__' + l] || t['description__en'] || t.description || ''; }
-
-  function catLocal(cat, l) {
-    var map = {
-      'AI工具': {en:'AI Tools', ja:'AIツール', vi:'Công cụ AI'},
-      '图片工具': {en:'Image Tools', ja:'画像ツール', vi:'Công cụ hình ảnh'},
-      'PDF工具': {en:'PDF Tools', ja:'PDFツール', vi:'Công cụ PDF'},
-      '文本工具': {en:'Text Tools', ja:'テキストツール', vi:'Công cụ văn bản'},
-      '视频工具': {en:'Video Tools', ja:'動画ツール', vi:'Công cụ video'},
-      '音频工具': {en:'Audio Tools', ja:'音声ツール', vi:'Công cụ âm thanh'},
-      '开发工具': {en:'Dev Tools', ja:'開発ツール', vi:'Công cụ phát triển'},
-      'SEO工具': {en:'SEO Tools', ja:'SEOツール', vi:'Công cụ SEO'},
-      '生活助手': {en:'Life Tools', ja:'生活ツール', vi:'Công cụ đời sống'},
-      '金融工具': {en:'Finance Tools', ja:'金融ツール', vi:'Công cụ tài chính'},
-      '教育工具': {en:'Education Tools', ja:'教育ツール', vi:'Công cụ giáo dục'},
-      '设计工具': {en:'Design Tools', ja:'デザインツール', vi:'Công cụ thiết kế'},
-      '办公工具': {en:'Office Tools', ja:'オフィスツール', vi:'Công cụ văn phòng'},
-      '二维码工具': {en:'QR Tools', ja:'QRツール', vi:'Công cụ QR'},
-      'JSON工具': {en:'JSON Tools', ja:'JSONツール', vi:'Công cụ JSON'},
-      '综合工具': {en:'General Tools', ja:'総合ツール', vi:'Công cụ tổng hợp'},
-    };
-    if (l === 'zh') return cat;
-    return (map[cat] && map[cat][l]) || cat;
-  }
-
-  var catMeta = {
-    'AI工具':     { slug: 'ai', icon: '🤖', clr: '#8b4cff' },
-    '图片工具':   { slug: 'image', icon: '🖼️', clr: '#27c27b' },
-    'PDF工具':    { slug: 'pdf', icon: '📄', clr: '#f43145' },
-    '文本工具':   { slug: 'text', icon: '📝', clr: '#f59e0b' },
-    '视频工具':   { slug: 'video', icon: '🎬', clr: '#ec4899' },
-    '音频工具':   { slug: 'audio', icon: '🎵', clr: '#3278ff' },
-    '开发工具':   { slug: 'dev', icon: '💻', clr: '#22b978' },
-    'SEO工具':    { slug: 'seo', icon: '🔍', clr: '#0ea5e9' },
-    '生活助手':   { slug: 'life', icon: '🌍', clr: '#ffb324' },
-    '金融工具':   { slug: 'finance', icon: '💰', clr: '#10b981' },
-    '教育工具':   { slug: 'education', icon: '📚', clr: '#6366f1' },
-    '设计工具':   { slug: 'design', icon: '🎨', clr: '#ec4899' },
-    '办公工具':   { slug: 'office', icon: '📎', clr: '#14b8a6' },
-    '二维码工具': { slug: 'qr', icon: '📱', clr: '#f97316' },
-    'JSON工具':   { slug: 'json', icon: '{}', clr: '#eab308' },
-    '综合工具':   { slug: 'tools', icon: '🔧', clr: '#6b7280' },
-  };
-
-  function getCatCounts() {
-    var counts = {};
-    toolsData.forEach(function(t) {
-      counts[t.category] = (counts[t.category] || 0) + 1;
-    });
-    return counts;
-  }
-
-  function renderCatNav(lang) {
-    var counts = getCatCounts();
-    var cats = Object.keys(catMeta).filter(function(c) { return counts[c]; });
-    var html = cats.map(function(c) {
-      var m = catMeta[c];
-      return '<a href="/' + m.slug + '/" class="cat-hero-card" style="--cat-clr:' + m.clr + '">' +
-        '<span class="cat-hero-icon">' + m.icon + '</span>' +
-        '<span class="cat-hero-name">' + catLocal(c, lang) + '</span>' +
-        '<span class="cat-hero-count">' + counts[c] + '</span></a>';
-    }).join('');
-    document.getElementById('catNav').innerHTML = html;
-    document.getElementById('totalCount').textContent = toolsData.length;
-  }
-
-  function renderStatsBar(lang) {
-    var counts = getCatCounts();
-    var cats = Object.keys(catMeta).filter(function(c) { return counts[c]; });
-    var html = '<span class="stat-chip" style="cursor:pointer" onclick="__filterCat(\'all\')" id="statAll"><span class="sc">' + toolsData.length + '</span>' +
-      (window.ZT_PAGE[lang].filterAll || 'All') + '</span>';
-    cats.forEach(function(c) {
-      var m = catMeta[c];
-      html += '<span class="stat-chip stat-filter" style="--cat-clr:' + m.clr + '" onclick="__filterCat(\'' + c.replace(/'/g, "\\'") + '\')" data-cat="' + c.replace(/"/g, '&quot;') + '">' +
-        m.icon + ' ' + catLocal(c, lang) + ' <span class="sc">' + counts[c] + '</span></span>';
-    });
-    document.getElementById('statsBar').innerHTML = html;
-    window.__filterCat = function(cat) {
-      currentCategory = cat;
-      renderToolGrid(currentLang);
-      var allChips = document.querySelectorAll('.stat-filter');
-      allChips.forEach(function(chip) {
-        chip.classList.toggle('active', chip.getAttribute('data-cat') === cat);
-      });
-    };
-  }
-
-  function getFilteredTools() {
-    if (currentCategory === 'all') return toolsData;
-    return toolsData.filter(function(t) { return t.category === currentCategory; });
-  }
-
-  function renderToolGrid(lang) {
-    var tools = getFilteredTools();
-    var container = document.getElementById('toolGrid');
-    var badge = document.getElementById('toolCountBadge');
-    if (tools.length === 0) {
-      container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--muted);font-size:15px" data-i18n="noResult">没有找到匹配的工具</div>';
-      badge.textContent = '0';
-      return;
-    }
-    badge.textContent = tools.length;
-    container.innerHTML = tools.map(function(t) {
-      return '<a class="tool-card-re" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
-        '<span class="tc-icon">' + t.icon + '</span>' +
-        '<span class="tc-name">' + tName(t, lang) + '</span>' +
-        '<span class="tc-desc">' + tDesc(t, lang) + '</span>' +
-        '<span class="tc-cat">' + catLocal(t.category, lang) + '</span></a>';
-    }).join('');
-    window.__recordRecent = recordRecent;
-  }
-
-  // Hot Tools
-  function renderHot(lang) {
-    var slugs = ['pdf-merge', 'image-compressor', 'text-to-speech', 'currency-converter',
-                 'image-resize', 'pdf-split', 'ai-tools-directory', 'worldtime'];
-    var tools = slugs.map(function(s) { return toolsData.find(function(t) { return t.slug === s; }); }).filter(Boolean);
-    document.getElementById('hotGrid').innerHTML = tools.map(function(t, i) {
-      return '<a class="hot-item" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
-        '<span class="hot-rank r' + (i+1) + '">' + (i+1) + '</span>' +
-        '<span class="hot-icon">' + t.icon + '</span>' +
-        '<div class="hot-info"><div class="hot-name">' + tName(t, lang) + '</div><div class="hot-desc">' + tDesc(t, lang) + '</div></div></a>';
-    }).join('');
-  }
-
-  // Scenario
-  var scenarios = {
-    office: ['pdf-merge','pdf-split','pdf-compress','image-compressor','image-resize','currency-converter','worldtime','text-to-speech'],
-    content: ['ai-tools-directory','text-to-speech','image-compressor','image-resize'],
-    dev: ['json-formatter','sql-formatter','image-resize','worldtime'],
-    study: ['text-to-speech','pdf-merge','worldtime','currency-converter'],
-    design: ['image-compressor','image-resize','worldtime'],
-  };
-
-  function renderScenario(scenario, lang) {
-    var slugs = scenario === 'all' ? [] : (scenarios[scenario] || []);
-    var tools = slugs.length > 0
-      ? slugs.map(function(s) { return toolsData.find(function(t) { return t.slug === s; }); }).filter(Boolean)
-      : toolsData.slice(0, 8);
-    if (tools.length === 0) tools = toolsData.slice(0, 8);
-    document.getElementById('scenarioGrid').innerHTML = tools.map(function(t) {
-      return '<a class="sc-item" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
-        '<span class="si-icon">' + t.icon + '</span><span class="si-name">' + tName(t, lang) + '</span></a>';
-    }).join('');
-  }
-
-  // Recently Used
-  function recordRecent(slug) {
-    var arr = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
-    arr = arr.filter(function(s) { return s !== slug; });
-    arr.unshift(slug);
-    arr = arr.slice(0, 10);
-    localStorage.setItem('zentools_recent', JSON.stringify(arr));
-    renderRecent(currentLang);
-  }
-
-  function renderRecent(lang) {
-    var arr = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
-    var wrap = document.getElementById('recentWrap');
-    var chips = document.getElementById('recentChips');
-    if (arr.length === 0) { wrap.classList.remove('visible'); return; }
-    wrap.classList.add('visible');
-    chips.innerHTML = arr.map(function(slug) {
-      var t = toolsData.find(function(t) { return t.slug === slug; });
-      if (!t) return '';
-      return '<a class="rc-chip" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
-        t.icon + ' ' + tName(t, lang) + '</a>';
-    }).filter(Boolean).join('');
-  }
-
-  // Search
-  function doSearch(query, lang) {
-    var dd = document.getElementById('searchDropdown');
-    if (!query || !query.trim()) { dd.classList.remove('open'); return; }
-    var q = query.toLowerCase().trim();
-    var results = toolsData.filter(function(t) {
-      return (tName(t, lang) || '').toLowerCase().indexOf(q) >= 0 ||
-             (tDesc(t, lang) || '').toLowerCase().indexOf(q) >= 0 ||
-             (t.keywords || '').toLowerCase().indexOf(q) >= 0 ||
-             (t.category || '').toLowerCase().indexOf(q) >= 0;
-    }).slice(0, 12);
-    if (results.length === 0) {
-      dd.innerHTML = '<div style="text-align:center;padding:20px;color:var(--muted);font-size:13px" data-i18n="noResult">没有匹配</div>';
-    } else {
-      dd.innerHTML = results.map(function(t) {
-        return '<a href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
-          t.icon + ' ' + tName(t, lang) + '<span class="sd-cat">' + catLocal(t.category, lang) + '</span></a>';
-      }).join('');
-    }
-    dd.classList.add('open');
-  }
-
-  function applyLang(lang) {
-    currentLang = lang;
-    var d = window.ZT_PAGE[lang];
-    if (!d) return;
-    document.title = d.pageTitle;
-    document.getElementById('metaDesc').content = d.metaDesc;
-    document.querySelectorAll('[data-i18n]').forEach(function(el) {
-      var k = el.getAttribute('data-i18n');
-      if (d[k]) el.textContent = d[k];
-    });
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
-      var k = el.getAttribute('data-i18n-placeholder');
-      if (d[k]) el.placeholder = d[k];
-    });
-    document.getElementById('totalCount').textContent = toolsData.length;
-    renderCatNav(lang);
-    renderStatsBar(lang);
-    renderHot(lang);
-    renderScenario(currentScenario, lang);
-    renderRecent(lang);
-    renderToolGrid(lang);
-    var sv = document.getElementById('toolSearch');
-    if (sv.value.trim()) doSearch(sv.value, lang);
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    var lang = localStorage.getItem('zentools_lang') || 'zh';
-    applyLang(lang);
-
-    var sel = document.getElementById('langSelect');
-    if (sel) {
-      sel.value = lang;
-      sel.addEventListener('change', function() {
-        applyLang(this.value);
-        localStorage.setItem('zentools_lang', this.value);
-        window.dispatchEvent(new CustomEvent('zt-langchange', {detail: {lang: this.value}}));
-      });
-    }
-
-    var si = document.getElementById('toolSearch');
-    si.addEventListener('input', function() { doSearch(this.value, currentLang); });
-    si.addEventListener('focus', function() { if (this.value.trim()) doSearch(this.value, currentLang); });
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.search-hero')) document.getElementById('searchDropdown').classList.remove('open');
-    });
-
-    document.getElementById('scenarioTabs').addEventListener('click', function(e) {
-      if (!e.target.classList.contains('sc-tab')) return;
-      this.querySelectorAll('.sc-tab').forEach(function(t) { t.classList.remove('active'); });
-      e.target.classList.add('active');
-      currentScenario = e.target.getAttribute('data-scenario');
-      renderScenario(currentScenario, currentLang);
-    });
-
-    document.getElementById('recentClear').addEventListener('click', function() {
-      localStorage.removeItem('zentools_recent');
-      renderRecent(currentLang);
-    });
-  });
-
-  window.addEventListener('zt-langchange', function(e) { applyLang(e.detail.lang); });
-})();
-</script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+</div>
+<script src="assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title data-i18n="pageTitle">工具大全 - 免费在线工具 | ZenTools</title>
+<meta name="description" content="浏览 ZenTools 免费在线工具大全，包括 PDF、图片、AI、文字、办公和生活等 279 款工具。" id="metaDesc" />
+<meta property="og:title" content="工具大全 - 免费在线工具 | ZenTools" />
+<meta property="og:description" content="279 款免费在线工具，包括 PDF、图片、AI、文字、办公、生活等分类。" />
+<meta property="og:url" content="https://zentools.xyz/tools.html" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://zentools.xyz/tools.html" />
+<link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="assets/css/tool-ui.min.css" />
+<style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
+/* ===== Category Navigation Hero ===== */
+.cat-hero { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; margin: 20px 0; }
+.cat-hero-card { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 22px 10px 18px; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid var(--zen-border); text-decoration: none; transition: transform 0.2s, border-color 0.2s, background 0.2s; }
+.cat-hero-card:hover { transform: translateY(-4px); border-color: var(--cat-clr); background: rgba(255,255,255,0.07); }
+.cat-hero-icon { font-size: 30px; line-height: 1; }
+.cat-hero-name { font-size: 13px; font-weight: 600; color: var(--zen-text-main); text-align: center; }
+.cat-hero-count { font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 12px; color: var(--cat-clr); background: color-mix(in srgb, var(--cat-clr) 12%, transparent); }
+
+/* ===== Search Bar ===== */
+.search-hero { position: relative; margin: 28px 0 20px; }
+.search-hero input { width: 100%; padding: 16px 56px 16px 24px; border-radius: 16px; border: 2px solid var(--zen-border); background: rgba(255,255,255,0.03); color: var(--zen-text-main); font-size: 16px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.search-hero input:focus { border-color: var(--zen-primary); box-shadow: 0 0 0 3px rgba(0,229,255,0.08); }
+.search-hero .s-icon { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); font-size: 20px; color: var(--zen-text-sub); pointer-events: none; }
+.search-drop { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--zen-bg-base); border: 1px solid var(--zen-border); border-radius: 0 0 14px 14px; max-height: 280px; overflow-y: auto; z-index: 100; display: none; box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+.search-drop.open { display: block; }
+.search-drop a { display: flex; align-items: center; gap: 10px; padding: 12px 20px; text-decoration: none; color: var(--zen-text-main); font-size: 14px; transition: background 0.12s; }
+.search-drop a:hover { background: rgba(255,255,255,0.05); }
+.search-drop a .sd-cat { font-size: 11px; color: var(--zen-text-sub); margin-left: auto; }
+
+/* ===== Quick Stats Bar ===== */
+.stats-bar { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0 24px; }
+.stat-chip { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 24px; border: 1px solid var(--zen-border); font-size: 13px; color: var(--zen-text-main); background: rgba(255,255,255,0.02); }
+.stat-chip .sc { color: var(--zen-primary); font-weight: 700; }
+.stat-filter { cursor: pointer; transition: border-color 0.15s, background 0.15s; }
+.stat-filter:hover { border-color: var(--zen-primary); }
+.stat-filter.active { background: rgba(0,229,255,0.1); border-color: var(--zen-primary); color: var(--zen-primary); font-weight: 600; }
+.stat-filter .chip-x { margin-left: 2px; font-size: 14px; }
+
+/* ===== Section Title ===== */
+.sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+.sec-head h2 { font-size: 19px; margin: 0; color: var(--zen-text-main); font-weight: 700; }
+.sec-head .badge { font-size: 12px; color: var(--zen-primary); font-weight: 600; }
+
+/* ===== Hot Tools ===== */
+.hot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px; margin-bottom: 28px; }
+.hot-item { display: flex; align-items: center; gap: 14px; padding: 16px 20px; border-radius: 14px; background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01)); border: 1px solid var(--zen-border); text-decoration: none; transition: transform 0.15s, border-color 0.15s; }
+.hot-item:hover { transform: translateY(-2px); border-color: var(--zen-secondary); }
+.hot-rank { font-size: 20px; font-weight: 800; min-width: 26px; text-align: center; }
+.hot-rank.r1,.hot-rank.r2,.hot-rank.r3 { background: linear-gradient(135deg, #f59e0b, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hot-rank.r4,.hot-rank.r5,.hot-rank.r6 { color: var(--zen-text-sub); }
+.hot-rank.r7,.hot-rank.r8 { color: var(--zen-text-sub); }
+.hot-info { flex: 1; min-width: 0; }
+.hot-name { font-size: 14px; font-weight: 600; color: var(--zen-text-main); }
+.hot-desc { font-size: 11px; color: var(--zen-text-sub); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hot-icon { font-size: 24px; flex-shrink: 0; }
+
+/* ===== Scenario Tabs ===== */
+.scenario-wrap { margin-bottom: 28px; }
+.sc-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.sc-tab { padding: 8px 20px; border-radius: 20px; border: 1px solid var(--zen-border); background: transparent; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.sc-tab.active { background: var(--zen-primary); color: var(--zen-bg-base); border-color: var(--zen-primary); font-weight: 600; }
+.sc-tab:hover:not(.active) { border-color: var(--zen-primary); color: var(--zen-primary); }
+.sc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.sc-item { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--zen-border); text-decoration: none; transition: border-color 0.15s; }
+.sc-item:hover { border-color: var(--zen-primary); }
+.sc-item .si-icon { font-size: 20px; }
+.sc-item .si-name { font-size: 13px; font-weight: 600; color: var(--zen-text-main); }
+
+/* ===== Recently Used ===== */
+.recent-wrap { margin-bottom: 28px; display: none; }
+.recent-wrap.visible { display: block; }
+.recent-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.rc-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 20px; border: 1px solid var(--zen-border); background: rgba(255,255,255,0.02); text-decoration: none; font-size: 13px; color: var(--zen-text-main); transition: border-color 0.15s; }
+.rc-chip:hover { border-color: var(--zen-danger); }
+.rc-clr { font-size: 11px; color: var(--zen-text-sub); cursor: pointer; text-decoration: underline; margin-left: 8px; background: none; border: none; }
+
+/* ===== Tool Grid ===== */
+.tool-grid-re { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-bottom: 32px; }
+.tool-card-re { display: flex; flex-direction: column; gap: 8px; padding: 20px; border-radius: 14px; background: rgba(255,255,255,0.03); border: 1px solid var(--zen-border); text-decoration: none; transition: transform 0.15s, border-color 0.15s, background 0.15s; }
+.tool-card-re:hover { transform: translateY(-3px); border-color: var(--zen-secondary); background: rgba(255,255,255,0.06); }
+.tool-card-re .tc-icon { font-size: 28px; line-height: 1; }
+.tool-card-re .tc-name { font-size: 14px; font-weight: 600; color: var(--zen-text-main); }
+.tool-card-re .tc-desc { font-size: 12px; color: var(--zen-text-sub); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tool-card-re .tc-cat { display: inline-block; font-size: 10px; padding: 3px 10px; border-radius: 8px; background: rgba(168,85,247,0.1); color: var(--zen-secondary); font-weight: 600; align-self: flex-start; }
+
+/* ===== FAQ & Guides ===== */
+.info-footer { max-width: 900px; margin: 40px auto 0; padding: 0 8px; }
+.info-footer h2 { font-size: 20px; text-align: center; margin-bottom: 20px; }
+.faq-list { display: flex; flex-direction: column; gap: 12px; }
+.faq-card { padding: 20px 24px; border: 1px solid var(--zen-border); border-radius: 14px; background: rgba(255,255,255,0.02); }
+.faq-card h3 { font-size: 15px; font-weight: 600; color: var(--zen-text-main); margin: 0 0 8px 0; }
+.faq-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.7; margin: 0; }
+
+.guide-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; margin-bottom: 40px; }
+.guide-card-re { display: block; padding: 16px 20px; border: 1px solid var(--zen-border); border-radius: 14px; text-decoration: none; background: rgba(255,255,255,0.02); transition: border-color 0.15s; }
+.guide-card-re:hover { border-color: var(--zen-primary); }
+.guide-card-re strong { display: block; font-size: 14px; color: var(--zen-text-main); margin-bottom: 4px; }
+.guide-card-re span { font-size: 12px; color: var(--zen-text-sub); line-height: 1.5; }
+
+/* ===== Count Badge ===== */
+.count-wrap { display: inline-flex; align-items: baseline; gap: 4px; margin-top: 4px; }
+.count-num { font-size: 48px; font-weight: 800; color: var(--zen-primary); line-height: 1; }
+
+@media (max-width: 640px) {
+  .cat-hero { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cat-hero-card { padding: 16px 6px 14px; }
+  .cat-hero-icon { font-size: 24px; }
+  .cat-hero-name { font-size: 11px; }
+  .hot-grid { grid-template-columns: 1fr; }
+  .sc-grid { grid-template-columns: 1fr; }
+  .tool-grid-re { grid-template-columns: 1fr; }
+  .search-hero input { font-size: 14px; padding: 14px 48px 14px 16px; }
+
+  /* ===== 统一工具标签 ===== */
+  .zt-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .zt-tag {
+    display: inline-flex; align-items: center; gap: 3px;
+    font-size: 11px; line-height: 1; font-weight: 600;
+    padding: 3px 8px; border-radius: 999px;
+    border: 1px solid var(--zen-border); color: var(--zen-text-sub); background: rgba(255,255,255,0.03);
+  }
+  .zt-tag.zt-local  { color: #1f9d57; border-color: rgba(31,157,87,.35); background: rgba(31,157,87,.10); }
+  .zt-tag.zt-free   { color: #2a7de1; border-color: rgba(42,125,225,.35); background: rgba(42,125,225,.10); }
+  .zt-tag.zt-multi  { color: #8b4cff; border-color: rgba(139,76,255,.35); background: rgba(139,76,255,.10); }
+  .zt-tag.zt-export { color: #0ea5a5; border-color: rgba(14,165,165,.35); background: rgba(14,165,165,.10); }
+  .zt-tag.zt-batch  { color: #e8860c; border-color: rgba(232,134,12,.35); background: rgba(232,134,12,.10); }
+  .tc-export { font-size: 11px; color: var(--zen-text-sub); margin-top: 4px; }
+
+  /* ===== 多维度筛选栏 ===== */
+  .zt-filterbar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    margin: 18px 0 6px; padding: 14px 16px;
+    border: 1px solid var(--zen-border); border-radius: 14px;
+    background: rgba(255,255,255,0.02);
+  }
+  .zf-label { font-size: 13px; font-weight: 700; color: var(--zen-text-main); }
+  .zf-sel {
+    padding: 8px 12px; border-radius: 10px; border: 1px solid var(--zen-border);
+    background: var(--zen-bg-base); color: var(--zen-text-main); font-size: 13px; outline: none; cursor: pointer;
+  }
+  .zf-sel:focus { border-color: var(--zen-primary); }
+  .zf-clear {
+    padding: 8px 14px; border-radius: 10px; border: 1px solid var(--zen-border);
+    background: transparent; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  }
+  .zf-clear:hover { border-color: var(--zen-primary); color: var(--zen-primary); }
+  .zf-count { margin-left: auto; font-size: 13px; color: var(--zen-text-sub); }
+  .zf-count b { color: var(--zen-primary); }
+  @media (max-width: 600px) {
+    .zt-filterbar { gap: 8px; padding: 12px; }
+    .zf-sel { flex: 1 1 calc(50% - 4px); }
+    .zf-label { width: 100%; }
+    .zf-count { width: 100%; margin-left: 0; text-align: right; }
+  }
+}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "工具大全"}]}</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "ZenTools - 免费在线工具大全",
+      "description": "279款免费在线工具，涵盖PDF、图片、AI、音视频、文本、开发、生活、金融等13个分类",
+      "url": "https://zentools.xyz/tools.html",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "reviewCount": "1000"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "ZenTools的工具真的完全免费吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "是的，所有工具完全免费，无需注册和登录。文件处理在浏览器本地完成，不上传服务器。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "文件上传到服务器了吗？隐私安全吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "不会上传。ZenTools的核心理念是数据不出设备，所有处理都在你的浏览器中本地完成。"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "可以在手机上使用吗？",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "所有工具支持移动端浏览器，作为PWA可添加到桌面像原生App一样使用。"
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<script>
+window.ZT_PAGE = {
+  zh: {
+    pageTitle: '工具大全 - 免费在线工具 | ZenTools',
+    metaDesc: '浏览 ZenTools 免费在线工具大全，包括 PDF、图片、AI、文字、办公和生活等 279 款工具。',
+    h1Grad: '工具大全',
+    pageDesc: '279 款免费在线工具，涵盖 PDF、图片、AI、音视频、文本、开发、生活、金融等 13 个分类。',
+    crumbHome: '首页', crumbCur: '工具大全',
+    hCat: '按分类浏览',
+    hHot: '热门工具',
+    hScenario: '按场景选工具',
+    hRecent: '最近使用',
+    recentClear: '清空',
+    recentEmpty: '点击工具后自动出现在这里',
+    hAll: '全部工具',
+    hSearch: '搜索工具',
+    searchPlaceholder: '搜索 279 款工具，例如：PDF合并、图片压缩、AI写作...',
+    filterAll: '全部',
+    noResult: '没有找到匹配的工具，试试其他关键词',
+    scenario_all: '全部场景', scenario_office: '办公效率', scenario_content: '内容创作',
+    scenario_dev: '开发调试', scenario_study: '学习教育', scenario_design: '设计美化',
+    hFaq: '常见问题', hGuides: '推荐教程',
+    cntTools: ' 款工具',
+    bookmark: '收藏本站，下次办公快人一步',
+    faq1Q: 'ZenTools的工具真的完全免费吗？',
+    faq1A: '是的，所有工具完全免费，无需注册和登录。文件处理在浏览器本地完成，不上传服务器。',
+    faq2Q: '文件上传到服务器了吗？隐私安全吗？',
+    faq2A: '不会上传。ZenTools的核心理念是"数据不出设备"，所有处理都在你的浏览器中本地完成。',
+    faq3Q: '可以在手机上使用吗？',
+    faq3A: '所有工具支持移动端浏览器，作为PWA可添加到桌面像原生App一样使用。',
+    navFaq: '常见问题',
+    fLabel: '筛选', fAll: '全部', fClear: '清除筛选'},
+  en: {
+    pageTitle: 'All Tools - Free Online Tools | ZenTools',
+    metaDesc: 'Browse all 279 ZenTools free online tools, including PDF, image, AI, text, office and life tools.',
+    h1Grad: 'All Tools', pageDesc: '279 free online tools across 13 categories — PDF, image, AI, audio/video, text, dev, life, finance.',
+    crumbHome: 'Home', crumbCur: 'All Tools',
+    hCat: 'Browse by Category', hHot: 'Popular Tools', hScenario: 'Find by Scenario',
+    hRecent: 'Recently Used', recentClear: 'Clear', recentEmpty: 'Recently used tools appear here',
+    hAll: 'All Tools', hSearch: 'Search Tools',
+    searchPlaceholder: 'Search 279 tools, e.g. PDF merge, image compress, AI writing...',
+    filterAll: 'All', noResult: 'No matching tools found. Try another keyword.',
+    scenario_all: 'All', scenario_office: 'Office', scenario_content: 'Content Creation',
+    scenario_dev: 'Dev', scenario_study: 'Study', scenario_design: 'Design',
+    hFaq: 'FAQ', hGuides: 'Recommended Guides',
+    cntTools: ' tools', bookmark: 'Bookmark us for quick access',
+    faq1Q: 'Are ZenTools tools completely free?',
+    faq1A: 'Yes, all tools are completely free with no registration or login required. File processing is done locally in your browser, not uploaded to any server.',
+    faq2Q: 'Are my files uploaded to a server? Is it private and secure?',
+    faq2A: 'Files are never uploaded. ZenTools core principle is "data stays on your device" - all processing happens locally in your browser.',
+    faq3Q: 'Can I use it on mobile?',
+    faq3A: 'All tools support mobile browsers. As a PWA, they can be added to your home screen and used like native apps.',
+    navFaq: 'FAQ',
+    fLabel: 'Filter', fAll: 'All', fClear: 'Clear'},
+  ja: {
+    pageTitle: '全ツール - 無料オンラインツール | ZenTools',
+    metaDesc: 'ZenTools の 279 種類の無料オンラインツール一覧。PDF、画像、AI、テキスト、オフィス、生活ツール。',
+    h1Grad: '全ツール', pageDesc: '13 カテゴリ、279 種類の無料オンラインツール。',
+    crumbHome: 'ホーム', crumbCur: '全ツール',
+    hCat: 'カテゴリで探す', hHot: '人気ツール', hScenario: 'シーン別検索',
+    hRecent: '最近の使用', recentClear: 'クリア', recentEmpty: '使用したツールが表示されます',
+    hAll: '全ツール', hSearch: 'ツール検索',
+    searchPlaceholder: '検索 (例：PDF結合、画像圧縮、AI文章作成...)',
+    filterAll: 'すべて', noResult: '一致するツールが見つかりません',
+    scenario_all: 'すべて', scenario_office: 'オフィス', scenario_content: 'コンテンツ作成',
+    scenario_dev: '開発', scenario_study: '学習', scenario_design: 'デザイン',
+    hFaq: 'よくある質問', hGuides: 'おすすめガイド',
+    cntTools: ' ツール', bookmark: 'ブックマーク',
+    faq1Q: 'ZenToolsのツールは本当に無料ですか？',
+    faq1A: 'はい、すべてのツールは完全に無料です。登録やログインは不要です。ファイル処理はブラウザ上でローカルに実行され、サーバーにはアップロードされません。',
+    faq2Q: 'ファイルはサーバーにアップロードされますか？プライバシーは安全ですか？',
+    faq2A: 'アップロードされません。ZenToolsの核心理念は「データは端末から出ない」ことで、すべての処理はブラウザ上でローカルに完了します。',
+    faq3Q: 'スマートフォンでも使えますか？',
+    faq3A: 'すべてのツールはモバイルブラウザに対応しており、PWAとしてホーム画面に追加してネイティブアプリのように使用できます。',
+    navFaq: 'よくある質問',
+    fLabel: 'フィルタ', fAll: 'すべて', fClear: 'クリア'},
+  vi: {
+    pageTitle: 'Tất cả công cụ - Công cụ trực tuyến miễn phí | ZenTools',
+    metaDesc: 'Duyệt 279 công cụ trực tuyến miễn phí của ZenTools.',
+    h1Grad: 'Tất cả công cụ', pageDesc: '279 công cụ miễn phí trên 13 danh mục.',
+    crumbHome: 'Trang chủ', crumbCur: 'Tất cả công cụ',
+    hCat: 'Duyệt theo Danh mục', hHot: 'Công cụ Phổ biến', hScenario: 'Tìm theo Tình huống',
+    hRecent: 'Đã dùng gần đây', recentClear: 'Xóa', recentEmpty: 'Công cụ đã dùng hiện ở đây',
+    hAll: 'Tất cả công cụ', hSearch: 'Tìm công cụ',
+    searchPlaceholder: 'Tìm 279 công cụ, vd: gộp PDF, nén ảnh, viết AI...',
+    filterAll: 'Tất cả', noResult: 'Không tìm thấy công cụ phù hợp',
+    scenario_all: 'Tất cả', scenario_office: 'Văn phòng', scenario_content: 'Sáng tạo',
+    scenario_dev: 'Phát triển', scenario_study: 'Học tập', scenario_design: 'Thiết kế',
+    hFaq: 'Câu hỏi thường gặp', hGuides: 'Hướng dẫn gợi ý',
+    cntTools: ' công cụ', bookmark: 'Đánh dấu để truy cập nhanh',
+    faq1Q: 'Công cụ của ZenTools có hoàn toàn miễn phí không?',
+    faq1A: 'Có, tất cả công cụ hoàn toàn miễn phí, không cần đăng ký hay đăng nhập. Xử lý tệp được thực hiện cục bộ trong trình duyệt, không tải lên máy chủ.',
+    faq2Q: 'Tệp có được tải lên máy chủ không? Quyền riêng tư có an toàn không?',
+    faq2A: 'Không tải lên. Nguyên tắc cốt lõi của ZenTools là "dữ liệu không ra khỏi thiết bị", mọi xử lý đều hoàn thành cục bộ trong trình duyệt của bạn.',
+    faq3Q: 'Có thể sử dụng trên điện thoại di động không?',
+    faq3A: 'Tất cả công cụ hỗ trợ trình duyệt di động. Với PWA, có thể thêm vào màn hình chính và sử dụng như ứng dụng native.',
+    navFaq: 'FAQ',
+    fLabel: 'Lọc', fAll: 'Tất cả', fClear: 'Xóa lọc'}
+};
+</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>Tool</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a></div>
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">工具</span></h1>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">279 款免费在线工具，涵盖 PDF、图片、AI、音视频、文本、开发、生活、金融等 13 个分类。</p>
+    </div>
+  </section>
+<div class="tool-box reveal">
+    <!-- Category Navigation -->
+    <div class="sec-head"><h2 data-i18n="hCat">按分类浏览</h2></div>
+    <div class="cat-hero" id="catNav"></div>
+  </div>
+
+  <!-- Search -->
+  <div class="search-hero reveal">
+    <div class="sec-head"><h2 data-i18n="hSearch">搜索工具</h2></div>
+    <input type="text" id="toolSearch" data-i18n-placeholder="searchPlaceholder" placeholder="搜索 279 款工具..." autocomplete="off" />
+    <span class="s-icon">🔍</span>
+    <div id="searchDropdown" class="search-drop"></div>
+  </div>
+
+  <!-- Stats / Filter Bar -->
+  <div class="stats-bar" id="statsBar"></div>
+
+  <!-- Hot Tools -->
+  <div class="reveal">
+    <div class="sec-head"><h2 data-i18n="hHot">热门工具</h2><span class="badge">Top 8</span></div>
+    <div class="hot-grid" id="hotGrid"></div>
+  </div>
+
+  <!-- Scenario Tabs -->
+  <div class="scenario-wrap reveal">
+    <div class="sec-head"><h2 data-i18n="hScenario">按场景选工具</h2></div>
+    <div class="sc-tabs" id="scenarioTabs">
+      <button class="sc-tab active" data-scenario="all" data-i18n="scenario_all">全部场景</button>
+      <button class="sc-tab" data-scenario="office" data-i18n="scenario_office">办公效率</button>
+      <button class="sc-tab" data-scenario="content" data-i18n="scenario_content">内容创作</button>
+      <button class="sc-tab" data-scenario="dev" data-i18n="scenario_dev">开发调试</button>
+      <button class="sc-tab" data-scenario="study" data-i18n="scenario_study">学习教育</button>
+      <button class="sc-tab" data-scenario="design" data-i18n="scenario_design">设计美化</button>
+    </div>
+    <div class="sc-grid" id="scenarioGrid"></div>
+  </div>
+
+  <!-- Recently Used -->
+  <div class="recent-wrap reveal" id="recentWrap">
+    <div class="sec-head">
+      <h2 data-i18n="hRecent">最近使用</h2>
+      <button class="rc-clr" id="recentClear" data-i18n="recentClear">清除</button>
+    </div>
+    <div class="recent-chips" id="recentChips"></div>
+  </div>
+
+  <!-- All Tools -->
+  <div class="reveal">
+    <div class="sec-head"><h2 data-i18n="hAll">全部工具</h2><span class="badge" id="toolCountBadge">279</span></div>
+    <div class="zt-filterbar" id="ztFilterBar">
+      <span class="zf-label" data-i18n="fLabel">筛选</span>
+      <select id="fPrice" class="zf-sel">
+        <option value="all" data-i18n="fAll">全部价格</option>
+        <option value="free">免费</option>
+        <option value="paid">付费</option>
+      </select>
+      <select id="fLocal" class="zf-sel">
+        <option value="all" data-i18n="fAll">全部处理</option>
+        <option value="local">本地处理</option>
+        <option value="cloud">云端处理</option>
+      </select>
+      <select id="fType" class="zf-sel">
+        <option value="all" data-i18n="fAll">全部类型</option>
+      </select>
+      <select id="fBatch" class="zf-sel">
+        <option value="all" data-i18n="fAll">是否批量</option>
+        <option value="yes">支持批量</option>
+        <option value="no">不支持</option>
+      </select>
+      <button id="fClear" class="zf-clear" data-i18n="fClear">清除筛选</button>
+      <span class="zf-count" id="fCount"></span>
+    </div>
+    <div class="tool-grid-re" id="toolGrid"></div>
+  </div>
+
+  <!-- FAQ & Guides -->
+  <div class="info-footer reveal">
+    <h2 data-i18n="hFaq">常见问题</h2>
+    <div class="faq-list">
+      <div class="faq-card"><h3 data-i18n="faq1Q">ZenTools 的工具真的完全免费吗？</h3><p data-i18n="faq1A">是的，所有工具完全免费，无需注册和登录。文件处理在浏览器本地完成，不上传服务器。</p></div>
+      <div class="faq-card"><h3 data-i18n="faq2Q">文件上传到服务器了吗？隐私安全吗？</h3><p data-i18n="faq2A">不会上传。ZenTools 的核心理念是"数据不出设备"，所有处理都在你的浏览器中本地完成。</p></div>
+      <div class="faq-card"><h3 data-i18n="faq3Q">可以在手机上使用吗？</h3><p data-i18n="faq3A">所有工具支持移动端浏览器，作为 PWA 可添加到桌面像原生 App 一样使用。</p></div>
+    </div>
+    <h2 data-i18n="hGuides" style="margin-top:36px">推荐教程</h2>
+    <div class="guide-grid">
+      <a href="/guides/pdf-automation-guide.html" class="guide-card-re"><strong>PDF自动化工作流指南</strong><span>用Python和开源工具构建PDF自动处理流水线</span></a>
+      <a href="/guides/ai-writing-workflow.html" class="guide-card-re"><strong>AI写作完整工作流</strong><span>从选题到发布，一站式AI辅助内容生产</span></a>
+      <a href="/guides/seo-optimization-checklist.html" class="guide-card-re"><strong>SEO优化完整清单</strong><span>从关键词研究到技术SEO的完整优化步骤</span></a>
+      <a href="/guides/free-api-models-guide.html" class="guide-card-re"><strong>免费AI模型API大全</strong><span>DeepSeek、Qwen等主流免费模型对比与接入指南</span></a>
+    </div>
+  </div>
+
+  <footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+        <a href="/about.html">关于</a>
+        <a href="/faq.html">常见问题</a>
+        <a href="/privacy.html">隐私政策</a>
+        <a href="/changelog.html">更新日志</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/js/tools-data.js"></script>
+<script src="assets/js/common-i18n.min.js"></script>
+<script src="assets/js/zt-tags.js"></script>
+<script src="assets/js/tool-ui.min.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  var currentLang = 'zh';
+  var currentCategory = 'all';
+  var currentScenario = 'all';
+  var currentFilters = { price: 'all', local: 'all', type: 'all', batch: 'all' };
+  var currentSearch = '';
+  var currentScenarioSlugs = null;
+
+  function tName(t, l) { return t['name__' + l] || t['name__en'] || t.name; }
+  function tDesc(t, l) { return t['description__' + l] || t['description__en'] || t.description || ''; }
+
+  function catLocal(cat, l) {
+    var map = {
+      'AI工具': {en:'AI Tools', ja:'AIツール', vi:'Công cụ AI'},
+      '图片工具': {en:'Image Tools', ja:'画像ツール', vi:'Công cụ hình ảnh'},
+      'PDF工具': {en:'PDF Tools', ja:'PDFツール', vi:'Công cụ PDF'},
+      '文本工具': {en:'Text Tools', ja:'テキストツール', vi:'Công cụ văn bản'},
+      '视频工具': {en:'Video Tools', ja:'動画ツール', vi:'Công cụ video'},
+      '音频工具': {en:'Audio Tools', ja:'音声ツール', vi:'Công cụ âm thanh'},
+      '开发工具': {en:'Dev Tools', ja:'開発ツール', vi:'Công cụ phát triển'},
+      'SEO工具': {en:'SEO Tools', ja:'SEOツール', vi:'Công cụ SEO'},
+      '生活助手': {en:'Life Tools', ja:'生活ツール', vi:'Công cụ đời sống'},
+      '金融工具': {en:'Finance Tools', ja:'金融ツール', vi:'Công cụ tài chính'},
+      '教育工具': {en:'Education Tools', ja:'教育ツール', vi:'Công cụ giáo dục'},
+      '设计工具': {en:'Design Tools', ja:'デザインツール', vi:'Công cụ thiết kế'},
+      '办公工具': {en:'Office Tools', ja:'オフィスツール', vi:'Công cụ văn phòng'},
+      '二维码工具': {en:'QR Tools', ja:'QRツール', vi:'Công cụ QR'},
+      'JSON工具': {en:'JSON Tools', ja:'JSONツール', vi:'Công cụ JSON'},
+      '综合工具': {en:'General Tools', ja:'総合ツール', vi:'Công cụ tổng hợp'}};
+    if (l === 'zh') return cat;
+    return (map[cat] && map[cat][l]) || cat;
+  }
+
+  var catMeta = {
+    'AI工具':     { slug: 'ai', icon: '🤖', clr: '#8b4cff' },
+    '图片工具':   { slug: 'image', icon: '🖼️', clr: '#27c27b' },
+    'PDF工具':    { slug: 'pdf', icon: '📄', clr: '#f43145' },
+    '文本工具':   { slug: 'text', icon: '📝', clr: '#f59e0b' },
+    '视频工具':   { slug: 'video', icon: '🎬', clr: '#ec4899' },
+    '音频工具':   { slug: 'audio', icon: '🎵', clr: '#3278ff' },
+    '开发工具':   { slug: 'dev', icon: '💻', clr: '#22b978' },
+    'SEO工具':    { slug: 'seo', icon: '🔍', clr: '#0ea5e9' },
+    '生活助手':   { slug: 'life', icon: '🌍', clr: '#ffb324' },
+    '金融工具':   { slug: 'finance', icon: '💰', clr: '#10b981' },
+    '教育工具':   { slug: 'education', icon: '📚', clr: '#6366f1' },
+    '设计工具':   { slug: 'design', icon: '🎨', clr: '#ec4899' },
+    '办公工具':   { slug: 'office', icon: '📎', clr: '#14b8a6' },
+    '二维码工具': { slug: 'qr', icon: '📱', clr: '#f97316' },
+    'JSON工具':   { slug: 'json', icon: '{}', clr: '#eab308' },
+    '综合工具':   { slug: 'tools', icon: '🔧', clr: '#6b7280' }};
+
+  function getCatCounts() {
+    var counts = {};
+    toolsData.forEach(function(t) {
+      counts[t.category] = (counts[t.category] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function renderCatNav(lang) {
+    var counts = getCatCounts();
+    var cats = Object.keys(catMeta).filter(function(c) { return counts[c]; });
+    var html = cats.map(function(c) {
+      var m = catMeta[c];
+      return '<a href="/' + m.slug + '/" class="cat-hero-card" style="--cat-clr:' + m.clr + '">' +
+        '<span class="cat-hero-icon">' + m.icon + '</span>' +
+        '<span class="cat-hero-name">' + catLocal(c, lang) + '</span>' +
+        '<span class="cat-hero-count">' + counts[c] + '</span></a>';
+    }).join('');
+    document.getElementById('catNav').innerHTML = html;
+    document.getElementById('totalCount').textContent = toolsData.length;
+  }
+
+  function renderStatsBar(lang) {
+    var counts = getCatCounts();
+    var cats = Object.keys(catMeta).filter(function(c) { return counts[c]; });
+    var html = '<span class="stat-chip" style="cursor:pointer" onclick="__filterCat(\'all\')" id="statAll"><span class="sc">' + toolsData.length + '</span>' +
+      (window.ZT_PAGE[lang].filterAll || 'All') + '</span>';
+    cats.forEach(function(c) {
+      var m = catMeta[c];
+      html += '<span class="stat-chip stat-filter" style="--cat-clr:' + m.clr + '" onclick="__filterCat(\'' + c.replace(/'/g, "\\'") + '\')" data-cat="' + c.replace(/"/g, '&quot;') + '">' +
+        m.icon + ' ' + catLocal(c, lang) + ' <span class="sc">' + counts[c] + '</span></span>';
+    });
+    document.getElementById('statsBar').innerHTML = html;
+    window.__filterCat = function(cat) {
+      currentScenarioSlugs = null;
+      currentCategory = cat;
+      var fType = document.getElementById('fType');
+      if (fType) fType.value = cat;
+      currentFilters.type = cat;
+      renderToolGrid(currentLang);
+      var allChips = document.querySelectorAll('.stat-filter');
+      allChips.forEach(function(chip) {
+        chip.classList.toggle('active', chip.getAttribute('data-cat') === cat);
+      });
+    };
+  }
+
+  function getFilteredTools() {
+    var base;
+    if (currentScenarioSlugs) {
+      base = toolsData.filter(function (t) { return currentScenarioSlugs.indexOf(t.slug) >= 0; });
+    } else if (currentCategory !== 'all') {
+      base = toolsData.filter(function (t) { return t.category === currentCategory; });
+    } else {
+      base = toolsData;
+    }
+    return base.filter(function (t) {
+      if (currentSearch && !window.ZT.kwHit(t, currentSearch, currentLang)) return false;
+      if (!window.ZT.matchFilters(t, currentFilters)) return false;
+      return true;
+    });
+  }
+
+  function renderToolGrid(lang) {
+    var tools = getFilteredTools();
+    var container = document.getElementById('toolGrid');
+    var badge = document.getElementById('toolCountBadge');
+    var cnt = document.getElementById('fCount');
+    if (tools.length === 0) {
+      container.innerHTML = '<div style="text-align:center;padding:40px;color:var(--zen-text-sub);font-size:15px" data-i18n="noResult">没有找到匹配的工具</div>';
+      badge.textContent = '0';
+      if (cnt) cnt.innerHTML = '';
+      return;
+    }
+    badge.textContent = tools.length;
+    if (cnt) cnt.innerHTML = '共 <b>' + tools.length + '</b> 个工具';
+    container.innerHTML = tools.map(function(t) {
+      var exp = (t.ai && t.ai.export && t.ai.export.length) ? '<span class="tc-export">导出：' + t.ai.export.join(' · ') + '</span>' : '';
+      return '<a class="tool-card-re" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
+        '<span class="tc-icon">' + t.icon + '</span>' +
+        '<span class="tc-name">' + tName(t, lang) + '</span>' +
+        '<span class="tc-desc">' + tDesc(t, lang) + '</span>' +
+        (window.ZT ? ZT.tagHtml(t, lang) : '') +
+        exp +
+        '<span class="tc-cat">' + catLocal(t.category, lang) + '</span></a>';
+    }).join('');
+    window.__recordRecent = recordRecent;
+  }
+
+  // Hot Tools
+  function renderHot(lang) {
+    var slugs = ['pdf-merge', 'image-compressor', 'text-to-speech', 'currency-converter',
+                 'image-resize', 'pdf-split', 'ai-tools-directory', 'worldtime'];
+    var tools = slugs.map(function(s) { return toolsData.find(function(t) { return t.slug === s; }); }).filter(Boolean);
+    document.getElementById('hotGrid').innerHTML = tools.map(function(t, i) {
+      return '<a class="hot-item" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
+        '<span class="hot-rank r' + (i+1) + '">' + (i+1) + '</span>' +
+        '<span class="hot-icon">' + t.icon + '</span>' +
+        '<div class="hot-info"><div class="hot-name">' + tName(t, lang) + '</div><div class="hot-desc">' + tDesc(t, lang) + '</div></div></a>';
+    }).join('');
+  }
+
+  // Scenario
+  var scenarios = {
+    office: ['pdf-merge','pdf-split','pdf-compress','image-compressor','image-resize','currency-converter','worldtime','text-to-speech'],
+    content: ['ai-tools-directory','text-to-speech','image-compressor','image-resize'],
+    dev: ['json-formatter','sql-formatter','image-resize','worldtime'],
+    study: ['text-to-speech','pdf-merge','worldtime','currency-converter'],
+    design: ['image-compressor','image-resize','worldtime']};
+
+  function renderScenario(scenario, lang) {
+    var slugs = scenario === 'all' ? [] : (scenarios[scenario] || []);
+    var tools = slugs.length > 0
+      ? slugs.map(function(s) { return toolsData.find(function(t) { return t.slug === s; }); }).filter(Boolean)
+      : toolsData.slice(0, 8);
+    if (tools.length === 0) tools = toolsData.slice(0, 8);
+    document.getElementById('scenarioGrid').innerHTML = tools.map(function(t) {
+      return '<a class="sc-item" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
+        '<span class="si-icon">' + t.icon + '</span><span class="si-name">' + tName(t, lang) + '</span></a>';
+    }).join('');
+  }
+
+  // Recently Used
+  function recordRecent(slug) {
+    var arr = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
+    arr = arr.filter(function(s) { return s !== slug; });
+    arr.unshift(slug);
+    arr = arr.slice(0, 10);
+    localStorage.setItem('zentools_recent', JSON.stringify(arr));
+    renderRecent(currentLang);
+  }
+
+  function renderRecent(lang) {
+    var arr = JSON.parse(localStorage.getItem('zentools_recent') || '[]');
+    var wrap = document.getElementById('recentWrap');
+    var chips = document.getElementById('recentChips');
+    if (arr.length === 0) { wrap.classList.remove('visible'); return; }
+    wrap.classList.add('visible');
+    chips.innerHTML = arr.map(function(slug) {
+      var t = toolsData.find(function(t) { return t.slug === slug; });
+      if (!t) return '';
+      return '<a class="rc-chip" href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
+        t.icon + ' ' + tName(t, lang) + '</a>';
+    }).filter(Boolean).join('');
+  }
+
+  // Search
+  function doSearch(query, lang) {
+    var dd = document.getElementById('searchDropdown');
+    currentSearch = (query || '').trim();
+    if (!currentSearch) { dd.classList.remove('open'); renderToolGrid(lang); return; }
+    var q = currentSearch.toLowerCase();
+    var results = toolsData.filter(function(t) {
+      return (tName(t, lang) || '').toLowerCase().indexOf(q) >= 0 ||
+             (tDesc(t, lang) || '').toLowerCase().indexOf(q) >= 0 ||
+             (t.keywords || '').toLowerCase().indexOf(q) >= 0 ||
+             (t.category || '').toLowerCase().indexOf(q) >= 0;
+    }).slice(0, 12);
+    if (results.length === 0) {
+      dd.innerHTML = '<div style="text-align:center;padding:20px;color:var(--zen-text-sub);font-size:13px" data-i18n="noResult">没有匹配</div>';
+    } else {
+      dd.innerHTML = results.map(function(t) {
+        return '<a href="' + t.url + '" onclick="__recordRecent(\'' + t.slug + '\')">' +
+          t.icon + ' ' + tName(t, lang) + '<span class="sd-cat">' + catLocal(t.category, lang) + '</span></a>';
+      }).join('');
+    }
+    dd.classList.add('open');
+    renderToolGrid(lang);
+  }
+
+  function applyLang(lang) {
+    currentLang = lang;
+    var d = window.ZT_PAGE[lang];
+    if (!d) return;
+    document.title = d.pageTitle;
+    document.getElementById('metaDesc').content = d.metaDesc;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n');
+      if (d[k]) el.textContent = d[k];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
+      var k = el.getAttribute('data-i18n-placeholder');
+      if (d[k]) el.placeholder = d[k];
+    });
+    document.getElementById('totalCount').textContent = toolsData.length;
+    renderCatNav(lang);
+    renderStatsBar(lang);
+    renderHot(lang);
+    renderScenario(currentScenario, lang);
+    renderRecent(lang);
+    renderToolGrid(lang);
+    var sv = document.getElementById('toolSearch');
+    if (sv.value.trim()) doSearch(sv.value, lang);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var lang = localStorage.getItem('zentools_lang') || 'zh';
+    applyLang(lang);
+
+    var sel = document.getElementById('langSelect');
+    if (sel) {
+      sel.value = lang;
+      sel.addEventListener('change', function() {
+        applyLang(this.value);
+        localStorage.setItem('zentools_lang', this.value);
+        window.dispatchEvent(new CustomEvent('zt-langchange', {detail: {lang: this.value}}));
+      });
+    }
+
+    var si = document.getElementById('toolSearch');
+    si.addEventListener('input', function() { doSearch(this.value, currentLang); });
+    si.addEventListener('focus', function() { if (this.value.trim()) doSearch(this.value, currentLang); });
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.search-hero')) document.getElementById('searchDropdown').classList.remove('open');
+    });
+
+    document.getElementById('scenarioTabs').addEventListener('click', function(e) {
+      if (!e.target.classList.contains('sc-tab')) return;
+      this.querySelectorAll('.sc-tab').forEach(function(t) { t.classList.remove('active'); });
+      e.target.classList.add('active');
+      currentScenario = e.target.getAttribute('data-scenario');
+      renderScenario(currentScenario, currentLang);
+    });
+
+    // ===== 多维度筛选栏 =====
+    var fPrice = document.getElementById('fPrice');
+    var fLocal = document.getElementById('fLocal');
+    var fType = document.getElementById('fType');
+    var fBatch = document.getElementById('fBatch');
+    var fClear = document.getElementById('fClear');
+
+    (function populateType() {
+      var counts = getCatCounts();
+      Object.keys(counts).forEach(function (c) {
+        var o = document.createElement('option');
+        o.value = c; o.textContent = catLocal(c, currentLang) + ' (' + counts[c] + ')';
+        fType.appendChild(o);
+      });
+    })();
+
+    function applyFilters() {
+      currentScenarioSlugs = null;
+      currentFilters = { price: fPrice.value, local: fLocal.value, type: fType.value, batch: fBatch.value };
+      currentCategory = (fType.value === 'all') ? 'all' : fType.value;
+      var allChips = document.querySelectorAll('.stat-filter');
+      allChips.forEach(function (chip) {
+        chip.classList.toggle('active', chip.getAttribute('data-cat') === currentCategory);
+      });
+      renderToolGrid(currentLang);
+    }
+    fPrice.addEventListener('change', applyFilters);
+    fLocal.addEventListener('change', applyFilters);
+    fType.addEventListener('change', applyFilters);
+    fBatch.addEventListener('change', applyFilters);
+    fClear.addEventListener('click', function () {
+      fPrice.value = 'all'; fLocal.value = 'all'; fType.value = 'all'; fBatch.value = 'all';
+      applyFilters();
+    });
+
+    // ===== URL 参数预筛：?scenario= ?q= ?type= =====
+    try {
+      var up = new URLSearchParams(location.search);
+      var sc = up.get('scenario');
+      if (sc && window.ZT.getScenario) {
+        var slugs = window.ZT.scenarioSlugs(sc);
+        if (slugs) {
+          currentScenarioSlugs = slugs;
+        } else {
+          var sdef = window.ZT.getScenario(sc);
+          if (sdef) {
+            if (sdef.type && sdef.type !== 'all') fType.value = sdef.type;
+            if (sdef.kw) currentSearch = sdef.kw;
+          }
+        }
+      }
+      var tp = up.get('type');
+      if (tp) { fType.value = tp; currentFilters.type = tp; currentCategory = tp; }
+      var qp = up.get('q');
+      if (qp) {
+        var siq = document.getElementById('toolSearch');
+        if (siq) siq.value = qp;
+        currentSearch = qp;
+      }
+      if (sc || tp || qp) {
+        renderToolGrid(currentLang);
+        if (qp) doSearch(qp, currentLang);
+        setTimeout(function () {
+          var g = document.getElementById('toolGrid');
+          if (g) g.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 250);
+      }
+    } catch (e) {}
+
+    document.getElementById('recentClear').addEventListener('click', function() {
+      localStorage.removeItem('zentools_recent');
+      renderRecent(currentLang);
+    });
+  });
+
+  window.addEventListener('zt-langchange', function(e) { applyLang(e.detail.lang); });
+})();
+</script>
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+</body>
+</html>

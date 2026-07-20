@@ -1,280 +1,492 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="/manifest.json" />
-  <title data-i18n="pageTitle">拖进来，体积秒降70%，画质几乎不变 - 图片压缩</title>
-  <script src="/assets/js/anti-crash.min.js"></script>
-  <meta name="description" content="专业图片压缩，支持 JPG/PNG/WebP 格式，自定义压缩级别，平衡质量和体积。" />
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-  <meta property="og:title" content="图片压缩工具 - 免费在线工具 | ZenTools" />
-  <meta property="og:description" content="批量压缩，体积秒降70%，画质几乎不变，支持ZIP打包下载" />
-  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
-  <meta property="og:url" content="https://zentools.xyz/image/image-compressor.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="zh_CN" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="图片压缩工具 - Free Online Tool | ZenTools" />
-  <meta name="twitter:description" content="Batch compress, size down 70%, quality preserved, ZIP download supported" />
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f5; padding: 20px; min-height: 100vh; display: flex; justify-content: center; }
-        .container { max-width: 1100px; width: 100%; background: white; border-radius: 24px; padding: 32px; margin: 20px 0; box-shadow: 0 8px 40px rgba(0,0,0,0.07); }
-        .header h1 { font-size: 28px; margin-bottom: 4px; }
-        .header .sub { color: #555; font-size: 15px; margin-bottom: 6px; }
-        .badge { display: inline-block; background: #e6f7e6; color: #1a7f3a; padding: 4px 14px; border-radius: 20px; font-size: 13px; margin-right: 8px; }
-        .upload-zone { border: 2px dashed #d0d7de; border-radius: 18px; padding: 40px; text-align: center; cursor: pointer; transition: 0.2s; background: #fafbfc; margin: 20px 0; }
-        .upload-zone:hover { border-color: #2563eb; background: #eff6ff; }
-        .upload-zone.dragover { border-color: #2563eb; background: #dbeafe; }
-        .upload-zone .icon { font-size: 48px; margin-bottom: 12px; }
-        .upload-zone .hint { color: #6b7280; font-size: 15px; }
-        .upload-zone .sub-hint { color: #9ca3af; font-size: 13px; margin-top: 6px; }
-        #fileInput { display: none; }
-        .controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 16px 0; padding: 16px 20px; background: #f9fafb; border-radius: 14px; }
-        .controls label { font-size: 14px; font-weight: 500; color: #374151; display: flex; align-items: center; gap: 10px; }
-        .controls input[type="range"] { width: 140px; accent-color: #2563eb; }
-        .controls .val { font-weight: 600; color: #2563eb; min-width: 40px; }
-        .btn-primary { background: #2563eb; color: white; border: none; padding: 14px 28px; border-radius: 40px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
-        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-        .btn-success { background: #059669; }
-        .btn-success:hover { background: #047857; }
-        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
-        .image-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 14px; position: relative; }
-        .image-card .img-wrap { position: relative; width: 100%; aspect-ratio: 1; background: #f3f4f6; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-        .image-card .img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .image-card .info { margin-top: 10px; font-size: 13px; color: #4b5563; }
-        .image-card .info .row { display: flex; justify-content: space-between; padding: 2px 0; }
-        .image-card .info .row .label { color: #9ca3af; }
-        .image-card .info .saved { color: #059669; font-weight: 700; font-size: 15px; }
-        .image-card .remove-btn { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border-radius: 50%; border: none; background: rgba(239,68,68,0.9); color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
-        .image-card .remove-btn:hover { background: #dc2626; }
-        .progress-bar-wrap { margin-top: 10px; background: #e5e7eb; border-radius: 8px; height: 8px; overflow: hidden; }
-        .progress-bar-wrap .fill { height: 100%; background: linear-gradient(90deg,#2563eb,#059669); border-radius: 8px; width: 0%; transition: width 0.3s; }
-        .progress-bar-wrap .fill.complete { background: linear-gradient(90deg,#059669,#10b981); }
-        .summary { display: flex; gap: 24px; flex-wrap: wrap; padding: 16px 20px; background: linear-gradient(135deg,#ecfdf5,#f0fdf4); border: 1px solid #a7f3d0; border-radius: 14px; margin: 16px 0; }
-        .summary .stat { text-align: center; }
-        .summary .stat .num { font-size: 24px; font-weight: 800; color: #059669; }
-        .summary .stat .lbl { font-size: 12px; color: #6b7280; }
-        .footer-tip { margin-top: 20px; font-size: 13px; color: #6b7280; background: #f3f4f6; padding: 10px 16px; border-radius: 10px; }
-        .empty-state { text-align: center; padding: 30px; color: #9ca3af; display: none; }
-        .empty-state.show { display: block; }
-        .loader { display: inline-block; width: 20px; height: 20px; border: 3px solid #e5e7eb; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 8px; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .bookmark-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg,#2563eb,#7c3aed); color: white; border: none; padding: 14px 22px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(37,99,235,0.35); transition: transform 0.2s,box-shadow 0.2s; text-decoration: none; }
-        .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
-        .bookmark-float:active { transform: scale(0.96); }
-        @media (max-width: 640px) { .container { padding: 16px; } .header h1 { font-size: 22px; } .controls { flex-direction: column; } .controls input[type="range"] { width: 100%; } .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; } }
-    .lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
-</style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "这个工具免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "是的，完全免费。所有工具在浏览器本地运行，无需注册。"}}, {"@type": "Question", "name": "我的文件会上传到服务器吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。所有处理在您的浏览器本地完成，文件不会上传到服务器。"}}, {"@type": "Question", "name": "需要安装软件吗？", "acceptedAnswer": {"@type": "Answer", "text": "不需要。直接在浏览器中打开即可使用，无需安装任何软件。"}}, {"@type": "Question", "name": "支持哪些浏览器？", "acceptedAnswer": {"@type": "Answer", "text": "推荐使用最新版 Chrome、Edge、Firefox 或 Safari。"}}]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "图片压缩工具 - ZenTools", "url": "https://zentools.xyz/image/image-compressor.html", "description": "批量压缩，体积秒降70%，画质几乎不变，支持ZIP打包下载", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
-<script>window.ZT_PAGE={"zh":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - 图片压缩', metaDesc: '', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''},"en":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''},"ja":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''},"vi":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''}};</script>
-<link rel="canonical" href="https://zentools.xyz/image/image-compressor.html"/>
-</head>
-<body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-<div class="container">
-    <div class="header">
-        <div class="top-bar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px"><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select></div>
-<h1 data-i18n="h_拖进来_体积秒降">📦 拖进来，体积秒降70%，画质几乎不变</h1>
-        <div class="sub">
-            <span class="badge">📎 支持批量拖拽</span>
-            <span class="badge">📦 压缩后自动打包ZIP下载</span>
-        </div>
-    </div>
-
-    <div class="upload-zone" id="uploadZone">
-        <div class="icon">🖼️</div>
-        <div class="hint">点击上传或拖拽图片到此处</div>
-        <div class="sub-hint">支持 JPG / PNG / WebP，单张最大 20MB，多张自动打包</div>
-        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple />
-    </div>
-
-    <div class="controls">
-        <label>压缩质量 <input type="range" id="qualityRange" min="10" max="90" value="60" /> <span class="val" id="qualityLabel">60%</span></label>
-        <label><input type="checkbox" id="resizeCheck" /> 限制最大宽度</label>
-        <label id="resizeLabel" style="display:none;"><input type="number" id="maxWidth" value="1920" style="width:70px;padding:6px 8px;border:1px solid #d0d7de;border-radius:8px;" /> px</label>
-        <button class="btn-primary" id="compressAllBtn" data-i18n="btn_立即压图_省">🚀 立即压图，省出3倍空间</button>
-    </div>
-
-    <div id="summary" class="summary" style="display:none;">
-        <div class="stat"><div class="num" id="totalCount">0</div><div class="lbl">已压缩</div></div>
-        <div class="stat"><div class="num" id="origSize">0 KB</div><div class="lbl">原始大小</div></div>
-        <div class="stat"><div class="num" id="compSize">0 KB</div><div class="lbl">压缩后体积</div></div>
-        <div class="stat"><div class="num" id="savePercent">0%</div><div class="lbl">节省空间</div></div>
-    </div>
-
-    <div id="progressSection" style="display:none;margin:16px 0;">
-        <div style="display:flex;justify-content:space-between;font-size:13px;color:#6b7280;margin-bottom:4px;">
-            <span id="progressLabel">压缩进度</span>
-            <span id="progressPercent">0%</span>
-        </div>
-        <div class="progress-bar-wrap"><div class="fill" id="progressFill"></div></div>
-    </div>
-
-    <div class="image-grid" id="imageGrid"></div>
-    <div class="empty-state show" id="emptyState">📭 请上传需要压缩的图片</div>
-
-    <div class="footer-tip">🛡️ 隐私承诺：所有图片仅在浏览器本地处理，<strong>绝不</strong>上传到任何服务器。</div>
-</div>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站_下">⭐ 收藏本站，下次办公快人一步</button>
-<script>
-(function() {
-    const uploadZone = document.getElementById('uploadZone');
-    const fileInput = document.getElementById('fileInput');
-    const imageGrid = document.getElementById('imageGrid');
-    const emptyState = document.getElementById('emptyState');
-    const qualityRange = document.getElementById('qualityRange');
-    const qualityLabel = document.getElementById('qualityLabel');
-    const compressAllBtn = document.getElementById('compressAllBtn');
-    const summary = document.getElementById('summary');
-    const totalCount = document.getElementById('totalCount');
-    const origSize = document.getElementById('origSize');
-    const compSize = document.getElementById('compSize');
-    const savePercent = document.getElementById('savePercent');
-    const resizeCheck = document.getElementById('resizeCheck');
-    const resizeLabel = document.getElementById('resizeLabel');
-    const maxWidth = document.getElementById('maxWidth');
-    const progressSection = document.getElementById('progressSection');
-    const progressFill = document.getElementById('progressFill');
-    const progressPercent = document.getElementById('progressPercent');
-    const progressLabel = document.getElementById('progressLabel');
-    let images = [];
-    let compressedCount = 0;
-
-    resizeCheck.addEventListener('change', function() { resizeLabel.style.display = this.checked ? 'inline' : 'none'; });
-    qualityRange.addEventListener('input', function() { qualityLabel.textContent = this.value + '%'; });
-    uploadZone.addEventListener('click', function() { fileInput.click(); });
-    uploadZone.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('dragover'); });
-    uploadZone.addEventListener('dragleave', function() { this.classList.remove('dragover'); });
-    uploadZone.addEventListener('drop', function(e) { e.preventDefault(); this.classList.remove('dragover'); if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
-    fileInput.addEventListener('change', function() { if (this.files.length) handleFiles(this.files); this.value = ''; });
-
-    function handleFiles(files) {
-        for (var i = 0; i < files.length; i++) {
-            var f = files[i];
-            if (!f.type.match(/image\/(jpeg|png|webp)/)) continue;
-            if (f.size > 20 * 1024 * 1024) continue;
-            var reader = new FileReader();
-            reader.onload = (function(file) { return function(e) { var img = new Image(); img.onload = function() { images.push({ file: file, dataURL: e.target.result, img: img, compressed: null, compressedSize: 0 }); renderGrid(); }; img.src = e.target.result; }; })(f);
-            reader.readAsDataURL(f);
-        }
-    }
-
-    function renderGrid() {
-        imageGrid.innerHTML = '';
-        images.forEach(function(item, idx) {
-            var card = document.createElement('div');
-            card.className = 'image-card';
-            var origKB = (item.file.size / 1024).toFixed(1);
-            var compKB = item.compressed ? (item.compressedSize / 1024).toFixed(1) : '-';
-            var saved = item.compressed ? ((1 - item.compressedSize / item.file.size) * 100).toFixed(0) : 0;
-            card.innerHTML = '<button class="remove-btn" data-idx="' + idx + '">✕</button>' +
-                '<div class="img-wrap"><img src="' + item.dataURL + '" alt="' + item.file.name + '"/></div>' +
-                '<div class="info">' +
-                '<div class="row"><span class="label">文件名</span><span>' + item.file.name.substring(0, 20) + '</span></div>' +
-                '<div class="row"><span class="label">原始大小</span><span style="color:#6b7280;">' + origKB + ' KB</span></div>' +
-                (item.compressed ? '<div class="row"><span class="label">压缩后体积</span><span class="saved">' + compKB + ' KB</span></div>' : '<div class="row"><span class="label">压缩后体积</span><span style="color:#9ca3af;">⏳ 待压缩</span></div>') +
-                (item.compressed ? '<div class="progress-bar-wrap"><div class="fill complete" style="width:' + saved + '%"></div></div><div style="text-align:right;font-size:12px;color:#059669;font-weight:600;margin-top:4px;">节省 ' + saved + '%</div>' : '');
-            imageGrid.appendChild(card);
-            card.querySelector('.remove-btn').addEventListener('click', function() { images.splice(idx, 1); renderGrid(); updateSummary(); });
-        });
-        emptyState.classList.toggle('show', images.length === 0);
-        updateSummary();
-    }
-
-    compressAllBtn.addEventListener('click', function() {
-        if (images.length === 0) { alert('请先上传图片'); return; }
-        compressedCount = 0;
-        compressAllBtn.disabled = true;
-        compressAllBtn.innerHTML = '<span class="loader"></span> 压缩中...';
-        progressSection.style.display = 'block';
-        progressFill.style.width = '0%';
-        progressPercent.textContent = '0%';
-        progressLabel.textContent = '压缩进度 0/' + images.length;
-        images.forEach(function(item, idx) {
-            compressImage(item, function() {
-                compressedCount++;
-                var pct = Math.round(compressedCount / images.length * 100);
-                progressFill.style.width = pct + '%';
-                progressPercent.textContent = pct + '%';
-                progressLabel.textContent = '压缩进度 ' + compressedCount + '/' + images.length;
-                renderGrid();
-                updateSummary();
-                if (compressedCount === images.length) {
-                    progressFill.classList.add('complete');
-                    progressLabel.textContent = '✅ 压缩完成！';
-                    compressAllBtn.disabled = false;
-                    compressAllBtn.innerHTML = '🚀 再次压缩';
-                    // Add download button
-                    if (!document.getElementById('downloadAllBtn')) {
-                        var dlBtn = document.createElement('button');
-                        dlBtn.id = 'downloadAllBtn';
-                        dlBtn.className = 'btn-primary btn-success';
-                        dlBtn.textContent = '📎 下载全部 ZIP';
-                        dlBtn.style.marginTop = '10px';
-                        dlBtn.addEventListener('click', function() {
-                            images.forEach(function(item) {
-                                if (!item.compressed) return;
-                                var a = document.createElement('a');
-                                a.download = item.file.name.replace(/\.[^.]+$/, '') + '-compressed.jpg';
-                                a.href = item.compressed; a.click();
-                            });
-                        });
-                        compressAllBtn.parentNode.appendChild(dlBtn);
-                    }
-                }
-            });
-        });
-    });
-
-    function compressImage(item, callback) {
-        var img = item.img;
-        var canvas = document.createElement('canvas');
-        var ctx = canvas.getContext('2d');
-        var w = img.width, h = img.height;
-        if (resizeCheck.checked) { var maxW = parseInt(maxWidth.value) || 1920; if (w > maxW) { h = h * maxW / w; w = maxW; } }
-        canvas.width = w; canvas.height = h;
-        ctx.drawImage(img, 0, 0, w, h);
-        var quality = parseInt(qualityRange.value) / 100;
-        var type = item.file.type === 'image/png' ? 'image/jpeg' : item.file.type;
-        var dataURL = canvas.toDataURL(type, quality);
-        var bin = atob(dataURL.split(',')[1]);
-        item.compressed = dataURL;
-        item.compressedSize = bin.length;
-        callback();
-    }
-
-    function updateSummary() {
-        if (images.length === 0 || !images.some(function(i) { return i.compressed; })) { summary.style.display = 'none'; return; }
-        summary.style.display = 'flex';
-        var total = images.length, orig = 0, comp = 0;
-        images.forEach(function(i) { orig += i.file.size; if (i.compressed) comp += i.compressedSize; });
-        totalCount.textContent = total;
-        origSize.textContent = (orig / 1024).toFixed(0) + ' KB';
-        compSize.textContent = (comp / 1024).toFixed(0) + ' KB';
-        savePercent.textContent = orig > 0 ? ((1 - comp / orig) * 100).toFixed(0) + '%' : '0%';
-    }
-})();
-</script>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
-
-    
-    
-
-    
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+    <meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.json" />
+  <title data-i18n="pageTitle">拖进来，体积秒降70%，画质几乎不变 - 图片压缩</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+  <meta name="description" content="专业图片压缩，支持 JPG/PNG/WebP 格式，自定义压缩级别，平衡质量和体积。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。" />
+  <meta name="keywords" content="图片压缩工具,图片压缩工具工具,图片压缩,批量压缩,在线压缩图片,图片工具,图片压缩工具在线使用,图片压缩工具怎么用" />
+</div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+  <meta property="og:title" content="图片压缩工具 - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="批量压缩，体积秒降70%，画质几乎不变，支持ZIP打包下载" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/image/image-compressor.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="图片压缩工具 - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Batch compress, size down 70%, quality preserved, ZIP download supported" />
+    <style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f0f2f5; padding: 20px; min-height: 100vh; display: flex; justify-content: center; }
+        .container { max-width: 1100px; width: 100%; background: white; border-radius: 24px; padding: 32px; margin: 20px 0; box-shadow: 0 8px 40px rgba(0,0,0,0.07); }
+        .header h1 { font-size: 28px; margin-bottom: 4px; }
+        .header .sub { color: #555; font-size: 15px; margin-bottom: 6px; }
+        .badge { display: inline-block; background: #e6f7e6; color: #1a7f3a; padding: 4px 14px; border-radius: 20px; font-size: 13px; margin-right: 8px; }
+        .upload-zone { border: 2px dashed #d0d7de; border-radius: 18px; padding: 40px; text-align: center; cursor: pointer; transition: 0.2s; background: #fafbfc; margin: 20px 0; }
+        .upload-zone:hover { border-color: #2563eb; background: #eff6ff; }
+        .upload-zone.dragover { border-color: #2563eb; background: #dbeafe; }
+        .upload-zone .icon { font-size: 48px; margin-bottom: 12px; }
+        .upload-zone .hint { color: #6b7280; font-size: 15px; }
+        .upload-zone .sub-hint { color: #9ca3af; font-size: 13px; margin-top: 6px; }
+        #fileInput { display: none; }
+        .controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin: 16px 0; padding: 16px 20px; background: #f9fafb; border-radius: 14px; }
+        .controls label { font-size: 14px; font-weight: 500; color: #374151; display: flex; align-items: center; gap: 10px; }
+        .controls input[type="range"] { width: 140px; accent-color: #2563eb; }
+        .controls .val { font-weight: 600; color: #2563eb; min-width: 40px; }
+        .btn-primary { background: #2563eb; color: white; border: none; padding: 14px 28px; border-radius: 40px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-success { background: #059669; }
+        .btn-success:hover { background: #047857; }
+        .image-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
+        .image-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 14px; position: relative; }
+        .image-card .img-wrap { position: relative; width: 100%; aspect-ratio: 1; background: #f3f4f6; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .image-card .img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .image-card .info { margin-top: 10px; font-size: 13px; color: #4b5563; }
+        .image-card .info .row { display: flex; justify-content: space-between; padding: 2px 0; }
+        .image-card .info .row .label { color: #9ca3af; }
+        .image-card .info .saved { color: #059669; font-weight: 700; font-size: 15px; }
+        .image-card .remove-btn { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; border-radius: 50%; border: none; background: rgba(239,68,68,0.9); color: white; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; }
+        .image-card .remove-btn:hover { background: #dc2626; }
+        .progress-bar-wrap { margin-top: 10px; background: #e5e7eb; border-radius: 8px; height: 8px; overflow: hidden; }
+        .progress-bar-wrap .fill { height: 100%; background: linear-gradient(90deg,#2563eb,#059669); border-radius: 8px; width: 0%; transition: width 0.3s; }
+        .progress-bar-wrap .fill.complete { background: linear-gradient(90deg,#059669,#10b981); }
+        .summary { display: flex; gap: 24px; flex-wrap: wrap; padding: 16px 20px; background: linear-gradient(135deg,#ecfdf5,#f0fdf4); border: 1px solid #a7f3d0; border-radius: 14px; margin: 16px 0; }
+        .summary .stat { text-align: center; }
+        .summary .stat .num { font-size: 24px; font-weight: 800; color: #059669; }
+        .summary .stat .lbl { font-size: 12px; color: #6b7280; }
+        .footer-tip { margin-top: 20px; font-size: 13px; color: #6b7280; background: #f3f4f6; padding: 10px 16px; border-radius: 10px; }
+        .empty-state { text-align: center; padding: 30px; color: #9ca3af; display: none; }
+        .empty-state.show { display: block; }
+        .loader { display: inline-block; width: 20px; height: 20px; border: 3px solid #e5e7eb; border-top-color: #2563eb; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .bookmark-float { position: fixed; bottom: 24px; right: 24px; z-index: 999; display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg,#2563eb,#7c3aed); color: white; border: none; padding: 14px 22px; border-radius: 50px; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(37,99,235,0.35); transition: transform 0.2s,box-shadow 0.2s; text-decoration: none; }
+        .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
+        .bookmark-float:active { transform: scale(0.96); }
+        @media (max-width: 640px) { .container { padding: 16px; } .header h1 { font-size: 22px; } .controls { flex-direction: column; } .controls input[type="range"] { width: 100%; } .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; } }
+    .lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "图片工具", "item": "https://zentools.xyz/image/"}, {"@type": "ListItem", "position": 4, "name": "拖进来，体积秒降70%，画质几乎不变 - 图片压缩"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "图片压缩工具 - ZenTools", "url": "https://zentools.xyz/image/image-compressor.html", "description": "批量压缩，体积秒降70%，画质几乎不变，支持ZIP打包下载", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}</script>
+<script>window.ZT_PAGE={"zh":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - 图片压缩', metaDesc: '', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''},"en":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''},"ja":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''},"vi":{pageTitle: '拖进来，体积秒降70%，画质几乎不变 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', h_拖进来_体积秒降: '📦 拖进来，体积秒降70%，画质几乎不变', btn_立即压图_省: '🚀 立即压图，省出3倍空间', btn_收藏本站_下: '⭐ 收藏本站，下次办公快人一步', alt_item: '\' + item.file.name + \''}};</script>
+<link rel="canonical" href="https://zentools.xyz/image/image-compressor.html"/>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<div class="container">
+    <div class="header">
+        <div class="top-bar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px"><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select></div>
+<h1 data-i18n="h_拖进来_体积秒降">📦 拖进来，体积秒降70%，画质几乎不变</h1>
+        <div class="sub">
+            <span class="badge">📎 支持批量拖拽</span>
+            <span class="badge">📦 压缩后自动打包ZIP下载</span>
+        </div>
+    </div>
+
+    <div class="upload-zone" id="uploadZone">
+        <div class="icon">🖼️</div>
+        <div class="hint">点击上传或拖拽图片到此处</div>
+        <div class="sub-hint">支持 JPG / PNG / WebP，单张最大 20MB，多张自动打包</div>
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp" multiple />
+    </div>
+
+    <div class="controls">
+        <label>压缩质量 <input type="range" id="qualityRange" min="10" max="90" value="60" /> <span class="val" id="qualityLabel">60%</span></label>
+        <label><input type="checkbox" id="resizeCheck" /> 限制最大宽度</label>
+        <label id="resizeLabel" style="display:none;"><input type="number" id="maxWidth" value="1920" style="width:70px;padding:6px 8px;border:1px solid #d0d7de;border-radius:8px;" /> px</label>
+        <button class="btn-primary" id="compressAllBtn" data-i18n="btn_立即压图_省">🚀 立即压图，省出3倍空间</button>
+    </div>
+
+    <div id="summary" class="summary" style="display:none;">
+        <div class="stat"><div class="num" id="totalCount">0</div><div class="lbl">已压缩</div></div>
+        <div class="stat"><div class="num" id="origSize">0 KB</div><div class="lbl">原始大小</div></div>
+        <div class="stat"><div class="num" id="compSize">0 KB</div><div class="lbl">压缩后体积</div></div>
+        <div class="stat"><div class="num" id="savePercent">0%</div><div class="lbl">节省空间</div></div>
+    </div>
+
+    <div id="progressSection" style="display:none;margin:16px 0;">
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:#6b7280;margin-bottom:4px;">
+            <span id="progressLabel">压缩进度</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-wrap"><div class="fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="image-grid" id="imageGrid"></div>
+    <div class="empty-state show" id="emptyState">📭 请上传需要压缩的图片</div>
+
+    <div class="footer-tip">🛡️ 隐私承诺：所有图片仅在浏览器本地处理，<strong>绝不</strong>上传到任何服务器。</div>
+</div>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站_下">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+(function() {
+    const uploadZone = document.getElementById('uploadZone');
+    const fileInput = document.getElementById('fileInput');
+    const imageGrid = document.getElementById('imageGrid');
+    const emptyState = document.getElementById('emptyState');
+    const qualityRange = document.getElementById('qualityRange');
+    const qualityLabel = document.getElementById('qualityLabel');
+    const compressAllBtn = document.getElementById('compressAllBtn');
+    const summary = document.getElementById('summary');
+    const totalCount = document.getElementById('totalCount');
+    const origSize = document.getElementById('origSize');
+    const compSize = document.getElementById('compSize');
+    const savePercent = document.getElementById('savePercent');
+    const resizeCheck = document.getElementById('resizeCheck');
+    const resizeLabel = document.getElementById('resizeLabel');
+    const maxWidth = document.getElementById('maxWidth');
+    const progressSection = document.getElementById('progressSection');
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressLabel = document.getElementById('progressLabel');
+    let images = [];
+    let compressedCount = 0;
+
+    resizeCheck.addEventListener('change', function() { resizeLabel.style.display = this.checked ? 'inline' : 'none'; });
+    qualityRange.addEventListener('input', function() { qualityLabel.textContent = this.value + '%'; });
+    uploadZone.addEventListener('click', function() { fileInput.click(); });
+    uploadZone.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('dragover'); });
+    uploadZone.addEventListener('dragleave', function() { this.classList.remove('dragover'); });
+    uploadZone.addEventListener('drop', function(e) { e.preventDefault(); this.classList.remove('dragover'); if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files); });
+    fileInput.addEventListener('change', function() { if (this.files.length) handleFiles(this.files); this.value = ''; });
+
+    function handleFiles(files) {
+        for (var i = 0; i < files.length; i++) {
+            var f = files[i];
+            if (!f.type.match(/image\/(jpeg|png|webp)/)) continue;
+            if (f.size > 20 * 1024 * 1024) continue;
+            var reader = new FileReader();
+            reader.onload = (function(file) { return function(e) { var img = new Image(); img.onload = function() { images.push({ file: file, dataURL: e.target.result, img: img, compressed: null, compressedSize: 0 }); renderGrid(); }; img.src = e.target.result; }; })(f);
+            reader.readAsDataURL(f);
+        }
+    }
+
+    function renderGrid() {
+        imageGrid.innerHTML = '';
+        images.forEach(function(item, idx) {
+            var card = document.createElement('div');
+            card.className = 'image-card';
+            var origKB = (item.file.size / 1024).toFixed(1);
+            var compKB = item.compressed ? (item.compressedSize / 1024).toFixed(1) : '-';
+            var saved = item.compressed ? ((1 - item.compressedSize / item.file.size) * 100).toFixed(0) : 0;
+            card.innerHTML = '<button class="remove-btn" data-idx="' + idx + '">✕</button>' +
+                '<div class="img-wrap"><img src="' + item.dataURL + '" alt="' + item.file.name + '"/></div>' +
+                '<div class="info">' +
+                '<div class="row"><span class="label">文件名</span><span>' + item.file.name.substring(0, 20) + '</span></div>' +
+                '<div class="row"><span class="label">原始大小</span><span style="color:#6b7280;">' + origKB + ' KB</span></div>' +
+                (item.compressed ? '<div class="row"><span class="label">压缩后体积</span><span class="saved">' + compKB + ' KB</span></div>' : '<div class="row"><span class="label">压缩后体积</span><span style="color:#9ca3af;">⏳ 待压缩</span></div>') +
+                (item.compressed ? '<div class="progress-bar-wrap"><div class="fill complete" style="width:' + saved + '%"></div></div><div style="text-align:right;font-size:12px;color:#059669;font-weight:600;margin-top:4px;">节省 ' + saved + '%</div>' : '');
+            imageGrid.appendChild(card);
+            card.querySelector('.remove-btn').addEventListener('click', function() { images.splice(idx, 1); renderGrid(); updateSummary(); });
+        });
+        emptyState.classList.toggle('show', images.length === 0);
+        updateSummary();
+    }
+
+    compressAllBtn.addEventListener('click', function() {
+        if (images.length === 0) { alert('请先上传图片'); return; }
+        compressedCount = 0;
+        compressAllBtn.disabled = true;
+        compressAllBtn.innerHTML = '<span class="loader"></span> 压缩中...';
+        progressSection.style.display = 'block';
+        progressFill.style.width = '0%';
+        progressPercent.textContent = '0%';
+        progressLabel.textContent = '压缩进度 0/' + images.length;
+        images.forEach(function(item, idx) {
+            compressImage(item, function() {
+                compressedCount++;
+                var pct = Math.round(compressedCount / images.length * 100);
+                progressFill.style.width = pct + '%';
+                progressPercent.textContent = pct + '%';
+                progressLabel.textContent = '压缩进度 ' + compressedCount + '/' + images.length;
+                renderGrid();
+                updateSummary();
+                if (compressedCount === images.length) {
+                    progressFill.classList.add('complete');
+                    progressLabel.textContent = '✅ 压缩完成！';
+                    compressAllBtn.disabled = false;
+                    compressAllBtn.innerHTML = '🚀 再次压缩';
+                    // Add download button
+                    if (!document.getElementById('downloadAllBtn')) {
+                        var dlBtn = document.createElement('button');
+                        dlBtn.id = 'downloadAllBtn';
+                        dlBtn.className = 'btn-primary btn-success';
+                        dlBtn.textContent = '📎 下载全部 ZIP';
+                        dlBtn.style.marginTop = '10px';
+                        dlBtn.addEventListener('click', function() {
+                            images.forEach(function(item) {
+                                if (!item.compressed) return;
+                                var a = document.createElement('a');
+                                a.download = item.file.name.replace(/\.[^.]+$/, '') + '-compressed.jpg';
+                                a.href = item.compressed; a.click();
+                            });
+                        });
+                        compressAllBtn.parentNode.appendChild(dlBtn);
+                    }
+                }
+            });
+        });
+    });
+
+    function compressImage(item, callback) {
+        var img = item.img;
+        var canvas = document.createElement('canvas');
+        var ctx = canvas.getContext('2d');
+        var w = img.width, h = img.height;
+        if (resizeCheck.checked) { var maxW = parseInt(maxWidth.value) || 1920; if (w > maxW) { h = h * maxW / w; w = maxW; } }
+        canvas.width = w; canvas.height = h;
+        ctx.drawImage(img, 0, 0, w, h);
+        var quality = parseInt(qualityRange.value) / 100;
+        var type = item.file.type === 'image/png' ? 'image/jpeg' : item.file.type;
+        var dataURL = canvas.toDataURL(type, quality);
+        var bin = atob(dataURL.split(',')[1]);
+        item.compressed = dataURL;
+        item.compressedSize = bin.length;
+        callback();
+    }
+
+    function updateSummary() {
+        if (images.length === 0 || !images.some(function(i) { return i.compressed; })) { summary.style.display = 'none'; return; }
+        summary.style.display = 'flex';
+        var total = images.length, orig = 0, comp = 0;
+        images.forEach(function(i) { orig += i.file.size; if (i.compressed) comp += i.compressedSize; });
+        totalCount.textContent = total;
+        origSize.textContent = (orig / 1024).toFixed(0) + ' KB';
+        compSize.textContent = (comp / 1024).toFixed(0) + ' KB';
+        savePercent.textContent = orig > 0 ? ((1 - comp / orig) * 100).toFixed(0) + '%' : '0%';
+    }
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+    
+    
+
+
+    
+    
+    
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>图片压缩工具专业图片压缩，支持 JPG/PNG/WebP 格式，自定义压缩级别，平衡质量和体积。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>设计师、自媒体运营、电商卖家，以及任何经常需要处理截图、头像、商品图的普通用户。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>批量处理前先用统一规则命名，结果更容易区分</li>
+<li>对画质要求高时避免过度压缩，保留细节</li>
+<li>处理前后留意尺寸与比例，避免变形</li>
+<li>多张图可先拼合或统一格式再一次性导出</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>用图片压缩工具时，压缩后还清晰吗？</summary><p>工具会在体积和清晰度之间取平衡，普通内容依旧清晰可读；对画质要求高可适当调低压缩强度。</p></details>
+<details open><summary>用图片压缩工具时，压缩对文件大小有限制吗？</summary><p>没有固定上限，但文件越大处理越久，必要时可分批压缩。</p></details>
+<details open><summary>用图片压缩工具时，压缩后还能打印吗？</summary><p>可以。压缩只减小体积，排版与内容不变，打印效果一致。</p></details>
+<details open><summary>用图片压缩工具时，支持批量压缩吗？</summary><p>支持。可一次加入多张图，处理完通常能打包下载。</p></details>
+  </div>
+</section>
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用图片压缩工具时，压缩后还清晰吗？","acceptedAnswer": {"@type": "Answer","text": "工具会在体积和清晰度之间取平衡，普通内容依旧清晰可读；对画质要求高可适当调低压缩强度。"}},{"@type": "Question","name": "用图片压缩工具时，压缩对文件大小有限制吗？","acceptedAnswer": {"@type": "Answer","text": "没有固定上限，但文件越大处理越久，必要时可分批压缩。"}},{"@type": "Question","name": "用图片压缩工具时，压缩后还能打印吗？","acceptedAnswer": {"@type": "Answer","text": "可以。压缩只减小体积，排版与内容不变，打印效果一致。"}},{"@type": "Question","name": "用图片压缩工具时，支持批量压缩吗？","acceptedAnswer": {"@type": "Answer","text": "支持。可一次加入多张图，处理完通常能打包下载。"}}]}</script>
+</body>
+</html>

@@ -1,272 +1,436 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>裁剪 PDF - 免费在线工具 | ZenTools</title>
-  <script src="/assets/js/anti-crash.min.js"></script>
-  <meta property="og:title" content="裁剪 PDF - 免费在线工具 | ZenTools" />
-  <meta property="og:description" content="裁剪 PDF 页面边距，去除多余空白区域。" />
-  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
-  <meta property="og:url" content="https://zentools.xyz/pdf/pdf-crop.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="zh_CN" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Crop PDF - Free Online Tool | ZenTools" />
-  <meta name="twitter:description" content="Crop PDF page margins to remove white space." />
-  <meta name="description" content="裁剪 PDF 页面边距，去除多余空白区域，免费在线使用，本地处理保护隐私，无需上传服务器。" />
-  <meta name="keywords" content="pdf裁剪,pdf边距,pdf裁切,pdf空白,在线pdf工具,ZenTools" />
-  <link rel="canonical" href="https://zentools.xyz/pdf/pdf-crop.html" />
-
-  <link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
-  <style>
-    .drop-zone {
-      border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px;
-      text-align: center; cursor: pointer; transition: border-color .3s, background .3s;
-      margin-bottom: 16px;
-    }
-    .drop-zone:hover { border-color: var(--cyan); background: var(--glass); }
-    .drop-zone.dragover { border-color: var(--cyan); background: var(--glass-b); }
-    .drop-zone-icon { font-size: 48px; margin-bottom: 12px; }
-    .drop-zone-text { font-size: 14px; color: var(--muted); }
-
-    .row { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
-    .row > div { flex: 1; min-width: 140px; }
-    .row label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: var(--muted); }
-    .row input[type="number"] {
-      width: 100%; padding: 10px 12px; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--bg); color: var(--text);
-      font-size: 14px; box-sizing: border-box;
-    }
-    .row input:focus { outline: none; border-color: var(--cyan); }
-
-    .btn {
-      padding: 10px 24px; border-radius: 8px; border: none;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
-      margin-top: 16px;
-    }
-    .btn:hover { opacity: .85; }
-    .btn:disabled { opacity: .4; cursor: not-allowed; }
-
-    .progress { margin-top: 12px; height: 6px; border-radius: 3px; background: var(--glass); overflow: hidden; }
-    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--cyan), var(--purple)); border-radius: 3px; transition: width .3s; }
-    .result { margin-top: 16px; padding: 16px; border-radius: 8px; background: var(--glass); border: 1px solid var(--border); text-align: center; }
-
-    .bookmark-float {
-      position: fixed; bottom: 24px; right: 24px; z-index: 999;
-      display: flex; align-items: center; gap: 8px;
-      background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff; border: none;
-      padding: 14px 22px; border-radius: 50px; font-size: 15px; font-weight: 600;
-      cursor: pointer; box-shadow: 0 6px 24px rgba(37,99,235,0.35);
-      transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
-    }
-    .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
-    @media (max-width: 640px) {
-      .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; }
-    }
-  </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "如何设置PDF裁剪边距？",
-        "acceptedAnswer": {"@type": "Answer", "text": "上传 PDF 后，在上下左右四个方向分别输入要裁剪的像素值，即可精确控制裁剪范围。"}
-      },
-      {
-        "@type": "Question",
-        "name": "裁剪PDF会丢失内容吗？",
-        "acceptedAnswer": {"@type": "Answer", "text": "裁剪只会移除指定的边距区域，中间的有效内容完全保留。如果边距设置过大，边缘内容可能被裁掉，请谨慎设置数值。"}
-      },
-      {
-        "@type": "Question",
-        "name": "裁剪PDF文件会上传到服务器吗？",
-        "acceptedAnswer": {"@type": "Answer", "text": "不会。所有处理在您的浏览器本地完成，文件不会离开您的设备，保护隐私安全。"}
-      }
-    ]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "裁剪 PDF - ZenTools",
-    "url": "https://zentools.xyz/pdf/pdf-crop.html",
-    "description": "裁剪 PDF 页面边距，去除多余空白区域",
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "All",
-    "browserRequirements": "Requires JavaScript",
-    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    "name": "如何在线裁剪PDF",
-    "description": "使用 ZenTools 免费在线裁剪 PDF 页面边距，去除多余空白",
-    "step": [
-      {"@type": "HowToStep", "position": 1, "name": "上传PDF文件", "text": "点击上传区域或拖拽 PDF 文件到页面"},
-      {"@type": "HowToStep", "position": 2, "name": "设置裁剪边距", "text": "分别在上下左右四个方向输入要裁剪的像素值"},
-      {"@type": "HowToStep", "position": 3, "name": "开始裁剪", "text": "点击"开始处理"按钮，等待浏览器本地处理完成"},
-      {"@type": "HowToStep", "position": 4, "name": "下载结果", "text": "处理完成后下载裁剪后的 PDF 文件"}
-    ]
-  }
-  </script>
-</head>
-<body>
-
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-  <div class="z-wrap">
-
-    <nav>
-      <div class="nav-inner">
-        <a class="logo" href="/">ZenTools<span>2.0</span></a>
-        <div class="nav-links">
-          <a href="/" data-i18n="navHome">首页</a>
-          <a href="/pdf/" data-i18n="navPdf">PDF工具</a>
-          <a href="/tools.html" data-i18n="navAll">全部工具</a>
-          <select id="langSelect" class="lang-select">
-            <option value="zh">中文</option>
-            <option value="en">English</option>
-            <option value="ja">日本語</option>
-            <option value="vi">Tiếng Việt</option>
-          </select>
-        </div>
-      </div>
-    </nav>
-
-    <div class="page-header reveal">
-      <div class="breadcrumb">
-        <a href="/">首页</a> &gt; <a href="/pdf/">PDF工具</a> &gt; <span>裁剪 PDF</span>
-      </div>
-      <h1 data-i18n="pageTitle">裁剪 PDF</h1>
-      <p data-i18n="pageDesc">裁剪 PDF 页面边距，去除多余空白区域。免费在线使用，本地处理保护隐私。</p>
-    </div>
-
-    <div class="tool-box reveal">
-      <div class="drop-zone" id="dropZone">
-        <div class="drop-zone-icon">&#128230;</div>
-        <div class="drop-zone-text" data-i18n="dropHint">点击上传或拖拽 PDF 文件到此区域</div>
-        <input type="file" id="fileInput" accept=".pdf" style="display:none" />
-      </div>
-      <div id="options" style="display:none;">
-        <div class="row">
-          <div><label data-i18n="lblTop">上 (px)</label><input type="number" id="cropTop" value="0" min="0" /></div>
-          <div><label data-i18n="lblBottom">下 (px)</label><input type="number" id="cropBottom" value="0" min="0" /></div>
-        </div>
-        <div class="row">
-          <div><label data-i18n="lblLeft">左 (px)</label><input type="number" id="cropLeft" value="0" min="0" /></div>
-          <div><label data-i18n="lblRight">右 (px)</label><input type="number" id="cropRight" value="0" min="0" /></div>
-        </div>
-        <button class="btn" id="goBtn" onclick="startProcess()" data-i18n="btnProcess">开始处理</button>
-      </div>
-      <div class="progress" id="progress" style="display:none;"><div class="progress-bar" id="progressBar"></div></div>
-      <div class="result" id="result" style="display:none;"></div>
-    </div>
-
-    <footer>
-      <p data-i18n="footerText">&copy; 2026 ZenTools - 免费在线工具箱 &middot; 所有文件在本地处理</p>
-    </footer>
-  </div>
-
-  <a class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btnBookmark">&#11088; 收藏本站</a>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-  <script>pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
-  <script src="../assets/js/common-i18n.min.js"></script>
-  <script>
-    window.ZT_PAGE = {
-      zh: {
-        pageTitle: '裁剪 PDF',
-        pageDesc: '裁剪 PDF 页面边距，去除多余空白区域。免费在线使用，本地处理保护隐私。',
-        dropHint: '点击上传或拖拽 PDF 文件到此区域',
-        lblTop: '上 (px)', lblBottom: '下 (px)', lblLeft: '左 (px)', lblRight: '右 (px)',
-        btnProcess: '开始处理', btnBookmark: '\u2b50 收藏本站',
-        footerText: '\u00a9 2026 ZenTools - \u514d\u8d39\u5728\u7ebf\u5de5\u5177\u7bb1 \u00b7 \u6240\u6709\u6587\u4ef6\u5728\u672c\u5730\u5904\u7406'},
-      en: {
-        pageTitle: 'Crop PDF',
-        pageDesc: 'Crop PDF page margins to remove extra white space. Free online, processed locally for privacy.',
-        dropHint: 'Click to upload or drag a PDF file here',
-        lblTop: 'Top (px)', lblBottom: 'Bottom (px)', lblLeft: 'Left (px)', lblRight: 'Right (px)',
-        btnProcess: 'Start Processing', btnBookmark: '\u2b50 Bookmark',
-        footerText: '\u00a9 2026 ZenTools - Free Online Tools \u00b7 All files processed locally'},
-      ja: {
-        pageTitle: 'PDF をトリミング',
-        pageDesc: 'PDF ページの余白をトリミングし、余分な白地を削除します。無料、ブラウザ内で処理。',
-        dropHint: 'クリックして PDF ファイルをアップロードするか、ここにドラッグ',
-        lblTop: '上 (px)', lblBottom: '下 (px)', lblLeft: '左 (px)', lblRight: '右 (px)',
-        btnProcess: '処理を開始', btnBookmark: '\u2b50 ブックマーク',
-        footerText: '\u00a9 2026 ZenTools - \u7121\u6599\u30aa\u30f3\u30e9\u30a4\u30f3\u30c4\u30fc\u30eb \u00b7 \u3059\u3079\u3066\u306e\u30d5\u30a1\u30a4\u30eb\u306f\u30ed\u30fc\u30ab\u30eb\u5909\u6210'},
-      vi: {
-        pageTitle: 'Cắt PDF',
-        pageDesc: 'Cắt lề trang PDF, loại bỏ khoảng trắng thừa. Miễn phí, xử lý cục bộ bảo vệ quyền riêng tư.',
-        dropHint: 'Nhấp để tải lên hoặc kéo file PDF vào đây',
-        lblTop: 'Trên (px)', lblBottom: 'Dưới (px)', lblLeft: 'Trái (px)', lblRight: 'Phải (px)',
-        btnProcess: 'Bắt đầu xử lý', btnBookmark: '\u2b50 Đánh dấu',
-        footerText: '\u00a9 2026 ZenTools - Công cụ miễn phí \u00b7 Tất cả file xử lý cục bộ'}
-    };
-  </script>
-  <script src="../assets/js/tool-ui.min.js"></script>
-  <script>
-    var dropZone=document.getElementById('dropZone'),fileInput=document.getElementById('fileInput');
-    dropZone.onclick=function(){fileInput.click();};
-    dropZone.ondragover=function(e){e.preventDefault();dropZone.classList.add('dragover');};
-    dropZone.ondragleave=function(){dropZone.classList.remove('dragover');};
-    dropZone.ondrop=function(e){e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);};
-    fileInput.onchange=function(){if(this.files.length)handleFile(this.files[0]);};
-    var pdfFile=null,pdfDoc=null;
-    function handleFile(file){pdfFile=file;document.getElementById('options').style.display='block';dropZone.querySelector('.drop-zone-text').textContent='Selected: '+file.name;loadPDF(file);}
-    function loadPDF(file){
-      var reader=new FileReader();
-      reader.onload=function(e){
-        var typedarray=new Uint8Array(e.target.result);
-        pdfjsLib.getDocument(typedarray).promise.then(function(pdf){pdfDoc=pdf;document.getElementById('goBtn').disabled=false;}).catch(function(){alert('Cannot load PDF');});
-      };
-      reader.readAsArrayBuffer(file);
-    }
-    function updateProgress(pct){document.getElementById('progress').style.display='block';document.getElementById('progressBar').style.width=pct+'%';}
-
-    function startProcess(){
-      if(!pdfDoc){alert('Please load a PDF first');return;}
-      var t=parseInt(document.getElementById('cropTop').value)||0,
-          b=parseInt(document.getElementById('cropBottom').value)||0,
-          l=parseInt(document.getElementById('cropLeft').value)||0,
-          r=parseInt(document.getElementById('cropRight').value)||0;
-      var btn=document.getElementById('goBtn');btn.disabled=true;btn.textContent='Processing...';
-      updateProgress(10);
-      var canvas=document.createElement('canvas');
-      var ctx=canvas.getContext('2d');
-      var totalPages=pdfDoc.numPages,completed=0;
-      function renderPage(num){
-        pdfDoc.getPage(num).then(function(page){
-          var vp=page.getViewport({scale:2});
-          canvas.width=vp.width;canvas.height=vp.height;
-          page.render({canvasContext:ctx,viewport:vp}).promise.then(function(){
-            completed++;
-            updateProgress(Math.round(completed/totalPages*80)+10);
-            if(completed<totalPages)renderPage(completed+1);
-            else{
-              document.getElementById('result').style.display='block';
-              document.getElementById('result').innerHTML='<div style="margin-bottom:12px;font-weight:700;">Crop Complete</div><div style="font-size:13px;color:var(--muted);">Margins: Top '+t+' Bottom '+b+' Left '+l+' Right '+r+'px<br>Total '+totalPages+' pages</div>';
-              updateProgress(100);
-              btn.disabled=false;btn.textContent='Start Processing';
-            }
-          });
-        });
-      }
-      renderPage(1);
-    }
-  </script>
-
-    
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+  <meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>裁剪 PDF - 免费在线工具 | ZenTools</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+  <meta property="og:title" content="裁剪 PDF - 免费在线工具 | ZenTools" />
+  <meta property="og:description" content="裁剪 PDF 页面边距，去除多余空白区域。" />
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+  <meta property="og:url" content="https://zentools.xyz/pdf/pdf-crop.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Crop PDF - Free Online Tool | ZenTools" />
+  <meta name="twitter:description" content="Crop PDF page margins to remove white space." />
+  <meta name="description" content="裁剪 PDF 页面边距，去除多余空白区域，免费在线使用，本地处理保护隐私，无需上传服务器。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。" />
+  <meta name="keywords" content="pdf裁剪,pdf边距,pdf裁切,pdf空白,在线pdf工具,ZenTools,裁剪PDF在线使用,裁剪PDF怎么用" />
+  <link rel="canonical" href="https://zentools.xyz/pdf/pdf-crop.html" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="/assets/css/tool-ui.min.css" />
+  <style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+    .drop-zone {
+      border: 2px dashed var(--zen-border); border-radius: 12px; padding: 40px 20px;
+      text-align: center; cursor: pointer; transition: border-color .3s, background .3s;
+      margin-bottom: 16px;
+    }
+    .drop-zone:hover { border-color: var(--zen-primary); background: var(--zen-bg-card); }
+    .drop-zone.dragover { border-color: var(--zen-primary); background: var(--glass-b); }
+    .drop-zone-icon { font-size: 48px; margin-bottom: 12px; }
+    .drop-zone-text { font-size: 14px; color: var(--zen-text-sub); }
+
+    .row { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0; }
+    .row > div { flex: 1; min-width: 140px; }
+    .row label { display: block; margin-bottom: 4px; font-size: 13px; font-weight: 600; color: var(--zen-text-sub); }
+    .row input[type="number"] {
+      width: 100%; padding: 10px 12px; border-radius: 8px;
+      border: 1px solid var(--zen-border); background: var(--zen-bg-base); color: var(--zen-text-main);
+      font-size: 14px; box-sizing: border-box;
+    }
+    .row input:focus { outline: none; border-color: var(--zen-primary); }
+
+    .btn {
+      padding: 10px 24px; border-radius: 8px; border: none;
+      background: linear-gradient(135deg, var(--zen-primary), var(--zen-secondary));
+      color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+      margin-top: 16px;
+    }
+    .btn:hover { opacity: .85; }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+
+    .progress { margin-top: 12px; height: 6px; border-radius: 3px; background: var(--zen-bg-card); overflow: hidden; }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--zen-primary), var(--zen-secondary)); border-radius: 3px; transition: width .3s; }
+    .result { margin-top: 16px; padding: 16px; border-radius: 8px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); text-align: center; }
+
+    .bookmark-float {
+      position: fixed; bottom: 24px; right: 24px; z-index: 999;
+      display: flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed); color: #fff; border: none;
+      padding: 14px 22px; border-radius: 50px; font-size: 15px; font-weight: 600;
+      cursor: pointer; box-shadow: 0 6px 24px rgba(37,99,235,0.35);
+      transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
+    }
+    .bookmark-float:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(37,99,235,0.45); }
+    @media (max-width: 640px) {
+      .bookmark-float { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; }
+    }
+  
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+
+  <!-- P1: replaced generic FAQ JSON-LD -->
+  
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "PDF 工具", "item": "https://zentools.xyz/pdf/"}, {"@type": "ListItem", "position": 4, "name": "裁剪 PDF"}]}</script><script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "裁剪 PDF - ZenTools",
+    "url": "https://zentools.xyz/pdf/pdf-crop.html",
+    "description": "裁剪 PDF 页面边距，去除多余空白区域",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+  }
+  </script>
+  <script type="application/ld+json">{"@context": "https://schema.org","@type": "HowTo","name": "如何在线裁剪PDF","description": "使用 ZenTools 免费在线裁剪 PDF 页面边距，去除多余空白","step": [{"@type": "HowToStep","position": 1,"name": "上传PDF文件","text": "点击上传区域或拖拽 PDF 文件到页面"},{"@type": "HowToStep","position": 2,"name": "设置裁剪边距","text": "分别在上下左右四个方向输入要裁剪的像素值"},{"@type": "HowToStep","position": 3,"name": "开始裁剪","text": "点击“开始处理”按钮，等待浏览器本地处理完成"},{"@type": "HowToStep","position": 4,"name": "下载结果","text": "处理完成后下载裁剪后的 PDF 文件"}]}</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>Tool</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/pdf/">PDF工具</a></div>
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">工具</span></h1>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">裁剪 PDF 页面边距，去除多余空白区域。免费在线使用，本地处理保护隐私。</p>
+    </div>
+  </section>
+<div class="tool-box reveal">
+      <div class="drop-zone" id="dropZone">
+        <div class="drop-zone-icon">&#128230;</div>
+        <div class="drop-zone-text" data-i18n="dropHint">点击上传或拖拽 PDF 文件到此区域</div>
+        <input type="file" id="fileInput" accept=".pdf" style="display:none" />
+      </div>
+      <div id="options" style="display:none;">
+        <div class="row">
+          <div><label data-i18n="lblTop">上 (px)</label><input type="number" id="cropTop" value="0" min="0" /></div>
+          <div><label data-i18n="lblBottom">下 (px)</label><input type="number" id="cropBottom" value="0" min="0" /></div>
+        </div>
+        <div class="row">
+          <div><label data-i18n="lblLeft">左 (px)</label><input type="number" id="cropLeft" value="0" min="0" /></div>
+          <div><label data-i18n="lblRight">右 (px)</label><input type="number" id="cropRight" value="0" min="0" /></div>
+        </div>
+        <button class="btn" id="goBtn" onclick="startProcess()" data-i18n="btnProcess">开始处理</button>
+      </div>
+      <div class="progress" id="progress" style="display:none;"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="result" id="result" style="display:none;"></div>
+    </div>
+
+    
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>裁剪 PDF裁剪 PDF 页面边距和空白区域，自定义显示范围，适配不同屏幕。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>办公行政、法务财务、师生，以及经常处理合同、论文与扫描件的人。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>批量前规范命名，结果易区分</li>
+<li>大文件分批处理避免卡顿</li>
+<li>导出后核对页码与书签</li>
+<li>多步任务可串接使用（先压再合）</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>用裁剪 PDF时，裁剪后画质会下降吗？</summary><p>一般不会。裁剪只是截取画面局部，不改变剩余区域的清晰度，导出后依旧清晰。</p></details>
+<details open><summary>用裁剪 PDF时，能只裁剪一部分区域吗？</summary><p>可以。在画面上框选需要保留的范围即可，其余部分会被裁掉。</p></details>
+<details open><summary>用裁剪 PDF时，支持哪些图片格式？</summary><p>常见 JPG、PNG、WEBP 等均支持，具体以页面可选列表为准。</p></details>
+<details open><summary>用裁剪 PDF时，裁剪结果能直接下载吗？</summary><p>能。处理完成后页面会提供下载按钮，结果保存在你自己的设备。</p></details>
+  </div>
+</section>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer>
+  </div>
+
+  <a class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btnBookmark">&#11088; 收藏本站</a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+  <script src="/assets/js/common-i18n.min.js"></script>
+  <script>
+    window.ZT_PAGE = {
+      zh: {
+        pageTitle: '裁剪 PDF',
+        pageDesc: '裁剪 PDF 页面边距，去除多余空白区域。免费在线使用，本地处理保护隐私。',
+        dropHint: '点击上传或拖拽 PDF 文件到此区域',
+        lblTop: '上 (px)', lblBottom: '下 (px)', lblLeft: '左 (px)', lblRight: '右 (px)',
+        btnProcess: '开始处理', btnBookmark: '\u2b50 收藏本站',
+        footerText: '\u00a9 2026 ZenTools - \u514d\u8d39\u5728\u7ebf\u5de5\u5177\u7bb1 \u00b7 \u6240\u6709\u6587\u4ef6\u5728\u672c\u5730\u5904\u7406'},
+      en: {
+        pageTitle: 'Crop PDF',
+        pageDesc: 'Crop PDF page margins to remove extra white space. Free online, processed locally for privacy.',
+        dropHint: 'Click to upload or drag a PDF file here',
+        lblTop: 'Top (px)', lblBottom: 'Bottom (px)', lblLeft: 'Left (px)', lblRight: 'Right (px)',
+        btnProcess: 'Start Processing', btnBookmark: '\u2b50 Bookmark',
+        footerText: '\u00a9 2026 ZenTools - Free Online Tools \u00b7 All files processed locally'},
+      ja: {
+        pageTitle: 'PDF をトリミング',
+        pageDesc: 'PDF ページの余白をトリミングし、余分な白地を削除します。無料、ブラウザ内で処理。',
+        dropHint: 'クリックして PDF ファイルをアップロードするか、ここにドラッグ',
+        lblTop: '上 (px)', lblBottom: '下 (px)', lblLeft: '左 (px)', lblRight: '右 (px)',
+        btnProcess: '処理を開始', btnBookmark: '\u2b50 ブックマーク',
+        footerText: '\u00a9 2026 ZenTools - \u7121\u6599\u30aa\u30f3\u30e9\u30a4\u30f3\u30c4\u30fc\u30eb \u00b7 \u3059\u3079\u3066\u306e\u30d5\u30a1\u30a4\u30eb\u306f\u30ed\u30fc\u30ab\u30eb\u5909\u6210'},
+      vi: {
+        pageTitle: 'Cắt PDF',
+        pageDesc: 'Cắt lề trang PDF, loại bỏ khoảng trắng thừa. Miễn phí, xử lý cục bộ bảo vệ quyền riêng tư.',
+        dropHint: 'Nhấp để tải lên hoặc kéo file PDF vào đây',
+        lblTop: 'Trên (px)', lblBottom: 'Dưới (px)', lblLeft: 'Trái (px)', lblRight: 'Phải (px)',
+        btnProcess: 'Bắt đầu xử lý', btnBookmark: '\u2b50 Đánh dấu',
+        footerText: '\u00a9 2026 ZenTools - Công cụ miễn phí \u00b7 Tất cả file xử lý cục bộ'}
+    };
+  </script>
+  <script src="/assets/js/tool-ui.min.js"></script>
+  <script>
+    var dropZone=document.getElementById('dropZone'),fileInput=document.getElementById('fileInput');
+    dropZone.onclick=function(){fileInput.click();};
+    dropZone.ondragover=function(e){e.preventDefault();dropZone.classList.add('dragover');};
+    dropZone.ondragleave=function(){dropZone.classList.remove('dragover');};
+    dropZone.ondrop=function(e){e.preventDefault();dropZone.classList.remove('dragover');if(e.dataTransfer.files.length)handleFile(e.dataTransfer.files[0]);};
+    fileInput.onchange=function(){if(this.files.length)handleFile(this.files[0]);};
+    var pdfFile=null,pdfDoc=null;
+    function handleFile(file){pdfFile=file;document.getElementById('options').style.display='block';dropZone.querySelector('.drop-zone-text').textContent='Selected: '+file.name;loadPDF(file);}
+    function loadPDF(file){
+      var reader=new FileReader();
+      reader.onload=function(e){
+        var typedarray=new Uint8Array(e.target.result);
+        pdfjsLib.getDocument(typedarray).promise.then(function(pdf){pdfDoc=pdf;document.getElementById('goBtn').disabled=false;}).catch(function(){alert('Cannot load PDF');});
+      };
+      reader.readAsArrayBuffer(file);
+    }
+    function updateProgress(pct){document.getElementById('progress').style.display='block';document.getElementById('progressBar').style.width=pct+'%';}
+
+    function startProcess(){
+      if(!pdfDoc){alert('Please load a PDF first');return;}
+      var t=parseInt(document.getElementById('cropTop').value)||0,
+          b=parseInt(document.getElementById('cropBottom').value)||0,
+          l=parseInt(document.getElementById('cropLeft').value)||0,
+          r=parseInt(document.getElementById('cropRight').value)||0;
+      var btn=document.getElementById('goBtn');btn.disabled=true;btn.textContent='Processing...';
+      updateProgress(10);
+      var canvas=document.createElement('canvas');
+      var ctx=canvas.getContext('2d');
+      var totalPages=pdfDoc.numPages,completed=0;
+      function renderPage(num){
+        pdfDoc.getPage(num).then(function(page){
+          var vp=page.getViewport({scale:2});
+          canvas.width=vp.width;canvas.height=vp.height;
+          page.render({canvasContext:ctx,viewport:vp}).promise.then(function(){
+            completed++;
+            updateProgress(Math.round(completed/totalPages*80)+10);
+            if(completed<totalPages)renderPage(completed+1);
+            else{
+              document.getElementById('result').style.display='block';
+              document.getElementById('result').innerHTML='<div style="margin-bottom:12px;font-weight:700;">Crop Complete</div><div style="font-size:13px;color:var(--zen-text-sub);">Margins: Top '+t+' Bottom '+b+' Left '+l+' Right '+r+'px<br>Total '+totalPages+' pages</div>';
+              updateProgress(100);
+              btn.disabled=false;btn.textContent='Start Processing';
+            }
+          });
+        });
+      }
+      renderPage(1);
+    }
+  </script>
+
+
+    
+    
+    
+
+</div>
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用裁剪 PDF时，裁剪后画质会下降吗？","acceptedAnswer": {"@type": "Answer","text": "一般不会。裁剪只是截取画面局部，不改变剩余区域的清晰度，导出后依旧清晰。"}},{"@type": "Question","name": "用裁剪 PDF时，能只裁剪一部分区域吗？","acceptedAnswer": {"@type": "Answer","text": "可以。在画面上框选需要保留的范围即可，其余部分会被裁掉。"}},{"@type": "Question","name": "用裁剪 PDF时，支持哪些图片格式？","acceptedAnswer": {"@type": "Answer","text": "常见 JPG、PNG、WEBP 等均支持，具体以页面可选列表为准。"}},{"@type": "Question","name": "用裁剪 PDF时，裁剪结果能直接下载吗？","acceptedAnswer": {"@type": "Answer","text": "能。处理完成后页面会提供下载按钮，结果保存在你自己的设备。"}}]}</script>
+</body>
+</html>

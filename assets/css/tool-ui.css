@@ -1,20 +1,55 @@
 /* ========================================
    ZenTools 统一工具 UI — 共享样式
+   Design System: --zen-* (v3.2+), with legacy aliases
    ======================================== */
 
 :root {
-  --bg:      #06070d;
-  --glass:   rgba(255,255,255,0.04);
-  --glass-b: rgba(255,255,255,0.08);
-  --cyan:    #00e5ff;
-  --purple:  #a855f7;
-  --pink:    #f43f5e;
-  --text:    #f0f4ff;
-  --muted:   #6b7a9f;
-  --border:  rgba(255,255,255,0.07);
-  --border-h:rgba(0,229,255,0.35);
-  --glow-c:  0 0 40px rgba(0,229,255,0.18);
-  --r:       20px;
+  /* ── New design system (v3.2+) ── */
+  --zen-primary:    #0066FF;
+  --zen-secondary:  #00C2B8;
+  --zen-gradient:   linear-gradient(135deg, #0066FF, #00C2B8);
+  --zen-success:    #22C55E;
+  --zen-warning:    #F97316;
+  --zen-danger:     #EF4444;
+  --zen-text-main:  #111827;
+  --zen-text-sub:   #4B5563;
+  --zen-text-placeholder: #9CA3AF;
+  --zen-bg-base:    #F9FAFB;
+  --zen-bg-card:    #FFFFFF;
+  --zen-border:     #E5E7EB;
+  --zen-radius-base: 12px;
+  --zen-radius-card: 16px;
+  --zen-radius-btn:  8px;
+
+  /* ── Legacy aliases (backward compat) ── */
+  --bg:      var(--zen-bg-base);
+  --glass:   var(--zen-bg-card);
+  --glass-b: rgba(0,0,0,0.04);
+  --cyan:    var(--zen-primary);
+  --purple:  var(--zen-secondary);
+  --pink:    var(--zen-danger);
+  --text:    var(--zen-text-main);
+  --muted:   var(--zen-text-sub);
+  --border:  var(--zen-border);
+  --border-h:rgba(0,102,255,0.35);
+  --glow-c:  0 0 40px rgba(0,102,255,0.12);
+  --r:       16px;
+}
+
+/* ── Dark mode overrides ── */
+.dark, [data-theme="dark"] {
+  --zen-text-main:  #F9FAFB;
+  --zen-text-sub:   #D1D5DB;
+  --zen-text-placeholder: #64748B;
+  --zen-bg-base:    #0F172A;
+  --zen-bg-card:    #1E293B;
+  --zen-border:     #334155;
+}
+
+/* Manually-inherited legacy vars for dark mode */
+.dark, [data-theme="dark"] {
+  --glass-b: rgba(255,255,255,0.06);
+  --border-h: rgba(0,102,255,0.35);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -311,3 +346,15 @@ footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: ce
 @keyframes zt-spin {
   to { transform: rotate(360deg); }
 }
+
+/* ===== 新工具提醒条 ===== */
+.zt-new-tools-bar {
+  padding: 10px 24px; background: rgba(0,229,255,0.08);
+  border-bottom: 1px solid rgba(0,229,255,0.15);
+  color: var(--text); font-size: 14px;
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+}
+.zt-new-tools-bar .zt-nt-icon { font-size: 18px; }
+.zt-new-tools-bar .zt-nt-view { color: var(--cyan); font-weight: 600; margin-left: auto; text-decoration: none; }
+.zt-new-tools-bar .zt-nt-close { background: none; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-size: 12px; cursor: pointer; padding: 4px 12px; }
+.zt-new-tools-bar .zt-nt-close:hover { border-color: var(--cyan); color: var(--cyan); }

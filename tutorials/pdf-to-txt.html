@@ -1,6 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<script src="../assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title data-i18n="pageTitle">PDF 转 TXT 工具使用教程：在线提取 PDF 纯文本内容 - ZenTools</title>
@@ -9,30 +20,145 @@
 <link rel="manifest" href="/manifest.json" />
 <link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
 <style>
-.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:16px; }
-.article-body h2 { font-size:20px; font-weight:700; color:var(--text); margin:32px 0 12px; }
-.article-body h3 { font-size:16px; font-weight:600; color:var(--cyan); margin:24px 0 8px; }
-.article-body p, .article-body li { font-size:14px; color:var(--muted); line-height:1.8; margin-bottom:10px; }
-.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--cyan); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--text); }
-.article-body .rel-tools { font-size:13px; color:var(--muted); margin-top:12px; }
-.article-body .rel-tools a { color:var(--cyan); text-decoration:none; }
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:Inter,"Source Han Sans SC",PingFang SC,Microsoft YaHei,system-ui,sans-serif; background:var(--zen-bg-base); color:var(--zen-text-main); line-height:1.5; transition:background .35s,color .35s; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    .site-nav { position:fixed; top:0; left:0; width:100%; z-index:999; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); background:rgba(255,255,255,0.75); border-bottom:1px solid var(--zen-border); transition:background .3s; }
+    .dark .site-nav { background:rgba(15,23,42,0.75); }
+    .nav-inner { height:70px; display:flex; align-items:center; justify-content:space-between; gap:16px; max-width:1200px; margin:0 auto; padding:0 24px; }
+    .logo-text-blue { color:var(--zen-primary); }
+    .logo-text-teal { color:var(--zen-secondary); }
+    .nav-links a { padding:8px 14px; border-radius:8px; font-size:14px; font-weight:500; color:var(--zen-text-sub); transition:color .2s,background .2s; text-decoration:none; }
+    .nav-links a:hover { color:var(--zen-text-main); background:rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background:rgba(255,255,255,0.06); }
+    .nav-links a.active { color:var(--zen-primary); font-weight:600; }
+    .mobile-overlay { position:fixed; inset:0; z-index:300; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); opacity:0; visibility:hidden; transition:opacity .3s,visibility .3s; }
+    .mobile-overlay.open { opacity:1; visibility:visible; }
+    .mobile-drawer { position:fixed; top:0; right:0; bottom:0; width:300px; max-width:85vw; background:rgba(249,250,251,0.97); border-left:1px solid var(--zen-border); padding:24px 20px; z-index:310; overflow-y:auto; transform:translateX(100%); transition:transform .3s; backdrop-filter:blur(24px); }
+    .dark .mobile-drawer { background:rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform:translateX(0); }
+    .mobile-drawer a { display:block; padding:12px 16px; border-radius:8px; font-size:16px; font-weight:500; color:var(--zen-text-sub); transition:color .2s,background .2s; }
+    .mobile-drawer a:hover { background:rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background:rgba(255,255,255,0.06); }
+    .page-tutorial { max-width:900px; margin:120px auto 40px; padding:0 24px; }
+    .page-tutorial .meta { color:var(--zen-text-sub); font-size:14px; margin-bottom:24px; }
+    .page-tutorial .meta h1 { font-size:clamp(28px,4vw,40px); font-weight:800; letter-spacing:-1px; line-height:1.2; margin-bottom:12px; background:var(--zen-gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .article-body { color:var(--zen-text-main); font-size:16px; line-height:1.85; }
+    .article-body h2 { font-size:24px; font-weight:700; margin:36px 0 16px; color:var(--zen-text-main); }
+    .article-body h3 { font-size:20px; font-weight:600; margin:28px 0 12px; }
+    .article-body p { margin-bottom:16px; }
+    .article-body ul,.article-body ol { margin:12px 0 20px 24px; }
+    .article-body li { margin-bottom:8px; }
+    .tip { background:var(--zen-bg-card); border:1px solid var(--zen-border); border-radius:var(--zen-radius-base); padding:16px 20px; margin:20px 0; }
+    .tip::before { content:attr(data-label); display:block; font-size:12px; font-weight:700; color:var(--zen-primary); margin-bottom:8px; text-transform:uppercase; letter-spacing:1px; }
+    .screenshot-wrap { margin:24px 0; text-align:center; }
+    .screenshot-wrap img { max-width:100%; border-radius:var(--zen-radius-base); border:1px solid var(--zen-border); }
+    .rel-tools { max-width:900px; margin:40px auto; padding:0 24px; }
+    .rel-tools h3 { font-size:16px; font-weight:700; color:var(--zen-text-sub); margin-bottom:16px; }
+    .back-link { text-align:center; margin:20px 0 40px; }
+    .back-link a { display:inline-flex; align-items:center; gap:6px; padding:10px 20px; border-radius:8px; border:1px solid var(--zen-border); color:var(--zen-text-sub); font-size:14px; transition:color .2s,border-color .2s; }
+    .back-link a:hover { color:var(--zen-primary); border-color:var(--zen-primary); }
+    footer { border-top:1px solid var(--zen-border); padding:36px 0; text-align:center; }
+    .footer-inner { max-width:1200px; margin:0 auto; padding:0 24px; }
+    .footer-logo { font-size:18px; font-weight:700; margin-bottom:12px; background:var(--zen-gradient); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .footer-links { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-bottom:14px; font-size:13px; }
+    .footer-links a { color:var(--zen-text-sub); transition:color .2s; }
+    .footer-links a:hover { color:var(--zen-primary); }
+    .footer-copy { font-size:13px; color:var(--zen-text-placeholder); }
+    
+    @media(max-width:768px) {
+      .nav-links a:not(#hamburgerBtn):not(#themeToggle):not(#langSelect) { display:none; }
+      #hamburgerBtn { display:inline-flex !important; }
+      .page-tutorial { margin-top:100px; }
+      .nav-inner { height:60px; gap:8px; }
+    }
+.article-body { max-width:860px; margin:0 auto; padding:20px 28px; background:rgba(255,255,255,0.02); border:1px solid var(--zen-border); border-radius:16px; }
+.article-body h2 { font-size:20px; font-weight:700; color:var(--zen-text-main); margin:32px 0 12px; }
+.article-body h3 { font-size:16px; font-weight:600; color:var(--zen-primary); margin:24px 0 8px; }
+.article-body p, .article-body li { font-size:14px; color:var(--zen-text-sub); line-height:1.8; margin-bottom:10px; }
+.article-body .tip { background:rgba(0,229,255,0.06); border-left:3px solid var(--zen-primary); padding:14px 18px; border-radius:0 10px 10px 0; margin:16px 0; font-size:14px; color:var(--zen-text-main); }
+.article-body .rel-tools { font-size:13px; color:var(--zen-text-sub); margin-top:12px; }
+.article-body .rel-tools a { color:var(--zen-primary); text-decoration:none; }
 .article-body .rel-tools a:hover { text-decoration:underline; }
 .page-tutorial { max-width:920px; margin:0 auto; padding:20px 16px 60px; }
-.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--muted); margin-bottom:20px; transition:color 0.2s; }
-.page-tutorial .back-link:hover { color:var(--cyan); }
-.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--cyan); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
+.page-tutorial .back-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; color:var(--zen-text-sub); margin-bottom:20px; transition:color 0.2s; }
+.page-tutorial .back-link:hover { color:var(--zen-primary); }
+.page-tutorial .page-eyebrow { font-size:12px; font-weight:700; color:var(--zen-primary); letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; display:block; }
 .page-tutorial h1 { font-size:28px; font-weight:800; margin-bottom:8px; }
-.page-tutorial .meta { font-size:13px; color:var(--muted); display:flex; gap:16px; margin-bottom:24px; }
+.page-tutorial .meta { font-size:13px; color:var(--zen-text-sub); display:flex; gap:16px; margin-bottom:24px; }
 .screenshot-wrap img { max-width:100%; border-radius:12px; border:1px solid rgba(255,255,255,0.08); margin:12px 0; box-shadow:0 8px 24px rgba(0,0,0,0.3); }
 </style>
 <meta name="google-adsense-account" content="ca-pub-1955887568822472">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"PDF 转 TXT 工具使用教程：在线提取 PDF 纯文本内容","description":"学会使用 ZenTools 在线 PDF 转 TXT 工具，从 PDF 文件中提取纯文本内容，支持 UTF-8、GBK、Shift-JIS 等多种编码格式，完全在浏览器本地完成。","datePublished":"2026-06-22","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/pdf-to-txt.html"}}</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部教程", "item": "https://zentools.xyz/tutorials/"}, {"@type": "ListItem", "position": 3, "name": "PDF 转 TXT 工具使用教程：在线提取 PDF 纯文本内容"}]}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"PDF 转 TXT 工具使用教程：在线提取 PDF 纯文本内容","description":"学会使用 ZenTools 在线 PDF 转 TXT 工具，从 PDF 文件中提取纯文本内容，支持 UTF-8、GBK、Shift-JIS 等多种编码格式，完全在浏览器本地完成。","datePublished":"2026-06-22","author":{"@type":"Organization","name":"ZenTools"},"publisher":{"@type":"Organization","name":"ZenTools"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://zentools.xyz/tutorials/pdf-to-txt.html"}}</script>
 </head>
 <body>
-<div class="blob blob-1"></div><div class="blob blob-2"></div>
-<div class="z-wrap">
-<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/" data-i18n="navHome">首页</a><a href="/dev/" data-i18n="navDev">开发工具</a><a href="/tools.html" data-i18n="navAll">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <div class="logo-icon" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:700">Z</div>
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/">首页</a>
+        <a href="/tools.html">全部工具</a>
+        <a href="/tutorials/" class="active">教程中心</a>
+        <a href="/guides/">深度指南</a>
+        <a href="/compare/">工具对比</a>
+        <a href="/professions.html">职业工具</a>
+        <a href="/my.html">用户中心</a>
+        <a href="/about.html">关于</a>
+        <button id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select id="langSelect" class="lang-select">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/">首页</a>
+      <a href="/tools.html">全部工具</a>
+      <a href="/tutorials/">教程中心</a>
+      <a href="/guides/">深度指南</a>
+      <a href="/compare/">工具对比</a>
+      <a href="/professions.html">职业工具</a>
+      <a href="/my.html">用户中心</a>
+      <a href="/about.html">关于</a>
+    </div>
+  </div>
 
 <div class="page-tutorial">
 <a class="back-link" href="/tutorials/">← <span data-i18n="backToIndex">返回教程中心</span></a>
@@ -89,6 +215,28 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/service-worker.js').catch(() => {});
   });
 }
+</script>
+<script>
+(function(){
+var t=localStorage.getItem('zentools_theme');
+if(t==='dark')document.documentElement.classList.add('dark');
+var b=document.getElementById('themeToggle');
+if(b){b.textContent=document.documentElement.classList.contains('dark')?'☀️':'🌙';
+b.addEventListener('click',function(){document.documentElement.classList.toggle('dark');
+var d=document.documentElement.classList.contains('dark');
+this.textContent=d?'☀️':'🌙';localStorage.setItem('zentools_theme',d?'dark':'light');});}
+})();
+(function(){
+var o=document.getElementById('mobileOverlay'),h=document.getElementById('hamburgerBtn'),c=document.getElementById('mobileClose');
+function cl(){o.classList.remove('open');h.textContent='☰';document.body.style.overflow='';}
+if(!h||!o)return;
+h.addEventListener('click',function(e){e.stopPropagation();
+if(o.classList.contains('open'))cl();else{o.classList.add('open');h.textContent='✕';document.body.style.overflow='hidden';}});
+if(c)c.addEventListener('click',cl);
+o.addEventListener('click',function(e){var d=document.getElementById('mobileDrawer');if(d&&!d.contains(e.target))cl();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&o.classList.contains('open'))cl();});
+})();
+if('serviceWorker'in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}
 </script>
 </body>
 </html>

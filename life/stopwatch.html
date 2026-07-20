@@ -1,136 +1,335 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="pageTitle">秒表 - 生活工具 | ZenTools</title>
-  <script src="/assets/js/anti-crash.min.js"></script>
-<meta property="og:title" content="秒表 | ZenTools" />
-<meta property="og:description" content="在线秒表，支持开始、暂停、计次和重置功能。" />
-<meta property="og:url" content="https://zentools.xyz/life/stopwatch.html" />
-<meta name="description" content="在线秒表，支持开始、暂停、计次（Lap）和重置功能。">
-<meta name="keywords" content="秒表,计时器,计次,秒表在线,计时工具">
-<link rel="stylesheet" href="../assets/css/tool-ui.min.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-<style>
-.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--border); }
-.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--cyan),var(--purple)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
-.btn:hover { opacity:.85; }
-.btn2 { background:var(--glass-b); color:var(--text); }
-.btn-danger { background:#ef4444; }
-.display { font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:2px;text-align:center;color:var(--cyan);padding:20px;font-family:monospace; }
-.controls { display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px; }
-.lap-list { margin-top:16px;max-height:200px;overflow-y:auto; }
-.lap-item { display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--border);font-size:13px; }
-.lap-item .lap-num { color:var(--muted); }
-.lap-item .lap-time { font-family:monospace;font-weight:600; }
-.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
-</style>
-<script>window.ZT_PAGE={"zh":{pageTitle: '秒表 - 生活工具 | ZenTools', metaDesc: '在线秒表，支持开始、暂停、计次（Lap）和重置功能。', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"en":{pageTitle: '秒表 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"ja":{pageTitle: '秒表 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"vi":{pageTitle: '秒表 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'}};</script>
-<link rel="canonical" href="https://zentools.xyz/life/stopwatch.html"/>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "秒表 - 生活工具如何使用？",
-      "acceptedAnswer": {"@type": "Answer", "text": "上传文件或输入内容，根据工具功能进行设置，点击开始处理即可获得结果。所有处理在浏览器本地完成。"}
-    },
-    {
-      "@type": "Question",
-      "name": "这个工具会上传我的文件到服务器吗？",
-      "acceptedAnswer": {"@type": "Answer", "text": "不会。所有处理在您的浏览器本地完成，文件不会离开您的设备，保护隐私安全。"}
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "秒表 - 生活工具 - ZenTools",
-  "url": "https://zentools.xyz/life/stopwatch.html",
-  "description": "在线秒表，支持开始、暂停、计次（Lap）和重置功能。",
-  "applicationCategory": "UtilityApplication",
-  "operatingSystem": "All",
-  "browserRequirements": "Requires JavaScript",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
-}
-</script>
-</head>
-<body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-<div class="container">
-  <nav class="nav-bar">
-<select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
-    <div class="logo"><span class="mark">⛵</span>ZenTools</div>
-    <div class="links"><a href="/" data-i18n="navHome">首页</a><a href="#" class="active" data-i18n="nav 生活工具 Cat">生活工具</a><a href="/categories.html">全部工具</a></div>
-  </nav>
-  <a href="/" class="back-home">← 返回首页</a>
-  <div class="page-header">
-    <h1><span class="hl">秒表</span></h1>
-    <p>在线秒表，支持开始、暂停、计次和重置，精确到百分之一秒。</p>
-  </div>
-  <div class="tool-box">
-    <div class="display" id="swDisplay">00:00.00</div>
-    <div class="controls">
-      <button class="btn" id="swStartBtn" onclick="swStart()" data-i18n="btn_开始">▶ 开始</button>
-      <button class="btn btn2" onclick="swLap()" data-i18n="btn_计次">⏱️ 计次</button>
-      <button class="btn btn2" onclick="swPause()" data-i18n="btn_暂停">⏸️ 暂停</button>
-      <button class="btn btn-danger" onclick="swReset()" data-i18n="btn_重置">↺ 重置</button>
-    </div>
-    <div class="lap-list" id="swLapList"></div>
-  </div>
-</div>
-<script src="../assets/js/tool-ui.min.js"></script>
-<script>
-var swTime=0,swInterval=null,swRunning=false,swLapCount=0;
-function swFormat(t){
-  var m=Math.floor(t/60000),s=Math.floor((t%60000)/1000),ms=Math.floor((t%1000)/10);
-  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+'.'+String(ms).padStart(2,'0');
-}
-function swUpdate(){
-  swTime+=10;
-  document.getElementById('swDisplay').textContent=swFormat(swTime);
-}
-function swStart(){
-  if(swRunning) return;
-  swRunning=true;
-  swInterval=setInterval(swUpdate,10);
-  document.getElementById('swStartBtn').textContent='▶ 运行中';
-}
-function swPause(){
-  swRunning=false;
-  clearInterval(swInterval);
-  document.getElementById('swStartBtn').textContent='▶ 继续';
-}
-function swLap(){
-  if(!swRunning) return;
-  swLapCount++;
-  var list=document.getElementById('swLapList');
-  var div=document.createElement('div');div.className='lap-item';
-  div.innerHTML='<span class="lap-num">计次 '+(swLapCount)+'</span><span class="lap-time">'+swFormat(swTime)+'</span>';
-  list.appendChild(div);
-  list.scrollTop=list.scrollHeight;
-}
-function swReset(){
-  swRunning=false;clearInterval(swInterval);swTime=0;swLapCount=0;
-  document.getElementById('swDisplay').textContent='00:00.00';
-  document.getElementById('swStartBtn').textContent='▶ 开始';
-  document.getElementById('swLapList').innerHTML='';
-}
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
-<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
-
-    
-    
-
-    
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="pageTitle">秒表 - 生活工具 | ZenTools</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+<meta property="og:title" content="秒表 | ZenTools" />
+<meta property="og:description" content="在线秒表，支持开始、暂停、计次和重置功能。" />
+<meta property="og:url" content="https://zentools.xyz/life/stopwatch.html" />
+<meta name="description" content="在线秒表，支持开始、暂停、计次（Lap）和重置功能。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。">
+<meta name="keywords" content="秒表,计时器,计次,秒表在线,计时工具,秒表在线使用,秒表怎么用">
+<link rel="stylesheet" href="/assets/css/tool-ui.min.css">
+</div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+<style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+.tool-box { padding:24px; background:var(--surface); border-radius:var(--r); border:1px solid var(--zen-border); }
+.btn { padding:10px 24px; border-radius:8px; border:none; background:linear-gradient(135deg,var(--zen-primary),var(--zen-secondary)); color:#fff; font-size:14px; font-weight:600; cursor:pointer; }
+.btn:hover { opacity:.85; }
+.btn2 { background:var(--glass-b); color:var(--zen-text-main); }
+.btn-danger { background:#ef4444; }
+.display { font-size:64px;font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:2px;text-align:center;color:var(--zen-primary);padding:20px;font-family:monospace; }
+.controls { display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px; }
+.lap-list { margin-top:16px;max-height:200px;overflow-y:auto; }
+.lap-item { display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid var(--zen-border);font-size:13px; }
+.lap-item .lap-num { color:var(--zen-text-sub); }
+.lap-item .lap-time { font-family:monospace;font-weight:600; }
+.lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+<script>window.ZT_PAGE={"zh":{pageTitle: '秒表 - 生活工具 | ZenTools', metaDesc: '在线秒表，支持开始、暂停、计次（Lap）和重置功能。', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"en":{pageTitle: '秒表 - Free Online Tool | ZenTools', metaDesc: 'Free online tool. Process in browser.', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"ja":{pageTitle: '秒表 - 無料オンラインツール | ZenTools', metaDesc: 'ブラウザで動作する無料ツール。', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'},"vi":{pageTitle: '秒表 - Công cụ Trực tuyến | ZenTools', metaDesc: 'Công cụ trực tuyến miễn phí.', btn_开始: '▶ 开始', btn_计次: '⏱️ 计次', btn_暂停: '⏸️ 暂停', btn_重置: '↺ 重置', btn_收藏本站: '⭐ 收藏本站'}};</script>
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://zentools.xyz/life/stopwatch.html"/>
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "生活工具", "item": "https://zentools.xyz/life/"}, {"@type": "ListItem", "position": 4, "name": "秒表 - 生活工具"}]}</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "秒表 - 生活工具 - ZenTools",
+  "url": "https://zentools.xyz/life/stopwatch.html",
+  "description": "在线秒表，支持开始、暂停、计次（Lap）和重置功能。",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<div class="container">
+  <nav class="nav-bar">
+<select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select>
+    <div class="logo"><span class="mark">⛵</span>ZenTools</div>
+    <div class="links"><a href="/" data-i18n="navHome">首页</a><a href="#" class="active" data-i18n="nav 生活工具 Cat">生活工具</a><a href="/categories.html">全部工具</a></div>
+  </nav>
+  <a href="/" class="back-home">← 返回首页</a>
+  <section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>Tool</div>
+      
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent"><span class="hl">秒表</span></span></h1>
+    </div>
+  </section>
+<div class="tool-box">
+    <div class="display" id="swDisplay">00:00.00</div>
+    <div class="controls">
+      <button class="btn" id="swStartBtn" onclick="swStart()" data-i18n="btn_开始">▶ 开始</button>
+      <button class="btn btn2" onclick="swLap()" data-i18n="btn_计次">⏱️ 计次</button>
+      <button class="btn btn2" onclick="swPause()" data-i18n="btn_暂停">⏸️ 暂停</button>
+      <button class="btn btn-danger" onclick="swReset()" data-i18n="btn_重置">↺ 重置</button>
+    </div>
+    <div class="lap-list" id="swLapList"></div>
+  </script src="/assets/js/tool-ui.min.js"></script>
+<script>
+var swTime=0,swInterval=null,swRunning=false,swLapCount=0;
+function swFormat(t){
+  var m=Math.floor(t/60000),s=Math.floor((t%60000)/1000),ms=Math.floor((t%1000)/10);
+  return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+'.'+String(ms).padStart(2,'0');
+}
+function swUpdate(){
+  swTime+=10;
+  document.getElementById('swDisplay').textContent=swFormat(swTime);
+}
+function swStart(){
+  if(swRunning) return;
+  swRunning=true;
+  swInterval=setInterval(swUpdate,10);
+  document.getElementById('swStartBtn').textContent='▶ 运行中';
+}
+function swPause(){
+  swRunning=false;
+  clearInterval(swInterval);
+  document.getElementById('swStartBtn').textContent='▶ 继续';
+}
+function swLap(){
+  if(!swRunning) return;
+  swLapCount++;
+  var list=document.getElementById('swLapList');
+  var div=document.createElement('div');div.className='lap-item';
+  div.innerHTML='<span class="lap-num">计次 '+(swLapCount)+'</span><span class="lap-time">'+swFormat(swTime)+'</span>';
+  list.appendChild(div);
+  list.scrollTop=list.scrollHeight;
+}
+function swReset(){
+  swRunning=false;clearInterval(swInterval);swTime=0;swLapCount=0;
+  document.getElementById('swDisplay').textContent='00:00.00';
+  document.getElementById('swStartBtn').textContent='▶ 开始';
+  document.getElementById('swLapList').innerHTML='';
+}
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+    
+    
+
+
+    
+    
+    
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>秒表：精确的在线秒表，支持计次和分段时间记录，适合运动和实验计时。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>需要快速换算、记账、安排日程的普通用户，以及经常跨境购物或出差旅行的人。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>涉及金额或日期的结果，核对一遍再使用</li>
+<li>把常用单位或币种设为默认，减少重复操作</li>
+<li>倒计时、日历类工具可提前设好提醒</li>
+<li>随机类工具适合做决策或抽奖，结果仅供娱乐</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>秒表主要能做什么？</summary><p>秒表：精确的在线秒表，支持计次和分段时间记录，适合运动和实验计时。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。</p></details>
+<details open><summary>第一次使用秒表要注意什么？</summary><p>打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。</p></details>
+<details open><summary>秒表处理我的文件安全吗？</summary><p>安全。秒表所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。</p></details>
+<details open><summary>秒表的结果怎么保存？</summary><p>处理完成后页面会提供下载或复制按钮，结果保存在你自己的设备，随时可用。</p></details>
+  </div>
+</section>
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "秒表主要能做什么？","acceptedAnswer": {"@type": "Answer","text": "秒表：精确的在线秒表，支持计次和分段时间记录，适合运动和实验计时。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"}},{"@type": "Question","name": "第一次使用秒表要注意什么？","acceptedAnswer": {"@type": "Answer","text": "打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。"}},{"@type": "Question","name": "秒表处理我的文件安全吗？","acceptedAnswer": {"@type": "Answer","text": "安全。秒表所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。"}},{"@type": "Question","name": "秒表的结果怎么保存？","acceptedAnswer": {"@type": "Answer","text": "处理完成后页面会提供下载或复制按钮，结果保存在你自己的设备，随时可用。"}}]}</script>
+</body>
+</html>

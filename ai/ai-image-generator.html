@@ -1,141 +1,369 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<script src="../assets/js/anti-crash.min.js" defer></script>
-<title data-i18n="pageTitle">AI图片生成 - ZenTools</title>
-<meta name="description" content="AI根据文本描述生成图片，支持多种艺术风格，快速生成高质量图像，免费在线使用。"/>
-<meta name="keywords" content="AI图片生成,文生图,AI绘图,AI插画,图像生成,免费工具"/>
-<link rel="canonical" href="https://zentools.xyz/ai/ai-image-generator.html"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta property="og:title" content="AI图片生成 - ZenTools"/>
-<meta property="og:description" content="AI根据文本描述生成图片，支持多种艺术风格。"/>
-<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
-<meta property="og:url" content="https://zentools.xyz/ai/ai-image-generator.html"/>
-<meta property="og:type" content="website"/>
-<meta property="og:locale" content="zh_CN"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="AI Image Generator | ZenTools"/>
-<meta name="twitter:description" content="AI根据文本描述生成图片，支持多种艺术风格。"/>
-<link rel="stylesheet" href="../assets/css/tool-ui.min.css"/>
-<style>
-:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
-.form-group{margin-bottom:16px}
-.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
-textarea{width:100%;min-height:120px;padding:14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
-textarea:focus{outline:none;border-color:var(--cyan)}
-select{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
-select:focus{outline:none;border-color:var(--cyan)}
-.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#fff}
-.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
-.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
-.btn-secondary{background:rgba(255,255,255,0.06);color:var(--text);border:1px solid var(--border)}
-.btn-secondary:hover{border-color:var(--cyan)}
-.btn-sm{padding:6px 14px;font-size:12px}
-.panel{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px}
-.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
-.output{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:14px;padding:24px;min-height:300px;display:flex;align-items:center;justify-content:center}
-.output img{max-width:100%;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
-.output.empty{display:flex;align-items:center;justify-content:center;color:var(--muted);text-align:center}
-.loading{display:flex;flex-direction:column;align-items:center;gap:16px}
-.loading .spinner{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
-.modal{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;max-width:440px;width:90%}
-.modal h3{font-size:18px;margin-bottom:8px}
-.api-row{margin:16px 0}
-.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--muted)}
-input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
-input:focus{outline:none;border-color:var(--cyan)}
-</style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"AI图片生成支持哪些图片风格？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"支持写实照片、数字艺术、油画、水彩、卡通、动漫、像素艺术等多种风格。"}},{"@type":"Question","name":"生成的图片分辨率是多少？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"默认生成分辨率为1024x1024，部分模型支持更高分辨率。"}},{"@type":"Question","name":"如何写出好的图片描述？","acceptedAnswer":{"@type":"AcceptedAnswer","text":"建议包含主体、场景、风格、色彩、构图等元素，描述越详细生成的图片质量越高。"}}]}
-</script>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebApplication","name":"AI图片生成","applicationCategory":"AIApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI根据文本描述生成图片，支持多种艺术风格。"}
-</script>
-<script>
-window.ZT_PAGE={
-  zh:{pageTitle:'AI图片生成 - ZenTools', crumbCur:'AI图片生成', eyebrow:'AI工具', h1Grad:'AI图片生成', h1Sub:'文字描述生成精美图片', pageDesc:'AI根据文本描述生成图片，支持多种艺术风格，快速生成高质量图像，免费在线使用。', cardTitle:'✍️ 图片描述', cardResult:'🖼️ 生成结果', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'例如：一只可爱的猫咪坐在阳光下的草地上，温暖的光线，柔和的色彩，动漫风格，高分辨率', btnGenerate:'🎨 生成图片', btnDownload:'💾 下载', btnClear:'清空', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderStyle:'选择风格', placeholderSize:'图片尺寸', emptyPrompt:'描述你想要的图片...', generated:'已生成', faqQ1:'AI图片生成支持哪些图片风格？', faqA1:'支持写实照片、数字艺术、油画、水彩、卡通、动漫、像素艺术等多种风格。', faqQ2:'生成的图片分辨率是多少？', faqA2:'默认生成分辨率为1024x1024，部分模型支持更高分辨率。', faqQ3:'如何写出好的图片描述？', faqA3:'建议包含主体、场景、风格、色彩、构图等元素，描述越详细生成的图片质量越高。', navAI工具Cat:'AI工具'},
-  en:{pageTitle:'AI Image Generator | ZenTools', crumbCur:'AI Image Generator', eyebrow:'AI TOOLS', h1Grad:'AI Image Generator', h1Sub:'Generate Images from Text', pageDesc:'AI generates images based on text descriptions, supporting multiple art styles. High quality images, free to use online.', cardTitle:'✍️ Image Description', cardResult:'🖼️ Generated Image', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'e.g., A cute cat sitting on a sunny meadow, warm lighting, soft colors, anime style, high resolution', btnGenerate:'🎨 Generate Image', btnDownload:'💾 Download', btnClear:'Clear', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderStyle:'Select Style', placeholderSize:'Image Size', emptyPrompt:'Describe the image you want...', generated:'Generated', faqQ1:'What image styles does AI image generation support?', faqA1:'Supports realistic photos, digital art, oil painting, watercolor, cartoon, anime, pixel art and more.', faqQ2:'What is the resolution of generated images?', faqA2:'Default resolution is 1024x1024, some models support higher resolutions.', faqQ3:'How to write good image descriptions?', faqA3:'Include subject, scene, style, color, composition etc. The more detailed, the better the result.'},
-  ja:{pageTitle:'AI画像生成 | ZenTools', crumbCur:'AI画像生成', eyebrow:'AIツール', h1Grad:'AI画像生成', h1Sub:'テキストから美しい画像を生成', pageDesc:'AIがテキスト記述に基づいて画像を生成。複数のアートスタイルに対応。オンラインで無料利用可能。', cardTitle:'✍️ 画像記述', cardResult:'🖼️ 生成結果', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'例：日差しの中で可愛らしい猫が芝生に座っている、暖かい光、柔らかな色、アニメスタイル、高精細', btnGenerate:'🎨 画像生成', btnDownload:'💾 ダウンロード', btnClear:'クリア', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderStyle:'スタイルを選択', placeholderSize:'画像サイズ', emptyPrompt:'欲しい画像を記述してください...', generated:'生成済み', faqQ1:'AI画像生成はどのスタイルに対応していますか？', faqA1:'レアリズム写真、デジタルアート、油絵、水彩、卡通、アニメ、ピクセルアートなど。', faqQ2:'生成画像の解像度は？', faqA2:'デフォルトは1024x1024、一部のモデルはより高分解像度に対応しています。', faqQ3:'良い画像記述の書き方は？', faqA3:'被写体、シーン、スタイル、色彩、構図などを含めることをお勧めします。詳細なほど高品質な結果が得られます。'},
-  vi:{pageTitle:'Tạo ảnh AI | ZenTools', crumbCur:'Tạo ảnh AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Tạo ảnh AI', h1Sub:'Tạo ảnh từ mô tả văn bản', pageDesc:'AI tạo hình ảnh theo mô tả văn bản, hỗ trợ nhiều phong cách nghệ thuật. Tạo ảnh chất lượng cao, miễn phí sử dụng.', cardTitle:'✍️ Mô tả hình ảnh', cardResult:'🖼️ Kết quả tạo', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Ví dụ: Một con mèo dễ thương ngồi trên bãi cỏ dưới ánh nắng, ánh sáng ấm áp, màu sắc dịu dàng, phong cách anime, độ phân giải cao', btnGenerate:'🎨 Tạo ảnh', btnDownload:'💾 Tải xuống', btnClear:'Xóa', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderStyle:'Chọn phong cách', placeholderSize:'Kích thước ảnh', emptyPrompt:'Mô tả hình ảnh bạn muốn...', generated:'Đã tạo', faqQ1:'Công cụ tạo ảnh AI hỗ trợ những phong cách nào?', faqA1:'Hỗ trợ ảnh chân thực, nghệ thuật số, sơn dầu, sơn nước, hoạt hình, anime, pixel art và nhiều hơn nữa.', faqQ2:'Độ phân giải của ảnh tạo ra là bao nhiêu?', faqA2:'Mặc định là 1024x1024, một số mô hình hỗ trợ độ phân giải cao hơn.', faqQ3:'Làm thế nào để viết mô tả hình ảnh tốt?', faqA3:'Hãy bao gồm chủ thể, khung cảnh, phong cách, màu sắc, bố cục. Mô tả chi tiết càng nhiều thì kết quả càng tốt.'}
-};
-</script>
-</head>
-<body>
-<div class="blob blob-1"></div>
-<div class="blob blob-2"></div>
-<div class="z-wrap">
-<nav><div class="nav-inner"><a class="logo" href="/">ZenTools<span>2.0</span></a><div class="nav-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/tools.html">全部工具</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div></div></nav>
-<div class="page-header reveal"><div class="breadcrumb"><a href="/">首页</a><span class="breadcrumb-sep">/</span><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><span class="breadcrumb-sep">/</span><span class="cur" data-i18n="crumbCur">AI图片生成</span></div><span class="page-eyebrow" data-i18n="eyebrow">AI工具</span><h1><span class="grad" data-i18n="h1Grad">AI图片生成</span><br/><span data-i18n="h1Sub">文字描述生成精美图片</span></h1><p data-i18n="pageDesc">AI根据文本描述生成图片，支持多种艺术风格，快速生成高质量图像，免费在线使用。</p></div>
-<div class="tool-box reveal">
-<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
-  <div class="form-group">
-    <label data-i18n="cardTitle">✍️ 图片描述</label>
-    <textarea id="prompt" data-i18n-placeholder="placeholder"></textarea>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
-    <div class="form-group"><label data-i18n="placeholderStyle">选择风格</label><select id="style"><option value="">不限</option><option value="anime">动漫</option><option value="photographic">摄影</option><option value="digital art">数字艺术</option><option value="painting">绘画</option><option value="watercolor">水彩</option><option value="cartoon">卡通</option><option value="realistic">写实</option></select></div>
-    <div class="form-group"><label data-i18n="placeholderSize">图片尺寸</label><select id="size"><option value="1024x1024">1024x1024</option><option value="1792x1024">1792x1024</option><option value="1024x1792">1024x1792</option></select></div>
-    <div class="form-group"><label data-i18n="model">模型</label><select id="modelSelect"><option value="dall-e-3">DALL-E 3</option><option value="dall-e-2">DALL-E 2</option></select></div>
-  </div>
-  <div style="display:flex;gap:10px">
-    <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>🎨</span><span data-i18n="btnGenerate">🎨 生成图片</span></button>
-    <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
-    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button>
-  </div>
-  <div class="panel">
-    <div class="panel-header"><h2 data-i18n="cardResult">🖼️ 生成结果</h2><button class="btn btn-secondary btn-sm" onclick="downloadImage()" id="dlBtn" style="display:none" data-i18n="btnDownload">💾 下载</button></div>
-    <div class="output empty" id="output"><p data-i18n="emptyPrompt">描述你想要的图片...</p></div>
-  </div>
-</div>
-<div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
-    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/images/generations" style="width:100%"></div>
-    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
-  </div>
-</div>
-</div>
-<footer><div class="footer-inner"><div class="footer-logo">ZenTools</div><div class="footer-links"><a href="/">首页</a><a href="/ai/" data-i18n="navAI工具Cat">AI工具</a><a href="/privacy.html">隐私政策</a></div><p class="footer-copy">© 2026 ZenTools. 免费在线工具箱。</p></div></footer>
-</div>
-<script>
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.03);color:#f0f4ff;text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script>
-const SK='zentools_ai_image_settings';
-let currentImageUrl='';
-function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
-function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'dall-e-3'}}catch(e){}}
-function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
-function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/images/generations',apiKey:'',model:'dall-e-3'}}catch(e){return{endpoint:'https://api.openai.com/v1/images/generations',apiKey:'',model:'dall-e-3'}}}
-async function generate(){const prompt=document.getElementById('prompt').value.trim();const style=document.getElementById('style').value;const size=document.getElementById('size').value;const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!prompt){alert('请输入图片描述');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}const finalPrompt=style?prompt+', '+style:prompt;btn.disabled=true;output.classList.add('empty');output.innerHTML='<div class="loading"><div class="spinner"></div><p>正在生成图片...</p></div>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,prompt:finalPrompt,size,size,quality:'hd',n:1})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();currentImageUrl=data.data[0].url;output.classList.remove('empty');output.innerHTML='<img src="'+currentImageUrl+'" alt="生成的图片" onclick="window.open(this.src,\''_blank\'">';document.getElementById('dlBtn').style.display='inline-flex'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
-function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
-function clearAll(){document.getElementById('prompt').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyPrompt">描述你想要的图片...</p>';document.getElementById('dlBtn').style.display='none';currentImageUrl=''}
-async function downloadImage(){if(!currentImageUrl)return;try{const r=await fetch(currentImageUrl);const b=await r.blob();const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='ai-image.png';a.click();URL.revokeObjectURL(u)}catch(e){window.open(currentImageUrl,'_blank')}}
-loadSettings();
-</script>
-<script src="../assets/js/common-i18n.min.js"></script>
-<script src="../assets/js/tool-ui.min.js"></script>
-
-    
-    
-    
-
-    
-</body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+</div>
+<script src="/assets/js/anti-crash.min.js" defer></script>
+<title data-i18n="pageTitle">AI图片生成 - ZenTools</title>
+<meta name="description" content="AI根据文本描述生成图片，支持多种艺术风格，快速生成高质量图像，免费在线使用。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。"/>
+<meta name="keywords" content="AI图片生成,文生图,AI绘图,AI插画,图像生成,免费工具,AI图片生成在线使用,AI图片生成怎么用"/>
+<link rel="canonical" href="https://zentools.xyz/ai/ai-image-generator.html"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:title" content="AI图片生成 - ZenTools"/>
+<meta property="og:description" content="AI根据文本描述生成图片，支持多种艺术风格。"/>
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+<meta property="og:url" content="https://zentools.xyz/ai/ai-image-generator.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="zh_CN"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="AI Image Generator | ZenTools"/>
+<meta name="twitter:description" content="AI根据文本描述生成图片，支持多种艺术风格。"/>
+<link rel="stylesheet" href="/assets/css/tool-ui.min.css"/>
+<style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+:root{--bg:#0f172a;--card:#111827;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--zen-text-sub)}
+textarea{width:100%;min-height:120px;padding:14px;border-radius:14px;border:1px solid var(--zen-border);background:rgba(255,255,255,0.04);color:var(--zen-text-main);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+textarea:focus{outline:none;border-color:var(--zen-primary)}
+select{padding:10px 14px;border-radius:14px;border:1px solid var(--zen-border);background:rgba(255,255,255,0.04);color:var(--zen-text-main);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+select:focus{outline:none;border-color:var(--zen-primary)}
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:linear-gradient(135deg,var(--zen-primary),var(--zen-secondary));color:#fff}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--zen-text-main);border:1px solid var(--zen-border)}
+.btn-secondary:hover{border-color:var(--zen-primary)}
+.btn-sm{padding:6px 14px;font-size:12px}
+.panel{background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:14px;padding:24px;margin-bottom:20px}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--zen-border);border-radius:14px;padding:24px;min-height:300px;display:flex;align-items:center;justify-content:center}
+.output img{max-width:100%;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,0.3)}
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--zen-text-sub);text-align:center}
+.loading{display:flex;flex-direction:column;align-items:center;gap:16px}
+.loading .spinner{width:40px;height:40px;border:3px solid var(--zen-border);border-top-color:var(--zen-primary);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+.modal{background:var(--card);border:1px solid var(--zen-border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+.modal h3{font-size:18px;margin-bottom:8px}
+.api-row{margin:16px 0}
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--zen-text-sub)}
+input[type="text"],input[type="password"]{padding:10px 14px;border-radius:14px;border:1px solid var(--zen-border);background:rgba(255,255,255,0.04);color:var(--zen-text-main);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+input:focus{outline:none;border-color:var(--zen-primary)}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "AI 工具", "item": "https://zentools.xyz/ai/"}, {"@type": "ListItem", "position": 4, "name": "AI图片生成"}]}</script><script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"AI图片生成","applicationCategory":"AIApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"CNY"},"description":"AI根据文本描述生成图片，支持多种艺术风格。"}
+</script>
+<script>
+window.ZT_PAGE={
+  zh:{pageTitle:'AI图片生成 - ZenTools', crumbCur:'AI图片生成', eyebrow:'AI工具', h1Grad:'AI图片生成', h1Sub:'文字描述生成精美图片', pageDesc:'AI根据文本描述生成图片，支持多种艺术风格，快速生成高质量图像，免费在线使用。', cardTitle:'✍️ 图片描述', cardResult:'🖼️ 生成结果', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'例如：一只可爱的猫咪坐在阳光下的草地上，温暖的光线，柔和的色彩，动漫风格，高分辨率', btnGenerate:'🎨 生成图片', btnDownload:'💾 下载', btnClear:'清空', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderStyle:'选择风格', placeholderSize:'图片尺寸', emptyPrompt:'描述你想要的图片...', generated:'已生成', faqQ1:'AI图片生成支持哪些图片风格？', faqA1:'支持写实照片、数字艺术、油画、水彩、卡通、动漫、像素艺术等多种风格。', faqQ2:'生成的图片分辨率是多少？', faqA2:'默认生成分辨率为1024x1024，部分模型支持更高分辨率。', faqQ3:'如何写出好的图片描述？', faqA3:'建议包含主体、场景、风格、色彩、构图等元素，描述越详细生成的图片质量越高。', navAI工具Cat:'AI工具'},
+  en:{pageTitle:'AI Image Generator | ZenTools', crumbCur:'AI Image Generator', eyebrow:'AI TOOLS', h1Grad:'AI Image Generator', h1Sub:'Generate Images from Text', pageDesc:'AI generates images based on text descriptions, supporting multiple art styles. High quality images, free to use online.', cardTitle:'✍️ Image Description', cardResult:'🖼️ Generated Image', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'e.g., A cute cat sitting on a sunny meadow, warm lighting, soft colors, anime style, high resolution', btnGenerate:'🎨 Generate Image', btnDownload:'💾 Download', btnClear:'Clear', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderStyle:'Select Style', placeholderSize:'Image Size', emptyPrompt:'Describe the image you want...', generated:'Generated', faqQ1:'What image styles does AI image generation support?', faqA1:'Supports realistic photos, digital art, oil painting, watercolor, cartoon, anime, pixel art and more.', faqQ2:'What is the resolution of generated images?', faqA2:'Default resolution is 1024x1024, some models support higher resolutions.', faqQ3:'How to write good image descriptions?', faqA3:'Include subject, scene, style, color, composition etc. The more detailed, the better the result.'},
+  ja:{pageTitle:'AI画像生成 | ZenTools', crumbCur:'AI画像生成', eyebrow:'AIツール', h1Grad:'AI画像生成', h1Sub:'テキストから美しい画像を生成', pageDesc:'AIがテキスト記述に基づいて画像を生成。複数のアートスタイルに対応。オンラインで無料利用可能。', cardTitle:'✍️ 画像記述', cardResult:'🖼️ 生成結果', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'例：日差しの中で可愛らしい猫が芝生に座っている、暖かい光、柔らかな色、アニメスタイル、高精細', btnGenerate:'🎨 画像生成', btnDownload:'💾 ダウンロード', btnClear:'クリア', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderStyle:'スタイルを選択', placeholderSize:'画像サイズ', emptyPrompt:'欲しい画像を記述してください...', generated:'生成済み', faqQ1:'AI画像生成はどのスタイルに対応していますか？', faqA1:'レアリズム写真、デジタルアート、油絵、水彩、卡通、アニメ、ピクセルアートなど。', faqQ2:'生成画像の解像度は？', faqA2:'デフォルトは1024x1024、一部のモデルはより高分解像度に対応しています。', faqQ3:'良い画像記述の書き方は？', faqA3:'被写体、シーン、スタイル、色彩、構図などを含めることをお勧めします。詳細なほど高品質な結果が得られます。'},
+  vi:{pageTitle:'Tạo ảnh AI | ZenTools', crumbCur:'Tạo ảnh AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Tạo ảnh AI', h1Sub:'Tạo ảnh từ mô tả văn bản', pageDesc:'AI tạo hình ảnh theo mô tả văn bản, hỗ trợ nhiều phong cách nghệ thuật. Tạo ảnh chất lượng cao, miễn phí sử dụng.', cardTitle:'✍️ Mô tả hình ảnh', cardResult:'🖼️ Kết quả tạo', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Ví dụ: Một con mèo dễ thương ngồi trên bãi cỏ dưới ánh nắng, ánh sáng ấm áp, màu sắc dịu dàng, phong cách anime, độ phân giải cao', btnGenerate:'🎨 Tạo ảnh', btnDownload:'💾 Tải xuống', btnClear:'Xóa', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderStyle:'Chọn phong cách', placeholderSize:'Kích thước ảnh', emptyPrompt:'Mô tả hình ảnh bạn muốn...', generated:'Đã tạo', faqQ1:'Công cụ tạo ảnh AI hỗ trợ những phong cách nào?', faqA1:'Hỗ trợ ảnh chân thực, nghệ thuật số, sơn dầu, sơn nước, hoạt hình, anime, pixel art và nhiều hơn nữa.', faqQ2:'Độ phân giải của ảnh tạo ra là bao nhiêu?', faqA2:'Mặc định là 1024x1024, một số mô hình hỗ trợ độ phân giải cao hơn.', faqQ3:'Làm thế nào để viết mô tả hình ảnh tốt?', faqA3:'Hãy bao gồm chủ thể, khung cảnh, phong cách, màu sắc, bố cục. Mô tả chi tiết càng nhiều thì kết quả càng tốt.'}
+};
+</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>AI工具</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/ai/">AI工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">AI图片生成</span></div>
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">AI图片生成</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">文字描述生成精美图片</p>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">AI根据文本描述生成图片，支持多种艺术风格，快速生成高质量图像，免费在线使用。</p>
+    </div>
+  </section>
+<div class="tool-box reveal">
+<div style="display:flex;flex-direction:column;gap:20px;flex:1;min-height:0">
+  <div class="form-group">
+    <label data-i18n="cardTitle">✍️ 图片描述</label>
+    <textarea id="prompt" data-i18n-placeholder="placeholder"></textarea>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+    <div class="form-group"><label data-i18n="placeholderStyle">选择风格</label><select id="style"><option value="">不限</option><option value="anime">动漫</option><option value="photographic">摄影</option><option value="digital art">数字艺术</option><option value="painting">绘画</option><option value="watercolor">水彩</option><option value="cartoon">卡通</option><option value="realistic">写实</option></select></div>
+    <div class="form-group"><label data-i18n="placeholderSize">图片尺寸</label><select id="size"><option value="1024x1024">1024x1024</option><option value="1792x1024">1792x1024</option><option value="1024x1792">1024x1792</option></select></div>
+    <div class="form-group"><label data-i18n="model">模型</label><select id="modelSelect"><option value="dall-e-3">DALL-E 3</option><option value="dall-e-2">DALL-E 2</option></select></div>
+  </div>
+  <div style="display:flex;gap:10px">
+    <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>🎨</span><span data-i18n="btnGenerate">🎨 生成图片</span></button>
+    <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+    <button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button>
+  </div>
+  <div class="panel">
+    <div class="panel-header"><h2 data-i18n="cardResult">🖼️ 生成结果</h2><button class="btn btn-secondary btn-sm" onclick="downloadImage()" id="dlBtn" style="display:none" data-i18n="btnDownload">💾 下载</button></div>
+    <div class="output empty" id="output"><p data-i18n="emptyPrompt">描述你想要的图片...</p></div>
+  </div>
+</div>
+<div class="modal-overlay" id="settingsModal" style="display:none">
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/images/generations" style="width:100%"></div>
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+  </div>
+</div>
+</div>
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>AI图片生成根据文字描述生成图片和插画，支持多种艺术风格和比例选择。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>内容创作者、学生、程序员、运营和职场人士，想把重复脑力活交给 AI 提效的人。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>把需求说清楚、给足上下文，生成质量更高</li>
+<li>长任务拆成几步，逐步迭代比一次成型更稳</li>
+<li>关键内容务必人工核对，AI 结果仅供参考</li>
+<li>把常用提示词存成模板，复用更省时</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>AI图片生成主要能做什么？</summary><p>AI图片生成根据文字描述生成图片和插画，支持多种艺术风格和比例选择。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。</p></details>
+<details open><summary>第一次使用AI图片生成要注意什么？</summary><p>打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。</p></details>
+<details open><summary>AI图片生成处理我的文件安全吗？</summary><p>安全。AI图片生成所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。</p></details>
+<details open><summary>用AI图片生成生成的内容可以直接用吗？</summary><p>可以。生成结果会直接显示在页面，你可复制、续写或导出；建议对关键内容做人工核对，确保符合你的场景。</p></details>
+  </div>
+</section>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+        <a href="/">首页</a>
+        <a href="/ai/">AI工具</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer>
+</div>
+<script>
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+<script>
+const SK='zentools_ai_image_settings';
+let currentImageUrl='';
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'dall-e-3'}}catch(e){}}
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/images/generations',apiKey:'',model:'dall-e-3'}}catch(e){return{endpoint:'https://api.openai.com/v1/images/generations',apiKey:'',model:'dall-e-3'}}}
+async function generate(){const prompt=document.getElementById('prompt').value.trim();const style=document.getElementById('style').value;const size=document.getElementById('size').value;const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!prompt){alert('请输入图片描述');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}const finalPrompt=style?prompt+', '+style:prompt;btn.disabled=true;output.classList.add('empty');output.innerHTML='<div class="loading"><div class="spinner"></div><p>正在生成图片...</p></div>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,prompt:finalPrompt,size,size,quality:'hd',n:1})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();currentImageUrl=data.data[0].url;output.classList.remove('empty');output.innerHTML='<img src="'+currentImageUrl+'" alt="生成的图片" onclick="window.open(this.src,\''_blank\'">';document.getElementById('dlBtn').style.display='inline-flex'}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+function clearAll(){document.getElementById('prompt').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyPrompt">描述你想要的图片...</p>';document.getElementById('dlBtn').style.display='none';currentImageUrl=''}
+async function downloadImage(){if(!currentImageUrl)return;try{const r=await fetch(currentImageUrl);const b=await r.blob();const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download='ai-image.png';a.click();URL.revokeObjectURL(u)}catch(e){window.open(currentImageUrl,'_blank')}}
+loadSettings();
+</script>
+<script src="/assets/js/common-i18n.min.js"></script>
+<script src="/assets/js/tool-ui.min.js"></script>
+
+    
+    
+    
+
+
+    
+    
+    
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "AI图片生成主要能做什么？","acceptedAnswer": {"@type": "Answer","text": "AI图片生成根据文字描述生成图片和插画，支持多种艺术风格和比例选择。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"}},{"@type": "Question","name": "第一次使用AI图片生成要注意什么？","acceptedAnswer": {"@type": "Answer","text": "打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。"}},{"@type": "Question","name": "AI图片生成处理我的文件安全吗？","acceptedAnswer": {"@type": "Answer","text": "安全。AI图片生成所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。"}},{"@type": "Question","name": "用AI图片生成生成的内容可以直接用吗？","acceptedAnswer": {"@type": "Answer","text": "可以。生成结果会直接显示在页面，你可复制、续写或导出；建议对关键内容做人工核对，确保符合你的场景。"}}]}</script>
+</body>
 </html>

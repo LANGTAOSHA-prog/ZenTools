@@ -1,418 +1,326 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF 转 HTML - ZenTools 免费在线工具箱</title>
-  <meta name="description" content="将 PDF 页面转换为 HTML 网页格式，保留文本和图片，适合在线发布。" />
-    <link rel="stylesheet" href="../assets/css/style.css">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../assets/css/tool-ui.css">
-    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="canonical" href="https://zentools.xyz/pdf/pdf-to-html.html"/>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "PDF 转 HTML如何使用？",
-      "acceptedAnswer": {"@type": "Answer", "text": "上传 PDF 文件，根据工具功能进行设置，点击开始处理即可完成操作。"}
-    },
-    {
-      "@type": "Question",
-      "name": "PDF 转 HTML会上传文件到服务器吗？",
-      "acceptedAnswer": {"@type": "Answer", "text": "不会。所有处理在您的浏览器本地完成，文件不会离开您的设备。"}
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "PDF 转 HTML - ZenTools",
-  "url": "https://zentools.xyz/pdf/pdf-to-html.html",
-  "description": "将 PDF 文件转换为 HTML 格式",
-  "applicationCategory": "UtilityApplication",
-  "operatingSystem": "All",
-  "browserRequirements": "Requires JavaScript",
-  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
-}
-</script>
-</head>
-<body>
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
-
-    <header class="site-header">
-        <div class="container">
-            <a href="../index.html" class="logo">
-                <span class="logo-icon">⚡</span>
-                <span class="logo-text">ZenTools</span>
-            </a>
-            <nav class="nav-menu">
-                <a href="../index.html" data-i18n="nav_home">首页</a>
-                <a href="../categories.html" data-i18n="nav_categories">分类</a>
-                <a href="../about.html" data-i18n="nav_about">关于</a>
-            </nav>
-            <div class="lang-selector">
-                <select id="langSelect">
-                    <option value="zh">中文</option>
-                    <option value="en">English</option>
-                    <option value="ja">日本語</option>
-                    <option value="vi">Tiếng Việt</option>
-                </select>
-            </div>
-        </div>
-    </header>
-
-    <main class="tool-page">
-        <div class="container">
-            <div class="tool-header">
-                <h1 data-i18n="title">PDF 转 HTML</h1>
-                <p data-i18n="subtitle">将 PDF 文档转换为可编辑的 HTML 格式</p>
-            </div>
-
-            <div class="tool-ui">
-                <div class="upload-zone" id="uploadZone">
-                    <input type="file" id="fileInput" accept=".pdf" hidden>
-                    <div class="upload-icon">📄</div>
-                    <p data-i18n="drop_hint">拖拽 PDF 文件到此处，或点击上传</p>
-                    <p class="upload-note" data-i18n="local_note">文件仅在浏览器本地处理，不会上传到服务器</p>
-                </div>
-
-                <div class="settings-panel" id="settingsPanel" style="display: none;">
-                    <h3 data-i18n="settings_title">转换设置</h3>
-                    <div class="form-group">
-                        <label data-i18n="label_pages">转换页面</label>
-                        <select id="pageRange">
-                            <option value="all" data-i18n="opt_all">所有页面</option>
-                            <option value="first" data-i18n="opt_first">仅第一页</option>
-                            <option value="custom" data-i18n="opt_custom">自定义</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="customPagesGroup" style="display: none;">
-                        <label data-i18n="label_custom_pages">页面范围</label>
-                        <input type="text" id="customPages" placeholder="例如: 1-5, 10, 15-20">
-                    </div>
-                    <div class="form-group checkbox">
-                        <label>
-                            <input type="checkbox" id="includeImagesCheck" checked>
-                            <span data-i18n="opt_include_images">包含图片</span>
-                        </label>
-                    </div>
-                    <div class="form-group checkbox">
-                        <label>
-                            <input type="checkbox" id="preserveLayoutCheck" checked>
-                            <span data-i18n="opt_preserve_layout">保留原始布局</span>
-                        </label>
-                    </div>
-                </div>
-
-                <div class="action-area" id="actionArea" style="display: none;">
-                    <button class="tool-btn btn-primary" id="convertBtn" data-i18n="btn_convert">开始转换</button>
-                </div>
-
-                <div class="result-area" id="resultArea" style="display: none;">
-                    <div class="result-status" id="resultStatus"></div>
-                    <div class="html-preview" id="htmlPreview" style="display: none;"></div>
-                    <button class="tool-btn btn-primary" id="downloadBtn" data-i18n="btn_download">下载 HTML 文件</button>
-                    <button class="tool-btn" id="copyBtn" data-i18n="btn_copy">复制 HTML 代码</button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    
-    
-    <footer class="site-footer">
-        <div class="container">
-            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
-        </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="../assets/js/common-i18n.min.js"></script>
-    <script>
-      window.ZT_PAGE = {
-        zh: {
-          nav_home:'首页', nav_categories:'分类', nav_about:'关于',
-          title:'PDF 转 HTML', subtitle:'将 PDF 文件转换为 HTML 网页格式',
-          drop_hint:'拖拽 PDF 文件到此处，或点击上传',
-          local_note:'文件仅在浏览器本地处理，不会上传到服务器',
-          settings_title:'设置', label_pages:'页面范围',
-          opt_all:'全部页面', opt_first:'仅第一页', opt_custom:'自定义',
-          label_custom_pages:'页码（如 1,3,5-7）',
-          opt_include_images:'包含图片', opt_preserve_layout:'保留布局',
-          btn_convert:'开始转换', btn_download:'下载 HTML',
-          btn_copy:'复制 HTML',
-          footer_text:'© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理'},
-        en: {
-          nav_home:'Home', nav_categories:'Categories', nav_about:'About',
-          title:'PDF to HTML', subtitle:'Convert PDF files to HTML web format',
-          drop_hint:'Drop PDF file here, or click to upload',
-          local_note:'Files are processed locally in your browser, never uploaded to any server',
-          settings_title:'Settings', label_pages:'Page Range',
-          opt_all:'All pages', opt_first:'First page only', opt_custom:'Custom',
-          label_custom_pages:'Pages (e.g. 1,3,5-7)',
-          opt_include_images:'Include images', opt_preserve_layout:'Preserve layout',
-          btn_convert:'Convert', btn_download:'Download HTML',
-          btn_copy:'Copy HTML',
-          footer_text:'© 2026 ZenTools - Free Online Tools · All files processed locally'},
-        ja: {
-          nav_home:'ホーム', nav_categories:'カテゴリー', nav_about:'概要',
-          title:'PDF を HTML に変換', subtitle:'PDF ファイルを HTML ウェブ形式に変換',
-          drop_hint:'PDF ファイルをここにドロップ、またはクリックしてアップロード',
-          local_note:'ファイルはブラウザ内でローカル処理され、サーバーにアップロードされません',
-          settings_title:'設定', label_pages:'ページ範囲',
-          opt_all:'すべてのページ', opt_first:'最初のページのみ', opt_custom:'カスタム',
-          label_custom_pages:'ページ番号（例: 1,3,5-7）',
-          opt_include_images:'画像を含める', opt_preserve_layout:'レイアウトを保持',
-          btn_convert:'変換開始', btn_download:'HTML をダウンロード',
-          btn_copy:'HTML をコピー',
-          footer_text:'© 2026 ZenTools - 無料オンラインツール · すべてのファイルはローカル処理'},
-        vi: {
-          nav_home:'Trang chủ', nav_categories:'Danh mục', nav_about:'Giới thiệu',
-          title:'PDF sang HTML', subtitle:'Chuyển file PDF sang định dạng HTML',
-          drop_hint:'Kéo thả file PDF vào đây, hoặc nhấp để tải lên',
-          local_note:'File được xử lý cục bộ trong trình duyệt, không tải lên máy chủ',
-          settings_title:'Cài đặt', label_pages:'Phạm vi trang',
-          opt_all:'Tất cả trang', opt_first:'Chỉ trang đầu', opt_custom:'Tùy chỉnh',
-          label_custom_pages:'Số trang (vd: 1,3,5-7)',
-          opt_include_images:'Bao gồm ảnh', opt_preserve_layout:'Giữ bố cục',
-          btn_convert:'Chuyển đổi', btn_download:'Tải HTML',
-          btn_copy:'Sao chép HTML',
-          footer_text:'© 2026 ZenTools - Công cụ miễn phí · Tất cả file xử lý cục bộ'}
-      };
-    </script>
-    <script src="../assets/js/tool-ui.min.js"></script>
-    <script src="../assets/js/anti-crash.min.js"></script>
-    <script>
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-
-        const uploadZone = document.getElementById('uploadZone');
-        const fileInput = document.getElementById('fileInput');
-        const settingsPanel = document.getElementById('settingsPanel');
-        const actionArea = document.getElementById('actionArea');
-        const resultArea = document.getElementById('resultArea');
-        const resultStatus = document.getElementById('resultStatus');
-        const htmlPreview = document.getElementById('htmlPreview');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const copyBtn = document.getElementById('copyBtn');
-        const pageRange = document.getElementById('pageRange');
-        const customPagesGroup = document.getElementById('customPagesGroup');
-        const customPages = document.getElementById('customPages');
-
-        let pdfDoc = null;
-        let originalArrayBuffer = null;
-        let generatedHtml = '';
-
-        uploadZone.addEventListener('click', () => fileInput.click());
-        uploadZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            uploadZone.classList.add('drag-over');
-        });
-        uploadZone.addEventListener('dragleave', () => {
-            uploadZone.classList.remove('drag-over');
-        });
-        uploadZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            uploadZone.classList.remove('drag-over');
-            const file = e.dataTransfer.files[0];
-            if (file && file.type === 'application/pdf') {
-                loadPdf(file);
-            }
-        });
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) loadPdf(file);
-        });
-
-        pageRange.addEventListener('change', () => {
-            customPagesGroup.style.display = pageRange.value === 'custom' ? 'block' : 'none';
-        });
-
-        async function loadPdf(file) {
-            originalArrayBuffer = await file.arrayBuffer();
-            pdfDoc = await pdfjsLib.getDocument({ data: originalArrayBuffer }).promise;
-            settingsPanel.style.display = 'block';
-            actionArea.style.display = 'block';
-        }
-
-        document.getElementById('convertBtn').addEventListener('click', async () => {
-            resultArea.style.display = 'block';
-            resultStatus.className = 'result-status loading';
-            resultStatus.textContent = '正在转换...';
-            htmlPreview.style.display = 'none';
-
-            try {
-                const pageRangeValue = pageRange.value;
-                const includeImages = document.getElementById('includeImagesCheck').checked;
-                const preserveLayout = document.getElementById('preserveLayoutCheck').checked;
-
-                let pagesToConvert = [];
-                if (pageRangeValue === 'all') {
-                    pagesToConvert = Array.from({ length: pdfDoc.numPages }, (_, i) => i + 1);
-                } else if (pageRangeValue === 'first') {
-                    pagesToConvert = [1];
-                } else {
-                    pagesToConvert = parsePageRange(customPages.value, pdfDoc.numPages);
-                }
-
-                let html = `<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF 转 HTML</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-            color: #333;
-        }
-        .page {
-            page-break-after: always;
-            margin-bottom: 40px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        .page-header {
-            text-align: center;
-            color: #666;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 10px auto;
-        }
-        @media print {
-            .page {
-                border: none;
-                page-break-after: always;
-            }
-        }
-    
-.info-detail { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); }
-.info-detail h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; color: var(--cyan); }
-.info-detail ol, .info-detail ul { padding-left: 20px; }
-.info-detail li { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 4px; }
-.info-detail p { font-size: 14px; color: var(--muted); line-height: 1.7; }
-</style>
-</head>
-<body>`;
-
-                for (const pageNum of pagesToConvert) {
-                    const page = await pdfDoc.getPage(pageNum);
-                    const viewport = page.getViewport({ scale: 2 });
-
-                    const canvas = document.createElement('canvas');
-                    canvas.width = viewport.width;
-                    canvas.height = viewport.height;
-                    await page.render({ canvasContext: canvas.getContext('2d'), viewport: viewport }).promise;
-
-                    html += `\n<div class="page">
-    <div class="page-header">第 ${pageNum} 页</div>`;
-
-                    if (includeImages) {
-                        const imgUrl = canvas.toDataURL('image/png');
-                        html += `\n    <img src="${imgUrl}" alt="第 ${pageNum} 页内容">`;
-                    } else {
-                        const textContent = await page.getTextContent();
-                        const textItems = textContent.items.filter(item => item.str.trim());
-                        
-                        if (preserveLayout) {
-                            for (const item of textItems) {
-                                const transform = item.transform;
-                                const x = transform[4];
-                                const y = viewport.height - transform[5] - transform[3];
-                                const fontSize = transform[3];
-                                const text = item.str;
-                                html += `\n    <div style="position: absolute; left: ${x}px; top: ${y}px; font-size: ${fontSize}px;">${escapeHtml(text)}</div>`;
-                            }
-                        } else {
-                            for (const item of textItems) {
-                                html += `\n    <p>${escapeHtml(item.str)}</p>`;
-                            }
-                        }
-                    }
-
-                    html += `\n</div>`;
-                }
-
-                html += `\n</body>
-</html>`;
-
-                generatedHtml = html;
-
-                htmlPreview.innerHTML = generatedHtml;
-                htmlPreview.style.display = 'block';
-
-                resultStatus.className = 'result-status success';
-                resultStatus.textContent = `✅ 转换完成！共处理 ${pagesToConvert.length} 页`;
-
-                downloadBtn.onclick = () => {
-                    const blob = new Blob([generatedHtml], { type: 'text/html' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'converted_' + (uploadZone.dataset.filename || 'document').replace('.pdf', '') + '.html';
-                    a.click();
-                    URL.revokeObjectURL(url);
-                };
-
-                copyBtn.onclick = () => {
-                    navigator.clipboard.writeText(generatedHtml).then(() => {
-                        copyBtn.textContent = '✓ 已复制';
-                        setTimeout(() => copyBtn.textContent = '复制 HTML 代码', 2000);
-                    });
-                };
-
-            } catch (error) {
-                resultStatus.className = 'result-status error';
-                resultStatus.textContent = `❌ 转换失败: ${error.message}`;
-            }
-        });
-
-        function parsePageRange(rangeText, totalPages) {
-            const pages = new Set();
-            if (!rangeText) return [1];
-            
-            const parts = rangeText.split(',').map(s => s.trim()).filter(Boolean);
-            
-            for (const part of parts) {
-                if (part.includes('-')) {
-                    const [start, end] = part.split('-').map(Number);
-                    for (let i = start; i <= end && i <= totalPages; i++) {
-                        if (i >= 1) pages.add(i);
-                    }
-                } else {
-                    const num = parseInt(part);
-                    if (num >= 1 && num <= totalPages) pages.add(num);
-                }
-            }
-            return Array.from(pages).sort((a, b) => a - b);
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        i18n.init({ defaultLang: 'zh', supportedLangs: ['zh', 'en', 'ja', 'vi'] });
-    </script>
-
-    
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+    <meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF 转 HTML - ZenTools 免费在线工具箱</title>
+  <meta name="description" content="将 PDF 页面转换为 HTML 网页格式，保留文本和图片，适合在线发布。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。" />
+  <meta name="keywords" content="PDF转HTML,PDF 转 HTML工具,pdf转html,pdf转网页,pdf转,PDF工具,PDF转HTML在线使用,PDF转HTML怎么用" />
+    <link rel="stylesheet" href="/assets/css/style.css">
+</div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/assets/css/tool-ui.css">
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.json">
+<link rel="canonical" href="https://zentools.xyz/pdf/pdf-to-html.html"/>
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "PDF 工具", "item": "https://zentools.xyz/pdf/"}, {"@type": "ListItem", "position": 4, "name": "PDF 转 HTML"}]}</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "PDF 转 HTML - ZenTools",
+  "url": "https://zentools.xyz/pdf/pdf-to-html.html",
+  "description": "将 PDF 文件转换为 HTML 格式",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "All",
+  "browserRequirements": "Requires JavaScript",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+}
+</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<header class="site-header">
+        <div class="container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">ZenTools</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="../index.html" data-i18n="nav_home">首页</a>
+                <a href="../categories.html" data-i18n="nav_categories">分类</a>
+                <a href="../about.html" data-i18n="nav_about">关于</a>
+            </nav>
+            <div class="lang-selector">
+                <select id="oldLangSelect">
+                    <option value="zh">中文</option>
+                    <option value="en">English</option>
+                    <option value="ja">日本語</option>
+                    <option value="vi">Tiếng Việt</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="tool-page">
+        <div class="container">
+            <div class="tool-header">
+                <h1 data-i18n="title">PDF 转 HTML</h1>
+                <p data-i18n="subtitle">将 PDF 文档转换为可编辑的 HTML 格式</p>
+            </div>
+
+            <div class="tool-ui">
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept=".pdf" hidden>
+                    <div class="upload-icon">📄</div>
+                    <p data-i18n="drop_hint">拖拽 PDF 文件到此处，或点击上传</p>
+                    <p class="upload-note" data-i18n="local_note">文件仅在浏览器本地处理，不会上传到服务器</p>
+                </div>
+
+                <div class="settings-panel" id="settingsPanel" style="display: none;">
+                    <h3 data-i18n="settings_title">转换设置</h3>
+                    <div class="form-group">
+                        <label data-i18n="label_pages">转换页面</label>
+                        <select id="pageRange">
+                            <option value="all" data-i18n="opt_all">所有页面</option>
+                            <option value="first" data-i18n="opt_first">仅第一页</option>
+                            <option value="custom" data-i18n="opt_custom">自定义</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="customPagesGroup" style="display: none;">
+                        <label data-i18n="label_custom_pages">页面范围</label>
+                        <input type="text" id="customPages" placeholder="例如: 1-5, 10, 15-20">
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" id="includeImagesCheck" checked>
+                            <span data-i18n="opt_include_images">包含图片</span>
+                        </label>
+                    </div>
+                    <div class="form-group checkbox">
+                        <label>
+                            <input type="checkbox" id="preserveLayoutCheck" checked>
+                            <span data-i18n="opt_preserve_layout">保留原始布局</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="action-area" id="actionArea" style="display: none;">
+                    <button class="tool-btn btn-primary" id="convertBtn" data-i18n="btn_convert">开始转换</button>
+                </div>
+
+                <div class="result-area" id="resultArea" style="display: none;">
+                    <div class="result-status" id="resultStatus"></div>
+                    <div class="html-preview" id="htmlPreview" style="display: none;"></div>
+                    <button class="tool-btn btn-primary" id="downloadBtn" data-i18n="btn_download">下载 HTML 文件</button>
+                    <button class="tool-btn" id="copyBtn" data-i18n="btn_copy">复制 HTML 代码</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+    
+    <!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>PDF 转 HTML将 PDF 页面转换为 HTML 网页格式，保留文本和图片，适合在线发布。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+<h2>适合谁使用</h2>
+  <p>办公行政、法务财务、师生，以及经常处理合同、论文与扫描件的人。</p>
+<h2>进阶技巧</h2>
+  <ul>
+<li>批量前规范命名，结果易区分</li>
+<li>大文件分批处理避免卡顿</li>
+<li>导出后核对页码与书签</li>
+<li>多步任务可串接使用（先压再合）</li>
+</ul>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>用PDF 转 HTML时，转换后排版会乱吗？</summary><p>工具尽量保留原始排版、字体与图片，极少数复杂版式建议导出后核对一遍。</p></details>
+<details open><summary>用PDF 转 HTML时，转换需要联网吗？</summary><p>不需要。转换在浏览器本地完成，文件不上传。</p></details>
+<details open><summary>用PDF 转 HTML时，能转成哪些格式？</summary><p>常见格式互转均支持，具体以页面可选目标格式为准。</p></details>
+<details open><summary>用PDF 转 HTML时，转换对大小有限制吗？</summary><p>无固定限制，但文件越大越久，超大文件建议先拆分。</p></details>
+  </div>
+</section>
+<footer class="site-footer">
+        <div class="container">
+            <p data-i18n="footer_text">© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="/assets/js/common-i18n.min.js"></script>
+    <script>
+      window.ZT_PAGE = {
+        zh: {
+          nav_home:'首页', nav_categories:'分类', nav_about:'关于',
+          title:'PDF 转 HTML', subtitle:'将 PDF 文件转换为 HTML 网页格式',
+          drop_hint:'拖拽 PDF 文件到此处，或点击上传',
+          local_note:'文件仅在浏览器本地处理，不会上传到服务器',
+          settings_title:'设置', label_pages:'页面范围',
+          opt_all:'全部页面', opt_first:'仅第一页', opt_custom:'自定义',
+          label_custom_pages:'页码（如 1,3,5-7）',
+          opt_include_images:'包含图片', opt_preserve_layout:'保留布局',
+          btn_convert:'开始转换', btn_download:'下载 HTML',
+          btn_copy:'复制 HTML',
+          footer_text:'© 2026 ZenTools - 免费在线工具箱 · 所有文件在本地处理'},
+        en: {
+          nav_home:'Home', nav_categories:'Categories', nav_about:'About',
+          title:'PDF to HTML', subtitle:'Convert PDF files to HTML web format',
+          drop_hint:'Drop PDF file here, or click to upload',
+          local_note:'Files are processed locally in your browser, never uploaded to any server',
+          settings_title:'Settings', label_pages:'Page Range',
+          opt_all:'All pages', opt_first:'First page only', opt_custom:'Custom',
+          label_custom_pages:'Pages (e.g. 1,3,5-7)',
+          opt_include_images:'Include images', opt_preserve_layout:'Preserve layout',
+          btn_convert:'Convert', btn_download:'Download HTML',
+          btn_copy:'Copy HTML',
+          footer_text:'© 2026 ZenTools - Free Online Tools · All files processed locally'},
+        ja: {
+          nav_home:'ホーム', nav_categories:'カテゴリー', nav_about:'概要',
+          title:'PDF を HTML に変換', subtitle:'PDF ファイルを HTML ウェブ形式に変換',
+          drop_hint:'PDF ファイルをここにドロップ、またはクリックしてアップロード',
+          local_note:'ファイルはブラウザ内でローカル処理され、サーバーにアップロードされません',
+          settings_title:'設定', label_pages:'ページ範囲',
+          opt_all:'すべてのページ', opt_first:'最初のページのみ', opt_custom:'カスタム',
+          label_custom_pages:'ページ番号（例: 1,3,5-7）',
+          opt_include_images:'画像を含める', opt_preserve_layout:'レイアウトを保持',
+          btn_convert:'変換開始', btn_download:'HTML をダウンロード',
+          btn_copy:'HTML をコピー',
+          footer_text:'© 2026 ZenTools - 無料オンラインツール · すべてのファイルはローカル処理'},
+        vi: {
+          nav_home:'Trang chủ', nav_categories:'Danh mục', nav_about:'Giới thiệu',
+          title:'PDF sang HTML', subtitle:'Chuyển file PDF sang định dạng HTML',
+          drop_hint:'Kéo thả file PDF vào đây, hoặc nhấp để tải lên',
+          local_note:'File được xử lý cục bộ trong trình duyệt, không tải lên máy chủ',
+          settings_title:'Cài đặt', label_pages:'Phạm vi trang',
+          opt_all:'Tất cả trang', opt_first:'Chỉ trang đầu', opt_custom:'Tùy chỉnh',
+          label_custom_pages:'Số trang (vd: 1,3,5-7)',
+          opt_include_images:'Bao gồm ảnh', opt_preserve_layout:'Giữ bố cục',
+          btn_convert:'Chuyển đổi', btn_download:'Tải HTML',
+          btn_copy:'Sao chép HTML',
+          footer_text:'© 2026 ZenTools - Công cụ miễn phí · Tất cả file xử lý cục bộ'}
+      };
+    </script>
+    <script src="/assets/js/tool-ui.min.js"></script>
+    <script src="/assets/js/anti-crash.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const uploadZone = document.getElementById('uploadZone');
+        const fileInput = document.getElementById('fileInput');
+        const settingsPanel = document.getElementById('settingsPanel');
+        const actionArea = document.getElementById('actionArea');
+        const resultArea = document.getElementById('resultArea');
+        const resultStatus = document.getElementById('resultStatus');
+        const htmlPreview = document.getElementById('htmlPreview');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const copyBtn = document.getElementById('copyBtn');
+        const pageRange = document.getElementById('pageRange');
+        const customPagesGroup = document.getElementById('customPagesGroup');
+        const customPages = document.getElementById('customPages');
+
+        let pdfDoc = null;
+        let originalArrayBuffer = null;
+        let generatedHtml = '';
+
+        uploadZone.addEventListener('click', () => fileInput.click());
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('drag-over');
+        });
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.classList.remove('drag-over');
+        });
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('drag-over');
+            const file = e.dataTransfer.files[0];
+            if (file && file.type === 'application/pdf') {
+                loadPdf(file);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) loadPdf(file);
+        });
+
+        pageRange.addEventListener('change', () => {
+            customPagesGroup.style.display = pageRange.value === 'custom' ? 'block' : 'none';
+        });
+
+        async function loadPdf(file) {
+            originalArrayBuffer = await file.arrayBuffer();
+            pdfDoc = await pdfjsLib.getDocument({ data: originalArrayBuffer }).promise;
+            settingsPanel.style.display = 'block';
+            actionArea.style.display = 'block';
+        }
+
+        document.getElementById('convertBtn').addEventListener('click', async () => {
+            resultArea.style.display = 'block';
+            resultStatus.className = 'result-status loading';
+            resultStatus.textContent = '正在转换...';
+            htmlPreview.style.display = 'none';
+
+            try {
+                const pageRangeValue = pageRange.value;
+                const includeImages = document.getElementById('includeImagesCheck').checked;
+                const preserveLayout = document.getElementById('preserveLayoutCheck').checked;
+
+                let pagesToConvert = [];
+                if (pageRangeValue === 'all') {
+                    pagesToConvert = Array.from({ length: pdfDoc.numPages }, (_, i) => i + 1);
+                } else if (pageRangeValue === 'first') {
+                    pagesToConvert = [1];
+                } else {
+                    pagesToConvert = parsePageRange(customPages.value, pdfDoc.numPages);
+                }
+
+                let html = `
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用PDF 转 HTML时，转换后排版会乱吗？","acceptedAnswer": {"@type": "Answer","text": "工具尽量保留原始排版、字体与图片，极少数复杂版式建议导出后核对一遍。"}},{"@type": "Question","name": "用PDF 转 HTML时，转换需要联网吗？","acceptedAnswer": {"@type": "Answer","text": "不需要。转换在浏览器本地完成，文件不上传。"}},{"@type": "Question","name": "用PDF 转 HTML时，能转成哪些格式？","acceptedAnswer": {"@type": "Answer","text": "常见格式互转均支持，具体以页面可选目标格式为准。"}},{"@type": "Question","name": "用PDF 转 HTML时，转换对大小有限制吗？","acceptedAnswer": {"@type": "Answer","text": "无固定限制，但文件越大越久，超大文件建议先拆分。"}}]}</script>
+</body>
+</html>

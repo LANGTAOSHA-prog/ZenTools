@@ -1,12 +1,47 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+  <script src="/assets/js/anti-crash.min.js"></script>
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="/manifest.json" />
   <title data-i18n="pageTitle">学习笔记 - ZenTools</title>
-  <meta name="description" content="" id="metaDesc">
+  <meta name="description" content="ZenTools 在线备忘录，随时记录灵感与待办事项，本地保存，隐私安全不泄露。" id="metaDesc">
   <style>
+    :root {
+      --zen-primary: #0066FF;
+      --zen-secondary: #00C2B8;
+      --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+      --zen-text-main: #111827;
+      --zen-text-sub: #4B5563;
+      --zen-text-placeholder: #9CA3AF;
+      --zen-bg-base: #F9FAFB;
+      --zen-bg-card: #FFFFFF;
+      --zen-border: #E5E7EB;
+      --zen-radius-base: 12px;
+      --zen-radius-card: 16px;
+      --zen-radius-btn: 8px;
+    }
+    .dark {
+      --zen-text-main: #F9FAFB;
+      --zen-text-sub: #D1D5DB;
+      --zen-text-placeholder: #64748B;
+      --zen-bg-base: #0F172A;
+      --zen-bg-card: #1E293B;
+      --zen-border: #334155;
+    }
+    body { background: var(--zen-bg-base); color: var(--zen-text-main); transition: background 0.35s, color 0.35s; }
+
     body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",Arial,sans-serif;background:#f5f7fb;color:#333;line-height:1.8}header{background:linear-gradient(135deg,#4f7cff,#6aa8ff);color:white;padding:50px 20px;text-align:center}header h1{margin:0 0 10px}nav{background:white;padding:14px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05)}nav a{color:#333;text-decoration:none;margin:0 12px}nav a:hover{color:#4f7cff}.lang-select{display:inline-block;background:#f0f4ff;border:1px solid #c5d5f0;border-radius:8px;padding:6px 10px;font-size:13px;color:#333;margin-left:12px;vertical-align:middle}.lang-select:focus{outline:none;border-color:#4f7cff}main{max-width:960px;margin:30px auto;padding:0 20px}article{background:white;margin-bottom:22px;padding:26px;border-radius:14px;box-shadow:0 6px 18px rgba(0,0,0,.06)}article h2{color:#2f4f8f;margin-top:0}.date{color:#777;font-size:14px;margin-bottom:12px}.tag{display:inline-block;background:#eef3ff;color:#3456a3;padding:4px 10px;border-radius:999px;font-size:13px;margin-right:6px}footer{text-align:center;padding:30px;color:#666;font-size:14px}.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
   </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
@@ -24,14 +59,14 @@ var pageTranslations = {
     footerDesc: '本站为个人学习记录网站，不涉及经营、交易、会员服务或教育培训。'
   },
   en: {
-    pageTitle: 'Study Notes - JiangHu Station',
+    pageTitle: 'Study Notes - ZenTools Station',
     metaDesc: 'Personal study notes on web development, file organization and daily learning.',
     navHome: 'Home',
     navNotes: 'Notes',
     navAbout: 'About',
     h1: 'Study Notes',
     headerDesc: 'Recording methods, steps and insights from personal learning',
-    footerText: '© 2026 JiangHu Station - Personal Study Notes',
+    footerText: '© 2026 ZenTools Station - Personal Study Notes',
     footerDesc: 'A personal learning record site. No business, trading, membership or educational services.'
   },
   ja: {
@@ -46,20 +81,22 @@ var pageTranslations = {
     footerDesc: '個人学習記録サイト。営業、取引、会員サービス、教育研修は含みません。'
   },
   vi: {
-    pageTitle: 'Ghi chú Học tập - JiangHu Station',
+    pageTitle: 'Ghi chú Học tập - ZenTools Station',
     metaDesc: 'Ghi chú học tập cá nhân về phát triển web, sắp xếp file và học tập hàng ngày.',
     navHome: 'Trang chủ',
     navNotes: 'Ghi chú',
     navAbout: 'Giới thiệu',
     h1: 'Ghi chú Học tập',
     headerDesc: 'Ghi lại phương pháp, các bước và kinh nghiệm học tập',
-    footerText: '© 2026 JiangHu Station - Ghi chú Học tập Cá nhân',
+    footerText: '© 2026 ZenTools Station - Ghi chú Học tập Cá nhân',
     footerDesc: 'Trang ghi chép học tập cá nhân. Không liên quan đến kinh doanh hay dịch vụ.'
   }
 };
 window.ZT_PAGE = pageTranslations;
 </script>
 <link rel="canonical" href="https://zentools.xyz/notes.html"/>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "notes"}]}</script>
 </head>
 <body>
 

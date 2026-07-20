@@ -59,6 +59,16 @@ def build_guide_entry(title_zh, title_en, title_ja, title_vi):
     }
 
 
+def build_cl_entry(text):
+    """cl: 标记为手写一句话，四语均用原文（缺失语言在渲染时回退）。"""
+    return {
+        "zh": text,
+        "en": text,
+        "ja": text,
+        "vi": text
+    }
+
+
 def sync_metadata(data, tool_count=None):
     data['lastUpdated'] = date.today().isoformat()
     if tool_count is not None:
