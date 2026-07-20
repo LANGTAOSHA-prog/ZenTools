@@ -18,27 +18,7 @@
 <div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="langSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">股票手续费计算器</h1><p class="desc" data-i18n="pageDesc">计算 A 股买卖交易产生的印花税、佣金等费用。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="stockPrice" placeholder="股票价格（元/股）" value="10"><input type="number" id="stockShares" placeholder="股票数量（股）" value="1000"><div class="radios" style="display:flex;gap:15px;flex-wrap:wrap;margin:10px 0"><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="buy" checked style="width:auto;margin:0"> <span data-i18n="buy">买入</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="sell" style="width:auto;margin:0"> <span data-i18n="sell">卖出</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="both" style="width:auto;margin:0"> <span data-i18n="both">买卖双向</span></label></div><button onclick="calcStock()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="totalFee">0</div><div class="lbl" data-i18n="totalFee">总手续费（元）</div></div><div class="result-item"><div class="val" id="actualCost">0</div><div class="lbl" data-i18n="actualCost">实际成本（元）</div></div><div class="result-item"><div class="val" id="costPerShare">0</div><div class="lbl" data-i18n="costPerShare">每股成本</div></div></div><table class="fee-table" id="feeDetail"></table></div></div>
     
     <footer>© 2026 ZenTools</footer></div><script>
-window.ZT_PAGE ={zh:{pageTitle:'股票手续费计算器',pageDesc:'计算 A 股买卖交易产生的印花税、佣金等费用。',ad:'广告位',back:'← 返回首页',calc:'开始计算',buy:'买入',sell:'卖出',both:'买卖双向',totalFee:'总手续费（元）',actualCost:'实际成本（元）',costPerShare:'每股成本',stamp:'印花税',commission:'券商佣金',transfer:'过户费',total:'合计',
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},en:{pageTitle:'Stock Fee Calculator',pageDesc:'Calculate A-share stock transaction fees.',ad:'Ad Space',back:'← Back',calc:'Calculate',buy:'Buy',sell:'Sell',both:'Both',totalFee:'Total Fee',actualCost:'Total Cost',costPerShare:'Cost/Share',stamp:'Stamp Duty',commission:'Commission',transfer:'Transfer Fee',total:'Total',
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},ja:{pageTitle:'株式手数料計算機',pageDesc:'A株の取引手数料を計算。',ad:'広告',back:'← 戻る',calc:'計算',buy:'買い',sell:'売り',both:'両方',totalFee:'総手数料',actualCost:'実質コスト',costPerShare:'1株あたり',stamp:'印紙税',commission:'手数料',transfer:'振替料',total:'合計',
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},vi:{pageTitle:'Máy tính phí chứng khoán',pageDesc:'Tính phí giao dịch cổ phiếu A.',ad:'QC',back:'← Quay lại',calc:'Tính',buy:'Mua',sell:'Bán',both:'Cả hai',totalFee:'Tổng phí',actualCost:'Tổng chi phí',costPerShare:'Giá/cổ phiếu',stamp:'Thuế tem',commission:'Hoa hồng',transfer:'Phí chuyển',total:'Tổng',
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}};
+window.ZT_PAGE ={zh:{pageTitle:'股票手续费计算器',pageDesc:'计算 A 股买卖交易产生的印花税、佣金等费用。',ad:'广告位',back:'← 返回首页',calc:'开始计算',buy:'买入',sell:'卖出',both:'买卖双向',totalFee:'总手续费（元）',actualCost:'实际成本（元）',costPerShare:'每股成本',stamp:'印花税',commission:'券商佣金',transfer:'过户费',total:'合计'},en:{pageTitle:'Stock Fee Calculator',pageDesc:'Calculate A-share stock transaction fees.',ad:'Ad Space',back:'← Back',calc:'Calculate',buy:'Buy',sell:'Sell',both:'Both',totalFee:'Total Fee',actualCost:'Total Cost',costPerShare:'Cost/Share',stamp:'Stamp Duty',commission:'Commission',transfer:'Transfer Fee',total:'Total'},ja:{pageTitle:'株式手数料計算機',pageDesc:'A株の取引手数料を計算。',ad:'広告',back:'← 戻る',calc:'計算',buy:'買い',sell:'売り',both:'両方',totalFee:'総手数料',actualCost:'実質コスト',costPerShare:'1株あたり',stamp:'印紙税',commission:'手数料',transfer:'振替料',total:'合計'},vi:{pageTitle:'Máy tính phí chứng khoán',pageDesc:'Tính phí giao dịch cổ phiếu A.',ad:'QC',back:'← Quay lại',calc:'Tính',buy:'Mua',sell:'Bán',both:'Cả hai',totalFee:'Tổng phí',actualCost:'Tổng chi phí',costPerShare:'Giá/cổ phiếu',stamp:'Thuế tem',commission:'Hoa hồng',transfer:'Phí chuyển',total:'Tổng'}};
 function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
 document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
 function calcStock(){const p=parseFloat(document.getElementById('stockPrice').value)||0,q=parseInt(document.getElementById('stockShares').value)||0,dir=document.querySelector('input[name="direction"]:checked').value;if(!p||!q){alert('Please fill in all fields');return;}const amount=p*q;const commissionRate=0.00025;const minCommission=5;const stampRate=0.0005;const transferRate=0.00001;let totalFee=0,detail=[];const calcOne=function(label,rate,isStamp,isTransfer){let fee=amount*rate;if(isStamp&&dir==='buy')return null;if(!isStamp&&!isTransfer&&fee<minCommission)fee=minCommission;totalFee+=fee;return{label:label,amount:fee};};const addDetail=function(label,rate,isStamp,isTransfer){const r=calcOne(label,rate,isStamp,isTransfer);if(r)detail.push(r);};addDetail(pageT[sl].commission,commissionRate,false,false);addDetail(pageT[sl].stamp,stampRate,true,false);addDetail(pageT[sl].transfer,transferRate,false,true);if(dir==='both'){totalFee*=2;detail=detail.concat(detail.map(function(d){return{label:d.label+'('+pageT[sl].sell+')',amount:d.amount};}));detail.forEach(function(d,i){if(i<3)d.label=d.label+'('+pageT[sl].buy+')';});}const actual=amount+totalFee;const cps=actual/q;document.getElementById('result').style.display='block';document.getElementById('totalFee').textContent=totalFee.toFixed(2);document.getElementById('actualCost').textContent=actual.toFixed(2);document.getElementById('costPerShare').textContent=cps.toFixed(4);let html='<tr><th>费用项目</th><th>金额（元）</th></tr>';detail.forEach(function(d){html+='<tr><td>'+d.label+'</td><td>'+d.amount.toFixed(2)+'</td></tr>';});html+='<tr><td><strong>'+pageT[sl].total+'</strong></td><td><strong>'+totalFee.toFixed(2)+'</strong></td></tr>';document.getElementById('feeDetail').innerHTML=html;}
@@ -59,72 +39,5 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-<style>
-    .tool-tutorial-svg {
-      padding: 28px 0 12px;
-      text-align: center;
-    }
-    .tutorial-svg-head {
-      margin-bottom: 16px;
-    }
-    .tutorial-eyebrow {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--clr-tut);
-      background: color-mix(in srgb, var(--clr-tut) 10%, transparent);
-      padding: 4px 12px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
-    .tutorial-svg-head h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-      margin: 0;
-    }
-    .tool-tutorial-svg svg text {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-</style>
-    <style>.tool-tutorial-svg{--clr-tut:#10b981}</style>
     
-    <div class="tool-tutorial-svg reveal">
-      <div class="tutorial-svg-head">
-        <span class="tutorial-eyebrow">使用流程</span>
-        <h3>三步完成</h3>
-      </div>
-      <svg viewBox="0 0 380 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:420px;margin:0 auto">
-        <!-- Step 1 -->
-        <g transform="translate(20,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">1</text>
-          <circle cx="12" cy="12" r="9" fill="none" stroke="#10b981" stroke-width="2"/><path d="M12 6V18M8 9H14C15.1 9 16 9.9 16 11C16 12.1 15.1 13 14 13H10C8.9 13 8 12.1 8 11C8 9.9 8.9 9 10 9H16M8 15H14C15.1 15 16 15.9 16 17C16 18.1 15.1 19 14 19H10C8.9 19 8 18.1 8 17C8 15.9 8.9 15 10 15H16" fill="none" stroke="#10b981" stroke-width="1.5"/>
-        </g>
-        <!-- Arrow 1-2 -->
-        <path d="M90 50 L140 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M136 45 L142 50 L136 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Step 2 -->
-        <g transform="translate(150,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">2</text>
-          <circle cx="12" cy="12" r="9" fill="none" stroke="#10b981" stroke-width="2"/><path d="M12 6V18M8 9H14C15.1 9 16 9.9 16 11C16 12.1 15.1 13 14 13H10C8.9 13 8 12.1 8 11C8 9.9 8.9 9 10 9H16M8 15H14C15.1 15 16 15.9 16 17C16 18.1 15.1 19 14 19H10C8.9 19 8 18.1 8 17C8 15.9 8.9 15 10 15H16" fill="none" stroke="#10b981" stroke-width="1.5"/><circle cx="16" cy="16" r="3" fill="#10b981" opacity="0.3"/>
-        </g>
-        <!-- Arrow 2-3 -->
-        <path d="M220 50 L270 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M266 45 L272 50 L266 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Step 3 -->
-        <g transform="translate(280,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">3</text>
-          <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#10b981" stroke-width="2" stroke-linecap="round"/>
-        </g>
-        <!-- Labels -->
-        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
-        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
-        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
-      </svg>
-    </div>
 </body></html>

@@ -61,30 +61,10 @@
 </div>
 <script>
 window.ZT_PAGE={
-zh:{pageTitle:'摄像头测试 - ZenTools',crumbCur:'摄像头测试',eyebrow:'开发工具',h1Grad:'摄像头测试',h1Sub:'硬件检测 · 实时预览',pageDesc:'检测摄像头是否正常工作，实时预览画面。',toolTitle:'摄像头检测',btnStart:'打开摄像头',btnStop:'关闭摄像头',hint:'点击「打开摄像头」开始测试',ok:'✅ 摄像头工作正常',fail:'❌ 无法打开摄像头，请检查权限。',
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},
-en:{pageTitle:'Camera Test - ZenTools',crumbCur:'Camera Test',eyebrow:'DEV TOOLS',h1Grad:'Camera Test',h1Sub:'Hardware Check · Live Preview',pageDesc:'Test if your camera works with live preview.',toolTitle:'Camera Test',btnStart:'Start Camera',btnStop:'Stop Camera',hint:'Click "Start Camera" to begin',ok:'✅ Camera is working',fail:'❌ Cannot open camera. Please check permissions.',
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},
-ja:{pageTitle:'カメラテスト - ZenTools',crumbCur:'カメラテスト',h1Grad:'カメラテスト',h1Sub:'ハードウェアチェック',toolTitle:'カメラテスト',btnStart:'カメラを開く',btnStop:'停止',hint:'「カメラを開く」をクリック',ok:'✅ カメラは正常です',fail:'❌ カメラを開けません。権限を確認してください。',
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},
-vi:{pageTitle:'Kiểm tra camera - ZenTools',crumbCur:'Kiểm tra camera',h1Grad:'Kiểm tra camera',h1Sub:'Kiểm tra phần cứng',toolTitle:'Kiểm tra camera',btnStart:'Mở camera',btnStop:'Tắt',hint:'Nhấn "Mở camera" để bắt đầu',ok:'✅ Camera hoạt động tốt',fail:'❌ Không thể mở camera. Vui lòng kiểm tra quyền.',
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}
+zh:{pageTitle:'摄像头测试 - ZenTools',crumbCur:'摄像头测试',eyebrow:'开发工具',h1Grad:'摄像头测试',h1Sub:'硬件检测 · 实时预览',pageDesc:'检测摄像头是否正常工作，实时预览画面。',toolTitle:'摄像头检测',btnStart:'打开摄像头',btnStop:'关闭摄像头',hint:'点击「打开摄像头」开始测试',ok:'✅ 摄像头工作正常',fail:'❌ 无法打开摄像头，请检查权限。'},
+en:{pageTitle:'Camera Test - ZenTools',crumbCur:'Camera Test',eyebrow:'DEV TOOLS',h1Grad:'Camera Test',h1Sub:'Hardware Check · Live Preview',pageDesc:'Test if your camera works with live preview.',toolTitle:'Camera Test',btnStart:'Start Camera',btnStop:'Stop Camera',hint:'Click "Start Camera" to begin',ok:'✅ Camera is working',fail:'❌ Cannot open camera. Please check permissions.'},
+ja:{pageTitle:'カメラテスト - ZenTools',crumbCur:'カメラテスト',h1Grad:'カメラテスト',h1Sub:'ハードウェアチェック',toolTitle:'カメラテスト',btnStart:'カメラを開く',btnStop:'停止',hint:'「カメラを開く」をクリック',ok:'✅ カメラは正常です',fail:'❌ カメラを開けません。権限を確認してください。'},
+vi:{pageTitle:'Kiểm tra camera - ZenTools',crumbCur:'Kiểm tra camera',h1Grad:'Kiểm tra camera',h1Sub:'Kiểm tra phần cứng',toolTitle:'Kiểm tra camera',btnStart:'Mở camera',btnStop:'Tắt',hint:'Nhấn "Mở camera" để bắt đầu',ok:'✅ Camera hoạt động tốt',fail:'❌ Không thể mở camera. Vui lòng kiểm tra quyền.'}
 };
 </script>
 <script src="../assets/js/tool-ui.min.js"></script>
@@ -102,73 +82,6 @@ var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.o
     
     
 
-<style>
-    .tool-tutorial-svg {
-      padding: 28px 0 12px;
-      text-align: center;
-    }
-    .tutorial-svg-head {
-      margin-bottom: 16px;
-    }
-    .tutorial-eyebrow {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--clr-tut);
-      background: color-mix(in srgb, var(--clr-tut) 10%, transparent);
-      padding: 4px 12px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
-    .tutorial-svg-head h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-      margin: 0;
-    }
-    .tool-tutorial-svg svg text {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-</style>
-    <style>.tool-tutorial-svg{--clr-tut:#22b978}</style>
     
-    <div class="tool-tutorial-svg reveal">
-      <div class="tutorial-svg-head">
-        <span class="tutorial-eyebrow">使用流程</span>
-        <h3>三步完成</h3>
-      </div>
-      <svg viewBox="0 0 380 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:420px;margin:0 auto">
-        <!-- Step 1 -->
-        <g transform="translate(20,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">1</text>
-          <rect x="3" y="5" width="14" height="14" rx="2" fill="none" stroke="#22b978" stroke-width="2"/><path d="M7 9L5 12L7 15M13 9L15 12L13 15" fill="none" stroke="#22b978" stroke-width="2" stroke-linecap="round"/>
-        </g>
-        <!-- Arrow 1-2 -->
-        <path d="M90 50 L140 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M136 45 L142 50 L136 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Step 2 -->
-        <g transform="translate(150,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">2</text>
-          <rect x="3" y="5" width="14" height="14" rx="2" fill="none" stroke="#22b978" stroke-width="2"/><path d="M7 9L5 12L7 15M13 9L15 12L13 15" fill="none" stroke="#22b978" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#22b978" opacity="0.3"/>
-        </g>
-        <!-- Arrow 2-3 -->
-        <path d="M220 50 L270 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M266 45 L272 50 L266 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Step 3 -->
-        <g transform="translate(280,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">3</text>
-          <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#22b978" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#22b978" stroke-width="2" stroke-linecap="round"/>
-        </g>
-        <!-- Labels -->
-        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
-        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
-        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
-      </svg>
-    </div>
 </body>
 </html>

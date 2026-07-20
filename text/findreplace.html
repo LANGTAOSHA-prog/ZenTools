@@ -24,30 +24,10 @@
 <div class="fr-row"><label><input type="checkbox" id="caseSensitive"/><span data-i18n="caseLabel">区分大小写</span></label><button class="btn-primary" onclick="replaceAll()" data-i18n="replaceBtn">全部替换</button></div>
 <div class="status" id="status"></div></div>
 <script>
-window.ZT_PAGE={zh:{crumbCur:'查找替换',eyebrow:'文本工具',h1Grad:'查找替换',h1Sub:'查找并替换文本',pageDesc:'在文本中快速查找并替换指定内容，支持区分大小写。',placeholder:'在此输入文本...',findPlace:'查找...',replacePlace:'替换为...',caseLabel:'区分大小写',replaceBtn:'全部替换',statusDone:'✅ 替换完成！共 {n} 处',statusCopied:'✅ 已复制',statusEmpty:'',
-        tutorialEyebrow: '使用流程',
-        tutorialTitle: '三步完成',
-        tutorialStep1: '上传文件',
-        tutorialStep2: '本地处理',
-        tutorialStep3: '下载结果'},
-en:{crumbCur:'Find & Replace',h1Grad:'Find & Replace',pageDesc:'Quickly find and replace text, with case-sensitive option.',placeholder:'Enter text here...',findPlace:'Find...',replacePlace:'Replace with...',caseLabel:'Case sensitive',replaceBtn:'Replace All',statusDone:'✅ Done! {n} replacements',statusCopied:'✅ Copied!',
-        tutorialEyebrow: 'HOW TO USE',
-        tutorialTitle: 'Done in 3 Steps',
-        tutorialStep1: 'Upload',
-        tutorialStep2: 'Process',
-        tutorialStep3: 'Download'},
-ja:{crumbCur:'検索置換',h1Grad:'検索と置換',pageDesc:'テキストを検索して置換。大文字小文字の区別対応。',placeholder:'テキストを入力...',findPlace:'検索...',replacePlace:'置換...',caseLabel:'大文字小文字を区別',replaceBtn:'すべて置換',statusDone:'✅ 完了！{n} 箇所置換',statusCopied:'✅ コピーしました！',
-        tutorialEyebrow: '使い方',
-        tutorialTitle: '3ステップで完了',
-        tutorialStep1: 'アップロード',
-        tutorialStep2: '処理',
-        tutorialStep3: 'ダウンロード'},
-vi:{crumbCur:'Tìm và thay thế',h1Grad:'Tìm và thay thế',pageDesc:'Tìm và thay thế văn bản nhanh chóng.',placeholder:'Nhập văn bản...',findPlace:'Tìm...',replacePlace:'Thay bằng...',caseLabel:'Phân biệt hoa thường',replaceBtn:'Thay thế tất cả',statusDone:'✅ Hoàn tất! {n} thay thế',statusCopied:'✅ Đã sao chép!',
-        tutorialEyebrow: 'CÁCH SỬ DỤNG',
-        tutorialTitle: 'Hoàn thành 3 bước',
-        tutorialStep1: 'Tải lên',
-        tutorialStep2: 'Xử lý',
-        tutorialStep3: 'Tải xuống'}
+window.ZT_PAGE={zh:{crumbCur:'查找替换',eyebrow:'文本工具',h1Grad:'查找替换',h1Sub:'查找并替换文本',pageDesc:'在文本中快速查找并替换指定内容，支持区分大小写。',placeholder:'在此输入文本...',findPlace:'查找...',replacePlace:'替换为...',caseLabel:'区分大小写',replaceBtn:'全部替换',statusDone:'✅ 替换完成！共 {n} 处',statusCopied:'✅ 已复制',statusEmpty:''},
+en:{crumbCur:'Find & Replace',h1Grad:'Find & Replace',pageDesc:'Quickly find and replace text, with case-sensitive option.',placeholder:'Enter text here...',findPlace:'Find...',replacePlace:'Replace with...',caseLabel:'Case sensitive',replaceBtn:'Replace All',statusDone:'✅ Done! {n} replacements',statusCopied:'✅ Copied!'},
+ja:{crumbCur:'検索置換',h1Grad:'検索と置換',pageDesc:'テキストを検索して置換。大文字小文字の区別対応。',placeholder:'テキストを入力...',findPlace:'検索...',replacePlace:'置換...',caseLabel:'大文字小文字を区別',replaceBtn:'すべて置換',statusDone:'✅ 完了！{n} 箇所置換',statusCopied:'✅ コピーしました！'},
+vi:{crumbCur:'Tìm và thay thế',h1Grad:'Tìm và thay thế',pageDesc:'Tìm và thay thế văn bản nhanh chóng.',placeholder:'Nhập văn bản...',findPlace:'Tìm...',replacePlace:'Thay bằng...',caseLabel:'Phân biệt hoa thường',replaceBtn:'Thay thế tất cả',statusDone:'✅ Hoàn tất! {n} thay thế',statusCopied:'✅ Đã sao chép!'}
 };
 </script><script src="../assets/js/tool-ui.min.js"></script><script>
 function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
@@ -71,74 +51,7 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
-<style>
-    .tool-tutorial-svg {
-      padding: 28px 0 12px;
-      text-align: center;
-    }
-    .tutorial-svg-head {
-      margin-bottom: 16px;
-    }
-    .tutorial-eyebrow {
-      display: inline-block;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.8px;
-      text-transform: uppercase;
-      color: var(--clr-tut);
-      background: color-mix(in srgb, var(--clr-tut) 10%, transparent);
-      padding: 4px 12px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
-    .tutorial-svg-head h3 {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-      margin: 0;
-    }
-    .tool-tutorial-svg svg text {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
-    }
-</style>
-    <style>.tool-tutorial-svg{--clr-tut:#f59e0b}</style>
     
-    <div class="tool-tutorial-svg reveal">
-      <div class="tutorial-svg-head">
-        <span class="tutorial-eyebrow">使用流程</span>
-        <h3>三步完成</h3>
-      </div>
-      <svg viewBox="0 0 380 140" width="100%" height="140" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:420px;margin:0 auto">
-        <!-- Step 1 -->
-        <g transform="translate(20,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">1</text>
-          <path d="M4 3H16L18 5V18H6C4.9 18 4 17.1 4 16V3Z" fill="none" stroke="#f59e0b" stroke-width="2"/><path d="M7 9H15M7 12H15M7 15H12" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
-        </g>
-        <!-- Arrow 1-2 -->
-        <path d="M90 50 L140 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M136 45 L142 50 L136 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Step 2 -->
-        <g transform="translate(150,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">2</text>
-          <path d="M4 3H16L18 5V18H6C4.9 18 4 17.1 4 16V3Z" fill="none" stroke="#f59e0b" stroke-width="2"/><path d="M7 9H15M7 12H15M7 15H12" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#f59e0b" opacity="0.3"/>
-        </g>
-        <!-- Arrow 2-3 -->
-        <path d="M220 50 L270 50" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <path d="M266 45 L272 50 L266 55" stroke="var(--clr-tut)" stroke-width="2" stroke-linecap="round" fill="none"/>
-        <!-- Step 3 -->
-        <g transform="translate(280,20)">
-          <circle cx="30" cy="30" r="32" fill="none" stroke="var(--clr-tut)" stroke-width="2.5"/>
-          <text x="30" y="37" text-anchor="middle" font-size="22" font-weight="700" fill="var(--clr-tut)" font-family="system-ui">3</text>
-          <path d="M12 2V14M12 14L7 9M12 14L17 9" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/><path d="M4 18H18" stroke="#f59e0b" stroke-width="2" stroke-linecap="round"/>
-        </g>
-        <!-- Labels -->
-        <text x="50" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">上传文件</text>
-        <text x="180" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">本地处理</text>
-        <text x="310" y="118" text-anchor="middle" font-size="14" fill="var(--text)" font-family="system-ui" font-weight="600">下载结果</text>
-      </svg>
-    </div>
 </body></html>
     
     
