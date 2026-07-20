@@ -52,7 +52,7 @@
     if (dict.pageTitle) document.title = dict.pageTitle;
     document.querySelectorAll('[data-i18n]').forEach(function(el) {
       var key = el.getAttribute('data-i18n');
-      if (dict[key] != null) el.textContent = dict[key];
+      if (dict[key] != null) el.innerHTML = dict[key];
     });
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {
       var key = el.getAttribute('data-i18n-placeholder');
