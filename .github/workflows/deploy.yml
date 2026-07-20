@@ -53,6 +53,21 @@ jobs:
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 完整历史，供 _gen_sitemap.py 取每个文件的真实 git 提交日期作为 lastmod
+
+      - name: 重新生成 sitemap（真实 lastmod）
+        run: |
+          python3 _gen_sitemap.py
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add sitemap.xml sitemap.txt
+          if git diff --cached --quiet; then
+            echo "sitemap 无变化，跳过提交"
+          else
+            git commit -m "chore: 重新生成 sitemap（真实 lastmod）[skip ci]"
+            git push
+          fi
 
       - name: 自动更新更新日志（扫描新工具 + 提取 cl 标记）
         run: |
