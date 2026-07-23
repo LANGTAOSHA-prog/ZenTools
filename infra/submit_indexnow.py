@@ -140,7 +140,7 @@ def main():
             "urlList": chunk,
         }
         status, body = post_batch(payload)
-        if status == 200:
+        if status in (200, 202):
             ok += len(chunk)
             print(f"  批次 {i//batch_size + 1}: {status} OK  ({len(chunk)} 条)")
         else:
