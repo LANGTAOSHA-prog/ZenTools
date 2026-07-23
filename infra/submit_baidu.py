@@ -17,7 +17,7 @@
   python infra/submit_baidu.py --batch 500    # 每批 500 条（官方上限 2000/次）
   python infra/submit_baidu.py --dry-run      # 只解析打印，不推送
 
-接口：POST https://data.zz.baidu.com/urls?site=https://zentools.xyz&token=TOKEN
+接口：POST http://data.zz.baidu.com/urls?site=https://zentools.xyz&token=TOKEN
 请求体：Content-Type: text/plain，每行一个 URL
 返回  ：{"remain":剩余配额,"success":成功数,"not_valid":非法数,
          "not_same_site":非本站数,"error":错误码,"message":"..."}
@@ -38,7 +38,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HOST = "zentools.xyz"
-ENDPOINT = "https://data.zz.baidu.com/urls"
+ENDPOINT = "http://data.zz.baidu.com/urls"
 BATCH_DEFAULT = 1000
 
 
