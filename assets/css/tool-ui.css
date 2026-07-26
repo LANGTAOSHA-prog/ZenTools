@@ -134,10 +134,11 @@ body::before {
 nav {
   position: sticky; top: 0; z-index: 100;
   backdrop-filter: blur(24px) saturate(180%);
-  background: rgba(6,7,13,0.75);
+  background: rgba(255,255,255,0.75);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
 }
+.dark nav, [data-theme="dark"] nav { background: rgba(6,7,13,0.75); }
 .nav-inner {
   max-width: 1200px; margin: auto; height: 64px;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
@@ -157,7 +158,7 @@ nav {
 
 .lang-select {
   padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border);
-  background: rgba(255,255,255,0.04); color: var(--muted); font-size: 13px;
+  background: var(--glass-b); color: var(--muted); font-size: 13px;
   cursor: pointer; transition: color 0.2s, background 0.2s;
 }
 .lang-select:hover { color: var(--text); background: var(--glass-b); }
@@ -208,8 +209,8 @@ nav {
 }
 .file-input-row input[type="file"] {
   flex: 1; min-width: 280px;
-  padding: 14px 18px; border: 1px dashed rgba(255,255,255,0.15);
-  border-radius: 12px; background: rgba(255,255,255,0.02);
+  padding: 14px 18px; border: 1px dashed var(--border);
+  border-radius: 12px; background: var(--glass);
   color: var(--muted); font-size: 14px; cursor: pointer;
 }
 .file-input-row input[type="file"]::file-selector-button {
@@ -217,7 +218,7 @@ nav {
   padding: 8px 16px; border-radius: 8px; margin-right: 12px;
   cursor: pointer; transition: background 0.2s;
 }
-.file-input-row input[type="file"]::file-selector-button:hover { background: rgba(255,255,255,0.12); }
+.file-input-row input[type="file"]::file-selector-button:hover { background: var(--glass-b); }
 
 /* 主按钮 */
 .btn-primary {
