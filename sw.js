@@ -1,5 +1,5 @@
 // ZenTools PWA Service Worker - Cache-First Strategy
-const CACHE_VERSION = 'zentools-v2';
+const CACHE_VERSION = 'zentools-v3';
 const CORE_CACHE = CACHE_VERSION + '-core';
 const HTML_CACHE = CACHE_VERSION + '-html';
 const DATA_CACHE = CACHE_VERSION + '-data';
