@@ -51,19 +51,19 @@
     }
 
 :root{
-  --bg:#0f172a;
-  --card:#111827;
-  --border:#1f2937;
-  --text:#f3f4f6;
+  --bg:var(--zen-bg-base);
+  --card:var(--zen-bg-card);
+  --border:var(--zen-border);
+  --text:var(--zen-text-main);
   --muted:#9ca3af;
-  --blue:#2563eb;
-  --green:#10b981;
+  --blue:var(--zen-primary);
+  --green:var(--zen-success);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   background:var(--zen-bg-base);
   color:var(--zen-text-main);
-  font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;
+  font-family:Inter,"Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
   line-height:1.7;
 }
 .container{
@@ -72,7 +72,7 @@ body{
   padding:40px 20px;
 }
 a{
-  color:#60a5fa;
+  color:var(--zen-primary);
   text-decoration:none;
 }
 .top-bar{
@@ -84,9 +84,9 @@ a{
   flex-wrap:wrap;
 }
 .lang-select{
-  background:#0f172a;
+  background:var(--zen-bg-card);
   color:white;
-  border:1px solid #334155;
+  border:1px solid var(--zen-border);
   border-radius:10px;
   padding:10px 12px;
 }
@@ -106,7 +106,7 @@ h1{
 .ad-box{
   margin:25px 0;
   height:110px;
-  border:2px dashed #334155;
+  border:2px dashed var(--zen-border);
   border-radius:18px;
   display:flex;
   align-items:center;
@@ -118,8 +118,8 @@ textarea{
   min-height:120px;
   padding:16px;
   border-radius:14px;
-  border:1px solid #334155;
-  background:#0f172a;
+  border:1px solid var(--zen-border);
+  background:var(--zen-bg-card);
   color:white;
   font-size:16px;
   resize:vertical;
@@ -172,13 +172,13 @@ button:hover{
   margin-bottom:10px;
 }
 .info p{
-  color:#cbd5e1;
+  color:var(--zen-text-sub);
   white-space:pre-line;
 }
 footer{
   margin-top:50px;
   text-align:center;
-  color:#94a3b8;
+  color:var(--zen-text-sub);
 }
 @media(max-width:768px){
   .container{padding:25px 15px}
@@ -493,67 +493,6 @@ function generateQR(){
     downloadBtn.href = canvas.toDataURL("image/png");
   });
 }
-</script>
-<script>
-const seoData = {
-  title: "二维码生成器 - 免费在线工具 | ZenTools",
-  description: "免费在线二维码生成器，支持输入文本、网址并生成可下载二维码图片，无需安装。",
-  keywords: "二维码生成器,QR码,在线工具,免费工具,ZenTools",
-  url: "https://www.zentools.xyz/tools/qr.html",
-  image: "https://www.zentools.xyz/logo.png"
-};
-
-function setMeta(name, content){
-  let meta = document.querySelector(`meta[name="${name}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("name", name);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setProperty(property, content){
-  let meta = document.querySelector(`meta[property="${property}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("property", property);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setCanonical(url){
-  let link = document.querySelector('link[rel="canonical"]');
-  if(!link){
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-  link.setAttribute("href", url);
-}
-
-function applySEO(){
-  document.title = seoData.title;
-
-  setMeta("description", seoData.description);
-  setMeta("keywords", seoData.keywords);
-  setMeta("author", "ZenTools");
-
-  setCanonical(seoData.url);
-
-  setProperty("og:title", seoData.title);
-  setProperty("og:description", seoData.description);
-  setProperty("og:type", "website");
-  setProperty("og:url", seoData.url);
-  setProperty("og:image", seoData.image);
-
-  setMeta("twitter:card", "summary_large_image");
-  setMeta("twitter:title", seoData.title);
-  setMeta("twitter:description", seoData.description);
-}
-
-applySEO();
 </script>
 
 <script>

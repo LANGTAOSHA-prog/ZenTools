@@ -49,25 +49,25 @@
       }
     }
 
-:root{--bg:#0f172a;--card:#111827;--card2:#0b1220;--border:#1f2937;--text:#f3f4f6;--muted:#94a3b8;--blue:#2563eb;--green:#10b981;--red:#ef4444;--gold:#f59e0b}
+:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--card2:#0b1220;--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--blue:var(--zen-primary);--green:var(--zen-success);--red:var(--zen-danger);--gold:var(--zen-warning)}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Arial,"Noto Sans SC","Noto Sans JP",sans-serif;line-height:1.7}
+body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Inter,"Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
 .container{max-width:1000px;margin:auto;padding:40px 20px}
-a{color:#60a5fa;text-decoration:none}
+a{color:var(--zen-primary);text-decoration:none}
 .top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
-.lang-select{background:#111827;color:white;border:1px solid #334155;border-radius:10px;padding:10px 12px}
+.lang-select{background:var(--zen-bg-card);color:var(--zen-text-main);border:1px solid var(--zen-border);border-radius:10px;padding:10px 12px}
 .card{background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}
 h1{margin-bottom:15px}.desc{color:var(--zen-text-sub);margin-bottom:25px}
-.ad-box{margin:25px 0;height:110px;border:2px dashed #334155;border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
-input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid #334155;background:#0f172a;color:white;font-size:16px}
+.ad-box{margin:25px 0;height:110px;border:2px dashed var(--zen-border);border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}
+input,select,textarea{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color:var(--zen-text-main);font-size:16px}
 textarea{min-height:190px;resize:vertical}
 button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
 .copy-btn,.download-btn{background:var(--green)}.clear-btn{background:var(--red)}
-.result,.info{margin-top:28px}.info h2{margin-top:25px}.info p,.result{color:#cbd5e1;white-space:pre-line}
+.result,.info{margin-top:28px}.info h2{margin-top:25px}.info p,.result{color:var(--zen-text-sub);white-space:pre-line}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-.box{background:var(--zen-bg-card);border:1px solid #334155;border-radius:16px;padding:18px;margin-top:15px}
+.box{background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:16px;padding:18px;margin-top:15px}
 .big{font-size:28px;font-weight:900}
-.preview img,.preview video{max-width:100%;border-radius:14px;border:1px solid #334155;margin-top:15px}
+.preview img,.preview video{max-width:100%;border-radius:14px;border:1px solid var(--zen-border);margin-top:15px}
 .download-link{display:inline-block;margin-top:15px;background:var(--green);color:white;padding:12px 18px;border-radius:12px}<style>
 .seo-content{
   margin-top:35px;
@@ -76,7 +76,7 @@ button{background:var(--blue);color:white;border:none;padding:13px 18px;border-r
 }
 
 .seo-card{
-  background:#0f172a;
+  background:var(--zen-bg-card);
   border:1px solid #1f2937;
   border-radius:18px;
   padding:22px;
@@ -96,7 +96,7 @@ button{background:var(--blue);color:white;border:none;padding:13px 18px;border-r
 
 .seo-card p,
 .seo-card li{
-  color:#cbd5e1;
+  color:var(--zen-text-sub);
   line-height:1.8;
 }
 
@@ -112,11 +112,11 @@ button{background:var(--blue);color:white;border:none;padding:13px 18px;border-r
 }
 
 .related-tools a{
-  background:#111827;
-  border:1px solid #334155;
+  background:var(--zen-bg-card);
+  border:1px solid var(--zen-border);
   padding:10px 14px;
   border-radius:12px;
-  color:#60a5fa;
+  color:var(--zen-primary);
   text-decoration:none;
 }
 .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
@@ -360,67 +360,6 @@ const zones=[["Tokyo","Asia/Tokyo"],["Shanghai","Asia/Shanghai"],["New York","Am
 function updateTimes(){const box=document.getElementById("timeGrid");box.innerHTML="";zones.forEach(z=>{const d=new Date().toLocaleString([], {timeZone:z[1], hour12:false});const div=document.createElement("div");div.className="box";div.innerHTML=`<h3>${z[0]}</h3><p>${z[1]}</p><div class="big">${d}</div>`;box.appendChild(div);});}
 updateTimes();setInterval(updateTimes,1000);
 
-</script>
-<script>
-const seoData = {
-  title: "世界时间 - 免费在线工具 | ZenTools",
-  description: "免费在线世界时间工具，查看全球多个城市当前时间，支持东京、上海、纽约、伦敦等主要城市。",
-  keywords: "世界时间,全球时间,时区,在线工具,免费工具,ZenTools",
-  url: "https://www.zentools.xyz/tools/worldtime.html",
-  image: "https://www.zentools.xyz/logo.png"
-};
-
-function setMeta(name, content){
-  let meta = document.querySelector(`meta[name="${name}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("name", name);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setProperty(property, content){
-  let meta = document.querySelector(`meta[property="${property}"]`);
-  if(!meta){
-    meta = document.createElement("meta");
-    meta.setAttribute("property", property);
-    document.head.appendChild(meta);
-  }
-  meta.setAttribute("content", content);
-}
-
-function setCanonical(url){
-  let link = document.querySelector('link[rel="canonical"]');
-  if(!link){
-    link = document.createElement("link");
-    link.setAttribute("rel", "canonical");
-    document.head.appendChild(link);
-  }
-  link.setAttribute("href", url);
-}
-
-function applySEO(){
-  document.title = seoData.title;
-
-  setMeta("description", seoData.description);
-  setMeta("keywords", seoData.keywords);
-  setMeta("author", "ZenTools");
-
-  setCanonical(seoData.url);
-
-  setProperty("og:title", seoData.title);
-  setProperty("og:description", seoData.description);
-  setProperty("og:type", "website");
-  setProperty("og:url", seoData.url);
-  setProperty("og:image", seoData.image);
-
-  setMeta("twitter:card", "summary_large_image");
-  setMeta("twitter:title", seoData.title);
-  setMeta("twitter:description", seoData.description);
-}
-
-applySEO();
 </script>
 
 <script>
