@@ -1,0 +1,50 @@
+# =============================================
+# 中国银行日元汇率自动更新 — ZenTools
+# =============================================
+# 每 30 分钟抓取中国银行外汇牌价页的日元行，解析后写入 data/jpy-rate.json。
+# 该 JSON 由前端 cny-jpy.html 同源拉取并自动填充汇率（规避浏览器 CORS）。
+# 提交后触发 deploy.yml 自动部署到 ECS / GCP。
+# 抓取失败时保留上一次成功的文件，不会覆盖为空白。
+# =============================================
+
+name: 更新中国银行日元汇率
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'      # 每 30 分钟（UTC）
+  workflow_dispatch:            # 支持手动触发
+
+permissions:
+  contents: write
+
+concurrency:
+  group: boc-jpy-rate
+  cancel-in-progress: true
+
+jobs:
+  update-rate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 配置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 抓取并解析中国银行日元汇率
+        run: python infra/fetch_boc_jpy.py
+
+      - name: 仅在有变化时提交（触发部署）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ -n "$(git status --porcelain data/jpy-rate.json)" ]; then
+            git add data/jpy-rate.json
+            git commit -m "chore: 更新中国银行日元汇率 $(date +%Y-%m-%d_%H:%M)"
+            git push
+            echo "已提交并推送新汇率"
+          else
+            echo "汇率无变化，跳过提交"
+          fi
