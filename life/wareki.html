@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="/manifest.json" />
+  <title>日本年号互转 - ZenTools</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+<meta name="description" content="明治・大正・昭和・平成・令和与公历年份双向换算，改元年份自动提示。免费在线使用，浏览器本地计算，保护隐私。">
+<meta name="keywords" content="日本年号转换,和暦西暦変換,令和 公历,平成 换算,昭和 年份,年号对照表,ZenTools,日本生活工具,和暦转公历,元号计算">
+<link rel="canonical" href="https://zentools.xyz/life/wareki.html">
+<meta property="og:title" content="日本年号互转 - ZenTools">
+<meta property="og:description" content="免费在线日本年号与公历年份互转工具，支持明治到令和五个年号。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zentools.xyz/life/wareki.html">
+<meta property="og:image" content="https://www.zentools.xyz/logo.png">
+<style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    }
+
+:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--blue:var(--zen-primary);--green:var(--zen-success);--red:var(--zen-danger)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Inter,"Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
+.container{max-width:1000px;margin:auto;padding:40px 20px}a{color:var(--zen-primary);text-decoration:none}
+.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.lang-select{background:var(--zen-bg-card);color:var(--zen-text-main);border:1px solid var(--zen-border);border-radius:10px;padding:10px 12px}
+.card{background:var(--card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}
+h1{margin-bottom:15px;font-size:34px}.desc{color:var(--zen-text-sub);margin-bottom:25px}
+.ad-box{margin:25px 0;height:110px;border:2px dashed var(--zen-border);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--zen-text-placeholder)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+input,select{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-base);color:var(--zen-text-main);font-size:16px}
+button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
+.copy-btn{background:var(--green)}.clear-btn{background:var(--red)}
+.result{margin-top:22px;background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:16px;padding:18px;color:var(--zen-text-sub);white-space:pre-line}
+.info{margin-top:35px}.info h2{margin-top:25px}.info p{color:var(--zen-text-sub);white-space:pre-line}
+footer{margin-top:50px;text-align:center;color:var(--zen-text-sub)}
+@media(max-width:768px){button,.lang-select{width:100%}h1{font-size:28px}}
+.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 24px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+</div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+     crossorigin="anonymous"></script>
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "生活工具", "item": "https://zentools.xyz/life/"}, {"@type": "ListItem", "position": 4, "name": "日本年号互转"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "日本年号互转 - ZenTools", "url": "https://zentools.xyz/life/wareki.html", "description": "日本年号（和暦）与公历年份双向换算，支持明治・大正・昭和・平成・令和。", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-07-26", "dateModified": "2026-07-26"}</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<div class="container"><div class="top-bar"><a href="index.html" data-i18n="back">← 返回首页</a></div><div class="card">
+<h1 data-i18n="title">日本年号与公历年份互转</h1>
+<p class="desc" data-i18n="desc">明治・大正・昭和・平成・令和 与公历年份双向换算，改元年份自动提示，浏览器本地计算。</p>
+<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+
+<h2 data-i18n="g2wTitle" style="font-size:20px;margin:6px 0 4px">公历 → 和暦</h2>
+<div class="grid"><input id="gregYear" type="number" min="1868" max="2100" data-i18n-placeholder="gregPh" placeholder="公历年份，如 2026"></div>
+<button onclick="g2w()" data-i18n="convert">转换为和暦</button>
+
+<h2 data-i18n="w2gTitle" style="font-size:20px;margin:22px 0 4px">和暦 → 公历</h2>
+<div class="grid">
+<select id="eraSelect">
+<option value="reiwa">令和 (Reiwa)</option>
+<option value="heisei">平成 (Heisei)</option>
+<option value="showa">昭和 (Showa)</option>
+<option value="taisho">大正 (Taisho)</option>
+<option value="meiji">明治 (Meiji)</option>
+</select>
+<input id="eraYear" type="number" min="1" max="64" data-i18n-placeholder="eraYearPh" placeholder="年数，如 8（令和8年输入8）">
+</div>
+<button onclick="w2g()" data-i18n="convert2">转换为公历</button>
+<button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
+<button onclick="clearInputs()" class="clear-btn" data-i18n="clear">清空</button>
+<div class="result" id="result" data-i18n="resultTip">结果会显示在这里。</div>
+<div class="info">
+<h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">公历转和暦：输入 1868 年以后的公历年份即可。和暦转公历：选择年号并输入年数（元年即第 1 年，输入 1）。</p>
+<h2 data-i18n="noticeTitle">注意事项</h2><p data-i18n="noticeText">改元之年（如 1912、1926、1989、2019 年）两个年号并存，精确场合以官方改元日为准：令和自 2019 年 5 月 1 日起。</p>
+</div>
+</div>
+
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2>适用场景</h2>
+  <p>日本年号与公历年份互转：在日本办理役所手续、银行开户、税务申报、签证材料时，出生年月和日期栏常要求填写和暦（令和・平成・昭和等）；反过来读日本证件、保险单、年金记录时又需要换算回公历。本工具双向换算并自动提示改元年份，全部在浏览器本地完成，无需联网查表。</p>
+<h2>年号对照速查</h2>
+<table style="width:100%;border-collapse:collapse;margin:12px 0">
+<thead><tr>
+<th style="text-align:left;padding:10px;border:1px solid var(--zen-border);background:var(--zen-bg-base)">年号</th>
+<th style="text-align:left;padding:10px;border:1px solid var(--zen-border);background:var(--zen-bg-base)">期间</th>
+<th style="text-align:left;padding:10px;border:1px solid var(--zen-border);background:var(--zen-bg-base)">换算公式</th>
+</tr></thead>
+<tbody>
+<tr><td style="padding:10px;border:1px solid var(--zen-border)">明治 Meiji</td><td style="padding:10px;border:1px solid var(--zen-border)">1868-10-23 〜 1912-07-30</td><td style="padding:10px;border:1px solid var(--zen-border)">明治 N 年 = 1867 + N</td></tr>
+<tr><td style="padding:10px;border:1px solid var(--zen-border)">大正 Taisho</td><td style="padding:10px;border:1px solid var(--zen-border)">1912-07-30 〜 1926-12-25</td><td style="padding:10px;border:1px solid var(--zen-border)">大正 N 年 = 1911 + N</td></tr>
+<tr><td style="padding:10px;border:1px solid var(--zen-border)">昭和 Showa</td><td style="padding:10px;border:1px solid var(--zen-border)">1926-12-25 〜 1989-01-07</td><td style="padding:10px;border:1px solid var(--zen-border)">昭和 N 年 = 1925 + N</td></tr>
+<tr><td style="padding:10px;border:1px solid var(--zen-border)">平成 Heisei</td><td style="padding:10px;border:1px solid var(--zen-border)">1989-01-08 〜 2019-04-30</td><td style="padding:10px;border:1px solid var(--zen-border)">平成 N 年 = 1988 + N</td></tr>
+<tr><td style="padding:10px;border:1px solid var(--zen-border)">令和 Reiwa</td><td style="padding:10px;border:1px solid var(--zen-border)">2019-05-01 〜 现在</td><td style="padding:10px;border:1px solid var(--zen-border)">令和 N 年 = 2018 + N</td></tr>
+</tbody></table>
+<h2>常见问题</h2>
+  <div class="faq">
+    <details open><summary>1989 年到底是昭和还是平成？</summary><p>1989 年 1 月 7 日及以前是昭和 64 年，1 月 8 日起是平成元年。按年份换算时两个年号并存，精确场合以具体日期为准。</p></details>
+<details open><summary>令和元年是公历哪一年？令和 8 年呢？</summary><p>令和元年是 2019 年（5 月 1 日起）。换算公式为令和 N 年 = 2018 + N，因此令和 8 年即 2026 年。</p></details>
+<details open><summary>日本官方文件为什么常用和暦？填表要注意什么？</summary><p>役所、银行、税务等官方文件普遍使用和暦。填写时注意改元当年记作「元年」而不是 1 年，且改元之年前后属于不同年号。</p></details>
+<details open><summary>支持明治以前的年号吗？</summary><p>目前覆盖明治（1868 年）以后的五个年号：明治、大正、昭和、平成、令和，可满足绝大多数现代文件需求。庆应及更早的年号暂不支持。</p></details>
+  </div>
+</section>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer></div>
+<script>
+const translations={
+"zh": {"back": "← 返回首页", "ad": "广告位（Google AdSense）", "convert": "转换为和暦", "convert2": "转换为公历", "copy": "复制结果", "clear": "清空", "copied": "已复制", "resultTip": "结果会显示在这里。", "guideTitle": "使用说明", "guideText": "公历转和暦：输入 1868 年以后的公历年份即可。和暦转公历：选择年号并输入年数（元年即第 1 年，输入 1）。", "noticeTitle": "注意事项", "noticeText": "改元之年（如 1912、1926、1989、2019 年）两个年号并存，精确场合以官方改元日为准：令和自 2019 年 5 月 1 日起。", "empty": "请输入年份", "invalid": "年份超出范围，请检查输入", "boundaryNote": "注：该年为改元之年，两个年号并存，以具体日期为准。", "pageTitle": "日本年号与公历互转 - 免费在线工具 | ZenTools", "title": "日本年号与公历年份互转", "desc": "明治・大正・昭和・平成・令和 与公历年份双向换算，改元年份自动提示，浏览器本地计算。", "g2wTitle": "公历 → 和暦", "w2gTitle": "和暦 → 公历", "gregPh": "公历年份，如 2026", "eraYearPh": "年数，如 8（令和8年输入8）", "gongli": "公历"},
+"ja": {"back": "← ホームに戻る", "ad": "広告スペース", "convert": "和暦に変換", "convert2": "西暦に変換", "copy": "結果をコピー", "clear": "クリア", "copied": "コピーしました", "resultTip": "結果がここに表示されます。", "guideTitle": "使い方", "guideText": "西暦→和暦：1868 年以降の西暦年を入力。和暦→西暦：元号を選び年数を入力（元年は 1 を入力）。", "noticeTitle": "注意事項", "noticeText": "改元の年（1912・1926・1989・2019 年など）は二つの元号が併存します。正確には改元日基準：令和は 2019 年 5 月 1 日から。", "empty": "年を入力してください", "invalid": "範囲外の年です。入力を確認してください", "boundaryNote": "注：改元の年のため二つの元号が併存します。日付で判断してください。", "pageTitle": "和暦西暦変換 - Free Online Tool | ZenTools", "title": "和暦・西暦変換", "desc": "明治・大正・昭和・平成・令和と西暦の相互変換。改元年も自動表示、ブラウザ内で計算。", "g2wTitle": "西暦 → 和暦", "w2gTitle": "和暦 → 西暦", "gregPh": "西暦年（例：2026）", "eraYearPh": "年数（例：令和8年なら 8）", "gongli": "西暦"},
+"en": {"back": "← Back to Home", "ad": "Ad Space", "convert": "To Japanese Era", "convert2": "To Gregorian Year", "copy": "Copy Result", "clear": "Clear", "copied": "Copied", "resultTip": "Result will appear here.", "guideTitle": "How to Use", "guideText": "Gregorian to era: enter a year from 1868. Era to Gregorian: choose an era and enter the era year (enter 1 for Gannen, the first year).", "noticeTitle": "Notice", "noticeText": "In transition years (1912, 1926, 1989, 2019) two eras coexist. Exact era depends on the date: Reiwa began May 1, 2019.", "empty": "Please enter a year", "invalid": "Year out of range, please check input", "boundaryNote": "Note: era transition year — two eras coexist; exact era depends on the date.", "pageTitle": "Japanese Era Converter - Free Online Tool | ZenTools", "title": "Japanese Era ⇄ Gregorian Year Converter", "desc": "Convert between Meiji/Taisho/Showa/Heisei/Reiwa and Gregorian years, locally in your browser.", "g2wTitle": "Gregorian → Japanese Era", "w2gTitle": "Japanese Era → Gregorian", "gregPh": "Gregorian year, e.g. 2026", "eraYearPh": "Era year, e.g. 8 for Reiwa 8", "gongli": "Gregorian"},
+"vi": {"back": "← Quay lại trang chủ", "ad": "Vị trí quảng cáo", "convert": "Đổi sang niên hiệu", "convert2": "Đổi sang năm dương lịch", "copy": "Sao chép kết quả", "clear": "Xóa", "copied": "Đã sao chép", "resultTip": "Kết quả sẽ hiển thị ở đây.", "guideTitle": "Hướng dẫn", "guideText": "Dương lịch → niên hiệu: nhập năm từ 1868. Niên hiệu → dương lịch: chọn niên hiệu và nhập số năm (năm đầu nhập 1).", "noticeTitle": "Lưu ý", "noticeText": "Năm đổi niên hiệu (1912, 1926, 1989, 2019) tồn tại hai niên hiệu. Chính xác theo ngày: Reiwa bắt đầu 01/05/2019.", "empty": "Vui lòng nhập năm", "invalid": "Năm ngoài phạm vi, vui lòng kiểm tra", "boundaryNote": "Lưu ý: năm đổi niên hiệu — hai niên hiệu cùng tồn tại, xác định theo ngày cụ thể.", "pageTitle": "Chuyển đổi niên hiệu Nhật - Free Online Tool | ZenTools", "title": "Chuyển đổi niên hiệu Nhật ⇄ năm dương lịch", "desc": "Chuyển đổi giữa Meiji/Taisho/Showa/Heisei/Reiwa và năm dương lịch, xử lý ngay trong trình duyệt.", "g2wTitle": "Dương lịch → Niên hiệu", "w2gTitle": "Niên hiệu → Dương lịch", "gregPh": "Năm dương lịch, ví dụ 2026", "eraYearPh": "Số năm, ví dụ 8 (Reiwa 8)", "gongli": "Dương lịch"}
+};
+window.ZT_PAGE = translations;
+
+const languageSelect=document.getElementById("langSelect");
+let currentLang="zh";
+function setLanguage(lang){
+ currentLang=lang;
+ const data=translations[lang]||translations.zh;
+ document.documentElement.lang=lang; document.title=data.pageTitle;
+ document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
+ localStorage.setItem("zentools_lang",lang);
+}
+if(languageSelect){languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
+const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang; setLanguage(savedLang);}
+
+const ERAS={
+ meiji:{kanji:"明治",romaji:"Meiji",offset:1867,start:1868,end:1912,max:45},
+ taisho:{kanji:"大正",romaji:"Taisho",offset:1911,start:1912,end:1926,max:15},
+ showa:{kanji:"昭和",romaji:"Showa",offset:1925,start:1926,end:1989,max:64},
+ heisei:{kanji:"平成",romaji:"Heisei",offset:1988,start:1989,end:2019,max:31},
+ reiwa:{kanji:"令和",romaji:"Reiwa",offset:2018,start:2019,end:null,max:null}
+};
+const ERA_ORDER=["meiji","taisho","showa","heisei","reiwa"];
+function fmtNum(n){return n===1?"元年":n+"年";}
+function showResult(t){document.getElementById("result").textContent=t;}
+function clearInputs(){document.getElementById("gregYear").value="";document.getElementById("eraYear").value="";document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
+function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
+function g2w(){
+ const d=translations[currentLang]||translations.zh;
+ const y=parseInt(document.getElementById("gregYear").value,10);
+ if(!y){alert(d.empty);return;}
+ if(y<1868||y>2100){showResult(d.invalid);return;}
+ const hits=[];
+ for(const k of ERA_ORDER){const e=ERAS[k];if(y>=e.start&&(e.end===null||y<=e.end)){const n=y-e.offset;hits.push(e.kanji+fmtNum(n)+" ("+e.romaji+" "+n+")");}}
+ let t=y+" = "+hits.join("  /  ");
+ if(hits.length>1)t+="\n"+d.boundaryNote;
+ showResult(t);
+}
+function w2g(){
+ const d=translations[currentLang]||translations.zh;
+ const e=ERAS[document.getElementById("eraSelect").value];
+ const n=parseInt(document.getElementById("eraYear").value,10);
+ if(!n){alert(d.empty);return;}
+ if(n<1||(e.max&&n>e.max)){showResult(d.invalid+(e.max?"（"+e.kanji+"：1〜"+e.max+"）":""));return;}
+ const y=e.offset+n;
+ let t=e.kanji+fmtNum(n)+" ("+e.romaji+" "+n+") = "+d.gongli+" "+y;
+ if(n===1||(e.max&&n===e.max))t+="\n"+d.boundaryNote;
+ showResult(t);
+}
+</script>
+<script>
+// Related tools — loaded from tools-data.json
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  });
+}
+</script>
+
+
+    
+    
+    
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "1989 年到底是昭和还是平成？","acceptedAnswer": {"@type": "Answer","text": "1989 年 1 月 7 日及以前是昭和 64 年，1 月 8 日起是平成元年。按年份换算时两个年号并存，精确场合以具体日期为准。"}},{"@type": "Question","name": "令和元年是公历哪一年？令和 8 年呢？","acceptedAnswer": {"@type": "Answer","text": "令和元年是 2019 年（5 月 1 日起）。换算公式为令和 N 年 = 2018 + N，因此令和 8 年即 2026 年。"}},{"@type": "Question","name": "日本官方文件为什么常用和暦？填表要注意什么？","acceptedAnswer": {"@type": "Answer","text": "役所、银行、税务等官方文件普遍使用和暦。填写时注意改元当年记作\"元年\"而不是 1 年，且改元之年前后属于不同年号。"}},{"@type": "Question","name": "支持明治以前的年号吗？","acceptedAnswer": {"@type": "Answer","text": "目前覆盖明治（1868 年）以后的五个年号：明治、大正、昭和、平成、令和，可满足绝大多数现代文件需求。庆应及更早的年号暂不支持。"}}]}</script>
+</body></html>
