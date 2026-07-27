@@ -104,6 +104,7 @@ jobs:
             cd /var/www/html
             echo "==> 部署版本校验"
             test -f index.html && echo "OK index.html" || (echo "MISSING index.html" && exit 1)
+            test -f sw.js && echo "OK sw.js (ZenTools)" || echo "WARN: sw.js missing (not ZenTools index.html)"
             echo "==> 部署完成: $(date '+%Y-%m-%d %H:%M:%S %Z')"
 
       - name: "[调试] GCP 连通性诊断（ssh，不回显私钥）"
@@ -128,7 +129,7 @@ jobs:
           REMOTE_USER: ${{ secrets.GCP_USER }}
           REMOTE_PORT: "22"
           TARGET: /var/www/zentools
-          ARGS: "-rlptgoDz --delete"
+          ARGS: "-rlptgoDz"
           # 不碰 GCP webroot 现有的 .git 仓库；不删除 .github/.monkeycode
           EXCLUDE: "/.git/, /.github/, .monkeycode/, *.bak"
           SCRIPT_AFTER: |
