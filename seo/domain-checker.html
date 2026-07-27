@@ -110,6 +110,9 @@
     .dark .pill.av { color: #4ade80; }
     .dark .pill.rg { color: #f87171; }
     .dark .pill.fa { color: #fbbf24; }
+    .pill.ma { background: rgba(0,102,255,0.15); color: var(--zen-primary); }
+    .dark .pill.ma { color: #60a5fa; }
+    .whois-link { color: var(--zen-primary); font-size: 13px; }
     .result-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .result-table th, .result-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--zen-border); }
     .result-table th { color: var(--zen-text-placeholder); font-weight: 600; font-size: 12px; }
@@ -121,6 +124,8 @@
     .dark .badge.available { color: #4ade80; }
     .dark .badge.registered { color: #f87171; }
     .dark .badge.failed { color: #fbbf24; }
+    .badge.manual { background: rgba(0,102,255,0.15); color: var(--zen-primary); }
+    .dark .badge.manual { color: #60a5fa; }
     .result-scroll { max-height: 420px; overflow-y: auto; border: 1px solid var(--zen-border); border-radius: 12px; }
     .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
     .section-head { text-align: center; margin-bottom: 36px; }
@@ -217,6 +222,7 @@
   <div class="field">
     <label data-i18n="lblSuffix">域名后缀 <span class="hint" data-i18n="suffixHint">勾选要拼接的后缀</span></label>
     <div class="suffix-grid" id="suffixGrid"></div>
+    <div class="count-tip" style="color:#f97316;margin-top:8px;font-weight:600" data-i18n="manualHint">提示：.cn / .io 后缀注册局未开放 RDAP，需手动核验</div>
   </div>
 
   <div class="field">
@@ -267,8 +273,7 @@
           <tr>
             <th data-i18n="colDomain">域名</th>
             <th data-i18n="colStatus">状态</th>
-            <th data-i18n="colReg">注册日期</th>
-            <th data-i18n="colExp">到期日期</th>
+            <th data-i18n="colDetail">详情/操作</th>
             <th data-i18n="colTime">查询时间</th>
           </tr>
         </thead>
@@ -314,10 +319,10 @@
 </div>
 <script>
 window.ZT_PAGE={
-zh:{pageTitle:'域名批量检测 - ZenTools',crumbCur:'域名批量检测',h1Grad:'域名批量检测',h1Sub:'域名生成 · 批量查注册状态 · CSV 导出',pageDesc:'输入业务关键词，自动生成域名变体并拼接主流后缀，调用公共 RDAP 接口批量查询注册状态，快速筛出可注册域名。',navSeoCat:'SEO 工具',lblKeyword:'核心关键词',placeholderKeyword:'如：content、shop、zentools（英文或拼音，空格分词）',lblSuffix:'域名后缀',suffixHint:'勾选要拼接的后缀',lblOptions:'变体生成规则',optJoin:'直接拼接',optAbbr:'首字母缩写',optMap:'常见缩写映射',optAffix:'添加词缀',btnGenerate:'⚡ 生成候选域名',previewTitle:'候选域名预览',previewHint:'可手动增删后再查询',btnCheck:'🔍 开始查询',btnClear:'🗑️ 清空',btnExport:'⬇ 导出 CSV',resultTitle:'查询结果',filterAvailable:'仅显示可注册',colDomain:'域名',colStatus:'状态',colReg:'注册日期',colExp:'到期日期',colTime:'查询时间',statusAvailable:'可注册',statusRegistered:'已注册',statusFailed:'查询失败',noteThrottle:'限流',noteTimeout:'超时',noteNeterr:'网络错误',recTitle:'🔗 推荐工具',recAge:'域名年龄查询',recBack:'反向链接检查',recKw:'关键词研究',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'请输入关键词',msgNoSuffix:'请至少选择一个后缀',msgNoCandidate:'没有可查询的候选域名',msgRunning:'查询中，请稍候…',msgDone:'查询完成',kwTipEmpty:'输入关键词后点击「生成候选域名」',candTip:'共 {n} 个候选域名',av:'可注册',rg:'已注册',fa:'失败',sc1:'适用场景',sc1p:'建站选域名时，手动逐个查询注册状态费时费力。域名批量检测把"关键词→变体生成→批量查状态→筛选导出"全流程搬到浏览器里：输入核心词，一键生成数十个候选，调用公共 RDAP 接口批量判断哪些还能注册，几分钟筛出优质短域名，全程无需安装软件、无需上传任何文件。',sc2:'适合谁使用',sc2p:'企业建站、独立站长、SaaS 创业者、品牌筹备团队，以及需要长期批量筛查域名的从业者。',sc3:'进阶技巧',sc3a:'优先选择短缩写与关键词贴合业务的拼写，更易记忆传播',sc3b:'后缀优先级：.com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'利用缩写与简写变体批量生成，优质短域名常藏在衍生词里',sc3d:'已注册域名若显示报价，可在预算内评估议价收购',sc4:'常见问题',faq1q:'域名批量检测能做什么？',faq1a:'输入业务关键词，自动生成域名变体并拼接主流后缀，批量查询每个候选的注册状态，标记可注册 / 已注册 / 查询失败，并支持筛选与 CSV 导出。所有变体生成本地完成，仅域名字符串发往公共 RDAP 接口。',faq2q:'查询需要联网吗？我的数据安全吗？',faq2a:'域名注册状态依赖公共 RDAP 接口，因此查询过程需要联网；但仅发送域名字符串用于查询，不收集任何个人信息，也不上传你的关键词列表到除 RDAP 外的任何服务器。',faq3q:'为什么有的域名显示"查询失败"？',faq3a:'公共 RDAP 接口有访问频率限制，批量查询过快会触发限流（429）或网络抖动导致超时。可稍后重新点击查询，失败的条目会再次尝试。',faq4q:'结果怎么保存？',faq4a:'点击"导出 CSV"即可把当前结果下载为表格文件，保存在你自己的设备，方便比对价格与长期留存备选域名库。'},
-en:{pageTitle:'Domain Bulk Checker - ZenTools',crumbCur:'Domain Bulk Checker',h1Grad:'Domain Bulk Checker',h1Sub:'Name generation · Bulk status check · CSV export',pageDesc:'Enter a keyword, auto-generate domain variants with popular suffixes, batch-check registration status via public RDAP, and find available names fast.',navSeoCat:'SEO TOOLS',lblKeyword:'Core keyword',placeholderKeyword:'e.g. content, shop, zentools (English or pinyin, space to split)',lblSuffix:'Domain suffixes',suffixHint:'Check the suffixes to combine',lblOptions:'Variant rules',optJoin:'Direct join',optAbbr:'Initials abbreviation',optMap:'Common abbreviation map',optAffix:'Add affixes',btnGenerate:'⚡ Generate candidates',previewTitle:'Candidate preview',previewHint:'Edit before checking',btnCheck:'🔍 Start check',btnClear:'🗑️ Clear',btnExport:'⬇ Export CSV',resultTitle:'Results',filterAvailable:'Available only',colDomain:'Domain',colStatus:'Status',colReg:'Registered',colExp:'Expires',colTime:'Checked',statusAvailable:'Available',statusRegistered:'Registered',statusFailed:'Failed',noteThrottle:'Throttled',noteTimeout:'Timeout',noteNeterr:'Network error',recTitle:'🔗 Recommended',recAge:'Domain Age',recBack:'Backlink Checker',recKw:'Keyword Research',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'Please enter a keyword',msgNoSuffix:'Select at least one suffix',msgNoCandidate:'No candidate domains to check',msgRunning:'Checking, please wait…',msgDone:'Check complete',kwTipEmpty:'Enter a keyword then click Generate',candTip:'{n} candidate domains',av:'Available',rg:'Registered',fa:'Failed',sc1:'Use cases',sc1p:'Manually checking domains one by one is slow. Domain Bulk Checker moves the whole flow—keyword → variants → batch status → filter & export—into the browser: enter a core word, generate dozens of candidates, query registration via public RDAP, and pick quality short names in minutes. No install, no upload.',sc2:'Who it is for',sc2p:'Businesses, indie makers, SaaS founders, brand teams, and anyone who screens domains in bulk.',sc3:'Pro tips',sc3a:'Prefer short abbreviations that fit your business and are easy to remember',sc3b:'Suffix priority: .com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'Generate abbreviations and short forms in bulk—good short names hide in variants',sc3d:'If a registered domain shows a price, evaluate buying within budget',sc4:'FAQ',faq1q:'What can Domain Bulk Checker do?',faq1a:'Enter a keyword to generate domain variants with popular suffixes, batch-check each candidate’s registration status (available / registered / failed), and filter or export to CSV. Variants are generated locally; only the domain string is sent to public RDAP.',faq2q:'Does it need network? Is my data safe?',faq2a:'Registration status relies on public RDAP, so checking needs network; but only the domain string is sent for lookup—no personal data is collected and your keyword list is not uploaded to any server other than RDAP.',faq3q:'Why do some domains show "Failed"?',faq3a:'Public RDAP has rate limits; querying too fast triggers throttling (429) or network timeouts. Click check again later and failed items will retry.',faq4q:'How do I save the results?',faq4a:'Click "Export CSV" to download the results as a spreadsheet on your own device for price comparison and a long-term candidate list.'},
-ja:{pageTitle:'ドメイン一括チェック - ZenTools',crumbCur:'ドメイン一括チェック',h1Grad:'ドメイン一括チェック',h1Sub:'名前生成・登録状況一括確認・CSV出力',pageDesc:'キーワードを入力し、ドメイン変種を自動生成して主要サフィックスと組み合わせ、公開RDAPで登録状況を一括確認し、取得可能な名前を素早く見つけます。',navSeoCat:'SEOツール',lblKeyword:'コアキーワード',placeholderKeyword:'例：content、shop、zentools（英単語またはピンイン、空白で分割）',lblSuffix:'ドメインサフィックス',suffixHint:'組み合わせるサフィックスを選択',lblOptions:'変種生成ルール',optJoin:'そのまま連結',optAbbr:'頭文字略語',optMap:'一般的な略語マップ',optAffix:'接尾語を追加',btnGenerate:'⚡ 候補を生成',previewTitle:'候補プレビュー',previewHint:'確認前に編集可',btnCheck:'🔍 チェック開始',btnClear:'🗑️ クリア',btnExport:'⬇ CSV出力',resultTitle:'結果',filterAvailable:'取得可能のみ',colDomain:'ドメイン',colStatus:'状態',colReg:'登録日',colExp:'有効期限',colTime:'確認日時',statusAvailable:'取得可能',statusRegistered:'登録済み',statusFailed:'失敗',noteThrottle:'制限',noteTimeout:'タイムアウト',noteNeterr:'通信エラー',recTitle:'🔗 おすすめ',recAge:'ドメイン年齢',recBack:'バックリンクチェック',recKw:'キーワードリサーチ',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'キーワードを入力してください',msgNoSuffix:'サフィックスを1つ以上選択してください',msgNoCandidate:'確認する候補がありません',msgRunning:'確認中、少々お待ちください…',msgDone:'確認完了',kwTipEmpty:'キーワードを入力し「候補を生成」をクリック',candTip:'候補ドメイン {n} 件',av:'取得可能',rg:'登録済み',fa:'失敗',sc1:'活用シーン',sc1p:'ドメインを1つずつ手動確認するのは面倒です。ドメイン一括チェックは「キーワード→変種生成→一括状況確認→絞り込み出力」の全体をブラウザに移行：コア語を入力するだけで数十の候補を生成し、公開RDAPで登録状況を確認、数分で良質な短い名前を絞り込めます。インストール不要、アップロード不要。',sc2:'こんな方におすすめ',sc2p:'企業のサイト構築、個人運営者、SaaS起業家、ブランドチーム、およびドメインを継続的に一括確認する方。',sc3:'高度なヒント',sc3a:'短い略語でビジネスに合うものを優先し、覚えやすく',sc3b:'サフィックス優先順位：.com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'略語や短縮形を一括生成—良質な短い名前は変種に隠れている',sc3d:'登録済みドメインに価格が表示されたら予算内で購入を検討',sc4:'よくある質問',faq1q:'ドメイン一括チェックで何ができますか？',faq1a:'キーワードを入力してドメイン変種を主要サフィックスと組み合わせ、各候補の登録状況（取得可能／登録済み／失敗）を一括確認し、絞り込みとCSV出力に対応。変種はローカル生成され、ドメイン文字列のみ公開RDAPへ送信されます。',faq2q:'ネット接続は必要ですか？データは安全ですか？',faq2a:'登録状況は公開RDAPに依存するため確認に接続が必要ですが、送信されるのは照会用のドメイン文字列のみ。個人データは収集せず、キーワード一覧もRDAP以外のサーバーにアップロードされません。',faq3q:'「失敗」と表示されるのはなぜですか？',faq3a:'公開RDAPにはレート制限があり、早すぎる一括確認で制限（429）やタイムアウトが発生します。後で再度クリックすれば失敗項目を再試行できます。',faq4q:'結果をどう保存しますか？',faq4a:'「CSV出力」をクリックすると結果をスプレッドシートとして自身の端末にダウンロードでき、価格比較や候補リストの保管に便利です。'},
-vi:{pageTitle:'Kiểm tra tên miền hàng loạt - ZenTools',crumbCur:'Kiểm tra tên miền',h1Grad:'Kiểm tra tên miền hàng loạt',h1Sub:'Tạo tên · Kiểm tra trạng thái · Xuất CSV',pageDesc:'Nhập từ khóa, tự động tạo biến thể tên miền với hậu tố phổ biến, kiểm tra trạng thái đăng ký qua RDAP công khai, tìm tên còn trống nhanh chóng.',navSeoCat:'CÔNG CỤ SEO',lblKeyword:'Từ khóa chính',placeholderKeyword:'vd: content, shop, zentools (tiếng Anh hoặc pinyin, cách nhau bằng dấu cách)',lblSuffix:'Hậu tố tên miền',suffixHint:'Chọn hậu tố để ghép',lblOptions:'Quy tắc biến thể',optJoin:'Nối trực tiếp',optAbbr:'Viết tắt chữ cái đầu',optMap:'Ánh xạ viết tắt phổ biến',optAffix:'Thêm hậu tố từ',btnGenerate:'⚡ Tạo danh sách ứng viên',previewTitle:'Xem trước ứng viên',previewHint:'Chỉnh sửa trước khi kiểm tra',btnCheck:'🔍 Bắt đầu kiểm tra',btnClear:'🗑️ Xóa',btnExport:'⬇ Xuất CSV',resultTitle:'Kết quả',filterAvailable:'Chỉ hiển thị còn trống',colDomain:'Tên miền',colStatus:'Trạng thái',colReg:'Ngày đăng ký',colExp:'Hết hạn',colTime:'Kiểm tra lúc',statusAvailable:'Còn trống',statusRegistered:'Đã đăng ký',statusFailed:'Lỗi',noteThrottle:'Bị giới hạn',noteTimeout:'Quá thời gian',noteNeterr:'Lỗi mạng',recTitle:'🔗 Đề xuất',recAge:'Tuổi tên miền',recBack:'Kiểm tra backlink',recKw:'Nghiên cứu từ khóa',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'Vui lòng nhập từ khóa',msgNoSuffix:'Chọn ít nhất một hậu tố',msgNoCandidate:'Không có tên miền ứng viên để kiểm tra',msgRunning:'Đang kiểm tra, vui lòng chờ…',msgDone:'Kiểm tra hoàn tất',kwTipEmpty:'Nhập từ khóa rồi bấm Tạo danh sách',candTip:'{n} tên miền ứng viên',av:'Còn trống',rg:'Đã đăng ký',fa:'Lỗi',sc1:'Trường hợp sử dụng',sc1p:'Kiểm tra từng tên miền thủ công rất chậm. Công cụ Kiểm tra tên miền hàng loạt đưa toàn bộ quy trình—từ khóa → biến thể → kiểm tra trạng thái → lọc và xuất—lên trình duyệt: nhập từ khóa cốt lõi, tạo hàng chục ứng viên, truy vấn đăng ký qua RDAP công khai và chọn tên ngắn chất lượng trong vài phút. Không cài đặt, không tải lên.',sc2:'Dành cho ai',sc2p:'Doanh nghiệp, nhà sáng tạo độc lập, founder SaaS, đội ngũ thương hiệu và bất kỳ ai kiểm tra tên miền số lượng lớn.',sc3:'Mẹo nâng cao',sc3a:'Ưu tiên viết tắt ngắn, sát với thương hiệu và dễ nhớ',sc3b:'Ưu tiên hậu tố: .com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'Tạo hàng loạt các biến thể viết tắt—tên ngắn tốt thường ẩn trong biến thể',sc3d:'Nếu tên đã đăng ký hiển thị giá, cân nhắc mua trong ngân sách',sc4:'Câu hỏi thường gặp',faq1q:'Kiểm tra tên miền hàng loạt làm được gì?',faq1a:'Nhập từ khóa để tạo biến thể tên miền với hậu tố phổ biến, kiểm tra trạng thái đăng ký của từng ứng viên (còn trống / đã đăng ký / lỗi), lọc hoặc xuất CSV. Biến thể tạo cục bộ; chỉ chuỗi tên miền gửi đến RDAP công khai.',faq2q:'Có cần mạng không? Dữ liệu của tôi có an toàn không?',faq2a:'Trạng thái đăng ký dựa vào RDAP công khai nên cần mạng khi kiểm tra; nhưng chỉ chuỗi tên miền được gửi để tra cứu—không thu thập dữ liệu cá nhân và danh sách từ khóa không tải lên máy chủ nào khác ngoài RDAP.',faq3q:'Tại sao một số tên hiện "Lỗi"?',faq3a:'RDAP công khai có giới hạn tốc độ; truy vấn quá nhanh gây giới hạn (429) hoặc quá thời gian. Bấm kiểm tra lại sau để thử lại các mục lỗi.',faq4q:'Làm sao lưu kết quả?',faq4a:'Bấm "Xuất CSV" để tải kết quả về thiết bị của bạn dưới dạng bảng, tiện so sánh giá và lưu danh sách ứng viên lâu dài.'}
+zh:{pageTitle:'域名批量检测 - ZenTools',crumbCur:'域名批量检测',h1Grad:'域名批量检测',h1Sub:'域名生成 · 批量查注册状态 · CSV 导出',pageDesc:'输入业务关键词，自动生成域名变体并拼接主流后缀，调用公共 RDAP 接口批量查询注册状态，快速筛出可注册域名。',navSeoCat:'SEO 工具',lblKeyword:'核心关键词',placeholderKeyword:'如：content、shop、zentools（英文或拼音，空格分词）',lblSuffix:'域名后缀',suffixHint:'勾选要拼接的后缀',lblOptions:'变体生成规则',optJoin:'直接拼接',optAbbr:'首字母缩写',optMap:'常见缩写映射',optAffix:'添加词缀',btnGenerate:'⚡ 生成候选域名',previewTitle:'候选域名预览',previewHint:'可手动增删后再查询',btnCheck:'🔍 开始查询',btnClear:'🗑️ 清空',btnExport:'⬇ 导出 CSV',resultTitle:'查询结果',filterAvailable:'仅显示可注册',colDomain:'域名',colStatus:'状态',colReg:'注册日期',colExp:'到期日期',colTime:'查询时间',statusManual:'需手动核验',colDetail:'详情/操作',whoisLink:'查验',ma:'待核验',manualHint:'提示：.cn / .io 后缀注册局未开放 RDAP，需手动核验',statusManual:'需手动核验',colDetail:'详情/操作',whoisLink:'查验',ma:'待核验',manualHint:'提示：.cn / .io 后缀注册局未开放 RDAP，需手动核验',statusAvailable:'可注册',statusRegistered:'已注册',statusFailed:'查询失败',noteThrottle:'限流',noteTimeout:'超时',noteNeterr:'网络错误',recTitle:'🔗 推荐工具',recAge:'域名年龄查询',recBack:'反向链接检查',recKw:'关键词研究',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'请输入关键词',msgNoSuffix:'请至少选择一个后缀',msgNoCandidate:'没有可查询的候选域名',msgRunning:'查询中，请稍候…',msgDone:'查询完成',kwTipEmpty:'输入关键词后点击「生成候选域名」',candTip:'共 {n} 个候选域名',av:'可注册',rg:'已注册',fa:'失败',sc1:'适用场景',sc1p:'建站选域名时，手动逐个查询注册状态费时费力。域名批量检测把"关键词→变体生成→批量查状态→筛选导出"全流程搬到浏览器里：输入核心词，一键生成数十个候选，调用公共 RDAP 接口批量判断哪些还能注册，几分钟筛出优质短域名，全程无需安装软件、无需上传任何文件。',sc2:'适合谁使用',sc2p:'企业建站、独立站长、SaaS 创业者、品牌筹备团队，以及需要长期批量筛查域名的从业者。',sc3:'进阶技巧',sc3a:'优先选择短缩写与关键词贴合业务的拼写，更易记忆传播',sc3b:'后缀优先级：.com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'利用缩写与简写变体批量生成，优质短域名常藏在衍生词里',sc3d:'已注册域名若显示报价，可在预算内评估议价收购',sc4:'常见问题',faq1q:'域名批量检测能做什么？',faq1a:'输入业务关键词，自动生成域名变体并拼接主流后缀，批量查询每个候选的注册状态，标记可注册 / 已注册 / 查询失败，并支持筛选与 CSV 导出。所有变体生成本地完成，仅域名字符串发往公共 RDAP 接口。',faq2q:'查询需要联网吗？我的数据安全吗？',faq2a:'域名注册状态依赖公共 RDAP 接口，因此查询过程需要联网；但仅发送域名字符串用于查询，不收集任何个人信息，也不上传你的关键词列表到除 RDAP 外的任何服务器。',faq3q:'为什么有的域名显示"查询失败"？',faq3a:'公共 RDAP 接口有访问频率限制，批量查询过快会触发限流（429）或网络抖动导致超时。可稍后重新点击查询，失败的条目会再次尝试。',faq4q:'结果怎么保存？',faq4a:'点击"导出 CSV"即可把当前结果下载为表格文件，保存在你自己的设备，方便比对价格与长期留存备选域名库。'},
+en:{pageTitle:'Domain Bulk Checker - ZenTools',crumbCur:'Domain Bulk Checker',h1Grad:'Domain Bulk Checker',h1Sub:'Name generation · Bulk status check · CSV export',pageDesc:'Enter a keyword, auto-generate domain variants with popular suffixes, batch-check registration status via public RDAP, and find available names fast.',navSeoCat:'SEO TOOLS',lblKeyword:'Core keyword',placeholderKeyword:'e.g. content, shop, zentools (English or pinyin, space to split)',lblSuffix:'Domain suffixes',suffixHint:'Check the suffixes to combine',lblOptions:'Variant rules',optJoin:'Direct join',optAbbr:'Initials abbreviation',optMap:'Common abbreviation map',optAffix:'Add affixes',btnGenerate:'⚡ Generate candidates',previewTitle:'Candidate preview',previewHint:'Edit before checking',btnCheck:'🔍 Start check',btnClear:'🗑️ Clear',btnExport:'⬇ Export CSV',resultTitle:'Results',filterAvailable:'Available only',colDomain:'Domain',colStatus:'Status',colReg:'Registered',colExp:'Expires',colTime:'Checked',statusManual:'Manual verify',colDetail:'Detail/Action',whoisLink:'Lookup',ma:'To verify',manualHint:'Note: .cn / .io registries do not support RDAP; manual verification required',statusManual:'Manual verify',colDetail:'Detail/Action',whoisLink:'Lookup',ma:'To verify',manualHint:'Note: .cn / .io registries do not support RDAP; manual verification required',statusAvailable:'Available',statusRegistered:'Registered',statusFailed:'Failed',noteThrottle:'Throttled',noteTimeout:'Timeout',noteNeterr:'Network error',recTitle:'🔗 Recommended',recAge:'Domain Age',recBack:'Backlink Checker',recKw:'Keyword Research',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'Please enter a keyword',msgNoSuffix:'Select at least one suffix',msgNoCandidate:'No candidate domains to check',msgRunning:'Checking, please wait…',msgDone:'Check complete',kwTipEmpty:'Enter a keyword then click Generate',candTip:'{n} candidate domains',av:'Available',rg:'Registered',fa:'Failed',sc1:'Use cases',sc1p:'Manually checking domains one by one is slow. Domain Bulk Checker moves the whole flow—keyword → variants → batch status → filter & export—into the browser: enter a core word, generate dozens of candidates, query registration via public RDAP, and pick quality short names in minutes. No install, no upload.',sc2:'Who it is for',sc2p:'Businesses, indie makers, SaaS founders, brand teams, and anyone who screens domains in bulk.',sc3:'Pro tips',sc3a:'Prefer short abbreviations that fit your business and are easy to remember',sc3b:'Suffix priority: .com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'Generate abbreviations and short forms in bulk—good short names hide in variants',sc3d:'If a registered domain shows a price, evaluate buying within budget',sc4:'FAQ',faq1q:'What can Domain Bulk Checker do?',faq1a:'Enter a keyword to generate domain variants with popular suffixes, batch-check each candidate’s registration status (available / registered / failed), and filter or export to CSV. Variants are generated locally; only the domain string is sent to public RDAP.',faq2q:'Does it need network? Is my data safe?',faq2a:'Registration status relies on public RDAP, so checking needs network; but only the domain string is sent for lookup—no personal data is collected and your keyword list is not uploaded to any server other than RDAP.',faq3q:'Why do some domains show "Failed"?',faq3a:'Public RDAP has rate limits; querying too fast triggers throttling (429) or network timeouts. Click check again later and failed items will retry.',faq4q:'How do I save the results?',faq4a:'Click "Export CSV" to download the results as a spreadsheet on your own device for price comparison and a long-term candidate list.'},
+ja:{pageTitle:'ドメイン一括チェック - ZenTools',crumbCur:'ドメイン一括チェック',h1Grad:'ドメイン一括チェック',h1Sub:'名前生成・登録状況一括確認・CSV出力',pageDesc:'キーワードを入力し、ドメイン変種を自動生成して主要サフィックスと組み合わせ、公開RDAPで登録状況を一括確認し、取得可能な名前を素早く見つけます。',navSeoCat:'SEOツール',lblKeyword:'コアキーワード',placeholderKeyword:'例：content、shop、zentools（英単語またはピンイン、空白で分割）',lblSuffix:'ドメインサフィックス',suffixHint:'組み合わせるサフィックスを選択',lblOptions:'変種生成ルール',optJoin:'そのまま連結',optAbbr:'頭文字略語',optMap:'一般的な略語マップ',optAffix:'接尾語を追加',btnGenerate:'⚡ 候補を生成',previewTitle:'候補プレビュー',previewHint:'確認前に編集可',btnCheck:'🔍 チェック開始',btnClear:'🗑️ クリア',btnExport:'⬇ CSV出力',resultTitle:'結果',filterAvailable:'取得可能のみ',colDomain:'ドメイン',colStatus:'状態',colReg:'登録日',colExp:'有効期限',colTime:'確認日時',statusManual:'手動確認が必要です',colDetail:'詳細/操作',whoisLink:'照会',ma:'確認待ち',manualHint:'注意：.cn / .io はRDAP未対応、手動確認が必要です',statusManual:'手動確認が必要です',colDetail:'詳細/操作',whoisLink:'照会',ma:'確認待ち',manualHint:'注意：.cn / .io はRDAP未対応、手動確認が必要です',statusAvailable:'取得可能',statusRegistered:'登録済み',statusFailed:'失敗',noteThrottle:'制限',noteTimeout:'タイムアウト',noteNeterr:'通信エラー',recTitle:'🔗 おすすめ',recAge:'ドメイン年齢',recBack:'バックリンクチェック',recKw:'キーワードリサーチ',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'キーワードを入力してください',msgNoSuffix:'サフィックスを1つ以上選択してください',msgNoCandidate:'確認する候補がありません',msgRunning:'確認中、少々お待ちください…',msgDone:'確認完了',kwTipEmpty:'キーワードを入力し「候補を生成」をクリック',candTip:'候補ドメイン {n} 件',av:'取得可能',rg:'登録済み',fa:'失敗',sc1:'活用シーン',sc1p:'ドメインを1つずつ手動確認するのは面倒です。ドメイン一括チェックは「キーワード→変種生成→一括状況確認→絞り込み出力」の全体をブラウザに移行：コア語を入力するだけで数十の候補を生成し、公開RDAPで登録状況を確認、数分で良質な短い名前を絞り込めます。インストール不要、アップロード不要。',sc2:'こんな方におすすめ',sc2p:'企業のサイト構築、個人運営者、SaaS起業家、ブランドチーム、およびドメインを継続的に一括確認する方。',sc3:'高度なヒント',sc3a:'短い略語でビジネスに合うものを優先し、覚えやすく',sc3b:'サフィックス優先順位：.com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'略語や短縮形を一括生成—良質な短い名前は変種に隠れている',sc3d:'登録済みドメインに価格が表示されたら予算内で購入を検討',sc4:'よくある質問',faq1q:'ドメイン一括チェックで何ができますか？',faq1a:'キーワードを入力してドメイン変種を主要サフィックスと組み合わせ、各候補の登録状況（取得可能／登録済み／失敗）を一括確認し、絞り込みとCSV出力に対応。変種はローカル生成され、ドメイン文字列のみ公開RDAPへ送信されます。',faq2q:'ネット接続は必要ですか？データは安全ですか？',faq2a:'登録状況は公開RDAPに依存するため確認に接続が必要ですが、送信されるのは照会用のドメイン文字列のみ。個人データは収集せず、キーワード一覧もRDAP以外のサーバーにアップロードされません。',faq3q:'「失敗」と表示されるのはなぜですか？',faq3a:'公開RDAPにはレート制限があり、早すぎる一括確認で制限（429）やタイムアウトが発生します。後で再度クリックすれば失敗項目を再試行できます。',faq4q:'結果をどう保存しますか？',faq4a:'「CSV出力」をクリックすると結果をスプレッドシートとして自身の端末にダウンロードでき、価格比較や候補リストの保管に便利です。'},
+vi:{pageTitle:'Kiểm tra tên miền hàng loạt - ZenTools',crumbCur:'Kiểm tra tên miền',h1Grad:'Kiểm tra tên miền hàng loạt',h1Sub:'Tạo tên · Kiểm tra trạng thái · Xuất CSV',pageDesc:'Nhập từ khóa, tự động tạo biến thể tên miền với hậu tố phổ biến, kiểm tra trạng thái đăng ký qua RDAP công khai, tìm tên còn trống nhanh chóng.',navSeoCat:'CÔNG CỤ SEO',lblKeyword:'Từ khóa chính',placeholderKeyword:'vd: content, shop, zentools (tiếng Anh hoặc pinyin, cách nhau bằng dấu cách)',lblSuffix:'Hậu tố tên miền',suffixHint:'Chọn hậu tố để ghép',lblOptions:'Quy tắc biến thể',optJoin:'Nối trực tiếp',optAbbr:'Viết tắt chữ cái đầu',optMap:'Ánh xạ viết tắt phổ biến',optAffix:'Thêm hậu tố từ',btnGenerate:'⚡ Tạo danh sách ứng viên',previewTitle:'Xem trước ứng viên',previewHint:'Chỉnh sửa trước khi kiểm tra',btnCheck:'🔍 Bắt đầu kiểm tra',btnClear:'🗑️ Xóa',btnExport:'⬇ Xuất CSV',resultTitle:'Kết quả',filterAvailable:'Chỉ hiển thị còn trống',colDomain:'Tên miền',colStatus:'Trạng thái',colReg:'Ngày đăng ký',colExp:'Hết hạn',colTime:'Kiểm tra lúc',statusManual:'Cần kiểm tra thủ công',colDetail:'Chi tiết/Hành động',whoisLink:'Tra cứu',ma:'Chờ kiểm tra',manualHint:'Lưu ý: .cn / .io không hỗ trợ RDAP, cần kiểm tra thủ công',statusManual:'Cần kiểm tra thủ công',colDetail:'Chi tiết/Hành động',whoisLink:'Tra cứu',ma:'Chờ kiểm tra',manualHint:'Lưu ý: .cn / .io không hỗ trợ RDAP, cần kiểm tra thủ công',statusAvailable:'Còn trống',statusRegistered:'Đã đăng ký',statusFailed:'Lỗi',noteThrottle:'Bị giới hạn',noteTimeout:'Quá thời gian',noteNeterr:'Lỗi mạng',recTitle:'🔗 Đề xuất',recAge:'Tuổi tên miền',recBack:'Kiểm tra backlink',recKw:'Nghiên cứu từ khóa',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'Vui lòng nhập từ khóa',msgNoSuffix:'Chọn ít nhất một hậu tố',msgNoCandidate:'Không có tên miền ứng viên để kiểm tra',msgRunning:'Đang kiểm tra, vui lòng chờ…',msgDone:'Kiểm tra hoàn tất',kwTipEmpty:'Nhập từ khóa rồi bấm Tạo danh sách',candTip:'{n} tên miền ứng viên',av:'Còn trống',rg:'Đã đăng ký',fa:'Lỗi',sc1:'Trường hợp sử dụng',sc1p:'Kiểm tra từng tên miền thủ công rất chậm. Công cụ Kiểm tra tên miền hàng loạt đưa toàn bộ quy trình—từ khóa → biến thể → kiểm tra trạng thái → lọc và xuất—lên trình duyệt: nhập từ khóa cốt lõi, tạo hàng chục ứng viên, truy vấn đăng ký qua RDAP công khai và chọn tên ngắn chất lượng trong vài phút. Không cài đặt, không tải lên.',sc2:'Dành cho ai',sc2p:'Doanh nghiệp, nhà sáng tạo độc lập, founder SaaS, đội ngũ thương hiệu và bất kỳ ai kiểm tra tên miền số lượng lớn.',sc3:'Mẹo nâng cao',sc3a:'Ưu tiên viết tắt ngắn, sát với thương hiệu và dễ nhớ',sc3b:'Ưu tiên hậu tố: .com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'Tạo hàng loạt các biến thể viết tắt—tên ngắn tốt thường ẩn trong biến thể',sc3d:'Nếu tên đã đăng ký hiển thị giá, cân nhắc mua trong ngân sách',sc4:'Câu hỏi thường gặp',faq1q:'Kiểm tra tên miền hàng loạt làm được gì?',faq1a:'Nhập từ khóa để tạo biến thể tên miền với hậu tố phổ biến, kiểm tra trạng thái đăng ký của từng ứng viên (còn trống / đã đăng ký / lỗi), lọc hoặc xuất CSV. Biến thể tạo cục bộ; chỉ chuỗi tên miền gửi đến RDAP công khai.',faq2q:'Có cần mạng không? Dữ liệu của tôi có an toàn không?',faq2a:'Trạng thái đăng ký dựa vào RDAP công khai nên cần mạng khi kiểm tra; nhưng chỉ chuỗi tên miền được gửi để tra cứu—không thu thập dữ liệu cá nhân và danh sách từ khóa không tải lên máy chủ nào khác ngoài RDAP.',faq3q:'Tại sao một số tên hiện "Lỗi"?',faq3a:'RDAP công khai có giới hạn tốc độ; truy vấn quá nhanh gây giới hạn (429) hoặc quá thời gian. Bấm kiểm tra lại sau để thử lại các mục lỗi.',faq4q:'Làm sao lưu kết quả?',faq4a:'Bấm "Xuất CSV" để tải kết quả về thiết bị của bạn dưới dạng bảng, tiện so sánh giá và lưu danh sách ứng viên lâu dài.'}
 };
 </script>
 <script src="/assets/js/tool-ui.min.js"></script>
@@ -396,28 +401,29 @@ function generateCandidates(){
 function getCandidateList(){
   return document.getElementById('candidateArea').value.split('\n').map(function(d){return d.trim().toLowerCase();}).filter(function(d){return d&&/^[a-z0-9-]+(\.[a-z]{2,})$/.test(d);});
 }
+// RDAP 端点路由（实测 CORS 可用）
 function rdapUrl(domain){
   var tld=domain.split('.').pop();
-  var ROUTES={
-    'com':'https://rdap.verisign.com/com/v1/domain/',
-    'net':'https://rdap.verisign.com/net/v1/domain/',
-    'org':'https://rdap.publicinterestregistry.org/rdap/domain/',
-    'io':'https://rdap.nic.io/domain/',
-    'app':'https://rdap.googleapis.com/v1/domain/',
-    'dev':'https://rdap.googleapis.com/v1/domain/',
-    'page':'https://rdap.googleapis.com/v1/domain/',
-    'xyz':'https://rdap.centralnic.com/xyz/v1/domain/',
-    'co':'https://rdap.identitydigital.services/rdap/domain/',
-    'cc':'https://rdap.verisign.com/cc/v1/domain/',
-    'cn':'https://rdap.cnnic.cn/domain/',
-    'info':'https://rdap.verisign.com/info/v1/domain/',
-    'name':'https://rdap.verisign.com/name/v1/domain/',
-    'tv':'https://rdap.nic.tv/domain/'
-  };
-  return (ROUTES[tld]||'https://rdap.org/')+domain;
+  // 第一档：verisign 直连（.com/.net 实测 200+CORS）
+  if(tld==='com')return 'https://rdap.verisign.com/com/v1/domain/'+domain;
+  if(tld==='net')return 'https://rdap.verisign.com/net/v1/domain/'+domain;
+  // 第二档：org 直连（实测 200+CORS）
+  if(tld==='org')return 'https://rdap.publicinterestregistry.org/rdap/domain/'+domain;
+  // 第三档：co 直连（404=未注册，CORS 在，可用）
+  if(tld==='co')return 'https://rdap.identitydigital.services/rdap/domain/'+domain;
+  // 第四档：dev/app 经 rdap.org 重定向到 Google pubapi（实测 200+CORS）
+  if(tld==='dev'||tld==='app'||tld==='page')return 'https://rdap.org/domain/'+domain;
+  // 第五档：其余后缀统一走 rdap.org 聚合（CORS *，返回302→各注册局）
+  return 'https://rdap.org/domain/'+domain;
 }
+// 哪些后缀注册局不做 RDAP 公开，浏览器查不了
+var MANUAL_ONLY=['cn','io'];
+function needsManual(domain){return MANUAL_ONLY.indexOf(domain.split('.').pop())>=0;}
+function whoisUrl(domain){return 'https://who.is/whois/'+domain;}
 function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
 async function checkOne(domain){
+  // 手动核验组：跳过 RDAP，直接给 whois 链接
+  if(needsManual(domain))return {domain:domain,status:'manual',note:'rdap-not-supp'};
   try{
     var ctrl=new AbortController();
     var t=setTimeout(function(){ctrl.abort();},8000);
@@ -425,6 +431,7 @@ async function checkOne(domain){
     clearTimeout(t);
     if(res.status===404)return {domain:domain,status:'available'};
     if(res.status===429)return {domain:domain,status:'failed',note:getMsg('noteThrottle')};
+    if(res.status===400)return {domain:domain,status:'failed',note:getMsg('noteNeterr')};
     if(res.ok){
       var j=await res.json().catch(function(){return {};});
       var events=j.events||[];
@@ -462,7 +469,7 @@ async function startCheck(){
   btn.disabled=false;
   renderTable();
 }
-function statusText(s){var l=getLang();if(s==='available')return getMsg('statusAvailable');if(s==='registered')return getMsg('statusRegistered');return getMsg('statusFailed');}
+function statusText(s){var l=getLang();if(s==='available')return getMsg('statusAvailable');if(s==='registered')return getMsg('statusRegistered');if(s==='manual')return getMsg('statusManual');return getMsg('statusFailed');}
 function renderTable(){
   if(results.length===0)return;
   var onlyAv=document.getElementById('filterAv').checked;
@@ -470,20 +477,29 @@ function renderTable(){
   var body=document.getElementById('resultBody');
   var now=new Date().toLocaleString();
   body.innerHTML=rows.map(function(r){
-    var badge=r.status==='available'?'available':(r.status==='registered'?'registered':'failed');
+    var badgeCls=r.status==='available'?'available':(r.status==='registered'?'registered':(r.status==='manual'?'manual':'failed'));
+    var note='';
+    if(r.status==='manual'){
+      note='<td><a class="whois-link" target="_blank" rel="noopener" href="'+whoisUrl(r.domain)+'">'+getMsg('whoisLink')+'</a></td>';
+    } else if(r.status==='failed'){
+      note='<td>'+r.note+'</td>';
+    } else {
+      note='<td>'+(r.reg||'—')+'</td><td>'+(r.exp||'—')+'</td>';
+    }
     return '<tr><td><span class="dom">'+r.domain+'</span></td>'+
-      '<td><span class="badge '+badge+'">'+statusText(r.status)+'</span></td>'+
-      '<td>'+(r.reg||'—')+'</td>'+
-      '<td>'+(r.exp||'—')+'</td>'+
+      '<td><span class="badge '+badgeCls+'">'+statusText(r.status)+'</span></td>'+
+      note+
       '<td>'+now+'</td></tr>';
   }).join('');
   var av=results.filter(function(r){return r.status==='available';}).length;
   var rg=results.filter(function(r){return r.status==='registered';}).length;
   var fa=results.filter(function(r){return r.status==='failed';}).length;
+  var ma=results.filter(function(r){return r.status==='manual';}).length;
   document.getElementById('statPills').innerHTML=
     '<span class="pill av">✅ '+getMsg('av')+': '+av+'</span>'+
     '<span class="pill rg">❌ '+getMsg('rg')+': '+rg+'</span>'+
-    '<span class="pill fa">⚠️ '+getMsg('fa')+': '+fa+'</span>';
+    '<span class="pill fa">⚠️ '+getMsg('fa')+': '+fa+'</span>'+
+    (ma?'<span class="pill ma">🔗 '+getMsg('ma')+': '+ma+'</span>':'');
   document.getElementById('resultArea').style.display='block';
 }
 function exportCSV(){
