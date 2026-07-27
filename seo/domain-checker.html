@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-V3MP20S9Z3');
+</script>
+
+<meta name="theme-color" content="#0066FF">
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>域名批量检测 - ZenTools</title>
+  <script src="/assets/js/anti-crash.min.js"></script>
+<meta property="og:title" content="域名批量检测 - 免费在线工具 | ZenTools" />
+<meta property="og:description" content="输入关键词批量生成域名变体，调用公共 RDAP 接口批量查询注册状态，筛选可注册域名并一键导出 CSV。" />
+<meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+<meta property="og:url" content="https://zentools.xyz/seo/domain-checker.html" />
+<meta property="og:type" content="website" /><meta property="og:locale" content="zh_CN" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Domain Bulk Checker - Free Online Tool | ZenTools" />
+<meta name="twitter:description" content="Generate domain variants from a keyword, bulk-check registration status via public RDAP, filter available names and export CSV." />
+<meta name="description" content="域名批量检测工具：输入业务关键词，批量生成域名变体并拼接主流后缀，调用公共 RDAP 接口查询注册状态，筛选可注册域名并导出 CSV。免费在线使用，浏览器端运行，无需安装。"/>
+<meta name="keywords" content="域名批量检测 domain bulk checker 域名生成 域名查询 可注册域名 建站工具 SEO工具,域名批量查询在线使用,域名批量检测怎么用" />
+<link rel="canonical" href="https://zentools.xyz/seo/domain-checker.html"/><link rel="manifest" href="/manifest.json" />
+<link rel="stylesheet" href="/assets/css/tool-ui.min.css"/>
+<style>
+    :root {
+        --zen-primary: #0066FF;
+        --zen-secondary: #00C2B8;
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+        --zen-success: #22C55E;
+        --zen-warning: #F97316;
+        --zen-danger: #EF4444;
+        --zen-text-main: #111827;
+        --zen-text-sub: #4B5563;
+        --zen-text-placeholder: #9CA3AF;
+        --zen-bg-base: #F9FAFB;
+        --zen-bg-card: #FFFFFF;
+        --zen-border: #E5E7EB;
+        --zen-radius-base: 12px;
+        --zen-radius-card: 16px;
+        --zen-radius-btn: 8px;
+        --zen-radius-tag: 6px;
+      }
+      .dark {
+        --zen-text-main: #F9FAFB;
+        --zen-text-sub: #D1D5DB;
+        --zen-text-placeholder: #64748B;
+        --zen-bg-base: #0F172A;
+        --zen-bg-card: #1E293B;
+        --zen-border: #334155;
+      }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .logo-text-blue { color: var(--zen-primary); }
+    .logo-text-teal { color: var(--zen-secondary); }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+    .tool-box { max-width: 980px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 32px; }
+    .tool-box h2 { font-size: 22px; font-weight: 700; margin-bottom: 12px; }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 14px; margin-bottom: 20px; }
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 12px 28px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-ghost { padding: 12px 24px; border-radius: 10px; border: 1px solid var(--zen-border); background: var(--zen-bg-card); color: var(--zen-text-main); font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-ghost:hover { background: rgba(0,0,0,0.04); }
+    .dark .btn-ghost:hover { background: rgba(255,255,255,0.06); }
+    .field { margin-bottom: 22px; }
+    .field > label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; color: var(--zen-text-main); }
+    .field .hint { font-size: 12px; color: var(--zen-text-placeholder); font-weight: 400; margin-left: 8px; }
+    .kw-input { width: 100%; padding: 14px 18px; border: 1px solid var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-main); font-size: 15px; outline: none; }
+    .kw-input:focus { border-color: var(--zen-primary); }
+    .suffix-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .suffix-chip { display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid var(--zen-border); border-radius: 999px; background: var(--zen-bg-base); cursor: pointer; font-size: 14px; user-select: none; transition: border-color 0.2s, background 0.2s; }
+    .suffix-chip input { accent-color: var(--zen-primary); }
+    .suffix-chip.on { border-color: var(--zen-primary); background: rgba(0,102,255,0.08); }
+    .opt-row { display: flex; flex-wrap: wrap; gap: 18px; }
+    .opt-row label { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--zen-text-sub); cursor: pointer; }
+    .opt-row input { accent-color: var(--zen-primary); }
+    .preview-box { margin-top: 6px; }
+    .preview-box textarea { width: 100%; min-height: 120px; padding: 14px; border: 1px solid var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-main); font-size: 13px; font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; line-height: 1.7; resize: vertical; }
+    .count-tip { font-size: 13px; color: var(--zen-text-sub); margin-top: 8px; }
+    .count-tip b { color: var(--zen-primary); }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
+    .tool-msg { margin-top: 12px; padding: 12px; border-radius: 10px; display: none; font-size: 14px; }
+    .tool-msg.error { display: block; background: rgba(248,113,113,0.1); color: #f87171; }
+    .tool-msg.info { display: block; background: rgba(0,102,255,0.08); color: var(--zen-primary); }
+    .progress-wrap { margin-top: 18px; display: none; }
+    .progress-bar { height: 10px; border-radius: 999px; background: var(--zen-border); overflow: hidden; }
+    .progress-bar > span { display: block; height: 100%; width: 0; background: var(--zen-gradient); transition: width 0.3s; }
+    .progress-text { font-size: 13px; color: var(--zen-text-sub); margin-top: 8px; }
+    .result-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 14px; }
+    .result-head h3 { font-size: 18px; font-weight: 700; }
+    .filter-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .filter-row label { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--zen-text-sub); cursor: pointer; }
+    .filter-row input { accent-color: var(--zen-primary); }
+    .stat-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+    .pill.av { background: rgba(34,197,94,0.15); color: #16a34a; }
+    .pill.rg { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .pill.fa { background: rgba(249,115,22,0.15); color: #f97316; }
+    .dark .pill.av { color: #4ade80; }
+    .dark .pill.rg { color: #f87171; }
+    .dark .pill.fa { color: #fbbf24; }
+    .result-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .result-table th, .result-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--zen-border); }
+    .result-table th { color: var(--zen-text-placeholder); font-weight: 600; font-size: 12px; }
+    .result-table td .dom { font-family: ui-monospace, Menlo, monospace; font-weight: 600; color: var(--zen-text-main); }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .badge.available { background: rgba(34,197,94,0.15); color: #16a34a; }
+    .badge.registered { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .badge.failed { background: rgba(249,115,22,0.15); color: #f97316; }
+    .dark .badge.available { color: #4ade80; }
+    .dark .badge.registered { color: #f87171; }
+    .dark .badge.failed { color: #fbbf24; }
+    .result-scroll { max-height: 420px; overflow-y: auto; border: 1px solid var(--zen-border); border-radius: 12px; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+    .section-head { text-align: center; margin-bottom: 36px; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+    @media (max-width: 768px) {
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+      .hamburger { display: inline-flex !important; }
+      .page-hero { padding-top: 120px !important; }
+      .info-grid { grid-template-columns: 1fr; }
+      .tool-box { padding: 22px; }
+      .result-table { font-size: 12px; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { height: 60px; gap: 8px; }
+      .page-hero { padding-top: 100px !important; }
+    }
+</style>
+<meta name="google-adsense-account" content="ca-pub-1955887568822472">
+</head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "SEO 工具", "item": "https://zentools.xyz/seo/"}, {"@type": "ListItem", "position": 4, "name": "域名批量检测"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "域名批量检测 - ZenTools", "url": "https://zentools.xyz/seo/domain-checker.html", "description": "批量生成域名变体并查询注册状态", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-21", "dateModified": "2026-07-27"}</script>
+</head>
+<body>
+<div class="z-wrap">
+  <nav class="site-nav">
+    <div class="container nav-inner">
+      <div class="brand-logo">
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="/" data-i18n="navHome">首页</a>
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+          <option value="zh">中文</option>
+          <option value="en">English</option>
+          <option value="ja">日本語</option>
+          <option value="vi">Tiếng Việt</option>
+        </select>
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-overlay" id="mobileOverlay">
+    <div class="mobile-drawer" id="mobileDrawer">
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+    </div>
+  </div>
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>SEO工具</div>
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/seo/" data-i18n="navSeoCat">SEO 工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)" data-i18n="crumbCur">域名批量检测</span></div>
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">域名批量检测</span></h1>
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">域名生成 · 批量查注册状态 · CSV 导出</p>
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:600px;margin:0 auto">输入业务关键词，自动生成域名变体并拼接主流后缀，调用公共 RDAP 接口批量查询注册状态，快速筛出可注册域名。</p>
+    </div>
+  </section>
+<div class="tool-box reveal">
+  <div class="field">
+    <label data-i18n="lblKeyword">核心关键词</label>
+    <input type="text" id="kwInput" class="kw-input" placeholder="如：content、shop、zentools（英文或拼音，空格分词）" data-i18n-placeholder="placeholderKeyword"/>
+    <div class="count-tip" id="kwTip"></div>
+  </div>
+
+  <div class="field">
+    <label data-i18n="lblSuffix">域名后缀 <span class="hint" data-i18n="suffixHint">勾选要拼接的后缀</span></label>
+    <div class="suffix-grid" id="suffixGrid"></div>
+  </div>
+
+  <div class="field">
+    <label data-i18n="lblOptions">变体生成规则</label>
+    <div class="opt-row">
+      <label><input type="checkbox" id="optJoin" checked data-i18n="optJoin"/> 直接拼接</label>
+      <label><input type="checkbox" id="optAbbr" checked data-i18n="optAbbr"/> 首字母缩写</label>
+      <label><input type="checkbox" id="optMap" checked data-i18n="optMap"/> 常见缩写映射</label>
+      <label><input type="checkbox" id="optAffix" checked data-i18n="optAffix"/> 添加词缀</label>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-primary" id="genBtn" onclick="generateCandidates()" data-i18n="btnGenerate">⚡ 生成候选域名</button>
+  </div>
+
+  <div class="field preview-box" id="previewField" style="display:none">
+    <label data-i18n="previewTitle">候选域名预览 <span class="hint" data-i18n="previewHint">可手动增删后再查询</span></label>
+    <textarea id="candidateArea" spellcheck="false"></textarea>
+    <div class="count-tip" id="candCount"></div>
+  </div>
+
+  <div class="btn-row" id="checkRow" style="display:none">
+    <button class="btn-primary" id="checkBtn" onclick="startCheck()" data-i18n="btnCheck">🔍 开始查询</button>
+    <button class="btn-ghost" onclick="resetAll()" data-i18n="btnClear">🗑️ 清空</button>
+  </div>
+
+  <div id="errorMsg" class="tool-msg error"></div>
+  <div id="infoMsg" class="tool-msg info"></div>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-bar"><span id="progressBar"></span></div>
+    <div class="progress-text" id="progressText"></div>
+  </div>
+
+  <div id="resultArea" style="display:none;margin-top:26px">
+    <div class="result-head">
+      <h3 data-i18n="resultTitle">查询结果</h3>
+      <div class="filter-row">
+        <label><input type="checkbox" id="filterAv" onchange="renderTable()"/> <span data-i18n="filterAvailable">仅显示可注册</span></label>
+        <button class="btn-ghost" id="exportBtn" onclick="exportCSV()" data-i18n="btnExport">⬇ 导出 CSV</button>
+      </div>
+    </div>
+    <div class="stat-pills" id="statPills"></div>
+    <div class="result-scroll">
+      <table class="result-table">
+        <thead>
+          <tr>
+            <th data-i18n="colDomain">域名</th>
+            <th data-i18n="colStatus">状态</th>
+            <th data-i18n="colReg">注册日期</th>
+            <th data-i18n="colExp">到期日期</th>
+            <th data-i18n="colTime">查询时间</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tool-recommend"><h4 data-i18n="recTitle">🔗 推荐工具</h4><a href="domain-age-checker.html"><span data-i18n="recAge">域名年龄查询</span></a><span class="sep">·</span><a href="backlink-checker.html"><span data-i18n="recBack">反向链接检查</span></a><span class="sep">·</span><a href="keyword-research.html"><span data-i18n="recKw">关键词研究</span></a></div>
+</div>
+<div style="max-width:980px;margin:0 auto 24px;padding:0 24px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1955887568822472" data-ad-slot="YOUR_AD_SLOT_ID" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>
+<!-- P1-EXPAND SEO CONTENT -->
+<section class="section">
+<h2 data-i18n="sc1">适用场景</h2>
+  <p data-i18n="sc1p">建站选域名时，手动逐个查询注册状态费时费力。域名批量检测把"关键词→变体生成→批量查状态→筛选导出"全流程搬到浏览器里：输入核心词，一键生成数十个候选，调用公共 RDAP 接口批量判断哪些还能注册，几分钟筛出优质短域名，全程无需安装软件、无需上传任何文件。</p>
+<h2 data-i18n="sc2">适合谁使用</h2>
+  <p data-i18n="sc2p">企业建站、独立站长、SaaS 创业者、品牌筹备团队，以及需要长期批量筛查域名的从业者。</p>
+<h2 data-i18n="sc3">进阶技巧</h2>
+  <ul>
+<li data-i18n="sc3a">优先选择短缩写与关键词贴合业务的拼写，更易记忆传播</li>
+<li data-i18n="sc3b">后缀优先级：.com &gt; .cn &gt; .net / .io / .app &gt; .cc / .xyz / .co</li>
+<li data-i18n="sc3c">利用缩写与简写变体批量生成，优质短域名常藏在衍生词里</li>
+<li data-i18n="sc3d">已注册域名若显示报价，可在预算内评估议价收购</li>
+</ul>
+<h2 data-i18n="sc4">常见问题</h2>
+  <div class="faq">
+    <details open><summary data-i18n="faq1q">域名批量检测能做什么？</summary><p data-i18n="faq1a">输入业务关键词，自动生成域名变体并拼接主流后缀，批量查询每个候选的注册状态，标记可注册 / 已注册 / 查询失败，并支持筛选与 CSV 导出。所有变体生成本地完成，仅域名字符串发往公共 RDAP 接口。</p></details>
+<details open><summary data-i18n="faq2q">查询需要联网吗？我的数据安全吗？</summary><p data-i18n="faq2a">域名注册状态依赖公共 RDAP 接口，因此查询过程需要联网；但仅发送域名字符串用于查询，不收集任何个人信息，也不上传你的关键词列表到除 RDAP 外的任何服务器。</p></details>
+<details open><summary data-i18n="faq3q">为什么有的域名显示"查询失败"？</summary><p data-i18n="faq3a">公共 RDAP 接口有访问频率限制，批量查询过快会触发限流（429）或网络抖动导致超时。可稍后重新点击查询，失败的条目会再次尝试。</p></details>
+<details open><summary data-i18n="faq4q">结果怎么保存？</summary><p data-i18n="faq4a">点击"导出 CSV"即可把当前结果下载为表格文件，保存在你自己的设备，方便比对价格与长期留存备选域名库。</p></details>
+  </div>
+</section>
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+        <a href="/">首页</a>
+        <a href="/seo/" data-i18n="navSeoCat">SEO 工具</a>
+        <a href="/privacy.html">隐私政策</a>
+      </div>
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+    </div>
+  </footer>
+</div>
+<script>
+window.ZT_PAGE={
+zh:{pageTitle:'域名批量检测 - ZenTools',crumbCur:'域名批量检测',h1Grad:'域名批量检测',h1Sub:'域名生成 · 批量查注册状态 · CSV 导出',pageDesc:'输入业务关键词，自动生成域名变体并拼接主流后缀，调用公共 RDAP 接口批量查询注册状态，快速筛出可注册域名。',navSeoCat:'SEO 工具',lblKeyword:'核心关键词',placeholderKeyword:'如：content、shop、zentools（英文或拼音，空格分词）',lblSuffix:'域名后缀',suffixHint:'勾选要拼接的后缀',lblOptions:'变体生成规则',optJoin:'直接拼接',optAbbr:'首字母缩写',optMap:'常见缩写映射',optAffix:'添加词缀',btnGenerate:'⚡ 生成候选域名',previewTitle:'候选域名预览',previewHint:'可手动增删后再查询',btnCheck:'🔍 开始查询',btnClear:'🗑️ 清空',btnExport:'⬇ 导出 CSV',resultTitle:'查询结果',filterAvailable:'仅显示可注册',colDomain:'域名',colStatus:'状态',colReg:'注册日期',colExp:'到期日期',colTime:'查询时间',statusAvailable:'可注册',statusRegistered:'已注册',statusFailed:'查询失败',noteThrottle:'限流',noteTimeout:'超时',noteNeterr:'网络错误',recTitle:'🔗 推荐工具',recAge:'域名年龄查询',recBack:'反向链接检查',recKw:'关键词研究',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'请输入关键词',msgNoSuffix:'请至少选择一个后缀',msgNoCandidate:'没有可查询的候选域名',msgRunning:'查询中，请稍候…',msgDone:'查询完成',kwTipEmpty:'输入关键词后点击「生成候选域名」',candTip:'共 {n} 个候选域名',av:'可注册',rg:'已注册',fa:'失败',sc1:'适用场景',sc1p:'建站选域名时，手动逐个查询注册状态费时费力。域名批量检测把"关键词→变体生成→批量查状态→筛选导出"全流程搬到浏览器里：输入核心词，一键生成数十个候选，调用公共 RDAP 接口批量判断哪些还能注册，几分钟筛出优质短域名，全程无需安装软件、无需上传任何文件。',sc2:'适合谁使用',sc2p:'企业建站、独立站长、SaaS 创业者、品牌筹备团队，以及需要长期批量筛查域名的从业者。',sc3:'进阶技巧',sc3a:'优先选择短缩写与关键词贴合业务的拼写，更易记忆传播',sc3b:'后缀优先级：.com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'利用缩写与简写变体批量生成，优质短域名常藏在衍生词里',sc3d:'已注册域名若显示报价，可在预算内评估议价收购',sc4:'常见问题',faq1q:'域名批量检测能做什么？',faq1a:'输入业务关键词，自动生成域名变体并拼接主流后缀，批量查询每个候选的注册状态，标记可注册 / 已注册 / 查询失败，并支持筛选与 CSV 导出。所有变体生成本地完成，仅域名字符串发往公共 RDAP 接口。',faq2q:'查询需要联网吗？我的数据安全吗？',faq2a:'域名注册状态依赖公共 RDAP 接口，因此查询过程需要联网；但仅发送域名字符串用于查询，不收集任何个人信息，也不上传你的关键词列表到除 RDAP 外的任何服务器。',faq3q:'为什么有的域名显示"查询失败"？',faq3a:'公共 RDAP 接口有访问频率限制，批量查询过快会触发限流（429）或网络抖动导致超时。可稍后重新点击查询，失败的条目会再次尝试。',faq4q:'结果怎么保存？',faq4a:'点击"导出 CSV"即可把当前结果下载为表格文件，保存在你自己的设备，方便比对价格与长期留存备选域名库。'},
+en:{pageTitle:'Domain Bulk Checker - ZenTools',crumbCur:'Domain Bulk Checker',h1Grad:'Domain Bulk Checker',h1Sub:'Name generation · Bulk status check · CSV export',pageDesc:'Enter a keyword, auto-generate domain variants with popular suffixes, batch-check registration status via public RDAP, and find available names fast.',navSeoCat:'SEO TOOLS',lblKeyword:'Core keyword',placeholderKeyword:'e.g. content, shop, zentools (English or pinyin, space to split)',lblSuffix:'Domain suffixes',suffixHint:'Check the suffixes to combine',lblOptions:'Variant rules',optJoin:'Direct join',optAbbr:'Initials abbreviation',optMap:'Common abbreviation map',optAffix:'Add affixes',btnGenerate:'⚡ Generate candidates',previewTitle:'Candidate preview',previewHint:'Edit before checking',btnCheck:'🔍 Start check',btnClear:'🗑️ Clear',btnExport:'⬇ Export CSV',resultTitle:'Results',filterAvailable:'Available only',colDomain:'Domain',colStatus:'Status',colReg:'Registered',colExp:'Expires',colTime:'Checked',statusAvailable:'Available',statusRegistered:'Registered',statusFailed:'Failed',noteThrottle:'Throttled',noteTimeout:'Timeout',noteNeterr:'Network error',recTitle:'🔗 Recommended',recAge:'Domain Age',recBack:'Backlink Checker',recKw:'Keyword Research',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'Please enter a keyword',msgNoSuffix:'Select at least one suffix',msgNoCandidate:'No candidate domains to check',msgRunning:'Checking, please wait…',msgDone:'Check complete',kwTipEmpty:'Enter a keyword then click Generate',candTip:'{n} candidate domains',av:'Available',rg:'Registered',fa:'Failed',sc1:'Use cases',sc1p:'Manually checking domains one by one is slow. Domain Bulk Checker moves the whole flow—keyword → variants → batch status → filter & export—into the browser: enter a core word, generate dozens of candidates, query registration via public RDAP, and pick quality short names in minutes. No install, no upload.',sc2:'Who it is for',sc2p:'Businesses, indie makers, SaaS founders, brand teams, and anyone who screens domains in bulk.',sc3:'Pro tips',sc3a:'Prefer short abbreviations that fit your business and are easy to remember',sc3b:'Suffix priority: .com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'Generate abbreviations and short forms in bulk—good short names hide in variants',sc3d:'If a registered domain shows a price, evaluate buying within budget',sc4:'FAQ',faq1q:'What can Domain Bulk Checker do?',faq1a:'Enter a keyword to generate domain variants with popular suffixes, batch-check each candidate’s registration status (available / registered / failed), and filter or export to CSV. Variants are generated locally; only the domain string is sent to public RDAP.',faq2q:'Does it need network? Is my data safe?',faq2a:'Registration status relies on public RDAP, so checking needs network; but only the domain string is sent for lookup—no personal data is collected and your keyword list is not uploaded to any server other than RDAP.',faq3q:'Why do some domains show "Failed"?',faq3a:'Public RDAP has rate limits; querying too fast triggers throttling (429) or network timeouts. Click check again later and failed items will retry.',faq4q:'How do I save the results?',faq4a:'Click "Export CSV" to download the results as a spreadsheet on your own device for price comparison and a long-term candidate list.'},
+ja:{pageTitle:'ドメイン一括チェック - ZenTools',crumbCur:'ドメイン一括チェック',h1Grad:'ドメイン一括チェック',h1Sub:'名前生成・登録状況一括確認・CSV出力',pageDesc:'キーワードを入力し、ドメイン変種を自動生成して主要サフィックスと組み合わせ、公開RDAPで登録状況を一括確認し、取得可能な名前を素早く見つけます。',navSeoCat:'SEOツール',lblKeyword:'コアキーワード',placeholderKeyword:'例：content、shop、zentools（英単語またはピンイン、空白で分割）',lblSuffix:'ドメインサフィックス',suffixHint:'組み合わせるサフィックスを選択',lblOptions:'変種生成ルール',optJoin:'そのまま連結',optAbbr:'頭文字略語',optMap:'一般的な略語マップ',optAffix:'接尾語を追加',btnGenerate:'⚡ 候補を生成',previewTitle:'候補プレビュー',previewHint:'確認前に編集可',btnCheck:'🔍 チェック開始',btnClear:'🗑️ クリア',btnExport:'⬇ CSV出力',resultTitle:'結果',filterAvailable:'取得可能のみ',colDomain:'ドメイン',colStatus:'状態',colReg:'登録日',colExp:'有効期限',colTime:'確認日時',statusAvailable:'取得可能',statusRegistered:'登録済み',statusFailed:'失敗',noteThrottle:'制限',noteTimeout:'タイムアウト',noteNeterr:'通信エラー',recTitle:'🔗 おすすめ',recAge:'ドメイン年齢',recBack:'バックリンクチェック',recKw:'キーワードリサーチ',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'キーワードを入力してください',msgNoSuffix:'サフィックスを1つ以上選択してください',msgNoCandidate:'確認する候補がありません',msgRunning:'確認中、少々お待ちください…',msgDone:'確認完了',kwTipEmpty:'キーワードを入力し「候補を生成」をクリック',candTip:'候補ドメイン {n} 件',av:'取得可能',rg:'登録済み',fa:'失敗',sc1:'活用シーン',sc1p:'ドメインを1つずつ手動確認するのは面倒です。ドメイン一括チェックは「キーワード→変種生成→一括状況確認→絞り込み出力」の全体をブラウザに移行：コア語を入力するだけで数十の候補を生成し、公開RDAPで登録状況を確認、数分で良質な短い名前を絞り込めます。インストール不要、アップロード不要。',sc2:'こんな方におすすめ',sc2p:'企業のサイト構築、個人運営者、SaaS起業家、ブランドチーム、およびドメインを継続的に一括確認する方。',sc3:'高度なヒント',sc3a:'短い略語でビジネスに合うものを優先し、覚えやすく',sc3b:'サフィックス優先順位：.com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'略語や短縮形を一括生成—良質な短い名前は変種に隠れている',sc3d:'登録済みドメインに価格が表示されたら予算内で購入を検討',sc4:'よくある質問',faq1q:'ドメイン一括チェックで何ができますか？',faq1a:'キーワードを入力してドメイン変種を主要サフィックスと組み合わせ、各候補の登録状況（取得可能／登録済み／失敗）を一括確認し、絞り込みとCSV出力に対応。変種はローカル生成され、ドメイン文字列のみ公開RDAPへ送信されます。',faq2q:'ネット接続は必要ですか？データは安全ですか？',faq2a:'登録状況は公開RDAPに依存するため確認に接続が必要ですが、送信されるのは照会用のドメイン文字列のみ。個人データは収集せず、キーワード一覧もRDAP以外のサーバーにアップロードされません。',faq3q:'「失敗」と表示されるのはなぜですか？',faq3a:'公開RDAPにはレート制限があり、早すぎる一括確認で制限（429）やタイムアウトが発生します。後で再度クリックすれば失敗項目を再試行できます。',faq4q:'結果をどう保存しますか？',faq4a:'「CSV出力」をクリックすると結果をスプレッドシートとして自身の端末にダウンロードでき、価格比較や候補リストの保管に便利です。'},
+vi:{pageTitle:'Kiểm tra tên miền hàng loạt - ZenTools',crumbCur:'Kiểm tra tên miền',h1Grad:'Kiểm tra tên miền hàng loạt',h1Sub:'Tạo tên · Kiểm tra trạng thái · Xuất CSV',pageDesc:'Nhập từ khóa, tự động tạo biến thể tên miền với hậu tố phổ biến, kiểm tra trạng thái đăng ký qua RDAP công khai, tìm tên còn trống nhanh chóng.',navSeoCat:'CÔNG CỤ SEO',lblKeyword:'Từ khóa chính',placeholderKeyword:'vd: content, shop, zentools (tiếng Anh hoặc pinyin, cách nhau bằng dấu cách)',lblSuffix:'Hậu tố tên miền',suffixHint:'Chọn hậu tố để ghép',lblOptions:'Quy tắc biến thể',optJoin:'Nối trực tiếp',optAbbr:'Viết tắt chữ cái đầu',optMap:'Ánh xạ viết tắt phổ biến',optAffix:'Thêm hậu tố từ',btnGenerate:'⚡ Tạo danh sách ứng viên',previewTitle:'Xem trước ứng viên',previewHint:'Chỉnh sửa trước khi kiểm tra',btnCheck:'🔍 Bắt đầu kiểm tra',btnClear:'🗑️ Xóa',btnExport:'⬇ Xuất CSV',resultTitle:'Kết quả',filterAvailable:'Chỉ hiển thị còn trống',colDomain:'Tên miền',colStatus:'Trạng thái',colReg:'Ngày đăng ký',colExp:'Hết hạn',colTime:'Kiểm tra lúc',statusAvailable:'Còn trống',statusRegistered:'Đã đăng ký',statusFailed:'Lỗi',noteThrottle:'Bị giới hạn',noteTimeout:'Quá thời gian',noteNeterr:'Lỗi mạng',recTitle:'🔗 Đề xuất',recAge:'Tuổi tên miền',recBack:'Kiểm tra backlink',recKw:'Nghiên cứu từ khóa',footerCopy:'© 2026 ZenTools · https://zentools.xyz · All rights reserved',msgEmptyKeyword:'Vui lòng nhập từ khóa',msgNoSuffix:'Chọn ít nhất một hậu tố',msgNoCandidate:'Không có tên miền ứng viên để kiểm tra',msgRunning:'Đang kiểm tra, vui lòng chờ…',msgDone:'Kiểm tra hoàn tất',kwTipEmpty:'Nhập từ khóa rồi bấm Tạo danh sách',candTip:'{n} tên miền ứng viên',av:'Còn trống',rg:'Đã đăng ký',fa:'Lỗi',sc1:'Trường hợp sử dụng',sc1p:'Kiểm tra từng tên miền thủ công rất chậm. Công cụ Kiểm tra tên miền hàng loạt đưa toàn bộ quy trình—từ khóa → biến thể → kiểm tra trạng thái → lọc và xuất—lên trình duyệt: nhập từ khóa cốt lõi, tạo hàng chục ứng viên, truy vấn đăng ký qua RDAP công khai và chọn tên ngắn chất lượng trong vài phút. Không cài đặt, không tải lên.',sc2:'Dành cho ai',sc2p:'Doanh nghiệp, nhà sáng tạo độc lập, founder SaaS, đội ngũ thương hiệu và bất kỳ ai kiểm tra tên miền số lượng lớn.',sc3:'Mẹo nâng cao',sc3a:'Ưu tiên viết tắt ngắn, sát với thương hiệu và dễ nhớ',sc3b:'Ưu tiên hậu tố: .com > .cn > .net / .io / .app > .cc / .xyz / .co',sc3c:'Tạo hàng loạt các biến thể viết tắt—tên ngắn tốt thường ẩn trong biến thể',sc3d:'Nếu tên đã đăng ký hiển thị giá, cân nhắc mua trong ngân sách',sc4:'Câu hỏi thường gặp',faq1q:'Kiểm tra tên miền hàng loạt làm được gì?',faq1a:'Nhập từ khóa để tạo biến thể tên miền với hậu tố phổ biến, kiểm tra trạng thái đăng ký của từng ứng viên (còn trống / đã đăng ký / lỗi), lọc hoặc xuất CSV. Biến thể tạo cục bộ; chỉ chuỗi tên miền gửi đến RDAP công khai.',faq2q:'Có cần mạng không? Dữ liệu của tôi có an toàn không?',faq2a:'Trạng thái đăng ký dựa vào RDAP công khai nên cần mạng khi kiểm tra; nhưng chỉ chuỗi tên miền được gửi để tra cứu—không thu thập dữ liệu cá nhân và danh sách từ khóa không tải lên máy chủ nào khác ngoài RDAP.',faq3q:'Tại sao một số tên hiện "Lỗi"?',faq3a:'RDAP công khai có giới hạn tốc độ; truy vấn quá nhanh gây giới hạn (429) hoặc quá thời gian. Bấm kiểm tra lại sau để thử lại các mục lỗi.',faq4q:'Làm sao lưu kết quả?',faq4a:'Bấm "Xuất CSV" để tải kết quả về thiết bị của bạn dưới dạng bảng, tiện so sánh giá và lưu danh sách ứng viên lâu dài.'}
+};
+</script>
+<script src="/assets/js/tool-ui.min.js"></script>
+<script>
+function getMsg(k){var l=localStorage.getItem('zentools_lang')||'zh';return((window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh)[k]||k;}
+function getLang(){return localStorage.getItem('zentools_lang')||'zh';}
+function setPlaceholder(){var el=document.getElementById('kwInput');if(el)el.placeholder=getMsg('placeholderKeyword');}
+
+var SUFFIXES=['.com','.cn','.net','.io','.app','.cc','.xyz','.co'];
+var AFFIXES=['hub','app','pro','go','io','lab','soft','cloud','web','ai','box','online','net','tech','digital','smart','plus','get','my','the'];
+var ABBR_MAP={management:'mgmt',manager:'mgr',technology:'tech',technical:'tech',application:'app',applications:'apps',network:'net',networks:'nets',system:'sys',systems:'sys',solutions:'sol',solution:'sol',digital:'digi',software:'soft',online:'on',cloud:'cloud',service:'svc',services:'svcs',global:'glob',group:'grp',international:'intl',information:'info',development:'dev',design:'design',creative:'cr8',business:'biz',company:'co',corporate:'corp',media:'media',marketing:'mkt',studio:'studio',data:'data',smart:'smart',professional:'pro',platform:'plat',world:'world',store:'store'};
+
+var results=[];
+
+function buildSuffixChips(){
+  var grid=document.getElementById('suffixGrid');
+  grid.innerHTML='';
+  SUFFIXES.forEach(function(s){
+    var lab=document.createElement('label');
+    lab.className='suffix-chip on';
+    lab.innerHTML='<input type="checkbox" value="'+s+'" checked> '+s;
+    lab.querySelector('input').addEventListener('change',function(){lab.classList.toggle('on',this.checked);});
+    grid.appendChild(lab);
+  });
+}
+function selectedSuffixes(){
+  return SUFFIXES.filter(function(s){
+    var c=document.querySelector('#suffixGrid input[value="'+s+'"]');
+    return c&&c.checked;
+  });
+}
+function generateVariants(keyword){
+  var words=keyword.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  if(words.length===0)return [];
+  var set=new Set();
+  var join=document.getElementById('optJoin').checked;
+  var abbr=document.getElementById('optAbbr').checked;
+  var map=document.getElementById('optMap').checked;
+  var affix=document.getElementById('optAffix').checked;
+  if(join){set.add(words.join(''));set.add(words.join('-'));}
+  var abbrStr=words.map(function(w){return w[0];}).join('');
+  if(abbr&&abbrStr.length>=2){set.add(abbrStr);}
+  if(map){
+    var mapped=words.map(function(w){return ABBR_MAP[w]||w;});
+    set.add(mapped.join(''));
+    set.add(mapped.join('-'));
+    if(abbr&&abbrStr.length>=2)set.add(mapped.map(function(w,i){return i===0?abbrStr:w;}).join(''));
+  }
+  if(affix){
+    var base=words.join('');
+    var mappedBase=map?(words.map(function(w){return ABBR_MAP[w]||w;}).join('')):base;
+    AFFIXES.forEach(function(af){
+      set.add(base+af);
+      if(abbr&&abbrStr.length>=2)set.add(abbrStr+af);
+      set.add(mappedBase+af);
+    });
+  }
+  return Array.from(set).filter(function(v){return /^[a-z0-9-]+$/.test(v)&&v.length>=2&&v.length<=63;});
+}
+function generateCandidates(){
+  var kw=document.getElementById('kwInput').value.trim();
+  if(!kw){showMsg(getMsg('msgEmptyKeyword'),'error');return;}
+  var suffixes=selectedSuffixes();
+  if(suffixes.length===0){showMsg(getMsg('msgNoSuffix'),'error');return;}
+  var variants=generateVariants(kw);
+  var domains=[];
+  variants.forEach(function(v){suffixes.forEach(function(s){domains.push(v+s);});});
+  domains=Array.from(new Set(domains)).slice(0,300);
+  if(domains.length===0){showMsg(getMsg('msgNoCandidate'),'error');return;}
+  document.getElementById('candidateArea').value=domains.join('\n');
+  document.getElementById('previewField').style.display='block';
+  document.getElementById('checkRow').style.display='flex';
+  document.getElementById('candCount').innerHTML=getMsg('candTip').replace('{n}',domains.length);
+  showMsg('','');
+}
+function getCandidateList(){
+  return document.getElementById('candidateArea').value.split('\n').map(function(d){return d.trim().toLowerCase();}).filter(function(d){return d&&/^[a-z0-9-]+(\.[a-z]{2,})$/.test(d);});
+}
+function rdapUrl(domain){
+  var tld=domain.split('.').pop();
+  var ROUTES={
+    'com':'https://rdap.verisign.com/com/v1/domain/',
+    'net':'https://rdap.verisign.com/net/v1/domain/',
+    'org':'https://rdap.publicinterestregistry.org/rdap/domain/',
+    'io':'https://rdap.nic.io/domain/',
+    'app':'https://rdap.googleapis.com/v1/domain/',
+    'dev':'https://rdap.googleapis.com/v1/domain/',
+    'page':'https://rdap.googleapis.com/v1/domain/',
+    'xyz':'https://rdap.centralnic.com/xyz/v1/domain/',
+    'co':'https://rdap.identitydigital.services/rdap/domain/',
+    'cc':'https://rdap.verisign.com/cc/v1/domain/',
+    'cn':'https://rdap.cnnic.cn/domain/',
+    'info':'https://rdap.verisign.com/info/v1/domain/',
+    'name':'https://rdap.verisign.com/name/v1/domain/',
+    'tv':'https://rdap.nic.tv/domain/'
+  };
+  return (ROUTES[tld]||'https://rdap.org/')+domain;
+}
+function sleep(ms){return new Promise(function(r){setTimeout(r,ms);});}
+async function checkOne(domain){
+  try{
+    var ctrl=new AbortController();
+    var t=setTimeout(function(){ctrl.abort();},8000);
+    var res=await fetch(rdapUrl(domain),{signal:ctrl.signal});
+    clearTimeout(t);
+    if(res.status===404)return {domain:domain,status:'available'};
+    if(res.status===429)return {domain:domain,status:'failed',note:getMsg('noteThrottle')};
+    if(res.ok){
+      var j=await res.json().catch(function(){return {};});
+      var events=j.events||[];
+      var reg=(events.find(function(e){return e.eventAction==='registration';})||{}).eventDate||'';
+      var exp=(events.find(function(e){return e.eventAction==='expiration';})||{}).eventDate||'';
+      return {domain:domain,status:'registered',reg:reg?reg.slice(0,10):'',exp:exp?exp.slice(0,10):''};
+    }
+    return {domain:domain,status:'failed',note:'HTTP '+res.status};
+  }catch(e){
+    return {domain:domain,status:'failed',note:e.name==='AbortError'?getMsg('noteTimeout'):getMsg('noteNeterr')};
+  }
+}
+async function startCheck(){
+  var domains=getCandidateList();
+  if(domains.length===0){showMsg(getMsg('msgNoCandidate'),'error');return;}
+  var btn=document.getElementById('checkBtn');
+  btn.disabled=true;
+  document.getElementById('progressWrap').style.display='block';
+  document.getElementById('resultArea').style.display='none';
+  showMsg(getMsg('msgRunning'),'info');
+  results=[];
+  var BATCH=3, DELAY=1000, done=0;
+  for(var i=0;i<domains.length;i+=BATCH){
+    var batch=domains.slice(i,i+BATCH);
+    var r=await Promise.all(batch.map(checkOne));
+    results=results.concat(r);
+    done+=batch.length;
+    var pct=Math.round(done/domains.length*100);
+    document.getElementById('progressBar').style.width=pct+'%';
+    document.getElementById('progressText').textContent=done+' / '+domains.length+' ('+pct+'%)';
+    if(i+BATCH<domains.length)await sleep(DELAY);
+  }
+  showMsg(getMsg('msgDone'),'info');
+  setTimeout(function(){var e=document.getElementById('infoMsg');if(e)e.style.display='none';},2500);
+  btn.disabled=false;
+  renderTable();
+}
+function statusText(s){var l=getLang();if(s==='available')return getMsg('statusAvailable');if(s==='registered')return getMsg('statusRegistered');return getMsg('statusFailed');}
+function renderTable(){
+  if(results.length===0)return;
+  var onlyAv=document.getElementById('filterAv').checked;
+  var rows=onlyAv?results.filter(function(r){return r.status==='available';}):results;
+  var body=document.getElementById('resultBody');
+  var now=new Date().toLocaleString();
+  body.innerHTML=rows.map(function(r){
+    var badge=r.status==='available'?'available':(r.status==='registered'?'registered':'failed');
+    return '<tr><td><span class="dom">'+r.domain+'</span></td>'+
+      '<td><span class="badge '+badge+'">'+statusText(r.status)+'</span></td>'+
+      '<td>'+(r.reg||'—')+'</td>'+
+      '<td>'+(r.exp||'—')+'</td>'+
+      '<td>'+now+'</td></tr>';
+  }).join('');
+  var av=results.filter(function(r){return r.status==='available';}).length;
+  var rg=results.filter(function(r){return r.status==='registered';}).length;
+  var fa=results.filter(function(r){return r.status==='failed';}).length;
+  document.getElementById('statPills').innerHTML=
+    '<span class="pill av">✅ '+getMsg('av')+': '+av+'</span>'+
+    '<span class="pill rg">❌ '+getMsg('rg')+': '+rg+'</span>'+
+    '<span class="pill fa">⚠️ '+getMsg('fa')+': '+fa+'</span>';
+  document.getElementById('resultArea').style.display='block';
+}
+function exportCSV(){
+  if(results.length===0)return;
+  var header=['域名','状态','注册日期','到期日期','备注','查询时间'];
+  var now=new Date().toLocaleString();
+  var lines=[header];
+  results.forEach(function(r){
+    lines.push([r.domain,statusText(r.status),r.reg||'',r.exp||'',r.note||'',now]);
+  });
+  var csv=lines.map(function(row){return row.map(function(c){return '"'+String(c).replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='domain-check-'+Date.now()+'.csv';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+function showMsg(m,t){
+  var e=document.getElementById('errorMsg');
+  e.textContent=m;e.className='tool-msg'+(t?(' '+t):'');
+  if(!t){var i=document.getElementById('infoMsg');if(i)i.style.display='none';}
+}
+function resetAll(){
+  document.getElementById('kwInput').value='';
+  document.getElementById('candidateArea').value='';
+  document.getElementById('previewField').style.display='none';
+  document.getElementById('checkRow').style.display='none';
+  document.getElementById('resultArea').style.display='none';
+  document.getElementById('progressWrap').style.display='none';
+  results=[];
+  showMsg('','');
+}
+document.addEventListener('DOMContentLoaded',function(){
+  buildSuffixChips();
+  setPlaceholder();
+  var tip=document.getElementById('kwTip');
+  if(tip)tip.textContent=getMsg('kwTipEmpty');
+  document.getElementById('kwInput').addEventListener('input',function(){if(this.value.trim())document.getElementById('kwTip').textContent='';});
+});
+</script>
+<script>(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+</script>
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+<script>if ('serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js').catch(() => {}); }); }</script>
+
+<script>
+// 暗黑模式切换
+(function() {
+  var savedTheme = localStorage.getItem('zentools_theme');
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) {
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    btn.addEventListener('click', function() {
+      document.documentElement.classList.toggle('dark');
+      var isDark = document.documentElement.classList.contains('dark');
+      this.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+    });
+  }
+})();
+
+// 移动端侧滑
+(function() {
+  var overlay = document.getElementById('mobileOverlay');
+  var hamBtn = document.getElementById('hamburgerBtn');
+  var closeBtn = document.getElementById('mobileClose');
+  if (!hamBtn || !overlay) return;
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+  hamBtn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+    }
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', function(e) {
+    var drawer = document.getElementById('mobileDrawer');
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+  });
+})();
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+  });
+}
+</script>
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "域名批量检测能做什么？","acceptedAnswer": {"@type": "Answer","text": "输入业务关键词，自动生成域名变体并拼接主流后缀，批量查询每个候选的注册状态，标记可注册 / 已注册 / 查询失败，并支持筛选与 CSV 导出。所有变体生成本地完成，仅域名字符串发往公共 RDAP 接口。"}},{"@type": "Question","name": "查询需要联网吗？我的数据安全吗？","acceptedAnswer": {"@type": "Answer","text": "域名注册状态依赖公共 RDAP 接口，因此查询过程需要联网；但仅发送域名字符串用于查询，不收集任何个人信息，也不上传你的关键词列表到除 RDAP 外的任何服务器。"}},{"@type": "Question","name": "为什么有的域名显示查询失败？","acceptedAnswer": {"@type": "Answer","text": "公共 RDAP 接口有访问频率限制，批量查询过快会触发限流（429）或网络抖动导致超时。可稍后重新点击查询，失败的条目会再次尝试。"}},{"@type": "Question","name": "结果怎么保存？","acceptedAnswer": {"@type": "Answer","text": "点击导出 CSV 即可把当前结果下载为表格文件，保存在你自己的设备，方便比对价格与长期留存备选域名库。"}}]}</script>
+</body></html>
