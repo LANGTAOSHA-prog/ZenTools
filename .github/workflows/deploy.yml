@@ -5,7 +5,8 @@
 # 说明：
 #   - 服务器均位于 GitHub 难以主动访问的环境，故统一采用「runner 推送」模式（rsync over SSH）
 #   - runner 有稳定外网出口；两台服务器只需开放 22 端口接收
-#   - 纯静态站，rsync 完成即实时生效，Nginx 无需 reload
+#   - 纯静态站，rsync 完成即实时生效；但 nginx 配置（如 HTML 缓存头）改动会由部署步自动 cp 到源站并 reload
+#   - 自动 reload 采用「备份 + nginx -t 校验 + 失败回退」策略，配置异常时绝不中断部署
 #   - GCP 同步取代原先「VM 内每 10 分钟 git reset --hard」的轮询方式（后者曾因 VM git 拉取失败而滞后）
 # ---------------------------------------------
 # 需要在仓库 Settings → Secrets and variables → Actions 配置：
@@ -106,6 +107,23 @@ jobs:
             test -f index.html && echo "OK index.html" || (echo "MISSING index.html" && exit 1)
             test -f sw.js && echo "OK sw.js (ZenTools)" || echo "WARN: sw.js missing (not ZenTools index.html)"
             echo "==> 部署完成: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+            # 同步 nginx 配置（仅当现有已是 zentools 文件时安全接管，否则跳过以免冲突）
+            # 主源（国内），故采用「备份 + nginx -t 校验 + 失败回退」策略，绝不破坏性覆盖
+            NG=/etc/nginx/sites-available/zentools
+            SRC=/var/www/html/infra/deploy-ecs/nginx-zentools.conf
+            if [ -f "$NG" ] && [ -f "$SRC" ]; then
+              cp "$NG" /tmp/zentools.ecs.bak
+              cp "$SRC" "$NG"
+              if nginx -t >/dev/null 2>&1; then
+                systemctl reload nginx && echo "OK ECS nginx reloaded (HTML 缓存头已生效)"
+                rm -f /tmp/zentools.ecs.bak
+              else
+                cp /tmp/zentools.ecs.bak "$NG"
+                echo "WARN ECS nginx -t 失败，已回退到旧配置"
+              fi
+            else
+              echo "INFO ECS 现有 nginx 未使用 zentools 文件，跳过自动覆盖（请手动核对 ECS 配置）"
+            fi
 
       - name: "[调试] GCP 连通性诊断（ssh，不回显私钥）"
         if: ${{ env.GCP_SSH_KEY != '' }}
@@ -139,3 +157,23 @@ jobs:
             test -f guides/geo-generative-engine-optimization.html && echo "OK GEO 指南页" || echo "WARN GEO 指南页缺失"
             # 关闭原先「VM 内每 10 分钟 git reset」的轮询定时器，避免它把 rsync 的新文件 revert 回旧提交
             systemctl disable --now zentools-sync.timer 2>/dev/null || true
+            # 同步 nginx 配置（仓库驱动）并热重载，使 HTML 缓存头生效
+            # sudo 不可用或 nginx -t 校验失败则回退，绝不中断部署
+            NG=/etc/nginx/sites-available/zentools
+            SRC=/var/www/zentools/infra/deploy-gcp/nginx-zentools.conf
+            if [ -f "$NG" ] && [ -f "$SRC" ]; then
+              cp "$NG" /tmp/zentools.gcp.bak 2>/dev/null || true
+              sudo cp "$SRC" "$NG" 2>/dev/null || cp "$SRC" "$NG" 2>/dev/null || true
+              if sudo nginx -t >/dev/null 2>&1 || nginx -t >/dev/null 2>&1; then
+                if sudo systemctl reload nginx >/dev/null 2>&1 || systemctl reload nginx >/dev/null 2>&1; then
+                  echo "OK GCP nginx reloaded (HTML 缓存头已生效)"
+                else
+                  echo "WARN GCP nginx reload 失败（可能无 sudo 权限），请手动 reload 或配置免密 sudo"
+                fi
+              else
+                sudo cp /tmp/zentools.gcp.bak "$NG" 2>/dev/null || true
+                echo "WARN GCP nginx -t 失败，已回退到旧配置"
+              fi
+            else
+              echo "INFO GCP nginx 配置文件缺失，跳过自动同步"
+            fi
