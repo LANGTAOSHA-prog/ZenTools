@@ -108,15 +108,22 @@ jobs:
             test -f sw.js && echo "OK sw.js (ZenTools)" || echo "WARN: sw.js missing (not ZenTools index.html)"
             echo "==> 部署完成: $(date '+%Y-%m-%d %H:%M:%S %Z')"
             # 源站注入 HTML 缓存头（就地注入，保留 certbot SSL；自动探测 ECS 主配置）
-            SCRIPT=/var/www/html/infra/nginx-inject-html-cache.sh
             NG=/etc/nginx/sites-available/zentools
             if [ ! -f "$NG" ]; then
-              NG=$(grep -rl "zentools.xyz" /etc/nginx/sites-enabled/ 2>/dev/null | head -1)
+              NG=$(grep -rl "zentools.xyz" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null | head -1)
             fi
-            if [ -f "$SCRIPT" ] && [ -n "$NG" ]; then
-              bash "$SCRIPT" "$NG" 2>/dev/null || echo "WARN ECS 缓存头注入失败"
+            if [ -f "$NG" ] && ! grep -q 'expires 1h' "$NG"; then
+              cp "$NG" /tmp/nginx.inject.bak
+              sed -i 's#location / {#location / {\n    expires 1h;\n    add_header Cache-Control "public";#' "$NG"
+              if /usr/sbin/nginx -t >/dev/null 2>&1; then
+                systemctl reload nginx && echo "OK ECS nginx reloaded (HTML 缓存头已生效)" || echo "WARN ECS reload 失败"
+              else
+                cp /tmp/nginx.inject.bak "$NG"; echo "WARN ECS nginx -t 失败，已回退"
+              fi
+            elif [ -f "$NG" ]; then
+              echo "INFO ECS 已注入缓存头，跳过"
             else
-              echo "INFO ECS 未找到 nginx 配置或脚本缺失，跳过（请手动核对 ECS 配置）"
+              echo "INFO ECS 未找到 nginx 配置，跳过（请手动核对 ECS 配置）"
             fi
 
       - name: "[调试] GCP 连通性诊断（ssh，不回显私钥）"
@@ -152,10 +159,22 @@ jobs:
             # 关闭原先「VM 内每 10 分钟 git reset」的轮询定时器，避免它把 rsync 的新文件 revert 回旧提交
             systemctl disable --now zentools-sync.timer 2>/dev/null || true
             # 源站注入 HTML 缓存头（就地注入，保留 certbot SSL；sudo 不可用则降级）
-            SCRIPT=/var/www/zentools/infra/nginx-inject-html-cache.sh
             NG=/etc/nginx/sites-available/zentools
-            if [ -f "$SCRIPT" ] && [ -f "$NG" ]; then
-              sudo bash "$SCRIPT" "$NG" 2>/dev/null || bash "$SCRIPT" "$NG" 2>/dev/null || echo "WARN GCP 缓存头注入失败（可能无 sudo 权限）"
+            if [ -f "$NG" ] && ! grep -q 'expires 1h' "$NG"; then
+              sudo cp "$NG" /tmp/nginx.inject.bak 2>/dev/null || cp "$NG" /tmp/nginx.inject.bak 2>/dev/null || true
+              sudo sed -i 's#location / {#location / {\n    expires 1h;\n    add_header Cache-Control "public";#' "$NG" 2>/dev/null || sed -i 's#location / {#location / {\n    expires 1h;\n    add_header Cache-Control "public";#' "$NG" 2>/dev/null || true
+              if sudo /usr/sbin/nginx -t >/dev/null 2>&1 || /usr/sbin/nginx -t >/dev/null 2>&1; then
+                if sudo systemctl reload nginx >/dev/null 2>&1 || systemctl reload nginx >/dev/null 2>&1; then
+                  echo "OK GCP nginx reloaded (HTML 缓存头已生效)"
+                else
+                  echo "WARN GCP reload 失败（可能无 sudo 权限）"
+                fi
+              else
+                sudo cp /tmp/nginx.inject.bak "$NG" 2>/dev/null || true
+                echo "WARN GCP nginx -t 失败，已回退"
+              fi
+            elif [ -f "$NG" ]; then
+              echo "INFO GCP 已注入缓存头，跳过"
             else
-              echo "INFO GCP 注入脚本或配置文件缺失，跳过"
+              echo "INFO GCP 配置文件缺失，跳过"
             fi
