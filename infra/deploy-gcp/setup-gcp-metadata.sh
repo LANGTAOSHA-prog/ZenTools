@@ -15,7 +15,10 @@ set -euo pipefail
 INSTANCE="${GCP_INSTANCE:?请先设置环境变量 GCP_INSTANCE（VM 实例名）}"
 ZONE="${GCP_ZONE:?请先设置环境变量 GCP_ZONE（如 us-central1-a）}"
 
-DEPLOY_PUBKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINtNXLsL3eo2G8/fEN2RcIhJWlk0h4OWl3PC9ASD/kJX zentools_gcp"
+# 注意：写入 GCP 实例 ssh-keys 元数据时，格式必须是 "用户名:密钥"，
+# Guest Agent 才能知道把公钥注入到哪个用户的 ~/.ssh/authorized_keys。
+# 漏掉 "taojiangtj:" 前缀会导致该行被跳过、重启后公钥仍未注入（部署继续 Permission denied）。
+DEPLOY_PUBKEY="taojiangtj:ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINtNXLsL3eo2G8/fEN2RcIhJWlk0h4OWl3PC9ASD/kJX zentools_gcp"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # ---------- 1) 追加部署公钥到实例 ssh-keys 元数据（不覆盖现有 key） ----------
