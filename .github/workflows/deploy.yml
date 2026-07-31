@@ -53,7 +53,7 @@ jobs:
 
     steps:
       - name: 检出代码
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0   # 完整历史，供 _gen_sitemap.py 取每个文件的真实 git 提交日期作为 lastmod
 
@@ -89,7 +89,7 @@ jobs:
           fi
 
       - name: rsync 推送到阿里云 ECS（国内节点）
-        uses: easingthemes/ssh-deploy@v5.1.0
+        uses: easingthemes/ssh-deploy@v6.0.3
         with:
           SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.ECS_HOST }}
@@ -107,18 +107,18 @@ jobs:
             test -f index.html && echo "OK index.html" || (echo "MISSING index.html" && exit 1)
             test -f sw.js && echo "OK sw.js (ZenTools)" || echo "WARN: sw.js missing (not ZenTools index.html)"
             echo "==> 部署完成: $(date '+%Y-%m-%d %H:%M:%S %Z')"
-            # 源站注入 HTML 缓存头（就地注入，保留 certbot SSL；自动探测 ECS 主配置）
+            # 源站注入 HTML 缓存头（server 级 add_header，对 certbot 配置格式零依赖；注入后校验生效，失败则部署变红）
             NG=/etc/nginx/sites-available/zentools
             if [ ! -f "$NG" ]; then
               NG=$(grep -rl "zentools.xyz" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null | head -1)
             fi
-            if [ -f "$NG" ] && ! grep -q 'expires 1h' "$NG"; then
+            if [ -f "$NG" ] && ! grep -q 'max-age=3600' "$NG"; then
               cp "$NG" /tmp/nginx.inject.bak
-              sed -i 's#location / {#location / {\n    expires 1h;\n    add_header Cache-Control "public";#' "$NG"
-              if /usr/sbin/nginx -t >/dev/null 2>&1; then
+              sed -i '/^[[:space:]]*server[[:space:]]*{/a\add_header Cache-Control "public, max-age=3600";' "$NG"
+              if grep -q 'max-age=3600' "$NG" && /usr/sbin/nginx -t >/dev/null 2>&1; then
                 systemctl reload nginx && echo "OK ECS nginx reloaded (HTML 缓存头已生效)" || echo "WARN ECS reload 失败"
               else
-                cp /tmp/nginx.inject.bak "$NG"; echo "WARN ECS nginx -t 失败，已回退"
+                cp /tmp/nginx.inject.bak "$NG"; echo "FAIL ECS 注入未生效或 nginx -t 失败，已回退"; exit 1
               fi
             elif [ -f "$NG" ]; then
               echo "INFO ECS 已注入缓存头，跳过"
@@ -136,12 +136,12 @@ jobs:
           ssh -o StrictHostKeyChecking=no -o ConnectTimeout=15 -i /tmp/gcp_key \
             "${GCP_USER}@${GCP_HOST}" \
             "echo SSH_OK; echo USER=\$(id -un); ls -ld /var/www/zentools; echo PUBKEY_COUNT=\$(grep -c zentools_gcp ~/.ssh/authorized_keys 2>/dev/null || echo 0)" \
-            && echo "==> 诊断: SSH 成功" || echo "==> 诊断: SSH 失败(见上方具体错误)"
+            && echo "==> 诊断: SSH 成功" || echo "==> 诊断: SSH 失败 (GCP 步随后会失败：需先在 GCP VM 写入部署公钥 zentools_gcp)"
           rm -f /tmp/gcp_key
 
       - name: rsync 推送到谷歌云 GCP（海外节点，push 即实时同步）
         if: ${{ env.GCP_SSH_KEY != '' }}
-        uses: easingthemes/ssh-deploy@v5.1.0
+        uses: easingthemes/ssh-deploy@v6.0.3
         with:
           SSH_PRIVATE_KEY: ${{ secrets.GCP_SSH_KEY }}
           REMOTE_HOST: ${{ secrets.GCP_HOST }}
@@ -158,20 +158,20 @@ jobs:
             test -f guides/geo-generative-engine-optimization.html && echo "OK GEO 指南页" || echo "WARN GEO 指南页缺失"
             # 关闭原先「VM 内每 10 分钟 git reset」的轮询定时器，避免它把 rsync 的新文件 revert 回旧提交
             systemctl disable --now zentools-sync.timer 2>/dev/null || true
-            # 源站注入 HTML 缓存头（就地注入，保留 certbot SSL；sudo 不可用则降级）
+            # 源站注入 HTML 缓存头（server 级 add_header；sudo 不可用则降级；注入后校验生效）
             NG=/etc/nginx/sites-available/zentools
-            if [ -f "$NG" ] && ! grep -q 'expires 1h' "$NG"; then
+            if [ -f "$NG" ] && ! grep -q 'max-age=3600' "$NG"; then
               sudo cp "$NG" /tmp/nginx.inject.bak 2>/dev/null || cp "$NG" /tmp/nginx.inject.bak 2>/dev/null || true
-              sudo sed -i 's#location / {#location / {\n    expires 1h;\n    add_header Cache-Control "public";#' "$NG" 2>/dev/null || sed -i 's#location / {#location / {\n    expires 1h;\n    add_header Cache-Control "public";#' "$NG" 2>/dev/null || true
-              if sudo /usr/sbin/nginx -t >/dev/null 2>&1 || /usr/sbin/nginx -t >/dev/null 2>&1; then
+              sudo sed -i '/^[[:space:]]*server[[:space:]]*{/a\add_header Cache-Control "public, max-age=3600";' "$NG" 2>/dev/null || sed -i '/^[[:space:]]*server[[:space:]]*{/a\add_header Cache-Control "public, max-age=3600";' "$NG" 2>/dev/null || true
+              if grep -q 'max-age=3600' "$NG" && { sudo /usr/sbin/nginx -t >/dev/null 2>&1 || /usr/sbin/nginx -t >/dev/null 2>&1; }; then
                 if sudo systemctl reload nginx >/dev/null 2>&1 || systemctl reload nginx >/dev/null 2>&1; then
                   echo "OK GCP nginx reloaded (HTML 缓存头已生效)"
                 else
-                  echo "WARN GCP reload 失败（可能无 sudo 权限）"
+                  echo "FAIL GCP reload 失败（可能无 sudo 权限）"; exit 1
                 fi
               else
                 sudo cp /tmp/nginx.inject.bak "$NG" 2>/dev/null || true
-                echo "WARN GCP nginx -t 失败，已回退"
+                echo "FAIL GCP 注入未生效或 nginx -t 失败，已回退"; exit 1
               fi
             elif [ -f "$NG" ]; then
               echo "INFO GCP 已注入缓存头，跳过"
