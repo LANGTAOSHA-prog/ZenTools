@@ -583,6 +583,50 @@
     .dark .skeleton { background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%); background-size: 200% 100%; }
     @keyframes skel-load { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
+    /* ===== 套件区块 (TinyWow-style Suite) ===== */
+    .suite-section { max-width:1200px; margin:0 auto; padding:46px 24px 6px; }
+    .suite-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:16px; }
+    .suite-card {
+      position:relative; overflow:hidden; display:flex; flex-direction:column; gap:10px;
+      padding:22px; border-radius:var(--zen-radius-card);
+      background:var(--zen-bg-card); border:1px solid var(--zen-border);
+      transition:transform .2s, border-color .2s, box-shadow .2s; text-decoration:none;
+    }
+    .suite-card:hover { transform:translateY(-4px); border-color:rgba(0,102,255,.3); box-shadow:0 14px 40px rgba(0,0,0,.10); }
+    .suite-card .sc-icon { width:46px;height:46px;border-radius:14px; display:flex;align-items:center;justify-content:center; font-size:22px; font-weight:700; }
+    .suite-card .sc-name { font-size:17px;font-weight:700;color:var(--zen-text-main); }
+    .suite-card .sc-count { font-size:12px;color:var(--zen-text-placeholder); }
+    .suite-card .sc-desc { font-size:13px;color:var(--zen-text-sub);line-height:1.6; flex:1; }
+    .suite-card .sc-link { font-size:13px;font-weight:600;color:var(--zen-primary); display:inline-flex;align-items:center;gap:4px; }
+
+    /* ===== 分类营销化：slogan + 主打工具 ===== */
+    .cat-slogan { font-size:13px;color:var(--zen-text-sub); margin:-4px 0 14px; padding-left:2px; line-height:1.5; }
+    .cat-featured { display:inline-flex;align-items:center;gap:8px; margin-bottom:16px; padding:7px 14px; border-radius:999px; background:rgba(0,102,255,.07); border:1px solid rgba(0,102,255,.18); text-decoration:none; }
+    .cat-featured .cf-badge { font-size:11px;font-weight:700;color:#fff;background:var(--zen-primary);padding:2px 9px;border-radius:999px; }
+    .cat-featured .cf-name { font-size:13px;font-weight:600;color:var(--zen-text-main); }
+    .cat-featured .cf-go { color:var(--zen-primary);font-weight:700; }
+
+    /* ===== 精选推荐（可筛选，TinyWow Most Popular） ===== */
+    .pop-section { max-width:1200px;margin:0 auto;padding:8px 24px 0; }
+    .pop-tabs { display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 22px; }
+    .pop-tab { font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color:var(--zen-text-sub);cursor:pointer;transition:.18s; }
+    .pop-tab:hover { border-color:rgba(0,102,255,.3);color:var(--zen-text-main); }
+    .pop-tab.active { background:var(--zen-gradient);color:#fff;border-color:transparent; }
+    .pop-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px; }
+    .pop-card { display:flex;flex-direction:column;gap:9px;padding:18px;border-radius:var(--zen-radius-card);background:var(--zen-bg-card);border:1px solid var(--zen-border);transition:transform .2s,border-color .2s; text-decoration:none; }
+    .pop-card:hover { transform:translateY(-4px);border-color:rgba(0,102,255,.3); }
+    .pop-card .pc-top { display:flex;align-items:center;gap:10px; }
+    .pop-card .pc-icon { font-size:22px; }
+    .pop-card .pc-name { font-size:14px;font-weight:700;color:var(--zen-text-main);flex:1; }
+    .pop-card .pc-cat { font-size:10.5px;font-weight:600;padding:3px 9px;border-radius:999px; white-space:nowrap; }
+    .pop-card .pc-desc { font-size:12px;color:var(--zen-text-sub);line-height:1.6;flex:1; min-height:34px; }
+
+    @media (max-width:900px){
+      .suite-grid{grid-template-columns:repeat(2,1fr);}
+      .pop-grid{grid-template-columns:repeat(2,1fr);}
+      .pop-tabs{margin:6px 0 16px;}
+    }
+
     /* ===== 响应式 ===== */
     @media (max-width: 900px) {
       .tools-mini-grid { grid-template-columns: repeat(2, 1fr); }
@@ -735,6 +779,12 @@
       </div>
     </div>
 
+    <!-- ===== 套件浏览（TinyWow-style Suite） ===== -->
+    <section class="suite-section">
+      <div class="section-head reveal"><span class="section-eyebrow">🧰</span><h2 data-i18n-page="suiteTitle">按套件浏览</h2></div>
+      <div class="suite-grid" id="suiteGrid"></div>
+    </section>
+
     <!-- ===== 工具分类 ===== -->
     <div id="tools">
       <!-- 场景快捷入口 -->
@@ -763,6 +813,13 @@
           </a>
         </div>
       </div>
+      <!-- ===== 精选推荐（可筛选） ===== -->
+      <section class="pop-section" id="popularSection">
+        <div class="section-head reveal"><span class="section-eyebrow">🔥</span><h2 data-i18n-page="popularTitle">精选推荐</h2></div>
+        <div class="pop-tabs" id="popTabs"></div>
+        <div class="pop-grid" id="popGrid"></div>
+      </section>
+
       <div id="toolsContainer"></div>
     </div>
 
@@ -829,7 +886,22 @@
         scMedia: '自媒体素材', scMediaSub: '封面 · 配图 · 剪辑 · 去背景',
         scResume: '简历 PDF', scResumeSub: '合并 · 压缩 · 转 Word',
         scFrontend: '前端开发工具', scFrontendSub: 'JSON · 格式化 · 编码',
-        scThesis: '学生论文格式处理', scThesisSub: '页码 · 页眉 · 排版'
+        scThesis: '学生论文格式处理', scThesisSub: '页码 · 页眉 · 排版',
+        suiteTitle: '按套件浏览', popularTitle: '精选推荐', popAll: '全部',
+        catSlogan: {
+          'PDF工具':'合并 · 拆分 · 压缩 · 转格式，文档处理一站搞定',
+          '图片工具':'压缩 · 去背景 · 格式转换 · AI 增强',
+          '视频工具':'压缩 · 剪辑 · 转格式 · 提取音频',
+          '音频工具':'格式转换 · 剪辑 · 提取',
+          '开发工具':'JSON · 编码 · 格式化 · 转换，开发者必备',
+          '文本工具':'文本处理 · 统计 · 编码与转换',
+          'AI工具':'本地运行的 AI 写作与图像处理',
+          '金融工具':'汇率换算等金融实用工具',
+          'SEO工具':'站点与内容 SEO 优化',
+          '生活工具':'日常实用小工具',
+          '设计工具':'设计相关实用工具',
+          '办公工具':'办公效率小工具'
+        }
       },
       en: {
         pageTitle: 'ZenTools - Professional Online Tools',
@@ -850,7 +922,22 @@
         scMedia: 'Creator Kit', scMediaSub: 'Cover · Art · Edit · BG remove',
         scResume: 'Resume PDF', scResumeSub: 'Merge · Compress · to Word',
         scFrontend: 'Frontend Dev', scFrontendSub: 'JSON · Format · Encode',
-        scThesis: 'Thesis Format', scThesisSub: 'Page · Header · Layout'
+        scThesis: 'Thesis Format', scThesisSub: 'Page · Header · Layout',
+        suiteTitle: 'Browse by Suite', popularTitle: "Editor's Picks", popAll: 'All',
+        catSlogan: {
+          'PDF工具':'Merge · Split · Compress · Convert, all in one',
+          '图片工具':'Compress · BG remove · Convert · AI enhance',
+          '视频工具':'Compress · Trim · Convert · Extract audio',
+          '音频工具':'Convert · Trim · Extract',
+          '开发工具':'JSON · Encode · Format · Convert for devs',
+          '文本工具':'Text process · Count · Encode & convert',
+          'AI工具':'Local AI writing & image tools',
+          '金融工具':'Currency & finance utilities',
+          'SEO工具':'SEO tools for site & content',
+          '生活工具':'Everyday handy utilities',
+          '设计工具':'Design utilities',
+          '办公工具':'Office productivity tools'
+        }
       },
       ja: {
         pageTitle: 'ZenTools - プロフェッショナルオンラインツール',
@@ -871,7 +958,22 @@
         scMedia: 'メディア素材', scMediaSub: '表紙 · 挿絵 · 編集 · 背景除去',
         scResume: '履歴書PDF', scResumeSub: '結合 · 圧縮 · Word変換',
         scFrontend: 'フロント開発', scFrontendSub: 'JSON · 整形 · 符号',
-        scThesis: '論文フォーマット', scThesisSub: 'ページ · ヘッダ · レイアウト'
+        scThesis: '論文フォーマット', scThesisSub: 'ページ · ヘッダ · レイアウト',
+        suiteTitle: 'スイート別', popularTitle: 'おすすめ', popAll: 'すべて',
+        catSlogan: {
+          'PDF工具':'結合・分割・圧縮・変換を一括',
+          '图片工具':'圧縮・背景除去・変換・AI強化',
+          '视频工具':'圧縮・編集・変換・音声抽出',
+          '音频工具':'変換・編集・抽出',
+          '开发工具':'JSON・符号・整形・変換',
+          '文本工具':'テキスト処理・集計・符号変換',
+          'AI工具':'ローカルAI執筆・画像ツール',
+          '金融工具':'為替・金融ユーティリティ',
+          'SEO工具':'サイト・コンテンツSEO',
+          '生活工具':'日常の便利ツール',
+          '设计工具':'デザインツール',
+          '办公工具':'オフィス効率ツール'
+        }
       },
       vi: {
         pageTitle: 'ZenTools - Nền tảng công cụ trực tuyến',
@@ -892,7 +994,22 @@
         scMedia: 'Nguyên liệu Media', scMediaSub: 'Bìa · Ảnh · Dựng · Xoá nền',
         scResume: 'CV PDF', scResumeSub: 'Gộp · Nén · sang Word',
         scFrontend: 'Dev Frontend', scFrontendSub: 'JSON · Format · Encode',
-        scThesis: 'Định dạng luận văn', scThesisSub: 'Số trang · Đầu trang · Bố cục'
+        scThesis: 'Định dạng luận văn', scThesisSub: 'Số trang · Đầu trang · Bố cục',
+        suiteTitle: 'Theo bộ công cụ', popularTitle: 'Được chọn', popAll: 'Tất cả',
+        catSlogan: {
+          'PDF工具':'Gộp · Tách · Nén · Chuyển đổi',
+          '图片工具':'Nén · Xoá nền · Chuyển đổi · AI',
+          '视频工具':'Nén · Cắt · Chuyển đổi · Tách audio',
+          '音频工具':'Chuyển đổi · Cắt · Trích',
+          '开发工具':'JSON · Mã hoá · Định dạng · Chuyển',
+          '文本工具':'Xử lý · Đếm · Mã hoá văn bản',
+          'AI工具':'AI viết & ảnh chạy local',
+          '金融工具':'Tiền tệ & tài chính',
+          'SEO工具':'SEO site & nội dung',
+          '生活工具':'Tiện ích hàng ngày',
+          '设计工具':'Công cụ thiết kế',
+          '办公工具':'Công cụ văn phòng'
+        }
       }
     };
   </script>
@@ -1044,12 +1161,17 @@
           const catName = tCat(cats, catsEn, catsJa, catsVi, lang, cats.indexOf(cat));
           const slug = catSlug[cat];
           const catHref = slug ? '/' + slug + '/' : '/tools.html';
+          const slogan = (dict.catSlogan && dict.catSlogan[cat]) ? dict.catSlogan[cat] : '';
+          const feat = tools.find(t => t.featured);
+          const featHtml = feat ? `<a class="cat-featured" href="${feat.url}"><span class="cf-badge">★ 主打</span><span class="cf-name">${tName(feat, lang)}</span><span class="cf-go">→</span></a>` : '';
           return `<div class="cat-section">
             <a href="${catHref}" class="cat-header" style="color:inherit;text-decoration:none;">
               <div class="cat-icon" style="background:${cc.bg};color:${cc.color}">${getCatIcon(cat)}</div>
               <span class="cat-name">${catName}</span>
               <span class="cat-count">${tools.length} ${dict.toolCount}</span>
             </a>
+            ${slogan ? `<div class="cat-slogan">${slogan}</div>` : ''}
+            ${featHtml}
             <div class="tools-mini-grid">
               ${tools.slice(0, 8).map(t => `
                 <a class="mini-card" href="${t.url}">
@@ -1064,6 +1186,8 @@
         }).join('');
       }
 
+      renderSuite(data, lang);
+      renderPopular(data, lang);
       setTimeout(() => {
         document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
           el.classList.remove('visible');
@@ -1073,6 +1197,87 @@
           obs.observe(el);
         });
       }, 100);
+    }
+
+
+    // ===== 套件区块渲染（TinyWow-style Suite） =====
+    const SUITES = [
+      { cat: 'PDF工具',    icon: 'PDF', desc: '合并 · 拆分 · 压缩 · 转格式' },
+      { cat: '图片工具',   icon: 'IMG', desc: '压缩 · 去背景 · 格式转换 · AI 增强' },
+      { cat: 'AI工具',     icon: 'AI',  desc: '本地运行的 AI 写作与图像处理' },
+      { cat: '视频工具',   icon: '▶',  desc: '压缩 · 剪辑 · 转格式 · 提取音频' },
+      { cat: '开发工具',   icon: '</>', desc: 'JSON · 编码 · 格式化 · 转换' },
+      { cat: '文本工具',   icon: 'T',   desc: '文本处理 · 统计 · 编码与转换' }
+    ];
+    function renderSuite(data, lang) {
+      const grid = document.getElementById('suiteGrid');
+      if (!grid) return;
+      const cats = data.categories || [];
+      const catsEn = data.categories__en || [];
+      const grouped = {};
+      (data.tools || []).forEach(t => { const c = t.category || '其他'; (grouped[c] = grouped[c] || []).push(t); });
+      let html = '';
+      SUITES.forEach(s => {
+        const idx = cats.indexOf(s.cat);
+        const name = (lang === 'en' && catsEn[idx]) ? catsEn[idx] : s.cat;
+        const count = (grouped[s.cat] || []).length;
+        const cc = catColors[s.cat] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
+        const slug = catSlug[s.cat];
+        const href = slug ? '/' + slug + '/' : '/tools.html';
+        html += '<a class="suite-card" href="' + href + '">'
+          + '<div class="sc-icon" style="background:' + cc.bg + ';color:' + cc.color + '">' + s.icon + '</div>'
+          + '<div class="sc-name">' + name + '</div>'
+          + '<div class="sc-count">' + (count || 0) + ' ' + (getDict(lang).toolCount || '个工具') + '</div>'
+          + '<div class="sc-desc">' + s.desc + '</div>'
+          + '<div class="sc-link">查看全部 →</div>'
+          + '</a>';
+      });
+      grid.innerHTML = html;
+    }
+
+    // ===== 精选推荐（可筛选，基于 featured） =====
+    function renderPopular(data, lang) {
+      const tabsEl = document.getElementById('popTabs');
+      const gridEl = document.getElementById('popGrid');
+      if (!tabsEl || !gridEl) return;
+      const dict = getDict(lang);
+      const tools = (data.tools || []).filter(t => t.featured);
+      const cats = data.categories || [];
+      const catsEn = data.categories__en || [];
+      const catsJa = data.categories__ja || [];
+      const catsVi = data.categories__vi || [];
+      const catLabel = (c) => {
+        const i = cats.indexOf(c);
+        if (lang === 'en' && catsEn[i]) return catsEn[i];
+        if (lang === 'ja' && catsJa[i]) return catsJa[i];
+        if (lang === 'vi' && catsVi[i]) return catsVi[i];
+        return c;
+      };
+      const usedCats = [];
+      cats.forEach(c => { if (tools.some(t => t.category === c)) usedCats.push(c); });
+      let tabs = '<button class="pop-tab active" data-cat="all">' + (dict.popAll || '全部') + '</button>';
+      usedCats.forEach(c => { tabs += '<button class="pop-tab" data-cat="' + c + '">' + catLabel(c) + '</button>'; });
+      tabsEl.innerHTML = tabs;
+      function paint(cat) {
+        const list = cat === 'all' ? tools : tools.filter(t => t.category === cat);
+        let h = '';
+        list.slice(0, 12).forEach(t => {
+          const cc = catColors[t.category] || { color: '#6b7a9f', bg: 'rgba(107,122,159,.12)' };
+          h += '<a class="pop-card" href="' + t.url + '" data-cat="' + t.category + '">'
+            + '<div class="pc-top"><span class="pc-icon">' + (t.icon || '🔧') + '</span>'
+            + '<span class="pc-name">' + tName(t, lang) + '</span>'
+            + '<span class="pc-cat" style="color:' + cc.color + ';background:' + cc.bg + '">' + catLabel(t.category) + '</span></div>'
+            + '<div class="pc-desc">' + tDesc(t, lang) + '</div></a>';
+        });
+        gridEl.innerHTML = h;
+      }
+      paint('all');
+      tabsEl.addEventListener('click', function(e) {
+        const b = e.target.closest('.pop-tab'); if (!b) return;
+        tabsEl.querySelectorAll('.pop-tab').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        paint(b.getAttribute('data-cat'));
+      });
     }
 
     async function loadAndRender(lang) {
