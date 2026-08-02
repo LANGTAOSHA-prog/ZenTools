@@ -1,432 +1,839 @@
 <!DOCTYPE html>
+
 <html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
+
+<head><!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+
+
+  gtag('config', 'G-V3MP20S9Z3');
+
+</script>
+
+
+
+  <meta name="theme-color" content="#0066FF">
+
+<meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>图片�?PDF - 免费在线工具 | ZenTools</title>
-  <meta name="description" content="将多张图片按顺序合成�?PDF 文件，免费在线使用，本地处理保护隐私�? />
-  <meta name="keywords" content="图片转PDF,JPG转PDF,PNG转PDF,在线PDF工具,ZenTools" />
-  <link rel="canonical" href="https://langtaosha-prog.github.io/ZenTools/pdf/image-to-pdf.html" />
+
+  <title>PDF签名 - 免费在线工具 | ZenTools</title>
+
+  <script src="/assets/js/anti-crash.min.js"></script>
+
+  <meta property="og:title" content="PDF签名 - 免费在线工具 | ZenTools" />
+
+  <meta property="og:description" content="为 PDF 添加电子签名" />
+
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+
+  <meta property="og:url" content="https://zentools.xyz/pdf/pdf-sign.html" />
+
+  <meta property="og:type" content="website" />
+
+  <meta property="og:locale" content="zh_CN" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="twitter:title" content="PDF签名 - Free Online Tool | ZenTools" />
+
+  <meta name="twitter:description" content="Add electronic signature to PDF" />
+
+  <meta name="description" content="为 PDF 添加电子签名，免费在线使用，本地处理保护隐私，无需上传服务器。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。" />
+
+  <meta name="keywords" content="PDF签名,PDF电子签名,PDF签章,在线PDF工具,ZenTools,PDF签名在线使用,PDF签名怎么用" />
+
+  <link rel="canonical" href="https://zentools.xyz/pdf/pdf-sign.html" />
+
+  <link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" href="/assets/css/tool-ui.min.css" />
 
   <style>
+
     :root {
-      --bg:      #06070d;
-      --glass:   rgba(255,255,255,0.04);
-      --glass-b: rgba(255,255,255,0.08);
-      --cyan:    #00e5ff;
-      --purple:  #a855f7;
-      --pink:    #f43f5e;
-      --text:    #f0f4ff;
-      --muted:   #6b7a9f;
-      --border:  rgba(255,255,255,0.07);
-      --border-h:rgba(0,229,255,0.35);
-      --glow-c:  0 0 40px rgba(0,229,255,0.18);
-      --r:       20px;
+
+        --zen-primary: #0066FF;
+
+        --zen-secondary: #00C2B8;
+
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+
+        --zen-success: #22C55E;
+
+        --zen-warning: #F97316;
+
+        --zen-danger: #EF4444;
+
+        --zen-text-main: #111827;
+
+        --zen-text-sub: #4B5563;
+
+        --zen-text-placeholder: #9CA3AF;
+
+        --zen-bg-base: #F9FAFB;
+
+        --zen-bg-card: #FFFFFF;
+
+        --zen-border: #E5E7EB;
+
+        --zen-radius-base: 12px;
+
+        --zen-radius-card: 16px;
+
+        --zen-radius-btn: 8px;
+
+        --zen-radius-tag: 6px;
+
+      }
+
+      .dark {
+
+        --zen-text-main: #F9FAFB;
+
+        --zen-text-sub: #D1D5DB;
+
+        --zen-text-placeholder: #64748B;
+
+        --zen-bg-base: #0F172A;
+
+        --zen-bg-card: #1E293B;
+
+        --zen-border: #334155;
+
+      }
+
     }
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
 
-    body {
-      font-family: 'Inter', 'Microsoft YaHei', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
+
+    .sign-area { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+
+    .sign-canvas-wrap { flex: 1; min-width: 300px; }
+
+    .sign-canvas-wrap canvas { width: 100%; height: 180px; border: 2px dashed var(--zen-border); border-radius: 12px; background: rgba(255,255,255,0.03); cursor: crosshair; touch-action: none; }
+
+    .sign-preview img { max-height: 100px; border-radius: 8px; border: 1px solid var(--zen-border); margin-top: 8px; }
+
+    .sign-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+    .sign-actions button { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--zen-border); background: var(--zen-bg-card); color: var(--zen-text-main); cursor: pointer; font-size: 13px; }
+
+    .sign-actions button:hover { background: var(--glass-b); }
+
+    .download-btn { display: none; margin-top: 24px; padding: 14px 32px; border-radius: 12px; border: none; background: linear-gradient(135deg, var(--zen-secondary), var(--zen-danger)); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+
+    .download-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+
+  .bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
 
     a { color: inherit; text-decoration: none; }
 
-    body::before {
-      content: ''; position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 1;
-    }
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
 
-    .blob { position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
-    .blob-1 { width: 600px; height: 600px; background: var(--cyan);   top: -150px; right: -100px; }
-    .blob-2 { width: 500px; height: 500px; background: var(--purple); bottom: -100px; left: -100px; }
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
 
-    .z-wrap { position: relative; z-index: 2; }
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      backdrop-filter: blur(24px) saturate(180%);
-      background: rgba(6,7,13,0.75);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-    }
-    .nav-inner {
-      max-width: 1200px; margin: auto; height: 64px;
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    }
-    .logo {
-      font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .logo span { font-weight: 300; font-size: 13px; margin-left: 6px; vertical-align: middle; -webkit-text-fill-color: var(--muted); color: var(--muted); }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
-    .nav-links a {
-      padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 500;
-      color: var(--muted); transition: color 0.2s, background 0.2s;
-    }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); background: var(--glass-b); }
+    .logo-text-blue { color: var(--zen-primary); }
 
-    .page-header {
-      max-width: 1200px; margin: 0 auto;
-      padding: 72px 24px 56px;
-    }
-    .breadcrumb {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--muted); margin-bottom: 28px;
-    }
-    .breadcrumb a { color: var(--muted); transition: color 0.2s; }
-    .breadcrumb a:hover { color: var(--cyan); }
-    .breadcrumb-sep { opacity: 0.3; }
-    .breadcrumb .cur { color: var(--cyan); }
+    .logo-text-teal { color: var(--zen-secondary); }
 
-    .page-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--cyan); margin-bottom: 14px;
-    }
-    .page-header h1 {
-      font-size: clamp(34px, 5vw, 60px); font-weight: 900;
-      letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
-    }
-    .page-header h1 .grad {
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-    }
-    .page-header p { color: var(--muted); font-size: 17px; line-height: 1.75; max-width: 560px; }
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
 
-    .tool-box {
-      max-width: 900px; margin: 0 auto 48px;
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: var(--r); padding: 36px;
-      backdrop-filter: blur(8px);
-    }
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+
     .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--muted); font-size: 15px; margin-bottom: 24px; }
 
-    .file-input-row {
-      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
-    }
-    .file-input-row input[type="file"] {
-      flex: 1; min-width: 280px;
-      padding: 14px 18px; border: 1px dashed rgba(255,255,255,0.15);
-      border-radius: 12px; background: rgba(255,255,255,0.02);
-      color: var(--muted); font-size: 14px; cursor: pointer;
-    }
-    .file-input-row input[type="file"]::file-selector-button {
-      border: none; background: var(--glass-b); color: var(--text);
-      padding: 8px 16px; border-radius: 8px; margin-right: 12px;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .file-input-row input[type="file"]::file-selector-button:hover { background: rgba(255,255,255,0.12); }
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
 
-    .btn-primary {
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 14px 32px; border-radius: 12px; border: none;
-      background: linear-gradient(135deg, var(--cyan), var(--purple));
-      color: #000; font-size: 16px; font-weight: 700; cursor: pointer;
-      transition: opacity 0.2s, transform 0.2s;
-    }
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+
     .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
     .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-    .status {
-      margin-top: 16px; color: var(--muted); font-size: 14px;
-      min-height: 22px;
-    }
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
 
-    .preview {
-      margin-top: 32px;
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-      gap: 12px;
-    }
-    .thumb-card {
-      background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-      border-radius: 10px; padding: 8px; position: relative;
-      transition: transform 0.2s;
-    }
-    .thumb-card:hover { transform: translateY(-4px); }
-    .thumb-card img {
-      width: 100%; border-radius: 6px; display: block;
-    }
-    .thumb-card .num {
-      position: absolute; top: 4px; left: 4px;
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--cyan); color: #000;
-      font-size: 11px; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .thumb-card .remove {
-      position: absolute; top: 4px; right: 4px;
-      width: 22px; height: 22px; border-radius: 50%;
-      background: var(--pink); color: #fff;
-      font-size: 13px; font-weight: 700;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: background 0.2s;
-    }
-    .thumb-card .remove:hover { background: #e11d48; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
 
-    .order-hint {
-      margin-top: 16px; padding: 12px 16px; border-radius: 10px;
-      background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.15);
-      color: var(--muted); font-size: 13px;
-    }
+    .section-head { text-align: center; margin-bottom: 36px; }
 
-    .section { max-width: 1200px; margin: 0 auto; padding: 64px 24px; }
-    .section-head { margin-bottom: 40px; }
-    .section-eyebrow {
-      display: inline-block; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px;
-    }
-    .section-head h2 { font-size: clamp(24px, 3vw, 36px); font-weight: 800; }
+    .section-head h2 { font-size: 26px; font-weight: 700; }
 
     .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card {
-      background: var(--glass); border: 1px solid var(--border);
-      border-radius: 16px; padding: 24px; backdrop-filter: blur(8px);
-    }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--cyan); }
-    .info-card p { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-    footer { border-top: 1px solid var(--border); padding: 40px 24px; text-align: center; }
-    .footer-inner { max-width: 1200px; margin: auto; }
-    .footer-logo {
-      font-size: 20px; font-weight: 900; letter-spacing: -0.5px;
-      background: linear-gradient(90deg, var(--cyan), var(--purple));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-      display: inline-block; margin-bottom: 16px;
-    }
-    .footer-links { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .footer-links a {
-      color: var(--muted); font-size: 14px; padding: 6px 12px;
-      border-radius: 8px; transition: color 0.2s, background 0.2s;
-    }
-    .footer-links a:hover { color: var(--text); background: var(--glass-b); }
-    .footer-copy { color: var(--muted); font-size: 13px; }
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
 
-    @media (max-width: 1024px) { .info-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 640px) {
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+
+      .hamburger { display: inline-flex !important; }
+
+      .page-hero { padding-top: 120px !important; }
+
       .info-grid { grid-template-columns: 1fr; }
+
       .tool-box { padding: 24px; }
+
     }
-  </style>
+
+    @media (max-width: 480px) {
+
+      .nav-inner { height: 60px; gap: 8px; }
+
+      .page-hero { padding-top: 100px !important; }
+
+    }
+
+</style>
+
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+
+     crossorigin="anonymous"></script>
+
+
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "PDF 工具", "item": "https://zentools.xyz/pdf/"}, {"@type": "ListItem", "position": 4, "name": "PDF 签名"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "PDF签名 - ZenTools", "url": "https://zentools.xyz/pdf/pdf-sign.html", "description": "为 PDF 添加电子签名", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-18", "dateModified": "2026-07-20"}</script>
+
 </head>
+
 <body>
 
-  <div class="blob blob-1"></div>
-  <div class="blob blob-2"></div>
+<div class="z-wrap">
 
-  <div class="z-wrap">
+  <nav class="site-nav">
 
-    <nav>
-      <div class="nav-inner">
-        <a class="logo" href="/">ZenTools<span>2.0</span></a>
-        <div class="nav-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/tools.html">全部工具</a>
-        </div>
+    <div class="container nav-inner">
+
+      <div class="brand-logo">
+
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+
+        </a>
+
       </div>
-    </nav>
 
-    <div class="page-header reveal">
-      <div class="breadcrumb">
-        <a href="/">首页</a>
-        <span class="breadcrumb-sep">/</span>
-        <a href="/pdf/">PDF工具</a>
-        <span class="breadcrumb-sep">/</span>
-        <span class="cur">图片�?PDF</span>
+      <div class="nav-links">
+
+        <a href="/" data-i18n="navHome">首页</a>
+
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+
+          <option value="zh">中文</option>
+
+          <option value="en">English</option>
+
+          <option value="ja">日本語</option>
+
+          <option value="vi">Tiếng Việt</option>
+
+        </select>
+
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+
       </div>
-      <span class="page-eyebrow">PDF 工具</span>
-      <h1><span class="grad">图片�?PDF</span><br />免费在线合并</h1>
-      <p>将多张图片按顺序合成为一�?PDF 文件，本地处理保护隐私，无需上传服务器�?/p>
+
     </div>
 
-    <div class="tool-box reveal">
-      <h2>选择图片文件</h2>
-      <p class="note">选择一张或多张图片，按照选择顺序合成为一�?PDF 文件�?/p>
-      <div class="file-input-row">
-        <input type="file" id="imageFiles" accept="image/*" multiple />
-        <button class="btn-primary" id="generateBtn" type="button" onclick="generatePDF()">生成 PDF</button>
-      </div>
-      <div class="order-hint">💡 提示：图片将按选择顺序排列，你可以在预览区拖拽调整顺序�?/div>
-      <div class="status" id="imgStatus"></div>
-      <div class="preview" id="imgPreview"></div>
+  </nav>
+
+  </nav>
+
+
+
+  <div class="mobile-overlay" id="mobileOverlay">
+
+    <div class="mobile-drawer" id="mobileDrawer">
+
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+
     </div>
-
-    <div class="section">
-      <div class="section-head reveal">
-        <span class="section-eyebrow">工具说明</span>
-        <h2>了解图片�?PDF 工具</h2>
-      </div>
-
-      <div class="info-grid reveal-stagger">
-        <div class="info-card">
-          <h4>隐私安全</h4>
-          <p>所有转换操作均在浏览器本地完成，文件不会上传到任何服务器，完全保护你的隐私�?/p>
-        </div>
-        <div class="info-card">
-          <h4>免费使用</h4>
-          <p>工具完全免费，无需注册账号，无文件数量限制，打开网页即可使用�?/p>
-        </div>
-        <div class="info-card">
-          <h4>自动排版</h4>
-          <p>系统会自动将每张图片适配�?A4 页面，保持图片比例，不留白边�?/p>
-        </div>
-      </div>
-    </div>
-
-    <footer>
-<section class="tool-tutorial">
-<h2>完整使用教程</h2>
-<h3>工具简介</h3>
-<p>「图片�PDF免费在线合并」是 ZenTools 提供的PDF 文档处理工具，支持 PDF、PNG 等格式，用来帮你把这类任务在浏览器里快速完成。它把原本需要安装专业桌面软件、或依赖在线服务器上传文件才能做的事，简化成打开网页即用的一步式小工具——无需安装、无需注册登录，所有处理都在你的设备本地运行，文件不会离开浏览器，因此既保护隐私，也适合在没有装专业软件的设备上应急使用。</p>
-<h3>详细操作步骤</h3><ol><li>打开「图片�PDF免费在线合并」，点击选择或拖入需要处理的 PDF 文件这一步决定输入是否正确，文件选错会白忙活，确认无误再继续。</li><li>按需设置页码范围或合并/拆分等选项参数先按默认或推荐值来，拿一个小样本试效果，满意后再批量处理。</li><li>点击开始处理，工具会在本地完成运算处理在本地完成，稍等片刻即可在预览区看到结果，可随时清空重来。</li><li>处理完成后点击下载，保存生成的 PDF处理前建议备份原文件；结果出来后先核对一遍，再决定下载或复制。</li></ol><p>整个流程可以反复操作、随时重置；养成「先小样、后批量」的习惯，能最大程度避免大文件处理出错后重来。遇到不熟悉的参数，优先用推荐值，通常已覆盖大多数日常场景。</p>
-<h3>适用场景</h3><p>当你需要快速完成「图片�PDF免费在线合并」相关的任务时，它都很顺手：比如日常办公临时要处理一批文件、自媒体或电商出图前做轻量调整、写稿或整理资料时顺手转换格式，以及在没装专业软件的电脑或手机上应急使用。因为是网页工具，换一台设备也能立刻接着用，不挑平台。</p><h3>进阶技巧</h3><p>用「图片�PDF免费在线合并」时几个小习惯能明显提效：处理大文件或批量任务前，先拿一个小样本试一遍参数；重要原文件处理前先备份，结果出来后人工核对一遍再使用；把常用的参数组合记下来，下次直接套用，省去重复设置；对画质、精度要求高的任务，适当调低压缩或放宽容差，保留更多细节。</p><h3>常见问题</h3><p><b>用「图片�PDF免费在线合并」需要联网吗？</b>不需要。处理在浏览器本地完成，文件不上传服务器，断网也能用。</p><p><b>处理结果能导出吗？</b>可以。完成后直接下载或复制结果，方便接入你后续的工作流。</p><p><b>对文件大小有限制吗？</b>没有硬性上限，但文件越大、处理越久，建议超大文件分批处理、避免卡顿。</p><h3>本地处理与隐私</h3><p>「图片�PDF免费在线合并」的所有运算都在你的浏览器本地完成，文件不会上传到任何服务器，这一点和需要把资料传到云端的在线工具完全不同：你不必担心原始图片、文档或文本在传输过程中泄露，也不依赖账号体系。对包含个人隐私或商业信息的文件来说，本地处理是最稳妥的选择。</p><h3>使用建议</h3><p>把「图片�PDF免费在线合并」当作随手可用的轻量助手最合适：它胜在快、免安装、隐私友好，但不替代专业桌面软件的全部高级功能。涉及重要数据或对外交付的成果，建议处理完后人工复核一遍再使用；把它嵌进你的日常小流程里，很多原本要开软件、等加载的零碎任务，几秒钟就能在网页里解决。</p></section>
-<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
-      <div class="footer-inner">
-        <div class="footer-logo">ZenTools</div>
-        <div class="footer-links">
-          <a href="/">首页</a>
-          <a href="/pdf/">PDF工具</a>
-          <a href="/privacy.html">隐私政策</a>
-        </div>
-        <p class="footer-copy">© 2026 ZenTools. 免费在线工具箱，持续更新中�?/p>
-      </div>
-    </footer>
 
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    let selectedFiles = [];
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
 
-    document.getElementById("imageFiles").addEventListener("change", function(e){
-      const files = Array.from(e.target.files || []);
-      selectedFiles = selectedFiles.concat(files);
-      renderThumbs();
-      this.value = "";
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>PDF 工具</div>
+
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/pdf/">PDF工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">PDF 签名</span></div>
+
+
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">PDF 签名</span></h1>
+
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">添加电子签名</p>
+
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">手写绘制签名并添加到 PDF 文件中，方便合同签署和文件确认。</p>
+
+    </div>
+
+  </section>
+
+<div class="tool-box reveal">
+
+    <h2 data-i18n="toolTitle">选择 PDF 和签名</h2>
+
+    <p class="note" data-i18n="toolNote">选择 PDF 文件，然后在下方绘制签名或上传签名图片。</p>
+
+    <div class="file-input-row"><input type="file" id="pdfInput" accept=".pdf" /></div>
+
+    <br/>
+
+    <div class="file-input-row"><input type="file" id="sigUpload" accept="image/*" /></div>
+
+    <div class="sign-area">
+
+      <div class="sign-canvas-wrap">
+
+        <canvas id="sigCanvas" width="400" height="200"></canvas>
+
+        <div class="sign-actions">
+
+          <button onclick="clearCanvas()" data-i18n="clearBtn">清除</button>
+
+          <button onclick="applySignature()" data-i18n="applyBtn">应用到 PDF</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <button class="download-btn" id="downloadBtn" onclick="downloadResult()" data-i18n="downloadBtn">📥 下载签名后的 PDF</button>
+
+  </div>
+
+  <div class="section">
+
+    <div class="section-head reveal"><span class="section-eyebrow" data-i18n="sectionEyebrow">工具说明</span><h2 data-i18n="sectionTitle">了解 PDF 签名工具</h2></div>
+
+    <div class="
+
+    
+
+    info-grid reveal-stagger">
+
+      <div class="info-card"><h4 data-i18n="info1T">隐私安全</h4><p data-i18n="info1D">所有操作在浏览器本地完成，签名和文件不会上传到任何服务器。</p></div>
+
+      <div class="info-card"><h4 data-i18n="info2T">免费使用</h4><p data-i18n="info2D">工具完全免费，无需注册账号。</p></div>
+
+      <div class="info-card"><h4 data-i18n="info3T">灵活签名</h4><p data-i18n="info3D">支持手写绘制或上传图片签名，自由调整位置和大小。</p></div>
+
+    </div>
+
+  
+
+    <div class="info-detail">
+
+      <h3 data-i18n="stepsTitle">使用步骤</h3>
+
+      <ol>
+
+      <li data-i18n="step1">选择要签名的 PDF 文件</li>
+
+      <li data-i18n="step2">绘制或上传签名图片</li>
+
+      <li data-i18n="step3">拖动签名到指定位置</li>
+
+      <li data-i18n="step4">下载已签名的 PDF 文件</li>
+
+      </ol>
+
+    </div>
+
+    <div class="info-detail">
+
+      <h3 data-i18n="noteTitle">注意事项</h3>
+
+      <ul>
+
+        <li data-i18n="note1">单文件最大支持 200MB，超过请先拆分文件</li>
+
+        <li data-i18n="note2">处理在浏览器本地完成，处理速度取决于文件大小和电脑性能</li>
+
+        <li data-i18n="note3">请勿关闭浏览器标签页直到处理完成</li>
+
+      </ul>
+
+    </div>
+
+    <div class="info-detail">
+
+      <h3 data-i18n="compatTitle">兼容性</h3>
+
+      <p data-i18n="compatDesc">推荐使用最新版 Chrome、Edge、Firefox 或 Safari 浏览器。需要启用 JavaScript。</p>
+
+    </div>
+
+    <div class="info-detail">
+
+      <h3 data-i18n="privacyTitle">隐私说明</h3>
+
+      <p data-i18n="privacyDesc">所有 PDF 处理操作均在您的浏览器本地完成，文件不会上传到任何服务器。您可以放心处理敏感或机密文档。</p>
+
+    </div>
+
+  </div>
+
+  
+
+<!-- P1-EXPAND SEO CONTENT -->
+
+<section class="section">
+
+<h2>适用场景</h2>
+
+  <p>PDF签名在 PDF 文档中添加电子签名，支持手绘签名和图片签名，适合合同签署场景。「PDF签名」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+
+<h2>适合谁使用</h2>
+
+  <p>办公行政、法务财务、师生，以及经常处理合同、论文与扫描件的人。</p>
+
+<h2>进阶技巧</h2>
+
+  <ul>
+
+<li>批量前规范命名，结果易区分</li>
+
+<li>大文件分批处理避免卡顿</li>
+
+<li>导出后核对页码与书签</li>
+
+<li>多步任务可串接使用（先压再合）</li>
+
+</ul>
+
+<h2>常见问题</h2>
+
+  <div class="faq">
+
+    <details open><summary>PDF签名主要能做什么？</summary><p>PDF签名在 PDF 文档中添加电子签名，支持手绘签名和图片签名，适合合同签署场景。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。</p></details>
+
+<details open><summary>第一次使用PDF签名要注意什么？</summary><p>打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。</p></details>
+
+<details open><summary>PDF签名处理我的文件安全吗？</summary><p>安全。PDF签名所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。</p></details>
+
+<details open><summary>PDF签名的结果怎么保存？</summary><p>处理完成后页面会提供下载或复制按钮，结果保存在你自己的设备，随时可用。</p></details>
+
+  </div>
+
+</section>
+
+<footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
+<section class="tool-tutorial">
+<h2>完整使用教程</h2>
+<h3>工具简介</h3>
+<p>「PDF 签名」是 ZenTools 提供的PDF 文档处理工具，支持 PDF 等格式，用来帮你把这类任务在浏览器里快速完成。它把原本需要安装专业桌面软件、或依赖在线服务器上传文件才能做的事，简化成打开网页即用的一步式小工具——无需安装、无需注册登录，所有处理都在你的设备本地运行，文件不会离开浏览器，因此既保护隐私，也适合在没有装专业软件的设备上应急使用。</p>
+<h3>详细操作步骤</h3><ol><li>打开「PDF 签名」，点击选择或拖入需要处理的 PDF 文件这一步决定输入是否正确，文件选错会白忙活，确认无误再继续。</li><li>按需设置页码范围或合并/拆分等选项参数先按默认或推荐值来，拿一个小样本试效果，满意后再批量处理。</li><li>点击开始处理，工具会在本地完成运算处理在本地完成，稍等片刻即可在预览区看到结果，可随时清空重来。</li><li>处理完成后点击下载，保存生成的 PDF处理前建议备份原文件；结果出来后先核对一遍，再决定下载或复制。</li></ol><p>整个流程可以反复操作、随时重置；养成「先小样、后批量」的习惯，能最大程度避免大文件处理出错后重来。遇到不熟悉的参数，优先用推荐值，通常已覆盖大多数日常场景。</p>
+<h3>本地处理与隐私</h3><p>「PDF 签名」的所有运算都在你的浏览器本地完成，文件不会上传到任何服务器，这一点和需要把资料传到云端的在线工具完全不同：你不必担心原始图片、文档或文本在传输过程中泄露，也不依赖账号体系。对包含个人隐私或商业信息的文件来说，本地处理是最稳妥的选择。</p><h3>使用建议</h3><p>把「PDF 签名」当作随手可用的轻量助手最合适：它胜在快、免安装、隐私友好，但不替代专业桌面软件的全部高级功能。涉及重要数据或对外交付的成果，建议处理完后人工复核一遍再使用；把它嵌进你的日常小流程里，很多原本要开软件、等加载的零碎任务，几秒钟就能在网页里解决。</p></section>
+<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
+
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+
+        <a href="/">首页</a>
+
+        <a href="/pdf/">PDF工具</a>
+
+        <a href="/privacy.html">隐私政策</a>
+
+      </div>
+
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools. 免费在线工具箱，持续更新中。</p>
+
+    </div>
+
+  </footer>
+
+</div>
+
+<script>
+
+window.ZT_PAGE={
+
+zh:{pageTitle:'PDF签名 - 免费在线工具 | ZenTools',navHome:'首页',navPdf:'PDF工具',navAll:'全部工具',crumbHome:'首页',crumbPdf:'PDF工具',crumbCur:'PDF 签名',eyebrow:'PDF 工具',h1Grad:'PDF 签名',h1Sub:'添加电子签名',pageDesc:'手写绘制签名并添加到 PDF 文件中，方便合同签署和文件确认。',toolTitle:'选择 PDF 和签名',toolNote:'选择 PDF 文件，然后在下方绘制签名或上传签名图片。',clearBtn:'清除',applyBtn:'应用到 PDF',downloadBtn:'📥 下载签名后的 PDF',sectionEyebrow:'工具说明',sectionTitle:'了解 PDF 签名工具',info1T:'隐私安全',info1D:'所有操作在浏览器本地完成，签名和文件不会上传到任何服务器。',info2T:'免费使用',info2D:'工具完全免费，无需注册账号。',info3T:'灵活签名',info3D:'支持手写绘制或上传图片签名，自由调整位置和大小。',footerHome:'首页',footerPdf:'PDF工具',footerPrivacy:'隐私政策',footerCopy:'© 2026 ZenTools. 免费在线工具箱，持续更新中。',statusReady:'已选择文件',statusWorking:'🔄 正在添加签名……',statusComplete:'✅ 签名添加完成！',statusError:'❌ 签名添加失败。',alertNoFile:'⚠️ 请先选择 PDF 文件',alertNoSig:'⚠️ 请先绘制或上传签名'},
+
+en:{pageTitle:'PDF Sign - Free Online Tool | ZenTools',crumbCur:'PDF Sign',h1Grad:'PDF Sign',h1Sub:'Add Electronic Signature',pageDesc:'Draw or upload your signature and add it to PDF.',clearBtn:'Clear',applyBtn:'Apply to PDF',downloadBtn:'📥 Download Signed PDF',info3T:'Flexible Signing',info3D:'Hand-draw or upload signature image.',statusReady:'File selected',statusWorking:'🔄 Adding signature…',statusComplete:'✅ Done!',alertNoFile:'⚠️ Select a PDF',alertNoSig:'⚠️ Draw or upload a signature first'},
+
+ja:{pageTitle:'PDF 署名 - 無料ツール | ZenTools',crumbCur:'PDF 署名',h1Grad:'署名',h1Sub:'電子署名を追加',pageDesc:'手書きサインや画像をPDFに追加。',clearBtn:'クリア',applyBtn:'PDFに適用',statusWorking:'🔄 署名追加中…',statusComplete:'✅ 完了！',alertNoSig:'⚠️ 署名を描くかアップロード'},
+
+vi:{pageTitle:'Ký PDF - Công cụ miễn phí | ZenTools',crumbCur:'Ký PDF',h1Grad:'Ký số',h1Sub:'Thêm chữ ký điện tử',clearBtn:'Xóa',applyBtn:'Áp dụng',statusWorking:'🔄 Đang thêm chữ ký…',statusComplete:'✅ Hoàn tất!',alertNoSig:'⚠️ Vẽ hoặc tải chữ ký lên'}
+
+};
+
+</script>
+
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+
+<script src="/assets/js/tool-ui.min.js"></script>
+
+<script>
+
+let signedBytes=null;let sigDataURL=null;
+
+function getDict(){const l=localStorage.getItem('zentools_lang')||'zh';return(window.ZT_PAGE||{})[l]||window.ZT_PAGE.zh;}
+
+
+
+// Canvas drawing
+
+const canvas=document.getElementById('sigCanvas');const ctx=canvas.getContext('2d');
+
+let drawing=false;ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.lineCap='round';
+
+canvas.addEventListener('mousedown',()=>{drawing=true;ctx.beginPath();});
+
+canvas.addEventListener('mousemove',(e)=>{if(!drawing)return;const r=canvas.getBoundingClientRect();ctx.lineTo(e.clientX-r.left,e.clientY-r.top);ctx.stroke();});
+
+canvas.addEventListener('mouseup',()=>{drawing=false;saveSig();});
+
+canvas.addEventListener('mouseleave',()=>{drawing=false;});
+
+// Touch support
+
+canvas.addEventListener('touchstart',(e)=>{e.preventDefault();drawing=true;const t=e.touches[0];const r=canvas.getBoundingClientRect();ctx.beginPath();ctx.moveTo(t.clientX-r.left,t.clientY-r.top);});
+
+canvas.addEventListener('touchmove',(e)=>{e.preventDefault();if(!drawing)return;const t=e.touches[0];const r=canvas.getBoundingClientRect();ctx.lineTo(t.clientX-r.left,t.clientY-r.top);ctx.stroke();});
+
+canvas.addEventListener('touchend',(e)=>{e.preventDefault();drawing=false;saveSig();});
+
+
+
+function saveSig(){sigDataURL=canvas.toDataURL('image/png');}
+
+function clearCanvas(){ctx.clearRect(0,0,canvas.width,canvas.height);sigDataURL=null;}
+
+
+
+// Upload signature
+
+document.getElementById("sigUpload").addEventListener("change",function(){
+
+  if(!this.files[0])return;const r=new FileReader();
+
+  r.onload=function(e){
+
+    const img=new Image();img.onload=function(){
+
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      const scale=Math.min(canvas.width/img.width,canvas.height/img.height)*0.8;
+
+      const x=(canvas.width-img.width*scale)/2;const y=(canvas.height-img.height*scale)/2;
+
+      ctx.drawImage(img,x,y,img.width*scale,img.height*scale);saveSig();
+
+    };img.src=e.target.result;
+
+  };r.readAsDataURL(this.files[0]);
+
+});
+
+
+
+async function applySignature(){
+
+  const file=document.getElementById("pdfInput").files[0];const status=document.getElementById("status");
+
+  const btn=document.getElementById("downloadBtn");const dict=getDict();
+
+  if(!file){status.textContent=dict.alertNoFile;return;}
+
+  if(!sigDataURL){status.textContent=dict.alertNoSig;return;}
+
+  
+
+  status.textContent=dict.statusWorking;btn.style.display="none";
+
+  try{
+
+    const bytes=await file.arrayBuffer();const pdfDoc=await PDFLib.PDFDocument.load(bytes);
+
+    const pngBytes=await fetch(sigDataURL).then(r=>r.arrayBuffer());
+
+    const pngImg=await pdfDoc.embedPng(pngBytes);
+
+    const page=pdfDoc.getPage(0);const{width,height}=page.getSize();
+
+    const sigW=width*0.4;const sigH=sigW*pngImg.height/pngImg.width;
+
+    page.drawImage(pngImg,{x:width-sigW-40,y:40,width:sigW,height:sigH});
+
+    
+
+    signedBytes=await pdfDoc.save();
+
+    status.textContent=dict.statusComplete;
+
+    btn.style.display="block";downloadResult();
+
+  }catch(err){console.error(err);status.textContent=dict.statusError;}
+
+}
+
+
+
+function downloadResult(){if(!signedBytes)return;const name=document.getElementById("pdfInput").files[0].name.replace('.pdf','')+'_签名.pdf';const blob=new Blob([signedBytes],{type:"application/pdf"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;a.click();URL.revokeObjectURL(url);}
+
+</script>
+
+
+
+<script>
+
+// Related tools — loaded from tools-data.json
+
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+
+</script>
+
+
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+
+
+<script>
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', () => {
+
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+
+  });
+
+}
+
+</script>
+
+
+
+
+
+    
+
+    
+
+    
+
+
+
+<script>
+
+// 暗黑模式切换
+
+(function() {
+
+  var savedTheme = localStorage.getItem('zentools_theme');
+
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+  var btn = document.getElementById('themeToggle');
+
+  if (btn) {
+
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+
+    btn.addEventListener('click', function() {
+
+      document.documentElement.classList.toggle('dark');
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      this.textContent = isDark ? '☀️' : '🌙';
+
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+
     });
 
-    function renderThumbs(){
-      const preview = document.getElementById("imgPreview");
-      preview.innerHTML = "";
-      selectedFiles.forEach((file, i) => {
-        const reader = new FileReader();
-        reader.onload = function(ev){
-          const card = document.createElement("div");
-          card.className = "thumb-card";
-          const img = document.createElement("img");
-          img.src = ev.target.result;
-          img.alt = file.name;
-          const num = document.createElement("div");
-          num.className = "num";
-          num.textContent = i + 1;
-          const remove = document.createElement("div");
-          remove.className = "remove";
-          remove.textContent = "×";
-          remove.title = "移除";
-          remove.onclick = function(){
-            selectedFiles.splice(i, 1);
-            renderThumbs();
-          };
-          card.appendChild(num); card.appendChild(img); card.appendChild(remove);
-          preview.appendChild(card);
-        };
-        reader.readAsDataURL(file);
-      });
+  }
+
+})();
+
+
+
+// 移动端侧滑
+
+(function() {
+
+  var overlay = document.getElementById('mobileOverlay');
+
+  var hamBtn = document.getElementById('hamburgerBtn');
+
+  var closeBtn = document.getElementById('mobileClose');
+
+  if (!hamBtn || !overlay) return;
+
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+
+  hamBtn.addEventListener('click', function(e) {
+
+    e.stopPropagation();
+
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+
     }
 
-    function moveThumb(fromIdx, toIdx){
-      const item = selectedFiles.splice(fromIdx, 1)[0];
-      selectedFiles.splice(toIdx, 0, item);
-      renderThumbs();
-    }
+  });
 
-    window.generatePDF = async function generatePDF(){
-      if(selectedFiles.length === 0){ alert("请先选择至少一张图片�?); return; }
-      if(!window.jspdf || !window.jspdf.jsPDF){ alert("转换组件尚未加载完成，请刷新页面或检查网络�?); return; }
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
 
-      const status = document.getElementById("imgStatus");
-      const btn = document.getElementById("generateBtn");
-      status.textContent = "正在生成 PDF，请稍候…�?;
-      btn.disabled = true;
+  overlay.addEventListener('click', function(e) {
 
-      try{
-        const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
-        const pageWidth = pdf.internal.pageSize.getWidth();
-        const pageHeight = pdf.internal.pageSize.getHeight();
+    var drawer = document.getElementById('mobileDrawer');
 
-        for(let i = 0; i < selectedFiles.length; i++){
-          const imgData = await readFileAsDataURL(selectedFiles[i]);
-          const img = await loadImage(imgData);
-          const margin = 8;
-          const maxWidth = pageWidth - margin * 2;
-          const maxHeight = pageHeight - margin * 2;
-          const ratio = Math.min(maxWidth / img.width, maxHeight / img.height);
-          const width = img.width * ratio;
-          const height = img.height * ratio;
-          const x = (pageWidth - width) / 2;
-          const y = (pageHeight - height) / 2;
-          if(i > 0) pdf.addPage();
-          const formatType = selectedFiles[i].type && selectedFiles[i].type.toLowerCase().includes("png") ? "PNG" : "JPEG";
-          pdf.addImage(imgData, formatType, x, y, width, height);
-        }
-        pdf.save("ZenTools-图片转PDF.pdf");
-        status.textContent = "PDF 已生成并开始下载�?;
-      }catch(err){
-        console.error(err);
-        status.textContent = "处理失败，请更换文件或刷新页面后重试�?;
-      }finally{
-        btn.disabled = false;
-      }
-    };
+    if (drawer && !drawer.contains(e.target)) closeMenu();
 
-    function readFileAsDataURL(file){
-      return new Promise(function(resolve, reject){
-        const reader = new FileReader();
-        reader.onload = function(e){ resolve(e.target.result); };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
+  });
 
-    function loadImage(src){
-      return new Promise(function(resolve, reject){
-        const img = new Image();
-        img.onload = function(){ resolve(img); };
-        img.onerror = reject;
-        img.src = src;
-      });
-    }
+  document.addEventListener('keydown', function(e) {
 
-    // Scroll reveal
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }
-      });
-    }, { threshold: 0.08 });
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => observer.observe(el));
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
 
-    // Blob animation
-    let t = 0;
-    const b1 = document.querySelector('.blob-1');
-    const b2 = document.querySelector('.blob-2');
-    function anim(){
-      t += 0.003;
-      if(b1) b1.style.transform = `translate(${Math.sin(t)*30}px,${Math.cos(t*0.8)*20}px)`;
-      if(b2) b2.style.transform = `translate(${Math.cos(t*0.9)*25}px,${Math.sin(t)*18}px)`;
-      requestAnimationFrame(anim);
-    }
-    anim();
-  </script>
+  });
+
+})();
+
+
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', function() {
+
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+
+  });
+
+}
+
+</script>
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "PDF签名主要能做什么？","acceptedAnswer": {"@type": "Answer","text": "PDF签名在 PDF 文档中添加电子签名，支持手绘签名和图片签名，适合合同签署场景。它把原本需要专门软件或手动完成的任务，变成浏览器里一步到位的小工具，省去下载安装与注册的麻烦。"}},{"@type": "Question","name": "第一次使用PDF签名要注意什么？","acceptedAnswer": {"@type": "Answer","text": "打开网页后按界面提示操作：选择或拖入文件、设置参数，本地处理完成后直接下载结果。整个过程在浏览器本地完成，文件不会离开你的设备。"}},{"@type": "Question","name": "PDF签名处理我的文件安全吗？","acceptedAnswer": {"@type": "Answer","text": "安全。PDF签名所有计算都在你的浏览器本地运行，文件不会上传到任何服务器，处理完关闭页面即可，不留痕迹。"}},{"@type": "Question","name": "PDF签名的结果怎么保存？","acceptedAnswer": {"@type": "Answer","text": "处理完成后页面会提供下载或复制按钮，结果保存在你自己的设备，随时可用。"}}]}</script>
 
 </body>
+
 </html>
+
