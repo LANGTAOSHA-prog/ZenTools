@@ -198,17 +198,17 @@ footer{margin-top:50px;text-align:center;color:var(--zen-text-sub)}
 <button onclick="calculate()" data-i18n="calculate">开始计算</button>
 <button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
 <button onclick="clearInputs()" class="clear-btn" data-i18n="clear">清空</button>
-<div class="result" id="result" data-i18n="resultTip">结果会显示在这里�?/div>
+<div class="result" id="result" data-i18n="resultTip">结果会显示在这里�?/div>
 <div class="info">
-<h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">输入金额和汇率，可进行人民币与日元互相换算�?/p>
-<h2 data-i18n="noticeTitle">注意事项</h2><p data-i18n="noticeText">本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准�?/p>
+<h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">输入金额和汇率，可进行人民币与日元互相换算�?/p>
+<h2 data-i18n="noticeTitle">注意事项</h2><p data-i18n="noticeText">本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准�?/p>
 </div>
 </div>
     
     <!-- P1-EXPAND SEO CONTENT -->
 <section class="section">
 <h2>适用场景</h2>
-  <p>中日汇率换算人民币与日元实时汇率换算，支持双向转换，适合跨境贸易和留学。它把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+  <p>中日汇率换算人民币与日元实时汇率换算，支持双向转换，适合跨境贸易和留学。「中日汇率换算」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
 <h2>适合谁使用</h2>
   <p>个人理财、房贷车贷规划、投资和记账的用户，以及需要快速估算的人。</p>
 <h2>进阶技巧</h2>
@@ -257,7 +257,7 @@ function showResult(t){document.getElementById("result").textContent=t;}
 function clearInputs(){document.querySelectorAll("input").forEach(i=>{if(i.type!=="date")i.value="";});document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
 function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
 
-function calculate(){const d=translations[currentLang]||translations.zh;const a=parseFloat(document.getElementById('amount').value)||0,r=parseFloat(document.getElementById('rate').value)||0,dir=document.getElementById('direction').value;if(a<=0||r<=0){alert(d.empty);return;}if(dir==='cnyjpy')showResult(`${a.toLocaleString()} CNY �?${money(a*r)} JPY`);else showResult(`${a.toLocaleString()} JPY �?${(a/r).toFixed(2)} CNY`);}
+function calculate(){const d=translations[currentLang]||translations.zh;const a=parseFloat(document.getElementById('amount').value)||0,r=parseFloat(document.getElementById('rate').value)||0,dir=document.getElementById('direction').value;if(a<=0||r<=0){alert(d.empty);return;}if(dir==='cnyjpy')showResult(`${a.toLocaleString()} CNY �?${money(a*r)} JPY`);else showResult(`${a.toLocaleString()} JPY �?${(a/r).toFixed(2)} CNY`);}
 </script>
 
 <script>
