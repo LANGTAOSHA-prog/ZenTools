@@ -1,364 +1,732 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V3MP20S9Z3');
-</script>
-
-<meta name="theme-color" content="#0066FF">
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-</div>
-<script src="/assets/js/anti-crash.min.js" defer></script>
-<title data-i18n="pageTitle">AI会议纪要 - ZenTools</title>
-<meta name="description" content="AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。"/>
-<meta name="keywords" content="AI会议纪要,会议总结,会议记录,智能纪要,AI写作,免费工具,AI会议纪要在线使用,AI会议纪要怎么用"/>
-<link rel="canonical" href="https://zentools.xyz/ai/ai-meeting-minutes.html"/>
-<link rel="manifest" href="/manifest.json"/>
-<meta property="og:title" content="AI会议纪要 - ZenTools"/>
-<meta property="og:description" content="AI智能生成会议纪要，自动提取关键信息和行动项。"/>
-<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
-<meta property="og:url" content="https://zentools.xyz/ai/ai-meeting-minutes.html"/>
-<meta property="og:type" content="website"/>
-<meta property="og:locale" content="zh_CN"/>
-<meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="AI Meeting Minutes | ZenTools"/>
-<meta name="twitter:description" content="AI智能生成会议纪要，自动提取关键信息和行动项。"/>
-<link rel="stylesheet" href="/assets/css/tool-ui.min.css"/>
-<style>
-    :root {
-        --zen-primary: #0066FF;
-        --zen-secondary: #00C2B8;
-        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
-        --zen-success: #22C55E;
-        --zen-warning: #F97316;
-        --zen-danger: #EF4444;
-        --zen-text-main: #111827;
-        --zen-text-sub: #4B5563;
-        --zen-text-placeholder: #9CA3AF;
-        --zen-bg-base: #F9FAFB;
-        --zen-bg-card: #FFFFFF;
-        --zen-border: #E5E7EB;
-        --zen-radius-base: 12px;
-        --zen-radius-card: 16px;
-        --zen-radius-btn: 8px;
-        --zen-radius-tag: 6px;
-      }
-      .dark {
-        --zen-text-main: #F9FAFB;
-        --zen-text-sub: #D1D5DB;
-        --zen-text-placeholder: #64748B;
-        --zen-bg-base: #0F172A;
-        --zen-bg-card: #1E293B;
-        --zen-border: #334155;
-      }
-    }
-
-:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
-.form-group{margin-bottom:16px}
-.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--zen-text-sub)}
-textarea{width:100%;min-height:200px;padding:14px;border-radius:14px;border:1px solid var(--zen-border);background:rgba(255,255,255,0.04);color:var(--zen-text-main);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
-textarea:focus{outline:none;border-color:var(--zen-primary)}
-.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
-.btn-primary{background:linear-gradient(135deg,var(--zen-primary),var(--zen-secondary));color:#fff}
-.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
-.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
-.btn-secondary{background:rgba(255,255,255,0.06);color:var(--zen-text-main);border:1px solid var(--zen-border)}
-.btn-secondary:hover{border-color:var(--zen-primary)}
-.btn-sm{padding:6px 14px;font-size:12px}
-.panel{background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:14px;padding:24px;margin-bottom:20px}
-.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
-.output{background:rgba(255,255,255,0.04);border:1px solid var(--zen-border);border-radius:14px;padding:24px;min-height:200px;white-space:pre-wrap;line-height:1.8}
-.output.empty{display:flex;align-items:center;justify-content:center;color:var(--zen-text-sub);text-align:center}
-.section-h{font-size:16px;color:var(--zen-primary);margin:16px 0 8px;display:flex;align-items:center;gap:6px}
-input[type="text"]{padding:10px 14px;border-radius:14px;border:1px solid var(--zen-border);background:rgba(255,255,255,0.04);color:var(--zen-text-main);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
-input:focus{outline:none;border-color:var(--zen-primary)}
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
-.modal{background:var(--card);border:1px solid var(--zen-border);border-radius:14px;padding:28px;max-width:440px;width:90%}
-.modal h3{font-size:18px;margin-bottom:8px}
-.api-row{margin:16px 0}
-.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--zen-text-sub)}
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
-    .dark .site-nav { background: rgba(15,23,42,0.75); }
-    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .logo-text-blue { color: var(--zen-primary); }
-    .logo-text-teal { color: var(--zen-secondary); }
-    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
-    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
-    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
-    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
-    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
-    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
-    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
-    .mobile-overlay.open { opacity: 1; visibility: visible; }
-    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
-    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
-    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
-    .close-btn:hover { background: rgba(0,0,0,0.04); }
-    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
-    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
-    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
-    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
-    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
-    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
-    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
-    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
-    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
-    .section-head { text-align: center; margin-bottom: 36px; }
-    .section-head h2 { font-size: 26px; font-weight: 700; }
-    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
-    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
-    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
-    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
-    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
-    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
-    @media (max-width: 768px) {
-      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
-      .hamburger { display: inline-flex !important; }
-      .page-hero { padding-top: 120px !important; }
-      .info-grid { grid-template-columns: 1fr; }
-      .tool-box { padding: 24px; }
-    }
-    @media (max-width: 480px) {
-      .nav-inner { height: 60px; gap: 8px; }
-      .page-hero { padding-top: 100px !important; }
-    }
-</style>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
-<!-- P1: replaced generic FAQ JSON-LD -->
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "AI 工具", "item": "https://zentools.xyz/ai/"}, {"@type": "ListItem", "position": 4, "name": "AI会议纪要"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "AI会议纪要", "applicationCategory": "OtherApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}, "description": "AI智能生成会议纪要。", "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-21", "dateModified": "2026-07-20"}</script>
-<script>
-window.ZT_PAGE={
-  zh:{pageTitle:'AI会议纪要 - ZenTools', crumbCur:'AI会议纪要', eyebrow:'AI工具', h1Grad:'AI会议纪要', h1Sub:'智能生成会议总结', pageDesc:'AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。', cardTitle:'📝 输入会议内容', cardResult:'📋 会议纪要', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'在此粘贴会议录音转写文本、讨论记录或会议笔记...', btnGenerate:'📋 生成纪要', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderTopic:'会议主题', emptyResult:'会议纪要将显示在这里', faqQ1:'AI会议纪要如何生成？', faqA1:'输入会议录音转写的文本、会议讨论记录或笔记，AI会自动提取关键信息并生成结构化纪要。', faqQ2:'生成的会议纪要包含哪些内容？', faqA2:'包含会议主题、参会人员、讨论要点、决策事项、行动项和下一步计划等。', faqQ3:'可以自定义纪要格式吗？', faqA3:'可以。AI会生成结构化纪要，您也可以提出格式要求。', navAI工具Cat:'AI工具'},
-  en:{pageTitle:'AI Meeting Minutes | ZenTools', crumbCur:'AI Meeting Minutes', eyebrow:'AI TOOLS', h1Grad:'AI Meeting Minutes', h1Sub:'Smart Meeting Summaries', pageDesc:'AI generates meeting minutes, extracts key info, discussion points and action items. Free to use online.', cardTitle:'📝 Input Meeting Content', cardResult:'📋 Meeting Minutes', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Paste meeting transcript, discussion notes, or meeting notes here...', btnGenerate:'📋 Generate Minutes', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderTopic:'Meeting Topic', emptyResult:'Meeting minutes will appear here', faqQ1:'How are AI meeting minutes generated?', faqA1:'Input meeting transcript, discussion records or notes. AI extracts key info and generates structured minutes.', faqQ2:'What does the generated meeting minutes contain?', faqA2:'Includes meeting topic, attendees, discussion points, decisions, action items and next steps.', faqQ3:'Can I customize the minutes format?', faqA3:'Yes. AI generates structured minutes, and you can also request specific formats.'},
-  ja:{pageTitle:'AI議事録生成 | ZenTools', crumbCur:'AI議事録生成', eyebrow:'AIツール', h1Grad:'AI議事録生成', h1Sub:'インテリジェント議事録生成', pageDesc:'AIが議事録を自動的に生成。重要な情報、討論ポイントとアクション項目を抽出。オンラインで無料利用可能。', cardTitle:'📝 会議内容入力', cardResult:'📋 議事録', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'会議の音声書き起こし、討論記録やメモを貼り付けてください...', btnGenerate:'📋 議事録生成', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderTopic:'会議テーマ', emptyResult:'議事録がここに表示されます', faqQ1:'AI議事録はどのように生成されますか？', faqA1:'会議の音声書き起こし、討論記録やメモを入力すると、AIが重要な情報を抽出して構造化された議事録を生成します。', faqQ2:'生成された議事録には何が含まれますか？', faqA2:'会議テーマ、参加者、討論ポイント、決定事項、アクション項目、次のステップなど。', faqQ3:'議事録のフォーマットはカスタマイズできますか？', faqA3:'はい。AIが構造化された議事録を生成し、フォーマット要件も指定できます。'},
-  vi:{pageTitle:'Biên bản họp AI | ZenTools', crumbCur:'Biên bản họp AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Biên bản họp AI', h1Sub:'Tạo biên bản thông minh', pageDesc:'AI tạo biên bản họp, trích xuất thông tin quan trọng, nội dung thảo luận và hành động. Miễn phí sử dụng.', cardTitle:'📝 Nhập nội dung họp', cardResult:'📋 Biên bản họp', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Dán bản ghi âm họp, ghi chép thảo luận hoặc ghi chú cuộc họp...', btnGenerate:'📋 Tạo biên bản', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderTopic:'Chủ đề họp', emptyResult:'Biên bản họp sẽ hiển thị ở đây', faqQ1:'Biên bản họp AI được tạo như thế nào?', faqA1:'Nhập văn bản chuyển lời thoại, ghi chép thảo luận hoặc ghi chú. AI trích xuất thông tin quan trọng và tạo biên bản có cấu trúc.', faqQ2:'Biên bản họp tạo ra bao gồm những gì?', faqA2:'Bao gồm chủ đề họp, người tham dự, nội dung thảo luận, quyết định, hành động và kế hoạch tiếp theo.', faqQ3:'Có thể tùy chỉnh định dạng biên bản không?', faqA3:'Có. AI tạo biên bản có cấu trúc, bạn cũng có thể yêu cầu định dạng cụ thể.'}
-};
-</script>
-</head>
-<body>
-<div class="z-wrap">
-  <nav class="site-nav">
-    <div class="container nav-inner">
-      <div class="brand-logo">
-        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
-          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
-          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
-        </a>
-      </div>
-      <div class="nav-links">
-        <a href="/" data-i18n="navHome">首页</a>
-        <a href="/tools.html" data-i18n="navAll">全部工具</a>
-        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
-        <a href="/guides/" data-i18n="navGuides">深度指南</a>
-        <a href="/compare/" data-i18n="navCompare">工具对比</a>
-        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
-        <a href="/my.html" data-i18n="navMy">用户中心</a>
-        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
-        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-          <option value="ja">日本語</option>
-          <option value="vi">Tiếng Việt</option>
-        </select>
-        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
-      </div>
-    </div>
-  </nav>
-  </nav>
-
-  <div class="mobile-overlay" id="mobileOverlay">
-    <div class="mobile-drawer" id="mobileDrawer">
-      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
-      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
-      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
-      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
-      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
-      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
-      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
-      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
-      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
-    </div>
-  </div>
-<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
-    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
-    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
-      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>AI工具</div>
-      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/ai/">AI工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">AI会议纪要</span></div>
-
-      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">AI会议纪要</span></h1>
-      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">智能生成会议总结</p>
-      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。</p>
-    </div>
-  </section>
-<div class="tool-box reveal">
-<div class="form-group"><label data-i18n="placeholderTopic">会议主题</label><input type="text" id="topic" placeholder="请输入会议主题"></div>
-<div class="grid">
-  <div class="panel">
-    <div class="panel-header"><h2 data-i18n="cardTitle">📝 输入会议内容</h2></div>
-    <textarea id="text" data-i18n-placeholder="placeholder"></textarea>
-    <div style="display:flex;gap:10px;margin-top:16px">
-      <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>📋</span><span data-i18n="btnGenerate">📋 生成纪要</span></button>
-      <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
-    </div>
-  </div>
-  <div class="panel">
-    <div class="panel-header">
-      <h2 data-i18n="cardResult">📋 会议纪要</h2>
-      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
-    </div>
-    <div class="output empty" id="output"><p data-i18n="emptyResult">会议纪要将显示在这里</p></div>
-  </div>
-</div>
-<div style="margin-top:16px"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button></div>
-<div class="modal-overlay" id="settingsModal" style="display:none">
-  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
-    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
-    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
-    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
-    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
-  </div>
-</div>
-</div>
-<!-- P1-EXPAND SEO CONTENT -->
-<section class="section">
-<h2>适用场景</h2>
-  <p>AI会议纪要AI 自动生成会议记录和要点总结，提取行动项和责任人。「AI会议纪要」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
-<h2>适合谁使用</h2>
-  <p>内容创作者、学生、程序员、运营和职场人士，想把重复脑力活交给 AI 提效的人。</p>
-<h2>进阶技巧</h2>
-  <ul>
-<li>把需求说清楚、给足上下文，生成质量更高</li>
-<li>长任务拆成几步，逐步迭代比一次成型更稳</li>
-<li>关键内容务必人工核对，AI 结果仅供参考</li>
-<li>把常用提示词存成模板，复用更省时</li>
-</ul>
-<h2>常见问题</h2>
-  <div class="faq">
-    <details open><summary>用AI会议纪要时，总结会遗漏重点吗？</summary><p>工具按关键信息提炼，长文建议通读原文，重要处可让它在总结中保留。</p></details>
-<details open><summary>用AI会议纪要时，支持多长文本？</summary><p>适合文章、报告等长文本，超长可分段处理。</p></details>
-<details open><summary>用AI会议纪要时，能调总结长度吗？</summary><p>通常可设简短/标准，按需要选择。</p></details>
-<details open><summary>用AI会议纪要时，结果能直接复制吗？</summary><p>能。总结生成后可直接复制或导出。</p></details>
-  </div>
-</section>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head><!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+
+
+  gtag('config', 'G-V3MP20S9Z3');
+
+</script>
+
+
+
+<meta name="theme-color" content="#0066FF">
+
+<meta charset="UTF-8"/>
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+
+</div>
+
+<script src="/assets/js/anti-crash.min.js" defer></script>
+
+<title data-i18n="pageTitle">AI会议纪要 - ZenTools</title>
+
+<meta name="description" content="AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。"/>
+
+<meta name="keywords" content="AI会议纪要,会议总结,会议记录,智能纪要,AI写作,免费工具,AI会议纪要在线使用,AI会议纪要怎么用"/>
+
+<link rel="canonical" href="https://zentools.xyz/ai/ai-meeting-minutes.html"/>
+
+<link rel="manifest" href="/manifest.json"/>
+
+<meta property="og:title" content="AI会议纪要 - ZenTools"/>
+
+<meta property="og:description" content="AI智能生成会议纪要，自动提取关键信息和行动项。"/>
+
+<meta property="og:image" content="https://zentools.xyz/favicon.svg"/>
+
+<meta property="og:url" content="https://zentools.xyz/ai/ai-meeting-minutes.html"/>
+
+<meta property="og:type" content="website"/>
+
+<meta property="og:locale" content="zh_CN"/>
+
+<meta name="twitter:card" content="summary_large_image"/>
+
+<meta name="twitter:title" content="AI Meeting Minutes | ZenTools"/>
+
+<meta name="twitter:description" content="AI智能生成会议纪要，自动提取关键信息和行动项。"/>
+
+<link rel="stylesheet" href="/assets/css/tool-ui.min.css"/>
+
+<style>
+
+    :root {
+
+        --zen-primary: #0066FF;
+
+        --zen-secondary: #00C2B8;
+
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+
+        --zen-success: #22C55E;
+
+        --zen-warning: #F97316;
+
+        --zen-danger: #EF4444;
+
+        --zen-text-main: #111827;
+
+        --zen-text-sub: #4B5563;
+
+        --zen-text-placeholder: #9CA3AF;
+
+        --zen-bg-base: #F9FAFB;
+
+        --zen-bg-card: #FFFFFF;
+
+        --zen-border: #E5E7EB;
+
+        --zen-radius-base: 12px;
+
+        --zen-radius-card: 16px;
+
+        --zen-radius-btn: 8px;
+
+        --zen-radius-tag: 6px;
+
+      }
+
+      .dark {
+
+        --zen-text-main: #F9FAFB;
+
+        --zen-text-sub: #D1D5DB;
+
+        --zen-text-placeholder: #64748B;
+
+        --zen-bg-base: #0F172A;
+
+        --zen-bg-card: #1E293B;
+
+        --zen-border: #334155;
+
+      }
+
+    }
+
+
+
+:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--cyan:#06b6d4;--purple:#8b5cf6;--pink:#ec4899}
+
+.form-group{margin-bottom:16px}
+
+.form-group label{display:block;margin-bottom:6px;font-size:14px;color:var(--zen-text-sub)}
+
+textarea{width:100%;min-height:200px;padding:14px;border-radius:14px;border:1px solid var(--zen-border);background:rgba(255,255,255,0.04);color:var(--zen-text-main);font-size:14px;font-family:inherit;resize:vertical;transition:border-color .3s;line-height:1.6}
+
+textarea:focus{outline:none;border-color:var(--zen-primary)}
+
+.btn{padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-weight:600;font-size:14px;transition:all .3s;display:inline-flex;align-items:center;gap:6px}
+
+.btn-primary{background:linear-gradient(135deg,var(--zen-primary),var(--zen-secondary));color:#fff}
+
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 4px 12px rgba(6,182,212,0.4)}
+
+.btn-primary:disabled{opacity:0.5;cursor:not-allowed}
+
+.btn-secondary{background:rgba(255,255,255,0.06);color:var(--zen-text-main);border:1px solid var(--zen-border)}
+
+.btn-secondary:hover{border-color:var(--zen-primary)}
+
+.btn-sm{padding:6px 14px;font-size:12px}
+
+.panel{background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:14px;padding:24px;margin-bottom:20px}
+
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+
+.panel-header h2{font-size:18px;display:flex;align-items:center;gap:8px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+
+.output{background:rgba(255,255,255,0.04);border:1px solid var(--zen-border);border-radius:14px;padding:24px;min-height:200px;white-space:pre-wrap;line-height:1.8}
+
+.output.empty{display:flex;align-items:center;justify-content:center;color:var(--zen-text-sub);text-align:center}
+
+.section-h{font-size:16px;color:var(--zen-primary);margin:16px 0 8px;display:flex;align-items:center;gap:6px}
+
+input[type="text"]{padding:10px 14px;border-radius:14px;border:1px solid var(--zen-border);background:rgba(255,255,255,0.04);color:var(--zen-text-main);font-size:14px;transition:border-color .3s;width:100%;font-family:inherit}
+
+input:focus{outline:none;border-color:var(--zen-primary)}
+
+.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(5px)}
+
+.modal{background:var(--card);border:1px solid var(--zen-border);border-radius:14px;padding:28px;max-width:440px;width:90%}
+
+.modal h3{font-size:18px;margin-bottom:8px}
+
+.api-row{margin:16px 0}
+
+.api-row label{display:block;margin-bottom:6px;font-size:13px;color:var(--zen-text-sub)}
+
+
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+    .logo-text-blue { color: var(--zen-primary); }
+
+    .logo-text-teal { color: var(--zen-secondary); }
+
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+    .section-head { text-align: center; margin-bottom: 36px; }
+
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+
+      .hamburger { display: inline-flex !important; }
+
+      .page-hero { padding-top: 120px !important; }
+
+      .info-grid { grid-template-columns: 1fr; }
+
+      .tool-box { padding: 24px; }
+
+    }
+
+    @media (max-width: 480px) {
+
+      .nav-inner { height: 60px; gap: 8px; }
+
+      .page-hero { padding-top: 100px !important; }
+
+    }
+
+</style>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script>
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "AI 工具", "item": "https://zentools.xyz/ai/"}, {"@type": "ListItem", "position": 4, "name": "AI会议纪要"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "AI会议纪要", "applicationCategory": "OtherApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"}, "description": "AI智能生成会议纪要。", "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-21", "dateModified": "2026-07-20"}</script>
+
+<script>
+
+window.ZT_PAGE={
+
+  zh:{pageTitle:'AI会议纪要 - ZenTools', crumbCur:'AI会议纪要', eyebrow:'AI工具', h1Grad:'AI会议纪要', h1Sub:'智能生成会议总结', pageDesc:'AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。', cardTitle:'📝 输入会议内容', cardResult:'📋 会议纪要', cardApi:'⚙️ API 设置', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'模型', placeholder:'在此粘贴会议录音转写文本、讨论记录或会议笔记...', btnGenerate:'📋 生成纪要', btnClear:'清空', btnCopy:'📋 复制', btnSave:'保存', btnCancel:'取消', btnSettings:'⚙️ 设置', placeholderTopic:'会议主题', emptyResult:'会议纪要将显示在这里', faqQ1:'AI会议纪要如何生成？', faqA1:'输入会议录音转写的文本、会议讨论记录或笔记，AI会自动提取关键信息并生成结构化纪要。', faqQ2:'生成的会议纪要包含哪些内容？', faqA2:'包含会议主题、参会人员、讨论要点、决策事项、行动项和下一步计划等。', faqQ3:'可以自定义纪要格式吗？', faqA3:'可以。AI会生成结构化纪要，您也可以提出格式要求。', navAI工具Cat:'AI工具'},
+
+  en:{pageTitle:'AI Meeting Minutes | ZenTools', crumbCur:'AI Meeting Minutes', eyebrow:'AI TOOLS', h1Grad:'AI Meeting Minutes', h1Sub:'Smart Meeting Summaries', pageDesc:'AI generates meeting minutes, extracts key info, discussion points and action items. Free to use online.', cardTitle:'📝 Input Meeting Content', cardResult:'📋 Meeting Minutes', cardApi:'⚙️ API Settings', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Model', placeholder:'Paste meeting transcript, discussion notes, or meeting notes here...', btnGenerate:'📋 Generate Minutes', btnClear:'Clear', btnCopy:'📋 Copy', btnSave:'Save', btnCancel:'Cancel', btnSettings:'⚙️ Settings', placeholderTopic:'Meeting Topic', emptyResult:'Meeting minutes will appear here', faqQ1:'How are AI meeting minutes generated?', faqA1:'Input meeting transcript, discussion records or notes. AI extracts key info and generates structured minutes.', faqQ2:'What does the generated meeting minutes contain?', faqA2:'Includes meeting topic, attendees, discussion points, decisions, action items and next steps.', faqQ3:'Can I customize the minutes format?', faqA3:'Yes. AI generates structured minutes, and you can also request specific formats.'},
+
+  ja:{pageTitle:'AI議事録生成 | ZenTools', crumbCur:'AI議事録生成', eyebrow:'AIツール', h1Grad:'AI議事録生成', h1Sub:'インテリジェント議事録生成', pageDesc:'AIが議事録を自動的に生成。重要な情報、討論ポイントとアクション項目を抽出。オンラインで無料利用可能。', cardTitle:'📝 会議内容入力', cardResult:'📋 議事録', cardApi:'⚙️ API設定', apiEndpoint:'APIエンドポイント', apiKey:'APIキー', model:'モデル', placeholder:'会議の音声書き起こし、討論記録やメモを貼り付けてください...', btnGenerate:'📋 議事録生成', btnClear:'クリア', btnCopy:'📋 コピー', btnSave:'保存', btnCancel:'キャンセル', btnSettings:'⚙️ 設定', placeholderTopic:'会議テーマ', emptyResult:'議事録がここに表示されます', faqQ1:'AI議事録はどのように生成されますか？', faqA1:'会議の音声書き起こし、討論記録やメモを入力すると、AIが重要な情報を抽出して構造化された議事録を生成します。', faqQ2:'生成された議事録には何が含まれますか？', faqA2:'会議テーマ、参加者、討論ポイント、決定事項、アクション項目、次のステップなど。', faqQ3:'議事録のフォーマットはカスタマイズできますか？', faqA3:'はい。AIが構造化された議事録を生成し、フォーマット要件も指定できます。'},
+
+  vi:{pageTitle:'Biên bản họp AI | ZenTools', crumbCur:'Biên bản họp AI', eyebrow:'CÔNG CỤ AI', h1Grad:'Biên bản họp AI', h1Sub:'Tạo biên bản thông minh', pageDesc:'AI tạo biên bản họp, trích xuất thông tin quan trọng, nội dung thảo luận và hành động. Miễn phí sử dụng.', cardTitle:'📝 Nhập nội dung họp', cardResult:'📋 Biên bản họp', cardApi:'⚙️ Cài đặt API', apiEndpoint:'API Endpoint', apiKey:'API Key', model:'Mô hình', placeholder:'Dán bản ghi âm họp, ghi chép thảo luận hoặc ghi chú cuộc họp...', btnGenerate:'📋 Tạo biên bản', btnClear:'Xóa', btnCopy:'📋 Sao chép', btnSave:'Lưu', btnCancel:'Hủy', btnSettings:'⚙️ Cài đặt', placeholderTopic:'Chủ đề họp', emptyResult:'Biên bản họp sẽ hiển thị ở đây', faqQ1:'Biên bản họp AI được tạo như thế nào?', faqA1:'Nhập văn bản chuyển lời thoại, ghi chép thảo luận hoặc ghi chú. AI trích xuất thông tin quan trọng và tạo biên bản có cấu trúc.', faqQ2:'Biên bản họp tạo ra bao gồm những gì?', faqA2:'Bao gồm chủ đề họp, người tham dự, nội dung thảo luận, quyết định, hành động và kế hoạch tiếp theo.', faqQ3:'Có thể tùy chỉnh định dạng biên bản không?', faqA3:'Có. AI tạo biên bản có cấu trúc, bạn cũng có thể yêu cầu định dạng cụ thể.'}
+
+};
+
+</script>
+
+</head>
+
+<body>
+
+<div class="z-wrap">
+
+  <nav class="site-nav">
+
+    <div class="container nav-inner">
+
+      <div class="brand-logo">
+
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+
+        </a>
+
+      </div>
+
+      <div class="nav-links">
+
+        <a href="/" data-i18n="navHome">首页</a>
+
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+
+          <option value="zh">中文</option>
+
+          <option value="en">English</option>
+
+          <option value="ja">日本語</option>
+
+          <option value="vi">Tiếng Việt</option>
+
+        </select>
+
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+  </nav>
+
+
+
+  <div class="mobile-overlay" id="mobileOverlay">
+
+    <div class="mobile-drawer" id="mobileDrawer">
+
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+
+    </div>
+
+  </div>
+
+<section class="page-hero" style="padding-top:150px;padding-bottom:30px;text-align:center;position:relative;overflow:hidden">
+
+    <div class="hero-bg" style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 50% at 30% 20%,rgba(0,102,255,.05) 0%,transparent 50%),radial-gradient(ellipse 50% 40% at 70% 70%,rgba(0,194,184,.04) 0%,transparent 50%)"></div>
+
+    <div class="container" style="max-width:1200px;margin:0 auto;padding:0 24px">
+
+      <div class="hero-tag" style="display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--zen-text-placeholder);letter-spacing:2px;margin-bottom:24px"><span style="width:6px;height:6px;background:var(--zen-primary);border-radius:50%"></span>AI工具</div>
+
+      <div class="breadcrumb" style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--zen-text-placeholder);margin-bottom:28px"><a href="/">首页</a> <span style="opacity:0.3">/</span> <a href="/ai/">AI工具</a> <span style="opacity:0.3">/</span> <span style="color:var(--zen-primary)">AI会议纪要</span></div>
+
+
+
+      <h1 style="font-size:clamp(32px,5vw,48px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px"><span class="hero-gradient-text" data-i18n="h1Grad" style="background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">AI会议纪要</span></h1>
+
+      <p class="hero-sub" data-i18n="h1Sub" style="font-size:17px;color:var(--zen-text-sub);max-width:560px;margin:8px auto 24px">智能生成会议总结</p>
+
+      <p data-i18n="pageDesc" style="font-size:15px;color:var(--zen-text-sub);max-width:560px;margin:0 auto">AI智能生成会议纪要，自动提取关键信息、讨论要点和行动项，提升会议效率，免费在线使用。</p>
+
+    </div>
+
+  </section>
+
+<div class="tool-box reveal">
+
+<div class="form-group"><label data-i18n="placeholderTopic">会议主题</label><input type="text" id="topic" placeholder="请输入会议主题"></div>
+
+<div class="grid">
+
+  <div class="panel">
+
+    <div class="panel-header"><h2 data-i18n="cardTitle">📝 输入会议内容</h2></div>
+
+    <textarea id="text" data-i18n-placeholder="placeholder"></textarea>
+
+    <div style="display:flex;gap:10px;margin-top:16px">
+
+      <button class="btn btn-primary" id="genBtn" onclick="generate()"><span>📋</span><span data-i18n="btnGenerate">📋 生成纪要</span></button>
+
+      <button class="btn btn-secondary" onclick="clearAll()" data-i18n="btnClear">清空</button>
+
+    </div>
+
+  </div>
+
+  <div class="panel">
+
+    <div class="panel-header">
+
+      <h2 data-i18n="cardResult">📋 会议纪要</h2>
+
+      <button class="btn btn-secondary btn-sm" onclick="copyResult()" data-i18n="btnCopy">📋 复制</button>
+
+    </div>
+
+    <div class="output empty" id="output"><p data-i18n="emptyResult">会议纪要将显示在这里</p></div>
+
+  </div>
+
+</div>
+
+<div style="margin-top:16px"><button class="btn btn-secondary btn-sm" onclick="toggleSettings()" data-i18n="btnSettings">⚙️ 设置</button></div>
+
+<div class="modal-overlay" id="settingsModal" style="display:none">
+
+  <div class="modal"><h3 data-i18n="cardApi">⚙️ API 设置</h3>
+
+    <div class="api-row"><label data-i18n="apiEndpoint">API Endpoint</label><input type="text" id="apiEndpoint" value="https://api.openai.com/v1/chat/completions" style="width:100%"></div>
+
+    <div class="api-row"><label data-i18n="apiKey">API Key</label><input type="password" id="apiKey" placeholder="sk-..." style="width:100%"></div>
+
+    <div class="api-row"><label data-i18n="model">模型</label><select id="modelSelect" style="width:100%"><option value="gpt-4o">GPT-4o</option><option value="gpt-4">GPT-4</option><option value="gpt-3.5-turbo">GPT-3.5 Turbo</option><option value="deepseek-chat">DeepSeek Chat</option></select></div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn btn-secondary" onclick="toggleSettings()" data-i18n="btnCancel">取消</button><button class="btn btn-primary" onclick="saveSettings()" data-i18n="btnSave">保存</button></div>
+
+  </div>
+
+</div>
+
+</div>
+
+<!-- P1-EXPAND SEO CONTENT -->
+
+<section class="section">
+
+<h2>适用场景</h2>
+
+  <p>AI会议纪要AI 自动生成会议记录和要点总结，提取行动项和责任人。「AI会议纪要」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+
+<h2>适合谁使用</h2>
+
+  <p>内容创作者、学生、程序员、运营和职场人士，想把重复脑力活交给 AI 提效的人。</p>
+
+<h2>进阶技巧</h2>
+
+  <ul>
+
+<li>把需求说清楚、给足上下文，生成质量更高</li>
+
+<li>长任务拆成几步，逐步迭代比一次成型更稳</li>
+
+<li>关键内容务必人工核对，AI 结果仅供参考</li>
+
+<li>把常用提示词存成模板，复用更省时</li>
+
+</ul>
+
+<h2>常见问题</h2>
+
+  <div class="faq">
+
+    <details open><summary>用AI会议纪要时，总结会遗漏重点吗？</summary><p>工具按关键信息提炼，长文建议通读原文，重要处可让它在总结中保留。</p></details>
+
+<details open><summary>用AI会议纪要时，支持多长文本？</summary><p>适合文章、报告等长文本，超长可分段处理。</p></details>
+
+<details open><summary>用AI会议纪要时，能调总结长度吗？</summary><p>通常可设简短/标准，按需要选择。</p></details>
+
+<details open><summary>用AI会议纪要时，结果能直接复制吗？</summary><p>能。总结生成后可直接复制或导出。</p></details>
+
+  </div>
+
+</section>
+
 <footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
-<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
-    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
-      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
-      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
-        <a href="/">首页</a>
-        <a href="/ai/">AI工具</a>
-        <a href="/privacy.html">隐私政策</a>
-      </div>
-      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
-    </div>
-  </footer>
-</div>
-<script>
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-<script>
-const SK='zentools_ai_settings';
-function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
-function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
-function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
-function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
-function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
-async function generate(){const text=document.getElementById('text').value.trim();const topic=document.getElementById('topic').value.trim();const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!text){alert('请输入会议内容');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在生成会议纪要...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的会议纪要助手。请根据以下内容生成结构化的会议纪要。'},{role:'user',content:(topic?'会议主题：'+topic+'\n\n':'')+'会议内容：\n\n'+text+'\n\n请生成以下结构的会议纪要：\n1. 会议基本信息\n2. 参会人员（如有）\n3. 讨论要点\n4. 决策事项\n5. 行动项（负责人+截止时间）\n6. 下次会议安排'}],temperature:0.5,max_tokens:2048})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const text=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML=esc(text).replace(/\n/g,'<br>')}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
-function clearAll(){document.getElementById('text').value='';document.getElementById('topic').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">会议纪要将显示在这里</p>'}
-function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('会议纪要将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
-loadSettings();
-</script>
-<script src="/assets/js/common-i18n.min.js"></script>
-<script src="/assets/js/tool-ui.min.js"></script>
-
-    
-    
-    
-
-
-    
-    
-    
-
-<script>
-// 暗黑模式切换
-(function() {
-  var savedTheme = localStorage.getItem('zentools_theme');
-  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
-  var btn = document.getElementById('themeToggle');
-  if (btn) {
-    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
-    btn.addEventListener('click', function() {
-      document.documentElement.classList.toggle('dark');
-      var isDark = document.documentElement.classList.contains('dark');
-      this.textContent = isDark ? '☀️' : '🌙';
-      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
-    });
-  }
-})();
-
-// 移动端侧滑
-(function() {
-  var overlay = document.getElementById('mobileOverlay');
-  var hamBtn = document.getElementById('hamburgerBtn');
-  var closeBtn = document.getElementById('mobileClose');
-  if (!hamBtn || !overlay) return;
-  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
-  hamBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if (overlay.classList.contains('open')) { closeMenu(); } else {
-      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
-    }
-  });
-  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', function(e) {
-    var drawer = document.getElementById('mobileDrawer');
-    if (drawer && !drawer.contains(e.target)) closeMenu();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
-  });
-})();
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').catch(function() {});
-  });
-}
-</script>
-
-<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用AI会议纪要时，总结会遗漏重点吗？","acceptedAnswer": {"@type": "Answer","text": "工具按关键信息提炼，长文建议通读原文，重要处可让它在总结中保留。"}},{"@type": "Question","name": "用AI会议纪要时，支持多长文本？","acceptedAnswer": {"@type": "Answer","text": "适合文章、报告等长文本，超长可分段处理。"}},{"@type": "Question","name": "用AI会议纪要时，能调总结长度吗？","acceptedAnswer": {"@type": "Answer","text": "通常可设简短/标准，按需要选择。"}},{"@type": "Question","name": "用AI会议纪要时，结果能直接复制吗？","acceptedAnswer": {"@type": "Answer","text": "能。总结生成后可直接复制或导出。"}}]}</script>
-</body>
+<section class="tool-tutorial">
+<h2>完整使用教程</h2>
+<h3>工具简介</h3>
+<p>「AI会议纪要」是 ZenTools 提供的AI 智能工具，用来帮你把这类任务在浏览器里快速完成。它把原本需要安装专业桌面软件、或依赖在线服务器上传文件才能做的事，简化成打开网页即用的一步式小工具——无需安装、无需注册登录，所有处理都在你的设备本地运行，文件不会离开浏览器，因此既保护隐私，也适合在没有装专业软件的设备上应急使用。</p>
+<h3>详细操作步骤</h3><ol><li>打开「AI会议纪要」，先选择工具类型与输出风格这一步决定输入是否正确，文件选错会白忙活，确认无误再继续。</li><li>在输入框填写主题、受众或具体要求，给足上下文参数先按默认或推荐值来，拿一个小样本试效果，满意后再批量处理。</li><li>点击生成按钮，等待 AI 返回结果处理在本地完成，稍等片刻即可在预览区看到结果，可随时清空重来。</li><li>对结果进行复制、续写或导出，关键内容建议人工核对处理前建议备份原文件；结果出来后先核对一遍，再决定下载或复制。</li></ol><p>整个流程可以反复操作、随时重置；养成「先小样、后批量」的习惯，能最大程度避免大文件处理出错后重来。遇到不熟悉的参数，优先用推荐值，通常已覆盖大多数日常场景。</p>
+<h3>本地处理与隐私</h3><p>「AI会议纪要」的所有运算都在你的浏览器本地完成，文件不会上传到任何服务器，这一点和需要把资料传到云端的在线工具完全不同：你不必担心原始图片、文档或文本在传输过程中泄露，也不依赖账号体系。对包含个人隐私或商业信息的文件来说，本地处理是最稳妥的选择。</p><h3>使用建议</h3><p>把「AI会议纪要」当作随手可用的轻量助手最合适：它胜在快、免安装、隐私友好，但不替代专业桌面软件的全部高级功能。涉及重要数据或对外交付的成果，建议处理完后人工复核一遍再使用；把它嵌进你的日常小流程里，很多原本要开软件、等加载的零碎任务，几秒钟就能在网页里解决。</p></section>
+<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
+
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+
+        <a href="/">首页</a>
+
+        <a href="/ai/">AI工具</a>
+
+        <a href="/privacy.html">隐私政策</a>
+
+      </div>
+
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+
+    </div>
+
+  </footer>
+
+</div>
+
+<script>
+
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关AI工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.background=\'rgba(255,255,255,0.08)\'" onmouseout="this.style.background=\'rgba(255,255,255,0.03)\'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+
+</script>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+<script>
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', () => {
+
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+
+  });
+
+}
+
+</script>
+
+<script>
+
+const SK='zentools_ai_settings';
+
+function toggleSettings(){const m=document.getElementById('settingsModal');m.style.display=m.style.display==='none'?'flex':'none';if(m.style.display==='flex')loadSettings()}
+
+function loadSettings(){try{const s=localStorage.getItem(SK);if(s){const a=JSON.parse(s);document.getElementById('apiEndpoint').value=a.endpoint||'';document.getElementById('apiKey').value=a.apiKey||'';document.getElementById('modelSelect').value=a.model||'gpt-4o'}}catch(e){}}
+
+function saveSettings(){const s={endpoint:document.getElementById('apiEndpoint').value,apiKey:document.getElementById('apiKey').value,model:document.getElementById('modelSelect').value};localStorage.setItem(SK,JSON.stringify(s));toggleSettings()}
+
+function getSettings(){try{const s=localStorage.getItem(SK);return s?JSON.parse(s):{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}catch(e){return{endpoint:'https://api.openai.com/v1/chat/completions',apiKey:'',model:'gpt-4o'}}}
+
+function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\x22/g,'&#34;')}
+
+async function generate(){const text=document.getElementById('text').value.trim();const topic=document.getElementById('topic').value.trim();const output=document.getElementById('output');const btn=document.getElementById('genBtn');if(!text){alert('请输入会议内容');return}const s=getSettings();if(!s.apiKey){toggleSettings();return}btn.disabled=true;output.classList.add('empty');output.innerHTML='<p>正在生成会议纪要...</p>';try{const response=await fetch(s.endpoint,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+s.apiKey},body:JSON.stringify({model:s.model,messages:[{role:'system',content:'你是一个专业的会议纪要助手。请根据以下内容生成结构化的会议纪要。'},{role:'user',content:(topic?'会议主题：'+topic+'\n\n':'')+'会议内容：\n\n'+text+'\n\n请生成以下结构的会议纪要：\n1. 会议基本信息\n2. 参会人员（如有）\n3. 讨论要点\n4. 决策事项\n5. 行动项（负责人+截止时间）\n6. 下次会议安排'}],temperature:0.5,max_tokens:2048})});if(!response.ok)throw new Error('API请求失败');const data=await response.json();const text=data.choices[0].message.content;output.classList.remove('empty');output.innerHTML=esc(text).replace(/\n/g,'<br>')}catch(e){output.classList.add('empty');output.innerHTML='<p style="color:var(--error);text-align:center;padding:40px">生成失败：'+esc(e.message)+'</p>'}btn.disabled=false}
+
+function clearAll(){document.getElementById('text').value='';document.getElementById('topic').value='';document.getElementById('output').classList.add('empty');document.getElementById('output').innerHTML='<p data-i18n="emptyResult">会议纪要将显示在这里</p>'}
+
+function copyResult(){const t=document.getElementById('output').innerText;if(t.includes('会议纪要将显示')){alert('没有可复制的内容');return}navigator.clipboard.writeText(t).then(()=>alert('已复制')).catch(()=>alert('复制失败'))}
+
+loadSettings();
+
+</script>
+
+<script src="/assets/js/common-i18n.min.js"></script>
+
+<script src="/assets/js/tool-ui.min.js"></script>
+
+
+
+    
+
+    
+
+    
+
+
+
+
+
+    
+
+    
+
+    
+
+
+
+<script>
+
+// 暗黑模式切换
+
+(function() {
+
+  var savedTheme = localStorage.getItem('zentools_theme');
+
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+  var btn = document.getElementById('themeToggle');
+
+  if (btn) {
+
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+
+    btn.addEventListener('click', function() {
+
+      document.documentElement.classList.toggle('dark');
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      this.textContent = isDark ? '☀️' : '🌙';
+
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+
+    });
+
+  }
+
+})();
+
+
+
+// 移动端侧滑
+
+(function() {
+
+  var overlay = document.getElementById('mobileOverlay');
+
+  var hamBtn = document.getElementById('hamburgerBtn');
+
+  var closeBtn = document.getElementById('mobileClose');
+
+  if (!hamBtn || !overlay) return;
+
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+
+  hamBtn.addEventListener('click', function(e) {
+
+    e.stopPropagation();
+
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+
+    }
+
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  overlay.addEventListener('click', function(e) {
+
+    var drawer = document.getElementById('mobileDrawer');
+
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+
+  });
+
+  document.addEventListener('keydown', function(e) {
+
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+
+  });
+
+})();
+
+
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', function() {
+
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+
+  });
+
+}
+
+</script>
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用AI会议纪要时，总结会遗漏重点吗？","acceptedAnswer": {"@type": "Answer","text": "工具按关键信息提炼，长文建议通读原文，重要处可让它在总结中保留。"}},{"@type": "Question","name": "用AI会议纪要时，支持多长文本？","acceptedAnswer": {"@type": "Answer","text": "适合文章、报告等长文本，超长可分段处理。"}},{"@type": "Question","name": "用AI会议纪要时，能调总结长度吗？","acceptedAnswer": {"@type": "Answer","text": "通常可设简短/标准，按需要选择。"}},{"@type": "Question","name": "用AI会议纪要时，结果能直接复制吗？","acceptedAnswer": {"@type": "Answer","text": "能。总结生成后可直接复制或导出。"}}]}</script>
+
+</body>
+
 </html>

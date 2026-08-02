@@ -1,264 +1,532 @@
-<!DOCTYPE html><html lang="zh-CN"><head><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V3MP20S9Z3');
-</script>
-<meta name="theme-color" content="#0066FF">
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title data-i18n="pageTitle">股票手续费计算器 - ZenTools</title>
-  <script src="/assets/js/anti-crash.min.js"></script>
-  <meta property="og:title" content="股票手续费计算器 - 免费在线工具 | ZenTools" />
-  <meta property="og:description" content="计算 A 股交易产生的印花税、佣金和过户费。" />
-  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
-  <meta property="og:url" content="https://zentools.xyz/finance/stock.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="zh_CN" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="股票手续费计算器 - Free Online Tool | ZenTools" />
-  <meta name="twitter:description" content="Calculate A-share stock transaction fees including stamp duty, commission and transfer fee." /><meta name="description" content="ZenTools 免费股票交易手续费计算器，计算印花税、佣金等费用。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。">
-  <meta name="keywords" content="股票手续费计算器,股票手续费计算器工具,股票手续费,印花税,佣金,金融工具,股票手续费计算器在线使用,股票手续费计算器怎么用" /><link rel="manifest" href="/manifest.json" />
-  <link rel="stylesheet" href="/assets/css/style.min.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script><style>
-    :root {
-        --zen-primary: #0066FF;
-        --zen-secondary: #00C2B8;
-        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
-        --zen-success: #22C55E;
-        --zen-warning: #F97316;
-        --zen-danger: #EF4444;
-        --zen-text-main: #111827;
-        --zen-text-sub: #4B5563;
-        --zen-text-placeholder: #9CA3AF;
-        --zen-bg-base: #F9FAFB;
-        --zen-bg-card: #FFFFFF;
-        --zen-border: #E5E7EB;
-        --zen-radius-base: 12px;
-        --zen-radius-card: 16px;
-        --zen-radius-btn: 8px;
-        --zen-radius-tag: 6px;
-      }
-      .dark {
-        --zen-text-main: #F9FAFB;
-        --zen-text-sub: #D1D5DB;
-        --zen-text-placeholder: #64748B;
-        --zen-bg-base: #0F172A;
-        --zen-bg-card: #1E293B;
-        --zen-border: #334155;
-      }
-    }
-:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--blue:var(--zen-primary);--green:var(--zen-success);--red:var(--zen-danger)}*{margin:0;padding:0;box-sizing:border-box}body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Inter,"Source Han Sans SC","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;line-height:1.7}.container{max-width:900px;margin:auto;padding:40px 20px}a{color:var(--zen-primary)}.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}.lang-select{background:var(--zen-bg-card);color:var(--zen-text-main);border:1px solid var(--zen-border);border-radius:10px;padding:10px 12px;font-size:13px}.card{background:var(--card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}h1{margin-bottom:15px}.desc{color:var(--zen-text-sub);margin-bottom:25px}.ad-box{margin:25px 0;height:110px;border:2px dashed var(--zen-border);border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}input,select{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color:var(--zen-text-main);font-size:16px}button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:font-size:15px;font-weight:bold;margin:6px 6px 6px 0}.green{background:var(--green)}.result-box{background:rgba(16,185,129,0.08);border:1px solid var(--green);border-radius:14px;padding:20px;margin:15px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.result-item{text-align:center}.result-item .val{font-size:20px;font-weight:bold;color:var(--green)}.result-item .lbl{font-size:12px;color:var(--zen-text-sub);margin-top:4px}.result-item .red{color:var(--red)}.fee-table{width:100%;border-collapse:collapse;margin:15px 0;font-size:14px}.fee-table th,.fee-table td{padding:10px 12px;border-bottom:1px solid var(--zen-border)}.fee-table th{color:var(--zen-text-sub);font-weight:normal;text-align:left}.fee-table td{color:var(--zen-text-main);text-align:right}.fee-table td:first-child{text-align:left}footer{margin-top:50px;text-align:center;color:var(--zen-text-sub)}@media(max-width:768px){button,.lang-select{width:100%}}.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
-    .dark .site-nav { background: rgba(15,23,42,0.75); }
-    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .logo-text-blue { color: var(--zen-primary); }
-    .logo-text-teal { color: var(--zen-secondary); }
-    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
-    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
-    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
-    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
-    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
-    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
-    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
-    .mobile-overlay.open { opacity: 1; visibility: visible; }
-    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
-    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
-    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
-    .close-btn:hover { background: rgba(0,0,0,0.04); }
-    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
-    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
-    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
-    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
-    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
-    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
-    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
-    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
-    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
-    .section-head { text-align: center; margin-bottom: 36px; }
-    .section-head h2 { font-size: 26px; font-weight: 700; }
-    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
-    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
-    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
-    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
-    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
-    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
-    @media (max-width: 768px) {
-      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
-      .hamburger { display: inline-flex !important; }
-      .page-hero { padding-top: 120px !important; }
-      .info-grid { grid-template-columns: 1fr; }
-      .tool-box { padding: 24px; }
-    }
-    @media (max-width: 480px) {
-      .nav-inner { height: 60px; gap: 8px; }
-      .page-hero { padding-top: 100px !important; }
-    }
-</style>
-</div>
-<!-- P1: replaced generic FAQ JSON-LD -->
-<link rel="canonical" href="https://zentools.xyz/finance/stock.html"/>
-</head><body>
-<div class="z-wrap">
-  <nav class="site-nav">
-    <div class="container nav-inner">
-      <div class="brand-logo">
-        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
-          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
-          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
-        </a>
-      </div>
-      <div class="nav-links">
-        <a href="/" data-i18n="navHome">首页</a>
-        <a href="/tools.html" data-i18n="navAll">全部工具</a>
-        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
-        <a href="/guides/" data-i18n="navGuides">深度指南</a>
-        <a href="/compare/" data-i18n="navCompare">工具对比</a>
-        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
-        <a href="/my.html" data-i18n="navMy">用户中心</a>
-        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
-        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-          <option value="ja">日本語</option>
-          <option value="vi">Tiếng Việt</option>
-        </select>
-        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
-      </div>
-    </div>
-  </nav>
-  </nav>
-
-  <div class="mobile-overlay" id="mobileOverlay">
-    <div class="mobile-drawer" id="mobileDrawer">
-      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
-      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
-      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
-      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
-      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
-      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
-      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
-      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
-      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
-    </div>
-  </div>
-<div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">股票手续费计算器</h1><p class="desc" data-i18n="pageDesc">计算 A 股买卖交易产生的印花税、佣金等费用。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="stockPrice" placeholder="股票价格（元/股）" value="10"><input type="number" id="stockShares" placeholder="股票数量（股）" value="1000"><div class="radios" style="display:flex;gap:15px;flex-wrap:wrap;margin:10px 0"><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="buy" checked style="width:auto;margin:0"> <span data-i18n="buy">买入</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="sell" style="width:auto;margin:0"> <span data-i18n="sell">卖出</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="both" style="width:auto;margin:0"> <span data-i18n="both">买卖双向</span></label></div><button onclick="calcStock()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="totalFee">0</div><div class="lbl" data-i18n="totalFee">总手续费（元）</div></div><div class="result-item"><div class="val" id="actualCost">0</div><div class="lbl" data-i18n="actualCost">实际成本（元）</div></div><div class="result-item"><div class="val" id="costPerShare">0</div><div class="lbl" data-i18n="costPerShare">每股成本</div></div></div><table class="fee-table" id="feeDetail"></table></div></div>
-    
-    <!-- P1-EXPAND SEO CONTENT -->
-<section class="section">
-<h2>适用场景</h2>
-  <p>股票手续费计算器计算股票交易手续费、印花税和过户费，辅助投资成本核算。「股票手续费计算器」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
-<h2>适合谁使用</h2>
-  <p>个人理财、房贷车贷规划、投资和记账的用户，以及需要快速估算的人。</p>
-<h2>进阶技巧</h2>
-  <ul>
-<li>利率/汇率会变动，结果以当下为准</li>
-<li>长期规划用复利视角看</li>
-<li>贷款类结果仅作参考，以机构为准</li>
-<li>重要决策前多换几个参数对比</li>
-</ul>
-<h2>常见问题</h2>
-  <div class="faq">
-    <details open><summary>用股票手续费计算器时，计算准确吗？</summary><p>按页面公式精确计算，输入正确则结果可靠。</p></details>
-<details open><summary>用股票手续费计算器时，支持哪些计算？</summary><p>取决于具体工具，如汇率、贷款、BMI 等。</p></details>
-<details open><summary>用股票手续费计算器时，结果能导出吗？</summary><p>可复制或截图保存，部分支持导出。</p></details>
-<details open><summary>用股票手续费计算器时，参数能改吗？</summary><p>能。随时调整输入，结果实时更新。</p></details>
-  </div>
-</section>
+<!DOCTYPE html><html lang="zh-CN"><head><!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+
+
+  gtag('config', 'G-V3MP20S9Z3');
+
+</script>
+
+<meta name="theme-color" content="#0066FF">
+
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title data-i18n="pageTitle">股票手续费计算器 - ZenTools</title>
+
+  <script src="/assets/js/anti-crash.min.js"></script>
+
+  <meta property="og:title" content="股票手续费计算器 - 免费在线工具 | ZenTools" />
+
+  <meta property="og:description" content="计算 A 股交易产生的印花税、佣金和过户费。" />
+
+  <meta property="og:image" content="https://zentools.xyz/favicon.svg" />
+
+  <meta property="og:url" content="https://zentools.xyz/finance/stock.html" />
+
+  <meta property="og:type" content="website" />
+
+  <meta property="og:locale" content="zh_CN" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <meta name="twitter:title" content="股票手续费计算器 - Free Online Tool | ZenTools" />
+
+  <meta name="twitter:description" content="Calculate A-share stock transaction fees including stamp duty, commission and transfer fee." /><meta name="description" content="ZenTools 免费股票交易手续费计算器，计算印花税、佣金等费用。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。">
+
+  <meta name="keywords" content="股票手续费计算器,股票手续费计算器工具,股票手续费,印花税,佣金,金融工具,股票手续费计算器在线使用,股票手续费计算器怎么用" /><link rel="manifest" href="/manifest.json" />
+
+  <link rel="stylesheet" href="/assets/css/style.min.css"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472" crossorigin="anonymous"></script><style>
+
+    :root {
+
+        --zen-primary: #0066FF;
+
+        --zen-secondary: #00C2B8;
+
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+
+        --zen-success: #22C55E;
+
+        --zen-warning: #F97316;
+
+        --zen-danger: #EF4444;
+
+        --zen-text-main: #111827;
+
+        --zen-text-sub: #4B5563;
+
+        --zen-text-placeholder: #9CA3AF;
+
+        --zen-bg-base: #F9FAFB;
+
+        --zen-bg-card: #FFFFFF;
+
+        --zen-border: #E5E7EB;
+
+        --zen-radius-base: 12px;
+
+        --zen-radius-card: 16px;
+
+        --zen-radius-btn: 8px;
+
+        --zen-radius-tag: 6px;
+
+      }
+
+      .dark {
+
+        --zen-text-main: #F9FAFB;
+
+        --zen-text-sub: #D1D5DB;
+
+        --zen-text-placeholder: #64748B;
+
+        --zen-bg-base: #0F172A;
+
+        --zen-bg-card: #1E293B;
+
+        --zen-border: #334155;
+
+      }
+
+    }
+
+:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--blue:var(--zen-primary);--green:var(--zen-success);--red:var(--zen-danger)}*{margin:0;padding:0;box-sizing:border-box}body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Inter,"Source Han Sans SC","PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;line-height:1.7}.container{max-width:900px;margin:auto;padding:40px 20px}a{color:var(--zen-primary)}.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}.lang-select{background:var(--zen-bg-card);color:var(--zen-text-main);border:1px solid var(--zen-border);border-radius:10px;padding:10px 12px;font-size:13px}.card{background:var(--card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}h1{margin-bottom:15px}.desc{color:var(--zen-text-sub);margin-bottom:25px}.ad-box{margin:25px 0;height:110px;border:2px dashed var(--zen-border);border-radius:18px;display:flex;align-items:center;justify-content:center;color:#64748b}input,select{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color:var(--zen-text-main);font-size:16px}button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:font-size:15px;font-weight:bold;margin:6px 6px 6px 0}.green{background:var(--green)}.result-box{background:rgba(16,185,129,0.08);border:1px solid var(--green);border-radius:14px;padding:20px;margin:15px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}.result-item{text-align:center}.result-item .val{font-size:20px;font-weight:bold;color:var(--green)}.result-item .lbl{font-size:12px;color:var(--zen-text-sub);margin-top:4px}.result-item .red{color:var(--red)}.fee-table{width:100%;border-collapse:collapse;margin:15px 0;font-size:14px}.fee-table th,.fee-table td{padding:10px 12px;border-bottom:1px solid var(--zen-border)}.fee-table th{color:var(--zen-text-sub);font-weight:normal;text-align:left}.fee-table td{color:var(--zen-text-main);text-align:right}.fee-table td:first-child{text-align:left}footer{margin-top:50px;text-align:center;color:var(--zen-text-sub)}@media(max-width:768px){button,.lang-select{width:100%}}.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+    .logo-text-blue { color: var(--zen-primary); }
+
+    .logo-text-teal { color: var(--zen-secondary); }
+
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+    .section-head { text-align: center; margin-bottom: 36px; }
+
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+
+      .hamburger { display: inline-flex !important; }
+
+      .page-hero { padding-top: 120px !important; }
+
+      .info-grid { grid-template-columns: 1fr; }
+
+      .tool-box { padding: 24px; }
+
+    }
+
+    @media (max-width: 480px) {
+
+      .nav-inner { height: 60px; gap: 8px; }
+
+      .page-hero { padding-top: 100px !important; }
+
+    }
+
+</style>
+
+</div>
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<link rel="canonical" href="https://zentools.xyz/finance/stock.html"/>
+
+</head><body>
+
+<div class="z-wrap">
+
+  <nav class="site-nav">
+
+    <div class="container nav-inner">
+
+      <div class="brand-logo">
+
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+
+        </a>
+
+      </div>
+
+      <div class="nav-links">
+
+        <a href="/" data-i18n="navHome">首页</a>
+
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+
+          <option value="zh">中文</option>
+
+          <option value="en">English</option>
+
+          <option value="ja">日本語</option>
+
+          <option value="vi">Tiếng Việt</option>
+
+        </select>
+
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+  </nav>
+
+
+
+  <div class="mobile-overlay" id="mobileOverlay">
+
+    <div class="mobile-drawer" id="mobileDrawer">
+
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+
+    </div>
+
+  </div>
+
+<div class="container"><div class="top-bar"><a href="../index.html" data-i18n="back">← 返回首页</a><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="en">English</option><option value="ja">日本語</option><option value="vi">Tiếng Việt</option></select></div><div class="card"><h1 data-i18n="pageTitle">股票手续费计算器</h1><p class="desc" data-i18n="pageDesc">计算 A 股买卖交易产生的印花税、佣金等费用。</p><div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div><input type="number" id="stockPrice" placeholder="股票价格（元/股）" value="10"><input type="number" id="stockShares" placeholder="股票数量（股）" value="1000"><div class="radios" style="display:flex;gap:15px;flex-wrap:wrap;margin:10px 0"><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="buy" checked style="width:auto;margin:0"> <span data-i18n="buy">买入</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="sell" style="width:auto;margin:0"> <span data-i18n="sell">卖出</span></label><label style="display:flex;align-items:center;gap:6px;cursor:pointer"><input type="radio" name="direction" value="both" style="width:auto;margin:0"> <span data-i18n="both">买卖双向</span></label></div><button onclick="calcStock()" data-i18n="calc">开始计算</button><div id="result" style="display:none"><div class="result-box"><div class="result-item"><div class="val" id="totalFee">0</div><div class="lbl" data-i18n="totalFee">总手续费（元）</div></div><div class="result-item"><div class="val" id="actualCost">0</div><div class="lbl" data-i18n="actualCost">实际成本（元）</div></div><div class="result-item"><div class="val" id="costPerShare">0</div><div class="lbl" data-i18n="costPerShare">每股成本</div></div></div><table class="fee-table" id="feeDetail"></table></div></div>
+
+    
+
+    <!-- P1-EXPAND SEO CONTENT -->
+
+<section class="section">
+
+<h2>适用场景</h2>
+
+  <p>股票手续费计算器计算股票交易手续费、印花税和过户费，辅助投资成本核算。「股票手续费计算器」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+
+<h2>适合谁使用</h2>
+
+  <p>个人理财、房贷车贷规划、投资和记账的用户，以及需要快速估算的人。</p>
+
+<h2>进阶技巧</h2>
+
+  <ul>
+
+<li>利率/汇率会变动，结果以当下为准</li>
+
+<li>长期规划用复利视角看</li>
+
+<li>贷款类结果仅作参考，以机构为准</li>
+
+<li>重要决策前多换几个参数对比</li>
+
+</ul>
+
+<h2>常见问题</h2>
+
+  <div class="faq">
+
+    <details open><summary>用股票手续费计算器时，计算准确吗？</summary><p>按页面公式精确计算，输入正确则结果可靠。</p></details>
+
+<details open><summary>用股票手续费计算器时，支持哪些计算？</summary><p>取决于具体工具，如汇率、贷款、BMI 等。</p></details>
+
+<details open><summary>用股票手续费计算器时，结果能导出吗？</summary><p>可复制或截图保存，部分支持导出。</p></details>
+
+<details open><summary>用股票手续费计算器时，参数能改吗？</summary><p>能。随时调整输入，结果实时更新。</p></details>
+
+  </div>
+
+</section>
+
 <footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
-<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
-    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
-      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
-      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
-      </div>
-      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
-    </div>
-  </footer></div><script>
-window.ZT_PAGE ={zh:{pageTitle:'股票手续费计算器',pageDesc:'计算 A 股买卖交易产生的印花税、佣金等费用。',ad:'广告位',back:'← 返回首页',calc:'开始计算',buy:'买入',sell:'卖出',both:'买卖双向',totalFee:'总手续费（元）',actualCost:'实际成本（元）',costPerShare:'每股成本',stamp:'印花税',commission:'券商佣金',transfer:'过户费',total:'合计'},en:{pageTitle:'Stock Fee Calculator',pageDesc:'Calculate A-share stock transaction fees.',ad:'Ad Space',back:'← Back',calc:'Calculate',buy:'Buy',sell:'Sell',both:'Both',totalFee:'Total Fee',actualCost:'Total Cost',costPerShare:'Cost/Share',stamp:'Stamp Duty',commission:'Commission',transfer:'Transfer Fee',total:'Total'},ja:{pageTitle:'株式手数料計算機',pageDesc:'A株の取引手数料を計算。',ad:'広告',back:'← 戻る',calc:'計算',buy:'買い',sell:'売り',both:'両方',totalFee:'総手数料',actualCost:'実質コスト',costPerShare:'1株あたり',stamp:'印紙税',commission:'手数料',transfer:'振替料',total:'合計'},vi:{pageTitle:'Máy tính phí chứng khoán',pageDesc:'Tính phí giao dịch cổ phiếu A.',ad:'QC',back:'← Quay lại',calc:'Tính',buy:'Mua',sell:'Bán',both:'Cả hai',totalFee:'Tổng phí',actualCost:'Tổng chi phí',costPerShare:'Giá/cổ phiếu',stamp:'Thuế tem',commission:'Hoa hồng',transfer:'Phí chuyển',total:'Tổng'}};
-function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
-document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
-function calcStock(){const p=parseFloat(document.getElementById('stockPrice').value)||0,q=parseInt(document.getElementById('stockShares').value)||0,dir=document.querySelector('input[name="direction"]:checked').value;if(!p||!q){alert('Please fill in all fields');return;}const amount=p*q;const commissionRate=0.00025;const minCommission=5;const stampRate=0.0005;const transferRate=0.00001;let totalFee=0,detail=[];const calcOne=function(label,rate,isStamp,isTransfer){let fee=amount*rate;if(isStamp&&dir==='buy')return null;if(!isStamp&&!isTransfer&&fee<minCommission)fee=minCommission;totalFee+=fee;return{label:label,amount:fee};};const addDetail=function(label,rate,isStamp,isTransfer){const r=calcOne(label,rate,isStamp,isTransfer);if(r)detail.push(r);};addDetail(pageT[sl].commission,commissionRate,false,false);addDetail(pageT[sl].stamp,stampRate,true,false);addDetail(pageT[sl].transfer,transferRate,false,true);if(dir==='both'){totalFee*=2;detail=detail.concat(detail.map(function(d){return{label:d.label+'('+pageT[sl].sell+')',amount:d.amount};}));detail.forEach(function(d,i){if(i<3)d.label=d.label+'('+pageT[sl].buy+')';});}const actual=amount+totalFee;const cps=actual/q;document.getElementById('result').style.display='block';document.getElementById('totalFee').textContent=totalFee.toFixed(2);document.getElementById('actualCost').textContent=actual.toFixed(2);document.getElementById('costPerShare').textContent=cps.toFixed(4);let html='<tr><th>费用项目</th><th>金额（元）</th></tr>';detail.forEach(function(d){html+='<tr><td>'+d.label+'</td><td>'+d.amount.toFixed(2)+'</td></tr>';});html+='<tr><td><strong>'+pageT[sl].total+'</strong></td><td><strong>'+totalFee.toFixed(2)+'</strong></td></tr>';document.getElementById('feeDetail').innerHTML=html;}
-</script>
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-
-
-    
-    
-    
-
-<script>
-// 暗黑模式切换
-(function() {
-  var savedTheme = localStorage.getItem('zentools_theme');
-  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
-  var btn = document.getElementById('themeToggle');
-  if (btn) {
-    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
-    btn.addEventListener('click', function() {
-      document.documentElement.classList.toggle('dark');
-      var isDark = document.documentElement.classList.contains('dark');
-      this.textContent = isDark ? '☀️' : '🌙';
-      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
-    });
-  }
-})();
-
-// 移动端侧滑
-(function() {
-  var overlay = document.getElementById('mobileOverlay');
-  var hamBtn = document.getElementById('hamburgerBtn');
-  var closeBtn = document.getElementById('mobileClose');
-  if (!hamBtn || !overlay) return;
-  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
-  hamBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if (overlay.classList.contains('open')) { closeMenu(); } else {
-      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
-    }
-  });
-  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', function(e) {
-    var drawer = document.getElementById('mobileDrawer');
-    if (drawer && !drawer.contains(e.target)) closeMenu();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
-  });
-})();
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').catch(function() {});
-  });
-}
-</script>
-
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "股票手续费计算器", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "ZenTools 免费股票交易手续费计算器，计算印花税、佣金等费用。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。", "url": "https://zentools.xyz/finance/stock.html", "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-18", "dateModified": "2026-07-20"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "金融工具", "item": "https://zentools.xyz/finance/"}, {"@type": "ListItem", "position": 4, "name": "股票手续费计算器"}]}</script><script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用股票手续费计算器时，计算准确吗？","acceptedAnswer": {"@type": "Answer","text": "按页面公式精确计算，输入正确则结果可靠。"}},{"@type": "Question","name": "用股票手续费计算器时，支持哪些计算？","acceptedAnswer": {"@type": "Answer","text": "取决于具体工具，如汇率、贷款、BMI 等。"}},{"@type": "Question","name": "用股票手续费计算器时，结果能导出吗？","acceptedAnswer": {"@type": "Answer","text": "可复制或截图保存，部分支持导出。"}},{"@type": "Question","name": "用股票手续费计算器时，参数能改吗？","acceptedAnswer": {"@type": "Answer","text": "能。随时调整输入，结果实时更新。"}}]}</script>
+<section class="tool-tutorial">
+<h2>完整使用教程</h2>
+<h3>工具简介</h3>
+<p>「股票手续费计算器」是 ZenTools 提供的金融计算工具，用来帮你把这类任务在浏览器里快速完成。它把原本需要安装专业桌面软件、或依赖在线服务器上传文件才能做的事，简化成打开网页即用的一步式小工具——无需安装、无需注册登录，所有处理都在你的设备本地运行，文件不会离开浏览器，因此既保护隐私，也适合在没有装专业软件的设备上应急使用。</p>
+<h3>详细操作步骤</h3><ol><li>打开「股票手续费计算器」，在对应输入框填写金额、利率、期限等参数这一步决定输入是否正确，文件选错会白忙活，确认无误再继续。</li><li>选择计算方式或还款/存款类型参数先按默认或推荐值来，拿一个小样本试效果，满意后再批量处理。</li><li>点击计算，结果会即时显示处理在本地完成，稍等片刻即可在预览区看到结果，可随时清空重来。</li><li>对比不同参数下的结果，重要决策前多换几组数值处理前建议备份原文件；结果出来后先核对一遍，再决定下载或复制。</li></ol><p>整个流程可以反复操作、随时重置；养成「先小样、后批量」的习惯，能最大程度避免大文件处理出错后重来。遇到不熟悉的参数，优先用推荐值，通常已覆盖大多数日常场景。</p>
+<h3>本地处理与隐私</h3><p>「股票手续费计算器」的所有运算都在你的浏览器本地完成，文件不会上传到任何服务器，这一点和需要把资料传到云端的在线工具完全不同：你不必担心原始图片、文档或文本在传输过程中泄露，也不依赖账号体系。对包含个人隐私或商业信息的文件来说，本地处理是最稳妥的选择。</p><h3>使用建议</h3><p>把「股票手续费计算器」当作随手可用的轻量助手最合适：它胜在快、免安装、隐私友好，但不替代专业桌面软件的全部高级功能。涉及重要数据或对外交付的成果，建议处理完后人工复核一遍再使用；把它嵌进你的日常小流程里，很多原本要开软件、等加载的零碎任务，几秒钟就能在网页里解决。</p></section>
+<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
+
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+
+      </div>
+
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+
+    </div>
+
+  </footer></div><script>
+
+window.ZT_PAGE ={zh:{pageTitle:'股票手续费计算器',pageDesc:'计算 A 股买卖交易产生的印花税、佣金等费用。',ad:'广告位',back:'← 返回首页',calc:'开始计算',buy:'买入',sell:'卖出',both:'买卖双向',totalFee:'总手续费（元）',actualCost:'实际成本（元）',costPerShare:'每股成本',stamp:'印花税',commission:'券商佣金',transfer:'过户费',total:'合计'},en:{pageTitle:'Stock Fee Calculator',pageDesc:'Calculate A-share stock transaction fees.',ad:'Ad Space',back:'← Back',calc:'Calculate',buy:'Buy',sell:'Sell',both:'Both',totalFee:'Total Fee',actualCost:'Total Cost',costPerShare:'Cost/Share',stamp:'Stamp Duty',commission:'Commission',transfer:'Transfer Fee',total:'Total'},ja:{pageTitle:'株式手数料計算機',pageDesc:'A株の取引手数料を計算。',ad:'広告',back:'← 戻る',calc:'計算',buy:'買い',sell:'売り',both:'両方',totalFee:'総手数料',actualCost:'実質コスト',costPerShare:'1株あたり',stamp:'印紙税',commission:'手数料',transfer:'振替料',total:'合計'},vi:{pageTitle:'Máy tính phí chứng khoán',pageDesc:'Tính phí giao dịch cổ phiếu A.',ad:'QC',back:'← Quay lại',calc:'Tính',buy:'Mua',sell:'Bán',both:'Cả hai',totalFee:'Tổng phí',actualCost:'Tổng chi phí',costPerShare:'Giá/cổ phiếu',stamp:'Thuế tem',commission:'Hoa hồng',transfer:'Phí chuyển',total:'Tổng'}};
+
+function applyLang(lang){const d=pageT[lang]||pageT.zh;document.documentElement.lang=lang==='zh'?'zh-CN':lang;document.title=d.pageTitle||document.title;document.querySelectorAll('[data-i18n]').forEach(function(el){const k=el.getAttribute('data-i18n');if(d[k])el.textContent=d[k];});localStorage.setItem('zentools_lang',lang);}
+
+document.getElementById('langSelect').addEventListener('change',function(){applyLang(this.value);});const sl=localStorage.getItem('zentools_lang')||'zh';document.getElementById('langSelect').value=sl;applyLang(sl);
+
+function calcStock(){const p=parseFloat(document.getElementById('stockPrice').value)||0,q=parseInt(document.getElementById('stockShares').value)||0,dir=document.querySelector('input[name="direction"]:checked').value;if(!p||!q){alert('Please fill in all fields');return;}const amount=p*q;const commissionRate=0.00025;const minCommission=5;const stampRate=0.0005;const transferRate=0.00001;let totalFee=0,detail=[];const calcOne=function(label,rate,isStamp,isTransfer){let fee=amount*rate;if(isStamp&&dir==='buy')return null;if(!isStamp&&!isTransfer&&fee<minCommission)fee=minCommission;totalFee+=fee;return{label:label,amount:fee};};const addDetail=function(label,rate,isStamp,isTransfer){const r=calcOne(label,rate,isStamp,isTransfer);if(r)detail.push(r);};addDetail(pageT[sl].commission,commissionRate,false,false);addDetail(pageT[sl].stamp,stampRate,true,false);addDetail(pageT[sl].transfer,transferRate,false,true);if(dir==='both'){totalFee*=2;detail=detail.concat(detail.map(function(d){return{label:d.label+'('+pageT[sl].sell+')',amount:d.amount};}));detail.forEach(function(d,i){if(i<3)d.label=d.label+'('+pageT[sl].buy+')';});}const actual=amount+totalFee;const cps=actual/q;document.getElementById('result').style.display='block';document.getElementById('totalFee').textContent=totalFee.toFixed(2);document.getElementById('actualCost').textContent=actual.toFixed(2);document.getElementById('costPerShare').textContent=cps.toFixed(4);let html='<tr><th>费用项目</th><th>金额（元）</th></tr>';detail.forEach(function(d){html+='<tr><td>'+d.label+'</td><td>'+d.amount.toFixed(2)+'</td></tr>';});html+='<tr><td><strong>'+pageT[sl].total+'</strong></td><td><strong>'+totalFee.toFixed(2)+'</strong></td></tr>';document.getElementById('feeDetail').innerHTML=html;}
+
+</script>
+
+<script>
+
+// Related tools — loaded from tools-data.json
+
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+
+</script>
+
+
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+
+
+<script>
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', () => {
+
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+
+  });
+
+}
+
+</script>
+
+
+
+
+
+    
+
+    
+
+    
+
+
+
+<script>
+
+// 暗黑模式切换
+
+(function() {
+
+  var savedTheme = localStorage.getItem('zentools_theme');
+
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+  var btn = document.getElementById('themeToggle');
+
+  if (btn) {
+
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+
+    btn.addEventListener('click', function() {
+
+      document.documentElement.classList.toggle('dark');
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      this.textContent = isDark ? '☀️' : '🌙';
+
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+
+    });
+
+  }
+
+})();
+
+
+
+// 移动端侧滑
+
+(function() {
+
+  var overlay = document.getElementById('mobileOverlay');
+
+  var hamBtn = document.getElementById('hamburgerBtn');
+
+  var closeBtn = document.getElementById('mobileClose');
+
+  if (!hamBtn || !overlay) return;
+
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+
+  hamBtn.addEventListener('click', function(e) {
+
+    e.stopPropagation();
+
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+
+    }
+
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  overlay.addEventListener('click', function(e) {
+
+    var drawer = document.getElementById('mobileDrawer');
+
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+
+  });
+
+  document.addEventListener('keydown', function(e) {
+
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+
+  });
+
+})();
+
+
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', function() {
+
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+
+  });
+
+}
+
+</script>
+
+
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "股票手续费计算器", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "description": "ZenTools 免费股票交易手续费计算器，计算印花税、佣金等费用。免费在线使用，浏览器本地运行，无需安装、无需上传文件，保护隐私安全。ZenTools 提供数百款实用在线工具。", "url": "https://zentools.xyz/finance/stock.html", "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-18", "dateModified": "2026-07-20"}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "金融工具", "item": "https://zentools.xyz/finance/"}, {"@type": "ListItem", "position": 4, "name": "股票手续费计算器"}]}</script><script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用股票手续费计算器时，计算准确吗？","acceptedAnswer": {"@type": "Answer","text": "按页面公式精确计算，输入正确则结果可靠。"}},{"@type": "Question","name": "用股票手续费计算器时，支持哪些计算？","acceptedAnswer": {"@type": "Answer","text": "取决于具体工具，如汇率、贷款、BMI 等。"}},{"@type": "Question","name": "用股票手续费计算器时，结果能导出吗？","acceptedAnswer": {"@type": "Answer","text": "可复制或截图保存，部分支持导出。"}},{"@type": "Question","name": "用股票手续费计算器时，参数能改吗？","acceptedAnswer": {"@type": "Answer","text": "能。随时调整输入，结果实时更新。"}}]}</script>
+
 </body></html>

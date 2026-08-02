@@ -1,325 +1,654 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head><!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-V3MP20S9Z3');
-</script>
-
-<meta name="theme-color" content="#0066FF">
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="/manifest.json" />
-  <title>日本税金计算 - ZenTools</title>
-  <script src="/assets/js/anti-crash.min.js"></script>
-<meta name="description" content="简易估算日本所得税和住民税，适合在日工作和报税参考。，免费在线使用，本地处理保护隐私，无需上传服务器。">
-<meta name="keywords" content="日本税金计算,日本所得税,日本住民税,ZenTools,日本生活工具,在线计算器,免费工具,日本税金计算在线使用,日本税金计算怎么用">
-<link rel="canonical" href="https://zentools.xyz/life/japan-tax.html">
-<meta property="og:title" content="日本税金计算 - ZenTools">
-<meta property="og:description" content="免费在线日本税金计算工具，简易估算所得税和住民税。">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://zentools.xyz/life/japan-tax.html">
-<meta property="og:image" content="https://www.zentools.xyz/logo.png">
-<style>
-    :root {
-        --zen-primary: #0066FF;
-        --zen-secondary: #00C2B8;
-        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
-        --zen-success: #22C55E;
-        --zen-warning: #F97316;
-        --zen-danger: #EF4444;
-        --zen-text-main: #111827;
-        --zen-text-sub: #4B5563;
-        --zen-text-placeholder: #9CA3AF;
-        --zen-bg-base: #F9FAFB;
-        --zen-bg-card: #FFFFFF;
-        --zen-border: #E5E7EB;
-        --zen-radius-base: 12px;
-        --zen-radius-card: 16px;
-        --zen-radius-btn: 8px;
-        --zen-radius-tag: 6px;
-      }
-      .dark {
-        --zen-text-main: #F9FAFB;
-        --zen-text-sub: #D1D5DB;
-        --zen-text-placeholder: #64748B;
-        --zen-bg-base: #0F172A;
-        --zen-bg-card: #1E293B;
-        --zen-border: #334155;
-      }
-    }
-
-:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--blue:var(--zen-primary);--green:var(--zen-success);--red:var(--zen-danger)}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Inter,"Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
-.container{max-width:1000px;margin:auto;padding:40px 20px}a{color:var(--zen-primary);text-decoration:none}
-.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
-.lang-select{background:var(--zen-bg-card);color:var(--zen-text-main);border:1px solid var(--zen-border);border-radius:10px;padding:10px 12px}
-.card{background:var(--card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}
-h1{margin-bottom:15px;font-size:34px}.desc{color:var(--zen-text-sub);margin-bottom:25px}
-.ad-box{margin:25px 0;height:110px;border:2px dashed var(--zen-border);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--zen-text-placeholder)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
-input,select{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-base);color:var(--zen-text-main);font-size:16px}
-button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
-.copy-btn{background:var(--green)}.clear-btn{background:var(--red)}
-.result{margin-top:22px;background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:16px;padding:18px;color:var(--zen-text-sub);white-space:pre-line}
-.info{margin-top:35px}.info h2{margin-top:25px}.info p{color:var(--zen-text-sub);white-space:pre-line}
-footer{margin-top:50px;text-align:center;color:var(--zen-text-sub)}
-@media(max-width:768px){button,.lang-select{width:100%}h1{font-size:28px}}
-.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
-    a { color: inherit; text-decoration: none; }
-    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
-    .dark .site-nav { background: rgba(15,23,42,0.75); }
-    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .logo-text-blue { color: var(--zen-primary); }
-    .logo-text-teal { color: var(--zen-secondary); }
-    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
-    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
-    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
-    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
-    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
-    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
-    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
-    .mobile-overlay.open { opacity: 1; visibility: visible; }
-    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
-    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
-    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
-    .close-btn:hover { background: rgba(0,0,0,0.04); }
-    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
-    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
-    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
-    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
-    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
-    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
-    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
-    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
-    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
-    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
-    .section-head { text-align: center; margin-bottom: 36px; }
-    .section-head h2 { font-size: 26px; font-weight: 700; }
-    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
-    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
-    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
-    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
-    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
-    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
-    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
-    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
-    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
-    @media (max-width: 768px) {
-      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
-      .hamburger { display: inline-flex !important; }
-      .page-hero { padding-top: 120px !important; }
-      .info-grid { grid-template-columns: 1fr; }
-      .tool-box { padding: 24px; }
-    }
-    @media (max-width: 480px) {
-      .nav-inner { height: 60px; gap: 8px; }
-      .page-hero { padding-top: 100px !important; }
-    }
-</style>
-</div>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
-     crossorigin="anonymous"></script>
-
-<!-- P1: replaced generic FAQ JSON-LD -->
-
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "生活工具", "item": "https://zentools.xyz/life/"}, {"@type": "ListItem", "position": 4, "name": "日本税金计算"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "日本税金计算 - ZenTools", "url": "https://zentools.xyz/life/japan-tax.html", "description": "简易估算日本所得税和住民税，适合在日工作和报税参考。", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-14", "dateModified": "2026-07-20"}</script>
-</head>
-<body>
-<div class="z-wrap">
-  <nav class="site-nav">
-    <div class="container nav-inner">
-      <div class="brand-logo">
-        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
-          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
-          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
-        </a>
-      </div>
-      <div class="nav-links">
-        <a href="/" data-i18n="navHome">首页</a>
-        <a href="/tools.html" data-i18n="navAll">全部工具</a>
-        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
-        <a href="/guides/" data-i18n="navGuides">深度指南</a>
-        <a href="/compare/" data-i18n="navCompare">工具对比</a>
-        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
-        <a href="/my.html" data-i18n="navMy">用户中心</a>
-        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
-        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
-          <option value="zh">中文</option>
-          <option value="en">English</option>
-          <option value="ja">日本語</option>
-          <option value="vi">Tiếng Việt</option>
-        </select>
-        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
-      </div>
-    </div>
-  </nav>
-  </nav>
-
-  <div class="mobile-overlay" id="mobileOverlay">
-    <div class="mobile-drawer" id="mobileDrawer">
-      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
-      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
-      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
-      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
-      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
-      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
-      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
-      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
-      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
-    </div>
-  </div>
-<div class="container"><div class="top-bar"><a href="index.html" data-i18n="back">← 返回首页</a><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select></div><div class="card">
-<h1 data-i18n="title">日本税金计算</h1>
-<p class="desc" data-i18n="desc">简易估算日本所得税与住民税。</p>
-<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
-<div class="grid"><input id="annualIncome" type="number" data-i18n-placeholder="annualIncomePh"><input id="deduction" type="number" value="480000" data-i18n-placeholder="deductionPh"></div>
-<button onclick="calculate()" data-i18n="calculate">开始计算</button>
-<button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
-<button onclick="clearInputs()" class="clear-btn" data-i18n="clear">清空</button>
-<div class="result" id="result" data-i18n="resultTip">结果会显示在这里。</div>
-<div class="info">
-<h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">输入年收入和基础扣除，系统会用简化税率估算税金。</p>
-<h2 data-i18n="noticeTitle">注意事项</h2><p data-i18n="noticeText">本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。</p>
-</div>
-</div>
-    
-    
-<!-- P1-EXPAND SEO CONTENT -->
-<section class="section">
-<h2>适用场景</h2>
-  <p>日本税金计算：计算日本的住民税和所得税，支持年收入和扣除项输入。「日本税金计算」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
-<h2>适合谁使用</h2>
-  <p>需要快速换算、记账、安排日程的普通用户，以及经常跨境购物或出差旅行的人。</p>
-<h2>进阶技巧</h2>
-  <ul>
-<li>涉及金额或日期的结果，核对一遍再使用</li>
-<li>把常用单位或币种设为默认，减少重复操作</li>
-<li>倒计时、日历类工具可提前设好提醒</li>
-<li>随机类工具适合做决策或抽奖，结果仅供娱乐</li>
-</ul>
-<h2>常见问题</h2>
-  <div class="faq">
-    <details open><summary>用日本税金计算时，计算准确吗？</summary><p>按页面公式精确计算，输入正确则结果可靠。</p></details>
-<details open><summary>用日本税金计算时，支持哪些计算？</summary><p>取决于具体工具，如汇率、贷款、BMI 等。</p></details>
-<details open><summary>用日本税金计算时，结果能导出吗？</summary><p>可复制或截图保存，部分支持导出。</p></details>
-<details open><summary>用日本税金计算时，参数能改吗？</summary><p>能。随时调整输入，结果实时更新。</p></details>
-  </div>
-</section>
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head><!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+
+
+  gtag('config', 'G-V3MP20S9Z3');
+
+</script>
+
+
+
+<meta name="theme-color" content="#0066FF">
+
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="manifest" href="/manifest.json" />
+
+  <title>日本税金计算 - ZenTools</title>
+
+  <script src="/assets/js/anti-crash.min.js"></script>
+
+<meta name="description" content="简易估算日本所得税和住民税，适合在日工作和报税参考。，免费在线使用，本地处理保护隐私，无需上传服务器。">
+
+<meta name="keywords" content="日本税金计算,日本所得税,日本住民税,ZenTools,日本生活工具,在线计算器,免费工具,日本税金计算在线使用,日本税金计算怎么用">
+
+<link rel="canonical" href="https://zentools.xyz/life/japan-tax.html">
+
+<meta property="og:title" content="日本税金计算 - ZenTools">
+
+<meta property="og:description" content="免费在线日本税金计算工具，简易估算所得税和住民税。">
+
+<meta property="og:type" content="website">
+
+<meta property="og:url" content="https://zentools.xyz/life/japan-tax.html">
+
+<meta property="og:image" content="https://www.zentools.xyz/logo.png">
+
+<style>
+
+    :root {
+
+        --zen-primary: #0066FF;
+
+        --zen-secondary: #00C2B8;
+
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+
+        --zen-success: #22C55E;
+
+        --zen-warning: #F97316;
+
+        --zen-danger: #EF4444;
+
+        --zen-text-main: #111827;
+
+        --zen-text-sub: #4B5563;
+
+        --zen-text-placeholder: #9CA3AF;
+
+        --zen-bg-base: #F9FAFB;
+
+        --zen-bg-card: #FFFFFF;
+
+        --zen-border: #E5E7EB;
+
+        --zen-radius-base: 12px;
+
+        --zen-radius-card: 16px;
+
+        --zen-radius-btn: 8px;
+
+        --zen-radius-tag: 6px;
+
+      }
+
+      .dark {
+
+        --zen-text-main: #F9FAFB;
+
+        --zen-text-sub: #D1D5DB;
+
+        --zen-text-placeholder: #64748B;
+
+        --zen-bg-base: #0F172A;
+
+        --zen-bg-card: #1E293B;
+
+        --zen-border: #334155;
+
+      }
+
+    }
+
+
+
+:root{--bg:var(--zen-bg-base);--card:var(--zen-bg-card);--border:var(--zen-border);--text:var(--zen-text-main);--muted:var(--zen-text-sub);--blue:var(--zen-primary);--green:var(--zen-success);--red:var(--zen-danger)}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{background:var(--zen-bg-base);color:var(--zen-text-main);font-family:Inter,"Source Han Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
+
+.container{max-width:1000px;margin:auto;padding:40px 20px}a{color:var(--zen-primary);text-decoration:none}
+
+.top-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+
+.lang-select{background:var(--zen-bg-card);color:var(--zen-text-main);border:1px solid var(--zen-border);border-radius:10px;padding:10px 12px}
+
+.card{background:var(--card);border:1px solid var(--zen-border);border-radius:20px;padding:28px}
+
+h1{margin-bottom:15px;font-size:34px}.desc{color:var(--zen-text-sub);margin-bottom:25px}
+
+.ad-box{margin:25px 0;height:110px;border:2px dashed var(--zen-border);border-radius:18px;display:flex;align-items:center;justify-content:center;color:var(--zen-text-placeholder)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+
+input,select{width:100%;margin:10px 0;padding:14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-base);color:var(--zen-text-main);font-size:16px}
+
+button{background:var(--blue);color:white;border:none;padding:13px 18px;border-radius:12px;cursor:pointer;font-size:15px;font-weight:bold;margin:6px 6px 6px 0}
+
+.copy-btn{background:var(--green)}.clear-btn{background:var(--red)}
+
+.result{margin-top:22px;background:var(--zen-bg-card);border:1px solid var(--zen-border);border-radius:16px;padding:18px;color:var(--zen-text-sub);white-space:pre-line}
+
+.info{margin-top:35px}.info h2{margin-top:25px}.info p{color:var(--zen-text-sub);white-space:pre-line}
+
+footer{margin-top:50px;text-align:center;color:var(--zen-text-sub)}
+
+@media(max-width:768px){button,.lang-select{width:100%}h1{font-size:28px}}
+
+.bookmark-float{position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none}.bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}.bookmark-float:active{transform:scale(0.96)}@media(max-width:640px){.bookmark-float{bottom:16px;right:16px;padding:12px 18px;font-size:13px}}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+    .logo-text-blue { color: var(--zen-primary); }
+
+    .logo-text-teal { color: var(--zen-secondary); }
+
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+    .section-head { text-align: center; margin-bottom: 36px; }
+
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+
+      .hamburger { display: inline-flex !important; }
+
+      .page-hero { padding-top: 120px !important; }
+
+      .info-grid { grid-template-columns: 1fr; }
+
+      .tool-box { padding: 24px; }
+
+    }
+
+    @media (max-width: 480px) {
+
+      .nav-inner { height: 60px; gap: 8px; }
+
+      .page-hero { padding-top: 100px !important; }
+
+    }
+
+</style>
+
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+
+     crossorigin="anonymous"></script>
+
+
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "生活工具", "item": "https://zentools.xyz/life/"}, {"@type": "ListItem", "position": 4, "name": "日本税金计算"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "日本税金计算 - ZenTools", "url": "https://zentools.xyz/life/japan-tax.html", "description": "简易估算日本所得税和住民税，适合在日工作和报税参考。", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-06-14", "dateModified": "2026-07-20"}</script>
+
+</head>
+
+<body>
+
+<div class="z-wrap">
+
+  <nav class="site-nav">
+
+    <div class="container nav-inner">
+
+      <div class="brand-logo">
+
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+
+        </a>
+
+      </div>
+
+      <div class="nav-links">
+
+        <a href="/" data-i18n="navHome">首页</a>
+
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+
+          <option value="zh">中文</option>
+
+          <option value="en">English</option>
+
+          <option value="ja">日本語</option>
+
+          <option value="vi">Tiếng Việt</option>
+
+        </select>
+
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+  </nav>
+
+
+
+  <div class="mobile-overlay" id="mobileOverlay">
+
+    <div class="mobile-drawer" id="mobileDrawer">
+
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+
+    </div>
+
+  </div>
+
+<div class="container"><div class="top-bar"><a href="index.html" data-i18n="back">← 返回首页</a><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select></div><div class="card">
+
+<h1 data-i18n="title">日本税金计算</h1>
+
+<p class="desc" data-i18n="desc">简易估算日本所得税与住民税。</p>
+
+<div class="ad-box" data-i18n="ad">广告位（Google AdSense）</div>
+
+<div class="grid"><input id="annualIncome" type="number" data-i18n-placeholder="annualIncomePh"><input id="deduction" type="number" value="480000" data-i18n-placeholder="deductionPh"></div>
+
+<button onclick="calculate()" data-i18n="calculate">开始计算</button>
+
+<button onclick="copyResult()" class="copy-btn" data-i18n="copy">复制结果</button>
+
+<button onclick="clearInputs()" class="clear-btn" data-i18n="clear">清空</button>
+
+<div class="result" id="result" data-i18n="resultTip">结果会显示在这里。</div>
+
+<div class="info">
+
+<h2 data-i18n="guideTitle">使用说明</h2><p data-i18n="guideText">输入年收入和基础扣除，系统会用简化税率估算税金。</p>
+
+<h2 data-i18n="noticeTitle">注意事项</h2><p data-i18n="noticeText">本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。</p>
+
+</div>
+
+</div>
+
+    
+
+    
+
+<!-- P1-EXPAND SEO CONTENT -->
+
+<section class="section">
+
+<h2>适用场景</h2>
+
+  <p>日本税金计算：计算日本的住民税和所得税，支持年收入和扣除项输入。「日本税金计算」把繁琐的操作变成浏览器里的一步工具，无需安装软件、无需注册，打开网页即可使用，所有计算都在本地完成，文件不会离开你的设备。</p>
+
+<h2>适合谁使用</h2>
+
+  <p>需要快速换算、记账、安排日程的普通用户，以及经常跨境购物或出差旅行的人。</p>
+
+<h2>进阶技巧</h2>
+
+  <ul>
+
+<li>涉及金额或日期的结果，核对一遍再使用</li>
+
+<li>把常用单位或币种设为默认，减少重复操作</li>
+
+<li>倒计时、日历类工具可提前设好提醒</li>
+
+<li>随机类工具适合做决策或抽奖，结果仅供娱乐</li>
+
+</ul>
+
+<h2>常见问题</h2>
+
+  <div class="faq">
+
+    <details open><summary>用日本税金计算时，计算准确吗？</summary><p>按页面公式精确计算，输入正确则结果可靠。</p></details>
+
+<details open><summary>用日本税金计算时，支持哪些计算？</summary><p>取决于具体工具，如汇率、贷款、BMI 等。</p></details>
+
+<details open><summary>用日本税金计算时，结果能导出吗？</summary><p>可复制或截图保存，部分支持导出。</p></details>
+
+<details open><summary>用日本税金计算时，参数能改吗？</summary><p>能。随时调整输入，结果实时更新。</p></details>
+
+  </div>
+
+</section>
+
 <footer style="border-top:1px solid var(--zen-border);padding:36px 0;text-align:center">
-<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
-    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
-      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
-      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
-      </div>
-      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
-    </div>
-  </footer></div>
-<script>
-const translations={
-"zh": {"back": "← 返回首页", "ad": "广告位（Google AdSense）", "calculate": "开始计算", "copy": "复制结果", "clear": "清空", "copied": "已复制", "resultTip": "结果会显示在这里。", "guideTitle": "使用说明", "noticeTitle": "注意事项", "noticeText": "本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。", "empty": "请输入必要数值", "pageTitle": "日本税金计算 - 免费在线工具 | ZenTools", "title": "日本税金计算", "desc": "简易估算日本所得税与住民税。", "guideText": "输入年收入和基础扣除，系统会用简化税率估算税金。", "annualIncomePh": "年收入（日元）", "deductionPh": "基础扣除（日元）"}, "ja": {"back": "← ホームに戻る", "ad": "広告スペース", "calculate": "計算する", "copy": "結果をコピー", "clear": "クリア", "copied": "コピーしました", "resultTip": "結果がここに表示されます。", "guideTitle": "使い方", "noticeTitle": "注意事項", "noticeText": "このツールは簡易計算です。実際の金額は公式情報、会社、銀行、専門家の計算を確認してください。", "empty": "必要な数値を入力してください", "pageTitle": "日本税金計算 - Free Online Tool | ZenTools", "title": "日本税金計算", "desc": "日本の所得税と住民税を簡易計算します。", "guideText": "年収と控除額を入力して税金を概算します。", "annualIncomePh": "年収（円）", "deductionPh": "基礎控除（円）"}, "en": {"back": "← Back to Home", "ad": "Ad Space", "calculate": "Calculate", "copy": "Copy Result", "clear": "Clear", "copied": "Copied", "resultTip": "Result will appear here.", "guideTitle": "How to Use", "noticeTitle": "Notice", "noticeText": "This is a simple estimate. Actual amounts should be confirmed with official sources, employers, banks, or professionals.", "empty": "Please enter required values", "pageTitle": "Japan Tax Calculator - Free Online Tool | ZenTools", "title": "Japan Tax Calculator", "desc": "Estimate Japanese income tax and resident tax.", "guideText": "Enter annual income and deductions to estimate taxes.", "annualIncomePh": "Annual income (JPY)", "deductionPh": "Deduction (JPY)"}, "vi": {"back": "← Quay lại trang chủ", "ad": "Vị trí quảng cáo", "calculate": "Tính toán", "copy": "Sao chép kết quả", "clear": "Xóa", "copied": "Đã sao chép", "resultTip": "Kết quả sẽ hiển thị ở đây.", "guideTitle": "Hướng dẫn", "noticeTitle": "Lưu ý", "noticeText": "Công cụ này chỉ ước tính đơn giản. Số tiền thực tế cần xác nhận theo thông tin chính thức, công ty, ngân hàng hoặc chuyên gia.", "empty": "Vui lòng nhập các giá trị cần thiết", "pageTitle": "Máy tính thuế Nhật Bản - Free Online Tool | ZenTools", "title": "Máy tính thuế Nhật Bản", "desc": "Ước tính thuế thu nhập và thuế cư trú tại Nhật.", "guideText": "Nhập thu nhập năm và khoản khấu trừ để ước tính thuế.", "annualIncomePh": "Thu nhập năm (JPY)", "deductionPh": "Khấu trừ (JPY)"}};
-
-window.ZT_PAGE = translations;
-const languageSelect=document.getElementById("langSelect");
-let currentLang="zh";
-function setLanguage(lang){
- currentLang=lang;
- const data=translations[lang]||translations.zh;
- document.documentElement.lang=lang; document.title=data.pageTitle;
- document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
- document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
- localStorage.setItem("zentools_lang",lang);
-}
-languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
-const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang; setLanguage(savedLang);
-function yen(n){return Math.round(n).toLocaleString()+" 円";}
-function money(n){return Math.round(n).toLocaleString();}
-function showResult(t){document.getElementById("result").textContent=t;}
-function clearInputs(){document.querySelectorAll("input").forEach(i=>{if(i.type!=="date")i.value="";});document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
-function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
-
-function incomeTax(t){const b=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[Infinity,.45,4796000]];for(const [l,r,d] of b){if(t<=l)return Math.max(0,t*r-d)}return 0}function calculate(){const d=translations[currentLang]||translations.zh;const i=parseFloat(document.getElementById('annualIncome').value)||0, de=parseFloat(document.getElementById('deduction').value)||0;if(i<=0){alert(d.empty);return;}const taxable=Math.max(0,i-de), it=incomeTax(taxable), surtax=it*.021, resident=taxable*.10,total=it+surtax+resident;showResult(`课税所得估算：${yen(taxable)}\n所得税估算：${yen(it)}\n复兴特别所得税估算：${yen(surtax)}\n住民税估算：${yen(resident)}\n合计估算：${yen(total)}`);}
-</script>
-
-<script>
-// Related tools — loaded from tools-data.json
-(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
-var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
-</script>
-
-<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
-
-<script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-  });
-}
-</script>
-
-
-    
-    
-    
-
-<script>
-// 暗黑模式切换
-(function() {
-  var savedTheme = localStorage.getItem('zentools_theme');
-  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
-  var btn = document.getElementById('themeToggle');
-  if (btn) {
-    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
-    btn.addEventListener('click', function() {
-      document.documentElement.classList.toggle('dark');
-      var isDark = document.documentElement.classList.contains('dark');
-      this.textContent = isDark ? '☀️' : '🌙';
-      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
-    });
-  }
-})();
-
-// 移动端侧滑
-(function() {
-  var overlay = document.getElementById('mobileOverlay');
-  var hamBtn = document.getElementById('hamburgerBtn');
-  var closeBtn = document.getElementById('mobileClose');
-  if (!hamBtn || !overlay) return;
-  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
-  hamBtn.addEventListener('click', function(e) {
-    e.stopPropagation();
-    if (overlay.classList.contains('open')) { closeMenu(); } else {
-      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
-    }
-  });
-  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', function(e) {
-    var drawer = document.getElementById('mobileDrawer');
-    if (drawer && !drawer.contains(e.target)) closeMenu();
-  });
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
-  });
-})();
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/sw.js').catch(function() {});
-  });
-}
-</script>
-
-<!-- P1: replaced generic FAQ JSON-LD -->
-<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用日本税金计算时，计算准确吗？","acceptedAnswer": {"@type": "Answer","text": "按页面公式精确计算，输入正确则结果可靠。"}},{"@type": "Question","name": "用日本税金计算时，支持哪些计算？","acceptedAnswer": {"@type": "Answer","text": "取决于具体工具，如汇率、贷款、BMI 等。"}},{"@type": "Question","name": "用日本税金计算时，结果能导出吗？","acceptedAnswer": {"@type": "Answer","text": "可复制或截图保存，部分支持导出。"}},{"@type": "Question","name": "用日本税金计算时，参数能改吗？","acceptedAnswer": {"@type": "Answer","text": "能。随时调整输入，结果实时更新。"}}]}</script>
+<section class="tool-tutorial">
+<h2>完整使用教程</h2>
+<h3>工具简介</h3>
+<p>「日本税金计算」是 ZenTools 提供的生活实用计算工具，用来帮你把这类任务在浏览器里快速完成。它把原本需要安装专业桌面软件、或依赖在线服务器上传文件才能做的事，简化成打开网页即用的一步式小工具——无需安装、无需注册登录，所有处理都在你的设备本地运行，文件不会离开浏览器，因此既保护隐私，也适合在没有装专业软件的设备上应急使用。</p>
+<h3>详细操作步骤</h3><ol><li>涉及金额或日期的结果，核对一遍再使用这一步决定输入是否正确，文件选错会白忙活，确认无误再继续。</li><li>把常用单位或币种设为默认，减少重复操作参数先按默认或推荐值来，拿一个小样本试效果，满意后再批量处理。</li><li>倒计时、日历类工具可提前设好提醒处理在本地完成，稍等片刻即可在预览区看到结果，可随时清空重来。</li><li>随机类工具适合做决策或抽奖，结果仅供娱乐处理前建议备份原文件；结果出来后先核对一遍，再决定下载或复制。</li></ol><p>整个流程可以反复操作、随时重置；养成「先小样、后批量」的习惯，能最大程度避免大文件处理出错后重来。遇到不熟悉的参数，优先用推荐值，通常已覆盖大多数日常场景。</p>
+<h3>本地处理与隐私</h3><p>「日本税金计算」的所有运算都在你的浏览器本地完成，文件不会上传到任何服务器，这一点和需要把资料传到云端的在线工具完全不同：你不必担心原始图片、文档或文本在传输过程中泄露，也不依赖账号体系。对包含个人隐私或商业信息的文件来说，本地处理是最稳妥的选择。</p><h3>使用建议</h3><p>把「日本税金计算」当作随手可用的轻量助手最合适：它胜在快、免安装、隐私友好，但不替代专业桌面软件的全部高级功能。涉及重要数据或对外交付的成果，建议处理完后人工复核一遍再使用；把它嵌进你的日常小流程里，很多原本要开软件、等加载的零碎任务，几秒钟就能在网页里解决。</p></section>
+<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-08-02</div>
+
+    <div class="footer-inner" style="max-width:1200px;margin:0 auto;padding:0 24px">
+
+      <div class="footer-logo" style="font-size:18px;font-weight:700;margin-bottom:12px;background:var(--zen-gradient);-webkit-background-clip:text;background-clip:text;color:transparent">ZenTools</div>
+
+      <div class="footer-links" style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-bottom:14px;font-size:13px">
+
+      </div>
+
+      <p class="footer-copy" data-i18n="footerCopy" style="font-size:13px;color:var(--zen-text-placeholder)">© 2026 ZenTools · https://zentools.xyz · All rights reserved</p>
+
+    </div>
+
+  </footer></div>
+
+<script>
+
+const translations={
+
+"zh": {"back": "← 返回首页", "ad": "广告位（Google AdSense）", "calculate": "开始计算", "copy": "复制结果", "clear": "清空", "copied": "已复制", "resultTip": "结果会显示在这里。", "guideTitle": "使用说明", "noticeTitle": "注意事项", "noticeText": "本工具为简易估算，结果仅供参考，实际金额请以日本官方、公司、银行或专业人士计算为准。", "empty": "请输入必要数值", "pageTitle": "日本税金计算 - 免费在线工具 | ZenTools", "title": "日本税金计算", "desc": "简易估算日本所得税与住民税。", "guideText": "输入年收入和基础扣除，系统会用简化税率估算税金。", "annualIncomePh": "年收入（日元）", "deductionPh": "基础扣除（日元）"}, "ja": {"back": "← ホームに戻る", "ad": "広告スペース", "calculate": "計算する", "copy": "結果をコピー", "clear": "クリア", "copied": "コピーしました", "resultTip": "結果がここに表示されます。", "guideTitle": "使い方", "noticeTitle": "注意事項", "noticeText": "このツールは簡易計算です。実際の金額は公式情報、会社、銀行、専門家の計算を確認してください。", "empty": "必要な数値を入力してください", "pageTitle": "日本税金計算 - Free Online Tool | ZenTools", "title": "日本税金計算", "desc": "日本の所得税と住民税を簡易計算します。", "guideText": "年収と控除額を入力して税金を概算します。", "annualIncomePh": "年収（円）", "deductionPh": "基礎控除（円）"}, "en": {"back": "← Back to Home", "ad": "Ad Space", "calculate": "Calculate", "copy": "Copy Result", "clear": "Clear", "copied": "Copied", "resultTip": "Result will appear here.", "guideTitle": "How to Use", "noticeTitle": "Notice", "noticeText": "This is a simple estimate. Actual amounts should be confirmed with official sources, employers, banks, or professionals.", "empty": "Please enter required values", "pageTitle": "Japan Tax Calculator - Free Online Tool | ZenTools", "title": "Japan Tax Calculator", "desc": "Estimate Japanese income tax and resident tax.", "guideText": "Enter annual income and deductions to estimate taxes.", "annualIncomePh": "Annual income (JPY)", "deductionPh": "Deduction (JPY)"}, "vi": {"back": "← Quay lại trang chủ", "ad": "Vị trí quảng cáo", "calculate": "Tính toán", "copy": "Sao chép kết quả", "clear": "Xóa", "copied": "Đã sao chép", "resultTip": "Kết quả sẽ hiển thị ở đây.", "guideTitle": "Hướng dẫn", "noticeTitle": "Lưu ý", "noticeText": "Công cụ này chỉ ước tính đơn giản. Số tiền thực tế cần xác nhận theo thông tin chính thức, công ty, ngân hàng hoặc chuyên gia.", "empty": "Vui lòng nhập các giá trị cần thiết", "pageTitle": "Máy tính thuế Nhật Bản - Free Online Tool | ZenTools", "title": "Máy tính thuế Nhật Bản", "desc": "Ước tính thuế thu nhập và thuế cư trú tại Nhật.", "guideText": "Nhập thu nhập năm và khoản khấu trừ để ước tính thuế.", "annualIncomePh": "Thu nhập năm (JPY)", "deductionPh": "Khấu trừ (JPY)"}};
+
+
+
+window.ZT_PAGE = translations;
+
+const languageSelect=document.getElementById("langSelect");
+
+let currentLang="zh";
+
+function setLanguage(lang){
+
+ currentLang=lang;
+
+ const data=translations[lang]||translations.zh;
+
+ document.documentElement.lang=lang; document.title=data.pageTitle;
+
+ document.querySelectorAll("[data-i18n]").forEach(el=>{const k=el.getAttribute("data-i18n"); if(data[k]) el.textContent=data[k];});
+
+ document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{const k=el.getAttribute("data-i18n-placeholder"); if(data[k]) el.placeholder=data[k];});
+
+ localStorage.setItem("zentools_lang",lang);
+
+}
+
+languageSelect.addEventListener("change",e=>setLanguage(e.target.value));
+
+const savedLang=localStorage.getItem("zentools_lang")||"zh"; languageSelect.value=savedLang; setLanguage(savedLang);
+
+function yen(n){return Math.round(n).toLocaleString()+" 円";}
+
+function money(n){return Math.round(n).toLocaleString();}
+
+function showResult(t){document.getElementById("result").textContent=t;}
+
+function clearInputs(){document.querySelectorAll("input").forEach(i=>{if(i.type!=="date")i.value="";});document.getElementById("result").textContent=(translations[currentLang]||translations.zh).resultTip;}
+
+function copyResult(){const t=document.getElementById("result").textContent;if(navigator.clipboard)navigator.clipboard.writeText(t);alert((translations[currentLang]||translations.zh).copied);}
+
+
+
+function incomeTax(t){const b=[[1950000,.05,0],[3300000,.10,97500],[6950000,.20,427500],[9000000,.23,636000],[18000000,.33,1536000],[40000000,.40,2796000],[Infinity,.45,4796000]];for(const [l,r,d] of b){if(t<=l)return Math.max(0,t*r-d)}return 0}function calculate(){const d=translations[currentLang]||translations.zh;const i=parseFloat(document.getElementById('annualIncome').value)||0, de=parseFloat(document.getElementById('deduction').value)||0;if(i<=0){alert(d.empty);return;}const taxable=Math.max(0,i-de), it=incomeTax(taxable), surtax=it*.021, resident=taxable*.10,total=it+surtax+resident;showResult(`课税所得估算：${yen(taxable)}\n所得税估算：${yen(it)}\n复兴特别所得税估算：${yen(surtax)}\n住民税估算：${yen(resident)}\n合计估算：${yen(total)}`);}
+
+</script>
+
+
+
+<script>
+
+// Related tools — loaded from tools-data.json
+
+(function(){var s=document.createElement('script');s.src='/data/tools-data.json';s.type='application/json';s.id='toolsDataLoader';document.head.appendChild(s);
+
+var x=new XMLHttpRequest();x.open('GET','/data/tools-data.json?'+Date.now());x.onload=function(){try{var d=JSON.parse(x.responseText);var cat=d.categories||[];var path=window.location.pathname.replace(/\/+$/,'');var curr=d.tools.find(function(t){return t.url===path||t.url===path+'.html';});if(!curr)return;var same=d.tools.filter(function(t){return t.category===curr.category&&t.url!==curr.url;}).slice(0,6);if(same.length===0)return;var lang=localStorage.getItem('zentools_lang')||'zh';var tn=function(t,l){if(l==='zh')return t.name;return t['name__'+l]||t['name__en']||t.name;};var catName=curr.category;cat.forEach(function(c,i){if(c===curr.category){var maps={en:d.categories__en,ja:d.categories__ja,vi:d.categories__vi};if(maps[lang]&&maps[lang][i])catName=maps[lang][i];}});var html='<div style="max-width:1000px;margin:30px auto;padding:0 20px"><h3 style="color:#6b7a9f;font-size:14px;font-weight:700;margin-bottom:14px;letter-spacing:0.5px">📌 相关'+(catName||'')+'工具</h3><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px">';same.forEach(function(t){var name=tn(t,lang);var icon=t.icon||'🔧';html+='<a href="'+t.url+'" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;border:1px solid var(--zen-border);background:var(--zen-bg-card);color: var(--zen-text-main);text-decoration:none;font-size:13px;font-weight:500;transition:background 0.2s" onmouseover="this.style.borderColor='var(--zen-primary)'" onmouseout="this.style.borderColor='var(--zen-border)'"><span style="font-size:16px">'+icon+'</span><span>'+name+'</span></a>';});html+='</div></div>';var footer=document.querySelector('footer');if(footer)footer.insertAdjacentHTML('beforebegin',html);else document.body.insertAdjacentHTML('beforeend',html);}catch(e){}};x.send();})();
+
+</script>
+
+
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')">⭐ 收藏本站，下次办公快人一步</button>
+
+
+
+<script>
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', () => {
+
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+
+  });
+
+}
+
+</script>
+
+
+
+
+
+    
+
+    
+
+    
+
+
+
+<script>
+
+// 暗黑模式切换
+
+(function() {
+
+  var savedTheme = localStorage.getItem('zentools_theme');
+
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+  var btn = document.getElementById('themeToggle');
+
+  if (btn) {
+
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+
+    btn.addEventListener('click', function() {
+
+      document.documentElement.classList.toggle('dark');
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      this.textContent = isDark ? '☀️' : '🌙';
+
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+
+    });
+
+  }
+
+})();
+
+
+
+// 移动端侧滑
+
+(function() {
+
+  var overlay = document.getElementById('mobileOverlay');
+
+  var hamBtn = document.getElementById('hamburgerBtn');
+
+  var closeBtn = document.getElementById('mobileClose');
+
+  if (!hamBtn || !overlay) return;
+
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+
+  hamBtn.addEventListener('click', function(e) {
+
+    e.stopPropagation();
+
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+
+    }
+
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  overlay.addEventListener('click', function(e) {
+
+    var drawer = document.getElementById('mobileDrawer');
+
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+
+  });
+
+  document.addEventListener('keydown', function(e) {
+
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+
+  });
+
+})();
+
+
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', function() {
+
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+
+  });
+
+}
+
+</script>
+
+
+
+<!-- P1: replaced generic FAQ JSON-LD -->
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "用日本税金计算时，计算准确吗？","acceptedAnswer": {"@type": "Answer","text": "按页面公式精确计算，输入正确则结果可靠。"}},{"@type": "Question","name": "用日本税金计算时，支持哪些计算？","acceptedAnswer": {"@type": "Answer","text": "取决于具体工具，如汇率、贷款、BMI 等。"}},{"@type": "Question","name": "用日本税金计算时，结果能导出吗？","acceptedAnswer": {"@type": "Answer","text": "可复制或截图保存，部分支持导出。"}},{"@type": "Question","name": "用日本税金计算时，参数能改吗？","acceptedAnswer": {"@type": "Answer","text": "能。随时调整输入，结果实时更新。"}}]}</script>
+
 </body></html>
