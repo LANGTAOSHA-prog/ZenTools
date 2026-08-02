@@ -28,6 +28,8 @@ EXCLUDE_FILES = {
     'examples.html', 'notes.html', 'recovery-console.html', 'stats.html',
     'test-ui.html', 'test-auto-changelog.html',
     'googlec2f7e3dbccb44280.html',   # Google Search Console 站点验证文件
+    'articles.html',     # 跳转桩页（"正在跳转到教程中心"），已 noindex，不应进 sitemap
+    'categories.html',   # 薄桩页（仅导航+标语），已 noindex，不应进 sitemap
 }
 
 # 优先级规则：根目录 > 分类页 > 工具页 > 教程 / 指南
@@ -38,7 +40,6 @@ PRIORITY_RULES = {
     '/privacy.html':          ('monthly', '0.5'),
     '/terms.html':            ('monthly', '0.5'),
     '/tools.html':            ('daily',  '0.9'),
-    '/categories.html':       ('weekly', '0.7'),
     '/contact.html':          ('monthly', '0.6'),
 }
 
