@@ -1,5 +1,10 @@
 # ZenTools - 免费在线工具箱
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Tools](https://img.shields.io/badge/tools-279-green.svg)
+![Languages](https://img.shields.io/badge/i18n-zh%20%7C%20en%20%7C%20ja%20%7C%20vi-orange.svg)
+![No Backend](https://img.shields.io/badge/backend-none-success.svg)
+
 > **279 款工具 · 纯本地处理 · 无需注册 · 免费无限制**
 
 ZenTools 是一个功能全面的免费在线工具箱，提供 PDF 处理、图片编辑、音频视频处理、开发工具、生活工具等 **13 大类 279 款工具**，全站共 **757 个页面**（含 358 篇教程、28 篇深度指南）。所有工具均在浏览器本地运行，**文件不上传服务器**，保障您的隐私安全。
@@ -41,6 +46,19 @@ ZenTools 是一个功能全面的免费在线工具箱，提供 PDF 处理、图
 2. 在搜索框输入关键词（如"PDF 合并"）或浏览分类
 3. 点击工具卡片即可使用
 4. 右上角语言选择器可切换中/英/日/越
+
+## 💻 本地开发
+
+```bash
+git clone https://github.com/LANGTAOSHA-prog/ZenTools.git
+cd ZenTools
+
+# 任意静态服务器即可
+python -m http.server 8080
+# 或 npx serve .
+```
+
+浏览器访问 `http://localhost:8080`。详见 [贡献指南](CONTRIBUTING.md)。
 
 ---
 
@@ -86,13 +104,24 @@ ZenTools 是一个功能全面的免费在线工具箱，提供 PDF 处理、图
 
 ---
 
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！请阅读 [贡献指南](CONTRIBUTING.md) 了解如何参与。
+
+- 报告 Bug：[提交 Issue](https://github.com/LANGTAOSHA-prog/ZenTools/issues/new?template=bug_report.md)
+- 功能建议：[提交 Issue](https://github.com/LANGTAOSHA-prog/ZenTools/issues/new?template=feature_request.md)
+- 代码贡献：Fork → 创建分支 → 提交 PR
+
+---
+
 ## 📄 许可证
 
-本项目仅供个人学习和经验分享使用。
+本项目基于 [MIT License](LICENSE) 开源，欢迎自由使用、修改和分发。
 
 ---
 
 ## 📬 联系
 
 - 网站：[zentools.xyz](https://zentools.xyz)
+- GitHub：[LANGTAOSHA-prog/ZenTools](https://github.com/LANGTAOSHA-prog/ZenTools)
 - 隐私政策：[zentools.xyz/privacy.html](https://zentools.xyz/privacy.html)
