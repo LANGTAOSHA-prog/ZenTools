@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN" data-theme="dark">
+
+<head><!-- Google tag (gtag.js) -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-V3MP20S9Z3"></script>
+
+<script>
+
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag(){dataLayer.push(arguments);}
+
+  gtag('js', new Date());
+
+
+
+  gtag('config', 'G-V3MP20S9Z3');
+
+</script>
+
+
+
+  <meta name="theme-color" content="#0066FF">
+
+<meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="manifest" href="/manifest.json" />
+
+  <title data-i18n="pageTitle">老照片修复 - ZenTools</title>
+
+  <script src="/assets/js/anti-crash.min.js"></script>
+
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955887568822472"
+
+     crossorigin="anonymous"></script>
+
+  <meta name="description" content="老照片修复工具：去除划痕、修复褪色、降噪增强、锐化模糊区域，一键焕新百年老照片。支持 JPG/PNG 导入导出、修复前后对比预览，浏览器本地处理，保护隐私。" />
+
+  <meta name="keywords" content="老照片修复,照片修复,划痕修复,褪色修复,照片翻新,老照片上色,照片降噪,模糊照片变清晰,免费在线,浏览器本地" />
+
+  <style>
+
+    :root {
+
+        --zen-primary: #0066FF;
+
+        --zen-secondary: #00C2B8;
+
+        --zen-gradient: linear-gradient(135deg, #0066FF, #00C2B8);
+
+        --zen-success: #22C55E;
+
+        --zen-warning: #F97316;
+
+        --zen-danger: #EF4444;
+
+        --zen-text-main: #111827;
+
+        --zen-text-sub: #4B5563;
+
+        --zen-text-placeholder: #9CA3AF;
+
+        --zen-bg-base: #F9FAFB;
+
+        --zen-bg-card: #FFFFFF;
+
+        --zen-border: #E5E7EB;
+
+        --zen-radius-base: 12px;
+
+        --zen-radius-card: 16px;
+
+        --zen-radius-btn: 8px;
+
+        --zen-radius-tag: 6px;
+
+      }
+
+      .dark {
+
+        --zen-text-main: #F9FAFB;
+
+        --zen-text-sub: #D1D5DB;
+
+        --zen-text-placeholder: #64748B;
+
+        --zen-bg-base: #0F172A;
+
+        --zen-bg-card: #1E293B;
+
+        --zen-border: #334155;
+
+      }
+
+
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+
+      --bg: #070b18; --surface: rgba(14,22,41,0.8); --surface2: rgba(20,31,55,0.9);
+
+      --border: rgba(255,255,255,0.06); --text: #f0f4ff; --muted: #8899bb;
+
+      --accent: #3b82f6; --accent2: #8b5cf6; --accent-glow: rgba(59,130,246,0.2);
+
+      --radius: 14px; --radius-pill: 999px;
+
+    }
+
+    body {
+
+      font-family: 'Inter', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+
+      background: var(--zen-bg-base); color: var(--zen-text-main); min-height: 100vh; padding: 20px;
+
+    }
+
+    .container { max-width: 960px; width: 100%; margin: 0 auto; }
+
+    .card {
+
+      background: var(--surface); border: 1px solid var(--zen-border);
+
+      border-radius: var(--radius); padding: 40px;
+
+    }
+
+    .card h1 { font-size: 24px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+
+    .card .icon { font-size: 36px; }
+
+    .card .desc { color: var(--zen-text-sub); margin-bottom: 24px; line-height: 1.6; }
+
+    .tool-area { background: var(--surface2); border: 1px solid var(--zen-border); border-radius: var(--radius); padding: 24px; margin-bottom: 20px; }
+
+    .upload-zone {
+
+      border: 2px dashed var(--zen-border); border-radius: var(--radius); padding: 40px;
+
+      text-align: center; cursor: pointer; transition: all .3s;
+
+    }
+
+    .upload-zone:hover { border-color: var(--accent); background: rgba(59,130,246,0.05); }
+
+    .upload-zone.has-image { border-style: solid; border-color: var(--accent); padding: 16px; }
+
+    .upload-zone .icon-big { font-size: 48px; margin-bottom: 12px; }
+
+    .upload-zone .hint { color: var(--zen-text-sub); font-size: 14px; }
+
+    .upload-zone input[type="file"] { display: none; }
+
+    .preview-area { margin-top: 16px; text-align: center; }
+
+    .preview-area img, .preview-area canvas {
+
+      max-width: 100%; max-height: 450px; border-radius: 10px; background: #0a0e1a;
+
+    }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; align-items: center; }
+
+    .controls label { font-size: 13px; color: var(--zen-text-sub); min-width: 60px; display: inline-flex; align-items: center; gap: 6px; }
+
+    .controls input, .controls select {
+
+      background: #0a0e1a; border: 1px solid var(--zen-border); color: var(--zen-text-main);
+
+      padding: 8px 12px; border-radius: 8px; font-size: 14px;
+
+    }
+
+    .controls input[type="number"] { width: 80px; }
+
+    .controls input[type="range"] { width: 140px; }
+
+    .controls input[type="checkbox"] { width: 16px; height: 16px; }
+
+    .btn {
+
+      display: inline-flex; align-items: center; gap: 6px; padding: 10px 24px;
+
+      background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
+
+      border: none; border-radius: var(--radius-pill); font-size: 14px; font-weight: 600;
+
+      cursor: pointer; transition: all .3s;
+
+    }
+
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(59,130,246,0.4); }
+
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-secondary { background: var(--surface2); color: var(--zen-text-main); border: 1px solid var(--zen-border); }
+
+    .btn-sm { padding: 6px 16px; font-size: 12px; }
+
+    .result-area { margin-top: 16px; text-align: center; }
+
+    .footer { margin-top: 40px; text-align: center; font-size: 12px; color: var(--zen-text-sub); }
+
+    .bookmark-float{
+
+      position:fixed;bottom:24px;right:24px;z-index:999;display:flex;align-items:center;gap:8px;
+
+      background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border:none;padding:14px 22px;
+
+      border-radius:50px;font-size:15px;font-weight:600;cursor:pointer;
+
+      box-shadow:0 6px 24px rgba(37,99,235,0.35);transition:transform 0.2s,box-shadow 0.2s;
+
+      text-decoration:none;
+
+    }
+
+    .bookmark-float:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(37,99,235,0.45)}
+
+    .flex-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+    .lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body { font-family: Inter, "Source Han Sans SC", PingFang SC, Microsoft YaHei, system-ui, sans-serif; background: var(--zen-bg-base); color: var(--zen-text-main); line-height: 1.5; transition: background 0.35s, color 0.35s; -webkit-font-smoothing: antialiased; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .site-nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 999; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); background: rgba(255,255,255,0.75); border-bottom: 1px solid var(--zen-border); transition: background 0.3s; }
+
+    .dark .site-nav { background: rgba(15,23,42,0.75); }
+
+    .nav-inner { height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+    .logo-text-blue { color: var(--zen-primary); }
+
+    .logo-text-teal { color: var(--zen-secondary); }
+
+    .nav-links a { padding: 8px 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--zen-text-sub); cursor: pointer; transition: color 0.2s, background 0.2s; text-decoration: none; }
+
+    .nav-links a:hover { color: var(--zen-text-main); background: rgba(0,0,0,0.04); }
+
+    .dark .nav-links a:hover { background: rgba(255,255,255,0.06); }
+
+    .nav-links a.active { color: var(--zen-primary); font-weight: 600; }
+
+    .hamburger:hover, .theme-toggle:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .hamburger:hover, .dark .theme-toggle:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-overlay { position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+
+    .mobile-overlay.open { opacity: 1; visibility: visible; }
+
+    .mobile-drawer { position: fixed; top: 0; right: 0; bottom: 0; width: 300px; max-width: 85vw; background: rgba(249,250,251,0.97); border-left: 1px solid var(--zen-border); padding: 24px 20px; z-index: 310; overflow-y: auto; transform: translateX(100%); transition: transform 0.3s; backdrop-filter: blur(24px); }
+
+    .dark .mobile-drawer { background: rgba(15,23,42,0.97); }
+
+    .mobile-overlay.open .mobile-drawer { transform: translateX(0); }
+
+    .close-btn:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .close-btn:hover { background: rgba(255,255,255,0.06); }
+
+    .mobile-drawer a:hover { background: rgba(0,0,0,0.04); }
+
+    .dark .mobile-drawer a:hover { background: rgba(255,255,255,0.06); }
+
+    .tool-box { max-width: 900px; margin: 0 auto 48px; background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 36px; }
+
+    .tool-box h2 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
+
+    .tool-box .note { color: var(--zen-text-sub); font-size: 15px; margin-bottom: 24px; }
+
+    .file-input-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+
+    .file-input-row input[type="file"] { flex: 1; min-width: 280px; padding: 14px 18px; border: 1px dashed var(--zen-border); border-radius: 12px; background: var(--zen-bg-base); color: var(--zen-text-sub); font-size: 14px; cursor: pointer; }
+
+    .file-input-row input[type="file"]::file-selector-button { border: none; background: rgba(0,102,255,0.08); color: var(--zen-primary); padding: 8px 16px; border-radius: 8px; margin-right: 12px; cursor: pointer; transition: background 0.2s; }
+
+    .btn-primary { display: inline-flex; align-items: center; justify-content: center; padding: 14px 32px; border-radius: 12px; border: none; background: var(--zen-gradient); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; transition: opacity 0.2s, transform 0.2s; }
+
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .status { margin-top: 16px; color: var(--zen-text-sub); font-size: 14px; min-height: 22px; }
+
+    .section { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+
+    .section-head { text-align: center; margin-bottom: 36px; }
+
+    .section-head h2 { font-size: 26px; font-weight: 700; }
+
+    .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+    .info-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 24px; }
+
+    .info-card h4 { font-size: 16px; font-weight: 700; margin-bottom: 10px; color: var(--zen-primary); }
+
+    .info-card p { font-size: 14px; color: var(--zen-text-sub); line-height: 1.65; }
+
+    .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+
+    .cat-card { background: var(--zen-bg-card); border: 1px solid var(--zen-border); border-radius: 16px; padding: 20px; text-align: center; text-decoration: none; color: var(--zen-text-main); display: block; transition: border-color 0.2s, transform 0.2s; }
+
+    .cat-card:hover { border-color: var(--zen-primary); transform: translateY(-4px); }
+
+    .cat-card .name { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--zen-text-main); }
+
+    .cat-card .desc { font-size: 12px; color: var(--zen-text-sub); }
+
+    .lang-select { background: transparent; border: 1px solid var(--zen-border); border-radius: 8px; padding: 6px 10px; color: var(--zen-text-sub); font-size: 13px; cursor: pointer; }
+
+    @media (max-width: 768px) {
+
+      .nav-links a:not(.hamburger):not(.theme-toggle):not(.lang-select) { display: none; }
+
+      .hamburger { display: inline-flex !important; }
+
+      .page-hero { padding-top: 120px !important; }
+
+      .info-grid { grid-template-columns: 1fr; }
+
+      .tool-box { padding: 24px; }
+
+    }
+
+    @media (max-width: 480px) {
+
+      .nav-inner { height: 60px; gap: 8px; }
+
+      .page-hero { padding-top: 100px !important; }
+
+    }
+
+    /* 前后对比滑块 */
+
+    .compare { position: relative; display: block; width: 100%; max-width: 100%; line-height: 0; user-select: none; cursor: ew-resize; border-radius: 10px; overflow: hidden; }
+
+    .compare canvas { display: block; width: 100%; height: auto; max-height: 480px; background: #0a0e1a; }
+
+    .compare-after { position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; clip-path: inset(0 50% 0 0); }
+
+    .compare-after canvas { width: 100%; height: auto; max-height: 480px; }
+
+    .compare-handle { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #fff; transform: translateX(-1px); pointer-events: none; box-shadow: 0 0 4px rgba(0,0,0,.4); }
+
+    .compare-handle::after { content: '\2194'; position: absolute; top: 50%; left: 50%; width: 30px; height: 30px; transform: translate(-50%,-50%); border-radius: 50%; background: #fff; color: #333; font-size: 16px; line-height: 30px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.4); }
+
+    .compare-label { position: absolute; top: 8px; padding: 2px 8px; background: rgba(0,0,0,.55); color: #fff; font-size: 12px; border-radius: 6px; pointer-events: none; }
+
+    .compare-label-before { left: 8px; }
+
+    .compare-label-after { right: 8px; }
+
+    /* 操作日志 */
+
+    .log-area { margin-top: 18px; text-align: left; background: #0a0e1a; border: 1px solid var(--zen-border); border-radius: 10px; padding: 14px; }
+
+    .log-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+
+    .log-head span { font-size: 14px; font-weight: 600; color: var(--zen-text-main); }
+
+    .log-list { list-style: none; max-height: 200px; overflow-y: auto; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: var(--zen-text-sub); }
+
+    .log-list li { padding: 3px 0; border-bottom: 1px dashed rgba(255,255,255,0.05); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .log-list li .ts { color: var(--zen-secondary); }
+
+    .opt-group { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 12px 0; align-items: center; padding: 14px; background: rgba(0,0,0,0.15); border-radius: 10px; }
+
+    .opt-group .opt { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--zen-text-sub); }
+
+    .opt-group .opt input[type="range"] { width: 110px; }
+
+    /* 更新日志区块（对齐 changelog.html 风格） */
+
+    .ver-block { border: 1px solid var(--zen-border); border-radius: var(--zen-radius-card); padding: 28px; margin-bottom: 20px; background: var(--zen-bg-card); }
+
+    .ver-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+
+    .ver-head .tag { font-size: 20px; font-weight: 800; color: var(--zen-primary); }
+
+    .ver-head .date { font-size: 13px; color: var(--zen-text-placeholder); }
+
+    .ver-head .badge { font-size: 11px; background: rgba(0,102,255,.1); color: var(--zen-primary); padding: 2px 10px; border-radius: 20px; font-weight: 600; }
+
+    .ver-desc { font-size: 14px; color: var(--zen-text-sub); margin-bottom: 12px; line-height: 1.7; }
+
+    .ver-items { padding-left: 20px; margin: 0; }
+
+    .ver-items li { color: var(--zen-text-sub); line-height: 1.8; margin-bottom: 4px; font-size: 14px; }
+
+    .ver-items li::marker { color: var(--zen-primary); }
+
+    .current-badge { display: inline-block; background: var(--zen-gradient); color: #fff; padding: 3px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+
+  .lang-select{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 10px;font-size:13px;cursor:pointer}.lang-select:focus{outline:none;border-color:#3b82f6}
+
+</style>
+
+<script>window.ZT_PAGE={"zh":{pageTitle: '老照片修复 - ZenTools', metaDesc: '老照片修复：去划痕、修复褪色、降噪增强、锐化模糊，一键焕新。', btn_一键修复: '一键修复', btn_重置: '重置', btn_应用修复: '应用修复', btn_下载: '下载修复后的照片', btn_清空日志: '清空', lbl_去划痕: '去划痕', lbl_修复褪色: '修复褪色', lbl_降噪增强: '降噪增强', lbl_锐化: '锐化', lbl_导出格式: '导出格式', lbl_质量: '质量', lbl_操作日志: '操作日志', lbl_原图: '原图', lbl_修复后: '修复后'},"en":{pageTitle: 'Old Photo Restorer - ZenTools', metaDesc: 'Restore old photos: remove scratches, fix fading, denoise, sharpen.', btn_一键修复: 'Auto Restore', btn_重置: 'Reset', btn_应用修复: 'Apply', btn_下载: 'Download', btn_清空日志: 'Clear', lbl_去划痕: 'Scratch', lbl_修复褪色: 'Fading', lbl_降噪增强: 'Denoise', lbl_锐化: 'Sharpen', lbl_导出格式: 'Format', lbl_质量: 'Quality', lbl_操作日志: 'Operation Log', lbl_原图: 'Before', lbl_修复后: 'After'},"ja":{pageTitle: '老写真修復 - ZenTools', metaDesc: '古い写真を修復：キズ除去、色あせ補正、ノイズ除去、シャープ化。', btn_一键修复: '一括修復', btn_重置: 'リセット', btn_应用修复: '適用', btn_下载: 'ダウンロード', btn_清空日志: 'クリア', lbl_去划痕: 'キズ', lbl_修复褪色: '色あせ', lbl_降噪增强: 'ノイズ除去', lbl_锐化: 'シャープ', lbl_导出格式: '形式', lbl_质量: '品質', lbl_操作日志: '操作ログ', lbl_原图: '修復前', lbl_修复后: '修復後'},"vi":{pageTitle: 'Phục hồi Ảnh cũ - ZenTools', metaDesc: 'Phục hồi ảnh cũ: xóa vết xước, khôi phục phai màu, khử nhiễu, làm nét.', btn_一键修复: 'Tự động', btn_重置: 'Đặt lại', btn_应用修复: 'Áp dụng', btn_下载: 'Tải xuống', btn_清空日志: 'Xóa', lbl_去划痕: 'Vết xước', lbl_修复褪色: 'Phai màu', lbl_降噪增强: 'Khử nhiễu', lbl_锐化: 'Làm nét', lbl_导出格式: 'Định dạng', lbl_质量: 'Chất lượng', lbl_操作日志: 'Nhật ký', lbl_原图: 'Trước', lbl_修复后: 'Sau'}};</script>
+
+<link rel="canonical" href="https://zentools.xyz/image/old-photo-restorer.html"/>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "首页", "item": "https://zentools.xyz/"}, {"@type": "ListItem", "position": 2, "name": "全部工具", "item": "https://zentools.xyz/tools/"}, {"@type": "ListItem", "position": 3, "name": "图片工具", "item": "https://zentools.xyz/image/"}, {"@type": "ListItem", "position": 4, "name": "老照片修复"}]}</script><script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "老照片修复 - ZenTools - ZenTools", "url": "https://zentools.xyz/image/old-photo-restorer.html", "description": "老照片修复：去除划痕、修复褪色、降噪增强、锐化模糊区域，一键焕新。", "applicationCategory": "UtilityApplication", "operatingSystem": "All", "browserRequirements": "Requires JavaScript", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "author": {"@type": "Organization", "name": "ZenTools", "url": "https://zentools.xyz"}, "publisher": {"@type": "Organization", "name": "ZenTools", "logo": {"@type": "ImageObject", "url": "https://zentools.xyz/favicon.svg"}}, "datePublished": "2026-07-28", "dateModified": "2026-07-28"}</script>
+
+</head>
+
+<body>
+
+<div class="z-wrap">
+
+  <nav class="site-nav">
+
+    <div class="container nav-inner">
+
+      <div class="brand-logo">
+
+        <a href="/" style="display:flex;align-items:center;gap:8px;text-decoration:none;color:inherit">
+
+          <img src="/favicon.svg" class="logo-icon" alt="ZenTools" style="width:36px;height:36px;border-radius:50%;background:var(--zen-gradient);object-fit:contain;padding:6px;box-sizing:border-box;">
+
+          <div><span class="logo-text-blue">Zen</span><span class="logo-text-teal">Tools</span><span class="logo-ver" style="font-size:11px;color:var(--zen-text-placeholder);font-weight:400;margin-left:2px">3.2</span></div>
+
+        </a>
+
+      </div>
+
+      <div class="nav-links">
+
+        <a href="/" data-i18n="navHome">首页</a>
+
+        <a href="/tools.html" data-i18n="navAll">全部工具</a>
+
+        <a href="/tutorials/" data-i18n="navArticles">教程中心</a>
+
+        <a href="/guides/" data-i18n="navGuides">深度指南</a>
+
+        <a href="/compare/" data-i18n="navCompare">工具对比</a>
+
+        <a href="/professions.html" data-i18n="navProfessions">职业工具</a>
+
+        <a href="/my.html" data-i18n="navMy">用户中心</a>
+
+        <button class="theme-toggle" id="themeToggle" title="切换主题" style="all:unset;display:inline-flex;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:14px;color:var(--zen-text-sub);cursor:pointer">🌙</button>
+
+        <select class="lang-select" id="langSelect" style="all:unset;display:inline-flex;align-items:center;padding:8px 12px;border-radius:8px;font-size:13px;color:var(--zen-text-sub);cursor:pointer;font-family:inherit">
+
+          <option value="zh">中文</option>
+
+          <option value="en">English</option>
+
+          <option value="ja">日本語</option>
+
+          <option value="vi">Tiếng Việt</option>
+
+        </select>
+
+        <button class="hamburger" id="hamburgerBtn" style="all:unset;display:none;align-items:center;justify-content:center;padding:8px 12px;border-radius:8px;font-size:16px;color:var(--zen-text-sub);cursor:pointer">☰</button>
+
+      </div>
+
+    </div>
+
+  </nav>
+
+
+
+
+
+  <div class="mobile-overlay" id="mobileOverlay">
+
+    <div class="mobile-drawer" id="mobileDrawer">
+
+      <button class="close-btn" id="mobileClose" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid var(--zen-border);background:transparent;color:var(--zen-text-sub);cursor:pointer;font-size:18px;margin:0 0 20px auto">✕</button>
+
+      <a href="/" data-i18n="navHome" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">首页</a>
+
+      <a href="/tools.html" data-i18n="navAll" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">全部工具</a>
+
+      <a href="/tutorials/" data-i18n="navArticles" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">教程中心</a>
+
+      <a href="/guides/" data-i18n="navGuides" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">深度指南</a>
+
+      <a href="/compare/" data-i18n="navCompare" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">工具对比</a>
+
+      <a href="/professions.html" data-i18n="navProfessions" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">职业工具</a>
+
+      <a href="/my.html" data-i18n="navMy" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">用户中心</a>
+
+      <a href="/about.html" data-i18n="navAbout" style="display:block;padding:12px 16px;border-radius:8px;font-size:16px;font-weight:500;color:var(--zen-text-sub);text-decoration:none">关于</a>
+
+    </div>
+
+  </div>
+
+<div class="container">
+
+  <div class="card">
+
+    <div class="top-bar" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:20px"><select id="oldLangSelect" class="lang-select"><option value="zh">中文</option><option value="ja">日本語</option><option value="en">English</option><option value="vi">Tiếng Việt</option></select></div>
+
+<h1><span class="icon">🖼️</span> 老照片修复</h1>
+
+    <p class="desc">去除划痕、修复褪色、降噪增强、锐化模糊区域，一键让泛黄老照片焕然一新。所有处理在浏览器本地完成，文件不会上传服务器。</p>
+
+
+
+    <div class="tool-area">
+
+      <div class="upload-zone" id="dropZone">
+
+        <div class="icon-big">📁</div>
+
+        <p>点击或拖拽上传老照片</p>
+
+        <p class="hint">支持 JPG / PNG 等常见图片格式</p>
+
+        <input type="file" id="fileInput" accept="image/*" />
+
+      </div>
+
+
+
+      <div class="preview-area" id="previewArea" style="display:none">
+
+        <div class="compare" id="compare">
+
+          <canvas id="beforeCanvas"></canvas>
+
+          <div class="compare-after" id="afterWrap">
+
+            <canvas id="afterCanvas"></canvas>
+
+          </div>
+
+          <div class="compare-handle" id="compareHandle"></div>
+
+          <div class="compare-label compare-label-before" data-i18n="lbl_原图">原图</div>
+
+          <div class="compare-label compare-label-after" data-i18n="lbl_修复后">修复后</div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="controls" id="controls" style="display:none">
+
+        <button class="btn" id="autoBtn" data-i18n="btn_一键修复">一键修复</button>
+
+        <button class="btn btn-secondary" id="resetBtn" data-i18n="btn_重置">重置</button>
+
+      </div>
+
+
+
+      <div class="opt-group" id="optGroup" style="display:none">
+
+        <label class="opt"><input type="checkbox" id="scratchOn" checked> <span data-i18n="lbl_去划痕">去划痕</span></label>
+
+        <span class="opt"><input type="range" id="scratchAmt" min="1" max="5" step="1" value="3"> <b id="scratchAmtVal">3</b></span>
+
+
+
+        <label class="opt"><input type="checkbox" id="fadeOn" checked> <span data-i18n="lbl_修复褪色">修复褪色</span></label>
+
+
+
+        <label class="opt"><input type="checkbox" id="denoiseOn" checked> <span data-i18n="lbl_降噪增强">降噪增强</span></label>
+
+        <span class="opt"><input type="range" id="denoiseAmt" min="1" max="5" step="1" value="2"> <b id="denoiseAmtVal">2</b></span>
+
+
+
+        <label class="opt"><input type="checkbox" id="sharpenOn" checked> <span data-i18n="lbl_锐化">锐化</span></label>
+
+        <span class="opt"><input type="range" id="sharpenAmt" min="0" max="2" step="0.1" value="0.6"> <b id="sharpenAmtVal">0.6</b></span>
+
+
+
+        <button class="btn btn-secondary" id="applyBtn" data-i18n="btn_应用修复">应用修复</button>
+
+      </div>
+
+
+
+      <div class="result-area" id="resultArea" style="display:none">
+
+        <div class="controls" style="justify-content:center">
+
+          <label data-i18n="lbl_导出格式">导出格式:</label>
+
+          <select id="exportFmt">
+
+            <option value="image/png">PNG</option>
+
+            <option value="image/jpeg">JPG</option>
+
+          </select>
+
+          <label data-i18n="lbl_质量">质量:</label>
+
+          <input type="range" id="exportQ" min="0.5" max="1" step="0.05" value="0.92" />
+
+          <span id="exportQVal">0.92</span>
+
+          <button class="btn" id="downloadBtn" data-i18n="btn_下载">下载修复后的照片</button>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="log-area" id="logArea" style="display:none">
+
+        <div class="log-head">
+
+          <span data-i18n="lbl_操作日志">操作日志</span>
+
+          <button class="btn btn-secondary btn-sm" id="clearLogBtn" data-i18n="btn_清空日志">清空</button>
+
+        </div>
+
+        <ul class="log-list" id="logList"></ul>
+
+      </div>
+
+
+
+      <div class="status" id="status"></div>
+
+    </div>
+
+
+
+  </div>
+
+  <div class="footer">
+
+    © 2026 <a href="/" style="color:var(--accent);">ZenTools</a> · 所有处理在浏览器本地完成
+
+  </div>
+
+</div>
+
+<button class="bookmark-float" onclick="prompt('复制链接收藏本站','https://zentools.xyz')" data-i18n="btn_收藏本站">⭐ 收藏本站</button>
+
+<script>
+
+
+
+    const fileInput = document.getElementById('fileInput');
+
+    const dropZone = document.getElementById('dropZone');
+
+    const controls = document.getElementById('controls');
+
+    const optGroup = document.getElementById('optGroup');
+
+    const previewArea = document.getElementById('previewArea');
+
+    const resultArea = document.getElementById('resultArea');
+
+    const logArea = document.getElementById('logArea');
+
+    const beforeCanvas = document.getElementById('beforeCanvas');
+
+    const afterCanvas = document.getElementById('afterCanvas');
+
+    const statusEl = document.getElementById('status');
+
+
+
+    const autoBtn = document.getElementById('autoBtn');
+
+    const resetBtn = document.getElementById('resetBtn');
+
+    const applyBtn = document.getElementById('applyBtn');
+
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    const clearLogBtn = document.getElementById('clearLogBtn');
+
+
+
+    const scratchOn = document.getElementById('scratchOn');
+
+    const scratchAmt = document.getElementById('scratchAmt');
+
+    const scratchAmtVal = document.getElementById('scratchAmtVal');
+
+    const fadeOn = document.getElementById('fadeOn');
+
+    const denoiseOn = document.getElementById('denoiseOn');
+
+    const denoiseAmt = document.getElementById('denoiseAmt');
+
+    const denoiseAmtVal = document.getElementById('denoiseAmtVal');
+
+    const sharpenOn = document.getElementById('sharpenOn');
+
+    const sharpenAmt = document.getElementById('sharpenAmt');
+
+    const sharpenAmtVal = document.getElementById('sharpenAmtVal');
+
+    const exportFmt = document.getElementById('exportFmt');
+
+    const exportQ = document.getElementById('exportQ');
+
+    const exportQVal = document.getElementById('exportQVal');
+
+
+
+    let srcImage = null;     // 原始 ImageData（处理尺寸）
+
+    let srcW = 0, srcH = 0;
+
+    let curImage = null;     // 当前（已处理）ImageData
+
+    let fileName = 'photo';
+
+    let fileType = 'image/jpeg';
+
+
+
+    const MAX_DIM = 2400;
+
+
+
+    function setStatus(t){ statusEl.textContent = t; }
+
+
+
+    function logOp(msg){
+
+      const t = new Date();
+
+      const p = n => (n < 10 ? '0' + n : '' + n);
+
+      const ts = `${t.getFullYear()}-${p(t.getMonth()+1)}-${p(t.getDate())} ${p(t.getHours())}:${p(t.getMinutes())}:${p(t.getSeconds())}`;
+
+      let arr = [];
+
+      try { arr = JSON.parse(localStorage.getItem('zt_oldphoto_log') || '[]'); } catch(e){ arr = []; }
+
+      arr.push(`[${ts}] ${msg}`);
+
+      if (arr.length > 200) arr = arr.slice(-200);
+
+      localStorage.setItem('zt_oldphoto_log', JSON.stringify(arr));
+
+      renderLog();
+
+    }
+
+
+
+    function renderLog(){
+
+      let arr = [];
+
+      try { arr = JSON.parse(localStorage.getItem('zt_oldphoto_log') || '[]'); } catch(e){ arr = []; }
+
+      const ul = document.getElementById('logList');
+
+      if (!arr.length) { ul.innerHTML = '<li style="color:var(--zen-text-placeholder)">暂无记录</li>'; return; }
+
+      ul.innerHTML = arr.slice().reverse().map(l => {
+
+        const m = l.match(/^(\[[^\]]+\])\s*(.*)$/);
+
+        if (m) return `<li><span class="ts">${m[1]}</span> ${m[2]}</li>`;
+
+        return `<li>${l}</li>`;
+
+      }).join('');
+
+    }
+
+
+
+    [scratchAmt, denoiseAmt, sharpenAmt, exportQ].forEach(el => {
+
+      el.addEventListener('input', () => {
+
+        if (el === exportQ) exportQVal.textContent = parseFloat(el.value).toFixed(2);
+
+        else if (el === scratchAmt) scratchAmtVal.textContent = el.value;
+
+        else if (el === denoiseAmt) denoiseAmtVal.textContent = el.value;
+
+        else if (el === sharpenAmt) sharpenAmtVal.textContent = parseFloat(el.value).toFixed(1);
+
+      });
+
+    });
+
+
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.style.borderColor = '#3b82f6'; });
+
+    dropZone.addEventListener('dragleave', () => { dropZone.style.borderColor = ''; });
+
+    dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.style.borderColor = ''; if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]); });
+
+    fileInput.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
+
+
+
+    function handleFile(file){
+
+      if (!file.type.startsWith('image/')) { setStatus('请选择图片文件（JPG/PNG 等）'); return; }
+
+      fileName = file.name.replace(/\.[^.]+$/, '') || 'photo';
+
+      fileType = file.type;
+
+      const reader = new FileReader();
+
+      reader.onload = function(ev){
+
+        const img = new Image();
+
+        img.onload = function(){
+
+          let w = img.naturalWidth, h = img.naturalHeight;
+
+          if (Math.max(w, h) > MAX_DIM) { const r = MAX_DIM / Math.max(w, h); w = Math.round(w * r); h = Math.round(h * r); }
+
+          srcW = w; srcH = h;
+
+          const c = document.createElement('canvas'); c.width = w; c.height = h;
+
+          const ctx = c.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
+
+          srcImage = ctx.getImageData(0, 0, w, h);
+
+          curImage = srcImage;
+
+
+
+          beforeCanvas.width = w; beforeCanvas.height = h;
+
+          beforeCanvas.getContext('2d').putImageData(srcImage, 0, 0);
+
+          afterCanvas.width = w; afterCanvas.height = h;
+
+          afterCanvas.getContext('2d').putImageData(srcImage, 0, 0);
+
+
+
+          dropZone.classList.add('has-image');
+
+          dropZone.querySelector('p').textContent = file.name + ` (${w}×${h})`;
+
+          previewArea.style.display = 'block';
+
+          controls.style.display = 'flex';
+
+          optGroup.style.display = 'flex';
+
+          resultArea.style.display = 'block';
+
+          logArea.style.display = 'block';
+
+          setStatus('');
+
+          logOp(`上传 ${file.name}（${w}×${h}，${file.type || '未知格式'}）`);
+
+        };
+
+        img.onerror = function(){ setStatus('图片解码失败，请换一张试试'); };
+
+        img.src = ev.target.result;
+
+      };
+
+      reader.onerror = function(){ setStatus('文件读取失败'); };
+
+      reader.readAsDataURL(file);
+
+    }
+
+
+
+    // ---- 图像处理算法（纯 Canvas 像素运算）----
+
+
+
+    function median3(data, w, h){
+
+      const out = new Uint8ClampedArray(data.length);
+
+      for (let y = 0; y < h; y++){
+
+        for (let x = 0; x < w; x++){
+
+          const i = (y * w + x) << 2;
+
+          for (let c = 0; c < 3; c++){
+
+            const vals = [];
+
+            for (let ky = -1; ky <= 1; ky++){
+
+              for (let kx = -1; kx <= 1; kx++){
+
+                const xx = x + kx, yy = y + ky;
+
+                if (xx < 0 || yy < 0 || xx >= w || yy >= h) continue;
+
+                vals.push(data[((yy * w + xx) << 2) + c]);
+
+              }
+
+            }
+
+            vals.sort((a, b) => a - b);
+
+            out[i + c] = vals[vals.length >> 1];
+
+          }
+
+          out[i + 3] = 255;
+
+        }
+
+      }
+
+      return out;
+
+    }
+
+
+
+    function descratch(data, w, h, amount){
+
+      const med = median3(data, w, h);
+
+      const out = new Uint8ClampedArray(data.length);
+
+      const thr = 35 + amount * 18;
+
+      for (let i = 0; i < data.length; i += 4){
+
+        for (let c = 0; c < 3; c++){
+
+          const v = data[i + c], m = med[i + c];
+
+          out[i + c] = (Math.abs(v - m) > thr) ? m : v;
+
+        }
+
+        out[i + 3] = 255;
+
+      }
+
+      return out;
+
+    }
+
+
+
+    function defade(data, w, h){
+
+      const h0 = new Int32Array(256), h1 = new Int32Array(256), h2 = new Int32Array(256);
+
+      const total = data.length >> 2;
+
+      for (let i = 0; i < data.length; i += 4){ h0[data[i]]++; h1[data[i + 1]]++; h2[data[i + 2]]++; }
+
+      const loP = total * 0.02, hiP = total * 0.98;
+
+      const lm = [0, 0, 0], hm = [255, 255, 255];
+
+      const hh = [h0, h1, h2];
+
+      for (let c = 0; c < 3; c++){
+
+        let acc = 0, l = -1, hv = -1;
+
+        for (let v = 0; v < 256; v++){
+
+          acc += hh[c][v];
+
+          if (l < 0 && acc >= loP) l = v;
+
+          if (acc >= hiP){ hv = v; break; }
+
+        }
+
+        lm[c] = l < 0 ? 0 : l; hm[c] = hv < 0 ? 255 : hv;
+
+      }
+
+      const out = new Uint8ClampedArray(data.length);
+
+      for (let i = 0; i < data.length; i += 4){
+
+        for (let c = 0; c < 3; c++){
+
+          let v = data[i + c];
+
+          v = hm[c] === lm[c] ? v : ((v - lm[c]) / (hm[c] - lm[c]) * 255);
+
+          out[i + c] = v;
+
+        }
+
+        out[i + 3] = 255;
+
+      }
+
+      for (let i = 0; i < out.length; i += 4){
+
+        let r = out[i], g = out[i + 1], b = out[i + 2];
+
+        // 去黄：轻微压红、提蓝
+
+        r = r * 0.96; b = b * 1.08;
+
+        // 提升饱和度
+
+        const luma = 0.299 * r + 0.587 * g + 0.114 * b;
+
+        const sat = 1.18;
+
+        r = luma + sat * (r - luma);
+
+        g = luma + sat * (g - luma);
+
+        b = luma + sat * (b - luma);
+
+        out[i] = Math.min(255, Math.max(0, r));
+
+        out[i + 1] = Math.min(255, Math.max(0, g));
+
+        out[i + 2] = Math.min(255, Math.max(0, b));
+
+        out[i + 3] = 255;
+
+      }
+
+      return out;
+
+    }
+
+
+
+    function boxBlur(data, w, h, r){
+      const tmp = new Float32Array(data.length);
+      for (let y = 0; y < h; y++){
+        for (let x = 0; x < w; x++){
+          const i = (y * w + x) << 2;
+          for (let c = 0; c < 3; c++){
+            let s = 0, cnt = 0;
+            for (let k = -r; k <= r; k++){ const xx = x + k; if (xx < 0 || xx >= w) continue; s += data[((y * w + xx) << 2) + c]; cnt++; }
+            tmp[i + c] = s / cnt;
+          }
+        }
+      }
+      const out = new Float32Array(data.length);
+      for (let y = 0; y < h; y++){
+        for (let x = 0; x < w; x++){
+          const i = (y * w + x) << 2;
+          for (let c = 0; c < 3; c++){
+            let s = 0, cnt = 0;
+            for (let k = -r; k <= r; k++){ const yy = y + k; if (yy < 0 || yy >= h) continue; s += tmp[((yy * w + x) << 2) + c]; cnt++; }
+            out[i + c] = s / cnt;
+          }
+        }
+      }
+      const res = new Uint8ClampedArray(data.length);
+      for (let i = 0; i < out.length; i += 4){ res[i] = out[i]; res[i + 1] = out[i + 1]; res[i + 2] = out[i + 2]; res[i + 3] = 255; }
+      return res;
+    }
+
+
+
+    function unsharp(data, w, h, amount){
+
+      const blurred = boxBlur(data, w, h, 2);
+
+      const out = new Uint8ClampedArray(data.length);
+
+      for (let i = 0; i < data.length; i += 4){
+
+        for (let c = 0; c < 3; c++){
+
+          const v = data[i + c] + amount * (data[i + c] - blurred[i + c]);
+
+          out[i + c] = Math.min(255, Math.max(0, v));
+
+        }
+
+        out[i + 3] = 255;
+
+      }
+
+      return out;
+
+    }
+
+
+
+    function runPipeline(){
+
+      let data = srcImage.data;
+
+      const steps = [];
+
+      if (scratchOn.checked){ data = descratch(data, srcW, srcH, parseInt(scratchAmt.value, 10)); steps.push(`去划痕（强度 ${scratchAmt.value}）`); }
+
+      if (fadeOn.checked){ data = defade(data, srcW, srcH); steps.push('修复褪色（自动对比度+去黄+增饱和）'); }
+
+      if (denoiseOn.checked){
+
+        const amt = parseInt(denoiseAmt.value, 10);
+
+        data = median3(data, srcW, srcH);
+
+        if (amt > 2) data = median3(data, srcW, srcH);
+
+        steps.push(`降噪增强（强度 ${denoiseAmt.value}）`);
+
+      }
+
+      if (sharpenOn.checked){
+
+        const amt = parseFloat(sharpenAmt.value);
+
+        if (amt > 0){ data = unsharp(data, srcW, srcH, amt); steps.push(`锐化（强度 ${sharpenAmt.value}）`); }
+
+      }
+
+      const result = new ImageData(new Uint8ClampedArray(data), srcW, srcH);
+
+      curImage = result;
+
+      afterCanvas.getContext('2d').putImageData(result, 0, 0);
+
+      steps.forEach(s => logOp('应用 ' + s));
+
+      if (!steps.length) logOp('应用修复（未选择任何处理项）');
+
+    }
+
+
+
+    function applyWithStatus(){
+
+      if (!srcImage) return;
+
+      setStatus('处理中…');
+
+      autoBtn.disabled = true; applyBtn.disabled = true;
+
+      setTimeout(() => {
+
+        try {
+
+          runPipeline();
+
+          setStatus('修复完成，可拖动中间滑块对比前后效果。');
+
+        } catch (e){
+
+          setStatus('处理出错：' + e.message);
+
+        } finally {
+
+          autoBtn.disabled = false; applyBtn.disabled = false;
+
+        }
+
+      }, 30);
+
+    }
+
+
+
+    autoBtn.addEventListener('click', () => {
+
+      scratchOn.checked = true; scratchAmt.value = 3; scratchAmtVal.textContent = '3';
+
+      fadeOn.checked = true;
+
+      denoiseOn.checked = true; denoiseAmt.value = 2; denoiseAmtVal.textContent = '2';
+
+      sharpenOn.checked = true; sharpenAmt.value = 0.6; sharpenAmtVal.textContent = '0.6';
+
+      logOp('一键修复（默认参数）');
+
+      applyWithStatus();
+
+    });
+
+
+
+    applyBtn.addEventListener('click', applyWithStatus);
+
+
+
+    resetBtn.addEventListener('click', () => {
+
+      if (!srcImage) return;
+
+      curImage = srcImage;
+
+      afterCanvas.getContext('2d').putImageData(srcImage, 0, 0);
+
+      setStatus('已重置为原图。');
+
+      logOp('重置为原图');
+
+    });
+
+
+
+    downloadBtn.addEventListener('click', () => {
+
+      if (!curImage) return;
+
+      const fmt = exportFmt.value;
+
+      const q = parseFloat(exportQ.value);
+
+      afterCanvas.getContext('2d').putImageData(curImage, 0, 0);
+
+      afterCanvas.toBlob(blob => {
+
+        if (!blob) { setStatus('导出失败'); return; }
+
+        const a = document.createElement('a');
+
+        a.href = URL.createObjectURL(blob);
+
+        a.download = fileName + (fmt === 'image/png' ? '_restored.png' : '_restored.jpg');
+
+        a.click();
+
+        URL.revokeObjectURL(a.href);
+
+        logOp(`导出 ${fmt === 'image/png' ? 'PNG' : 'JPG'}（质量 ${q.toFixed(2)}）`);
+
+      }, fmt, q);
+
+    });
+
+
+
+    clearLogBtn.addEventListener('click', () => {
+
+      localStorage.removeItem('zt_oldphoto_log');
+
+      renderLog();
+
+    });
+
+
+
+    // ---- 前后对比滑块 ----
+
+    const compare = document.getElementById('compare');
+
+    const afterWrap = document.getElementById('afterWrap');
+
+    const handle = document.getElementById('compareHandle');
+
+    let dragging = false;
+
+    function setCompare(pct){
+
+      pct = Math.max(0, Math.min(100, pct));
+
+      afterWrap.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+
+      handle.style.left = pct + '%';
+
+    }
+
+    function moveCompare(e){
+
+      const r = compare.getBoundingClientRect();
+
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+
+      setCompare(x / r.width * 100);
+
+    }
+
+    compare.addEventListener('pointerdown', e => { dragging = true; compare.setPointerCapture(e.pointerId); moveCompare(e); });
+
+    compare.addEventListener('pointermove', e => { if (dragging) moveCompare(e); });
+
+    compare.addEventListener('pointerup', () => { dragging = false; });
+
+    compare.addEventListener('pointercancel', () => { dragging = false; });
+
+    setCompare(50);
+
+
+
+    // 初始化日志
+
+    renderLog();
+
+</script>
+
+
+
+<script>(function(){var t=window.ZT_PAGE||{};function a(l){var d=t[l]||t.zh||{};document.documentElement.lang=l;var ti=document.querySelector('title[data-i18n]');if(ti){var pk=ti.getAttribute('data-i18n');if(d[pk])document.title=d[pk];}document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(d[k]&&k!=='pageTitle')e.textContent=d[k];});document.querySelectorAll('[data-i18n-placeholder]').forEach(function(e){var k=e.getAttribute('data-i18n-placeholder');if(d[k])e.placeholder=d[k];});var mc=document.querySelector('meta[name="description"]');if(mc&&d.metaDesc)mc.content=d.metaDesc;}var s=document.getElementById('langSelect');if(s){s.addEventListener('change',function(){a(this.value);localStorage.setItem('zentools_lang',this.value);});var sv=localStorage.getItem('zentools_lang')||'zh';s.value=sv;a(sv);}})();</script>
+
+
+
+
+
+
+
+<script>
+
+// 暗黑模式切换
+
+(function() {
+
+  var savedTheme = localStorage.getItem('zentools_theme');
+
+  if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+  var btn = document.getElementById('themeToggle');
+
+  if (btn) {
+
+    btn.textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+
+    btn.addEventListener('click', function() {
+
+      document.documentElement.classList.toggle('dark');
+
+      var isDark = document.documentElement.classList.contains('dark');
+
+      this.textContent = isDark ? '☀️' : '🌙';
+
+      localStorage.setItem('zentools_theme', isDark ? 'dark' : 'light');
+
+    });
+
+  }
+
+})();
+
+
+
+// 移动端侧滑
+
+(function() {
+
+  var overlay = document.getElementById('mobileOverlay');
+
+  var hamBtn = document.getElementById('hamburgerBtn');
+
+  var closeBtn = document.getElementById('mobileClose');
+
+  if (!hamBtn || !overlay) return;
+
+  function closeMenu() { overlay.classList.remove('open'); hamBtn.textContent = '☰'; document.body.style.overflow = ''; }
+
+  hamBtn.addEventListener('click', function(e) {
+
+    e.stopPropagation();
+
+    if (overlay.classList.contains('open')) { closeMenu(); } else {
+
+      overlay.classList.add('open'); hamBtn.textContent = '✕'; document.body.style.overflow = 'hidden';
+
+    }
+
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  overlay.addEventListener('click', function(e) {
+
+    var drawer = document.getElementById('mobileDrawer');
+
+    if (drawer && !drawer.contains(e.target)) closeMenu();
+
+  });
+
+  document.addEventListener('keydown', function(e) {
+
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeMenu();
+
+  });
+
+})();
+
+
+
+if ('serviceWorker' in navigator) {
+
+  window.addEventListener('load', function() {
+
+    navigator.serviceWorker.register('/sw.js').catch(function() {});
+
+  });
+
+}
+
+</script>
+
+
+
+<!-- P1-EXPAND SEO CONTENT -->
+
+<section class="section">
+
+<h2>适用场景</h2>
+
+  <p>「老照片修复」用浏览器本地算法，帮你去除老照片上的划痕与污点、修复泛黄褪色、降低噪点并锐化模糊区域，让几十年前的老照片重新清晰。它把原本需要 Photoshop 或付费软件才能做的事，简化成打开网页即用的一步式工具——无需安装、无需注册，所有计算都在你的设备本地完成，照片不会离开浏览器，隐私安全有保障。</p>
+
+<h2>适合谁使用</h2>
+
+  <p>家庭用户翻拍老相册、自媒体运营修复历史素材、档案与文史整理者处理扫描件，以及任何想让泛黄老照片焕新却不想装专业软件的人。</p>
+
+<h2>进阶技巧</h2>
+
+  <ul>
+
+<li>先点「一键修复」看整体效果，再用各项滑块单独微调强度</li>
+
+<li>划痕严重可把「去划痕」强度调高；噪点多则加大「降噪增强」</li>
+
+<li>极度模糊的原图锐化提升有限，建议配合「降噪增强」一起用</li>
+
+<li>导出 JPG 时质量设 0.9 以上可兼顾体积与清晰度</li>
+
+</ul>
+
+<h2>常见问题</h2>
+
+  <div class="faq">
+
+    <details open><summary>老照片修复时，划痕真的能去掉吗？</summary><p>工具通过邻域中值检测并替换异常像素，可去除细划痕与污点；过粗的破损仍需人工精修。</p></details>
+
+    <details open><summary>老照片修复时，泛黄能恢复吗？</summary><p>会自动做对比度拉伸、去黄与饱和度提升，明显减轻泛黄，但无法还原原本缺失的颜色信息。</p></details>
+
+    <details open><summary>老照片修复时，需要联网吗？</summary><p>不需要。所有处理在浏览器本地完成，照片不上传服务器。</p></details>
+
+    <details open><summary>老照片修复时，支持哪些格式？</summary><p>导入支持 JPG / PNG 等常见格式，导出可选 PNG 或 JPG。</p></details>
+
+  </div>
+
+</section>
+
+
+
+<script type="application/ld+json">{"@context": "https://schema.org","@type": "FAQPage","mainEntity": [{"@type": "Question","name": "老照片修复时，划痕真的能去掉吗？","acceptedAnswer": {"@type": "Answer","text": "工具通过邻域中值检测并替换异常像素，可去除细划痕与污点；过粗的破损仍需人工精修。"}},{"@type": "Question","name": "老照片修复时，泛黄能恢复吗？","acceptedAnswer": {"@type": "Answer","text": "会自动做对比度拉伸、去黄与饱和度提升，明显减轻泛黄，但无法还原原本缺失的颜色信息。"}},{"@type": "Question","name": "老照片修复时，需要联网吗？","acceptedAnswer": {"@type": "Answer","text": "不需要。所有处理在浏览器本地完成，照片不上传服务器。"}},{"@type": "Question","name": "老照片修复时，支持哪些格式？","acceptedAnswer": {"@type": "Answer","text": "导入支持 JPG / PNG 等常见格式，导出可选 PNG 或 JPG。"}}]}</script>
+
+
+
+<section class="section">
+
+<h2>更新日志</h2>
+
+  <div class="ver-block">
+
+    <div class="ver-head"><span class="tag">v1.0.0</span><span class="date">2026-07-28</span><span class="badge current-badge">当前版本</span></div>
+
+    <p class="ver-desc">老照片修复工具首个版本发布。</p>
+
+    <ul class="ver-items">
+
+      <li>支持 JPG / PNG 等常见图片格式导入与导出</li>
+
+      <li>一键修复：去划痕、修复褪色、降噪增强、锐化模糊区域</li>
+
+      <li>各项修复强度可单独调节，支持修复前后对比滑块预览</li>
+
+      <li>操作日志记录每一步处理（时间戳 + 动作），可本地留存与一键清空</li>
+
+    </ul>
+
+  </div>
+
+</section>
+
+
+
+<section class="tool-tutorial">
+
+<h2>完整使用教程</h2>
+
+<h3>工具简介</h3>
+
+<p>「老照片修复」是 ZenTools 提供的图片处理工具，用来在浏览器里快速修复泛黄、带划痕、模糊的老照片。它把原本需要安装专业桌面软件、或依赖在线服务器上传文件才能做的事，简化成打开网页即用的一步式小工具——无需安装、无需注册登录，所有处理都在你的设备本地运行，文件不会离开浏览器，因此既保护隐私，也适合在没有装专业软件的设备上应急使用。</p>
+
+<h3>详细操作步骤</h3><ol><li>打开「老照片修复」，在页面中点击或拖入需要修复的老照片这一步决定输入是否正确，文件选错会白忙活，确认无误再继续。</li><li>点击「一键修复」让工具自动去划痕、修复褪色、降噪并锐化；也可展开各项单独调节强度参数先按默认或推荐值来，拿一张小样试效果，满意后再正式处理。</li><li>拖动预览区中间的滑块，对比修复前后的差异，确认效果是否满意处理在本地完成，稍等片刻即可在预览区看到结果，可随时重置重来。</li><li>确认效果后在导出区选择 PNG 或 JPG 及质量，点击下载保存到本地处理前建议备份原文件；结果出来后先核对一遍，再决定下载或复制。</li></ol><p>整个流程可以反复操作、随时重置；养成「先小样、后批量」的习惯，能最大程度避免大文件处理出错后重来。遇到不熟悉的参数，优先用推荐值，通常已覆盖大多数日常场景。</p>
+
+<h3>本地处理与隐私</h3><p>「老照片修复」的所有运算都在你的浏览器本地完成，文件不会上传到任何服务器，这一点和需要把资料传到云端的在线工具完全不同：你不必担心原始照片在传输过程中泄露，也不依赖账号体系。对包含个人隐私或家庭回忆的文件来说，本地处理是最稳妥的选择。</p><h3>使用建议</h3><p>把「老照片修复」当作随手可用的轻量助手最合适：它胜在快、免安装、隐私友好，但不替代专业桌面软件的全部高级功能。涉及重要数据或对外交付的成果，建议处理完后人工复核一遍再使用；把它嵌进你的日常小流程里，很多原本要开软件、等加载的零碎任务，几秒钟就能在网页里解决。</p></section>
+
+<div class="page-meta">作者：ZenTools工具团队 · 更新时间：2026-07-28</div>
+
+</body>
+
+</html>
