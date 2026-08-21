@@ -1065,13 +1065,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
 });
 
 // 场景卡片点击跳转
-document.querySelectorAll('.scenario-card').forEach(card=>{
-  card.style.cursor='pointer';
-  card.addEventListener('click',function(e){
-    const href=this.getAttribute('href');
-    if(href && href!=='#'){
-      window.location.href=href;
-    }
+document.addEventListener('DOMContentLoaded',function(){
+  var cards=document.querySelectorAll('.scenario-card');
+  cards.forEach(function(card){
+    card.style.cursor='pointer';
+    card.addEventListener('click',function(e){
+      e.preventDefault();
+      var href=e.currentTarget.getAttribute('href');
+      if(href && href!=='#'){
+        window.location.href=href;
+      }
+    });
   });
 });
 </script>
