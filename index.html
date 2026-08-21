@@ -1063,6 +1063,17 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     }
   });
 });
+
+// 场景卡片点击跳转
+document.querySelectorAll('.scenario-card').forEach(card=>{
+  card.style.cursor='pointer';
+  card.addEventListener('click',function(e){
+    const href=this.getAttribute('href');
+    if(href && href!=='#'){
+      window.location.href=href;
+    }
+  });
+});
 </script>
 <script>(function(){
 var t=window.pageTranslations||{};
