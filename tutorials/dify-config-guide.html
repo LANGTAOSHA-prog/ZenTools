@@ -15,7 +15,7 @@
 <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="pageTitle">Dify 配置流程图文教程 - ZenTools</title>
-  <meta name="description" content="Dify AI 应用开发平台完整配置流程图文教程，从零开始搭建你的第一个 AI 应用，包含详细步骤、流程图和最佳实践。" />
+  <meta name="description" content="Dify AI 应用开发平台完整配置流程图文教程，从零开始搭建你的第一个 AI 应用，包含详细步骤、流程图和推荐实践。" />
   <link rel="canonical" href="https://zentools.xyz/tutorials/dify-config-guide.html" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="stylesheet" href="../assets/css/tool-ui.min.css" />
@@ -186,13 +186,13 @@
         relatedTitle: '相关推荐',
         related1Title: 'AI 写作完整工作流', related1Desc: '从选题到发布，一站式 AI 辅助内容生产流水线',
         related2Title: '免费 AI 模型 API 大全', related2Desc: 'DeepSeek、Qwen、Gemma 等主流免费模型对比与接入指南',
-        related3Title: 'Gemini 2.5 Flash 免费使用教程', related3Desc: '三种免费方式接入 Google 最强轻量级模型，含完整代码和避坑指南',
+        related3Title: 'Gemini 2.5 Flash 免费使用教程', related3Desc: '三种免费方式接入 Google 强大轻量级模型，含完整代码和避坑指南',
         toc1: '一、Dify 简介与核心特性', toc1_1: '1.1 核心特性概览', toc1_2: '1.2 系统架构说明',
         toc2: '二、环境准备', toc2_1: '2.1 Docker 环境安装', toc2_2: '2.2 系统资源要求',
         toc3: '三、Dify 安装部署', toc3_1: '3.1 克隆代码仓库', toc3_2: '3.2 Docker Compose 部署', toc3_3: '3.3 验证安装成功',
         toc4: '四、核心配置详解', toc4_1: '4.1 API 密钥配置', toc4_2: '4.2 模型接入配置', toc4_3: '4.3 数据库配置',
         toc5: '五、创建第一个 AI 应用', toc5_1: '5.1 创建对话应用', toc5_2: '5.2 创建工作流应用',
-        toc6: '六、API 集成与调用', toc7: '七、最佳实践与常见问题',
+        toc6: '六、API 集成与调用', toc7: '七、推荐实践与常见问题',
         sec1Title: '一、Dify 简介与核心特性',
         p1_1: 'Dify（全称 Dify.ai）是一个开源的<strong>大语言模型（LLM）应用开发平台</strong>，由国际团队于 2023 年发布。它提供了一个可视化的界面，让用户无需编写大量代码即可快速构建、部署和管理 AI 应用。Dify 支持多种主流的大语言模型，包括 OpenAI GPT 系列、Google Gemini、Anthropic Claude、以及开源的 Llama、Qwen、DeepSeek 等模型，用户可以根据需求灵活选择和切换模型。',
         p1_2: 'Dify 的设计理念是将 AI 应用的开发流程<strong>可视化、模块化、低代码化</strong>。通过拖拽式的界面，用户可以组合不同的功能模块，构建复杂的 AI 工作流。无论是简单的聊天机器人，还是多步骤的自动化任务处理系统，Dify 都能提供高效的支持。平台还提供了完整的 API 接口，方便开发者将 AI 能力集成到现有的业务系统中。',
@@ -216,7 +216,7 @@
         liArch7: '<strong>Object Storage</strong>：支持 MinIO、S3、Azure Blob 等对象存储服务',
         tipDeploy: '<strong>提示：</strong>Dify 支持两种部署模式：<strong>单机版（Docker Compose）</strong>适合个人和小团队快速上手；<strong>集群版（Kubernetes）</strong>适合企业级高可用部署。本教程以单机版为主，集群版配置将在后续文章中介绍。',
         sec2Title: '二、环境准备',
-        p2_1: '在开始安装 Dify 之前，需要确保你的服务器或本地环境满足以下基本要求。Dify 推荐使用 Docker 进行部署，这样可以最大程度地避免环境依赖问题，确保安装过程顺利。',
+        p2_1: '在开始安装 Dify 之前，需要确保你的服务器或本地环境满足以下基本要求。Dify 推荐使用 Docker 进行部署，这样可以尽可能地避免环境依赖问题，确保安装过程顺利。',
         sec2_1Title: '2.1 Docker 环境安装',
         p2_2: 'Docker 是 Dify 部署的基础环境。如果你还没有安装 Docker，可以按照以下步骤进行安装：',
         step1Title: '安装 Docker Engine',
@@ -236,7 +236,7 @@
         p3_1: '环境准备完成后，就可以开始安装 Dify 了。Dify 官方推荐使用 Docker Compose 进行部署，这种方式最简单、最稳定，适合大多数用户。整个安装过程大约需要 10-30 分钟，具体时间取决于你的网络速度和服务器性能。',
         sec3_1Title: '3.1 克隆代码仓库',
         step3Title: '从 GitHub 克隆 Dify 仓库',
-        step3Desc: '首先，我们需要从 Dify 的官方 GitHub 仓库克隆最新代码到本地服务器。建议使用最新的稳定版本，以确保获得最好的功能和安全性。',
+        step3Desc: '首先，我们需要从 Dify 的官方 GitHub 仓库克隆最新代码到本地服务器。建议使用最新的稳定版本，以确保获得优秀的功能和安全性。',
         step4Title: '复制环境变量配置文件',
         step4Desc: 'Dify 使用 <code>.env</code> 文件来管理所有配置项。我们需要从模板文件复制一份，然后根据实际需求进行修改。',
         sec3_2Title: '3.2 Docker Compose 部署',
@@ -295,14 +295,14 @@
         step15Desc: 'Dify 提供了官方 Python SDK，可以更方便地在 Python 项目中集成 Dify 的 AI 能力：',
         step16Title: 'Webhook 集成',
         step16Desc: 'Dify 支持 Webhook 回调，可以将 AI 处理结果实时推送到你的业务系统。在应用设置中配置 Webhook URL，Dify 会在任务完成后发送 HTTP POST 请求。',
-        sec7Title: '七、最佳实践与常见问题',
+        sec7Title: '七、推荐实践与常见问题',
         sec7_1Title: '7.1 性能优化建议',
         liPerf1: '<strong>模型选择</strong>：根据任务复杂度选择合适的模型。简单任务使用轻量模型（如 GPT-3.5、Qwen-Turbo），复杂任务使用强大模型（如 GPT-4o、Claude-3.5）。',
         liPerf2: '<strong>提示词优化</strong>：编写清晰、具体的系统提示词，减少 AI 的推理负担，提升响应速度和准确性。',
         liPerf3: '<strong>缓存策略</strong>：对于重复性问题，可以启用缓存功能，减少 API 调用次数，降低成本。',
         liPerf4: '<strong>并发控制</strong>：合理设置并发请求数，避免超过模型 API 的速率限制。',
         liPerf5: '<strong>文档分块</strong>：上传知识库文档时，合理设置分块大小和重叠度，平衡检索精度和效率。',
-        sec7_2Title: '7.2 安全最佳实践',
+        sec7_2Title: '7.2 安全推荐实践',
         liSec1: '<strong>API Key 保护</strong>：不要在客户端代码中硬编码 API Key，使用环境变量或密钥管理服务存储。',
         liSec2: '<strong>HTTPS 加密</strong>：生产环境务必启用 HTTPS，防止数据传输过程中的窃听和篡改。',
         liSec3: '<strong>访问控制</strong>：为不同用户设置不同的权限，限制对敏感应用的访问。',
@@ -344,7 +344,7 @@
         toc3: '3. Dify Installation', toc3_1: '3.1 Clone Repository', toc3_2: '3.2 Docker Compose Deploy', toc3_3: '3.3 Verify Installation',
         toc4: '4. Core Configuration', toc4_1: '4.1 API Key Config', toc4_2: '4.2 Model Config', toc4_3: '4.3 Database Config',
         toc5: '5. Create First AI App', toc5_1: '5.1 Create Chat App', toc5_2: '5.2 Create Workflow App',
-        toc6: '6. API Integration', toc7: '7. Best Practices & FAQ',
+        toc6: '6. API Integration', toc7: '7. recommended practices & FAQ',
         sec1Title: '1. Introduction to Dify & Core Features',
         p1_1: 'Dify is an open-source <strong>LLM application development platform</strong> released by an international team in 2023. It provides a visual interface that lets users quickly build, deploy, and manage AI applications without writing lots of code. Dify supports multiple mainstream LLMs including OpenAI GPT series, Google Gemini, Anthropic Claude, and open-source models like Llama, Qwen, DeepSeek, allowing flexible model selection.',
         p1_2: 'Dify\'s design philosophy is to make AI app development <strong>visual, modular, and low-code</strong>. Through a drag-and-drop interface, users can combine different functional modules to build complex AI workflows. Whether it\'s a simple chatbot or a multi-step automated task processing system, Dify delivers efficient support.',
@@ -406,7 +406,7 @@
         sec4_1Title: '4.1 API Key Configuration',
         p4_api_intro: 'Dify itself does not run LLMs but calls external model services via API. Configuring API keys is crucial. Dify supports multiple model providers, each with slightly different API key configuration methods.',
         step7Title: 'OpenAI API Configuration',
-        step7Desc: 'OpenAI is the most common provider, supporting GPT-3.5, GPT-4, GPT-4o and other models. Configuration steps:',
+        step7Desc: 'OpenAI is common provider, supporting GPT-3.5, GPT-4, GPT-4o and other models. Configuration steps:',
         step8Title: 'Chinese Model API Configuration',
         step8Desc: 'For domestic users, we recommend Chinese LLM APIs like DeepSeek, Zhipu GLM, Baidu ERNIE. These models typically offer lower latency and better Chinese language support.',
         step9Title: 'Self-Hosted Model API Configuration',
@@ -447,14 +447,14 @@
         step15Desc: 'Dify provides an official Python SDK for easier integration in Python projects:',
         step16Title: 'Webhook Integration',
         step16Desc: 'Dify supports Webhook callbacks to push AI processing results to your business system in real time. Configure the Webhook URL in app settings.',
-        sec7Title: '7. Best Practices & FAQ',
+        sec7Title: '7. recommended practices & FAQ',
         sec7_1Title: '7.1 Performance Optimization Tips',
         liPerf1: '<strong>Model Selection</strong>: Choose appropriate models based on task complexity. Use lightweight models (GPT-3.5, Qwen-Turbo) for simple tasks, powerful models (GPT-4o, Claude-3.5) for complex tasks.',
         liPerf2: '<strong>Prompt Optimization</strong>: Write clear, specific system prompts to reduce AI reasoning load and improve response speed and accuracy.',
         liPerf3: '<strong>Caching Strategy</strong>: Enable caching for repetitive questions to reduce API calls and lower costs.',
         liPerf4: '<strong>Concurrency Control</strong>: Set reasonable concurrency limits to avoid exceeding model API rate limits.',
         liPerf5: '<strong>Document Chunking</strong>: Set appropriate chunk size and overlap when uploading knowledge base documents to balance retrieval accuracy and efficiency.',
-        sec7_2Title: '7.2 Security Best Practices',
+        sec7_2Title: '7.2 Security recommended practices',
         liSec1: '<strong>API Key Protection</strong>: Never hardcode API keys in client code. Use environment variables or key management services.',
         liSec2: '<strong>HTTPS Encryption</strong>: Always enable HTTPS in production to prevent data interception and tampering.',
         liSec3: '<strong>Access Control</strong>: Set different permissions for different users, restricting access to sensitive applications.',
@@ -537,7 +537,7 @@
         warnMirrorTitle: '⚠️ 注意事項',
         warnMirrorText: 'サーバーが中国本土にある場合、Docker イメージのプルが遅くなる可能性があります。Alibaba Cloud や Tencent Cloud のミラーアクセラレータを使用することをお勧めします。<code>registry-1.docker.io</code> を国内ミラーURLに置き換えてください。',
         sec3Title: '3. Dify のインストールとデプロイ',
-        p3_1: '環境準備が完了したら、Dify のインストールを開始できます。Dify は Docker Compose でのデプロイを推奨しており、最もシンプルで安定した方法です。インストールにはネットワーク速度とサーバー性能にもよりますが、約10〜30分かかります。',
+        p3_1: '環境準備が完了したら、Dify のインストールを開始できます。Dify は Docker Compose でのデプロイを推奨しており、よりシンプルで安定した方法です。インストールにはネットワーク速度とサーバー性能にもよりますが、約10〜30分かかります。',
         sec3_1Title: '3.1 リポジトリのクローン',
         step3Title: 'GitHub から Dify リポジトリをクローン',
         step3Desc: 'まず、Dify の公式 GitHub リポジトリから最新コードをローカルサーバーにクローンします。最新の安定版の使用をお勧めします。',
@@ -558,7 +558,7 @@
         sec4_1Title: '4.1 API キー設定',
         p4_api_intro: 'Dify 自身は LLM を実行せず、API 経由で外部モデルサービスを呼び出します。API キーの設定は Dify 使用の重要なステップです。',
         step7Title: 'OpenAI API 設定',
-        step7Desc: 'OpenAI は最も一般的なプロバイダーで、GPT-3.5、GPT-4、GPT-4o などをサポートしています。設定手順：',
+        step7Desc: 'OpenAI はより一般的なプロバイダーで、GPT-3.5、GPT-4、GPT-4o などをサポートしています。設定手順：',
         step8Title: '国産モデル API 設定',
         step8Desc: '国内ユーザーには、DeepSeek、Zhipu GLM、Baidu ERNIE などの国産 LLM API をお勧めします。低レイテンシで中国語サポートが優れています。',
         step9Title: '自社モデル API 設定',
@@ -578,7 +578,7 @@
         sec5Title: '5. 初めての AI アプリ作成',
         p5_1: '設定後、AI アプリケーションの作成を開始できます。Dify はチャットアプリ、ワークフローアプリ、エージェントなど複数のアプリタイプをサポートしています。',
         sec5_1Title: '5.1 チャットアプリの作成',
-        p5_chat_intro: 'チャットアプリは最もシンプルな AI アプリタイプで、チャットボットやQ&Aシステムに適しています。作成は数ステップで完了します：',
+        p5_chat_intro: 'チャットアプリはよりシンプルな AI アプリタイプで、チャットボットやQ&Aシステムに適しています。作成は数ステップで完了します：',
         step10Title: 'アプリケーションの作成',
         step10Desc: 'Dify 管理画面にログインし、「アプリ作成」→「チャットアプリ」を選択。アプリ名と説明を入力し、モデルを選択します。',
         step11Title: 'システムプロンプトの設定',
@@ -648,7 +648,7 @@
         toc3: '3. Cài đặt Dify', toc3_1: '3.1 Clone kho mã nguồn', toc3_2: '3.2 Triển khai Docker Compose', toc3_3: '3.3 Xác nhận cài đặt',
         toc4: '4. Cấu hình chi tiết', toc4_1: '4.1 Cấu hình API Key', toc4_2: '4.2 Cấu hình Model', toc4_3: '4.3 Cấu hình Database',
         toc5: '5. Tạo ứng dụng AI đầu tiên', toc5_1: '5.1 Tạo ứng dụng Chat', toc5_2: '5.2 Tạo ứng dụng Workflow',
-        toc6: '6. Tích hợp API', toc7: '7. Thực hành tốt nhất & Câu hỏi thường gặp',
+        toc6: '6. Tích hợp API', toc7: '7. Thực hành tốt & Câu hỏi thường gặp',
         sec1Title: '1. Giới thiệu Dify & Tính năng chính',
         p1_1: 'Dify là một <strong>nền tảng phát triển ứng dụng LLM</strong> mã nguồn mở, được phát hành bởi nhóm quốc tế vào năm 2023. Nó cung cấp giao diện trực quan cho phép người dùng nhanh chóng xây dựng, triển khai và quản lý các ứng dụng AI mà không cần viết nhiều mã. Dify hỗ trợ nhiều mô hình ngôn ngữ lớn bao gồm OpenAI GPT, Google Gemini, Anthropic Claude và các mô hình mã nguồn mở như Llama, Qwen, DeepSeek.',
         p1_2: 'Triết lý thiết kế của Dify là làm cho việc phát triển ứng dụng AI trở nên <strong>trực quan, mô-đun và ít mã</strong>. Thông qua giao diện kéo-thả, người dùng có thể kết hợp các mô-đun chức năng khác nhau để xây dựng các quy trình AI phức tạp.',
@@ -751,7 +751,7 @@
         step15Desc: 'Dify cung cấp Python SDK chính thức để tích hợp dễ dàng hơn trong các dự án Python:',
         step16Title: 'Tích hợp Webhook',
         step16Desc: 'Dify hỗ trợ callback Webhook để đẩy kết quả xử lý AI đến hệ thống kinh doanh của bạn theo thời gian thực.',
-        sec7Title: '7. Thực hành tốt nhất & FAQ',
+        sec7Title: '7. Thực hành tốt & FAQ',
         sec7_1Title: '7.1 Mẹo tối ưu hiệu suất',
         liPerf1: '<strong>Chọn mô hình</strong>: Chọn mô hình phù hợp theo độ phức tạp. Dùng mô hình nhẹ (GPT-3.5, Qwen-Turbo) cho tác vụ đơn giản, mô hình mạnh (GPT-4o, Claude-3.5) cho tác vụ phức tạp.',
         liPerf2: '<strong>Tối ưu prompt</strong>: Viết system prompt rõ ràng, cụ thể để giảm tải suy luận AI, cải thiện tốc độ và độ chính xác.',
@@ -880,7 +880,7 @@
           <li class="toc-h2"><a href="#chat-app" data-i18n="toc5_1">5.1 创建对话应用</a></li>
           <li class="toc-h2"><a href="#workflow-app" data-i18n="toc5_2">5.2 创建工作流应用</a></li>
           <li><a href="#api-integration" data-i18n="toc6">六、API 集成与调用</a></li>
-          <li><a href="#best-practices" data-i18n="toc7">七、最佳实践与常见问题</a></li>
+          <li><a href="#best-practices" data-i18n="toc7">七、推荐实践与常见问题</a></li>
         </ul>
       </div>
 
@@ -1029,7 +1029,7 @@
       <!-- 二、环境准备 -->
       <h2 id="env-prep" data-i18n="sec2Title">二、环境准备</h2>
 
-      <p data-i18n="p2_1">在开始安装 Dify 之前，需要确保你的服务器或本地环境满足以下基本要求。Dify 推荐使用 Docker 进行部署，这样可以最大程度地避免环境依赖问题，确保安装过程顺利。</p>
+      <p data-i18n="p2_1">在开始安装 Dify 之前，需要确保你的服务器或本地环境满足以下基本要求。Dify 推荐使用 Docker 进行部署，这样可以尽可能地避免环境依赖问题，确保安装过程顺利。</p>
 
       <h3 id="docker-install" data-i18n="sec2_1Title">2.1 Docker 环境安装</h3>
 
@@ -1129,7 +1129,7 @@ docker-compose --version</code></pre>
 
       <div class="step-card" data-step="STEP 1">
         <h4 data-i18n="step3Title">从 GitHub 克隆 Dify 仓库</h4>
-        <p data-i18n="step3Desc">首先，我们需要从 Dify 的官方 GitHub 仓库克隆最新代码到本地服务器。建议使用最新的稳定版本，以确保获得最好的功能和安全性。</p>
+        <p data-i18n="step3Desc">首先，我们需要从 Dify 的官方 GitHub 仓库克隆最新代码到本地服务器。建议使用最新的稳定版本，以确保获得优秀的功能和安全性。</p>
       </div>
 
       <pre><code># 创建目录并克隆仓库
@@ -1666,8 +1666,8 @@ app.post('/dify-webhook', (req, res) ==&gt; {
   res.status(200).send('OK');
 });</code></pre>
 
-      <!-- 七、最佳实践与常见问题 -->
-      <h2 id="best-practices">七、最佳实践与常见问题</h2>
+      <!-- 七、推荐实践与常见问题 -->
+      <h2 id="best-practices">七、推荐实践与常见问题</h2>
 
       <h3 data-i18n="sec7_1Title">7.1 性能优化建议</h3>
 
@@ -1679,7 +1679,7 @@ app.post('/dify-webhook', (req, res) ==&gt; {
         <li data-i18n="liPerf5"><strong>文档分块</strong>：上传知识库文档时，合理设置分块大小和重叠度，平衡检索精度和效率。</li>
       </ul>
 
-      <h3 data-i18n="sec7_2Title">7.2 安全最佳实践</h3>
+      <h3 data-i18n="sec7_2Title">7.2 安全推荐实践</h3>
 
       <ul>
         <li data-i18n="liSec1"><strong>API Key 保护</strong>：不要在客户端代码中硬编码 API Key，使用环境变量或密钥管理服务存储。</li>
@@ -1761,7 +1761,7 @@ app.post('/dify-webhook', (req, res) ==&gt; {
           </a>
           <a href="/guides/gemini-25-flash-free-tutorial.html" class="related-card">
             <strong data-i18n="related3Title">Gemini 2.5 Flash 免费使用教程</strong>
-            <span data-i18n="related3Desc">三种免费方式接入 Google 最强轻量级模型，含完整代码和避坑指南</span>
+            <span data-i18n="related3Desc">三种免费方式接入 Google 强大轻量级模型，含完整代码和避坑指南</span>
           </a>
         </div>
       </div>

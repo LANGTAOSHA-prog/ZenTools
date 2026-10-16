@@ -588,10 +588,10 @@
 
     var lang = localStorage.getItem('zentools_lang') || 'zh';
     var messages = {
-      zh: { text: '为获得最佳大文件处理性能，建议使用 <strong>Chrome</strong> 或 <strong>Edge</strong> 浏览器。当前浏览器可能导致处理速度变慢或卡顿。', dismiss: '知道了' },
+      zh: { text: '为获得更佳大文件处理性能，建议使用 <strong>Chrome</strong> 或 <strong>Edge</strong> 浏览器。当前浏览器可能导致处理速度变慢或卡顿。', dismiss: '知道了' },
       en: { text: 'For best performance with large files, we recommend <strong>Chrome</strong> or <strong>Edge</strong>. Your current browser may cause slowdowns or stuttering.', dismiss: 'Got it' },
       ja: { text: '大きなファイルの処理には<strong>Chrome</strong>または<strong>Edge</strong>をおすすめします。現在のブラウザでは処理が遅くなることがあります。', dismiss: 'OK' },
-      vi: { text: 'Để có hiệu suất tốt nhất với file lớn, chúng tôi khuyến nghị dùng <strong>Chrome</strong> hoặc <strong>Edge</strong>. Trình duyệt hiện tại có thể chậm.', dismiss: 'Đã hiểu' }
+      vi: { text: 'Để có hiệu suất tốt với file lớn, chúng tôi khuyến nghị dùng <strong>Chrome</strong> hoặc <strong>Edge</strong>. Trình duyệt hiện tại có thể chậm.', dismiss: 'Đã hiểu' }
     };
     var msg = messages[lang] || messages.zh;
 
@@ -649,7 +649,7 @@
       warnEl.classList.add('zt-perf-error', 'visible');
     } else if (totalSize > warnMB * 1024 * 1024) {
       var warnMsgs = {
-        zh: '<span class="zt-perf-warn-icon">💡</span> 文件总大小 ' + mb + 'MB，处理可能需要较长时间。推荐使用 Chrome/Edge 浏览器获得最佳性能。',
+        zh: '<span class="zt-perf-warn-icon">💡</span> 文件总大小 ' + mb + 'MB，处理可能需要较长时间。推荐使用 Chrome/Edge 浏览器获得更佳性能。',
         en: '<span class="zt-perf-warn-icon">💡</span> Total file size is ' + mb + 'MB — processing may take a while. Chrome/Edge recommended for best performance.',
         ja: '<span class="zt-perf-warn-icon">💡</span> 合計 ' + mb + 'MB です。処理に時間がかかる場合があります。Chrome/Edge の使用をおすすめします。',
         vi: '<span class="zt-perf-warn-icon">💡</span> Tổng kích thước file là ' + mb + 'MB — có thể mất thời gian xử lý. Chrome/Edge được khuyến nghị.'
