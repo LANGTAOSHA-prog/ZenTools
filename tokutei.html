@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="data:," />
+    <title>日本特定技能题库总导航 | zentools.xyz</title>
+    <meta name="description" content="日本特定技能考试刷题题库总导航：16 个分野拆分站、建设专区与 JFT-Basic 一页直达，注册后免费体验，客服微信 171472961。" />
+    <link rel="canonical" href="https://zentools.xyz/tokutei.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+SC:wght@400;500;700;900&family=Noto+Serif+SC:wght@700;900&display=swap" rel="stylesheet" />
+    <style>
+      button, [role="button"], select, summary, input:not([type="checkbox"], [type="radio"]) { min-height: 2rem; }
+      * { box-sizing: border-box; }
+      :root {
+        --bg: #f7f5f0;
+        --surface: #fffdf9;
+        --surface-2: #efeadf;
+        --ink: #1c2430;
+        --ink-2: #4c5866;
+        --ink-3: #7c8794;
+        --line: #ddd5c4;
+        --accent: #b3372a;
+        --accent-ink: #ffffff;
+        --navy: #22354f;
+        --gold: #a97c1f;
+        --chip-bg: #fffdf9;
+        --shadow: 0 1px 2px rgba(28,36,48,.06), 0 6px 18px rgba(28,36,48,.06);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14171c;
+          --surface: #1d2129;
+          --surface-2: #262b35;
+          --ink: #ece7db;
+          --ink-2: #b9c0cb;
+          --ink-3: #8b95a3;
+          --line: #343b47;
+          --accent: #e0685a;
+          --accent-ink: #1c1210;
+          --navy: #9db8d9;
+          --gold: #d3a94e;
+          --chip-bg: #1d2129;
+          --shadow: 0 1px 2px rgba(0,0,0,.35), 0 6px 18px rgba(0,0,0,.3);
+        }
+      }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Noto Sans SC", "Noto Sans JP", "Hiragino Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+      /* ---------- Header ---------- */
+      header.top {
+        border-bottom: 3px double var(--line);
+        padding: 40px 0 26px;
+      }
+      .top-jp {
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 13px;
+        letter-spacing: .28em;
+        color: var(--accent);
+        font-weight: 700;
+        margin: 0 0 10px;
+      }
+      h1 {
+        font-family: "Noto Serif SC", "Noto Sans SC", serif;
+        font-size: clamp(30px, 5.4vw, 44px);
+        font-weight: 900;
+        line-height: 1.25;
+        margin: 0 0 12px;
+      }
+      .lede { color: var(--ink-2); font-size: 15.5px; max-width: 640px; margin: 0; }
+      .stats {
+        display: flex; flex-wrap: wrap; gap: 0;
+        margin-top: 26px;
+        border: 1px solid var(--line);
+        background: var(--surface);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .stat { flex: 1 1 140px; padding: 14px 18px; border-right: 1px solid var(--line); }
+      .stat:last-child { border-right: none; }
+      .stat b {
+        display: block;
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 26px; font-weight: 900; line-height: 1.15;
+        color: var(--navy);
+        font-variant-numeric: tabular-nums;
+      }
+      .stat span { font-size: 12.5px; color: var(--ink-3); }
+
+      /* ---------- Toolbar ---------- */
+      .toolbar {
+        position: sticky; top: 0; z-index: 20;
+        background: color-mix(in srgb, var(--bg) 92%, transparent);
+        backdrop-filter: blur(8px);
+        padding: 16px 0 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .search-row { display: flex; gap: 10px; align-items: stretch; }
+      .search-box { position: relative; flex: 1; }
+      .search-box svg {
+        position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+        width: 18px; height: 18px; color: var(--ink-3); pointer-events: none;
+      }
+      #search {
+        width: 100%; height: 48px;
+        padding: 0 44px 0 42px;
+        font-size: 16px; font-family: inherit;
+        color: var(--ink);
+        background: var(--surface);
+        border: 1.5px solid var(--line);
+        border-radius: 10px;
+        outline: none;
+      }
+      #search:focus { border-color: var(--accent); }
+      #clearSearch {
+        position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+        width: 36px; height: 36px; min-height: 36px;
+        border: none; border-radius: 8px;
+        background: transparent; color: var(--ink-3);
+        font-size: 18px; cursor: pointer; display: none;
+        align-items: center; justify-content: center;
+      }
+      #clearSearch:hover { background: var(--surface-2); color: var(--ink); }
+      .count-label {
+        align-self: center; white-space: nowrap;
+        font-size: 13px; color: var(--ink-3);
+        font-variant-numeric: tabular-nums;
+      }
+      .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+      .chip {
+        min-height: 38px;
+        padding: 6px 16px;
+        font-size: 14px; font-family: inherit; font-weight: 500;
+        color: var(--ink-2);
+        background: var(--chip-bg);
+        border: 1.5px solid var(--line);
+        border-radius: 999px;
+        cursor: pointer;
+      }
+      .chip:hover { border-color: var(--ink-3); color: var(--ink); }
+      .chip[aria-pressed="true"] {
+        background: var(--navy); border-color: var(--navy);
+        color: #f4efe4; font-weight: 700;
+      }
+      @media (prefers-color-scheme: dark) {
+        .chip[aria-pressed="true"] { color: #14171c; background: var(--gold); border-color: var(--gold); }
+      }
+
+      /* ---------- Sections ---------- */
+      main { padding: 8px 0 20px; }
+      section.block { margin-top: 34px; }
+      .block-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 6px; }
+      .block-head h2 {
+        font-family: "Noto Serif SC", serif;
+        font-size: 23px; font-weight: 900; margin: 0;
+      }
+      .block-head .jp-sub {
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 12.5px; letter-spacing: .14em; color: var(--ink-3);
+      }
+      .block-note { color: var(--ink-2); font-size: 13.5px; margin: 2px 0 16px; max-width: 760px; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+        gap: 14px;
+      }
+
+      /* ---------- Cards ---------- */
+      .card {
+        position: relative;
+        display: flex; flex-direction: column;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 18px 18px 16px;
+        box-shadow: var(--shadow);
+        color: inherit;
+        transition: border-color .15s ease, transform .15s ease;
+      }
+      .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+      .card-main { display: flex; flex-direction: column; flex: 1; text-decoration: none; color: inherit; }
+      .card-main::after { content: ""; position: absolute; inset: 0; border-radius: 12px; }
+      .card .jp {
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 19px; font-weight: 700; line-height: 1.4;
+        margin: 0;
+      }
+      .card .cn { font-size: 14px; color: var(--ink-2); margin: 3px 0 0; }
+      .card .num-row { display: flex; align-items: baseline; gap: 6px; margin-top: 14px; }
+      .card .num {
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 30px; font-weight: 900; line-height: 1;
+        color: var(--accent);
+        font-variant-numeric: tabular-nums;
+      }
+      .card .num-unit { font-size: 13px; color: var(--ink-2); font-weight: 500; }
+      .card .num-note { font-size: 12.5px; color: var(--ink-3); margin-top: 5px; }
+      .card .desc { font-size: 13px; color: var(--ink-2); margin: 10px 0 0; }
+      .card .foot { margin-top: auto; padding-top: 14px; }
+      .go {
+        display: inline-flex; align-items: center; gap: 6px;
+        font-size: 13.5px; font-weight: 700; color: var(--accent);
+      }
+      .go .arrow { transition: transform .15s ease; }
+      .card:hover .go .arrow { transform: translateX(3px); }
+      .alt-links { position: relative; z-index: 1; margin-top: 8px; font-size: 12.5px; color: var(--ink-3); }
+      .alt-links a { color: var(--navy); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; padding: 4px 0; display: inline-block; }
+      .tag {
+        display: inline-block; align-self: flex-start;
+        font-size: 11.5px; font-weight: 700; letter-spacing: .04em;
+        color: var(--gold);
+        border: 1px solid currentColor;
+        border-radius: 5px; padding: 1px 7px; margin-bottom: 10px;
+      }
+      .card.featured { border-top: 3px solid var(--accent); }
+      .card.hub-card { border-top: 3px solid var(--navy); }
+
+      .empty {
+        display: none;
+        text-align: center;
+        padding: 56px 20px;
+        color: var(--ink-3);
+        font-size: 15px;
+      }
+      .empty b { display: block; font-size: 18px; color: var(--ink-2); margin-bottom: 6px; }
+
+      /* ---------- Footer ---------- */
+      footer {
+        margin-top: 48px;
+        border-top: 3px double var(--line);
+        padding: 26px 0 40px;
+      }
+      .wx {
+        display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 18px 20px;
+      }
+      .wx .wx-label { font-size: 14px; color: var(--ink-2); }
+      .wx .wx-id {
+        font-family: "Noto Sans JP", sans-serif;
+        font-size: 24px; font-weight: 900; letter-spacing: .06em;
+        font-variant-numeric: tabular-nums;
+      }
+      #copyWx {
+        min-height: 40px;
+        padding: 8px 18px;
+        font-size: 14px; font-family: inherit; font-weight: 700;
+        color: var(--accent-ink); background: var(--accent);
+        border: none; border-radius: 9px; cursor: pointer;
+      }
+      #copyWx:active { transform: scale(.97); }
+      .wx .wx-note { font-size: 13px; color: var(--ink-3); width: 100%; margin: 0; }
+      .foot-small { font-size: 12.5px; color: var(--ink-3); margin-top: 18px; }
+
+      @media (max-width: 560px) {
+        header.top { padding-top: 28px; }
+        .stat { flex-basis: 100px; padding: 12px 14px; }
+        .stat b { font-size: 21px; }
+        .grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+        .card { padding: 14px 14px 12px; }
+        .card .jp { font-size: 16.5px; }
+        .card .num { font-size: 25px; }
+        .count-label { display: none; }
+      }
+      @media (max-width: 380px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        a.card, .go .arrow { transition: none; }
+        .card:hover { transform: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <p class="top-jp">特定技能試験対策 ・ 分野別問題集</p>
+        <h1>日本特定技能题库总导航</h1>
+        <p class="lede">全分野刷题站一页直达：16 个分野拆分站、题库中心与建设专区。先选分野进站，注册后每库可免费做 5 题，VIP 码解锁全库并同步进度。</p>
+        <div class="stats" role="list">
+          <div class="stat" role="listitem"><b>27</b><span>站点入口</span></div>
+          <div class="stat" role="listitem"><b>16</b><span>分野拆分站</span></div>
+          <div class="stat" role="listitem"><b>17,222</b><span>拆分站题目</span></div>
+          <div class="stat" role="listitem"><b>9</b><span>建设专区入口</span></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="wrap">
+        <div class="search-row">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+            <input id="search" type="search" placeholder="搜分野：介護 / 护理 / seizo / 建设…" autocomplete="off" aria-label="搜索分野或站点" />
+            <button id="clearSearch" type="button" aria-label="清除搜索">✕</button>
+          </div>
+          <span class="count-label" id="countLabel"></span>
+        </div>
+        <div class="chips" id="chips" role="group" aria-label="分类筛选"></div>
+      </div>
+    </div>
+
+    <main class="wrap" id="main"></main>
+
+    <div class="empty" id="emptyState">
+      <b>没有找到匹配的站点</b>
+      换个关键词试试，比如「介護」「建設」「农业」，或点「全部分野」看全部。
+    </div>
+
+    <footer>
+      <div class="wrap">
+        <div class="wx">
+          <span class="wx-label">开通 VIP / 咨询，联系客服微信</span>
+          <span class="wx-id">171472961</span>
+          <button id="copyWx" type="button">复制微信号</button>
+          <p class="wx-note">添加好友时请备注「刷题站」，方便快速通过。</p>
+        </div>
+        <p class="foot-small">各站账号独立注册；拆分站之间 VIP 码不通用，建设专区各站规则以站内说明为准。</p>
+      </div>
+    </footer>
+
+    <script>
+      var CATS = [
+        { id: "all", label: "全部分野" },
+        { id: "mfg", label: "制造业系" },
+        { id: "agri", label: "农林渔业" },
+        { id: "svc", label: "服务业系" },
+        { id: "build", label: "建设专区" },
+        { id: "lang", label: "语言考试" }
+      ];
+
+      var SPLIT_BASE = "https://jptokutegino-";
+      var SPLIT_TAIL = ".taojianghu.workers.dev";
+
+      // 分野拆分站：slug / 日文名 / 中文名 / 题数 / 分类
+      var SPLITS = [
+        { slug: "seizo",    jp: "工業製品製造業", cn: "工业产品制造业", n: 5071, cat: "mfg" },
+        { slug: "zosen",    jp: "造船・舶用工業", cn: "造船・舶用工业", n: 1890, cat: "mfg" },
+        { slug: "koku",     jp: "航空", cn: "航空", n: 1065, cat: "mfg" },
+        { slug: "shokuhin", jp: "飲食料品製造業", cn: "饮食料品制造业", n: 700, cat: "mfg" },
+        { slug: "bc3",      jp: "生産管理", cn: "生产管理（ビジネス・キャリア検定3級）", n: 625, cat: "mfg", note: "ビジネス・キャリア検定 3 級対策" },
+        { slug: "nogyo",    jp: "農業", cn: "农业", n: 810, cat: "agri" },
+        { slug: "gyogyo",   jp: "漁業", cn: "渔业", n: 1100, cat: "agri" },
+        { slug: "kaigo",    jp: "介護", cn: "介护・护理", n: 859, cat: "svc" },
+        { slug: "jidosha",  jp: "自動車整備", cn: "汽车维修", n: 780, cat: "svc" },
+        { slug: "shukuhaku",jp: "宿泊", cn: "住宿・酒店", n: 640, cat: "svc" },
+        { slug: "bilclean", jp: "ビルクリーニング", cn: "大楼清洁", n: 540, cat: "svc" },
+        { slug: "unsou",    jp: "自動車運送業", cn: "汽车运输业", n: 490, cat: "svc" },
+        { slug: "gaishoku", jp: "外食業", cn: "餐饮业", n: 430, cat: "svc" },
+        { slug: "butsuryu", jp: "物流倉庫", cn: "物流仓库", n: 300, cat: "svc", note: "仅 1 号 ・ 模考 40 分钟 / 60% 合格" },
+        { slug: "kensetsu", jp: "建設", cn: "建设（入口站）", n: null, cat: "build", note: "建设分野入口，备考内容见下方建设专区" },
+        { slug: "jftbasic", jp: "JFT-Basic", cn: "日本语基础测试", n: 1922, cat: "lang", note: "语言考试类 ・ 特定技能 1 号日语要件" }
+      ];
+
+      var HUBS = [
+        { jp: "題庫中心 HUB", cn: "全分野门户・总入口", url: "https://tokutei-gino-hub.taojianghu.workers.dev",
+          desc: "所有分野站点的门户页，从这里选分野、进对应刷题站。", kw: "hub 门户 总站 入口 ホーム" },
+        { jp: "備考匯總庫", cn: "备考汇总库", url: "https://tokutei-ginou-summary.taojianghu.workers.dev",
+          desc: "备考资料与政策信息汇总，查考试制度、材料清单时先看这里。", kw: "汇总 资料 政策 まとめ summary" }
+      ];
+
+      // 建设专区
+      var BUILD = [
+        { jp: "建設分野 特定技能2号", cn: "建设2号主站（国际版）", url: "https://tokutegino.taojianghu.workers.dev",
+          n: 1283, unit: "题", featured: true, tag: "主力站",
+          desc: "日 / 中 / 越 / 高棉 / 缅甸 5 语题库。理论 40 问・60 分钟 + 实操 25 问・40 分钟，合格线 75%。",
+          kw: "建设 2号 二号 主站 理论 实操 けんせつ" },
+        { jp: "建設分野 特定技能2号", cn: "建设2号主站（国内版）", url: "https://tgt.zentools.xyz",
+          n: null, featured: true, tag: "国内直连",
+          desc: "与国际版同一题库，国内网络可直接打开，不用翻墙。",
+          kw: "建设 2号 国内版 直连 tgt" },
+        { jp: "Speedgino2 CBT", cn: "CBT 模拟考试", url: "https://speedgino2-cbt.pages.dev",
+          n: 507, unit: "题",
+          desc: "建设2号・建筑分野的 CBT 机考模拟，按真实考试界面与计时练手感。",
+          kw: "speedgino2 cbt 模拟考试 模考 建筑" },
+        { jp: "建設 ・ 土木", cn: "土木分站", url: "https://kensetsu-doboku.taojianghu.workers.dev",
+          n: 737, unit: "题",
+          alt: { label: "国内版 doboku.zentools.xyz", url: "https://doboku.zentools.xyz" },
+          desc: "建设1号・土木分野专站，登录后按绑定分野刷题。",
+          kw: "土木 doboku 建设 分站" },
+        { jp: "建設 ・ 建築", cn: "建筑分站", url: "https://kensetsu-kenchiku.taojianghu.workers.dev",
+          n: 1227, unit: "题",
+          alt: { label: "国内版 kenchiku.zentools.xyz", url: "https://kenchiku.zentools.xyz" },
+          desc: "建设1号・建筑分野专站，登录后按绑定分野刷题。",
+          kw: "建筑 kenchiku 建设 分站" },
+        { jp: "建設 ・ ライフライン・設備", cn: "生命线・设备分站", url: "https://kensetsu-lifeline.taojianghu.workers.dev",
+          n: 806, unit: "题",
+          alt: { label: "国内版 lifeline.zentools.xyz", url: "https://lifeline.zentools.xyz" },
+          desc: "建设1号・ライフライン・設備分野专站，登录后按绑定分野刷题。",
+          kw: "ライフライン 设备 lifeline 建设 分站" },
+        { jp: "GINO 特定技能1号 ・ 建設", cn: "GINO 建设1号（国际版导航页）", url: "https://gino-kensetsu-all.taojianghu.workers.dev/nav.html",
+          n: 1750, unit: "题", numNote: "综合 63 套 + 词汇 1,497 条",
+          desc: "建设1号综合题库导航页，63 套题与词汇库从这里进。",
+          kw: "gino 1号 一号 建设 词汇" },
+        { jp: "GINO 特定技能1号 ・ 建設", cn: "GINO 建设1号（国内版）", url: "https://gino.zentools.xyz",
+          n: 1750, unit: "题", numNote: "另含词汇 1,497 条",
+          desc: "国内直连版，本地账号注册审核后登录使用。",
+          kw: "gino 1号 国内版 建设 词汇" },
+        { jp: "建設三分野 備份站", cn: "建设三分野备份站（合一版）", url: "https://tokuteiginou.qd.je",
+          n: null,
+          desc: "土木 / 建筑 / 生命线・设备三站合一的备份入口，主站异常时从这里进。",
+          kw: "备份 备用 三分野 合一 qd" }
+      ];
+
+      var state = { q: "", cat: "all" };
+      var main = document.getElementById("main");
+      var emptyState = document.getElementById("emptyState");
+      var countLabel = document.getElementById("countLabel");
+
+      function fmt(n) { return n.toLocaleString("en-US"); }
+
+      function cardHTML(item, opts) {
+        opts = opts || {};
+        var cls = "card" + (opts.featured ? " featured" : "") + (opts.hub ? " hub-card" : "");
+        var html = '<article class="' + cls + '"><a class="card-main" href="' + item.url + '" target="_blank" rel="noopener">';
+        if (item.tag) html += '<span class="tag">' + item.tag + "</span>";
+        html += '<p class="jp">' + item.jp + '</p><p class="cn">' + item.cn + "</p>";
+        if (typeof item.n === "number") {
+          html += '<div class="num-row"><span class="num">' + fmt(item.n) + '</span><span class="num-unit">' + (item.unit || "问") + "</span></div>";
+          if (item.numNote) html += '<p class="num-note">' + item.numNote + "</p>";
+        }
+        if (item.note) html += '<p class="num-note">' + item.note + "</p>";
+        if (item.desc) html += '<p class="desc">' + item.desc + "</p>";
+        html += '<div class="foot"><span class="go">进入站点 <span class="arrow">→</span></span></div></a>';
+        if (item.alt) html += '<div class="alt-links">国内直连：<a href="' + item.alt.url + '" target="_blank" rel="noopener">' + item.alt.label + "</a></div>";
+        html += "</article>";
+        return html;
+      }
+
+      function matches(item, extra) {
+        if (state.cat !== "all" && item.cat !== state.cat && extra !== state.cat) return false;
+        if (!state.q) return true;
+        var hay = (item.jp + " " + item.cn + " " + (item.slug || "") + " " + (item.kw || "") + " " + (item.note || "")).toLowerCase();
+        return hay.indexOf(state.q) !== -1;
+      }
+
+      function render() {
+        var total = 0;
+        var html = "";
+
+        // 总站与枢纽（归入“全部分野”与搜索；分类筛选时仅在 all 显示，或按关键词）
+        var hubItems = HUBS.filter(function (h) { return matches(h, state.cat === "all" ? "all" : "__none__") || (state.cat === "all" && matches(h, "all")); });
+        if (state.cat === "all") {
+          hubItems = HUBS.filter(function (h) { return matches(h, "all"); });
+          if (hubItems.length) {
+            total += hubItems.length;
+            html += '<section class="block"><div class="block-head"><h2>总站与枢纽</h2><span class="jp-sub">ポータル</span></div>' +
+              '<div class="grid">' + hubItems.map(function (h) { return cardHTML(h, { hub: true }); }).join("") + "</div></section>";
+          }
+        }
+
+        // 分野拆分站
+        var splits = SPLITS.filter(function (s) {
+          return matches({ jp: s.jp, cn: s.cn, slug: s.slug, note: s.note, kw: s.slug, cat: s.cat });
+        });
+        if (splits.length) {
+          total += splits.length;
+          html += '<section class="block"><div class="block-head"><h2>分野拆分站</h2><span class="jp-sub">分野別サイト</span></div>' +
+            '<p class="block-note">16 站统一规则：邮箱注册 / 登录、进度云同步、每库免费 5 题 + VIP 码解锁全库；模考随机抽题默认 30 问 / 45 分钟 / 75% 合格（物流倉庫为 40 分钟 / 60%）。各站账号独立。</p>' +
+            '<div class="grid">' + splits.map(function (s) {
+              return cardHTML({ jp: s.jp, cn: s.cn, n: s.n, note: s.note, url: SPLIT_BASE + s.slug + SPLIT_TAIL });
+            }).join("") + "</div></section>";
+        }
+
+        // 建设专区
+        var builds = BUILD.filter(function (b) { return matches(b, "build"); });
+        if (builds.length) {
+          total += builds.length;
+          html += '<section class="block"><div class="block-head"><h2>建设专区</h2><span class="jp-sub">建設分野</span></div>' +
+            '<p class="block-note">建设2号主站、三个1号分野分站与 GINO 建设1号题库；分站首次使用须先在主站门户选定分野（每账号仅可调整一次）。</p>' +
+            '<div class="grid">' + builds.map(function (b) { return cardHTML(b, { featured: b.featured }); }).join("") + "</div></section>";
+        }
+
+        main.innerHTML = html;
+        emptyState.style.display = total ? "none" : "block";
+        countLabel.textContent = total ? ("显示 " + total + " 个站点") : "";
+      }
+
+      // 分类 chips
+      var chipsBox = document.getElementById("chips");
+      CATS.forEach(function (c) {
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "chip";
+        b.textContent = c.label;
+        b.setAttribute("aria-pressed", c.id === "all" ? "true" : "false");
+        b.addEventListener("click", function () {
+          state.cat = c.id;
+          var all = chipsBox.querySelectorAll(".chip");
+          for (var i = 0; i < all.length; i++) all[i].setAttribute("aria-pressed", "false");
+          b.setAttribute("aria-pressed", "true");
+          render();
+        });
+        chipsBox.appendChild(b);
+      });
+
+      // 搜索
+      var searchInput = document.getElementById("search");
+      var clearBtn = document.getElementById("clearSearch");
+      searchInput.addEventListener("input", function () {
+        state.q = searchInput.value.trim().toLowerCase();
+        clearBtn.style.display = state.q ? "flex" : "none";
+        render();
+      });
+      clearBtn.addEventListener("click", function () {
+        searchInput.value = "";
+        state.q = "";
+        clearBtn.style.display = "none";
+        render();
+        searchInput.focus();
+      });
+
+      // 复制微信号
+      var copyBtn = document.getElementById("copyWx");
+      copyBtn.addEventListener("click", function () {
+        var done = function () {
+          copyBtn.textContent = "已复制 ✓";
+          setTimeout(function () { copyBtn.textContent = "复制微信号"; }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText("171472961").then(done, function () { fallback(); });
+        } else { fallback(); }
+        function fallback() {
+          var ta = document.createElement("textarea");
+          ta.value = "171472961";
+          ta.style.position = "fixed"; ta.style.opacity = "0";
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); done(); } catch (e) { copyBtn.textContent = "171472961"; }
+          document.body.removeChild(ta);
+        }
+      });
+
+      render();
+    </script>
+  </body>
+</html>
